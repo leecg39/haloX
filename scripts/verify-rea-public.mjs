@@ -67,9 +67,41 @@ const anchor = record => {
 compare('pricing-section-anchor', anchor(records.sourcePricing), anchor(records.localPricing));
 const $ = page(records.localHome, 'faq-free-close');
 compare('no-unexpected-dialog', 0, $('[role=dialog]').length);
+
+// Verify Blog (/ko/blog, /en/blog) category filter pills & count container structure
+const manifest = JSON.parse(await fs.readFile('public/clone/manifest.json', 'utf8'));
+for (const [blogRoute, expectedCategories] of [
+  ['/ko/blog', ['전체', 'GEO', 'SEO', '콘텐츠 전략', 'AI 트렌드']],
+  ['/en/blog', ['All', 'GEO', 'SEO', 'Content Strategy', 'AI Trends', 'geo']],
+]) {
+  const entry = manifest.find(item => item.route === blogRoute);
+  assert(entry, `Missing manifest route: ${blogRoute}`);
+  const pageData = JSON.parse(await fs.readFile(`public/clone/pages/${entry.file}`, 'utf8'));
+  const $blog = cheerio.load(pageData.html);
+  const pillLabels = $blog('main div.flex.items-center.gap-2 button')
+    .map((_, b) => $blog(b).text().trim())
+    .get();
+  compare(`blog-categories-${blogRoute}`, expectedCategories, pillLabels);
+  assert($blog('main div.mb-5 > span.text-sm.font-bold').length === 1, `${blogRoute}: missing count label`);
+}
+
+// Verify Glossary (/ko/glossary, /en/glossary) combobox aria-controls="glossary-search-listbox" and public-lists.ts handler
+const publicListsSource = await fs.readFile('src/components/public-lists.ts', 'utf8');
+assert(publicListsSource.includes('glossary-search-listbox'), 'public-lists.ts missing glossary-search-listbox');
+assert(publicListsSource.includes('ArrowDown') && publicListsSource.includes('ArrowUp'), 'public-lists.ts missing keyboard navigation');
+assert(publicListsSource.includes('initializeBlog'), 'public-lists.ts missing initializeBlog');
+for (const glossaryRoute of ['/ko/glossary', '/en/glossary']) {
+  const entry = manifest.find(item => item.route === glossaryRoute);
+  assert(entry, `Missing manifest route: ${glossaryRoute}`);
+  const pageData = JSON.parse(await fs.readFile(`public/clone/pages/${entry.file}`, 'utf8'));
+  const $glossary = cheerio.load(pageData.html);
+  const combobox = $glossary('main input[role="combobox"][aria-controls="glossary-search-listbox"]');
+  compare(`glossary-combobox-${glossaryRoute}`, 1, combobox.length);
+}
+
 const report = {
-  method: 'Derived semantic assertions over complete REA controlled-replay records; DOM byte lengths and SHA-256 verified.',
-  scope: 'Homepage tabs, single-open FAQ, pricing totals and same-page anchor. Not pixel equivalence or backend conformance.',
+  method: 'Derived semantic assertions over complete REA controlled-replay records and captured public list DOM; DOM byte lengths and SHA-256 verified.',
+  scope: 'Homepage tabs, single-open FAQ, pricing totals and same-page anchor, blog category filters/pagination, and glossary combobox autocomplete.',
   evidence: ids,
   passed: checks.length,
   checks,

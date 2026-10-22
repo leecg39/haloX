@@ -51,3 +51,18 @@
 | Important | `syncDialogActionToBackend`에서 삭제(`deletedId`) 액션 미동기화 | 로컬 스토리지에서만 삭제되고 백엔드 DB에는 레코드가 남음 | `result.values.deletedId` 감지 시 라우트별 테이블에 `DELETE` 요청 전송 | `client.ts` 타입체크 및 빌드 통과 |
 | Minor | `reserve_unit_with_bypass`에서 0·음수·비정수 예약 수량 허용 및 `released` 예약의 멱등성 충돌 | 잘못된 수량으로 한도 우회 가능, 취소된 예약 키 재시도 불가 | 양의 정수(`Number.isInteger(amount) && amount > 0`) 검증 및 활성 상태(`reserved`/`committed`)만 멱등 히트로 인정 | 0·음수 거부 및 `release_reservation` 후 동일 키 재예약 검증 통과 |
 
+---
+
+## 3차 적대적 검토 (공개 사이트 블로그 필터·페이지네이션 & 용어사전 자동완성 키보드 이동)
+
+검토일: 2026-10-23. 범위: `src/components/public-lists.ts`, `scripts/verify-rea-public.mjs`.
+
+### 발견 사항과 조치
+
+| 심각도 | 발견 사항 | 영향 | 조치 | 재검증 |
+|---|---|---|---|---|
+| Important | `#glossary-search-listbox`에서 초기 상태(`activeOptionIndex = -1`)일 때 `ArrowUp` 입력 시 마지막 항목이 아닌 뒤에서 두 번째 항목으로 이동 | 키보드 역방향 탐색 시 마지막 추천 항목 누락 | `activeOptionIndex <= 0 ? currentMatches.length - 1 : activeOptionIndex - 1`로 경계 보정 | 키보드 탐색 경계 검증 통과 |
+| Important | 자동완성 항목 및 블로그 카운트 라벨 갱신 시 `innerHTML` 사용 위험 | 검색어나 용어 제목에 특수문자가 포함될 경우 DOM 주입(XSS) 위험 | 모든 동적 노드를 `document.createElement`·`textContent`·`replaceChildren`으로만 생성 | 정적 코드 검사 및 `npm run verify:public` 통과 |
+| Minor | 블로그 토픽 버튼 클릭이 버블링되면 `ClonePage` 기본 핸들러가 데모 대화상자를 열 수 있음 | 토픽 필터 클릭 시 불필요한 모달 표시 | 캡처 단계(`addEventListener('click', onClick, true)`)에서 `preventDefault()`·`stopPropagation()` 호출 | `/ko/blog`·`/en/blog` 13개 공개 검증 통과 |
+
+

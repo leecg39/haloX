@@ -1,7 +1,7 @@
 import faqCategories from '@/data/public-faq-categories.json';
 
 type Locale = 'ko' | 'en';
-type Selection = { route: string; category: string; pending: boolean };
+type Selection = { route: string; category: string; pending: boolean; page: number };
 type Choice = { button: HTMLButtonElement; value: string; activeClass: string; inactiveClass: string };
 const selections = new WeakMap<HTMLElement, Selection>();
 const text = (element: Element | null | undefined) => (element?.textContent || '').replace(/\s+/g, ' ').trim();
@@ -11,7 +11,7 @@ const noCleanup = () => {};
 function selection(root: HTMLElement, route: string, all: string) {
   const previous = selections.get(root);
   if (previous?.route === route) return previous;
-  const current = { route, category: all, pending: false };
+  const current = { route, category: all, pending: false, page: 1 };
   selections.set(root, current);
   return current;
 }
@@ -143,7 +143,17 @@ function initializeGlossary(root: HTMLElement, route: string, locale: Locale): (
   if (!main || !input) return noCleanup;
   const all = locale === 'en' ? 'All' : '전체';
   const pendingLabel = locale === 'en' ? 'Pending only' : '번역 준비 중만';
-  const rows: { card: HTMLElement; anchor: HTMLAnchorElement; group: HTMLElement; category: string; search: string; pending: boolean }[] = [];
+  const rows: {
+    id: string;
+    title: string;
+    descriptionText: string;
+    card: HTMLElement;
+    anchor: HTMLAnchorElement;
+    group: HTMLElement;
+    category: string;
+    search: string;
+    pending: boolean;
+  }[] = [];
   const seen = new Set<string>();
   for (const anchor of main.querySelectorAll<HTMLAnchorElement>('a[id]')) {
     if (seen.has(anchor.id)) continue;
@@ -157,8 +167,19 @@ function initializeGlossary(root: HTMLElement, route: string, locale: Locale): (
     const category = text(badge);
     const title = [...heading.children].filter(child => child !== badge).map(text).join(' ');
     if (!category || !title) continue;
+    const descriptionText = text(description);
     const pending = !!card.querySelector('[data-translation-status="pending"],[data-pending="true"]') || [...heading.querySelectorAll('span')].some(span => /^(번역 준비 중|Translation pending|Pending translation)$/i.test(text(span)));
-    rows.push({ card, anchor, group, category, search: normalized(`${title} ${text(description)}`), pending });
+    rows.push({
+      id: anchor.id,
+      title,
+      descriptionText,
+      card,
+      anchor,
+      group,
+      category,
+      search: normalized(`${title} ${descriptionText}`),
+      pending,
+    });
     seen.add(anchor.id);
   }
   const list = rows[0]?.group.parentElement;
@@ -181,7 +202,76 @@ function initializeGlossary(root: HTMLElement, route: string, locale: Locale): (
   const groups = [...new Set(rows.map(row => row.group))];
   const indexes = [...main.querySelectorAll<HTMLAnchorElement>('a[href*="#letter-"]')];
   const empty = emptyMessage(list, locale === 'en' ? 'No results found.' : '검색 결과가 없습니다.');
-  const update = () => {
+
+  // Autocomplete listbox (`#glossary-search-listbox`)
+  const inputWrapper = input.parentElement || main;
+  let listbox = main.querySelector<HTMLUListElement>('#glossary-search-listbox');
+  if (!listbox) {
+    listbox = document.createElement('ul');
+    listbox.id = 'glossary-search-listbox';
+    listbox.setAttribute('role', 'listbox');
+    listbox.className =
+      'absolute left-0 right-0 top-full mt-1 z-50 max-h-64 overflow-y-auto rounded-md border border-border bg-background shadow-lg text-left divide-y divide-border/50';
+    listbox.hidden = true;
+    inputWrapper.append(listbox);
+  }
+
+  let activeOptionIndex = -1;
+  let currentMatches: typeof rows = [];
+
+  const renderListbox = (matches: typeof rows, forceOpen?: boolean) => {
+    if (!listbox) return;
+    currentMatches = matches.slice(0, 8);
+    const query = normalized(input.value);
+    const shouldShow = (forceOpen ?? query.length > 0) && currentMatches.length > 0 && query.length > 0;
+
+    listbox.replaceChildren();
+    if (!shouldShow) {
+      listbox.hidden = true;
+      activeOptionIndex = -1;
+      input.setAttribute('aria-expanded', 'false');
+      input.removeAttribute('aria-activedescendant');
+      return;
+    }
+
+    if (activeOptionIndex >= currentMatches.length) {
+      activeOptionIndex = currentMatches.length - 1;
+    }
+
+    currentMatches.forEach((row, idx) => {
+      const li = document.createElement('li');
+      const optionId = `glossary-option-${idx}`;
+      li.id = optionId;
+      li.setAttribute('role', 'option');
+      const isSelected = idx === activeOptionIndex;
+      li.setAttribute('aria-selected', String(isSelected));
+      li.dataset.glossaryOptionIndex = String(idx);
+      li.className = `px-3.5 py-2.5 cursor-pointer text-xs transition-colors flex items-center justify-between gap-2 ${
+        isSelected ? 'bg-signal/10 text-foreground font-semibold' : 'hover:bg-muted/60 text-foreground'
+      }`;
+
+      const titleSpan = document.createElement('span');
+      titleSpan.className = 'truncate font-medium';
+      titleSpan.textContent = row.title;
+
+      const badgeSpan = document.createElement('span');
+      badgeSpan.className = 'shrink-0 px-2 py-0.5 rounded-full border border-border text-[10px] text-muted-foreground';
+      badgeSpan.textContent = row.category;
+
+      li.append(titleSpan, badgeSpan);
+      listbox!.append(li);
+    });
+
+    listbox.hidden = false;
+    input.setAttribute('aria-expanded', 'true');
+    if (activeOptionIndex >= 0) {
+      input.setAttribute('aria-activedescendant', `glossary-option-${activeOptionIndex}`);
+    } else {
+      input.removeAttribute('aria-activedescendant');
+    }
+  };
+
+  const update = (openListbox = false) => {
     const query = normalized(input.value);
     const visibleRows = rows.filter(row => row.search.includes(query) && (current.category === all || row.category === current.category) && (!current.pending || row.pending));
     const visibleCards = new Set(visibleRows.map(row => row.card));
@@ -225,29 +315,210 @@ function initializeGlossary(root: HTMLElement, route: string, locale: Locale): (
       caption?.classList.toggle('font-semibold', active);
       caption?.classList.toggle('text-muted-foreground', !active);
     });
+    renderListbox(visibleRows, openListbox);
   };
+
   const onInput = (event: Event) => {
     if (event.target !== input) return;
     event.stopPropagation();
-    update();
+    activeOptionIndex = -1;
+    update(true);
   };
+
+  const onKeyDown = (event: KeyboardEvent) => {
+    if (event.target !== input) return;
+    if (event.key === 'ArrowDown') {
+      if (!currentMatches.length) return;
+      event.preventDefault();
+      event.stopPropagation();
+      activeOptionIndex = activeOptionIndex < 0 ? 0 : (activeOptionIndex + 1) % currentMatches.length;
+      renderListbox(currentMatches, true);
+    } else if (event.key === 'ArrowUp') {
+      if (!currentMatches.length) return;
+      event.preventDefault();
+      event.stopPropagation();
+      activeOptionIndex = activeOptionIndex <= 0 ? currentMatches.length - 1 : activeOptionIndex - 1;
+      renderListbox(currentMatches, true);
+    } else if (event.key === 'Enter') {
+      if (activeOptionIndex >= 0 && currentMatches[activeOptionIndex]) {
+        event.preventDefault();
+        event.stopPropagation();
+        const chosen = currentMatches[activeOptionIndex];
+        input.value = chosen.title;
+        activeOptionIndex = -1;
+        update(false);
+        chosen.card.scrollIntoView?.({ block: 'nearest' });
+      }
+    } else if (event.key === 'Escape') {
+      if (listbox && !listbox.hidden) {
+        event.preventDefault();
+        event.stopPropagation();
+        activeOptionIndex = -1;
+        renderListbox(currentMatches, false);
+      }
+    }
+  };
+
   const onClick = (event: MouseEvent) => {
-    const button = event.target instanceof Element ? event.target.closest('button') : null;
+    const targetEl = event.target instanceof Element ? event.target : null;
+    const optionLi = targetEl?.closest<HTMLLIElement>('li[data-glossary-option-index]');
+    if (optionLi && listbox?.contains(optionLi)) {
+      event.preventDefault();
+      event.stopPropagation();
+      const idx = Number(optionLi.dataset.glossaryOptionIndex);
+      const chosen = currentMatches[idx];
+      if (chosen) {
+        input.value = chosen.title;
+        activeOptionIndex = -1;
+        update(false);
+        chosen.card.scrollIntoView?.({ block: 'nearest' });
+      }
+      return;
+    }
+
+    const button = targetEl?.closest('button') ?? null;
     const category = categoryButtons.find(choice => choice.button === button);
     const translation = translationButtons.find(choice => choice.button === button);
-    if (!category && !translation) return;
+    if (!category && !translation) {
+      if (listbox && !listbox.hidden && targetEl !== input) {
+        renderListbox(currentMatches, false);
+      }
+      return;
+    }
     event.preventDefault(); event.stopPropagation();
     if (category) current.category = category.value;
     if (translation) current.pending = translation.value === pendingLabel;
-    update();
+    activeOptionIndex = -1;
+    update(false);
   };
+
   root.addEventListener('input', onInput, true);
+  root.addEventListener('keydown', onKeyDown, true);
+  root.addEventListener('click', onClick, true);
+  update(false);
+  return () => {
+    root.removeEventListener('input', onInput, true);
+    root.removeEventListener('keydown', onKeyDown, true);
+    root.removeEventListener('click', onClick, true);
+    empty.remove();
+    listbox?.remove();
+  };
+}
+
+function initializeBlog(root: HTMLElement, route: string, locale: Locale): () => void {
+  const main = root.querySelector('main');
+  if (!main) return noCleanup;
+
+  const all = locale === 'en' ? 'All' : '전체';
+  const buttonBar = [...main.querySelectorAll<HTMLElement>('div.flex.items-center.gap-2')].find(
+    div => div.querySelectorAll('button').length >= 3
+  );
+  if (!buttonBar) return noCleanup;
+
+  const labels = [...buttonBar.querySelectorAll<HTMLButtonElement>('button')]
+    .map(b => text(b))
+    .filter(Boolean);
+  if (!labels.length) return noCleanup;
+
+  const categoryButtons = choices(buttonBar, labels);
+  if (!categoryButtons.length) return noCleanup;
+
+  const current = selection(root, route, all);
+  if (!labels.includes(current.category)) current.category = all;
+
+  const countContainer = main.querySelector<HTMLElement>('div.mb-5 > span.text-sm.font-bold');
+  const emptyBlock = main.querySelector<HTMLElement>('div.text-center.py-20');
+  const pageSize = 6;
+
+  const update = () => {
+    const cards = [...main.querySelectorAll<HTMLElement>('article, [data-blog-card]')];
+    const matchingCards = cards.filter(card => {
+      if (current.category === all) return true;
+      const cardCat =
+        card.dataset.blogCategory ||
+        text(card.querySelector('[data-blog-badge], span.rounded-full'));
+      return normalized(cardCat) === normalized(current.category);
+    });
+
+    const totalPages = Math.max(1, Math.ceil(matchingCards.length / pageSize));
+    if (current.page > totalPages) current.page = 1;
+    if (current.page < 1) current.page = 1;
+
+    const startIdx = (current.page - 1) * pageSize;
+    const pagedCards = new Set(matchingCards.slice(startIdx, startIdx + pageSize));
+
+    cards.forEach(card => {
+      const visible = pagedCards.has(card);
+      card.hidden = !visible;
+      card.style.display = visible ? '' : 'none';
+    });
+
+    const pageButtons = [...main.querySelectorAll<HTMLButtonElement>('button[data-blog-page]')];
+    pageButtons.forEach(btn => {
+      const pageNum = Number(btn.dataset.blogPage || '1');
+      const isCurrent = pageNum === current.page;
+      btn.setAttribute('aria-current', isCurrent ? 'page' : 'false');
+    });
+
+    if (countContainer) {
+      countContainer.replaceChildren();
+      if (locale === 'en') {
+        const prefix = current.category === all ? 'Total ' : `${current.category} `;
+        countContainer.append(document.createTextNode(prefix));
+        const numSpan = document.createElement('span');
+        numSpan.className = 'font-bold text-brand-blue';
+        numSpan.textContent = String(matchingCards.length);
+        const suffixSpan = document.createElement('span');
+        suffixSpan.className = 'font-normal text-muted-foreground';
+        suffixSpan.textContent = ' articles';
+        countContainer.append(numSpan, suffixSpan);
+      } else {
+        countContainer.append(document.createTextNode(`${current.category} 아티클 `));
+        const numSpan = document.createElement('span');
+        numSpan.className = 'font-bold text-brand-blue';
+        numSpan.textContent = String(matchingCards.length);
+        countContainer.append(numSpan);
+      }
+    }
+
+    if (emptyBlock) {
+      const hasVisible = matchingCards.length > 0;
+      emptyBlock.hidden = hasVisible;
+      emptyBlock.style.display = hasVisible ? 'none' : '';
+    }
+
+    updateChoices(categoryButtons, current.category);
+  };
+
+  const onClick = (event: MouseEvent) => {
+    const button = event.target instanceof Element ? event.target.closest('button') : null;
+    if (!button) return;
+
+    const categoryChoice = categoryButtons.find(c => c.button === button);
+    if (categoryChoice) {
+      event.preventDefault();
+      event.stopPropagation();
+      current.category = categoryChoice.value;
+      current.page = 1;
+      update();
+      return;
+    }
+
+    if (button.dataset.blogPage) {
+      event.preventDefault();
+      event.stopPropagation();
+      const targetPage = Number(button.dataset.blogPage);
+      if (Number.isInteger(targetPage) && targetPage >= 1) {
+        current.page = targetPage;
+        update();
+      }
+    }
+  };
+
   root.addEventListener('click', onClick, true);
   update();
   return () => {
-    root.removeEventListener('input', onInput, true);
     root.removeEventListener('click', onClick, true);
-    empty.remove();
   };
 }
 
@@ -256,5 +527,6 @@ export function initializePublicLists(root: HTMLElement, route: string): () => v
   const locale: Locale = pathname.startsWith('/en/') ? 'en' : 'ko';
   if (/^\/(ko|en)\/faq\/?$/.test(pathname)) return initializeFaq(root, pathname, locale);
   if (/^\/(ko|en)\/glossary(?:\/|$)/.test(pathname)) return initializeGlossary(root, pathname, locale);
+  if (/^\/(ko|en)\/blog(?:\/|$)/.test(pathname)) return initializeBlog(root, pathname, locale);
   return noCleanup;
 }

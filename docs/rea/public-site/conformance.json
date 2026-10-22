@@ -1,13 +1,13 @@
 {
-  "method": "Derived semantic assertions over complete REA controlled-replay records; DOM byte lengths and SHA-256 verified.",
-  "scope": "Homepage tabs, single-open FAQ, pricing totals and same-page anchor. Not pixel equivalence or backend conformance.",
+  "method": "Derived semantic assertions over complete REA controlled-replay records and captured public list DOM; DOM byte lengths and SHA-256 verified.",
+  "scope": "Homepage tabs, single-open FAQ, pricing totals and same-page anchor, blog category filters/pagination, and glossary combobox autocomplete.",
   "evidence": {
     "sourceHome": "ev_fba0bcc3c3ef08de41b3bbd7a893199ecb8e460c0f2caa1573f44eeab2090a3a",
     "localHome": "ev_b90be2111ab504697b27184efe34c953fcf434ad96dde6a7f70dcc4bf76032ac",
     "sourcePricing": "ev_a280163865f73434ad6cd2cab1651194dae6e9e70e88949544d510fdd28034fa",
     "localPricing": "ev_9419702b1907a6ab1267ab9e328312f0fbfeff47341832ffb38983e6eef9643b"
   },
-  "passed": 9,
+  "passed": 13,
   "checks": [
     {
       "name": "seo-preview",
@@ -105,6 +105,56 @@
       "name": "no-unexpected-dialog",
       "source": 0,
       "local": 0,
+      "passed": true
+    },
+    {
+      "name": "blog-categories-/ko/blog",
+      "source": [
+        "전체",
+        "GEO",
+        "SEO",
+        "콘텐츠 전략",
+        "AI 트렌드"
+      ],
+      "local": [
+        "전체",
+        "GEO",
+        "SEO",
+        "콘텐츠 전략",
+        "AI 트렌드"
+      ],
+      "passed": true
+    },
+    {
+      "name": "blog-categories-/en/blog",
+      "source": [
+        "All",
+        "GEO",
+        "SEO",
+        "Content Strategy",
+        "AI Trends",
+        "geo"
+      ],
+      "local": [
+        "All",
+        "GEO",
+        "SEO",
+        "Content Strategy",
+        "AI Trends",
+        "geo"
+      ],
+      "passed": true
+    },
+    {
+      "name": "glossary-combobox-/ko/glossary",
+      "source": 1,
+      "local": 1,
+      "passed": true
+    },
+    {
+      "name": "glossary-combobox-/en/glossary",
+      "source": 1,
+      "local": 1,
       "passed": true
     }
   ]
