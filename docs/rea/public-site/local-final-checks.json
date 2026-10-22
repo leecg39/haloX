@@ -1,0 +1,22 @@
+[
+  {
+    "locale": "ko",
+    "case": "pending",
+    "state": {
+      "empty": "현재 모든 용어가 번역되어 있어요.",
+      "hidden": false,
+      "count": "0 개 용어",
+      "dialogs": 0
+    }
+  },
+  {
+    "locale": "en",
+    "case": "pending",
+    "state": {
+      "empty": "All terms are currently translated.",
+      "hidden": false,
+      "count": "0 terms",
+      "dialogs": 0
+    }
+  }
+]

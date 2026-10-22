@@ -9,6 +9,7 @@
 - [검증 결과와 재현 순서](docs/clone/QA.md)
 - [적대적 검토 결과](docs/clone/adversarial-review.md)
 - [후속 계획](docs/clone/next-plan.md)
+- [REA 공개 사이트 역공학·반영 결과](docs/rea/public-site/README.md)
 
 ## 실행
 

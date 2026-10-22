@@ -1,0 +1,111 @@
+{
+  "method": "Derived semantic assertions over complete REA controlled-replay records; DOM byte lengths and SHA-256 verified.",
+  "scope": "Homepage tabs, single-open FAQ, pricing totals and same-page anchor. Not pixel equivalence or backend conformance.",
+  "evidence": {
+    "sourceHome": "ev_fba0bcc3c3ef08de41b3bbd7a893199ecb8e460c0f2caa1573f44eeab2090a3a",
+    "localHome": "ev_b90be2111ab504697b27184efe34c953fcf434ad96dde6a7f70dcc4bf76032ac",
+    "sourcePricing": "ev_a280163865f73434ad6cd2cab1651194dae6e9e70e88949544d510fdd28034fa",
+    "localPricing": "ev_9419702b1907a6ab1267ab9e328312f0fbfeff47341832ffb38983e6eef9643b"
+  },
+  "passed": 9,
+  "checks": [
+    {
+      "name": "seo-preview",
+      "source": [
+        "+ SEO"
+      ],
+      "local": [
+        "+ SEO"
+      ],
+      "passed": true
+    },
+    {
+      "name": "geo-preview",
+      "source": [
+        "+ GEO"
+      ],
+      "local": [
+        "+ GEO"
+      ],
+      "passed": true
+    },
+    {
+      "name": "content-preview",
+      "source": [
+        "Content"
+      ],
+      "local": [
+        "Content"
+      ],
+      "passed": true
+    },
+    {
+      "name": "faq-ai-open",
+      "source": [
+        {
+          "question": "03어떤AI를추적하나요?",
+          "answer": "ChatGPT,Gemini,Perplexity,Claude그리고GoogleAI요약(AIOverviews)을봅니다."
+        }
+      ],
+      "local": [
+        {
+          "question": "03어떤AI를추적하나요?",
+          "answer": "ChatGPT,Gemini,Perplexity,Claude그리고GoogleAI요약(AIOverviews)을봅니다."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "faq-free-open",
+      "source": [
+        {
+          "question": "04무료로먼저볼수있나요?",
+          "answer": "네.도메인만넣으면가입도카드등록도없이사이트점검결과와AI질문세트를받아볼수있어요.계정을만들면7일무료체험에서AVI점수와경쟁사인용현황까지확인한다음결정하셔도됩니다."
+        }
+      ],
+      "local": [
+        {
+          "question": "04무료로먼저볼수있나요?",
+          "answer": "네.도메인만넣으면가입도카드등록도없이사이트점검결과와AI질문세트를받아볼수있어요.계정을만들면7일무료체험에서AVI점수와경쟁사인용현황까지확인한다음결정하셔도됩니다."
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "faq-free-close",
+      "source": [],
+      "local": [],
+      "passed": true
+    },
+    {
+      "name": "pricing-101-keywords-100-prompts-3-engines",
+      "source": [
+        "₩300,000",
+        "₩150,000",
+        "₩450,000",
+        "× 3",
+        "₩1,350,000/월"
+      ],
+      "local": [
+        "₩300,000",
+        "₩150,000",
+        "₩450,000",
+        "× 3",
+        "₩1,350,000/월"
+      ],
+      "passed": true
+    },
+    {
+      "name": "pricing-section-anchor",
+      "source": "/ko/pricing#matrix",
+      "local": "/ko/pricing#matrix",
+      "passed": true
+    },
+    {
+      "name": "no-unexpected-dialog",
+      "source": 0,
+      "local": 0,
+      "passed": true
+    }
+  ]
+}

@@ -64,3 +64,9 @@ QA용 키워드는 검사 후 삭제했습니다. 실제 원본에 폼 제출·�
 6. `npm run verify:routes`를 실행해 JSON 결과의 `missing`, `failed`, `duplicateRoutes`, `duplicateFiles`, `invalidEntries`, `assetMissing`, `remoteResources`, `remoteStyles`, `dangerousUrls`가 모두 빈 배열인지 확인.
 
 적대적 검토의 발견 사항과 수정 근거는 [adversarial-review.md](adversarial-review.md)에 기록했습니다.
+
+## REA 공개 사이트 후속 검증 (2026-10-22)
+
+- 홈페이지 별칭 FAQ·탭, 페이지 내부 링크 73개, 독립 FAQ 검색·분류, 용어사전 검색·분류, 가격 계산기를 보완했다.
+- 원본·로컬 REA 증거 의미 대조 9개 및 전체 363개 경로 검증 통과.
+- 한국어·영어 및 390px 모바일 확인. 상세 시나리오와 증거는 [REA 공개 사이트 보고서](../rea/public-site/README.md)를 참조한다.

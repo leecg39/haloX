@@ -17,7 +17,7 @@ for(const name of ['login','signup','forgot-password']){
 }
 const manifest=[];
 const norm=s=>s.replace(/\s+/g,'').replace(/\(\d+\)/g,'');
-function urlLocal(value){try{const u=new URL(value,'https://haloxlabs.ai');if(u.hostname==='haloxlabs.ai'||u.hostname==='www.haloxlabs.ai')return u.pathname+u.search+u.hash;return value}catch{return value}}
+function urlLocal(value){if(!value||value.trim().startsWith('#'))return value;try{const u=new URL(value,'https://haloxlabs.ai');if(u.hostname==='haloxlabs.ai'||u.hostname==='www.haloxlabs.ai')return u.pathname+u.search+u.hash;return value}catch{return value}}
 function assetLocal(value){if(!value)return value;try{const u=new URL(value,'https://haloxlabs.ai');return assets[u.href]||(u.hostname==='www.google.com'&&u.pathname==='/s2/favicons'?'/clone/assets/domain-placeholder.svg':value)}catch{return value}}
 const dangerousUrl=value=>/^(?:javascript|vbscript|data:text\/html):/i.test((value||'').trim());
 function cleanFragment(html){const $=cheerio.load(html||'',{},false);$('script,iframe,noscript,object,embed,base,meta[http-equiv]').remove();$('*').each((_,el)=>{for(const name of Object.keys(el.attribs||{}))if(/^on/i.test(name)||['nonce','integrity','action','formaction','srcset'].includes(name))$(el).removeAttr(name);});$('[src],[poster]').each((_,el)=>{const e=$(el);for(const attr of ['src','poster']){const value=e.attr(attr);if(!value)continue;if(dangerousUrl(value))e.removeAttr(attr);else e.attr(attr,assetLocal(value));}});$('a[href]').each((_,el)=>{const e=$(el),href=e.attr('href');e.attr('href',dangerousUrl(href)?'#':urlLocal(href));});$('[class]').each((_,el)=>{const e=$(el),c=e.attr('class');if(c.includes('opacity-0')&&/translate-y-|duration-1000/.test(c))e.attr('class',c.replace(/opacity-0/g,'opacity-100').replace(/translate-y-\d+/g,'translate-y-0'));});return $.html()}
@@ -38,16 +38,21 @@ for(const d of all){
  // Keep semantic DOM and native responsive CSS. Framer Motion visibility is restored locally by IntersectionObserver.
  if(!d.route.startsWith('/app'))$('[style]').each((_,el)=>{const e=$(el);const style=e.attr('style')||'';if(/opacity:\s*0(?:;|$)/.test(style)&&/transform:/.test(style)){e.attr('data-clone-reveal','');e.attr('style',style.replace(/opacity:\s*0(?:;|$)/,'opacity: 1;').replace(/transform:[^;]*;?/,'transform: none;'));}});
  for(const s of d.styles||[])if(!s.href&&s.css)css.add(s.css);
- const exactPublic=publicInteractions.find(p=>p.route===routeBase)||publicInteractions.find(p=>p.route===new URL(d.url).pathname);
- const menuSource=publicInteractions.find(p=>p.route==='/'+(new URL(d.url).pathname.split('/')[1]||'ko'));
- const publicData=exactPublic||(!d.route.startsWith('/app')&&$('header').length&&menuSource?{route:routeBase,accordions:[],tabs:[],menus:menuSource.menus}:undefined);
+ const actual=new URL(d.url,'https://haloxlabs.ai');
+ const source404=/Oops! Page not found|404\s+.*not found/i.test(d.text);
+ const publicPage=!d.route.startsWith('/app')&&!source404&&['haloxlabs.ai','www.haloxlabs.ai'].includes(actual.hostname);
+ // Captured / and /?ref=... render the Korean home; redirected aliases use the observed destination.
+ const canonicalPublicRoute=actual.pathname==='/'?'/ko':actual.pathname;
+ const exactPublic=publicPage?publicInteractions.find(p=>p.route===canonicalPublicRoute):undefined;
+ const menuSource=publicPage?publicInteractions.find(p=>p.route==='/'+canonicalPublicRoute.split('/')[1]):undefined;
+ const publicData=exactPublic||(publicPage&&$('header').length&&menuSource?{route:routeBase,accordions:[],tabs:[],menus:menuSource.menus}:undefined);
  const mergedMenus=publicData?[...publicData.menus,...(menuSource?.menus||[]).filter(x=>x.label.startsWith('모바일')&&!publicData.menus.some(y=>y.label===x.label))]:[];
  const publicState=publicData?{...publicData,accordions:publicData.accordions.map(x=>({...x,panelHtml:cleanFragment(x.panelHtml)})),tabs:publicData.tabs.map(x=>({...x,panelHtml:cleanFragment(x.panelHtml)})),menus:mergedMenus.map(x=>({...x,panelHtml:cleanFragment(x.panelHtml)}))}:undefined;
  if(!d.route.startsWith('/app'))$('[class]').each((_,el)=>{const e=$(el),c=e.attr('class');if(c.includes('opacity-0')&&/translate-y-|duration-1000/.test(c))e.attr('class',c.replace(/opacity-0/g,'opacity-100').replace(/translate-y-\d+/g,'translate-y-0')).attr('data-clone-reveal','');});
  const content={publicInteractions:publicState,route:d.route,url:d.url,title:d.title,html:$.html(),bodyClass:d.bodyClass||'',htmlClass:d.htmlClass||'',text:d.text,controls:d.controls||[],tabs:group};
  await fs.writeFile(out+'/'+key(d.route)+'.json',JSON.stringify(content));
- const actual=new URL(d.url,'https://haloxlabs.ai');const redirected=actual.pathname+actual.search!==d.route&&!d.route.includes('cloneTab=');
- manifest.push({route:d.route,file:key(d.route)+'.json',title:d.title,sourceUrl:d.url,status:/Oops! Page not found|404\s+.*not found/i.test(d.text)?'source-404':redirected?'redirect':'captured',textLength:d.text.length});
+ const redirected=actual.pathname+actual.search!==d.route&&!d.route.includes('cloneTab=');
+ manifest.push({route:d.route,file:key(d.route)+'.json',title:d.title,sourceUrl:d.url,status:source404?'source-404':redirected?'redirect':'captured',textLength:d.text.length});
 }
 await Promise.all(chartWrites);
 manifest.sort((a,b)=>a.route.localeCompare(b.route));

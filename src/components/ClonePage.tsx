@@ -8,7 +8,9 @@ import { useCloneNavigation } from './CloneNavigation';
 import { handleDataClick, handleDataInput, initializeDataControls } from './data-controls';
 import { DemoDialog } from './DemoDialog';
 import './clone-runtime.css';
-import { handlePublicClick } from './public-controls';
+import { handlePublicClick, initializePublicControls } from './public-controls';
+import { initializePublicPricing } from './public-pricing';
+import { initializePublicLists } from './public-lists';
 const parserOptions:HTMLReactParserOptions={replace(node){if(!(node instanceof Element))return;if(['script','iframe','noscript'].includes(node.name))return <></>;if(['input','textarea','select'].includes(node.name)){const p=attributesToProps(node.attribs);if('value'in p){p.defaultValue=p.value;delete p.value}if('checked'in p){p.defaultChecked=p.checked;delete p.checked}if(node.name==='textarea')return createElement('textarea',{...p,defaultValue:node.children.map(c=>'data'in c?c.data:'').join('')});if(node.name==='input')return createElement('input',p);return createElement('select',p,domToReact(node.children as DOMNode[],parserOptions))}}};
 export default function ClonePage({data,requestedRoute}:{data:Capture;requestedRoute:string}){
  const router=useRouter();const rootRef=useRef<HTMLDivElement>(null);const [dialog,setDialog]=useState<DialogRequest|null>(null);const [toast,setToast]=useState('');const toastTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
@@ -29,6 +31,9 @@ export default function ClonePage({data,requestedRoute}:{data:Capture;requestedR
    const saved:unknown=JSON.parse(localStorage.getItem('halox-clone:settings:'+requestedRoute)||'{}');
    if(saved&&typeof saved==='object')originalFields.forEach((el,i)=>{const value=(saved as Record<string,unknown>)[String(i)];if(typeof value==='string'&&el.type!=='password')el.value=value});
   } catch { /* Corrupt or unavailable local storage must not disable page interactions. */ }
+  const cleanupPublic=initializePublicControls(root);
+  const cleanupPricing=initializePublicPricing(root);
+  const cleanupLists=initializePublicLists(root,requestedRoute);
   const reveal=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('clone-revealed');reveal.unobserve(entry.target)}},{threshold:.05});root.querySelectorAll('[data-clone-reveal]').forEach(el=>reveal.observe(el));
   const click=(event:MouseEvent)=>{
    const target=event.target as HTMLElement;if(!target?.closest)return;
@@ -39,6 +44,8 @@ export default function ClonePage({data,requestedRoute}:{data:Capture;requestedR
    if(handleDataClick(event,root,notify))return;
    const button=target.closest<HTMLButtonElement>('button,[role=button]');if(!button||button.disabled)return;
    const label=(button.getAttribute('aria-label')||button.textContent||'').trim();const text=(button.textContent||'').trim();
+   if(!requestedRoute.startsWith('/app')&&/^(우리 브랜드 확인하기|Check (?:your|my) brand|무료로 시작하기|무료 체험 시작|Start for free|Start free trial)$/i.test(text)){navigate('/app/login');return}
+   if(!requestedRoute.startsWith('/app')&&/^(요금 계산기|Pricing calculator|Cost calculator)$/i.test(text)){root.querySelector('#estimate')?.scrollIntoView({behavior:'smooth'});return}
    if(/Back to top|맨 위|TOP/.test(label)){window.scrollTo({top:0,behavior:'smooth'});root.querySelector('main')?.scrollTo({top:0,behavior:'smooth'});return}
    if((label==='Close'||label==='닫기'||text==='닫기')&&button.closest('[role=dialog]')){navigate('/app');return}
    if((label==='Close'||label==='닫기')&&!button.closest('[role=dialog]')){button.parentElement?.remove();return}
@@ -64,7 +71,7 @@ export default function ClonePage({data,requestedRoute}:{data:Capture;requestedR
   const submit=(event:Event)=>{event.preventDefault();const form=event.target as HTMLFormElement;if(!form.reportValidity())return;if(requestedRoute.startsWith('/app/login')||requestedRoute.startsWith('/app/signup')){navigate('/app');return}if(requestedRoute.startsWith('/app/forgot-password')){notify('데모 화면입니다. 실제 재설정 이메일은 발송하지 않습니다.');return}notify('입력 내용을 확인했습니다. 로컬 데모에는 외부로 전송하지 않습니다.')};
   const keydown=(event:KeyboardEvent)=>{if(event.key==='Escape'&&requestedRoute.startsWith('/app/settings'))navigate('/app')};
   root.addEventListener('click',click);root.addEventListener('input',input);root.addEventListener('submit',submit);document.addEventListener('keydown',keydown);
-  return()=>{cleanup();reveal.disconnect();root.removeEventListener('click',click);root.removeEventListener('input',input);root.removeEventListener('submit',submit);document.removeEventListener('keydown',keydown)};
+  return()=>{cleanup();cleanupPublic();cleanupPricing();cleanupLists();reveal.disconnect();root.removeEventListener('click',click);root.removeEventListener('input',input);root.removeEventListener('submit',submit);document.removeEventListener('keydown',keydown)};
  },[data,requestedRoute,navigate,notify,openDialog,navigation]);
  const onComplete=(result:DialogResult)=>{window.dispatchEvent(new CustomEvent('halox:record-created',{detail:result}));notify('로컬 데모에 저장했습니다.');};
  return <><div ref={rootRef} className={'clone-surface '+(requestedRoute.startsWith('/app')?'clone-app':'clone-public')} data-route={requestedRoute}>{content}</div>{navigation.overlay}<DemoDialog request={dialog} onClose={()=>setDialog(null)} onComplete={onComplete}/>{toast&&<div className="clone-toast" role="status">{toast}<button aria-label="알림 닫기" onClick={()=>setToast('')}>×</button></div>}</>;

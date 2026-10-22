@@ -1,0 +1,139 @@
+{
+  "source": "Ego browser observation",
+  "report": {
+    "ko": {
+      "groups": [
+        {
+          "label": "전체",
+          "questions": [
+            "HaloX가 정확히 뭘 해주나요?",
+            "Ahrefs나 SEMrush랑 뭐가 달라요?",
+            "어떤 분들이 쓰나요?",
+            "GEO가 뭔가요?",
+            "어떤 AI를 추적하나요?",
+            "콘텐츠 제작소는 뭘 하는 건가요?",
+            "경쟁사도 추적할 수 있나요?",
+            "다국어도 되나요?",
+            "데이터는 얼마나 자주 바뀌나요?",
+            "무료로 먼저 볼 수 있나요?",
+            "플랜을 중간에 바꿀 수 있나요?",
+            "에이전시 요금제도 있나요?",
+            "결제는 어떻게 하나요?",
+            "데이터는 안전한가요?",
+            "Google Search Console 연동 되나요?",
+            "뭔가 설치해야 하나요?",
+            "데이터를 내보낼 수 있나요?"
+          ]
+        },
+        {
+          "label": "서비스",
+          "questions": [
+            "HaloX가 정확히 뭘 해주나요?",
+            "Ahrefs나 SEMrush랑 뭐가 달라요?",
+            "어떤 분들이 쓰나요?",
+            "GEO가 뭔가요?"
+          ]
+        },
+        {
+          "label": "제품",
+          "questions": [
+            "어떤 AI를 추적하나요?",
+            "콘텐츠 제작소는 뭘 하는 건가요?",
+            "경쟁사도 추적할 수 있나요?",
+            "다국어도 되나요?",
+            "데이터는 얼마나 자주 바뀌나요?"
+          ]
+        },
+        {
+          "label": "가격",
+          "questions": [
+            "무료로 먼저 볼 수 있나요?",
+            "플랜을 중간에 바꿀 수 있나요?",
+            "에이전시 요금제도 있나요?",
+            "결제는 어떻게 하나요?"
+          ]
+        },
+        {
+          "label": "기술",
+          "questions": [
+            "데이터는 안전한가요?",
+            "Google Search Console 연동 되나요?",
+            "뭔가 설치해야 하나요?",
+            "데이터를 내보낼 수 있나요?"
+          ]
+        }
+      ],
+      "multipleOpen": [
+        "02Ahrefs나 SEMrush랑 뭐가 달라요?"
+      ],
+      "empty": "자주 묻는 질문\n\n제품, 요금제, 기술 관련 주요 질문과 답변을 한곳에서 확인하세요.\n\n전체\n서비스\n제품\n가격\n기술\n\n검색 결과가 없어요. 다른 키워드로 검색해 보세요.\n\n더 궁금한 점이 있으신가요?\n다른 팀은 어떻게 쓰는지\n고객 사례\n전문가와 함께 시작하려면\nSEO · GEO 컨설팅\n조직 단위로 도입하려면\n도입 문의"
+    },
+    "en": {
+      "groups": [
+        {
+          "label": "All",
+          "questions": [
+            "What exactly does HaloX do?",
+            "How is this different from Ahrefs or SEMrush?",
+            "Who uses HaloX?",
+            "What is GEO?",
+            "Which AI platforms do you monitor?",
+            "What does the Content Studio do?",
+            "Can I track competitors too?",
+            "Does HaloX support multiple languages?",
+            "How often does the data update?",
+            "Can I try it for free?",
+            "Can I change my plan anytime?",
+            "Do you offer agency pricing?",
+            "What payment methods do you accept?",
+            "Is my data secure?",
+            "Can I connect Google Search Console?",
+            "Do I need to install anything?",
+            "Can I export my data?"
+          ]
+        },
+        {
+          "label": "Service",
+          "questions": [
+            "What exactly does HaloX do?",
+            "How is this different from Ahrefs or SEMrush?",
+            "Who uses HaloX?",
+            "What is GEO?"
+          ]
+        },
+        {
+          "label": "Product",
+          "questions": [
+            "Which AI platforms do you monitor?",
+            "What does the Content Studio do?",
+            "Can I track competitors too?",
+            "Does HaloX support multiple languages?",
+            "How often does the data update?"
+          ]
+        },
+        {
+          "label": "Pricing",
+          "questions": [
+            "Can I try it for free?",
+            "Can I change my plan anytime?",
+            "Do you offer agency pricing?",
+            "What payment methods do you accept?"
+          ]
+        },
+        {
+          "label": "Technical",
+          "questions": [
+            "Is my data secure?",
+            "Can I connect Google Search Console?",
+            "Do I need to install anything?",
+            "Can I export my data?"
+          ]
+        }
+      ],
+      "multipleOpen": [
+        "01What exactly does HaloX do?"
+      ],
+      "empty": "Frequently Asked Questions\n\nKey questions and answers about our product, pricing, and technology - all in one place.\n\nAll\nService\nProduct\nPricing\nTechnical\n\nNo results found. Try a different search.\n\nStill have questions?\nTo see how other teams use it\nCustomer stories\nTo start alongside our experts\nSEO & GEO consulting\nTo roll out across your org\nContact sales"
+    }
+  }
+}
