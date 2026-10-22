@@ -125,8 +125,9 @@ export interface AviCompositeInput {
  */
 export function aviComposite(input: AviCompositeInput): number {
   const seo = clamp(input.seo);
-  const hasGeo = typeof input.geo === 'number' && Number.isFinite(input.geo);
-  const hasWeb = typeof input.webHealth === 'number' && Number.isFinite(input.webHealth);
+  // Original bundle (`ure`) treats a component as available only when its score is > 0.
+  const hasGeo = typeof input.geo === 'number' && Number.isFinite(input.geo) && input.geo > 0;
+  const hasWeb = typeof input.webHealth === 'number' && Number.isFinite(input.webHealth) && input.webHealth > 0;
 
   if (hasGeo && hasWeb) {
     return Math.round(seo * 0.4 + clamp(input.geo!) * 0.3 + clamp(input.webHealth!) * 0.3);
