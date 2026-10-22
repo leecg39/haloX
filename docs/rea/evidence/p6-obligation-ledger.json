@@ -1,5 +1,5 @@
 {
-  "evidence_id": "ev_45bab20c744c49627a930757fefb30acd57fc0357e4a6694ecee4f0cce24007b",
+  "evidence_id": "ev_a9b13c0aa0e7e8eb9b8088c692c3b41ce8b6185e689e398a8d3f26ab066f2b61",
   "subject": null,
   "provider": {
     "id": "rea-javascript-application-workflows",
@@ -9,14 +9,14 @@
   "predicate_type": "rea.reconstruction-obligation-ledger",
   "operation": "build_reconstruction_obligation_ledger",
   "parameters": {
-    "ledger_id": "rol_9efbfb0cf3fd4bd751b9b3a4983324ed87a4160e9c002151e1590c98768476ca",
-    "closure_digest": "365b08f1489d7b1769dae6edb0d478f7825a505f62d2a8697ba134bbca4e1447"
+    "ledger_id": "rol_871a32f1e5af2779ae478a3f7e1f56b8ce7cbbd17fabfbbcb6fb70a06f55332b",
+    "closure_digest": "f6d842542a2407e740b0c82741a38a9e9bb51d0ee25b893882ea85f82a7bc972"
   },
   "raw_result": null,
   "normalized_result": {
     "schema": "ReconstructionObligationLedger",
-    "ledger_id": "rol_9efbfb0cf3fd4bd751b9b3a4983324ed87a4160e9c002151e1590c98768476ca",
-    "closure_digest": "365b08f1489d7b1769dae6edb0d478f7825a505f62d2a8697ba134bbca4e1447",
+    "ledger_id": "rol_871a32f1e5af2779ae478a3f7e1f56b8ce7cbbd17fabfbbcb6fb70a06f55332b",
+    "closure_digest": "f6d842542a2407e740b0c82741a38a9e9bb51d0ee25b893882ea85f82a7bc972",
     "status": "ready",
     "coverage": {
       "status": "complete"
@@ -244,7 +244,7 @@
           "owner": {
             "module_path": "src/lib/backend/database.ts",
             "symbol": "HaloXDatabase.invokeEdgeFunction",
-            "owner_sha256": "8d34579bb98d9d8fb1a80d7080ce131471113784ed3aac530fc5b3457830b7c9"
+            "owner_sha256": "57289f959459334dd018c5f7734954d371e34ad21b848a510b02869a3f6b8129"
           },
           "parser_type": {
             "parser": "invokeEdgeEndpoint",
@@ -374,7 +374,7 @@
           "owner": {
             "module_path": "src/lib/backend/database.ts",
             "symbol": "HaloXDatabase.queryTable",
-            "owner_sha256": "8d34579bb98d9d8fb1a80d7080ce131471113784ed3aac530fc5b3457830b7c9"
+            "owner_sha256": "57289f959459334dd018c5f7734954d371e34ad21b848a510b02869a3f6b8129"
           },
           "parser_type": {
             "parser": "parseKeywordRow",
@@ -504,7 +504,7 @@
           "owner": {
             "module_path": "src/lib/backend/database.ts",
             "symbol": "HaloXDatabase.callRpc",
-            "owner_sha256": "8d34579bb98d9d8fb1a80d7080ce131471113784ed3aac530fc5b3457830b7c9"
+            "owner_sha256": "57289f959459334dd018c5f7734954d371e34ad21b848a510b02869a3f6b8129"
           },
           "parser_type": {
             "parser": "validateRpcResponse",

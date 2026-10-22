@@ -27,6 +27,7 @@ import {
   OTHER_USER_ID,
   QuotaExceededError,
   RlsAccessDeniedError,
+  UnknownTableError,
 } from '../src/lib/backend/database.ts';
 import { runManifestDiffSelfTest } from './diff-manifest.mjs';
 import { runVisualRegressionSelfTest } from './verify-visual-regression.mjs';
@@ -278,13 +279,78 @@ async function runVerification() {
   const parsedKw = parseKeywordRow(ownKeywords.data[0]);
   assert.equal(parsedKw.keyword, 'AI 검색 최적화');
 
+  // Column projection (?select=id,keyword) and embedded relation (?select=id,role,workspaces(id,name))
+  const projectedKws = db.queryTable(
+    'keywords',
+    { select: 'id,keyword', filters: { workspace_id: `eq.${DEFAULT_WORKSPACE_ID}` }, limit: 1 },
+    DEFAULT_USER_ID
+  );
+  assert.deepEqual(Object.keys(projectedKws.data[0]).sort(), ['id', 'keyword']);
+
+  const projectedMembers = db.queryTable(
+    'workspace_members',
+    { select: 'id,role,workspaces(id,name)', filters: { workspace_id: `eq.${DEFAULT_WORKSPACE_ID}` } },
+    DEFAULT_USER_ID
+  );
+  assert.deepEqual(Object.keys(projectedMembers.data[0]).sort(), ['id', 'role', 'workspaces']);
+  assert(projectedMembers.data[0].workspaces && projectedMembers.data[0].workspaces.name === '브리찌');
+
+  // PATCH (updateTable) and DELETE (deleteTable) with RLS enforcement
+  const [tempKw] = db.insertTable(
+    'keywords',
+    { workspace_id: DEFAULT_WORKSPACE_ID, keyword: '임시 수정 테스트 키워드' },
+    DEFAULT_USER_ID
+  );
+  const patchedKws = db.updateTable(
+    'keywords',
+    { keyword: '수정 완료 키워드' },
+    { id: `eq.${tempKw.id}` },
+    DEFAULT_USER_ID
+  );
+  assert.equal(patchedKws.length, 1);
+  assert.equal(patchedKws[0].keyword, '수정 완료 키워드');
+
+  // Negative RLS on updateTable / deleteTable for cross-tenant row
+  assert.throws(
+    () =>
+      db.updateTable(
+        'keywords',
+        { keyword: '외부 변조 시도' },
+        { workspace_id: `eq.${ISOLATED_WORKSPACE_ID}` },
+        DEFAULT_USER_ID
+      ),
+    err => err instanceof RlsAccessDeniedError
+  );
+  assert.throws(
+    () =>
+      db.deleteTable(
+        'keywords',
+        { workspace_id: `eq.${ISOLATED_WORKSPACE_ID}` },
+        DEFAULT_USER_ID
+      ),
+    err => err instanceof RlsAccessDeniedError
+  );
+
+  const deletedKws = db.deleteTable('keywords', { id: `eq.${tempKw.id}` }, DEFAULT_USER_ID);
+  assert.equal(deletedKws.length, 1);
+
+  // Negative: UnknownTableError on unknown table or prototype pollution keys
+  assert.throws(
+    () => db.queryTable('non_existent_table', {}, DEFAULT_USER_ID),
+    err => err instanceof UnknownTableError && err.code === 'TABLE_NOT_FOUND'
+  );
+  assert.throws(
+    () => db.insertTable('__proto__', { workspace_id: DEFAULT_WORKSPACE_ID }, DEFAULT_USER_ID),
+    err => err instanceof UnknownTableError && err.code === 'TABLE_NOT_FOUND'
+  );
+
   // Negative schema parsing test
   assert.throws(
     () => parseKeywordRow({ id: 'not-a-uuid', workspace_id: DEFAULT_WORKSPACE_ID, keyword: '' }),
     err => err instanceof SchemaValidationError
   );
-  recordCheck('halox.api.postgrest-tables', 'positive', 'All 57 unique (68 GET/HEAD) PostgREST table contracts and schema parser');
-  recordCheck('halox.api.postgrest-tables', 'negative', 'Malformed UUID/row rejected by parseKeywordRow');
+  recordCheck('halox.api.postgrest-tables', 'positive', 'All 57 unique (68 GET/HEAD) PostgREST table contracts, select projection, PATCH/DELETE, and schema parser');
+  recordCheck('halox.api.postgrest-tables', 'negative', 'UnknownTableError (404), cross-tenant PATCH/DELETE RLS (403), and malformed UUID/row rejected');
 
   // Verify all 36 runtime-observed RPC contracts
   const rpcNames = Object.keys(OBSERVED_RPC_RESPONSE_SHAPES);
@@ -363,6 +429,56 @@ async function runVerification() {
     err => err instanceof QuotaExceededError && err.code === 'QUOTA_EXCEEDED'
   );
 
+  // Negative: Non-positive or non-integer reservation amounts must be rejected
+  assert.throws(
+    () =>
+      db.callRpc(
+        'reserve_unit_with_bypass',
+        { p_workspace_id: DEFAULT_WORKSPACE_ID, p_unit_key: 'keywords', p_amount: 0 },
+        DEFAULT_USER_ID
+      ),
+    /positive integer/
+  );
+  assert.throws(
+    () =>
+      db.callRpc(
+        'reserve_unit_with_bypass',
+        { p_workspace_id: DEFAULT_WORKSPACE_ID, p_unit_key: 'keywords', p_amount: -3 },
+        DEFAULT_USER_ID
+      ),
+    /positive integer/
+  );
+
+  // Release reservation and verify re-reservation with same idempotency_key succeeds
+  const tempRes = db.callRpc(
+    'reserve_unit_with_bypass',
+    {
+      p_workspace_id: DEFAULT_WORKSPACE_ID,
+      p_unit_key: 'keywords',
+      p_amount: 1,
+      p_idempotency_key: 'test-release-rebook',
+    },
+    DEFAULT_USER_ID
+  );
+  assert.equal(tempRes.status, 'reserved');
+  assert.equal(
+    db.callRpc('release_reservation', { p_reservation_id: tempRes.reservation_id }, DEFAULT_USER_ID),
+    true
+  );
+  const rebookedRes = db.callRpc(
+    'reserve_unit_with_bypass',
+    {
+      p_workspace_id: DEFAULT_WORKSPACE_ID,
+      p_unit_key: 'keywords',
+      p_amount: 1,
+      p_idempotency_key: 'test-release-rebook',
+    },
+    DEFAULT_USER_ID
+  );
+  assert.equal(rebookedRes.status, 'reserved');
+  assert.notEqual(rebookedRes.reservation_id, tempRes.reservation_id);
+  db.callRpc('release_reservation', { p_reservation_id: rebookedRes.reservation_id }, DEFAULT_USER_ID);
+
   // 2. GEO Run pipeline
   const geoRunRes = await db.invokeEdgeFunction(
     'geo-run',
@@ -432,19 +548,31 @@ async function runVerification() {
   );
   assert.equal(cacheFallback.error_fallback, true);
 
-  // 7. Settings API key issue & revoke
+  // 7. Settings API key issue & revoke + key_hash stripping verification
   const [apiKey] = db.insertTable(
     'workspace_api_keys',
     {
       workspace_id: DEFAULT_WORKSPACE_ID,
       name: 'CI 테스트 키',
       key_prefix: 'hx_live_1234',
-      key_hash: 'sha256_mock',
+      raw_key: 'hx_live_1234567890abcdef',
     },
     DEFAULT_USER_ID
   );
+  assert.equal('key_hash' in apiKey, false, 'key_hash must never be returned on insertTable');
+  const readKeys = db.queryTable(
+    'workspace_api_keys',
+    { filters: { id: `eq.${apiKey.id}` } },
+    DEFAULT_USER_ID
+  );
+  assert.equal(readKeys.data.length, 1);
+  assert.equal('key_hash' in readKeys.data[0], false, 'key_hash must never be returned on queryTable');
+  const verifiedKey = db.verifyWorkspaceApiKey('hx_live_1234567890abcdef');
+  assert(verifiedKey && verifiedKey.id === apiKey.id);
+
   const revoked = db.callRpc('revoke_workspace_api_key', { p_key_id: apiKey.id }, DEFAULT_USER_ID);
   assert.equal(revoked, true);
+  assert.equal(db.verifyWorkspaceApiKey('hx_live_1234567890abcdef'), null, 'Revoked API key must not verify');
 
   // Negative: Unknown edge function
   await assert.rejects(

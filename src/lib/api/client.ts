@@ -22,6 +22,39 @@ export async function fetchTable<T = Record<string, unknown>>(
   return (await res.json()) as T[];
 }
 
+export async function updateTableRows<T = Record<string, unknown>>(
+  table: string,
+  patch: Record<string, unknown>,
+  filters: Record<string, string> = {}
+): Promise<T[]> {
+  const qs = new URLSearchParams(filters).toString();
+  const res = await fetch(`/api/v1/rest/${encodeURIComponent(table)}${qs ? `?${qs}` : ''}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(patch),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ error: res.statusText }));
+    throw new Error(err.error || `Failed to update table ${table}`);
+  }
+  return (await res.json()) as T[];
+}
+
+export async function deleteTableRows<T = Record<string, unknown>>(
+  table: string,
+  filters: Record<string, string> = {}
+): Promise<T[]> {
+  const qs = new URLSearchParams(filters).toString();
+  const res = await fetch(`/api/v1/rest/${encodeURIComponent(table)}${qs ? `?${qs}` : ''}`, {
+    method: 'DELETE',
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ error: res.statusText }));
+    throw new Error(err.error || `Failed to delete from table ${table}`);
+  }
+  return (await res.json()) as T[];
+}
+
 export async function callRpcEndpoint<T = unknown>(
   rpcName: string,
   args: Record<string, unknown> = {},
@@ -82,6 +115,20 @@ export async function invokeEdgeEndpoint<T = Record<string, unknown>>(
 export async function syncDialogActionToBackend(result: DialogResult): Promise<void> {
   try {
     const route = result.route.split('?')[0];
+    const deletedId = result.values?.deletedId;
+    if (deletedId) {
+      let targetTable = 'keywords';
+      if (route === '/app/workspaces') targetTable = 'workspaces';
+      else if (route.startsWith('/app/geo')) targetTable = 'geo_prompts';
+      else if (route.startsWith('/app/site-audit')) targetTable = 'site_audit_scans';
+      else if (route.startsWith('/app/factory') || route.startsWith('/app/optimize')) targetTable = 'content_jobs';
+      else if (route.startsWith('/app/reports')) targetTable = 'report_snapshots';
+      else if (/API/i.test(result.title)) targetTable = 'workspace_api_keys';
+
+      await deleteTableRows(targetTable, { id: `eq.${deletedId}` });
+      return;
+    }
+
     const names = (result.records || (result.record ? [result.record] : []))
       .map(r => r.name)
       .filter(Boolean);

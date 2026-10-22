@@ -33,4 +33,21 @@
 
 ## 남는 한계
 
-실제 인증·결제·분석 백엔드는 요청 범위 밖이며 로컬 데모로 유지한다. Canvas 차트는 수집 시점 PNG이고, 원본 404 73개는 원본 상태대로 보존한다. 이 항목들은 결함 은폐가 아니라 [실행·구현 안내](README.md)에 명시된 제품 범위다.
+실제 인증·결제·분석 백엔드는 1차 프런트엔드 클론 이후 2차(P1/P2) 및 3차 사이클에서 단계별로 확장·검증한다. Canvas 차트는 수집 시점 PNG이고, 원본 404 73개는 원본 상태대로 보존한다. 이 항목들은 결함 은폐가 아니라 [실행·구현 안내](README.md)에 명시된 제품 범위다.
+
+---
+
+## 2차 적대적 검토 (P1 매니페스트 Diff·시각 회귀 & P2 백엔드/DB S1–S8)
+
+검토일: 2026-10-23. 범위: `scripts/diff-manifest.mjs`, `scripts/verify-visual-regression.mjs`, `src/lib/metrics/index.ts`, `src/lib/backend/database.ts`, `src/app/api/v1/rest/[table]/route.ts`, `src/lib/api/client.ts`.
+
+### 발견 사항과 조치
+
+| 심각도 | 발견 사항 | 영향 | 조치 | 재검증 |
+|---|---|---|---|---|
+| Important | PostgREST 테이블 엔드포인트에서 미등록 테이블명을 허용 | 임의 테이블명·`__proto__` 삽입 시 메모리 누적 및 프로토타입 오염 위험 | `UnknownTableError`(`404 TABLE_NOT_FOUND`) 및 `assertKnownTable` 화이트리스트 검증 추가 | `__proto__` 및 미존재 테이블 요청 시 404 거부 검증 통과 |
+| Important | `workspace_api_keys` 조회·생성 시 `key_hash`가 클라이언트 응답에 노출 | `data-model.md` §3 보안 규칙(`key_hash` 클라이언트 노출 금지) 위반 | 서버 측 SHA-256 해시 저장 후 모든 클라이언트 응답(`queryTable`/`insertTable`/`updateTable`)에서 `key_hash` 제거 | `key_hash` 미포함 단언 및 `verifyWorkspaceApiKey` 검증 통과 |
+| Important | PostgREST 라우트에 `PATCH`·`DELETE` 핸들러 및 `?select=` 컬럼 투영 미구현 | 행 수정·삭제 REST 호출 및 특정 컬럼 선택 쿼리가 전체 행만 반환 | `updateTable`·`deleteTable`(RLS 강제)과 `projectSelectColumns` 및 `PATCH`/`DELETE` 라우트 핸들러 구현 | `select=id,keyword`, 중첩 조인, 교차 테넌트 수정·삭제 차단 검증 통과 |
+| Important | `syncDialogActionToBackend`에서 삭제(`deletedId`) 액션 미동기화 | 로컬 스토리지에서만 삭제되고 백엔드 DB에는 레코드가 남음 | `result.values.deletedId` 감지 시 라우트별 테이블에 `DELETE` 요청 전송 | `client.ts` 타입체크 및 빌드 통과 |
+| Minor | `reserve_unit_with_bypass`에서 0·음수·비정수 예약 수량 허용 및 `released` 예약의 멱등성 충돌 | 잘못된 수량으로 한도 우회 가능, 취소된 예약 키 재시도 불가 | 양의 정수(`Number.isInteger(amount) && amount > 0`) 검증 및 활성 상태(`reserved`/`committed`)만 멱등 히트로 인정 | 0·음수 거부 및 `release_reservation` 후 동일 키 재예약 검증 통과 |
+

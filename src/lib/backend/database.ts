@@ -39,6 +39,15 @@ export class QuotaExceededError extends Error {
   }
 }
 
+export class UnknownTableError extends Error {
+  public readonly code = 'TABLE_NOT_FOUND';
+  public readonly status = 404;
+  constructor(tableName: string) {
+    super(`Relation "${tableName}" does not exist in public schema`);
+    this.name = 'UnknownTableError';
+  }
+}
+
 export type Row = Record<string, unknown>;
 
 export interface PostgrestQueryOptions {
@@ -792,6 +801,88 @@ export class HaloXDatabase {
   }
 
   /**
+   * Ensure the requested table is part of the known schema whitelist.
+   */
+  public assertKnownTable(tableName: string): void {
+    if (
+      !tableName ||
+      tableName === '__proto__' ||
+      tableName === 'constructor' ||
+      tableName === 'prototype' ||
+      !this.tables.has(tableName)
+    ) {
+      throw new UnknownTableError(tableName);
+    }
+  }
+
+  /**
+   * Strip server-only secret fields (e.g. `workspace_api_keys.key_hash`) before returning to clients.
+   */
+  private sanitizeRowForClient(tableName: string, row: Row): Row {
+    if (tableName === 'workspace_api_keys') {
+      const clone: Row = { ...row };
+      delete clone.key_hash;
+      return clone;
+    }
+    return { ...row };
+  }
+
+  /**
+   * Project top-level columns when PostgREST `?select=col1,col2` is specified.
+   */
+  private projectSelectColumns(row: Row, selectExpr?: string): Row {
+    if (!selectExpr || selectExpr.trim() === '*') {
+      return row;
+    }
+    const tokens: string[] = [];
+    let depth = 0;
+    let current = '';
+    for (const ch of selectExpr) {
+      if (ch === '(') depth += 1;
+      if (ch === ')') depth = Math.max(0, depth - 1);
+      if (ch === ',' && depth === 0) {
+        if (current.trim()) tokens.push(current.trim());
+        current = '';
+      } else {
+        current += ch;
+      }
+    }
+    if (current.trim()) tokens.push(current.trim());
+
+    const fields = tokens.map(t => t.split(/[(:]/)[0].trim()).filter(Boolean);
+    if (fields.includes('*') || fields.length === 0) {
+      return row;
+    }
+    const projected: Row = {};
+    for (const f of fields) {
+      if (f in row) {
+        projected[f] = row[f];
+      }
+    }
+    return projected;
+  }
+
+  /**
+   * Verify a workspace API key by raw token or key_prefix and ensure it is not revoked.
+   */
+  public verifyWorkspaceApiKey(rawKeyOrPrefix: string): Row | null {
+    if (!rawKeyOrPrefix) return null;
+    const keys = this.tables.get('workspace_api_keys') || [];
+    const candidateHash = crypto.createHash('sha256').update(rawKeyOrPrefix).digest('hex');
+    const matched = keys.find(
+      k =>
+        !k.revoked_at &&
+        (k.key_hash === candidateHash ||
+          k.key_hash === rawKeyOrPrefix ||
+          k.key_prefix === rawKeyOrPrefix ||
+          (typeof k.key_prefix === 'string' && rawKeyOrPrefix.startsWith(k.key_prefix)))
+    );
+    if (!matched) return null;
+    matched.last_used_at = new Date().toISOString();
+    return this.sanitizeRowForClient('workspace_api_keys', matched);
+  }
+
+  /**
    * PostgREST-compatible table read with automatic RLS filtering.
    */
   public queryTable(
@@ -799,6 +890,7 @@ export class HaloXDatabase {
     options: PostgrestQueryOptions = {},
     actorUserId = DEFAULT_USER_ID
   ): { data: Row[]; count: number } {
+    this.assertKnownTable(tableName);
     const rawRows = this.tables.get(tableName) || [];
     const allowedWorkspaces = this.getAllowedWorkspaceIds(actorUserId);
 
@@ -848,7 +940,9 @@ export class HaloXDatabase {
     const totalCount = rows.length;
     const offset = options.offset ?? 0;
     const limit = options.limit ?? rows.length;
-    const paged = rows.slice(offset, offset + limit);
+    const paged = rows
+      .slice(offset, offset + limit)
+      .map(row => this.projectSelectColumns(this.sanitizeRowForClient(tableName, row), options.select));
 
     return {
       data: options.headOnly ? [] : paged,
@@ -860,6 +954,7 @@ export class HaloXDatabase {
    * PostgREST-compatible table insert with RLS check.
    */
   public insertTable(tableName: string, payload: Row | Row[], actorUserId = DEFAULT_USER_ID): Row[] {
+    this.assertKnownTable(tableName);
     if (tableName === 'client_web_vitals') {
       return [];
     }
@@ -919,12 +1014,125 @@ export class HaloXDatabase {
         updated_at: now,
         ...item,
       };
+
+      if (tableName === 'workspace_api_keys') {
+        const rawSecret = String(
+          item.raw_key || item.key_hash || item.key_prefix || `hx_live_${String(record.id).slice(0, 8)}`
+        );
+        delete record.raw_key;
+        record.key_prefix = String(item.key_prefix || rawSecret.slice(0, 12));
+        record.key_hash = crypto.createHash('sha256').update(rawSecret).digest('hex');
+        record.revoked_at = item.revoked_at ?? null;
+      }
+
       table.push(record);
-      inserted.push(record);
+      inserted.push(this.sanitizeRowForClient(tableName, record));
     }
 
     this.tables.set(tableName, table);
     return inserted;
+  }
+
+  /**
+   * PostgREST-compatible table update (PATCH) with RLS enforcement.
+   */
+  public updateTable(
+    tableName: string,
+    patch: Row,
+    filters: Record<string, string> = {},
+    actorUserId = DEFAULT_USER_ID
+  ): Row[] {
+    this.assertKnownTable(tableName);
+    const table = this.tables.get(tableName) || [];
+    const allowedWorkspaces = this.getAllowedWorkspaceIds(actorUserId);
+    const now = new Date().toISOString();
+    const updated: Row[] = [];
+
+    for (const row of table) {
+      let matches = true;
+      for (const [key, expr] of Object.entries(filters)) {
+        if (['select', 'order', 'limit', 'offset', 'columns'].includes(key)) continue;
+        if (!this.matchesPostgrestFilter(row, key, expr)) {
+          matches = false;
+          break;
+        }
+      }
+      if (!matches) continue;
+
+      if (tableName === 'workspaces') {
+        if (!allowedWorkspaces.has(String(row.id))) {
+          throw new RlsAccessDeniedError();
+        }
+      } else if (tableName === 'profiles') {
+        if (String(row.id) !== actorUserId) {
+          throw new RlsAccessDeniedError();
+        }
+      } else if ('workspace_id' in row && row.workspace_id) {
+        if (!allowedWorkspaces.has(String(row.workspace_id))) {
+          throw new RlsAccessDeniedError();
+        }
+      }
+
+      const safePatch: Row = { ...patch };
+      delete safePatch.id;
+      delete safePatch.workspace_id;
+      if (tableName === 'workspace_api_keys') {
+        delete safePatch.key_hash;
+      }
+      Object.assign(row, safePatch, { updated_at: now });
+      updated.push(this.sanitizeRowForClient(tableName, row));
+    }
+
+    return updated;
+  }
+
+  /**
+   * PostgREST-compatible table delete (DELETE) with RLS enforcement.
+   */
+  public deleteTable(
+    tableName: string,
+    filters: Record<string, string> = {},
+    actorUserId = DEFAULT_USER_ID
+  ): Row[] {
+    this.assertKnownTable(tableName);
+    const table = this.tables.get(tableName) || [];
+    const allowedWorkspaces = this.getAllowedWorkspaceIds(actorUserId);
+    const remaining: Row[] = [];
+    const deleted: Row[] = [];
+
+    for (const row of table) {
+      let matches = true;
+      for (const [key, expr] of Object.entries(filters)) {
+        if (['select', 'order', 'limit', 'offset', 'columns'].includes(key)) continue;
+        if (!this.matchesPostgrestFilter(row, key, expr)) {
+          matches = false;
+          break;
+        }
+      }
+      if (!matches) {
+        remaining.push(row);
+        continue;
+      }
+
+      if (tableName === 'workspaces') {
+        if (!allowedWorkspaces.has(String(row.id))) {
+          throw new RlsAccessDeniedError();
+        }
+      } else if (tableName === 'profiles') {
+        if (String(row.id) !== actorUserId) {
+          throw new RlsAccessDeniedError();
+        }
+      } else if ('workspace_id' in row && row.workspace_id) {
+        if (!allowedWorkspaces.has(String(row.workspace_id))) {
+          throw new RlsAccessDeniedError();
+        }
+      }
+
+      deleted.push(this.sanitizeRowForClient(tableName, row));
+    }
+
+    this.tables.set(tableName, remaining);
+    return deleted;
   }
 
   /**
@@ -1391,11 +1599,19 @@ export class HaloXDatabase {
         this.assertWorkspaceMember(workspaceId, actorUserId);
         const unitKey = String(args.p_unit_key || args.unit_key || 'keywords');
         const amount = Number(args.p_amount ?? args.amount ?? 1);
+        if (!Number.isInteger(amount) || amount <= 0) {
+          throw new Error(`Invalid reservation amount "${amount}": must be a positive integer`);
+        }
         const idempotencyKey = String(
           args.p_idempotency_key || args.idempotency_key || crypto.randomUUID()
         );
         const reservations = this.tables.get('usage_reservations') || [];
-        const existing = reservations.find(r => r.idempotency_key === idempotencyKey);
+        const existing = reservations.find(
+          r =>
+            r.workspace_id === workspaceId &&
+            r.idempotency_key === idempotencyKey &&
+            (r.status === 'reserved' || r.status === 'committed')
+        );
         if (existing) {
           return {
             reservation_id: existing.id,
