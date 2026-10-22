@@ -1,0 +1,18 @@
+# DataControls
+- Target src/components/data-controls.ts only.
+- Screenshot /Users/user01/Desktop/haloX/docs/design-references/haloxlabs.ai/app-desktop.png.
+- Interaction model: click sorting/filter/select/export; input searches visible captured rows. Preserve original table DOM/styles.
+- Export handleDataClick(event:MouseEvent,root:HTMLElement,notify:(message:string)=>void):boolean; handleDataInput(event:Event,root:HTMLElement):boolean; initializeDataControls(root:HTMLElement,route:string):()=>void.
+- Root calls these after navigation handler. Return true only handled; other actions must fall through.
+- Original table headers: 세트·키워드, 태그, 순위, AI, 검색량, 트렌드, 의도, PAA, 연관검색어, 추천프롬프트, TTR, 진행. Common row classes and icons already in captured DOM.
+- Exact styles: 12.125px body font16px line-height; muted rgb110; border rgb230; checkbox16x16px border1px rgba(110,110,110,.25),radius4px; checked signal hsl(217 70% 42%). Tag button11.125px/15.575px, h18px,padding0 6px,radius4px,dashed border1px230, hover bg hsl(0 0% 96%). Preserve source stylesheet.
+- Search inputs placeholder contains 검색/Search/찾기: filter tbody rows case-insensitive, multiple table handling choose nearest content table. Preserve typed value, hidden state reset when search blank. Show empty match message outside tbody or full-colspan row.
+- Header cells/th containing sort button or arrow toggle ascending/descending sorting; parse numbers or compare strings. Set aria-sort.
+- Checkbox role=checkbox toggles data-state/aria-checked and visible check glyph; header selects rows. Native input checkboxes behave normally. Role=switch toggles checked/state; notifications source disabled remains disabled.
+- Combobox/filter dropdown: derive possible values from nearby table column and observed labels; accessible menu built with DOM, matches data and clear/reset. Do not invent backend results. Choices can use options already in DOM/hidden selects. If no meaningful options let generic handler open local dialog.
+- CSV/내보내기 buttons only when a table is present: produce UTF8 BOM CSV from current visible rows with proper escaping and download link. Formula cells prefixed apostrophe. No server calls.
+- Pagination: preserve all captured records; page size based on visible captured table page. If only 8 of10 rows captured do not pretend unobserved rows. Next shows local records if available, otherwise notify captured 범위. Do not silently just change page number.
+- initialize listens window halox:record-created CustomEvent<DialogResult> for same route and adds a styled local row/card; persist/reload records at key halox-clone:records:<base route>. Avoid duplicate insertion on remount. Only browser storage.
+- Assets N/A preserve all original SVG/icons.
+- Mobile tables remain horizontally scrollable, no fixed page width overflow.
+- Verify npx tsc --noEmit. Own files only.

@@ -1,0 +1,21 @@
+# CloneNavigation
+- Target: src/components/CloneNavigation.tsx and clone-navigation.css only.
+- Screenshot: /Users/user01/Desktop/haloX/docs/design-references/haloxlabs.ai/app-desktop.png
+- Interaction model: click-driven sidebar, dropdown menu, mobile drawer, search navigator. Native link navigation delegated by caller.
+- DOM: shared captured DOM contains [data-sidebar=sidebar], header, nav, button[data-clone-id]. Overlay menus render React via returned overlay.
+- Contract: export useCloneNavigation({rootRef:RefObject<HTMLDivElement|null>,route:string,navigate:(url:string)=>void,openDialog:(request:DialogRequest)=>void}) returning {handleClick:(event:MouseEvent)=>boolean,overlay:ReactNode}. Root calls handler before other handlers; true means handled.
+- Import DialogRequest from @/types/clone. Do not subscribe root click yourself. useEffect document Escape/outside click okay.
+- Exact tokens: body Pretendard,system-ui sans-serif; foreground rgb(31,31,31), muted rgb(110,110,110), border rgb(230,230,230). sidebar bg hsl(36 9% 95%); expanded width256px; sidebar item padding8px, height32px, radius8px, label13px; hover hsl(36 8% 91%); transition all .2s cubic-bezier(.4,0,.2,1). Header height48px.
+- Account button text demo@halox.local or email: menu items Pro로 업그레이드 -> /app/settings?tab=billing; 설정 -> /app/settings; 결제, 알림, 추천 프로그램, 피드백, 문서, 로그아웃 -> local routes. Menu white, border1px rgb230, radius8px, shadow 0 4px 12px #0000001a, font12px, padding4px, row32px.
+- Workspace button text 브리찌 Trial: menu 내 워크스페이스, 워크스페이스 관리 (/app/settings?tab=workspace), 새 워크스페이스 만들기(openDialog).
+- Sidebar group buttons 분석/전략/실행/모니터링/기타 toggle adjacent UL and aria-expanded.
+- Sidebar Toggle Sidebar or button[data-sidebar=trigger] collapses data-collapsible to icon desktop. At <768px render local drawer with same navigation links (256px), backdrop click/Escape closes. Mobile sidebar existing desktop markup should not permanently change after close.
+- Public header menu labels 제품/Products, 리소스/Resources, 도입 문의/Contact: use real route list. Product /ko/features, /ko/features/seo, /ko/features/geo, /ko/features/site-audit, /ko/features/content; resources /ko/blog, /ko/glossary, /ko/updates, /ko/compare; contact /ko/consulting, /ko/contact. Respect /en locale for routes where applicable. Public font14px, dropdown width260px.
+- Language aria-label 언어 선택: 한국어/English/日本語/繁體中文/Indonesia/Việt Nam local locale routes.
+- Mobile public aria-label 메뉴 열기: drawer with product/resources/customers/pricing/contact links.
+- 빠른 탐색: searchable modal list all15 app routes + settings/geo/gap/referral/feedback, keyboard escape closes.
+- 도움 필요 collapses help panel. SEO/GEO컨설팅 -> /ko/consulting, 서비스개선피드백 -> /app/feedback, 플랜보기 -> billing.
+- Assets: existing inline SVG unchanged; shared lucide exports in icons.tsx.
+- Text exactly labels listed. No external auth/logout requests. Logout navigates /app/login.
+- Responsive: desktop1440/tablet768 sidebar persists; mobile390 sidebar drawer.
+- Verify npx tsc --noEmit. Own files only, do not alter contracts/root.

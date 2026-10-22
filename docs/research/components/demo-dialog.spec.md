@@ -1,0 +1,16 @@
+# DemoDialog
+- Target src/components/DemoDialog.tsx and demo-dialog.css only.
+- Screenshot /Users/user01/Desktop/haloX/docs/design-references/haloxlabs.ai/keyword-dialog.png.
+- Interaction model: click opens modal; fields/local submit; tabs; Escape and overlay close. Backend out of scope.
+- Export DemoDialog({request:DialogRequest|null,onClose:()=>void,onComplete:(result:DialogResult)=>void}). Types @/types/clone already defined.
+- request.template optionally original sanitized dialog HTML; prefer rendering this with html-react-parser and reattach local interactions. It is just role=dialog markup (no overlay). If absent use reusable equivalent form.
+- Exact global tokens: Pretendard; foreground rgb31; muted rgb110; background white; border rgb230; primary rgb31. Radius8px; modal backdrop rgba(0,0,0,.8). Modal source detailed measurements available screenshot and supplied original template, preserve original style/classes. On mobile max-width calc(100vw - 32px), max-height90dvh overflow auto.
+- Original keyword dialog text: 키워드 추가; 추적할 키워드를 추가하면 검색량·난이도·SERP를 자동으로 수집해요.; 이번 달 키워드 사용량 10/20, 잔여10키워드; tabs 단일/일괄/추천; 키워드; 타겟 지역 한국어/대한민국; 연결된 지식; 수정; 지식 연결; 전체 목록; 키워드1건차감; 취소; 키워드추가.
+- Generic form fields context: 키워드/프롬프트 add use name textarea; 세트/태그/페르소나/워크스페이스 use name+설명; 자료/URL/진단/최적화 use URL+title/contents; 피드백 use 제목+내용; 멤버초대 email; API생성 use name then local non-secret demo token; 분석/제작 trigger local preview, no network.
+- Submit validate required fields; local record {id:crypto.randomUUID(),name,createdAt,kind,...values}. Store under halox-clone:records:<base route> and call onComplete once then close. Do not duplicate storage if root also does it; this component owns storage write.
+- Expose clear status that local 저장/데모, never claim external email sent/credit charged. Destructive actions affect only local records and require a local confirmation dialog; source original data remains snapshot.
+- Form capture uses values from input/textarea/select; do not collect passwords into localStorage. Login handled by root, never real authentication.
+- Native form inputs, labels, focus trap, restore previous focus, Escape, overlay close. Tab 단일/일괄 shows textarea/input local mode; 추천 shows available seeded keyword options (AI 마케팅,브랜드 마케팅,콘텐츠 전략) explicitly local suggestions.
+- Exact button styles from original: primary bg rgb31, textwhite, h32px, px12px, radius6px,font12px, medium500; secondary border1px230, white hover muted; fields border1px230,radius6px,padding8px12px,font14px.
+- Use Button primitive from @/components/ui/button and cn if helpful. No external service calls.
+- Verify npx tsc --noEmit. Own files only.
