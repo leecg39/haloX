@@ -17,6 +17,8 @@
 
 322개는 주소 기준이며, 363개는 쿼리와 탭 상태를 포함한 수량입니다. 같은 내용을 표시하는 원본 별칭·이동 경로도 포함되어 있습니다. 각 주소와 원본 상태는 [coverage.md](coverage.md), 자동 검사 결과는 [route-verification.json](route-verification.json)에서 확인할 수 있습니다.
 
+추가 검토 자료는 [적대적 검토 결과](adversarial-review.md)와 [후속 계획](next-plan.md)에 정리했습니다.
+
 ## 시작하기
 
 작업 폴더: `/Users/user01/Desktop/haloX`
@@ -82,7 +84,7 @@ npm run verify:routes
 node scripts/verify-routes.mjs http://localhost:3002
 ```
 
-자동 검사는 322개 필수 주소의 포함 여부, 363개 상태의 HTTP 응답과 페이지 렌더링, 참조하는 로컬 이미지의 존재를 검사합니다. 모든 버튼의 실제 서비스 결과나 모든 화면의 픽셀 일치를 판정하는 검사는 아닙니다.
+자동 검사는 322개 필수 주소의 포함 여부, 363개 상태의 HTTP 응답과 페이지 렌더링, manifest 무결성, 기본·동적 콘텐츠와 CSS의 로컬 자산, 원격 리소스와 위험 URL을 검사합니다. 모든 버튼의 실제 서비스 결과나 모든 화면의 픽셀 일치를 판정하는 검사는 아닙니다.
 
 ## 로컬 저장
 

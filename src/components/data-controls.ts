@@ -128,7 +128,12 @@ function insertRecord(root: HTMLElement, record: LocalRecord) {
 export function initializeDataControls(root: HTMLElement, route: string): () => void {
   root.querySelectorAll<HTMLTableElement>('table').forEach(table => { state(table); if (table.parentElement) { table.parentElement.style.overflowX = 'auto'; table.parentElement.style.maxWidth = '100%'; table.parentElement.style.minWidth = '0'; } });
   try { const records: unknown = JSON.parse(localStorage.getItem(`halox-clone:records:${base(route)}`) || '[]'); if (Array.isArray(records)) records.slice().reverse().forEach(record => { if (record && typeof record.id === 'string' && typeof record.name === 'string') insertRecord(root, record); }); } catch { /* A malformed or unavailable browser store does not affect the captured page. */ }
-  const created = (event: Event) => { const result = (event as CustomEvent<DialogResult>).detail; if (result && base(result.route) === base(route) && result.record) insertRecord(root, result.record); };
+  const created = (event: Event) => {
+    const result = (event as CustomEvent<DialogResult>).detail;
+    if (!result || base(result.route) !== base(route)) return;
+    const records = result.records?.length ? result.records : result.record ? [result.record] : [];
+    records.slice().reverse().forEach(record => insertRecord(root, record));
+  };
   window.addEventListener('halox:record-created', created);
   return () => { window.removeEventListener('halox:record-created', created); menus.get(root)?.(); };
 }

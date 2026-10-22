@@ -1,6 +1,6 @@
-# 클론 구현 계획 (P7-1 초안 — 승인 대기)
+# 원본 서비스 전체 스택 확장안 (P7-1 연구 초안 — 미실행)
 
-> 상태: **승인 전 코드 작성 금지** (Tasks.md Phase 7 "별도 승인", Golden Principle #9 HARD-GATE).
+> 상태: 현재 요청으로 완료한 Next.js 로컬 페이지 클론과 별개의 연구 초안이다. Supabase·실제 분석 백엔드 확장은 승인·자격증명·비용 범위가 필요한 별도 작업이며 현재 구현에 적용하지 않았다.
 > 입력: `architecture.md`, `api-spec.md`/`openapi.yaml`, `data-model.md`, `design-system.md`, `pages/*.md`, `user-journeys.md`, `reconstruction-ledger.md`.
 > 비유: 설계도(스펙)는 완성됐고, 이 문서는 "어느 방부터 어떤 순서로 짓고, 각 방이 완성됐는지 무엇으로 검사할지"를 적은 시공 계획서입니다.
 

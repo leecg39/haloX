@@ -2,9 +2,12 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
 const root=process.cwd();const out=path.join(root,'public/clone/assets');await fs.mkdir(out,{recursive:true});
-const initial=JSON.parse(await fs.readFile('docs/research/haloxlabs.ai/initial.json','utf8'));
-const mainCss=await (await fetch(initial.styles.find(s=>s.href?.includes('haloxlabs.ai')).href)).text();
-const googleCss=await (await fetch('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300..600&display=swap',{headers:{'User-Agent':'Mozilla/5.0'}})).text();
+const initialPath=(await fs.readdir('docs/research/haloxlabs.ai')).find(name=>name==='initial.json')||'home-initial.json';
+const initial=JSON.parse(await fs.readFile(path.join('docs/research/haloxlabs.ai',initialPath),'utf8'));
+const stylesheet=initial.styles?.find(s=>s.href?.includes('haloxlabs.ai'))?.href;
+if(!stylesheet)throw new Error(`HaloX stylesheet URL not found in ${initialPath}`);
+const mainResponse=await fetch(stylesheet,{signal:AbortSignal.timeout(30000)});if(!mainResponse.ok)throw new Error(`HaloX stylesheet request failed: ${mainResponse.status}`);const mainCss=await mainResponse.text();
+const googleResponse=await fetch('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300..600&display=swap',{headers:{'User-Agent':'Mozilla/5.0'},signal:AbortSignal.timeout(30000)});if(!googleResponse.ok)throw new Error(`Google Fonts stylesheet request failed: ${googleResponse.status}`);const googleCss=await googleResponse.text();
 let css=mainCss+'\n'+googleCss;const urls=new Set(['https://haloxlabs.ai/favicon.png?v=2','https://haloxlabs.ai/apple-touch-icon.png']);
 for(const s of css.matchAll(/url\(["']?([^"')]+)["']?\)/g))if(!/^(data:|#|%23)/i.test(s[1]))urls.add(new URL(s[1],'https://haloxlabs.ai/assets/index-BjzOpcfp.css').href);
 try{for(const f of await fs.readdir('docs/research/captures')){const d=JSON.parse(await fs.readFile('docs/research/captures/'+f,'utf8'));for(const a of d.assets)urls.add(a)}}catch{}

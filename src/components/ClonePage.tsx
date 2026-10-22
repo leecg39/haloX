@@ -12,7 +12,12 @@ import { handlePublicClick } from './public-controls';
 const parserOptions:HTMLReactParserOptions={replace(node){if(!(node instanceof Element))return;if(['script','iframe','noscript'].includes(node.name))return <></>;if(['input','textarea','select'].includes(node.name)){const p=attributesToProps(node.attribs);if('value'in p){p.defaultValue=p.value;delete p.value}if('checked'in p){p.defaultChecked=p.checked;delete p.checked}if(node.name==='textarea')return createElement('textarea',{...p,defaultValue:node.children.map(c=>'data'in c?c.data:'').join('')});if(node.name==='input')return createElement('input',p);return createElement('select',p,domToReact(node.children as DOMNode[],parserOptions))}}};
 export default function ClonePage({data,requestedRoute}:{data:Capture;requestedRoute:string}){
  const router=useRouter();const rootRef=useRef<HTMLDivElement>(null);const [dialog,setDialog]=useState<DialogRequest|null>(null);const [toast,setToast]=useState('');const toastTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
- const navigate=useCallback((url:string)=>{if(url.startsWith('https://haloxlabs.ai'))url=url.replace('https://haloxlabs.ai','');router.push(url);},[router]);
+ const navigate=useCallback((url:string)=>{
+  try {
+   const parsed=new URL(url,window.location.origin);
+   if(parsed.origin===window.location.origin||parsed.hostname==='haloxlabs.ai'||parsed.hostname==='www.haloxlabs.ai')router.push(`${parsed.pathname}${parsed.search}${parsed.hash}`);
+  } catch { /* Ignore malformed captured links instead of passing them to the router. */ }
+ },[router]);
  const notify=useCallback((message:string)=>{setToast(message);if(toastTimer.current)clearTimeout(toastTimer.current);toastTimer.current=setTimeout(()=>setToast(''),3500)},[]);
  const openDialog=useCallback(async(request:DialogRequest)=>{if(request.route.split('?')[0]==='/app/geo/prompts'&&request.title==='추가')request={...request,title:'프롬프트 추가'};try{if(/키워드 추가/.test(request.title)){const r=await fetch('/clone/keyword-dialog.json');request={...request,template:(await r.json()).html}}else{const r=await fetch('/clone/dialog-templates.json');if(r.ok){const templates=await r.json();const found=templates.find((t:{route:string;trigger:string;html:string;kind?:string})=>(t.route===request.route||t.route===request.route.split('?')[0])&&t.trigger===request.title&&t.kind!=='page');if(found)request={...request,template:found.html}}}}catch{}setDialog(request)},[]);
  const navigation=useCloneNavigation({rootRef,route:requestedRoute,navigate,openDialog,menus:data.publicInteractions?.menus});
@@ -20,7 +25,10 @@ export default function ClonePage({data,requestedRoute}:{data:Capture;requestedR
  useEffect(()=>{document.body.className=data.bodyClass;document.documentElement.className=data.htmlClass;document.body.style.removeProperty('pointer-events');document.body.style.removeProperty('overflow');return()=>{if(toastTimer.current)clearTimeout(toastTimer.current)}},[data]);
  useEffect(()=>{const root=rootRef.current;if(!root)return;const cleanup=initializeDataControls(root,requestedRoute);
   const originalFields=root.querySelectorAll<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>('input,textarea,select');
-  const saved=JSON.parse(localStorage.getItem('halox-clone:settings:'+requestedRoute)||'{}');originalFields.forEach((el,i)=>{if(saved[i]!==undefined&&el.type!=='password')el.value=saved[i]});
+  try {
+   const saved:unknown=JSON.parse(localStorage.getItem('halox-clone:settings:'+requestedRoute)||'{}');
+   if(saved&&typeof saved==='object')originalFields.forEach((el,i)=>{const value=(saved as Record<string,unknown>)[String(i)];if(typeof value==='string'&&el.type!=='password')el.value=value});
+  } catch { /* Corrupt or unavailable local storage must not disable page interactions. */ }
   const reveal=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('clone-revealed');reveal.unobserve(entry.target)}},{threshold:.05});root.querySelectorAll('[data-clone-reveal]').forEach(el=>reveal.observe(el));
   const click=(event:MouseEvent)=>{
    const target=event.target as HTMLElement;if(!target?.closest)return;
@@ -40,7 +48,7 @@ export default function ClonePage({data,requestedRoute}:{data:Capture;requestedR
    if(/설정|연동하기|연동 설정/.test(text)&&!button.closest('[role=dialog]')){navigate('/app/settings?tab=integrations');return}
    if(/More info/.test(label)){const card=button.parentElement?.parentElement;notify((card?.innerText||'지표')+' · 수집 시점의 분석 결과입니다.');return}
    if(button.hasAttribute('aria-expanded')&&button.hasAttribute('aria-controls')){const id=button.getAttribute('aria-controls')!;const panel=root.querySelector('#'+CSS.escape(id));if(panel){const open=button.getAttribute('aria-expanded')!=='true';button.setAttribute('aria-expanded',String(open));button.dataset.state=open?'open':'closed';(panel as HTMLElement).hidden=!open;(panel as HTMLElement).style.display=open?'block':'none';(panel as HTMLElement).dataset.state=open?'open':'closed';return}}
-   if(/저장|변경 사항/.test(text)&&requestedRoute.startsWith('/app/settings')){const values:Record<string,string>={};root.querySelectorAll<HTMLInputElement>('input,textarea,select').forEach((el,i)=>{if(el.type!=='password')values[String(i)]=el.value});localStorage.setItem('halox-clone:settings:'+requestedRoute,JSON.stringify(values));notify('설정을 이 브라우저에 저장했습니다.');return}
+   if(/저장|변경 사항/.test(text)&&requestedRoute.startsWith('/app/settings')){const values:Record<string,string>={};root.querySelectorAll<HTMLInputElement>('input,textarea,select').forEach((el,i)=>{if(el.type!=='password')values[String(i)]=el.value});try{localStorage.setItem('halox-clone:settings:'+requestedRoute,JSON.stringify(values));notify('설정을 이 브라우저에 저장했습니다.')}catch{notify('로컬 저장 공간을 사용할 수 없습니다. 브라우저 설정을 확인해 주세요.')}return}
    if(/복사/.test(text)){const value=button.closest('div')?.querySelector('input')?.value||location.href;navigator.clipboard?.writeText(value).then(()=>notify('복사했습니다.')).catch(()=>notify(value));return}
    if(/출력|인쇄/.test(text)){window.print();return}
    if(/단일|일괄|추천/.test(text)&&button.getAttribute('role')==='tab')return;

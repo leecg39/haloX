@@ -7,6 +7,8 @@
 - [전체 페이지 목록](docs/clone/coverage.md)
 - [실행 방법·구현 범위](docs/clone/README.md)
 - [검증 결과와 재현 순서](docs/clone/QA.md)
+- [적대적 검토 결과](docs/clone/adversarial-review.md)
+- [후속 계획](docs/clone/next-plan.md)
 
 ## 실행
 

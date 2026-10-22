@@ -144,7 +144,7 @@ flowchart TD
 | Phase 4 | 완료 | 라우트 스크린샷 18장, `p4-css-tokens.json`, `docs/clone/design-system.md` |
 | Phase 5 | 완료 | `p5-*.json`, `docs/clone/data-model.md`, 점수 공식 3종 실측 일치 |
 | Phase 6 | 완료 — 검증 관문 통과 | `p6-obligation-ledger.json`(의무 11, fail-closed), `docs/clone/*.md` 세트 |
-| Phase 7 | 계획 초안 제출 — **승인 대기** | `docs/clone/implementation-plan.md` |
+| Phase 7 | 전체 스택 확장 연구 초안 작성 — **현재 페이지 클론과 별도** | `docs/clone/implementation-plan.md` |
 
 ## 실행 편차 기록
 

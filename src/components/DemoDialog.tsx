@@ -61,10 +61,11 @@ function DialogSession({ request, onClose, onComplete }: SessionProps) {
         submitted.current = true; onComplete({ title: request.title, route: request.route, values: { deletedId: data.recordId } });
       } else {
         const names = mode === 'bulk' ? name.split(/\n/).map(value => value.trim()).filter(Boolean) : [name];
-        const created = names.map(item => ({ ...data, id: crypto.randomUUID(), name: item, createdAt: new Date().toISOString(), kind: request.kind || request.title }));
-        if (/API/.test(request.title)) data.demoKey = `demo-local-${created[0].id.slice(0, 8)}`;
+        const firstId = crypto.randomUUID();
+        if (/API/.test(request.title)) data.demoKey = `demo-local-${firstId.slice(0, 8)}`;
+        const created = names.map((item, index) => ({ ...data, id: index === 0 ? firstId : crypto.randomUUID(), name: item, createdAt: new Date().toISOString(), kind: request.kind || request.title }));
         localStorage.setItem(storageKey(request.route), JSON.stringify([...saved, ...created]));
-        submitted.current = true; onComplete({ title: request.title, route: request.route, values: { ...data, count: String(created.length) }, record: created[0] });
+        submitted.current = true; onComplete({ title: request.title, route: request.route, values: { ...data, count: String(created.length) }, record: created[0], records: created });
       }
       onClose();
     } catch { if (submitted.current) { onClose(); return; } setError('로컬 저장 공간을 사용할 수 없습니다. 브라우저 설정을 확인해 주세요.'); }

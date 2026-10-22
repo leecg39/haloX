@@ -19,13 +19,14 @@ const manifest=[];
 const norm=s=>s.replace(/\s+/g,'').replace(/\(\d+\)/g,'');
 function urlLocal(value){try{const u=new URL(value,'https://haloxlabs.ai');if(u.hostname==='haloxlabs.ai'||u.hostname==='www.haloxlabs.ai')return u.pathname+u.search+u.hash;return value}catch{return value}}
 function assetLocal(value){if(!value)return value;try{const u=new URL(value,'https://haloxlabs.ai');return assets[u.href]||(u.hostname==='www.google.com'&&u.pathname==='/s2/favicons'?'/clone/assets/domain-placeholder.svg':value)}catch{return value}}
-function cleanFragment(html){const $=cheerio.load(html||'',{},false);$('script,iframe,noscript').remove();$('[src]').each((_,el)=>$(el).attr('src',assetLocal($(el).attr('src'))));$('a[href]').each((_,el)=>$(el).attr('href',urlLocal($(el).attr('href'))));$('[class]').each((_,el)=>{const e=$(el),c=e.attr('class');if(c.includes('opacity-0')&&/translate-y-|duration-1000/.test(c))e.attr('class',c.replace(/opacity-0/g,'opacity-100').replace(/translate-y-\d+/g,'translate-y-0'));});return $.html()}
+const dangerousUrl=value=>/^(?:javascript|vbscript|data:text\/html):/i.test((value||'').trim());
+function cleanFragment(html){const $=cheerio.load(html||'',{},false);$('script,iframe,noscript,object,embed,base,meta[http-equiv]').remove();$('*').each((_,el)=>{for(const name of Object.keys(el.attribs||{}))if(/^on/i.test(name)||['nonce','integrity','action','formaction','srcset'].includes(name))$(el).removeAttr(name);});$('[src],[poster]').each((_,el)=>{const e=$(el);for(const attr of ['src','poster']){const value=e.attr(attr);if(!value)continue;if(dangerousUrl(value))e.removeAttr(attr);else e.attr(attr,assetLocal(value));}});$('a[href]').each((_,el)=>{const e=$(el),href=e.attr('href');e.attr('href',dangerousUrl(href)?'#':urlLocal(href));});$('[class]').each((_,el)=>{const e=$(el),c=e.attr('class');if(c.includes('opacity-0')&&/translate-y-|duration-1000/.test(c))e.attr('class',c.replace(/opacity-0/g,'opacity-100').replace(/translate-y-\d+/g,'translate-y-0'));});return $.html()}
 for(const d of all){
  const $=cheerio.load(d.html||'',{},false);
  $('script,noscript,iframe,object,embed,img[src="data:,"]').remove();
  $('*').each((_,el)=>{for(const n of Object.keys(el.attribs||{}))if(/^on/i.test(n)||['nonce','integrity'].includes(n))$(el).removeAttr(n);});
- $('a[href]').each((_,el)=>{const e=$(el),href=e.attr('href');e.attr('href',urlLocal(href));if(e.attr('href').startsWith('/'))e.removeAttr('target');else e.attr('rel','noopener noreferrer');});
- $('[src],[poster]').each((_,el)=>{const e=$(el);for(const attr of ['src','poster'])if(e.attr(attr))e.attr(attr,assetLocal(e.attr(attr)));e.removeAttr('srcset');});
+ $('a[href]').each((_,el)=>{const e=$(el),href=e.attr('href');e.attr('href',dangerousUrl(href)?'#':urlLocal(href));if(e.attr('href').startsWith('/'))e.removeAttr('target');else e.attr('rel','noopener noreferrer');});
+ $('[src],[poster]').each((_,el)=>{const e=$(el);for(const attr of ['src','poster']){const value=e.attr(attr);if(!value)continue;if(dangerousUrl(value))e.removeAttr(attr);else e.attr(attr,assetLocal(value));}e.removeAttr('srcset');});
  $('[fetchpriority]').removeAttr('fetchpriority');
  $('form').removeAttr('action').attr('data-clone-form','true');
  $('input,textarea,select').each((i,el)=>{const e=$(el);if(!e.attr('name'))e.attr('name',e.attr('id')||'field-'+i);});
@@ -54,6 +55,6 @@ await fs.writeFile('public/clone/manifest.json',JSON.stringify(manifest,null,2))
 const runtimeCss=[...css].join('\n').replace(/url\(["']?([^"')]+)["']?\)/g,(m,url)=>`url("${assetLocal(url)}")`);
 await fs.writeFile('public/clone/runtime.css',runtimeCss);
 const dialog=JSON.parse(await fs.readFile('docs/research/keyword-dialog.json','utf8'));
-await fs.writeFile('public/clone/keyword-dialog.json',JSON.stringify({html:dialog.html}));
+await fs.writeFile('public/clone/keyword-dialog.json',JSON.stringify({html:cleanFragment(dialog.html)}));
 const dialogs=JSON.parse(await fs.readFile('docs/research/dialog-templates.json','utf8'));await fs.writeFile('public/clone/dialog-templates.json',JSON.stringify(dialogs.map(x=>({...x,html:cleanFragment(x.html)}))));
 console.log(JSON.stringify({routes:manifest.length,source404:manifest.filter(x=>x.status==='source-404').length,redirects:manifest.filter(x=>x.status==='redirect').length,styles:css.size}));

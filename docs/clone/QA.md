@@ -7,7 +7,8 @@
 - `npm run build`: 성공. Next.js 프로덕션 빌드 및 TypeScript 검사 통과.
 - `npm run verify:routes`: 363개 화면 상태가 HTTP 200과 `.clone-surface` 렌더링 검사를 통과.
 - `docs/page.md`의 필수 주소 322개 중 누락 0개.
-- 참조한 로컬 이미지 파일 누락 0개, 정리된 페이지의 원격 이미지 URL 0개.
+- manifest 주소·파일 중복 및 잘못된 항목 0개.
+- 기본 페이지와 동적 FAQ·탭·메뉴·대화상자에서 로컬 자산 누락 0개, 원격 미디어·스타일 0개, 위험 URL 0개.
 - 원본 404 상태 73개는 의도적으로 원본 404 화면을 렌더링하므로 경로 검사 실패로 처리하지 않음.
 - 자세한 결과: [route-verification.json](route-verification.json).
 
@@ -25,6 +26,8 @@
 | 공개 모바일 메뉴 | 우측 서랍 열림, 제품 하위 목록 펼침 | 통과 |
 | 영문 메뉴 | Product 드롭다운, 모바일 Resources 하위 목록 | 통과 |
 | 로컬 로그인 | 이메일·비밀번호 입력 후 로컬 대시보드 이동 | 통과 |
+| 일괄 키워드 추가 | 2건 제출 후 표와 localStorage에 모두 즉시 반영 | 통과 |
+| 손상된 설정 저장값 | 잘못된 JSON이 있어도 결제 탭으로 이동 | 통과 |
 
 QA용 키워드는 검사 후 삭제했습니다. 실제 원본에 폼 제출·데이터 변경·결제·진단 실행을 하지 않았습니다.
 
@@ -58,4 +61,6 @@ QA용 키워드는 검사 후 삭제했습니다. 실제 원본에 폼 제출·�
 3. `/ko/pricing`에서 연간·월간 전환 후 FAQ를 펼침.
 4. 모바일 폭에서 `/app` 사이드바와 `/ko` 메뉴를 열고 제품 하위 목록 확인.
 5. `/app/login`에 테스트용 이메일과 임의의 비밀번호를 입력해 로컬 `/app` 이동 확인.
-6. `npm run verify:routes`를 실행해 JSON 결과의 `missing`, `failed`, `assetMissing`이 모두 빈 배열인지 확인.
+6. `npm run verify:routes`를 실행해 JSON 결과의 `missing`, `failed`, `duplicateRoutes`, `duplicateFiles`, `invalidEntries`, `assetMissing`, `remoteResources`, `remoteStyles`, `dangerousUrls`가 모두 빈 배열인지 확인.
+
+적대적 검토의 발견 사항과 수정 근거는 [adversarial-review.md](adversarial-review.md)에 기록했습니다.
