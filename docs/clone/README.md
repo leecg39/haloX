@@ -82,6 +82,12 @@ npm run build
 npm run verify:routes
 # 다른 포트의 서버를 검사할 경우
 node scripts/verify-routes.mjs http://localhost:3002
+
+# 공개 사이트 REA 의미 검증, 매니페스트 Diff, 시각 회귀, 전체 스택 백엔드/DB 검증
+npm run verify:public
+npm run diff:manifest -- --fail-on-drift
+npm run verify:visual
+npm run verify:backend
 ```
 
 자동 검사는 322개 필수 주소의 포함 여부, 363개 상태의 HTTP 응답과 페이지 렌더링, manifest 무결성, 기본·동적 콘텐츠와 CSS의 로컬 자산, 원격 리소스와 위험 URL을 검사합니다. 모든 버튼의 실제 서비스 결과나 모든 화면의 픽셀 일치를 판정하는 검사는 아닙니다.

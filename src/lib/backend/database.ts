@@ -4,10 +4,13 @@
 
 import crypto from 'node:crypto';
 import {
+  aiTrafficShare,
   aviComposite,
   geoScore,
+  isQuickWinKeyword,
   positionScore,
   scoreLevel,
+  searchContribution,
   seoScore,
   serverAviFiveFactor,
 } from '../metrics/index.ts';
@@ -723,12 +726,56 @@ export class HaloXDatabase {
       },
     ]);
 
-    // Ensure all other observed runtime tables exist as empty arrays by default
+    ensure('gsc_daily_totals', [
+      {
+        id: '76000000-0000-4000-8000-000000000001',
+        workspace_id: DEFAULT_WORKSPACE_ID,
+        date: '2026-10-22',
+        clicks: 128,
+        impressions: 3420,
+        ctr: 3.74,
+        avg_position: 11.4,
+        created_at: now,
+      },
+    ]);
+
+    ensure('ga4_page_stats', [
+      {
+        id: '77000000-0000-4000-8000-000000000001',
+        workspace_id: DEFAULT_WORKSPACE_ID,
+        date: '2026-10-22',
+        page_path: '/features/geo',
+        organic_sessions: 320,
+        ai_sessions: 48,
+        conversions: 14,
+        created_at: now,
+      },
+    ]);
+
+    ensure('evidence_claims', [
+      {
+        id: '78000000-0000-4000-8000-000000000001',
+        workspace_id: DEFAULT_WORKSPACE_ID,
+        entity_id: ke1,
+        claim_text: '브리찌는 4대 AI 검색엔진(ChatGPT, Claude, Gemini, Perplexity) 인용률을 실시간 추적합니다.',
+        verification_status: 'verified',
+        source_url: 'https://brizzi.kr/features/geo',
+        created_at: now,
+      },
+    ]);
+
+    // Ensure all other observed runtime & Phase 7 secondary tables exist as empty arrays by default
     for (const emptyTable of [
+      'agent_conversations',
+      'agent_messages',
+      'articles',
+      'article_translations',
       'brand_reclassify_jobs',
       'client_web_vitals',
       'cluster_stats_history',
+      'content_change_items',
       'earned_publications',
+      'evidence_claims',
       'ga4_page_stats',
       'geo_discover_runs',
       'geo_prompt_candidates',
@@ -1248,12 +1295,65 @@ export class HaloXDatabase {
           },
         };
 
-      case 'get_ga4_channel_summary':
-      case 'get_ga4_dashboard_timeseries':
-      case 'get_gsc_dashboard_dimensions':
-      case 'get_gsc_dashboard_timeseries':
-      case 'get_page_ga4_stats':
-        return [];
+      case 'get_ga4_channel_summary': {
+        const ga4Rows = (this.tables.get('ga4_page_stats') || []).filter(
+          r => r.workspace_id === workspaceId
+        );
+        const gscTotals = (this.tables.get('gsc_daily_totals') || []).filter(
+          r => r.workspace_id === workspaceId
+        );
+        const organicSessions = ga4Rows.reduce((s, r) => s + Number(r.organic_sessions || 0), 0);
+        const aiSessions = ga4Rows.reduce((s, r) => s + Number(r.ai_sessions || 0), 0);
+        const gscClicks = gscTotals.reduce((s, r) => s + Number(r.clicks || 0), 0);
+        if (ga4Rows.length === 0) return [];
+        return [
+          {
+            channel: 'Organic Search',
+            sessions: organicSessions,
+            ai_sessions: aiSessions,
+            ai_traffic_share: aiTrafficShare(aiSessions, organicSessions),
+            search_contribution: searchContribution(gscClicks, organicSessions),
+          },
+        ];
+      }
+
+      case 'get_ga4_dashboard_timeseries': {
+        const ga4Rows = (this.tables.get('ga4_page_stats') || []).filter(
+          r => r.workspace_id === workspaceId
+        );
+        return ga4Rows.map(r => ({
+          date: r.date,
+          organic_sessions: Number(r.organic_sessions || 0),
+          ai_sessions: Number(r.ai_sessions || 0),
+          ai_traffic_share: aiTrafficShare(Number(r.ai_sessions || 0), Number(r.organic_sessions || 0)),
+        }));
+      }
+
+      case 'get_gsc_dashboard_dimensions': {
+        return keywords.map(k => ({
+          dimension: 'query',
+          key: k.keyword,
+          clicks: 42,
+          impressions: 980,
+          ctr: 4.28,
+          avg_position: 8.5,
+        }));
+      }
+
+      case 'get_gsc_dashboard_timeseries': {
+        return (this.tables.get('gsc_daily_totals') || []).filter(
+          r => r.workspace_id === workspaceId
+        );
+      }
+
+      case 'get_page_ga4_stats': {
+        return (this.tables.get('ga4_page_stats') || [])
+          .filter(r => r.workspace_id === workspaceId)
+          .map(r => ({
+            ...r,
+            ai_traffic_share: aiTrafficShare(Number(r.ai_sessions || 0), Number(r.organic_sessions || 0)),
+          }));
+      }
 
       case 'get_gap_overview_light':
         return keywords.map(k => ({
@@ -1310,15 +1410,21 @@ export class HaloXDatabase {
         };
 
       case 'get_keywords_with_gsc_stats':
-        return keywords.map(k => ({
-          keyword_id: k.id,
-          keyword_text: k.keyword,
-          gsc_clicks: 42,
-          gsc_impressions: 980,
-          gsc_ctr: 4.28,
-          gsc_avg_position: 8.5,
-          gsc_insight_type: 'quick_win',
-        }));
+        return keywords.map((k, idx) => {
+          const avgPos = idx === 0 ? 8.5 : 3.2;
+          const impressions = idx === 0 ? 980 : 1450;
+          const ctr = idx === 0 ? 4.28 : 6.4;
+          const quickWin = isQuickWinKeyword({ avgPosition: avgPos, impressions, ctrPercent: ctr });
+          return {
+            keyword_id: k.id,
+            keyword_text: k.keyword,
+            gsc_clicks: Math.round((impressions * ctr) / 100),
+            gsc_impressions: impressions,
+            gsc_ctr: ctr,
+            gsc_avg_position: avgPos,
+            gsc_insight_type: quickWin ? 'quick_win' : 'top_performer',
+          };
+        });
 
       case 'get_latest_serp_snapshots': {
         const ids = Array.isArray(args.p_keyword_ids) ? args.p_keyword_ids.map(String) : null;
@@ -1733,6 +1839,88 @@ export class HaloXDatabase {
       }
     }
 
+    if (fnName === 'halox-mcp') {
+      const rawKey = String(payload.api_key || '').trim();
+      const verifiedKey = this.verifyWorkspaceApiKey(rawKey);
+      if (!verifiedKey) {
+        throw new RlsAccessDeniedError('Invalid, missing, or revoked HaloX MCP API key');
+      }
+      const keyWorkspaceId = String(verifiedKey.workspace_id);
+      const mcpMethod = String(payload.method || 'tools/list');
+
+      if (mcpMethod === 'tools/list') {
+        return {
+          jsonrpc: '2.0',
+          id: payload.id ?? 1,
+          result: {
+            tools: [
+              {
+                name: 'get_avi_overview',
+                description: '워크스페이스의 AI 가시성 지수(AVI) 및 4대 엔진 인용 현황을 조회합니다.',
+                inputSchema: { type: 'object', properties: { days: { type: 'number' } } },
+              },
+              {
+                name: 'list_keywords',
+                description: '워크스페이스에 등록된 활성 타깃 키워드 및 검색량을 조회합니다.',
+                inputSchema: { type: 'object', properties: { limit: { type: 'number' } } },
+              },
+              {
+                name: 'get_gsc_ga4_kpis',
+                description: 'GSC/GA4 AI 트래픽 점유율(AI Traffic Share) 및 검색 기여도를 조회합니다.',
+                inputSchema: { type: 'object', properties: {} },
+              },
+            ],
+          },
+        };
+      }
+
+      if (mcpMethod === 'tools/call') {
+        const params = (payload.params as Record<string, unknown>) || {};
+        const toolName = String(params.name || payload.tool_name || 'get_avi_overview');
+        const wsRow = (this.tables.get('workspaces') || []).find(w => w.id === keyWorkspaceId);
+        const ownerId = String(wsRow?.owner_id || DEFAULT_USER_ID);
+
+        if (toolName === 'get_avi_overview') {
+          const avi = this.callRpc('get_avi_overview', { p_workspace_id: keyWorkspaceId }, ownerId);
+          return {
+            jsonrpc: '2.0',
+            id: payload.id ?? 1,
+            result: { content: [{ type: 'text', text: JSON.stringify(avi) }], data: avi },
+          };
+        }
+        if (toolName === 'list_keywords') {
+          const kws = this.queryTable(
+            'keywords',
+            { filters: { workspace_id: `eq.${keyWorkspaceId}` }, limit: 20 },
+            ownerId
+          );
+          return {
+            jsonrpc: '2.0',
+            id: payload.id ?? 1,
+            result: { content: [{ type: 'text', text: JSON.stringify(kws.data) }], data: kws.data },
+          };
+        }
+        if (toolName === 'get_gsc_ga4_kpis') {
+          const ga4Summary = this.callRpc(
+            'get_ga4_channel_summary',
+            { p_workspace_id: keyWorkspaceId },
+            ownerId
+          );
+          return {
+            jsonrpc: '2.0',
+            id: payload.id ?? 1,
+            result: {
+              content: [{ type: 'text', text: JSON.stringify(ga4Summary) }],
+              data: ga4Summary,
+            },
+          };
+        }
+        throw new Error(`Unsupported MCP tool: ${toolName}`);
+      }
+
+      throw new Error(`Unsupported MCP method: ${mcpMethod}`);
+    }
+
     const workspaceId = String(payload.workspace_id || DEFAULT_WORKSPACE_ID);
     this.assertWorkspaceMember(workspaceId, actorUserId);
     const now = new Date().toISOString();
@@ -2086,6 +2274,509 @@ export class HaloXDatabase {
         function: fnName,
         workspace_id: workspaceId,
         report: reportRow,
+      };
+    }
+
+    // =========================================================================
+    // Phase 7 Secondary Full-Stack Pipelines (Agent SSE, Strategy Map, Optimize,
+    // Multi-language Publishing, GSC/GA4 Sync, NicePay Billing, HaloX MCP)
+    // =========================================================================
+
+    if (fnName === 'agent-chat') {
+      const userPrompt = String(payload.message || payload.prompt || '').trim();
+      if (!userPrompt) {
+        throw new Error('Agent chat message must not be empty');
+      }
+      let conversationId = typeof payload.conversation_id === 'string' ? payload.conversation_id : '';
+      let convRow: Row | undefined;
+      if (conversationId) {
+        const anyConv = (this.tables.get('agent_conversations') || []).find(c => c.id === conversationId);
+        if (anyConv && anyConv.workspace_id !== workspaceId) {
+          throw new RlsAccessDeniedError('Cannot access agent conversation belonging to another workspace');
+        }
+        convRow = anyConv;
+      }
+      if (!convRow) {
+        [convRow] = this.insertTable(
+          'agent_conversations',
+          {
+            workspace_id: workspaceId,
+            user_id: actorUserId,
+            title: userPrompt.slice(0, 40),
+          },
+          actorUserId
+        );
+        conversationId = String(convRow.id);
+      }
+
+      const [userMsgRow] = this.insertTable(
+        'agent_messages',
+        {
+          workspace_id: workspaceId,
+          conversation_id: conversationId,
+          role: 'user',
+          content: userPrompt,
+          citations_json: [],
+        },
+        actorUserId
+      );
+
+      const overview = this.callRpc(
+        'get_light_dashboard_overview',
+        { p_workspace_id: workspaceId, p_period_days: 7 },
+        actorUserId
+      ) as { avi_summary?: { aviComposite?: number; seoScore?: number; geoScore?: number; webHealthScore?: number } };
+      const aviSummary = overview.avi_summary || {};
+      const chunks = [
+        `현재 워크스페이스 종합 가시성(AVI) 점수는 ${aviSummary.aviComposite ?? 47}점`,
+        ` (SEO ${aviSummary.seoScore ?? 3}점, GEO ${aviSummary.geoScore ?? 60}점, 웹 건강도 ${aviSummary.webHealthScore ?? 93}점)입니다. `,
+        `질문하신 "${userPrompt}"에 대해 Quick Win 키워드 보강 및 FAQPage JSON-LD 스키마 적용을 최우선 액션으로 권장합니다.`,
+      ];
+      const answerContent = chunks.join('');
+
+      const [assistantMsgRow] = this.insertTable(
+        'agent_messages',
+        {
+          workspace_id: workspaceId,
+          conversation_id: conversationId,
+          role: 'assistant',
+          content: answerContent,
+          citations_json: [{ type: 'kpi', aviComposite: aviSummary.aviComposite ?? 47 }],
+        },
+        actorUserId
+      );
+
+      return {
+        ok: true,
+        function: fnName,
+        workspace_id: workspaceId,
+        conversation: convRow,
+        user_message: userMsgRow,
+        assistant_message: assistantMsgRow,
+        chunks,
+      };
+    }
+
+    if (
+      fnName === 'strategy-map-orchestrator' ||
+      fnName === 'strategy-map-cluster' ||
+      fnName === 'strategy-map-link-prompts'
+    ) {
+      const kws = (this.tables.get('keywords') || []).filter(
+        k => k.workspace_id === workspaceId && !k.deleted_at
+      );
+      const prList = (this.tables.get('geo_prompts') || []).filter(
+        p => p.workspace_id === workspaceId && !p.deleted_at
+      );
+
+      const [clusterRow] = this.insertTable(
+        'keyword_clusters',
+        {
+          workspace_id: workspaceId,
+          label: String(payload.cluster_label || 'AI 검색 전략 확장 클러스터'),
+          stats_json: {
+            keyword_count: kws.length,
+            prompt_count: prList.length,
+            avg_difficulty: 36,
+            geo: { neighbors: prList.map(p => p.id) },
+          },
+        },
+        actorUserId
+      );
+
+      const members: Row[] = [];
+      for (const kw of kws) {
+        const [mRow] = this.insertTable(
+          'keyword_cluster_members',
+          {
+            workspace_id: workspaceId,
+            cluster_id: clusterRow.id,
+            keyword_id: kw.id,
+            keywords: { id: kw.id, keyword: kw.keyword, search_volume: kw.search_volume },
+          },
+          actorUserId
+        );
+        members.push(mRow);
+      }
+
+      this.insertTable(
+        'cluster_stats_history',
+        {
+          workspace_id: workspaceId,
+          cluster_id: clusterRow.id,
+          captured_at: now,
+          keyword_count: kws.length,
+          prompt_count: prList.length,
+        },
+        actorUserId
+      );
+
+      this.updateTable(
+        'workspaces',
+        { strategy_map_status: 'ready', strategy_map_scanned_at: now },
+        { id: `eq.${workspaceId}` },
+        actorUserId
+      );
+
+      return {
+        ok: true,
+        function: fnName,
+        workspace_id: workspaceId,
+        cluster: clusterRow,
+        members,
+        linked_prompts: prList.length,
+      };
+    }
+
+    if (fnName === 'ai-expand-keywords') {
+      const seedKeyword = String(payload.seed_keyword || payload.keyword || 'AI 검색 마케팅').trim();
+      const rawCount = Number(payload.count ?? 2);
+      if (!Number.isInteger(rawCount) || rawCount <= 0) {
+        throw new Error(`Invalid expansion count "${payload.count}": must be a positive integer`);
+      }
+      const count = Math.min(10, rawCount);
+      const reservation = this.callRpc(
+        'reserve_unit_with_bypass',
+        {
+          p_workspace_id: workspaceId,
+          p_unit_key: 'keywords',
+          p_amount: count,
+          p_idempotency_key: String(payload.idempotency_key || `expand-${Date.now()}-${Math.random()}`),
+        },
+        actorUserId
+      ) as { reservation_id: string };
+
+      const suffixes = ['가이드', '비교 분석', '도입 사례', '체크리스트', 'ROI 측정'];
+      const expanded: Row[] = [];
+      for (let i = 0; i < count; i += 1) {
+        const kwText = `${seedKeyword} ${suffixes[i % suffixes.length]}`;
+        const serp = await this.providers.collectSerp(kwText, 'google');
+        const [kwRow] = this.insertTable(
+          'keywords',
+          {
+            workspace_id: workspaceId,
+            keyword_set_id: DEFAULT_KEYWORD_SET_ID,
+            keyword: kwText,
+            language: 'ko',
+            country: 'KR',
+            search_volume: serp.searchVolume,
+            search_volume_google_ads: serp.searchVolume,
+            keyword_difficulty: serp.keywordDifficulty,
+            intent: serp.intent,
+            origin_type: 'ai_expanded',
+            status: 'completed',
+            is_active: true,
+            is_paused: false,
+            deleted_at: null,
+          },
+          actorUserId
+        );
+        expanded.push(kwRow);
+      }
+
+      this.callRpc('commit_reservation', { p_reservation_id: reservation.reservation_id }, actorUserId);
+
+      return {
+        ok: true,
+        function: fnName,
+        workspace_id: workspaceId,
+        reservation_id: reservation.reservation_id,
+        expanded_keywords: expanded,
+      };
+    }
+
+    if (
+      fnName === 'optimize-audit-content' ||
+      fnName === 'optimize-serp-fetch' ||
+      fnName === 'optimize-strategy-synthesis' ||
+      fnName === 'optimize-rewrite-content'
+    ) {
+      const targetUrl = String(payload.url || payload.target_url || 'https://brizzi.kr/features/geo');
+      const targetKeyword = String(payload.target_keyword || 'GEO 마케팅 가이드');
+
+      let reviewRunId = typeof payload.review_run_id === 'string' ? payload.review_run_id : '';
+      let reviewRun: Row | undefined;
+      if (reviewRunId) {
+        const anyRun = (this.tables.get('content_review_runs') || []).find(r => r.id === reviewRunId);
+        if (anyRun && anyRun.workspace_id !== workspaceId) {
+          throw new RlsAccessDeniedError('Cannot access content review run belonging to another workspace');
+        }
+        reviewRun = anyRun;
+      }
+
+      if (!reviewRun) {
+        const reservation = this.callRpc(
+          'reserve_unit_with_bypass',
+          {
+            p_workspace_id: workspaceId,
+            p_unit_key: 'contents',
+            p_amount: 1,
+            p_idempotency_key: String(payload.idempotency_key || `opt-${Date.now()}-${Math.random()}`),
+          },
+          actorUserId
+        ) as { reservation_id: string };
+
+        [reviewRun] = this.insertTable(
+          'content_review_runs',
+          {
+            workspace_id: workspaceId,
+            url: targetUrl,
+            target_keyword: targetKeyword,
+            status: 'completed',
+            seo_score: 86,
+            geo_score: 89,
+            citability_score: 91,
+            summary_json: { step: fnName, recommendation_count: 3 },
+          },
+          actorUserId
+        );
+        reviewRunId = String(reviewRun.id);
+        this.callRpc('commit_reservation', { p_reservation_id: reservation.reservation_id }, actorUserId);
+      }
+
+      const changeItems = this.insertTable(
+        'content_change_items',
+        [
+          {
+            workspace_id: workspaceId,
+            review_run_id: reviewRunId,
+            section_title: '핵심 요약 (TL;DR) 블록',
+            change_type: 'citability',
+            before_text: '일반 서술형 도입부 문단',
+            after_text: `**${targetKeyword} 핵심 요약**: 정량 지표와 구조화된 비교표를 상단에 배치해 AI 인용 확률을 높입니다.`,
+            rationale: 'LLM 답변 엔진의 첫 문단 직접 인용률 향상',
+            status: fnName === 'optimize-rewrite-content' ? 'applied' : 'proposed',
+          },
+          {
+            workspace_id: workspaceId,
+            review_run_id: reviewRunId,
+            section_title: 'FAQPage JSON-LD 스키마',
+            change_type: 'schema_jsonld',
+            before_text: '스키마 없음',
+            after_text: '{"@context":"https://schema.org","@type":"FAQPage"}',
+            rationale: 'AI 검색엔진 및 Google AI Overview 구조화 데이터 수집 지원',
+            status: fnName === 'optimize-rewrite-content' ? 'applied' : 'proposed',
+          },
+        ],
+        actorUserId
+      );
+
+      return {
+        ok: true,
+        function: fnName,
+        workspace_id: workspaceId,
+        review_run: reviewRun,
+        change_items: changeItems,
+      };
+    }
+
+    if (fnName === 'translate-content-v2') {
+      const supportedLocales = new Set(['ko', 'en', 'ja', 'zh', 'es']);
+      const rawLocales = Array.isArray(payload.target_locales)
+        ? payload.target_locales.map(String)
+        : typeof payload.target_locale === 'string'
+          ? [payload.target_locale]
+          : ['en', 'ja'];
+
+      if (rawLocales.length === 0 || rawLocales.some(loc => !supportedLocales.has(loc))) {
+        throw new Error(`Unsupported or empty target_locales: ${JSON.stringify(rawLocales)}`);
+      }
+
+      const baseTitle = String(payload.title || 'AI 검색 최적화(GEO) 실전 가이드');
+      const baseSlug = String(payload.slug || 'geo-practical-guide');
+      const category = String(payload.category || 'GEO');
+
+      const [articleRow] = this.insertTable(
+        'articles',
+        {
+          workspace_id: workspaceId,
+          slug: baseSlug,
+          category,
+          source_locale: 'ko',
+          status: 'published',
+          published_at: now,
+        },
+        actorUserId
+      );
+
+      const localePrefix: Record<string, string> = {
+        en: '[EN] Practical Guide to AI Search (GEO): ',
+        ja: '[JA] AI検索最適化(GEO)実践ガイド: ',
+        ko: '[KO] ',
+        zh: '[ZH] AI搜索优化指南: ',
+        es: '[ES] Guía práctica de GEO: ',
+      };
+
+      const translations = this.insertTable(
+        'article_translations',
+        rawLocales.map(loc => ({
+          workspace_id: workspaceId,
+          article_id: articleRow.id,
+          locale: loc,
+          title: `${localePrefix[loc] || `[${loc.toUpperCase()}] `}${baseTitle}`,
+          excerpt: `${baseTitle} (${loc.toUpperCase()})`,
+          content_md: `# ${localePrefix[loc] || ''}${baseTitle}\n\nTranslated deterministically for locale \`${loc}\`.`,
+          status: 'published',
+        })),
+        actorUserId
+      );
+
+      return {
+        ok: true,
+        function: fnName,
+        workspace_id: workspaceId,
+        article: articleRow,
+        translations,
+      };
+    }
+
+    if (fnName === 'gsc-sync-enqueue' || fnName === 'sync-ga4-data') {
+      const dateStr = String(payload.date || '2026-10-23');
+      const clicks = Number(payload.clicks ?? 156);
+      const impressions = Number(payload.impressions ?? 4100);
+      const organicSessions = Number(payload.organic_sessions ?? 400);
+      const aiSessions = Number(payload.ai_sessions ?? 68);
+
+      this.insertTable(
+        'workspace_google_connections',
+        {
+          workspace_id: workspaceId,
+          provider: 'google',
+          gsc_site_url: 'sc-domain:brizzi.kr',
+          ga4_property_id: 'properties/99887766',
+          status: 'connected',
+        },
+        actorUserId
+      );
+
+      const [gscRow] = this.insertTable(
+        'gsc_daily_totals',
+        {
+          workspace_id: workspaceId,
+          date: dateStr,
+          clicks,
+          impressions,
+          ctr: impressions > 0 ? Math.round((clicks / impressions) * 10000) / 100 : 0,
+          avg_position: 9.8,
+        },
+        actorUserId
+      );
+
+      const [ga4Row] = this.insertTable(
+        'ga4_page_stats',
+        {
+          workspace_id: workspaceId,
+          date: dateStr,
+          page_path: String(payload.page_path || '/features/geo'),
+          organic_sessions: organicSessions,
+          ai_sessions: aiSessions,
+          conversions: 19,
+        },
+        actorUserId
+      );
+
+      return {
+        ok: true,
+        function: fnName,
+        workspace_id: workspaceId,
+        gsc_daily: gscRow,
+        ga4_daily: ga4Row,
+        kpis: {
+          ai_traffic_share: aiTrafficShare(aiSessions, organicSessions),
+          search_contribution: searchContribution(clicks, organicSessions),
+        },
+      };
+    }
+
+    if (
+      fnName === 'nicepay-create-auth-order' ||
+      fnName === 'nicepay-inquire' ||
+      fnName === 'nicepay-cancel-pending-change'
+    ) {
+      const planKey = String(payload.plan_key || 'pro');
+      const knownPlan = (this.tables.get('plan_templates') || []).find(p => p.plan_key === planKey);
+      if (!knownPlan) {
+        throw new Error(`Unknown plan_key: "${planKey}"`);
+      }
+      const billingCycle = payload.billing_cycle === 'annual' ? 'annual' : 'monthly';
+      const amountKrw = Number(payload.amount_krw ?? (planKey === 'pro' ? 600000 : 0));
+      if (!Number.isFinite(amountKrw) || amountKrw < 0) {
+        throw new Error('Invalid order amount_krw');
+      }
+
+      if (fnName === 'nicepay-create-auth-order') {
+        const orderNo = String(payload.order_no || `HX-ORD-${Date.now()}`);
+        const [orderRow] = this.insertTable(
+          'orders',
+          {
+            workspace_id: workspaceId,
+            order_no: orderNo,
+            plan_key: planKey,
+            billing_cycle: billingCycle,
+            amount_krw: amountKrw,
+            status: 'authorized',
+            pg_provider: 'nicepay',
+            pg_tid: `NP_${orderNo}`,
+          },
+          actorUserId
+        );
+        return {
+          ok: true,
+          function: fnName,
+          workspace_id: workspaceId,
+          order: orderRow,
+        };
+      }
+
+      if (fnName === 'nicepay-inquire') {
+        const [subRow] = this.insertTable(
+          'subscriptions',
+          {
+            workspace_id: workspaceId,
+            plan_key: planKey,
+            billing_cycle: billingCycle,
+            status: 'active',
+            pending_plan_key: null,
+            current_period_start: now,
+            current_period_end: '2026-11-23T00:00:00.000Z',
+          },
+          actorUserId
+        );
+
+        this.updateTable(
+          'workspace_plans',
+          {
+            plan: planKey,
+            billing_cycle: billingCycle,
+            keyword_limit: planKey === 'pro' ? 100 : 20,
+            prompt_limit: planKey === 'pro' ? 100 : 20,
+            content_limit: planKey === 'pro' ? 30 : 5,
+          },
+          { workspace_id: `eq.${workspaceId}` },
+          actorUserId
+        );
+
+        return {
+          ok: true,
+          function: fnName,
+          workspace_id: workspaceId,
+          subscription: subRow,
+        };
+      }
+
+      // nicepay-cancel-pending-change
+      const updatedSubs = this.updateTable(
+        'subscriptions',
+        { pending_plan_key: null, status: 'active' },
+        { workspace_id: `eq.${workspaceId}` },
+        actorUserId
+      );
+      return {
+        ok: true,
+        function: fnName,
+        workspace_id: workspaceId,
+        cancelled: true,
+        subscriptions: updatedSubs,
       };
     }
 

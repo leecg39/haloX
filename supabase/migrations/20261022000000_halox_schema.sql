@@ -541,3 +541,152 @@ as $$
   where id = p_reservation_id
   returning true;
 $$;
+
+-- 9. Phase 7 Secondary Scope Tables (Optimize, Agent SSE, Publishing, GSC/GA4, NicePay Billing)
+create table if not exists public.content_review_runs (
+  id uuid primary key default gen_random_uuid(),
+  workspace_id uuid not null references public.workspaces(id) on delete cascade,
+  url text not null,
+  target_keyword text,
+  status text not null default 'completed',
+  seo_score integer default 80,
+  geo_score integer default 80,
+  citability_score integer default 85,
+  summary_json jsonb default '{}'::jsonb,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.content_change_items (
+  id uuid primary key default gen_random_uuid(),
+  workspace_id uuid not null references public.workspaces(id) on delete cascade,
+  review_run_id uuid not null references public.content_review_runs(id) on delete cascade,
+  section_title text not null,
+  change_type text not null default 'citability',
+  before_text text,
+  after_text text,
+  rationale text,
+  status text not null default 'proposed',
+  created_at timestamptz not null default now()
+);
+
+create table if not exists public.evidence_claims (
+  id uuid primary key default gen_random_uuid(),
+  workspace_id uuid not null references public.workspaces(id) on delete cascade,
+  entity_id uuid not null references public.knowledge_entities(id) on delete cascade,
+  claim_text text not null,
+  verification_status text not null default 'verified',
+  source_url text,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists public.agent_conversations (
+  id uuid primary key default gen_random_uuid(),
+  workspace_id uuid not null references public.workspaces(id) on delete cascade,
+  user_id uuid not null,
+  title text not null default 'AI 전략 에이전트 대화',
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.agent_messages (
+  id uuid primary key default gen_random_uuid(),
+  workspace_id uuid not null references public.workspaces(id) on delete cascade,
+  conversation_id uuid not null references public.agent_conversations(id) on delete cascade,
+  role text not null check (role in ('user', 'assistant', 'system')),
+  content text not null,
+  citations_json jsonb default '[]'::jsonb,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists public.articles (
+  id uuid primary key default gen_random_uuid(),
+  workspace_id uuid not null references public.workspaces(id) on delete cascade,
+  slug text not null,
+  category text not null default 'GEO',
+  source_locale text not null default 'ko',
+  status text not null default 'published',
+  published_at timestamptz default now(),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.article_translations (
+  id uuid primary key default gen_random_uuid(),
+  workspace_id uuid not null references public.workspaces(id) on delete cascade,
+  article_id uuid not null references public.articles(id) on delete cascade,
+  locale text not null,
+  title text not null,
+  excerpt text,
+  content_md text not null,
+  status text not null default 'published',
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.orders (
+  id uuid primary key default gen_random_uuid(),
+  workspace_id uuid not null references public.workspaces(id) on delete cascade,
+  order_no text not null unique,
+  plan_key text not null,
+  billing_cycle text not null default 'monthly',
+  amount_krw integer not null default 0,
+  status text not null default 'authorized',
+  pg_provider text not null default 'nicepay',
+  pg_tid text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.subscriptions (
+  id uuid primary key default gen_random_uuid(),
+  workspace_id uuid not null references public.workspaces(id) on delete cascade,
+  plan_key text not null,
+  billing_cycle text not null default 'monthly',
+  status text not null default 'active',
+  pending_plan_key text,
+  current_period_start timestamptz not null default now(),
+  current_period_end timestamptz not null default (now() + interval '30 days'),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.gsc_daily_totals (
+  id uuid primary key default gen_random_uuid(),
+  workspace_id uuid not null references public.workspaces(id) on delete cascade,
+  date date not null,
+  clicks integer not null default 0,
+  impressions integer not null default 0,
+  ctr numeric(6,2) not null default 0,
+  avg_position numeric(6,2) not null default 0,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists public.ga4_page_stats (
+  id uuid primary key default gen_random_uuid(),
+  workspace_id uuid not null references public.workspaces(id) on delete cascade,
+  date date not null,
+  page_path text not null,
+  organic_sessions integer not null default 0,
+  ai_sessions integer not null default 0,
+  conversions integer not null default 0,
+  created_at timestamptz not null default now()
+);
+
+do $$
+declare
+  tbl text;
+begin
+  foreach tbl in array array[
+    'content_review_runs', 'content_change_items', 'evidence_claims',
+    'agent_conversations', 'agent_messages', 'articles', 'article_translations',
+    'orders', 'subscriptions', 'gsc_daily_totals', 'ga4_page_stats'
+  ] loop
+    execute format('alter table public.%I enable row level security;', tbl);
+    execute format(
+      'create policy workspace_isolation_%I on public.%I for all using (public.user_is_workspace_member(workspace_id)) with check (public.user_is_workspace_member(workspace_id));',
+      tbl, tbl
+    );
+  end loop;
+end $$;
+

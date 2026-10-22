@@ -42,8 +42,9 @@ supabase/
 | S6 | 콘텐츠 제작·내보내기·리포트 | Playwright J4·J5 통과 | jobs.async-pipelines(목업 기준) |
 | S7 | 설정 12탭 중 워크스페이스·멤버·사용량·API 키 | Playwright J6 일부 | — |
 | S8 | 원장 갱신: manifest bindings 채워 REA 원장 재생성 | `rea build-reconstruction-obligation-ledger` → required_open 감소 확인 | 전체 |
+| S9 (2차 확장) | 에이전트 채팅 SSE(`agent-chat`), 전략맵 클러스터링·키워드 확장(`strategy-map-*`, `ai-expand-keywords`), 콘텐츠 최적화 4단계(`optimize-*`), 다국어 번역 발행(`translate-content-v2`), GSC/GA4 동기화·KPI(`aiTrafficShare`, `searchContribution`, `isQuickWinKeyword`), NicePay 결제(`nicepay-*`), `halox-mcp` 공개 API 도구 | `npm run verify:backend` — 양/음성 케이스 및 교차 테넌트 RLS·API 키 폐기 검증 통과 | api.edge-functions, jobs.async-pipelines, metrics.avi-server |
 
-범위 밖(1차): 결제(NicePay), GSC/GA4 실연동, 다국어 번역 발행, 관리자(`/admin/*`), 마케팅 사이트, 에이전트 채팅 SSE(후순위).
+1차 범위 밖이었던 결제(NicePay), GSC/GA4 동기화 및 KPI, 다국어 번역 발행(`translate-content-v2`), 에이전트 채팅 SSE(`agent-chat`), `halox-mcp`까지 S9(2차 확장)에서 결정적 로컬 백엔드 파이프라인으로 모두 구현·검증 완료했다.
 
 ## 4. 리스크
 

@@ -1,5 +1,5 @@
 {
-  "evidence_id": "ev_a9b13c0aa0e7e8eb9b8088c692c3b41ce8b6185e689e398a8d3f26ab066f2b61",
+  "evidence_id": "ev_8bfd79e42012f3e60c4ac870a7bae52b3caa5557f49a8d9c982ceb0722dc196d",
   "subject": null,
   "provider": {
     "id": "rea-javascript-application-workflows",
@@ -9,14 +9,14 @@
   "predicate_type": "rea.reconstruction-obligation-ledger",
   "operation": "build_reconstruction_obligation_ledger",
   "parameters": {
-    "ledger_id": "rol_871a32f1e5af2779ae478a3f7e1f56b8ce7cbbd17fabfbbcb6fb70a06f55332b",
-    "closure_digest": "f6d842542a2407e740b0c82741a38a9e9bb51d0ee25b893882ea85f82a7bc972"
+    "ledger_id": "rol_4a264f525b1246a94aa2c7c6be40cf9adfb5b61e6971fc873329a6405027da38",
+    "closure_digest": "6f12a58f82e3b92d4145fe4c1932293560d6dc6a78ac13f1ca5ed0ee25ca58b1"
   },
   "raw_result": null,
   "normalized_result": {
     "schema": "ReconstructionObligationLedger",
-    "ledger_id": "rol_871a32f1e5af2779ae478a3f7e1f56b8ce7cbbd17fabfbbcb6fb70a06f55332b",
-    "closure_digest": "f6d842542a2407e740b0c82741a38a9e9bb51d0ee25b893882ea85f82a7bc972",
+    "ledger_id": "rol_4a264f525b1246a94aa2c7c6be40cf9adfb5b61e6971fc873329a6405027da38",
+    "closure_digest": "6f12a58f82e3b92d4145fe4c1932293560d6dc6a78ac13f1ca5ed0ee25ca58b1",
     "status": "ready",
     "coverage": {
       "status": "complete"
@@ -244,7 +244,7 @@
           "owner": {
             "module_path": "src/lib/backend/database.ts",
             "symbol": "HaloXDatabase.invokeEdgeFunction",
-            "owner_sha256": "57289f959459334dd018c5f7734954d371e34ad21b848a510b02869a3f6b8129"
+            "owner_sha256": "d41d7343f13b4b1a2681fa9483b974f3e9497de25f59d2d31678700644a2a402"
           },
           "parser_type": {
             "parser": "invokeEdgeEndpoint",
@@ -374,7 +374,7 @@
           "owner": {
             "module_path": "src/lib/backend/database.ts",
             "symbol": "HaloXDatabase.queryTable",
-            "owner_sha256": "57289f959459334dd018c5f7734954d371e34ad21b848a510b02869a3f6b8129"
+            "owner_sha256": "d41d7343f13b4b1a2681fa9483b974f3e9497de25f59d2d31678700644a2a402"
           },
           "parser_type": {
             "parser": "parseKeywordRow",
@@ -504,7 +504,7 @@
           "owner": {
             "module_path": "src/lib/backend/database.ts",
             "symbol": "HaloXDatabase.callRpc",
-            "owner_sha256": "57289f959459334dd018c5f7734954d371e34ad21b848a510b02869a3f6b8129"
+            "owner_sha256": "d41d7343f13b4b1a2681fa9483b974f3e9497de25f59d2d31678700644a2a402"
           },
           "parser_type": {
             "parser": "validateRpcResponse",
@@ -759,7 +759,7 @@
           "owner": {
             "module_path": "src/lib/metrics/index.ts",
             "symbol": "aviComposite",
-            "owner_sha256": "908ab648ec1509f8d4b5d7bded433155d71930f693b8c6a4fe3e61f6f5a239c6"
+            "owner_sha256": "15e21dd46877da46be954bd16118bbd70422d3ccd1971330006c409bbaae9c83"
           },
           "parser_type": null,
           "original_cases": [
@@ -887,7 +887,7 @@
           "owner": {
             "module_path": "src/lib/metrics/index.ts",
             "symbol": "serverAviFiveFactor",
-            "owner_sha256": "908ab648ec1509f8d4b5d7bded433155d71930f693b8c6a4fe3e61f6f5a239c6"
+            "owner_sha256": "15e21dd46877da46be954bd16118bbd70422d3ccd1971330006c409bbaae9c83"
           },
           "parser_type": null,
           "original_cases": [
@@ -1016,7 +1016,7 @@
           "owner": {
             "module_path": "src/lib/metrics/index.ts",
             "symbol": "geoScore",
-            "owner_sha256": "908ab648ec1509f8d4b5d7bded433155d71930f693b8c6a4fe3e61f6f5a239c6"
+            "owner_sha256": "15e21dd46877da46be954bd16118bbd70422d3ccd1971330006c409bbaae9c83"
           },
           "parser_type": null,
           "original_cases": [
@@ -1136,7 +1136,7 @@
           "owner": {
             "module_path": "src/lib/metrics/index.ts",
             "symbol": "seoScore",
-            "owner_sha256": "908ab648ec1509f8d4b5d7bded433155d71930f693b8c6a4fe3e61f6f5a239c6"
+            "owner_sha256": "15e21dd46877da46be954bd16118bbd70422d3ccd1971330006c409bbaae9c83"
           },
           "parser_type": null,
           "original_cases": [
@@ -1262,7 +1262,7 @@
           "owner": {
             "module_path": "supabase/migrations/20261022000000_halox_schema.sql",
             "symbol": "public.workspaces",
-            "owner_sha256": "47f7265374df304752940299bcecb443b73b30f19136b3ed9a98fae061bf8a35"
+            "owner_sha256": "12328a4fe103fd8c05e17f7b930fa371a0fef63ea0f4f6c24d1885c338a7a789"
           },
           "parser_type": {
             "parser": "parseKeywordRow",

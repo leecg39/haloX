@@ -4,12 +4,16 @@ import assert from 'node:assert/strict';
 import { fileURLToPath } from 'node:url';
 
 import {
+  aiTrafficShare,
   aviComposite,
   deriveLightGeoInput,
+  documentedSeoScoreFourFactor,
   geoScore,
+  isQuickWinKeyword,
   POSITION_SCORE_TABLE,
   positionScore,
   scoreLevel,
+  searchContribution,
   seoScore,
   serverAviFiveFactor,
 } from '../src/lib/metrics/index.ts';
@@ -187,8 +191,33 @@ async function runVerification() {
     }),
     0
   );
-  recordCheck('halox.metrics.avi-server', 'positive', '5-factor documented server AVI formula');
-  recordCheck('halox.metrics.avi-server', 'negative', 'Out-of-range negative input clamping');
+
+  // Documented 4-factor SEO score & GA4/GSC KPIs (F2-3, F2-4)
+  assert.equal(
+    documentedSeoScoreFourFactor({
+      positionScoreValue: 80,
+      brandSov: 60,
+      aioCoverage: 50,
+      trendScore: 40,
+    }),
+    64
+  );
+  assert.equal(aiTrafficShare(48, 320), 15);
+  assert.equal(aiTrafficShare(0, 320), 0);
+  assert.equal(aiTrafficShare(50, 0), 0);
+  assert.equal(aiTrafficShare(-10, 100), 0);
+  assert.equal(searchContribution(128, 320), 40);
+  assert.equal(searchContribution(100, 0), 0);
+  assert.equal(isQuickWinKeyword({ avgPosition: 8.5, impressions: 980, ctrPercent: 4.28 }), true);
+  assert.equal(isQuickWinKeyword({ avgPosition: 5, impressions: 100, ctrPercent: 4.99 }), true);
+  assert.equal(isQuickWinKeyword({ avgPosition: 4.9, impressions: 500, ctrPercent: 2.0 }), false);
+  assert.equal(isQuickWinKeyword({ avgPosition: 15.1, impressions: 500, ctrPercent: 2.0 }), false);
+  assert.equal(isQuickWinKeyword({ avgPosition: 8.0, impressions: 99, ctrPercent: 2.0 }), false);
+  assert.equal(isQuickWinKeyword({ avgPosition: 8.0, impressions: 500, ctrPercent: 5.0 }), false);
+  assert.equal(isQuickWinKeyword({ avgPosition: null, impressions: 500, ctrPercent: 2.0 }), false);
+
+  recordCheck('halox.metrics.avi-server', 'positive', '5-factor documented server AVI and GA4/GSC KPI formulas (AI Traffic Share, Search Contribution, Quick Win)');
+  recordCheck('halox.metrics.avi-server', 'negative', 'Out-of-range negative/zero denominator clamping and Quick Win boundary exclusion');
 
   // =========================================================================
   // S2: Persistence Schema & RLS Tenant Isolation
@@ -573,6 +602,214 @@ async function runVerification() {
   const revoked = db.callRpc('revoke_workspace_api_key', { p_key_id: apiKey.id }, DEFAULT_USER_ID);
   assert.equal(revoked, true);
   assert.equal(db.verifyWorkspaceApiKey('hx_live_1234567890abcdef'), null, 'Revoked API key must not verify');
+
+  // 8. Phase 7 Secondary Full-Stack Pipelines (Agent SSE, Strategy Map, Optimize, Translation, GSC/GA4, NicePay, MCP)
+  // 8a. Agent Chat + cross-workspace conversation isolation
+  const agentRes = await db.invokeEdgeFunction(
+    'agent-chat',
+    {
+      workspace_id: DEFAULT_WORKSPACE_ID,
+      message: '이번 주 GEO 인용률을 높이려면 어떤 액션을 해야 하나요?',
+    },
+    DEFAULT_USER_ID
+  );
+  assert.equal(agentRes.ok, true);
+  assert(agentRes.conversation && agentRes.assistant_message && Array.isArray(agentRes.chunks));
+  assert.equal(agentRes.chunks.length, 3);
+  await assert.rejects(
+    () => db.invokeEdgeFunction('agent-chat', { workspace_id: DEFAULT_WORKSPACE_ID, message: '   ' }, DEFAULT_USER_ID),
+    /must not be empty/
+  );
+  await assert.rejects(
+    () =>
+      db.invokeEdgeFunction(
+        'agent-chat',
+        {
+          workspace_id: ISOLATED_WORKSPACE_ID,
+          conversation_id: agentRes.conversation.id,
+          message: '교차 테넌트 대화 침투 시도',
+        },
+        OTHER_USER_ID
+      ),
+    err => err instanceof RlsAccessDeniedError
+  );
+
+  // 8b. Strategy Map Orchestrator & AI Keyword Expansion
+  const smRes = await db.invokeEdgeFunction(
+    'strategy-map-orchestrator',
+    {
+      workspace_id: DEFAULT_WORKSPACE_ID,
+      cluster_label: '엔터프라이즈 GEO 전략 클러스터',
+    },
+    DEFAULT_USER_ID
+  );
+  assert.equal(smRes.ok, true);
+  assert(smRes.cluster && Array.isArray(smRes.members));
+
+  const expandRes = await db.invokeEdgeFunction(
+    'ai-expand-keywords',
+    {
+      workspace_id: DEFAULT_WORKSPACE_ID,
+      seed_keyword: 'AI 브랜드 모니터링',
+      count: 2,
+    },
+    DEFAULT_USER_ID
+  );
+  assert.equal(expandRes.ok, true);
+  assert.equal(expandRes.expanded_keywords.length, 2);
+  await assert.rejects(
+    () =>
+      db.invokeEdgeFunction(
+        'ai-expand-keywords',
+        { workspace_id: DEFAULT_WORKSPACE_ID, seed_keyword: '오류 테스트', count: 0 },
+        DEFAULT_USER_ID
+      ),
+    /positive integer/
+  );
+
+  // 8c. Optimize 4-step Content Review Pipeline
+  const optRes = await db.invokeEdgeFunction(
+    'optimize-audit-content',
+    {
+      workspace_id: DEFAULT_WORKSPACE_ID,
+      url: 'https://brizzi.kr/features/geo',
+      target_keyword: 'GEO 마케팅 가이드',
+    },
+    DEFAULT_USER_ID
+  );
+  assert.equal(optRes.ok, true);
+  assert(optRes.review_run && optRes.change_items.length === 2);
+  await assert.rejects(
+    () =>
+      db.invokeEdgeFunction(
+        'optimize-rewrite-content',
+        {
+          workspace_id: ISOLATED_WORKSPACE_ID,
+          review_run_id: optRes.review_run.id,
+        },
+        OTHER_USER_ID
+      ),
+    err => err instanceof RlsAccessDeniedError
+  );
+
+  // 8d. Multi-language Article Translation & Publishing (translate-content-v2)
+  const transRes = await db.invokeEdgeFunction(
+    'translate-content-v2',
+    {
+      workspace_id: DEFAULT_WORKSPACE_ID,
+      title: 'AI 검색 가시성 완벽 가이드',
+      slug: 'ai-visibility-guide',
+      target_locales: ['en', 'ja'],
+    },
+    DEFAULT_USER_ID
+  );
+  assert.equal(transRes.ok, true);
+  assert.equal(transRes.translations.length, 2);
+  await assert.rejects(
+    () =>
+      db.invokeEdgeFunction(
+        'translate-content-v2',
+        { workspace_id: DEFAULT_WORKSPACE_ID, target_locales: ['invalid_locale'] },
+        DEFAULT_USER_ID
+      ),
+    /Unsupported or empty target_locales/
+  );
+
+  // 8e. GSC & GA4 Sync Pipeline
+  const syncRes = await db.invokeEdgeFunction(
+    'sync-ga4-data',
+    {
+      workspace_id: DEFAULT_WORKSPACE_ID,
+      date: '2026-10-23',
+      clicks: 160,
+      impressions: 4000,
+      organic_sessions: 400,
+      ai_sessions: 80,
+    },
+    DEFAULT_USER_ID
+  );
+  assert.equal(syncRes.ok, true);
+  assert.equal(syncRes.kpis.ai_traffic_share, 20);
+  assert.equal(syncRes.kpis.search_contribution, 40);
+
+  // 8f. NicePay Billing & Subscription Upgrade
+  const orderRes = await db.invokeEdgeFunction(
+    'nicepay-create-auth-order',
+    {
+      workspace_id: DEFAULT_WORKSPACE_ID,
+      plan_key: 'pro',
+      billing_cycle: 'monthly',
+      amount_krw: 600000,
+    },
+    DEFAULT_USER_ID
+  );
+  assert.equal(orderRes.ok, true);
+  const inquireRes = await db.invokeEdgeFunction(
+    'nicepay-inquire',
+    {
+      workspace_id: DEFAULT_WORKSPACE_ID,
+      plan_key: 'pro',
+      billing_cycle: 'monthly',
+    },
+    DEFAULT_USER_ID
+  );
+  assert.equal(inquireRes.ok, true);
+  const updatedQuota = db.callRpc(
+    'get_workspace_quota_summary',
+    { _workspace_id: DEFAULT_WORKSPACE_ID },
+    DEFAULT_USER_ID
+  );
+  assert.equal(updatedQuota[0].plan_limit, 100, 'Pro plan upgrade must raise keyword limit to 100');
+  await assert.rejects(
+    () =>
+      db.invokeEdgeFunction(
+        'nicepay-create-auth-order',
+        { workspace_id: DEFAULT_WORKSPACE_ID, plan_key: 'non_existent_plan' },
+        DEFAULT_USER_ID
+      ),
+    /Unknown plan_key/
+  );
+
+  // 8g. HaloX MCP Server Endpoint (API key authentication & revocation enforcement)
+  const [mcpKey] = db.insertTable(
+    'workspace_api_keys',
+    {
+      workspace_id: DEFAULT_WORKSPACE_ID,
+      name: 'MCP 연동 키',
+      key_prefix: 'hx_mcp_live_',
+      raw_key: 'hx_mcp_live_secret_token_999',
+    },
+    DEFAULT_USER_ID
+  );
+  const mcpTools = await db.invokeEdgeFunction(
+    'halox-mcp',
+    { api_key: 'hx_mcp_live_secret_token_999', method: 'tools/list', id: 1 },
+    DEFAULT_USER_ID
+  );
+  assert.equal(mcpTools.result.tools.length, 3);
+  const mcpCall = await db.invokeEdgeFunction(
+    'halox-mcp',
+    {
+      api_key: 'hx_mcp_live_secret_token_999',
+      method: 'tools/call',
+      params: { name: 'get_avi_overview' },
+      id: 2,
+    },
+    DEFAULT_USER_ID
+  );
+  assert(mcpCall.result && mcpCall.result.data && mcpCall.result.data.averageScore === 60);
+
+  // Revoke MCP key and verify immediate rejection
+  db.callRpc('revoke_workspace_api_key', { p_key_id: mcpKey.id }, DEFAULT_USER_ID);
+  await assert.rejects(
+    () =>
+      db.invokeEdgeFunction(
+        'halox-mcp',
+        { api_key: 'hx_mcp_live_secret_token_999', method: 'tools/list' },
+        DEFAULT_USER_ID
+      ),
+    err => err instanceof RlsAccessDeniedError
+  );
 
   // Negative: Unknown edge function
   await assert.rejects(

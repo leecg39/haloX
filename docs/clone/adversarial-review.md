@@ -65,4 +65,21 @@
 | Important | 자동완성 항목 및 블로그 카운트 라벨 갱신 시 `innerHTML` 사용 위험 | 검색어나 용어 제목에 특수문자가 포함될 경우 DOM 주입(XSS) 위험 | 모든 동적 노드를 `document.createElement`·`textContent`·`replaceChildren`으로만 생성 | 정적 코드 검사 및 `npm run verify:public` 통과 |
 | Minor | 블로그 토픽 버튼 클릭이 버블링되면 `ClonePage` 기본 핸들러가 데모 대화상자를 열 수 있음 | 토픽 필터 클릭 시 불필요한 모달 표시 | 캡처 단계(`addEventListener('click', onClick, true)`)에서 `preventDefault()`·`stopPropagation()` 호출 | `/ko/blog`·`/en/blog` 13개 공개 검증 통과 |
 
+---
+
+## 4차 적대적 검토 (Phase 7 2차 전체 스택 확장 — Agent SSE, Strategy Map, Optimize, 다국어 번역, GSC/GA4 KPI, NicePay, MCP)
+
+검토일: 2026-10-23. 범위: `src/lib/metrics/index.ts`, `src/lib/backend/database.ts`, `src/app/api/v1/functions/[name]/route.ts`, `supabase/migrations/20261022000000_halox_schema.sql`, `scripts/verify-backend.mjs`.
+
+### 발견 사항과 조치
+
+| 심각도 | 발견 사항 | 영향 | 조치 | 재검증 |
+|---|---|---|---|---|
+| Important | `agent-chat` 및 `optimize-*` 호출 시 타 워크스페이스의 `conversation_id` 또는 `review_run_id` 전달 가능성 | 교차 테넌트 대화·리뷰 세션 참조 또는 덮어쓰기 위험 | 요청된 `conversation_id`·`review_run_id`가 존재하나 `workspace_id`가 불일치하면 즉시 `RlsAccessDeniedError`(403) 발생 | 교차 테넌트 ID 전달 시 403 거부 단언 통과 |
+| Important | `halox-mcp` 엔드포인트의 API 키 인증 및 폐기(`revoked_at`) 즉시 반영 필요 | 폐기된 API 키로 MCP `tools/list`·`tools/call` 호출 시 데이터 유출 위험 | `verifyWorkspaceApiKey`를 통해 SHA-256 해시·접두사 및 `revoked_at === null`을 강제 검사하고, 실패 시 403 반환 | 키 발급 → MCP 호출 성공 → `revoke_workspace_api_key` 후 즉시 403 거부 검증 통과 |
+| Important | `ai-expand-keywords`에서 `count`가 `0`·음수·`NaN`일 때 잘못된 쿼터 예약 시도 | `Math.max(1, NaN)`이 `NaN`이 되어 쿼터 계산 오염 가능 | `Number.isInteger(rawCount) && rawCount > 0` 검증 추가 | `count: 0` 호출 시 즉시 에러 거부 확인 |
+| Minor | `nicepay-create-auth-order`·`nicepay-inquire`에서 미등록 `plan_key` 또는 음수 결제 금액 허용 가능성 | 존재하지 않는 플랜 키로 구독 상태 오염 | `plan_templates` 존재 여부 및 `amount_krw >= 0` 검증 추가 | 미존재 `plan_key` 거부 및 `pro` 업그레이드 시 쿼터(100) 즉시 반영 확인 |
+| Minor | `aiTrafficShare`·`searchContribution`에서 분모(`organicSessions`)가 0이거나 음수일 때 `NaN`/`Infinity` 발생 가능성 | GA4 미연동 초기 상태에서 수치 오류 | `organicSessions <= 0` 또는 비유한수 입력 시 `0` 반환 및 `[0, 100]` 클램핑 | 0·음수 분모 경계값 테스트 통과 |
+
+
 

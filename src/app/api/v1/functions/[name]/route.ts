@@ -6,6 +6,27 @@ import {
   RlsAccessDeniedError,
 } from '@/lib/backend/database';
 
+export function formatAgentChatSseStream(result: Record<string, unknown>): string {
+  const chunks = Array.isArray(result.chunks) ? result.chunks.map(String) : [];
+  const lines: string[] = [];
+  lines.push(
+    `event: meta\ndata: ${JSON.stringify({
+      conversation: result.conversation,
+      user_message: result.user_message,
+    })}\n\n`
+  );
+  for (const delta of chunks) {
+    lines.push(`event: delta\ndata: ${JSON.stringify({ delta })}\n\n`);
+  }
+  lines.push(
+    `event: message\ndata: ${JSON.stringify({
+      assistant_message: result.assistant_message,
+    })}\n\n`
+  );
+  lines.push('event: done\ndata: [DONE]\n\n');
+  return lines.join('');
+}
+
 export async function POST(
   req: NextRequest,
   context: { params: Promise<{ name: string }> }
@@ -19,7 +40,42 @@ export async function POST(
     if (text.trim()) {
       payload = JSON.parse(text) as Record<string, unknown>;
     }
+
+    if (name === 'halox-mcp' && !payload.api_key) {
+      const headerKey =
+        req.headers.get('x-api-key') ||
+        req.headers.get('authorization')?.replace(/^Bearer\s+/i, '') ||
+        '';
+      if (headerKey) {
+        payload.api_key = headerKey;
+      }
+    }
+
     const result = await haloxDb.invokeEdgeFunction(name, payload, userId);
+
+    const wantsSse =
+      name === 'agent-chat' &&
+      (req.headers.get('accept')?.includes('text/event-stream') || payload.stream === true);
+
+    if (wantsSse) {
+      const ssePayload = formatAgentChatSseStream(result);
+      const encoder = new TextEncoder();
+      const stream = new ReadableStream({
+        start(controller) {
+          controller.enqueue(encoder.encode(ssePayload));
+          controller.close();
+        },
+      });
+      return new NextResponse(stream, {
+        status: 200,
+        headers: {
+          'Content-Type': 'text/event-stream; charset=utf-8',
+          'Cache-Control': 'no-cache, no-transform',
+          Connection: 'keep-alive',
+        },
+      });
+    }
+
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
     if (error instanceof RlsAccessDeniedError) {

@@ -170,11 +170,36 @@ export async function syncDialogActionToBackend(result: DialogResult): Promise<v
       return;
     }
 
-    if (route.startsWith('/app/factory') || route.startsWith('/app/optimize') || /콘텐츠|제작|최적화/.test(result.title)) {
+    if (route.startsWith('/app/optimize') || /최적화/.test(result.title)) {
+      await invokeEdgeEndpoint('optimize-audit-content', {
+        workspace_id: DEFAULT_WORKSPACE_UUID,
+        url: names[0],
+        target_keyword: names[0],
+      });
+      return;
+    }
+
+    if (route.startsWith('/app/factory') || /콘텐츠|제작/.test(result.title)) {
       await invokeEdgeEndpoint('content-draft', {
         workspace_id: DEFAULT_WORKSPACE_UUID,
         target_keyword: names[0],
         title: names[0],
+      });
+      return;
+    }
+
+    if (route.startsWith('/app/strategy-map')) {
+      await invokeEdgeEndpoint('strategy-map-orchestrator', {
+        workspace_id: DEFAULT_WORKSPACE_UUID,
+        cluster_label: names[0],
+      });
+      return;
+    }
+
+    if (route.startsWith('/app/agent')) {
+      await invokeEdgeEndpoint('agent-chat', {
+        workspace_id: DEFAULT_WORKSPACE_UUID,
+        message: names[0],
       });
       return;
     }

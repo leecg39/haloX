@@ -174,3 +174,68 @@ export function serverAviFiveFactor(input: ServerAviFiveFactorInput): number {
       clamp(input.positionQuality) * 0.15
   );
 }
+
+export interface DocumentedSeoFourFactorInput {
+  positionScoreValue: number;
+  brandSov: number;
+  aioCoverage: number;
+  trendScore: number;
+}
+
+/**
+ * Documented 4-factor SEO score from public Mintlify docs (F2-3):
+ * 40% position + 30% brandSov + 20% aioCoverage + 10% trendScore
+ */
+export function documentedSeoScoreFourFactor(input: DocumentedSeoFourFactorInput): number {
+  return Math.round(
+    clamp(input.positionScoreValue) * 0.4 +
+      clamp(input.brandSov) * 0.3 +
+      clamp(input.aioCoverage) * 0.2 +
+      clamp(input.trendScore) * 0.1
+  );
+}
+
+/**
+ * GA4 AI Traffic Share (%) = (aiSessions / organicSessions) * 100 (F2-4).
+ * Clamped to [0, 100] and rounded to 2 decimal places. Returns 0 when organicSessions <= 0.
+ */
+export function aiTrafficShare(aiSessions: number, organicSessions: number): number {
+  if (!Number.isFinite(aiSessions) || !Number.isFinite(organicSessions) || organicSessions <= 0 || aiSessions <= 0) {
+    return 0;
+  }
+  const raw = (aiSessions / organicSessions) * 100;
+  return Math.round(clamp(raw, 0, 100) * 100) / 100;
+}
+
+/**
+ * GSC/GA4 Search Contribution (%) = (gscClicks / organicSessions) * 100 (F2-4).
+ * Clamped to [0, 100] and rounded to 2 decimal places. Returns 0 when organicSessions <= 0.
+ */
+export function searchContribution(gscClicks: number, organicSessions: number): number {
+  if (!Number.isFinite(gscClicks) || !Number.isFinite(organicSessions) || organicSessions <= 0 || gscClicks <= 0) {
+    return 0;
+  }
+  const raw = (gscClicks / organicSessions) * 100;
+  return Math.round(clamp(raw, 0, 100) * 100) / 100;
+}
+
+export interface QuickWinCandidateInput {
+  avgPosition: number | null | undefined;
+  impressions: number;
+  ctrPercent: number;
+}
+
+/**
+ * Quick Win Keyword classification (F2-4):
+ * Average position between 5 and 15 (inclusive), impressions >= 100, and 0 <= CTR (%) < 5.
+ */
+export function isQuickWinKeyword(input: QuickWinCandidateInput): boolean {
+  const { avgPosition, impressions, ctrPercent } = input;
+  if (avgPosition === null || avgPosition === undefined || !Number.isFinite(avgPosition)) {
+    return false;
+  }
+  if (!Number.isFinite(impressions) || !Number.isFinite(ctrPercent)) {
+    return false;
+  }
+  return avgPosition >= 5 && avgPosition <= 15 && impressions >= 100 && ctrPercent >= 0 && ctrPercent < 5;
+}
