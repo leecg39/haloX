@@ -1,0 +1,219 @@
+{
+  "cssTokenCount": 65,
+  "pairDigests": {
+    "app-desktop": {
+      "sourceSha256": "dd03d3a18f5139c3bd939fa5732cdbf97970ec62e4afd9c66b32806be37904f7",
+      "cloneSha256": "51655ec255a7b3059333b7b8e9f8b00029f63a7c59da31e8e667f14a9ff84139",
+      "width": 1440,
+      "height": 1000
+    },
+    "app-mobile": {
+      "sourceSha256": "95a36ba88ac73e0d54b77260d343ed58b4e480319348e6d457f8df9c2444ab31",
+      "cloneSha256": "d6d084abed77677c5cc418747afa4357512d2fc00a39645da31be6ac5d400b93",
+      "width": 390,
+      "height": 844
+    },
+    "public-home-desktop": {
+      "sourceSha256": "f65b49ec9d8c651629bb2cb6f7c6ab1283c4f9b814b37a0e7edbafb32239a857",
+      "cloneSha256": "af0bbaf8f6b102bdc50e043a1296f4b1e4e1ec5e96332a28f4296b3f35151b82",
+      "width": 1440,
+      "height": 1000
+    },
+    "public-home-mobile": {
+      "sourceSha256": "570b0de5bad47fb217df3ff810d2c3e40ce03e5c37e5814ddb11257083e194e9",
+      "cloneSha256": "2f77d6d3bab4b45968f6b1acfe14feadb0672c240970918e83b97fd35d022733",
+      "width": 390,
+      "height": 844
+    },
+    "keyword-dialog": {
+      "sourceSha256": "0051b2fe33012c45e84d971da8614ba0aab11670102d94f20bbbe4f242292a77",
+      "cloneSha256": "7cbb5352ddc1f37842b9108bc080c61be2a727eac1c025d372dcd004c55e2b72",
+      "width": 1908,
+      "height": 927
+    },
+    "keyword-dialog-1440": {
+      "sourceSha256": "dd03d3a18f5139c3bd939fa5732cdbf97970ec62e4afd9c66b32806be37904f7",
+      "cloneSha256": "1b77b3090d2dd63cdc437b91e1f2328dd7e062af066b37aebdf9e0cd01066303",
+      "width": 1440,
+      "height": 1000
+    }
+  },
+  "routeImageDigests": {
+    "dashboard.png": {
+      "sha256": "7258df96663cef251ce2058ca42a4101df3d27376b5853bbd938c86a67cb5acf",
+      "width": 1920,
+      "height": 939
+    },
+    "exports.png": {
+      "sha256": "b9dee0695dcded6118bcf9508de8664b5376a8f63d53073b26ae47418218cf90",
+      "width": 1920,
+      "height": 939
+    },
+    "factory.png": {
+      "sha256": "efa2eb33f92779b8deee00a9afe5ba321a1272fa8c99a4b8363e38cf5a46a717",
+      "width": 1920,
+      "height": 939
+    },
+    "gap.png": {
+      "sha256": "ade65f1e6564592d8916e92307d0a0fec5d0aba1d4d3be8c39af43aa71890f77",
+      "width": 1920,
+      "height": 939
+    },
+    "geo-analysis.png": {
+      "sha256": "e81f6c88fee24ff90491205d9fac9c7b2dbea3821304ad070d07604b937edd4d",
+      "width": 1920,
+      "height": 939
+    },
+    "geo-prompts.png": {
+      "sha256": "a0375e95b6055fa69c388517eee1fa544d3aa7d65298abdf8fda1b4b1b84c26c",
+      "width": 1920,
+      "height": 939
+    },
+    "keywords.png": {
+      "sha256": "a1f15c2acd7237945c16226675fd049a1f71c309f4e7f5da9a2cbcca9c4c5b1e",
+      "width": 1920,
+      "height": 939
+    },
+    "knowledgehub.png": {
+      "sha256": "386e2bfb9fde57b8ab0c650d464f935d4b6fb546f97baa757662d115ceb8954e",
+      "width": 1920,
+      "height": 939
+    },
+    "monitoring.png": {
+      "sha256": "3584ea056d20c45999625f224e718c6d725c47436bf46036e3bab77a2eab8802",
+      "width": 1920,
+      "height": 939
+    },
+    "optimize.png": {
+      "sha256": "b430ed096bad98f2566a436efd2d8b9cfc5ff05c44b78e91d9fe9b5f4cb9e6f2",
+      "width": 1920,
+      "height": 939
+    },
+    "personas.png": {
+      "sha256": "f4f47b4f1531d1cb0f65f3818566aa0ecf7814ef83ae46d062bb440b9a4b054f",
+      "width": 1920,
+      "height": 939
+    },
+    "raw-data.png": {
+      "sha256": "1d64f6136e30c490fe11d3b928a44f6dc29eec40d6a1ec4ca4b34426f60a7f8d",
+      "width": 1920,
+      "height": 939
+    },
+    "reports-weekly.png": {
+      "sha256": "beee7ed6258954f657fa7eb4766322a939c2a7153819a8a66afb10f1425e0d5e",
+      "width": 1920,
+      "height": 939
+    },
+    "seo-insights.png": {
+      "sha256": "50ad6a26e8fc6520e88eeba22bd0fff69c536d0ba6692dd1f554a95c1639d057",
+      "width": 1920,
+      "height": 939
+    },
+    "settings.png": {
+      "sha256": "92a9fa2aac1af61b608bbb97ba924a49907f97b070fc3f67eabe30bbb4360172",
+      "width": 1920,
+      "height": 939
+    },
+    "site-audit.png": {
+      "sha256": "b7837009d07cfc10589ab718b014ea36fd515e16a0dfa2af2304a6758345aa27",
+      "width": 1920,
+      "height": 939
+    },
+    "strategy-map.png": {
+      "sha256": "84c1b00bb2693c0940b64979955beb733c8df5b333bbe769c76932f27348898c",
+      "width": 1920,
+      "height": 939
+    },
+    "workspaces.png": {
+      "sha256": "b1389a6bc2f1153620dac43c7f0fe8bfe7ad4c777081d1c1aa091f1cb97af6bc",
+      "width": 1920,
+      "height": 939
+    }
+  },
+  "routeSignatures": {
+    "/app": {
+      "tableCount": 1,
+      "buttonCount": 39,
+      "inputCount": 0,
+      "headingCount": 1
+    },
+    "/app/keywords": {
+      "tableCount": 1,
+      "buttonCount": 82,
+      "inputCount": 1,
+      "headingCount": 1
+    },
+    "/app/seo/insights": {
+      "tableCount": 1,
+      "buttonCount": 40,
+      "inputCount": 0,
+      "headingCount": 5
+    },
+    "/app/geo/prompts": {
+      "tableCount": 1,
+      "buttonCount": 95,
+      "inputCount": 1,
+      "headingCount": 1
+    },
+    "/app/geo/analysis": {
+      "tableCount": 2,
+      "buttonCount": 44,
+      "inputCount": 0,
+      "headingCount": 3
+    },
+    "/app/gap": {
+      "tableCount": 1,
+      "buttonCount": 31,
+      "inputCount": 0,
+      "headingCount": 4
+    },
+    "/app/strategy-map": {
+      "tableCount": 0,
+      "buttonCount": 43,
+      "inputCount": 1,
+      "headingCount": 1
+    },
+    "/app/site-audit": {
+      "tableCount": 1,
+      "buttonCount": 47,
+      "inputCount": 0,
+      "headingCount": 6
+    },
+    "/app/factory": {
+      "tableCount": 0,
+      "buttonCount": 15,
+      "inputCount": 0,
+      "headingCount": 1
+    },
+    "/app/settings": {
+      "tableCount": 0,
+      "buttonCount": 33,
+      "inputCount": 1,
+      "headingCount": 2
+    },
+    "/ko": {
+      "tableCount": 1,
+      "buttonCount": 32,
+      "inputCount": 0,
+      "headingCount": 30
+    },
+    "/ko/pricing": {
+      "tableCount": 1,
+      "buttonCount": 29,
+      "inputCount": 2,
+      "headingCount": 10
+    },
+    "/ko/faq": {
+      "tableCount": 0,
+      "buttonCount": 27,
+      "inputCount": 1,
+      "headingCount": 2
+    },
+    "/ko/glossary": {
+      "tableCount": 0,
+      "buttonCount": 21,
+      "inputCount": 1,
+      "headingCount": 1
+    }
+  }
+}

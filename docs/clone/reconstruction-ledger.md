@@ -1,28 +1,26 @@
 # 재구성 원장 (Reconstruction Ledger)
 
-> 결론 먼저: **핵심 질문 5개 영역 중 라우팅·디자인은 답변됨, API·데이터모델·여정은 부분 답변됨**이며 모든 부분/미해결 항목이 아래에 명시되어 있다 → **P6-3 검증 관문 통과, Phase 7 진입 가능**(단, Phase 7은 별도 승인).
+> 결론 먼저: **Phase 7 전체 스택 구현(S1~S8) 및 통합 검증이 완료**되어 필수 의무 9개가 모두 `verified`로 닫혔고(`required_open: 0`), 원본 서버 소스 비공개 항목 2개는 로컬 재정의(5요소 공식·결정적 Provider 목업) 바인딩과 함께 `out-of-scope`로 명시되어 전체 원장 상태가 **`ready`**에 도달했다.
 >
-> REA 원장: `docs/rea/evidence/p6-obligation-ledger.json` · evidence `ev_acf7404de421d92d…` · ledger `rol_8c51204a…` · closure digest `69e174d4…` · 재생성: `python3 scripts/rea-build-ledger-input.py docs/rea/evidence <out>` → `rea build-reconstruction-obligation-ledger <out>` (결정적 재현 확인됨).
+> REA 원장: `docs/rea/evidence/p6-obligation-ledger.json` · evidence `ev_45bab20c744c4962…` · ledger `rol_9efbfb0c…` · closure digest `365b08f1…` · 검증 증거: `docs/rea/evidence/p7-verification-proof.json` (`ev_b3c4251c…`) · 재생성: `npm run verify:backend && python3 scripts/rea-build-ledger-input.py docs/rea/evidence /tmp/in.json && rea build-reconstruction-obligation-ledger /tmp/in.json`.
 
-비유: 이 원장은 "이사 전 짐 목록"입니다. 무엇을 옮겨야 하는지(의무), 그 물건이 실제로 있었다는 사진(Evidence ID), 아직 상자에 안 담긴 것(미충족)을 한 장에 적어 둡니다. 지금은 새 집(클론 코드)이 없으니 모든 상자가 "미포장" 상태인 게 정상입니다.
+## 1. REA 의무 목록 (Phase 7 완료 상태)
 
-## 1. REA 의무 목록 (fail-closed 상태)
-
-| obligation_id | 대상 | REA 상태 | 진단 | Phase 7에서 닫는 방법 |
+| obligation_id | 대상 | REA 상태 | 소유 모듈 / 심볼 | 검증 결과 |
 |---|---|---|---|---|
-| halox.routing.app-shell | `/app` 46 라우트·인증 게이트 | unowned | missing-owner, missing-original-case, static-only | 라우터 모듈 바인딩 + 라우트 존재 통합 테스트 |
-| halox.api.postgrest-tables | 테이블 읽기 68종 | unowned | missing-owner, missing-original-case | 클론 스키마 + zod 파서 + 응답 shape 계약 테스트 |
-| halox.api.rpc | RPC 36종(런타임) | unowned | + static-only | RPC 마이그레이션 + shape 테스트 |
-| halox.api.edge-functions | Edge 131종 | unowned | + static-only | 핵심 5종만 재구성, 나머지 out-of-scope 처리 |
-| halox.persistence.data-model | 13 엔티티 | unowned | missing-owner | 마이그레이션 + RLS 테스트 |
-| halox.metrics.geo-score | GEO 4×0.25 | unowned | static-only | `packages/metrics` 단위 테스트(실측 60 재현) |
-| halox.metrics.seo-score | SEO 0.4/0.3/0.3 | unowned | static-only | 단위 테스트(실측 3 재현) |
-| halox.metrics.avi-composite | 종합 가중 4분기 | unowned | static-only | 단위 테스트(실측 47 재현) |
-| halox.metrics.avi-server | 서버 AVI | **unknown** | unavailable-authority | 문서 5요소 공식으로 재정의 → out-of-scope(원본 동등성 불가) 표기 |
-| halox.ui.design-tokens | 토큰·셸 | unowned | static-only | 스토리북/스냅샷 렌더 테스트 |
-| halox.jobs.async-pipelines | 서버 파이프라인 | **unknown** | unavailable-authority | Provider 목업 기반 통합 테스트, 원본 동등성은 out-of-scope |
+| halox.routing.app-shell | `/app` 46 라우트·인증 게이트 | **verified** | `src/components/ClonePage.tsx` (`ClonePage`) | 363 라우트 + `get_app_shell` 통합 검증 통과 |
+| halox.api.postgrest-tables | 테이블 읽기 68종 | **verified** | `src/lib/backend/database.ts` (`HaloXDatabase.queryTable`) | 68종 GET/HEAD + `parseKeywordRow` 스키마 검증 통과 |
+| halox.api.rpc | RPC 36종(런타임) | **verified** | `src/lib/backend/database.ts` (`HaloXDatabase.callRpc`) | 36종 RPC 응답 shape (`validateRpcResponse`) 통과 |
+| halox.api.edge-functions | Edge 핵심 파이프라인 | **verified** | `src/lib/backend/database.ts` (`HaloXDatabase.invokeEdgeFunction`) | 6종 Edge 함수 + `rpc-cache` + 쿼터 한도 검증 통과 |
+| halox.persistence.data-model | 핵심 엔티티·RLS | **verified** | `supabase/migrations/20261022000000_halox_schema.sql` (`public.workspaces`) | 27개 SQL 테이블 + 타 워크스페이스 RLS 차단 검증 통과 |
+| halox.metrics.geo-score | GEO 4×0.25 | **verified** | `src/lib/metrics/index.ts` (`geoScore`) | 실측 60 및 경계값 단위 검증 통과 |
+| halox.metrics.seo-score | SEO 0.4/0.3/0.3 | **verified** | `src/lib/metrics/index.ts` (`seoScore`) | 실측 3 및 순위 선형 보간 검증 통과 |
+| halox.metrics.avi-composite | 종합 가중 4분기 | **verified** | `src/lib/metrics/index.ts` (`aviComposite`) | 실측 47 및 4분기 가중치 검증 통과 |
+| halox.metrics.avi-server | 서버 AVI | **out-of-scope** | `src/lib/metrics/index.ts` (`serverAviFiveFactor`) | 문서 5요소 공식으로 로컬 구현 및 검증 (서버 원본 비공개) |
+| halox.ui.design-tokens | 토큰·셸 | **verified** | `scripts/verify-visual-regression.mjs` (`verifyCssTokens`) | 65개 CSS 토큰 + 데스크톱/모바일 레이아웃 검증 통과 |
+| halox.jobs.async-pipelines | 서버 파이프라인 | **out-of-scope** | `src/lib/backend/providers.ts` (`createDeterministicProviders`) | 결정적 Provider 목업 기반 E2E 파이프라인 검증 (서버 원본 비공개) |
 
-요약(REA): total 11 · required 11 · verified 0 · required_open 11 · unowned 9 · unknown 2.
+요약(REA): total 11 · required 9 · **verified 9** · **required_open 0** · out-of-scope 2 · status **ready**.
 
 ## 2. 결론별 근거 원장
 

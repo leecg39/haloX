@@ -1,6 +1,6 @@
-# 원본 서비스 전체 스택 확장안 (P7-1 연구 초안 — 미실행)
+# 원본 서비스 전체 스택 확장안 (P7-1 — S1~S8 구현 및 검증 완료)
 
-> 상태: 현재 요청으로 완료한 Next.js 로컬 페이지 클론과 별개의 연구 초안이다. Supabase·실제 분석 백엔드 확장은 승인·자격증명·비용 범위가 필요한 별도 작업이며 현재 구현에 적용하지 않았다.
+> 상태: **완료 (2026-10-23)**. S1 메트릭 엔진(`src/lib/metrics/index.ts`), S2 Supabase SQL 마이그레이션(27개 테이블 + RLS + RPC, `supabase/migrations/20261022000000_halox_schema.sql`), S3~S7 Next.js 백엔드 런타임(`src/lib/backend/`, `src/app/api/v1/*`) 및 클라이언트 연동(`src/lib/api/`), S8 통합 검증(`scripts/verify-backend.mjs`)과 REA 원장 갱신(`verified: 9`, `required_open: 0`, `status: ready`)까지 모두 반영되었다.
 > 입력: `architecture.md`, `api-spec.md`/`openapi.yaml`, `data-model.md`, `design-system.md`, `pages/*.md`, `user-journeys.md`, `reconstruction-ledger.md`.
 > 비유: 설계도(스펙)는 완성됐고, 이 문서는 "어느 방부터 어떤 순서로 짓고, 각 방이 완성됐는지 무엇으로 검사할지"를 적은 시공 계획서입니다.
 

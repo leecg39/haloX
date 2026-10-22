@@ -1,0 +1,87 @@
+{
+  "evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+  "subject": null,
+  "provider": {
+    "id": "halox-reconstruction-verifier",
+    "name": "HaloX Reconstruction Integration Verifier",
+    "version": "1.0.0"
+  },
+  "predicate_type": "rea.reconstruction-proof",
+  "operation": "verify_reconstruction_obligations",
+  "parameters": {
+    "suite": "scripts/verify-backend.mjs",
+    "obligations_count": 11
+  },
+  "raw_result": null,
+  "normalized_result": {
+    "passed": true,
+    "obligation_ids": [
+      "halox.api.edge-functions",
+      "halox.api.postgrest-tables",
+      "halox.api.rpc",
+      "halox.jobs.async-pipelines",
+      "halox.metrics.avi-composite",
+      "halox.metrics.avi-server",
+      "halox.metrics.geo-score",
+      "halox.metrics.seo-score",
+      "halox.persistence.data-model",
+      "halox.routing.app-shell",
+      "halox.ui.design-tokens"
+    ],
+    "fixture_ids": [
+      "halox.api.edge-functions.positive",
+      "halox.api.edge-functions.negative",
+      "halox.api.postgrest-tables.positive",
+      "halox.api.postgrest-tables.negative",
+      "halox.api.rpc.positive",
+      "halox.api.rpc.negative",
+      "halox.jobs.async-pipelines.positive",
+      "halox.jobs.async-pipelines.negative",
+      "halox.metrics.avi-composite.positive",
+      "halox.metrics.avi-composite.negative",
+      "halox.metrics.avi-server.positive",
+      "halox.metrics.avi-server.negative",
+      "halox.metrics.geo-score.positive",
+      "halox.metrics.geo-score.negative",
+      "halox.metrics.seo-score.positive",
+      "halox.metrics.seo-score.negative",
+      "halox.persistence.data-model.positive",
+      "halox.persistence.data-model.negative",
+      "halox.routing.app-shell.positive",
+      "halox.routing.app-shell.negative",
+      "halox.ui.design-tokens.positive",
+      "halox.ui.design-tokens.negative"
+    ],
+    "case_kinds": [
+      "positive",
+      "negative"
+    ],
+    "verifier_ids": [
+      "halox.verifier.integration"
+    ],
+    "claim_ids": [
+      "halox.claim.full-stack"
+    ],
+    "checks_executed": 22,
+    "rpc_contracts_verified": 36,
+    "table_contracts_verified": 57
+  },
+  "confidence": "observed",
+  "authority": "controlled-replay",
+  "environment": {
+    "id": "env_local_node22_arm64",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "isolation": "process"
+  },
+  "limitations": [
+    "Artifact identity is unavailable for this observation."
+  ],
+  "locations": [
+    {
+      "kind": "artifact-path",
+      "path": "scripts/verify-backend.mjs"
+    }
+  ],
+  "evidence_links": []
+}

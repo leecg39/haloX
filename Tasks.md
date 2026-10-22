@@ -143,8 +143,8 @@ flowchart TD
 | Phase 3 | 완료 — 읽기 전용 범위 (아래 편차 1) | `p3-network-capture.json`(REA), `p3-api-shapes.json`, `docs/clone/api-spec.md`, `openapi.yaml` |
 | Phase 4 | 완료 | 라우트 스크린샷 18장, `p4-css-tokens.json`, `docs/clone/design-system.md` |
 | Phase 5 | 완료 | `p5-*.json`, `docs/clone/data-model.md`, 점수 공식 3종 실측 일치 |
-| Phase 6 | 완료 — 검증 관문 통과 | `p6-obligation-ledger.json`(의무 11, fail-closed), `docs/clone/*.md` 세트 |
-| Phase 7 | 전체 스택 확장 연구 초안 작성 — **현재 페이지 클론과 별도** | `docs/clone/implementation-plan.md` |
+| Phase 6 | 완료 — 검증 관문 통과 | `p6-obligation-ledger.json`(의무 11, `verified: 9`, `required_open: 0`, `status: ready`), `docs/clone/*.md` 세트 |
+| Phase 7 | 완료 — 전체 스택(S1~S8) 및 회귀 검증(P1~P2) 구현 | `src/lib/metrics/`, `src/lib/backend/`, `src/app/api/v1/`, `supabase/`, `scripts/verify-*.mjs` |
 
 ## 실행 편차 기록
 

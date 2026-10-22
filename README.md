@@ -17,7 +17,12 @@ Node.js 22에서 검증했습니다. 프로젝트 폴더에서 실행하세요.
 
 ```bash
 npm ci
+npm run typecheck
 npm run build
+npm run verify:public
+npm run diff:manifest -- --fail-on-drift
+npm run verify:visual
+npm run verify:backend
 npm run start -- -p 3001
 ```
 
@@ -25,4 +30,4 @@ npm run start -- -p 3001
 
 이미 준비된 `public/clone` 파일을 사용하므로 실행 시 원본 사이트에 로그인하거나 다시 수집할 필요가 없습니다.
 
-실제 인증·결제·SEO/AI 분석 백엔드는 연결하지 않았습니다. 입력·저장·추가는 로컬 데모이며, 차트와 분석 수치는 수집 당시 상태입니다. 원본에서 404로 응답한 73개 페이지는 원본 404 화면으로 재현했습니다.
+백엔드 계층은 `supabase/migrations/20261022000000_halox_schema.sql`(27개 테이블 + RLS + RPC), `src/lib/metrics/`(GEO/SEO/AVI 점수 엔진), `src/lib/backend/`(관계형 스토어·RLS 격리·36종 RPC·6종 Edge 파이프라인·결정적 Provider 목업) 및 Next.js `/api/v1/*` 엔드포인트로 구성되어 외부 유료 API 키 없이도 전체 읽기·쓰기 계약과 쿼터 예약-확정 흐름을 검증할 수 있습니다. 원본에서 404로 응답한 73개 페이지는 원본 404 화면으로 재현했습니다.

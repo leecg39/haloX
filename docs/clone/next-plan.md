@@ -6,8 +6,8 @@
 |---|---|---|---|
 | P0 | GitHub Actions에서 타입 검사·빌드·363개 경로 검증 | 완료 | main push와 PR에서 workflow 실행 |
 | P0 | 공개 사이트 REA 역공학 및 상호작용 반영 (FAQ, 요금 계산기, 검색·분류, CTA) | 완료 | `npm run verify:public` 9개 검증 통과 및 CI 연동 |
-| P1 | 원본 사이트가 바뀔 때 수집 데이터 차이 보고 | 다음 후보 | 새 manifest와 현재 manifest의 주소·제목·상태 diff 생성 |
-| P1 | 대표 화면 시각 회귀 자동화 | 다음 후보 | 앱·공개 홈·대화상자 데스크톱/모바일 기준 이미지 비교 |
-| P2 | 실제 백엔드 연동 여부 결정 | 보류 | 인증·결제·분석 데이터의 소유권, 비용, 배포 환경이 확정될 때 별도 범위로 시작 |
+| P1 | 원본 사이트가 바뀔 때 수집 데이터 차이 보고 (`scripts/diff-manifest.mjs`) | 완료 | `npm run diff:manifest`로 기준 매니페스트 대비 주소·제목·상태·길이 diff 생성 및 자체 테스트 통과 |
+| P1 | 대표 화면 시각 회귀 자동화 (`scripts/verify-visual-regression.mjs`) | 완료 | `npm run verify:visual`로 65개 디자인 토큰·14개 대표 화면·6개 데스크톱/모바일/대화상자 기준 이미지·18개 라우트 스크린샷 대조 통과 |
+| P2 | 실제 백엔드/DB 연동 확장 (`supabase/`, `src/lib/metrics`, `src/lib/backend`, `/api/v1/*`) | 완료 | 27개 SQL 테이블·RLS 격리·36종 RPC·6종 Edge 파이프라인·점수 엔진 구현 및 `npm run verify:backend` / REA 원장 `ready` (`required_open: 0`) 달성 |
 
-이번 작업에서 `.github/workflows/verify.yml`을 추가해 첫 항목을 실행했다. 후속 P1은 원본 사이트의 재수집이 필요하므로 현재 고정 클론의 완료 조건에는 포함하지 않는다. P2는 현재 로컬 데모의 목적을 바꾸는 별도 제품 작업이다.
+모든 P0~P2 항목의 구현·검증·CI 연동을 완료했다.

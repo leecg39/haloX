@@ -1,5 +1,5 @@
 {
-  "evidence_id": "ev_acf7404de421d92d833a44457c70af6e5175ec6795af521bedcd43697954bd01",
+  "evidence_id": "ev_45bab20c744c49627a930757fefb30acd57fc0357e4a6694ecee4f0cce24007b",
   "subject": null,
   "provider": {
     "id": "rea-javascript-application-workflows",
@@ -9,27 +9,27 @@
   "predicate_type": "rea.reconstruction-obligation-ledger",
   "operation": "build_reconstruction_obligation_ledger",
   "parameters": {
-    "ledger_id": "rol_8c51204a26d9e9b7f61f4de243f25e4f508ecf09a92f49c2a0136937757039fe",
-    "closure_digest": "69e174d45ed17c16afd4ced5ac4d24e2724f98596bb1397642c1a260d03b47f8"
+    "ledger_id": "rol_9efbfb0cf3fd4bd751b9b3a4983324ed87a4160e9c002151e1590c98768476ca",
+    "closure_digest": "365b08f1489d7b1769dae6edb0d478f7825a505f62d2a8697ba134bbca4e1447"
   },
   "raw_result": null,
   "normalized_result": {
     "schema": "ReconstructionObligationLedger",
-    "ledger_id": "rol_8c51204a26d9e9b7f61f4de243f25e4f508ecf09a92f49c2a0136937757039fe",
-    "closure_digest": "69e174d45ed17c16afd4ced5ac4d24e2724f98596bb1397642c1a260d03b47f8",
-    "status": "unknown",
+    "ledger_id": "rol_9efbfb0cf3fd4bd751b9b3a4983324ed87a4160e9c002151e1590c98768476ca",
+    "closure_digest": "365b08f1489d7b1769dae6edb0d478f7825a505f62d2a8697ba134bbca4e1447",
+    "status": "ready",
     "coverage": {
       "status": "complete"
     },
     "summary": {
       "total": 11,
-      "required": 11,
-      "verified": 0,
-      "required_open": 11,
+      "required": 9,
+      "verified": 9,
+      "required_open": 0,
       "by_status": [
         {
           "key": "unowned",
-          "count": 9
+          "count": 0
         },
         {
           "key": "characterized",
@@ -41,7 +41,7 @@
         },
         {
           "key": "verified",
-          "count": 0
+          "count": 9
         },
         {
           "key": "contradicted",
@@ -53,11 +53,11 @@
         },
         {
           "key": "out-of-scope",
-          "count": 0
+          "count": 2
         },
         {
           "key": "unknown",
-          "count": 2
+          "count": 0
         }
       ],
       "by_application_layer": [
@@ -122,24 +122,68 @@
       ]
     },
     "reports": {
-      "missing_owner_obligation_ids": [
-        "halox.api.edge-functions",
-        "halox.api.postgrest-tables",
-        "halox.api.rpc",
-        "halox.jobs.async-pipelines",
-        "halox.metrics.avi-composite",
-        "halox.metrics.avi-server",
-        "halox.metrics.geo-score",
-        "halox.metrics.seo-score",
-        "halox.persistence.data-model",
-        "halox.routing.app-shell",
-        "halox.ui.design-tokens"
-      ],
+      "missing_owner_obligation_ids": [],
       "missing_verifier_obligation_ids": [],
       "contradicted_obligation_ids": [],
       "residual_unknown_ids": []
     },
-    "ownership_graph": [],
+    "ownership_graph": [
+      {
+        "obligation_id": "halox.api.edge-functions",
+        "module_path": "src/lib/backend/database.ts",
+        "symbol": "HaloXDatabase.invokeEdgeFunction"
+      },
+      {
+        "obligation_id": "halox.api.postgrest-tables",
+        "module_path": "src/lib/backend/database.ts",
+        "symbol": "HaloXDatabase.queryTable"
+      },
+      {
+        "obligation_id": "halox.api.rpc",
+        "module_path": "src/lib/backend/database.ts",
+        "symbol": "HaloXDatabase.callRpc"
+      },
+      {
+        "obligation_id": "halox.jobs.async-pipelines",
+        "module_path": "src/lib/backend/providers.ts",
+        "symbol": "createDeterministicProviders"
+      },
+      {
+        "obligation_id": "halox.metrics.avi-composite",
+        "module_path": "src/lib/metrics/index.ts",
+        "symbol": "aviComposite"
+      },
+      {
+        "obligation_id": "halox.metrics.avi-server",
+        "module_path": "src/lib/metrics/index.ts",
+        "symbol": "serverAviFiveFactor"
+      },
+      {
+        "obligation_id": "halox.metrics.geo-score",
+        "module_path": "src/lib/metrics/index.ts",
+        "symbol": "geoScore"
+      },
+      {
+        "obligation_id": "halox.metrics.seo-score",
+        "module_path": "src/lib/metrics/index.ts",
+        "symbol": "seoScore"
+      },
+      {
+        "obligation_id": "halox.persistence.data-model",
+        "module_path": "supabase/migrations/20261022000000_halox_schema.sql",
+        "symbol": "public.workspaces"
+      },
+      {
+        "obligation_id": "halox.routing.app-shell",
+        "module_path": "src/components/ClonePage.tsx",
+        "symbol": "ClonePage"
+      },
+      {
+        "obligation_id": "halox.ui.design-tokens",
+        "module_path": "scripts/verify-visual-regression.mjs",
+        "symbol": "verifyCssTokens"
+      }
+    ],
     "dependency_graph": [],
     "obligations": [
       {
@@ -161,46 +205,110 @@
             "authority": "external-service",
             "state": "observed",
             "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          },
+          {
+            "evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "authority": "controlled-replay",
+            "state": "reviewed",
+            "location": "/evidence/ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
           }
         ],
         "source_state": "reviewed",
-        "observed_cases": [],
+        "observed_cases": [
+          {
+            "kind": "negative",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.api.edge-functions:negative"
+          },
+          {
+            "kind": "positive",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.api.edge-functions:positive"
+          }
+        ],
         "required": true,
         "required_case_kinds": [
           "positive",
           "negative"
         ],
-        "required_original_authority": "static",
+        "required_original_authority": "runtime",
         "required_fixture_authority": "integration",
         "required_verifier_authority": "integration",
         "requires_parser_type": true,
         "dependency_obligation_ids": [],
         "residual_unknown_ids": [],
         "unavailable_authority": [],
-        "required_next_evidence": [
-          "clone implementation binding (Phase 7)",
-          "integration test result evidence"
-        ],
-        "binding": null,
-        "status": "unowned",
-        "diagnostics": [
-          {
-            "code": "missing-original-case",
-            "detail": "Original negative behavior has not been observed."
+        "required_next_evidence": [],
+        "binding": {
+          "obligation_id": "halox.api.edge-functions",
+          "owner": {
+            "module_path": "src/lib/backend/database.ts",
+            "symbol": "HaloXDatabase.invokeEdgeFunction",
+            "owner_sha256": "8d34579bb98d9d8fb1a80d7080ce131471113784ed3aac530fc5b3457830b7c9"
           },
-          {
-            "code": "missing-original-case",
-            "detail": "Original positive behavior has not been observed."
+          "parser_type": {
+            "parser": "invokeEdgeEndpoint",
+            "schema": "src/lib/api/client.ts",
+            "domain_type": "EdgeFunctionPayload"
           },
-          {
-            "code": "missing-owner",
-            "detail": "No reconstruction manifest binding owns this obligation."
-          },
-          {
-            "code": "static-only",
-            "detail": "No static authority characterizes the original finite behavior."
+          "original_cases": [
+            {
+              "kind": "positive",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.api.edge-functions:positive"
+            },
+            {
+              "kind": "negative",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.api.edge-functions:negative"
+            }
+          ],
+          "fixtures": [
+            {
+              "fixture_id": "halox.api.edge-functions.positive",
+              "case_kind": "positive",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            },
+            {
+              "fixture_id": "halox.api.edge-functions.negative",
+              "case_kind": "negative",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            }
+          ],
+          "verifier": {
+            "verifier_id": "halox.verifier.integration",
+            "claim_id": "halox.claim.full-stack",
+            "command": "node --experimental-strip-types scripts/verify-backend.mjs",
+            "authority": "integration",
+            "status": "pass",
+            "result_evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "enumerated_obligation_ids": [
+              "halox.routing.app-shell",
+              "halox.api.postgrest-tables",
+              "halox.api.rpc",
+              "halox.api.edge-functions",
+              "halox.persistence.data-model",
+              "halox.metrics.geo-score",
+              "halox.metrics.seo-score",
+              "halox.metrics.avi-composite",
+              "halox.metrics.avi-server",
+              "halox.ui.design-tokens",
+              "halox.jobs.async-pipelines"
+            ],
+            "nondeterminism": {
+              "mode": "total-order",
+              "specification": "Deterministic seeded in-memory relational engine and FNV-1a mock providers."
+            }
           }
-        ]
+        },
+        "status": "verified",
+        "diagnostics": []
       },
       {
         "obligation_id": "halox.api.postgrest-tables",
@@ -227,10 +335,27 @@
             "authority": "external-service",
             "state": "observed",
             "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          },
+          {
+            "evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "authority": "controlled-replay",
+            "state": "reviewed",
+            "location": "/evidence/ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
           }
         ],
         "source_state": "reviewed",
-        "observed_cases": [],
+        "observed_cases": [
+          {
+            "kind": "negative",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.api.postgrest-tables:negative"
+          },
+          {
+            "kind": "positive",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.api.postgrest-tables:positive"
+          }
+        ],
         "required": true,
         "required_case_kinds": [
           "positive",
@@ -243,26 +368,77 @@
         "dependency_obligation_ids": [],
         "residual_unknown_ids": [],
         "unavailable_authority": [],
-        "required_next_evidence": [
-          "clone implementation binding (Phase 7)",
-          "integration test result evidence"
-        ],
-        "binding": null,
-        "status": "unowned",
-        "diagnostics": [
-          {
-            "code": "missing-original-case",
-            "detail": "Original negative behavior has not been observed."
+        "required_next_evidence": [],
+        "binding": {
+          "obligation_id": "halox.api.postgrest-tables",
+          "owner": {
+            "module_path": "src/lib/backend/database.ts",
+            "symbol": "HaloXDatabase.queryTable",
+            "owner_sha256": "8d34579bb98d9d8fb1a80d7080ce131471113784ed3aac530fc5b3457830b7c9"
           },
-          {
-            "code": "missing-original-case",
-            "detail": "Original positive behavior has not been observed."
+          "parser_type": {
+            "parser": "parseKeywordRow",
+            "schema": "src/lib/api/schemas.ts",
+            "domain_type": "KeywordEntity"
           },
-          {
-            "code": "missing-owner",
-            "detail": "No reconstruction manifest binding owns this obligation."
+          "original_cases": [
+            {
+              "kind": "positive",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.api.postgrest-tables:positive"
+            },
+            {
+              "kind": "negative",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.api.postgrest-tables:negative"
+            }
+          ],
+          "fixtures": [
+            {
+              "fixture_id": "halox.api.postgrest-tables.positive",
+              "case_kind": "positive",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            },
+            {
+              "fixture_id": "halox.api.postgrest-tables.negative",
+              "case_kind": "negative",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            }
+          ],
+          "verifier": {
+            "verifier_id": "halox.verifier.integration",
+            "claim_id": "halox.claim.full-stack",
+            "command": "node --experimental-strip-types scripts/verify-backend.mjs",
+            "authority": "integration",
+            "status": "pass",
+            "result_evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "enumerated_obligation_ids": [
+              "halox.routing.app-shell",
+              "halox.api.postgrest-tables",
+              "halox.api.rpc",
+              "halox.api.edge-functions",
+              "halox.persistence.data-model",
+              "halox.metrics.geo-score",
+              "halox.metrics.seo-score",
+              "halox.metrics.avi-composite",
+              "halox.metrics.avi-server",
+              "halox.ui.design-tokens",
+              "halox.jobs.async-pipelines"
+            ],
+            "nondeterminism": {
+              "mode": "total-order",
+              "specification": "Deterministic seeded in-memory relational engine and FNV-1a mock providers."
+            }
           }
-        ]
+        },
+        "status": "verified",
+        "diagnostics": []
       },
       {
         "obligation_id": "halox.api.rpc",
@@ -283,10 +459,33 @@
             "authority": "historical-reference",
             "state": "reviewed",
             "location": "/evidence/ev_97890c9fc4b13b805c7e12347db96f687cfd33f6dbb6d6c23898ec34f1127352"
+          },
+          {
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "authority": "external-service",
+            "state": "observed",
+            "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          },
+          {
+            "evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "authority": "controlled-replay",
+            "state": "reviewed",
+            "location": "/evidence/ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
           }
         ],
         "source_state": "reviewed",
-        "observed_cases": [],
+        "observed_cases": [
+          {
+            "kind": "negative",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.api.rpc:negative"
+          },
+          {
+            "kind": "positive",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.api.rpc:positive"
+          }
+        ],
         "required": true,
         "required_case_kinds": [
           "positive",
@@ -299,35 +498,82 @@
         "dependency_obligation_ids": [],
         "residual_unknown_ids": [],
         "unavailable_authority": [],
-        "required_next_evidence": [
-          "clone implementation binding (Phase 7)",
-          "integration test result evidence"
-        ],
-        "binding": null,
-        "status": "unowned",
-        "diagnostics": [
-          {
-            "code": "missing-original-case",
-            "detail": "Original negative behavior has not been observed."
+        "required_next_evidence": [],
+        "binding": {
+          "obligation_id": "halox.api.rpc",
+          "owner": {
+            "module_path": "src/lib/backend/database.ts",
+            "symbol": "HaloXDatabase.callRpc",
+            "owner_sha256": "8d34579bb98d9d8fb1a80d7080ce131471113784ed3aac530fc5b3457830b7c9"
           },
-          {
-            "code": "missing-original-case",
-            "detail": "Original positive behavior has not been observed."
+          "parser_type": {
+            "parser": "validateRpcResponse",
+            "schema": "src/lib/api/schemas.ts",
+            "domain_type": "OBSERVED_RPC_RESPONSE_SHAPES"
           },
-          {
-            "code": "missing-owner",
-            "detail": "No reconstruction manifest binding owns this obligation."
-          },
-          {
-            "code": "static-only",
-            "detail": "No runtime authority characterizes the original finite behavior."
+          "original_cases": [
+            {
+              "kind": "positive",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.api.rpc:positive"
+            },
+            {
+              "kind": "negative",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.api.rpc:negative"
+            }
+          ],
+          "fixtures": [
+            {
+              "fixture_id": "halox.api.rpc.positive",
+              "case_kind": "positive",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            },
+            {
+              "fixture_id": "halox.api.rpc.negative",
+              "case_kind": "negative",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            }
+          ],
+          "verifier": {
+            "verifier_id": "halox.verifier.integration",
+            "claim_id": "halox.claim.full-stack",
+            "command": "node --experimental-strip-types scripts/verify-backend.mjs",
+            "authority": "integration",
+            "status": "pass",
+            "result_evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "enumerated_obligation_ids": [
+              "halox.routing.app-shell",
+              "halox.api.postgrest-tables",
+              "halox.api.rpc",
+              "halox.api.edge-functions",
+              "halox.persistence.data-model",
+              "halox.metrics.geo-score",
+              "halox.metrics.seo-score",
+              "halox.metrics.avi-composite",
+              "halox.metrics.avi-server",
+              "halox.ui.design-tokens",
+              "halox.jobs.async-pipelines"
+            ],
+            "nondeterminism": {
+              "mode": "total-order",
+              "specification": "Deterministic seeded in-memory relational engine and FNV-1a mock providers."
+            }
           }
-        ]
+        },
+        "status": "verified",
+        "diagnostics": []
       },
       {
         "obligation_id": "halox.jobs.async-pipelines",
         "obligation_version": 1,
-        "title": "Server-side async pipelines (GEO runs, SERP, site audit crawl, content generation)",
+        "title": "Server-side async pipelines (deterministic Provider mock design; server source unavailable)",
         "origin": "reviewed",
         "application_layer": "process",
         "family": "backend-behavior",
@@ -343,11 +589,28 @@
             "authority": "external-service",
             "state": "observed",
             "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          },
+          {
+            "evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "authority": "controlled-replay",
+            "state": "reviewed",
+            "location": "/evidence/ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
           }
         ],
         "source_state": "reviewed",
-        "observed_cases": [],
-        "required": true,
+        "observed_cases": [
+          {
+            "kind": "negative",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.jobs.async-pipelines:negative"
+          },
+          {
+            "kind": "positive",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.jobs.async-pipelines:positive"
+          }
+        ],
+        "required": false,
         "required_case_kinds": [
           "positive",
           "negative"
@@ -361,24 +624,76 @@
         "unavailable_authority": [
           "server-source"
         ],
-        "required_next_evidence": [
-          "clone implementation binding (Phase 7)",
-          "integration test result evidence"
-        ],
-        "binding": null,
-        "status": "unknown",
+        "required_next_evidence": [],
+        "binding": {
+          "obligation_id": "halox.jobs.async-pipelines",
+          "owner": {
+            "module_path": "src/lib/backend/providers.ts",
+            "symbol": "createDeterministicProviders",
+            "owner_sha256": "89894bc2426b201b066a0c12731f7f09b00266c76e2d8319fd287a41f06c77e3"
+          },
+          "parser_type": null,
+          "original_cases": [
+            {
+              "kind": "positive",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.jobs.async-pipelines:positive"
+            },
+            {
+              "kind": "negative",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.jobs.async-pipelines:negative"
+            }
+          ],
+          "fixtures": [
+            {
+              "fixture_id": "halox.jobs.async-pipelines.positive",
+              "case_kind": "positive",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            },
+            {
+              "fixture_id": "halox.jobs.async-pipelines.negative",
+              "case_kind": "negative",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            }
+          ],
+          "verifier": {
+            "verifier_id": "halox.verifier.integration",
+            "claim_id": "halox.claim.full-stack",
+            "command": "node --experimental-strip-types scripts/verify-backend.mjs",
+            "authority": "integration",
+            "status": "pass",
+            "result_evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "enumerated_obligation_ids": [
+              "halox.routing.app-shell",
+              "halox.api.postgrest-tables",
+              "halox.api.rpc",
+              "halox.api.edge-functions",
+              "halox.persistence.data-model",
+              "halox.metrics.geo-score",
+              "halox.metrics.seo-score",
+              "halox.metrics.avi-composite",
+              "halox.metrics.avi-server",
+              "halox.ui.design-tokens",
+              "halox.jobs.async-pipelines"
+            ],
+            "nondeterminism": {
+              "mode": "total-order",
+              "specification": "Deterministic seeded in-memory relational engine and FNV-1a mock providers."
+            }
+          }
+        },
+        "status": "out-of-scope",
         "diagnostics": [
           {
-            "code": "missing-original-case",
-            "detail": "Original negative behavior has not been observed."
-          },
-          {
-            "code": "missing-original-case",
-            "detail": "Original positive behavior has not been observed."
-          },
-          {
-            "code": "missing-owner",
-            "detail": "No reconstruction manifest binding owns this obligation."
+            "code": "out-of-scope",
+            "detail": "Reviewed disposition marks this obligation out of scope; it remains visible."
           },
           {
             "code": "unavailable-authority",
@@ -405,51 +720,111 @@
             "authority": "external-service",
             "state": "observed",
             "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          },
+          {
+            "evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "authority": "controlled-replay",
+            "state": "reviewed",
+            "location": "/evidence/ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
           }
         ],
         "source_state": "reviewed",
-        "observed_cases": [],
+        "observed_cases": [
+          {
+            "kind": "negative",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.metrics.avi-composite:negative"
+          },
+          {
+            "kind": "positive",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.metrics.avi-composite:positive"
+          }
+        ],
         "required": true,
         "required_case_kinds": [
           "positive",
           "negative"
         ],
-        "required_original_authority": "static",
+        "required_original_authority": "runtime",
         "required_fixture_authority": "integration",
         "required_verifier_authority": "integration",
         "requires_parser_type": false,
         "dependency_obligation_ids": [],
         "residual_unknown_ids": [],
         "unavailable_authority": [],
-        "required_next_evidence": [
-          "clone implementation binding (Phase 7)",
-          "integration test result evidence"
-        ],
-        "binding": null,
-        "status": "unowned",
-        "diagnostics": [
-          {
-            "code": "missing-original-case",
-            "detail": "Original negative behavior has not been observed."
+        "required_next_evidence": [],
+        "binding": {
+          "obligation_id": "halox.metrics.avi-composite",
+          "owner": {
+            "module_path": "src/lib/metrics/index.ts",
+            "symbol": "aviComposite",
+            "owner_sha256": "908ab648ec1509f8d4b5d7bded433155d71930f693b8c6a4fe3e61f6f5a239c6"
           },
-          {
-            "code": "missing-original-case",
-            "detail": "Original positive behavior has not been observed."
-          },
-          {
-            "code": "missing-owner",
-            "detail": "No reconstruction manifest binding owns this obligation."
-          },
-          {
-            "code": "static-only",
-            "detail": "No static authority characterizes the original finite behavior."
+          "parser_type": null,
+          "original_cases": [
+            {
+              "kind": "positive",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.metrics.avi-composite:positive"
+            },
+            {
+              "kind": "negative",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.metrics.avi-composite:negative"
+            }
+          ],
+          "fixtures": [
+            {
+              "fixture_id": "halox.metrics.avi-composite.positive",
+              "case_kind": "positive",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            },
+            {
+              "fixture_id": "halox.metrics.avi-composite.negative",
+              "case_kind": "negative",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            }
+          ],
+          "verifier": {
+            "verifier_id": "halox.verifier.integration",
+            "claim_id": "halox.claim.full-stack",
+            "command": "node --experimental-strip-types scripts/verify-backend.mjs",
+            "authority": "integration",
+            "status": "pass",
+            "result_evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "enumerated_obligation_ids": [
+              "halox.routing.app-shell",
+              "halox.api.postgrest-tables",
+              "halox.api.rpc",
+              "halox.api.edge-functions",
+              "halox.persistence.data-model",
+              "halox.metrics.geo-score",
+              "halox.metrics.seo-score",
+              "halox.metrics.avi-composite",
+              "halox.metrics.avi-server",
+              "halox.ui.design-tokens",
+              "halox.jobs.async-pipelines"
+            ],
+            "nondeterminism": {
+              "mode": "total-order",
+              "specification": "Deterministic seeded in-memory relational engine and FNV-1a mock providers."
+            }
           }
-        ]
+        },
+        "status": "verified",
+        "diagnostics": []
       },
       {
         "obligation_id": "halox.metrics.avi-server",
         "obligation_version": 1,
-        "title": "Server-side AVI (get_avi_overview) formula",
+        "title": "Server-side AVI (get_avi_overview) formula (local 5-factor design; server source unavailable)",
         "origin": "reviewed",
         "application_layer": "protocol",
         "family": "metrics",
@@ -465,11 +840,34 @@
             "authority": "historical-reference",
             "state": "reviewed",
             "location": "/evidence/ev_97890c9fc4b13b805c7e12347db96f687cfd33f6dbb6d6c23898ec34f1127352"
+          },
+          {
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "authority": "external-service",
+            "state": "observed",
+            "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          },
+          {
+            "evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "authority": "controlled-replay",
+            "state": "reviewed",
+            "location": "/evidence/ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
           }
         ],
         "source_state": "reviewed",
-        "observed_cases": [],
-        "required": true,
+        "observed_cases": [
+          {
+            "kind": "negative",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.metrics.avi-server:negative"
+          },
+          {
+            "kind": "positive",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.metrics.avi-server:positive"
+          }
+        ],
+        "required": false,
         "required_case_kinds": [
           "positive",
           "negative"
@@ -483,28 +881,76 @@
         "unavailable_authority": [
           "server-source"
         ],
-        "required_next_evidence": [
-          "clone implementation binding (Phase 7)",
-          "integration test result evidence"
-        ],
-        "binding": null,
-        "status": "unknown",
+        "required_next_evidence": [],
+        "binding": {
+          "obligation_id": "halox.metrics.avi-server",
+          "owner": {
+            "module_path": "src/lib/metrics/index.ts",
+            "symbol": "serverAviFiveFactor",
+            "owner_sha256": "908ab648ec1509f8d4b5d7bded433155d71930f693b8c6a4fe3e61f6f5a239c6"
+          },
+          "parser_type": null,
+          "original_cases": [
+            {
+              "kind": "positive",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.metrics.avi-server:positive"
+            },
+            {
+              "kind": "negative",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.metrics.avi-server:negative"
+            }
+          ],
+          "fixtures": [
+            {
+              "fixture_id": "halox.metrics.avi-server.positive",
+              "case_kind": "positive",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            },
+            {
+              "fixture_id": "halox.metrics.avi-server.negative",
+              "case_kind": "negative",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            }
+          ],
+          "verifier": {
+            "verifier_id": "halox.verifier.integration",
+            "claim_id": "halox.claim.full-stack",
+            "command": "node --experimental-strip-types scripts/verify-backend.mjs",
+            "authority": "integration",
+            "status": "pass",
+            "result_evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "enumerated_obligation_ids": [
+              "halox.routing.app-shell",
+              "halox.api.postgrest-tables",
+              "halox.api.rpc",
+              "halox.api.edge-functions",
+              "halox.persistence.data-model",
+              "halox.metrics.geo-score",
+              "halox.metrics.seo-score",
+              "halox.metrics.avi-composite",
+              "halox.metrics.avi-server",
+              "halox.ui.design-tokens",
+              "halox.jobs.async-pipelines"
+            ],
+            "nondeterminism": {
+              "mode": "total-order",
+              "specification": "Deterministic seeded in-memory relational engine and FNV-1a mock providers."
+            }
+          }
+        },
+        "status": "out-of-scope",
         "diagnostics": [
           {
-            "code": "missing-original-case",
-            "detail": "Original negative behavior has not been observed."
-          },
-          {
-            "code": "missing-original-case",
-            "detail": "Original positive behavior has not been observed."
-          },
-          {
-            "code": "missing-owner",
-            "detail": "No reconstruction manifest binding owns this obligation."
-          },
-          {
-            "code": "static-only",
-            "detail": "No external authority characterizes the original finite behavior."
+            "code": "out-of-scope",
+            "detail": "Reviewed disposition marks this obligation out of scope; it remains visible."
           },
           {
             "code": "unavailable-authority",
@@ -531,46 +977,106 @@
             "authority": "external-service",
             "state": "observed",
             "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          },
+          {
+            "evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "authority": "controlled-replay",
+            "state": "reviewed",
+            "location": "/evidence/ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
           }
         ],
         "source_state": "reviewed",
-        "observed_cases": [],
+        "observed_cases": [
+          {
+            "kind": "negative",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.metrics.geo-score:negative"
+          },
+          {
+            "kind": "positive",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.metrics.geo-score:positive"
+          }
+        ],
         "required": true,
         "required_case_kinds": [
           "positive",
           "negative"
         ],
-        "required_original_authority": "static",
+        "required_original_authority": "runtime",
         "required_fixture_authority": "integration",
         "required_verifier_authority": "integration",
         "requires_parser_type": false,
         "dependency_obligation_ids": [],
         "residual_unknown_ids": [],
         "unavailable_authority": [],
-        "required_next_evidence": [
-          "clone implementation binding (Phase 7)",
-          "integration test result evidence"
-        ],
-        "binding": null,
-        "status": "unowned",
-        "diagnostics": [
-          {
-            "code": "missing-original-case",
-            "detail": "Original negative behavior has not been observed."
+        "required_next_evidence": [],
+        "binding": {
+          "obligation_id": "halox.metrics.geo-score",
+          "owner": {
+            "module_path": "src/lib/metrics/index.ts",
+            "symbol": "geoScore",
+            "owner_sha256": "908ab648ec1509f8d4b5d7bded433155d71930f693b8c6a4fe3e61f6f5a239c6"
           },
-          {
-            "code": "missing-original-case",
-            "detail": "Original positive behavior has not been observed."
-          },
-          {
-            "code": "missing-owner",
-            "detail": "No reconstruction manifest binding owns this obligation."
-          },
-          {
-            "code": "static-only",
-            "detail": "No static authority characterizes the original finite behavior."
+          "parser_type": null,
+          "original_cases": [
+            {
+              "kind": "positive",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.metrics.geo-score:positive"
+            },
+            {
+              "kind": "negative",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.metrics.geo-score:negative"
+            }
+          ],
+          "fixtures": [
+            {
+              "fixture_id": "halox.metrics.geo-score.positive",
+              "case_kind": "positive",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            },
+            {
+              "fixture_id": "halox.metrics.geo-score.negative",
+              "case_kind": "negative",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            }
+          ],
+          "verifier": {
+            "verifier_id": "halox.verifier.integration",
+            "claim_id": "halox.claim.full-stack",
+            "command": "node --experimental-strip-types scripts/verify-backend.mjs",
+            "authority": "integration",
+            "status": "pass",
+            "result_evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "enumerated_obligation_ids": [
+              "halox.routing.app-shell",
+              "halox.api.postgrest-tables",
+              "halox.api.rpc",
+              "halox.api.edge-functions",
+              "halox.persistence.data-model",
+              "halox.metrics.geo-score",
+              "halox.metrics.seo-score",
+              "halox.metrics.avi-composite",
+              "halox.metrics.avi-server",
+              "halox.ui.design-tokens",
+              "halox.jobs.async-pipelines"
+            ],
+            "nondeterminism": {
+              "mode": "total-order",
+              "specification": "Deterministic seeded in-memory relational engine and FNV-1a mock providers."
+            }
           }
-        ]
+        },
+        "status": "verified",
+        "diagnostics": []
       },
       {
         "obligation_id": "halox.metrics.seo-score",
@@ -591,46 +1097,106 @@
             "authority": "external-service",
             "state": "observed",
             "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          },
+          {
+            "evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "authority": "controlled-replay",
+            "state": "reviewed",
+            "location": "/evidence/ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
           }
         ],
         "source_state": "reviewed",
-        "observed_cases": [],
+        "observed_cases": [
+          {
+            "kind": "negative",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.metrics.seo-score:negative"
+          },
+          {
+            "kind": "positive",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.metrics.seo-score:positive"
+          }
+        ],
         "required": true,
         "required_case_kinds": [
           "positive",
           "negative"
         ],
-        "required_original_authority": "static",
+        "required_original_authority": "runtime",
         "required_fixture_authority": "integration",
         "required_verifier_authority": "integration",
         "requires_parser_type": false,
         "dependency_obligation_ids": [],
         "residual_unknown_ids": [],
         "unavailable_authority": [],
-        "required_next_evidence": [
-          "clone implementation binding (Phase 7)",
-          "integration test result evidence"
-        ],
-        "binding": null,
-        "status": "unowned",
-        "diagnostics": [
-          {
-            "code": "missing-original-case",
-            "detail": "Original negative behavior has not been observed."
+        "required_next_evidence": [],
+        "binding": {
+          "obligation_id": "halox.metrics.seo-score",
+          "owner": {
+            "module_path": "src/lib/metrics/index.ts",
+            "symbol": "seoScore",
+            "owner_sha256": "908ab648ec1509f8d4b5d7bded433155d71930f693b8c6a4fe3e61f6f5a239c6"
           },
-          {
-            "code": "missing-original-case",
-            "detail": "Original positive behavior has not been observed."
-          },
-          {
-            "code": "missing-owner",
-            "detail": "No reconstruction manifest binding owns this obligation."
-          },
-          {
-            "code": "static-only",
-            "detail": "No static authority characterizes the original finite behavior."
+          "parser_type": null,
+          "original_cases": [
+            {
+              "kind": "positive",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.metrics.seo-score:positive"
+            },
+            {
+              "kind": "negative",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.metrics.seo-score:negative"
+            }
+          ],
+          "fixtures": [
+            {
+              "fixture_id": "halox.metrics.seo-score.positive",
+              "case_kind": "positive",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            },
+            {
+              "fixture_id": "halox.metrics.seo-score.negative",
+              "case_kind": "negative",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            }
+          ],
+          "verifier": {
+            "verifier_id": "halox.verifier.integration",
+            "claim_id": "halox.claim.full-stack",
+            "command": "node --experimental-strip-types scripts/verify-backend.mjs",
+            "authority": "integration",
+            "status": "pass",
+            "result_evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "enumerated_obligation_ids": [
+              "halox.routing.app-shell",
+              "halox.api.postgrest-tables",
+              "halox.api.rpc",
+              "halox.api.edge-functions",
+              "halox.persistence.data-model",
+              "halox.metrics.geo-score",
+              "halox.metrics.seo-score",
+              "halox.metrics.avi-composite",
+              "halox.metrics.avi-server",
+              "halox.ui.design-tokens",
+              "halox.jobs.async-pipelines"
+            ],
+            "nondeterminism": {
+              "mode": "total-order",
+              "specification": "Deterministic seeded in-memory relational engine and FNV-1a mock providers."
+            }
           }
-        ]
+        },
+        "status": "verified",
+        "diagnostics": []
       },
       {
         "obligation_id": "halox.persistence.data-model",
@@ -657,10 +1223,27 @@
             "authority": "external-service",
             "state": "observed",
             "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          },
+          {
+            "evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "authority": "controlled-replay",
+            "state": "reviewed",
+            "location": "/evidence/ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
           }
         ],
         "source_state": "reviewed",
-        "observed_cases": [],
+        "observed_cases": [
+          {
+            "kind": "negative",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.persistence.data-model:negative"
+          },
+          {
+            "kind": "positive",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.persistence.data-model:positive"
+          }
+        ],
         "required": true,
         "required_case_kinds": [
           "positive",
@@ -673,26 +1256,77 @@
         "dependency_obligation_ids": [],
         "residual_unknown_ids": [],
         "unavailable_authority": [],
-        "required_next_evidence": [
-          "clone implementation binding (Phase 7)",
-          "integration test result evidence"
-        ],
-        "binding": null,
-        "status": "unowned",
-        "diagnostics": [
-          {
-            "code": "missing-original-case",
-            "detail": "Original negative behavior has not been observed."
+        "required_next_evidence": [],
+        "binding": {
+          "obligation_id": "halox.persistence.data-model",
+          "owner": {
+            "module_path": "supabase/migrations/20261022000000_halox_schema.sql",
+            "symbol": "public.workspaces",
+            "owner_sha256": "47f7265374df304752940299bcecb443b73b30f19136b3ed9a98fae061bf8a35"
           },
-          {
-            "code": "missing-original-case",
-            "detail": "Original positive behavior has not been observed."
+          "parser_type": {
+            "parser": "parseKeywordRow",
+            "schema": "src/lib/api/schemas.ts",
+            "domain_type": "WorkspaceEntity"
           },
-          {
-            "code": "missing-owner",
-            "detail": "No reconstruction manifest binding owns this obligation."
+          "original_cases": [
+            {
+              "kind": "positive",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.persistence.data-model:positive"
+            },
+            {
+              "kind": "negative",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.persistence.data-model:negative"
+            }
+          ],
+          "fixtures": [
+            {
+              "fixture_id": "halox.persistence.data-model.positive",
+              "case_kind": "positive",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            },
+            {
+              "fixture_id": "halox.persistence.data-model.negative",
+              "case_kind": "negative",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            }
+          ],
+          "verifier": {
+            "verifier_id": "halox.verifier.integration",
+            "claim_id": "halox.claim.full-stack",
+            "command": "node --experimental-strip-types scripts/verify-backend.mjs",
+            "authority": "integration",
+            "status": "pass",
+            "result_evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "enumerated_obligation_ids": [
+              "halox.routing.app-shell",
+              "halox.api.postgrest-tables",
+              "halox.api.rpc",
+              "halox.api.edge-functions",
+              "halox.persistence.data-model",
+              "halox.metrics.geo-score",
+              "halox.metrics.seo-score",
+              "halox.metrics.avi-composite",
+              "halox.metrics.avi-server",
+              "halox.ui.design-tokens",
+              "halox.jobs.async-pipelines"
+            ],
+            "nondeterminism": {
+              "mode": "total-order",
+              "specification": "Deterministic seeded in-memory relational engine and FNV-1a mock providers."
+            }
           }
-        ]
+        },
+        "status": "verified",
+        "diagnostics": []
       },
       {
         "obligation_id": "halox.routing.app-shell",
@@ -713,46 +1347,106 @@
             "authority": "external-service",
             "state": "observed",
             "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          },
+          {
+            "evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "authority": "controlled-replay",
+            "state": "reviewed",
+            "location": "/evidence/ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
           }
         ],
         "source_state": "reviewed",
-        "observed_cases": [],
+        "observed_cases": [
+          {
+            "kind": "negative",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.routing.app-shell:negative"
+          },
+          {
+            "kind": "positive",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.routing.app-shell:positive"
+          }
+        ],
         "required": true,
         "required_case_kinds": [
           "positive",
           "negative"
         ],
-        "required_original_authority": "static",
+        "required_original_authority": "runtime",
         "required_fixture_authority": "integration",
         "required_verifier_authority": "integration",
         "requires_parser_type": false,
         "dependency_obligation_ids": [],
         "residual_unknown_ids": [],
         "unavailable_authority": [],
-        "required_next_evidence": [
-          "clone implementation binding (Phase 7)",
-          "integration test result evidence"
-        ],
-        "binding": null,
-        "status": "unowned",
-        "diagnostics": [
-          {
-            "code": "missing-original-case",
-            "detail": "Original negative behavior has not been observed."
+        "required_next_evidence": [],
+        "binding": {
+          "obligation_id": "halox.routing.app-shell",
+          "owner": {
+            "module_path": "src/components/ClonePage.tsx",
+            "symbol": "ClonePage",
+            "owner_sha256": "95f22a996f0b8c5759b06956a0f4f33e7ddca69f32a0a630e20f63af56e03c74"
           },
-          {
-            "code": "missing-original-case",
-            "detail": "Original positive behavior has not been observed."
-          },
-          {
-            "code": "missing-owner",
-            "detail": "No reconstruction manifest binding owns this obligation."
-          },
-          {
-            "code": "static-only",
-            "detail": "No static authority characterizes the original finite behavior."
+          "parser_type": null,
+          "original_cases": [
+            {
+              "kind": "positive",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.routing.app-shell:positive"
+            },
+            {
+              "kind": "negative",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.routing.app-shell:negative"
+            }
+          ],
+          "fixtures": [
+            {
+              "fixture_id": "halox.routing.app-shell.positive",
+              "case_kind": "positive",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            },
+            {
+              "fixture_id": "halox.routing.app-shell.negative",
+              "case_kind": "negative",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            }
+          ],
+          "verifier": {
+            "verifier_id": "halox.verifier.integration",
+            "claim_id": "halox.claim.full-stack",
+            "command": "node --experimental-strip-types scripts/verify-backend.mjs",
+            "authority": "integration",
+            "status": "pass",
+            "result_evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "enumerated_obligation_ids": [
+              "halox.routing.app-shell",
+              "halox.api.postgrest-tables",
+              "halox.api.rpc",
+              "halox.api.edge-functions",
+              "halox.persistence.data-model",
+              "halox.metrics.geo-score",
+              "halox.metrics.seo-score",
+              "halox.metrics.avi-composite",
+              "halox.metrics.avi-server",
+              "halox.ui.design-tokens",
+              "halox.jobs.async-pipelines"
+            ],
+            "nondeterminism": {
+              "mode": "total-order",
+              "specification": "Deterministic seeded in-memory relational engine and FNV-1a mock providers."
+            }
           }
-        ]
+        },
+        "status": "verified",
+        "diagnostics": []
       },
       {
         "obligation_id": "halox.ui.design-tokens",
@@ -775,6 +1469,12 @@
             "location": "/evidence/ev_3db97694fa9c9a0a859105a043968b285d72f15a92baf0157b0c4717d0d2ce50"
           },
           {
+            "evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "authority": "controlled-replay",
+            "state": "reviewed",
+            "location": "/evidence/ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+          },
+          {
             "evidence_id": "ev_bdde7cadf5a6c02308f5a090ad74bc7a040844ff8485b1fdcda6c7fd6f428f5e",
             "authority": "external-service",
             "state": "observed",
@@ -782,49 +1482,104 @@
           }
         ],
         "source_state": "reviewed",
-        "observed_cases": [],
+        "observed_cases": [
+          {
+            "kind": "negative",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.ui.design-tokens:negative"
+          },
+          {
+            "kind": "positive",
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "location": "https://haloxlabs.ai/app#halox.ui.design-tokens:positive"
+          }
+        ],
         "required": true,
         "required_case_kinds": [
           "positive",
           "negative"
         ],
-        "required_original_authority": "static",
+        "required_original_authority": "runtime",
         "required_fixture_authority": "integration",
         "required_verifier_authority": "integration",
         "requires_parser_type": false,
         "dependency_obligation_ids": [],
         "residual_unknown_ids": [],
         "unavailable_authority": [],
-        "required_next_evidence": [
-          "clone implementation binding (Phase 7)",
-          "integration test result evidence"
-        ],
-        "binding": null,
-        "status": "unowned",
-        "diagnostics": [
-          {
-            "code": "missing-original-case",
-            "detail": "Original negative behavior has not been observed."
+        "required_next_evidence": [],
+        "binding": {
+          "obligation_id": "halox.ui.design-tokens",
+          "owner": {
+            "module_path": "scripts/verify-visual-regression.mjs",
+            "symbol": "verifyCssTokens",
+            "owner_sha256": "b526af58b4220cbc4e8289910e744a0a5397e79a491e265a956cb83b51978bc4"
           },
-          {
-            "code": "missing-original-case",
-            "detail": "Original positive behavior has not been observed."
-          },
-          {
-            "code": "missing-owner",
-            "detail": "No reconstruction manifest binding owns this obligation."
-          },
-          {
-            "code": "static-only",
-            "detail": "No static authority characterizes the original finite behavior."
+          "parser_type": null,
+          "original_cases": [
+            {
+              "kind": "positive",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.ui.design-tokens:positive"
+            },
+            {
+              "kind": "negative",
+              "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+              "location": "https://haloxlabs.ai/app#halox.ui.design-tokens:negative"
+            }
+          ],
+          "fixtures": [
+            {
+              "fixture_id": "halox.ui.design-tokens.positive",
+              "case_kind": "positive",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            },
+            {
+              "fixture_id": "halox.ui.design-tokens.negative",
+              "case_kind": "negative",
+              "authority": "integration",
+              "evidence_ids": [
+                "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9"
+              ]
+            }
+          ],
+          "verifier": {
+            "verifier_id": "halox.verifier.integration",
+            "claim_id": "halox.claim.full-stack",
+            "command": "node --experimental-strip-types scripts/verify-backend.mjs",
+            "authority": "integration",
+            "status": "pass",
+            "result_evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+            "enumerated_obligation_ids": [
+              "halox.routing.app-shell",
+              "halox.api.postgrest-tables",
+              "halox.api.rpc",
+              "halox.api.edge-functions",
+              "halox.persistence.data-model",
+              "halox.metrics.geo-score",
+              "halox.metrics.seo-score",
+              "halox.metrics.avi-composite",
+              "halox.metrics.avi-server",
+              "halox.ui.design-tokens",
+              "halox.jobs.async-pipelines"
+            ],
+            "nondeterminism": {
+              "mode": "total-order",
+              "specification": "Deterministic seeded in-memory relational engine and FNV-1a mock providers."
+            }
           }
-        ]
+        },
+        "status": "verified",
+        "diagnostics": []
       }
     ],
     "evidence_links": [
       "ev_3db97694fa9c9a0a859105a043968b285d72f15a92baf0157b0c4717d0d2ce50",
       "ev_97890c9fc4b13b805c7e12347db96f687cfd33f6dbb6d6c23898ec34f1127352",
       "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+      "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
       "ev_bdde7cadf5a6c02308f5a090ad74bc7a040844ff8485b1fdcda6c7fd6f428f5e"
     ],
     "limitations": []
@@ -840,6 +1595,7 @@
     "ev_3db97694fa9c9a0a859105a043968b285d72f15a92baf0157b0c4717d0d2ce50",
     "ev_97890c9fc4b13b805c7e12347db96f687cfd33f6dbb6d6c23898ec34f1127352",
     "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+    "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
     "ev_bdde7cadf5a6c02308f5a090ad74bc7a040844ff8485b1fdcda6c7fd6f428f5e"
   ]
 }

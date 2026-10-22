@@ -20,6 +20,9 @@ jobs:
       - run: npm run typecheck
       - run: npm run build
       - run: npm run verify:public
+      - run: npm run diff:manifest -- --fail-on-drift
+      - run: npm run verify:visual
+      - run: npm run verify:backend
       - name: Verify all captured routes and assets
         shell: bash
         run: |

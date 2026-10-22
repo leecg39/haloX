@@ -1,0 +1,27 @@
+{
+  "generatedAt": "2026-10-22T19:05:59.504Z",
+  "baselinePath": "docs/clone/manifest-baseline.json",
+  "targetPath": "public/clone/manifest.json",
+  "baselineSha256": "53c2d7f8bd91245ef1330f954a8e95522899f1380b6243ed88ee3b97aa107e23",
+  "targetSha256": "49f711922165781992806ac0cc8499e39a951b832c594efae0db7442d8e705fc",
+  "selfTestPassed": true,
+  "summary": {
+    "baselineCount": 363,
+    "targetCount": 363,
+    "added": 0,
+    "removed": 0,
+    "statusChanged": 0,
+    "titleChanged": 0,
+    "sourceUrlChanged": 0,
+    "textLengthChanged": 0,
+    "fileChanged": 0,
+    "hasBreakingDrift": false
+  },
+  "addedRoutes": [],
+  "removedRoutes": [],
+  "statusChanges": [],
+  "titleChanges": [],
+  "sourceUrlChanges": [],
+  "textLengthChanges": [],
+  "fileChanges": []
+}

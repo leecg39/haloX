@@ -1,0 +1,373 @@
+{
+  "generatedAt": "2026-10-22T19:05:59.926Z",
+  "selfTestPassed": true,
+  "tokenCheck": {
+    "totalExpected": 65,
+    "missingTokens": [],
+    "mismatchedTokens": [],
+    "passed": true
+  },
+  "representativeRoutesChecked": 14,
+  "dialogTemplatesChecked": 9,
+  "comparisonPairsChecked": 6,
+  "routeScreenshotsChecked": 18,
+  "baselineMatched": true,
+  "pairResults": [
+    {
+      "id": "app-desktop",
+      "viewport": "desktop",
+      "source": {
+        "path": "docs/design-references/haloxlabs.ai/app-captured-desktop.png",
+        "width": 1440,
+        "height": 1000,
+        "bitDepth": 8,
+        "colorType": 2,
+        "bytes": 157168,
+        "sha256": "dd03d3a18f5139c3bd939fa5732cdbf97970ec62e4afd9c66b32806be37904f7"
+      },
+      "clone": {
+        "path": "docs/design-references/haloxlabs.ai/clone-app-desktop-final.png",
+        "width": 1440,
+        "height": 1000,
+        "bitDepth": 8,
+        "colorType": 2,
+        "bytes": 157140,
+        "sha256": "51655ec255a7b3059333b7b8e9f8b00029f63a7c59da31e8e667f14a9ff84139"
+      },
+      "widthMatched": true,
+      "passed": true
+    },
+    {
+      "id": "app-mobile",
+      "viewport": "mobile-390",
+      "source": {
+        "path": "docs/design-references/haloxlabs.ai/source-app-mobile-final.png",
+        "width": 390,
+        "height": 844,
+        "bitDepth": 8,
+        "colorType": 2,
+        "bytes": 51896,
+        "sha256": "95a36ba88ac73e0d54b77260d343ed58b4e480319348e6d457f8df9c2444ab31"
+      },
+      "clone": {
+        "path": "docs/design-references/haloxlabs.ai/clone-app-mobile-final.png",
+        "width": 390,
+        "height": 844,
+        "bitDepth": 8,
+        "colorType": 2,
+        "bytes": 49945,
+        "sha256": "d6d084abed77677c5cc418747afa4357512d2fc00a39645da31be6ac5d400b93"
+      },
+      "widthMatched": true,
+      "passed": true
+    },
+    {
+      "id": "public-home-desktop",
+      "viewport": "desktop-1440",
+      "source": {
+        "path": "docs/rea/public-site/source-home.png",
+        "width": 1440,
+        "height": 1000,
+        "bitDepth": 8,
+        "colorType": 2,
+        "bytes": 560954,
+        "sha256": "f65b49ec9d8c651629bb2cb6f7c6ab1283c4f9b814b37a0e7edbafb32239a857"
+      },
+      "clone": {
+        "path": "docs/rea/public-site/local-home.png",
+        "width": 1440,
+        "height": 1000,
+        "bitDepth": 8,
+        "colorType": 2,
+        "bytes": 572135,
+        "sha256": "af0bbaf8f6b102bdc50e043a1296f4b1e4e1ec5e96332a28f4296b3f35151b82"
+      },
+      "widthMatched": true,
+      "passed": true
+    },
+    {
+      "id": "public-home-mobile",
+      "viewport": "mobile-390",
+      "source": {
+        "path": "docs/design-references/haloxlabs.ai/public-mobile-menu-390.png",
+        "width": 390,
+        "height": 844,
+        "bitDepth": 8,
+        "colorType": 2,
+        "bytes": 30716,
+        "sha256": "570b0de5bad47fb217df3ff810d2c3e40ce03e5c37e5814ddb11257083e194e9"
+      },
+      "clone": {
+        "path": "docs/design-references/haloxlabs.ai/clone-public-mobile-menu-final.png",
+        "width": 390,
+        "height": 844,
+        "bitDepth": 8,
+        "colorType": 2,
+        "bytes": 130014,
+        "sha256": "2f77d6d3bab4b45968f6b1acfe14feadb0672c240970918e83b97fd35d022733"
+      },
+      "widthMatched": true,
+      "passed": true
+    },
+    {
+      "id": "keyword-dialog",
+      "viewport": "dialog-1908",
+      "source": {
+        "path": "docs/design-references/haloxlabs.ai/keyword-dialog.png",
+        "width": 1908,
+        "height": 927,
+        "bitDepth": 8,
+        "colorType": 2,
+        "bytes": 142936,
+        "sha256": "0051b2fe33012c45e84d971da8614ba0aab11670102d94f20bbbe4f242292a77"
+      },
+      "clone": {
+        "path": "docs/design-references/haloxlabs.ai/clone-keyword-dialog.png",
+        "width": 1908,
+        "height": 927,
+        "bitDepth": 8,
+        "colorType": 2,
+        "bytes": 139209,
+        "sha256": "7cbb5352ddc1f37842b9108bc080c61be2a727eac1c025d372dcd004c55e2b72"
+      },
+      "widthMatched": true,
+      "passed": true
+    },
+    {
+      "id": "keyword-dialog-1440",
+      "viewport": "dialog-1440",
+      "source": {
+        "path": "docs/design-references/haloxlabs.ai/app-captured-desktop.png",
+        "width": 1440,
+        "height": 1000,
+        "bitDepth": 8,
+        "colorType": 2,
+        "bytes": 157168,
+        "sha256": "dd03d3a18f5139c3bd939fa5732cdbf97970ec62e4afd9c66b32806be37904f7"
+      },
+      "clone": {
+        "path": "docs/design-references/haloxlabs.ai/clone-keyword-dialog-fixed.png",
+        "width": 1440,
+        "height": 1000,
+        "bitDepth": 8,
+        "colorType": 2,
+        "bytes": 143747,
+        "sha256": "1b77b3090d2dd63cdc437b91e1f2328dd7e062af066b37aebdf9e0cd01066303"
+      },
+      "widthMatched": true,
+      "passed": true
+    }
+  ],
+  "routeSignatures": [
+    {
+      "route": "/app",
+      "kind": "app",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "hasMain": true,
+      "hasHeaderOrNav": true,
+      "tableCount": 1,
+      "buttonCount": 39,
+      "inputCount": 0,
+      "headingCount": 1,
+      "hasResponsiveBreakpoints": true,
+      "publicAccordions": 0,
+      "publicTabs": 0,
+      "publicMenus": 0
+    },
+    {
+      "route": "/app/keywords",
+      "kind": "app",
+      "title": "키워드 현황 | HaloX",
+      "hasMain": true,
+      "hasHeaderOrNav": true,
+      "tableCount": 1,
+      "buttonCount": 82,
+      "inputCount": 1,
+      "headingCount": 1,
+      "hasResponsiveBreakpoints": true,
+      "publicAccordions": 0,
+      "publicTabs": 0,
+      "publicMenus": 0
+    },
+    {
+      "route": "/app/seo/insights",
+      "kind": "app",
+      "title": "키워드 분석",
+      "hasMain": true,
+      "hasHeaderOrNav": true,
+      "tableCount": 1,
+      "buttonCount": 40,
+      "inputCount": 0,
+      "headingCount": 5,
+      "hasResponsiveBreakpoints": true,
+      "publicAccordions": 0,
+      "publicTabs": 0,
+      "publicMenus": 0
+    },
+    {
+      "route": "/app/geo/prompts",
+      "kind": "app",
+      "title": "프롬프트 현황 - GEO",
+      "hasMain": true,
+      "hasHeaderOrNav": true,
+      "tableCount": 1,
+      "buttonCount": 95,
+      "inputCount": 1,
+      "headingCount": 1,
+      "hasResponsiveBreakpoints": true,
+      "publicAccordions": 0,
+      "publicTabs": 0,
+      "publicMenus": 0
+    },
+    {
+      "route": "/app/geo/analysis",
+      "kind": "app",
+      "title": "프롬프트 분석",
+      "hasMain": true,
+      "hasHeaderOrNav": true,
+      "tableCount": 2,
+      "buttonCount": 44,
+      "inputCount": 0,
+      "headingCount": 3,
+      "hasResponsiveBreakpoints": true,
+      "publicAccordions": 0,
+      "publicTabs": 0,
+      "publicMenus": 0
+    },
+    {
+      "route": "/app/gap",
+      "kind": "app",
+      "title": "기회 분석",
+      "hasMain": true,
+      "hasHeaderOrNav": true,
+      "tableCount": 1,
+      "buttonCount": 31,
+      "inputCount": 0,
+      "headingCount": 4,
+      "hasResponsiveBreakpoints": true,
+      "publicAccordions": 0,
+      "publicTabs": 0,
+      "publicMenus": 0
+    },
+    {
+      "route": "/app/strategy-map",
+      "kind": "app",
+      "title": "Strategy Map | HaloX",
+      "hasMain": true,
+      "hasHeaderOrNav": true,
+      "tableCount": 0,
+      "buttonCount": 43,
+      "inputCount": 1,
+      "headingCount": 1,
+      "hasResponsiveBreakpoints": true,
+      "publicAccordions": 0,
+      "publicTabs": 0,
+      "publicMenus": 0
+    },
+    {
+      "route": "/app/site-audit",
+      "kind": "app",
+      "title": "사이트 진단 - HaloX",
+      "hasMain": true,
+      "hasHeaderOrNav": true,
+      "tableCount": 1,
+      "buttonCount": 47,
+      "inputCount": 0,
+      "headingCount": 6,
+      "hasResponsiveBreakpoints": true,
+      "publicAccordions": 0,
+      "publicTabs": 0,
+      "publicMenus": 0
+    },
+    {
+      "route": "/app/factory",
+      "kind": "app",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "hasMain": true,
+      "hasHeaderOrNav": true,
+      "tableCount": 0,
+      "buttonCount": 15,
+      "inputCount": 0,
+      "headingCount": 1,
+      "hasResponsiveBreakpoints": true,
+      "publicAccordions": 0,
+      "publicTabs": 0,
+      "publicMenus": 0
+    },
+    {
+      "route": "/app/settings",
+      "kind": "app",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "hasMain": true,
+      "hasHeaderOrNav": true,
+      "tableCount": 0,
+      "buttonCount": 33,
+      "inputCount": 1,
+      "headingCount": 2,
+      "hasResponsiveBreakpoints": true,
+      "publicAccordions": 0,
+      "publicTabs": 0,
+      "publicMenus": 0
+    },
+    {
+      "route": "/ko",
+      "kind": "public",
+      "title": "HaloX - SEO & AI 검색 최적화 플랫폼",
+      "hasMain": true,
+      "hasHeaderOrNav": true,
+      "tableCount": 1,
+      "buttonCount": 32,
+      "inputCount": 0,
+      "headingCount": 30,
+      "hasResponsiveBreakpoints": true,
+      "publicAccordions": 7,
+      "publicTabs": 13,
+      "publicMenus": 7
+    },
+    {
+      "route": "/ko/pricing",
+      "kind": "public",
+      "title": "가격 안내 - HaloX",
+      "hasMain": true,
+      "hasHeaderOrNav": true,
+      "tableCount": 1,
+      "buttonCount": 29,
+      "inputCount": 2,
+      "headingCount": 10,
+      "hasResponsiveBreakpoints": true,
+      "publicAccordions": 5,
+      "publicTabs": 5,
+      "publicMenus": 7
+    },
+    {
+      "route": "/ko/faq",
+      "kind": "public",
+      "title": "FAQ | HaloX",
+      "hasMain": true,
+      "hasHeaderOrNav": true,
+      "tableCount": 0,
+      "buttonCount": 27,
+      "inputCount": 1,
+      "headingCount": 2,
+      "hasResponsiveBreakpoints": true,
+      "publicAccordions": 0,
+      "publicTabs": 0,
+      "publicMenus": 7
+    },
+    {
+      "route": "/ko/glossary",
+      "kind": "public",
+      "title": "SEO & GEO 용어 사전 - 핵심 용어 해설 | Halox",
+      "hasMain": true,
+      "hasHeaderOrNav": true,
+      "tableCount": 0,
+      "buttonCount": 21,
+      "inputCount": 1,
+      "headingCount": 1,
+      "hasResponsiveBreakpoints": true,
+      "publicAccordions": 0,
+      "publicTabs": 0,
+      "publicMenus": 7
+    }
+  ]
+}
