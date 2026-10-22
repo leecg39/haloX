@@ -1,0 +1,362 @@
+{
+  "url": "https://haloxlabs.ai/app/site-audit?tab=bot-access",
+  "title": "사이트 진단 - HaloX",
+  "headings": [
+    "사이트 진단",
+    "정책 파일",
+    "등록 · 생성 · 검증 왕복 흐름",
+    "봇 접근성 매트릭스",
+    "렌더링 진단 측정 차단",
+    "렌더링 방식 진단",
+    "페이지별 가시성",
+    "성능 (Core Web Vitals)",
+    "단계별 권장 액션",
+    "현황 확인",
+    "즉시 조치",
+    "검증",
+    "모니터링"
+  ],
+  "tabs": [
+    {
+      "label": "개요",
+      "selected": "false"
+    },
+    {
+      "label": "AI 봇 접근성",
+      "selected": "true"
+    },
+    {
+      "label": "이슈\n(9)",
+      "selected": "false"
+    },
+    {
+      "label": "페이지\n(50)",
+      "selected": "false"
+    },
+    {
+      "label": "엔티티",
+      "selected": "false"
+    },
+    {
+      "label": "내부 링크",
+      "selected": "false"
+    },
+    {
+      "label": "가이드",
+      "selected": "false"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "현재 진단",
+      "disabled": false
+    },
+    {
+      "label": "진단 기록",
+      "disabled": false
+    },
+    {
+      "label": "Raw",
+      "disabled": false
+    },
+    {
+      "label": "새 진단",
+      "disabled": false
+    },
+    {
+      "label": "개요",
+      "disabled": false
+    },
+    {
+      "label": "AI 봇 접근성",
+      "disabled": false
+    },
+    {
+      "label": "이슈\n(9)",
+      "disabled": false
+    },
+    {
+      "label": "페이지\n(50)",
+      "disabled": false
+    },
+    {
+      "label": "엔티티",
+      "disabled": false
+    },
+    {
+      "label": "내부 링크",
+      "disabled": false
+    },
+    {
+      "label": "가이드",
+      "disabled": false
+    },
+    {
+      "label": "가이드",
+      "disabled": false
+    },
+    {
+      "label": "이슈 보기",
+      "disabled": false
+    },
+    {
+      "label": "지금 다시 확인",
+      "disabled": false
+    },
+    {
+      "label": "이슈 보기",
+      "disabled": false
+    },
+    {
+      "label": "지금 다시 확인",
+      "disabled": false
+    },
+    {
+      "label": "이슈 보기",
+      "disabled": false
+    },
+    {
+      "label": "지금 다시 확인",
+      "disabled": false
+    },
+    {
+      "label": "가이드",
+      "disabled": false
+    },
+    {
+      "label": "이게 뭔가요?",
+      "disabled": false
+    },
+    {
+      "label": "HTTP 응답 코드 의미",
+      "disabled": false
+    },
+    {
+      "label": "봇별 권장 정책",
+      "disabled": false
+    },
+    {
+      "label": "대응 방법",
+      "disabled": false
+    },
+    {
+      "label": "대응 방법",
+      "disabled": false
+    },
+    {
+      "label": "대응 방법",
+      "disabled": false
+    },
+    {
+      "label": "대응 방법",
+      "disabled": false
+    },
+    {
+      "label": "대응 방법",
+      "disabled": false
+    },
+    {
+      "label": "대응 방법",
+      "disabled": false
+    },
+    {
+      "label": "대응 방법",
+      "disabled": false
+    },
+    {
+      "label": "대응 방법",
+      "disabled": false
+    },
+    {
+      "label": "이슈 탭에서 보기",
+      "disabled": false
+    },
+    {
+      "label": "가이드",
+      "disabled": false
+    },
+    {
+      "label": "점수 계산 근거\n~47/100",
+      "disabled": false
+    },
+    {
+      "label": "로딩 시퀀스 보기\n(8)",
+      "disabled": false
+    },
+    {
+      "label": "GPTBot 등 AI 봇이 풀 본문을 받지 못해요. 원인은 완전 차단·축약·렌더링 누락 중 하나.",
+      "disabled": false
+    },
+    {
+      "label": "가능 원인: forbidden — WAF/CDN이 4xx/5xx로 차단 (브라우저 UA는 정상)",
+      "disabled": false
+    },
+    {
+      "label": "가능 원인: truncated — 200이지만 본문이 브라우저 UA의 절반 이하로 축약됨",
+      "disabled": false
+    },
+    {
+      "label": "Cloudflare/Akamai/Fastly: GPTBot·PerplexityBot·ClaudeBot UA 화이트리스트",
+      "disabled": false
+    },
+    {
+      "label": "Cloudflare: Bot Fight Mode +\"Verified bots\"Allow 분리",
+      "disabled": false
+    },
+    {
+      "label": "robots.txt에 명시적 Allow — 일부 봇은 UA 매칭 후에만 fetch",
+      "disabled": false
+    },
+    {
+      "label": "curl -A\"GPTBot/1.2\"/ -A\"PerplexityBot\"로 직접 검증",
+      "disabled": false
+    },
+    {
+      "label": "원본 서버 차단인지 CDN 차단인지 origin 직접 호출로 확인",
+      "disabled": false
+    },
+    {
+      "label": "curl -A \"GPTBot/1.2\" https://bridzzi.com로 본문 포함 확인",
+      "disabled": false
+    },
+    {
+      "label": "사이트 진단을 다시 실행해 % 가 개선됐는지 확인",
+      "disabled": false
+    },
+    {
+      "label": "ChatGPT · Perplexity · Claude에서 자사 인용 빈도 추적",
+      "disabled": false
+    },
+    {
+      "label": "월 1회 진단 스케줄로 회귀 감지",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [
+    "경로",
+    "렌더링 케이스",
+    "AI 가시성",
+    "서버 / 렌더 본문",
+    "프레임워크",
+    ""
+  ],
+  "inputs": [],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    },
+    {
+      "label": "bridzzi.com/robots.txt",
+      "href": "https://bridzzi.com/robots.txt"
+    },
+    {
+      "label": "bridzzi.com/llms.txt",
+      "href": "https://bridzzi.com/llms.txt"
+    },
+    {
+      "label": "bridzzi.com/sitemap.xml",
+      "href": "https://bridzzi.com/sitemap.xml"
+    },
+    {
+      "label": "/insights/bundle-pricing-choice-fatigue",
+      "href": "https://bridzzi.com/insights/bundle-pricing-choice-fatigue"
+    },
+    {
+      "label": "/insights/local-store-launch-map-review-flow",
+      "href": "https://bridzzi.com/insights/local-store-launch-map-review-flow"
+    },
+    {
+      "label": "/insights/influencer-brief-search-keywords",
+      "href": "https://bridzzi.com/insights/influencer-brief-search-keywords"
+    },
+    {
+      "label": "/insights/community-feedback-product-language",
+      "href": "https://bridzzi.com/insights/community-feedback-product-language"
+    },
+    {
+      "label": "/insights/smartstore-product-page-as-landing",
+      "href": "https://bridzzi.com/insights/smartstore-product-page-as-landing"
+    },
+    {
+      "label": "정책 URL 등록-수정",
+      "href": "https://haloxlabs.ai/app/settings?tab=general&detected_robots=https%3A%2F%2Fbridzzi.com%2Frobots.txt&detected_sitemap=https%3A%2F%2Fbridzzi.com%2Fsitemap.xml&detected_llms=https%3A%2F%2Fbridzzi.com%2Fllms.txt#policy-urls"
+    },
+    {
+      "label": "사이트 진단에서 확인하기",
+      "href": "https://haloxlabs.ai/app/settings?tab=general&detected_robots=https%3A%2F%2Fbridzzi.com%2Frobots.txt&detected_sitemap=https%3A%2F%2Fbridzzi.com%2Fsitemap.xml&detected_llms=https%3A%2F%2Fbridzzi.com%2Fllms.txt#policy-urls"
+    }
+  ],
+  "text": "Toggle Sidebar\n전략\n사이트 진단\n50%\n[계정 이메일]\n사이트 진단\nbridzzi.com\n완료\n\nSEO와 AI 검색 가시성을 저해하는 기술적 이슈를 확인하고 해결하세요.\n\n·\n마지막 분석 2026년 10월 22일 오후 7:44\n·\n진단 페이지 50/50\n현재 진단\n진단 기록\nRaw\n새 진단\n—\n\nSEO\n\n측정 불가\n\n기술 SEO · 5개 항목\n\n측정 불가\n\n—\n\nGEO\n\n측정 불가\n\n기술 GEO · 4개 항목\n\n측정 불가\n\n심각\n2\n경고\n2\n참고\n5\n\n크롤 진행률\n\n50 / 50 페이지\n\n전체 수집 완료· 사이트 전체 50페이지\n\n개요\nAI 봇 접근성\n이슈\n(9)\n페이지\n(50)\n엔티티\n내부 링크\n가이드\nAI 검색 엔진(ChatGPT · Perplexity · Claude · Gemini)이 사이트를 어떻게 접근하고 렌더링하는지 한 화면에서 점검할 수 있어요. 정책 파일 · 봇 접근성 · 렌더링 방식 세 축을 통합해 보여줍니다.\n1\n정책 파일\nrobots · llms · sitemap — 크롤링 규칙과 URL 카탈로그 노출\n충족도 3/3\n심각·경고 이슈 없음\n가이드\nrobots.txt\n정상\nbridzzi.com/robots.txt\nDisallow 55\n•\nAllow 10\n•\nSitemap 선언됨\n•\nUA 15\n이슈 보기\n지금 다시 확인\nllms.txt\n정상\nbridzzi.com/llms.txt\nAI 요약 카탈로그 정상 제공 중\n이슈 보기\n지금 다시 확인\nsitemap.xml\n정상\nbridzzi.com/sitemap.xml\nURL 164개\n•\n2xx 50\n•\n50개 샘플\n•\nrobots.txt 선언됨\n이슈 보기\n지금 다시 확인\n사이트맵 ↔ 크롤 대조\n사이트맵 164개 · 크롤 50개\n114\n사이트맵에 있는데 크롤 안 됨\n\n링크로 닿지 않거나 응답이 없는 주소예요\n\n/insights/bundle-pricing-choice-fatigue\n/insights/local-store-launch-map-review-flow\n/insights/influencer-brief-search-keywords\n/insights/community-feedback-product-language\n/insights/smartstore-product-page-as-landing\n외 109개\n0\n크롤됐는데 사이트맵에 없음\n\n사이트맵에 추가하면 색인에 도움돼요\n\n등록 · 생성 · 검증 왕복 흐름\n파일을 만들고 경로를 저장한 뒤 즉시 검증하는 3단계\n정책 URL 등록-수정\n1\n가이드 보고 파일 만들기\n\n가이드 문서를 참고해 robots.txt · llms.txt를 만들고 사이트 루트에 업로드합니다.\n\n2\n루트가 아니면 경로 등록\n\n루트가 아닌 경로에 올렸다면 \"정책 URL 등록·수정\"에서 실제 경로를 저장합니다.\n\n3\n지금 다시 확인으로 검증\n\n파일 행의 \"지금 다시 확인\"을 눌러 응답을 즉시 검증합니다. 점수·이슈는 다음 진단부터 반영됩니다.\n\n설정에서 정책 URL을 저장하면\n사이트 진단에서 확인하기\n로 이 화면으로 다시 돌아옵니다.\n2\n봇 접근성 매트릭스\nrobots · WAF/CDN — AI 봇 차단 여부와 실제 응답 대조\n정상 0/8\n이슈 1개\n가이드\n이게 뭔가요?\nHTTP 응답 코드 의미\n봇별 권장 정책\nCloudflare\n\n이 사이트는 Cloudflare가 보안을 담당하고 있고, AI 봇 6종(GPTBot,OAI-SearchBot,ChatGPT-User,Google-Extended,ClaudeBot,PerplexityBot)이 차단되어 있어요.\n→ ChatGPT·Perplexity·Claude 답변에 자사가 노출되지 못합니다. 아래 행의 \"대응 방법\"을 눌러 단계별 가이드를 확인하세요.\n\n봇\n① robots 정책\n② WAF / 서버 응답\n대응 · 상세\n검색엔진\nGooglebot\n검색엔진이 색인할 수 없습니다 → 검색 노출에 직접적 영향이 있어요\n①\nrobots\n미명시\n→\n②\nWAF\n403\n대응 방법\nBingbot\n검색엔진이 색인할 수 없습니다 → 검색 노출에 직접적 영향이 있어요\n①\nrobots\n미명시\n→\n②\nWAF\n403\n대응 방법\nAI 봇\nGPTBot\n이 봇은 자사를 못 봅니다 → ChatGPT/Perplexity/Claude 답변에서 자사가 누락돼요\n①\nrobots\n차단\n→\n②\nWAF\n403\n대응 방법\nOAI-SearchBot\n이 봇은 자사를 못 봅니다 → ChatGPT/Perplexity/Claude 답변에서 자사가 누락돼요\n①\nrobots\n허용\n→\n②\nWAF\n403\n대응 방법\nChatGPT-User\n이 봇은 자사를 못 봅니다 → ChatGPT/Perplexity/Claude 답변에서 자사가 누락돼요\n①\nrobots\n허용\n→\n②\nWAF\n403\n대응 방법\nGoogle-Extended\n이 봇은 자사를 못 봅니다 → ChatGPT/Perplexity/Claude 답변에서 자사가 누락돼요\n①\nrobots\n차단\n→\n②\nWAF\n403\n대응 방법\nClaudeBot\n이 봇은 자사를 못 봅니다 → ChatGPT/Perplexity/Claude 답변에서 자사가 누락돼요\n①\nrobots\n차단\n→\n②\nWAF\n403\n대응 방법\nPerplexityBot\n이 봇은 자사를 못 봅니다 → ChatGPT/Perplexity/Claude 답변에서 자사가 누락돼요\n①\nrobots\n허용\n→\n②\nWAF\n403\n대응 방법\n렌더링 진단 측정 차단\n\n서버 가시성 진단 측정이 차단되었습니다.\n\n이슈 탭에서 보기\n3\n렌더링 방식 진단\nCSR / SSR / 하이브리드 분포와 페이지별 가시성을 확인하고, 케이스별 권장 체크리스트를 펼쳐볼 수 있어요.\n71\n/100\n이슈 1개\n가이드\n페이지별 가시성\n전체 50개 중 대표 10개 샘플 기준\n경로\t렌더링 케이스\tAI 가시성\t서버 / 렌더 본문\t프레임워크\t\n/\t403 Blocked\t\n차단\n\t—\t-\t\n/insights\t403 Blocked\t\n차단\n\t—\t-\t\n/solutions/ai-search-geo-aeo\t403 Blocked\t\n차단\n\t—\t-\t\n/work/bc-mobility\t403 Blocked\t\n차단\n\t—\t-\t\n/about\t403 Blocked\t\n차단\n\t—\t-\t\n/work\t403 Blocked\t\n차단\n\t—\t-\t\n/insights/aeo-cost-structure-guide\t403 Blocked\t\n차단\n\t—\t-\t\n/solutions\t403 Blocked\t\n차단\n\t—\t-\t\n/contact\t403 Blocked\t\n차단\n\t—\t-\t\n/process\t403 Blocked\t\n차단\n\t—\t-\t\n정확도 · 해석 안내\n같은 도메인이라도 페이지마다 렌더링 방식이 다를 수 있습니다.\nSSR로 판정되어도 본문 일부를 클라이언트 fetch로 채우면 AI 봇에게 누락될 수 있습니다.\n가시성 수치는 표본 기반 추정치로 ±10~15%p 오차가 있습니다.\nAI 가시성 %는 SEO 포함 · raw HTML 가시성 기준으로 계산됩니다.\n성능 (Core Web Vitals)\n71\n/ 100\n\nLCP 4.2 s, TTI 7.9 s, FID 428 ms 등 3개 지표가 \"불량\", 3개 양호. 각 지표를 펼쳐 임계값과 영향을 확인하세요.\n\nCore Web Vitals\n71\nFCP\n1.8 s\n\n첫 화면 표시가 다소 느려요. CSS/JS 최적화로 개선할 수 있어요.\n\nLCP\n4.2 s\n\n메인 콘텐츠 로딩이 4초 이상이면 이탈률이 최대 123% 증가해요. 이미지 최적화와 서버 응답 시간을 확인하세요.\n\nSI\n2.2 s\n\n안전합니다.\n\nTBT\n574 ms\n\n사용자 입력 반응이 다소 느릴 수 있어요. 불필요한 JavaScript를 줄여보세요.\n\nTTI\n7.9 s\n\n페이지가 완전히 상호작용 가능해지기까지 너무 오래 걸려요.\n\nCLS\n0.000\n\n안전합니다.\n\nTTFB\n160 ms\n\n안전합니다.\n\nFID\n428 ms\n\n사용자의 첫 입력에 300ms 이상 지연이 발생해요. 메인 스레드 차단을 줄이세요.\n\n점수 계산 근거\n~47/100\n로딩 시퀀스 보기\n(8)\n4\n단계별 권장 액션\n사이트 대표 페이지 케이스 — Bot UA 차단\n전체 0 / 12 · 0 %\n진행도 자동 저장됨\n1\n현황 확인\n0/3\n\n현재 페이지의 렌더링 가시성과 원인을 진단합니다.\n\nGPTBot 등 AI 봇이 풀 본문을 받지 못해요. 원인은 완전 차단·축약·렌더링 누락 중 하나.\n가능 원인: forbidden — WAF/CDN이 4xx/5xx로 차단 (브라우저 UA는 정상)\n가능 원인: truncated — 200이지만 본문이 브라우저 UA의 절반 이하로 축약됨\n2\n즉시 조치\n0/5\n\nCDN 및 방화벽 설정을 변경하여 봇의 차단을 해제합니다.\n\nCloudflare/Akamai/Fastly: GPTBot·PerplexityBot·ClaudeBot UA 화이트리스트\nCloudflare: Bot Fight Mode +\"Verified bots\"Allow 분리\nrobots.txt에 명시적 Allow — 일부 봇은 UA 매칭 후에만 fetch\ncurl -A\"GPTBot/1.2\"/ -A\"PerplexityBot\"로 직접 검증\n원본 서버 차단인지 CDN 차단인지 origin 직접 호출로 확인\n3\n검증\n0/2\n\n수정 사항이 AI 봇에게 제대로 노출되는지 검증합니다.\n\ncurl -A \"GPTBot/1.2\" https://bridzzi.com로 본문 포함 확인\n사이트 진단을 다시 실행해 % 가 개선됐는지 확인\n4\n모니터링\n0/2\n\n주기적인 체크를 통해 가시성 회귀를 방지합니다.\n\nChatGPT · Perplexity · Claude에서 자사 인용 빈도 추적\n월 1회 진단 스케줄로 회귀 감지",
+  "parent": "https://haloxlabs.ai/app/site-audit",
+  "item": "AI 봇 접근성"
+}

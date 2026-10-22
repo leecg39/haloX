@@ -1,0 +1,315 @@
+{
+ "source": "https://haloxlabs.ai/assets/index-BjzOpcfp.css",
+ "sha256": "033003b96bd1cdac8d896e6c533a67355df3f660c0a53626a70faf38c474e835",
+ "bytes": 431063,
+ "classification": "observation",
+ "root_tokens": {
+  "--background": "0 0% 100%",
+  "--foreground": "0 0% 12%",
+  "--card": "0 0% 100%",
+  "--card-foreground": "0 0% 12%",
+  "--popover": "0 0% 100%",
+  "--popover-foreground": "0 0% 12%",
+  "--primary": "0 0% 12%",
+  "--primary-foreground": "0 0% 100%",
+  "--primary-light": "0 0% 20%",
+  "--primary-dark": "0 0% 8%",
+  "--secondary": "0 0% 95%",
+  "--secondary-foreground": "0 0% 12%",
+  "--muted": "0 0% 96%",
+  "--muted-foreground": "0 0% 43%",
+  "--muted-foreground-subtle": "0 0% 43%",
+  "--accent": "0 0% 12%",
+  "--accent-foreground": "0 0% 100%",
+  "--gray-50": "0 0% 98%",
+  "--gray-100": "0 0% 96%",
+  "--gray-200": "0 0% 90%",
+  "--gray-300": "0 0% 83%",
+  "--gray-400": "0 0% 64%",
+  "--gray-500": "0 0% 45%",
+  "--gray-600": "0 0% 32%",
+  "--gray-700": "0 0% 25%",
+  "--gray-800": "0 0% 15%",
+  "--gray-900": "0 0% 9%",
+  "--success": "142 76% 36%",
+  "--success-foreground": "0 0% 100%",
+  "--success-strong": "142 72% 29%",
+  "--warning": "38 92% 50%",
+  "--warning-foreground": "0 0% 100%",
+  "--warning-strong": "26 90% 37%",
+  "--destructive": "0 84% 60%",
+  "--destructive-foreground": "0 0% 100%",
+  "--destructive-strong": "0 84% 40%",
+  "--info": "199 89% 48%",
+  "--info-foreground": "0 0% 100%",
+  "--info-strong": "199 89% 30%",
+  "--border": "0 0% 90%",
+  "--input": "0 0% 90%",
+  "--ring": "0 0% 12%",
+  "--radius": ".5rem",
+  "--sidebar-background": "36 9% 95%",
+  "--sidebar-foreground": "0 0% 18%",
+  "--sidebar-primary": "0 0% 9%",
+  "--sidebar-primary-foreground": "0 0% 100%",
+  "--sidebar-accent": "36 8% 91%",
+  "--sidebar-accent-foreground": "0 0% 9%",
+  "--sidebar-border": "36 7% 88%",
+  "--sidebar-ring": "0 0% 15%",
+  "--surface-subtle": "0 0% 98%",
+  "--surface-elevated": "0 0% 96%",
+  "--brand-blue": "236 52% 60%",
+  "--brand-purple": "248 33% 60%",
+  "--brand-geo": "127 37% 59%",
+  "--brand-ochre": "33 96% 43%",
+  "--brand-cherry": "345 80% 55%",
+  "--chart-own": "43 96% 42%",
+  "--signal": "217 70% 42%",
+  "--signal-foreground": "0 0% 100%",
+  "--highlight": "210 100% 92%",
+  "--highlight-foreground": "0 0% 10%",
+  "--ink": "0 0% 8%",
+  "--transition-smooth": "all .2s cubic-bezier(.4, 0, .2, 1)"
+ },
+ "dark_mode_block": false,
+ "font_families": [
+  "Geist Mono,ui-monospace,SFMono-Regular,SF Mono,Menlo,monospace",
+  "Pretendard",
+  "Pretendard,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif",
+  "inherit"
+ ],
+ "font_sizes_top": [
+  [
+   "clamp(.75rem,calc(.6875rem + .078125vw),.8125rem)",
+   13
+  ],
+  [
+   "clamp(1rem,calc(.9375rem + .078125vw),1.0625rem)",
+   11
+  ],
+  [
+   "clamp(.875rem,calc(.8125rem + .078125vw),.9375rem)",
+   8
+  ],
+  [
+   ".875em",
+   7
+  ],
+  [
+   "clamp(1.875rem,calc(1.625rem + .3125vw),2.125rem)",
+   7
+  ],
+  [
+   ".8888889em",
+   6
+  ],
+  [
+   "clamp(1.25rem,calc(1.125rem + .15625vw),1.375rem)",
+   6
+  ],
+  [
+   "clamp(1.125rem,calc(1rem + .15625vw),1.25rem)",
+   6
+  ],
+  [
+   ".8571429em",
+   5
+  ],
+  [
+   "1.125rem",
+   5
+  ],
+  [
+   "clamp(2.25rem,calc(2rem + .3125vw),2.5rem)",
+   5
+  ],
+  [
+   "3rem",
+   4
+  ],
+  [
+   "clamp(.6875rem,calc(.625rem + .078125vw),.75rem)",
+   3
+  ],
+  [
+   "clamp(1.5rem,calc(1.3125rem + .234375vw),1.6875rem)",
+   3
+  ],
+  [
+   "2.25rem",
+   3
+  ],
+  [
+   "2.5rem",
+   3
+  ],
+  [
+   "inherit",
+   2
+  ],
+  [
+   "1.25em",
+   2
+  ],
+  [
+   ".9em",
+   2
+  ],
+  [
+   "1rem",
+   2
+  ],
+  [
+   ".875rem",
+   2
+  ],
+  [
+   "1.2857143em",
+   2
+  ],
+  [
+   "3.75rem",
+   2
+  ],
+  [
+   ".8125rem",
+   2
+  ],
+  [
+   ".9375rem",
+   2
+  ]
+ ],
+ "font_weights": [
+  [
+   "600",
+   28
+  ],
+  [
+   "500",
+   18
+  ],
+  [
+   "700",
+   15
+  ],
+  [
+   "400",
+   11
+  ],
+  [
+   "800",
+   9
+  ],
+  [
+   "inherit",
+   3
+  ],
+  [
+   "900",
+   2
+  ],
+  [
+   "bolder",
+   1
+  ],
+  [
+   "300",
+   1
+  ]
+ ],
+ "breakpoints_min_width": [
+  "640px",
+  "768px",
+  "1024px",
+  "1280px",
+  "1380px",
+  "1400px",
+  "1536px"
+ ],
+ "keyframes": [
+  "accent-bar-shift",
+  "accordion-down",
+  "accordion-up",
+  "badge-pop",
+  "beam-dash",
+  "border-beam-rotate",
+  "count-bounce",
+  "cta-blob-a",
+  "cta-blob-b",
+  "cta-blob-c",
+  "cta-blob-d",
+  "draw-donut",
+  "draw-line",
+  "edge-flow",
+  "edge-glow",
+  "enter",
+  "exit",
+  "feature-progress",
+  "flash-highlight",
+  "flash-row",
+  "float-orb-1",
+  "float-orb-2",
+  "gradient-shift",
+  "grow-height",
+  "grow-width",
+  "highlight-sweep",
+  "indicator-fill",
+  "kpi-fade-up",
+  "linearReveal",
+  "linearRevealFade",
+  "live-pulse",
+  "marquee",
+  "micro-lift",
+  "mu-reveal-in",
+  "nav-menu-close",
+  "nav-menu-open",
+  "node-pulse",
+  "overlap-pulse",
+  "ping",
+  "pulse",
+  "sakura-fall",
+  "sakura-sway",
+  "shimmer",
+  "slide-dot",
+  "slide-left",
+  "slide-right",
+  "spin",
+  "spotlight-sway",
+  "subtle-pulse-glow"
+ ],
+ "radius_values": [
+  ".25rem",
+  ".3125rem",
+  ".375rem",
+  ".75rem",
+  "0",
+  "1.5px",
+  "1.5rem",
+  "10px",
+  "11px",
+  "13px",
+  "14px",
+  "18px",
+  "1rem",
+  "20px",
+  "28px",
+  "2px",
+  "2rem",
+  "3px",
+  "4px",
+  "4px!important",
+  "50%",
+  "50% 0 50% 50%",
+  "5px",
+  "6px",
+  "6px!important",
+  "8px",
+  "9999px",
+  "calc(1rem - 1px)",
+  "calc(var(--radius) + 4px)",
+  "calc(var(--radius) - 2px)",
+  "inherit",
+  "var(--radius)",
+  "var(--radius)!important"
+ ]
+}

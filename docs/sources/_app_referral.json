@@ -1,0 +1,123 @@
+{
+  "url": "https://haloxlabs.ai/app/referral",
+  "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+  "headings": [
+    "추천 프로그램",
+    "파트너 신청"
+  ],
+  "tabs": [],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "시작하기",
+      "disabled": false
+    }
+  ],
+  "labels": [
+    "이름 / 상호",
+    "연락받을 이메일",
+    "휴대폰 번호",
+    "주로 소개할 채널 (선택)"
+  ],
+  "columns": [],
+  "inputs": [
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "",
+      "label": null
+    },
+    {
+      "tag": "INPUT",
+      "type": "email",
+      "placeholder": "",
+      "label": null
+    },
+    {
+      "tag": "INPUT",
+      "type": "tel",
+      "placeholder": "010-0000-0000",
+      "label": null
+    },
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "https://",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n대시보드\n50%\n[계정 이메일]\n추천 프로그램\n\n내 추천 링크로 가입한 고객이 결제하면, 1년간 결제 금액의 일정 비율을 현금으로 받아요.\n\n파트너 신청\n\n연락처만 남기면 바로 전용 추천 링크가 발급돼요. 계좌 정보는 정산 신청할 때 입력하면 됩니다.\n\n이름 / 상호\n연락받을 이메일\n휴대폰 번호\n주로 소개할 채널 (선택)\n시작하기"
+}

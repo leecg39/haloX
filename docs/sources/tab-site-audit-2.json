@@ -1,0 +1,267 @@
+{
+  "url": "https://haloxlabs.ai/app/site-audit?tab=issues",
+  "title": "사이트 진단 - HaloX",
+  "headings": [
+    "사이트 진단"
+  ],
+  "tabs": [
+    {
+      "label": "개요",
+      "selected": "false"
+    },
+    {
+      "label": "AI 봇 접근성",
+      "selected": "false"
+    },
+    {
+      "label": "이슈\n(9)",
+      "selected": "true"
+    },
+    {
+      "label": "페이지\n(50)",
+      "selected": "false"
+    },
+    {
+      "label": "엔티티",
+      "selected": "false"
+    },
+    {
+      "label": "내부 링크",
+      "selected": "false"
+    },
+    {
+      "label": "가이드",
+      "selected": "false"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "현재 진단",
+      "disabled": false
+    },
+    {
+      "label": "진단 기록",
+      "disabled": false
+    },
+    {
+      "label": "Raw",
+      "disabled": false
+    },
+    {
+      "label": "새 진단",
+      "disabled": false
+    },
+    {
+      "label": "개요",
+      "disabled": false
+    },
+    {
+      "label": "AI 봇 접근성",
+      "disabled": false
+    },
+    {
+      "label": "이슈\n(9)",
+      "disabled": false
+    },
+    {
+      "label": "페이지\n(50)",
+      "disabled": false
+    },
+    {
+      "label": "엔티티",
+      "disabled": false
+    },
+    {
+      "label": "내부 링크",
+      "disabled": false
+    },
+    {
+      "label": "가이드",
+      "disabled": false
+    },
+    {
+      "label": "심각",
+      "disabled": false
+    },
+    {
+      "label": "경고",
+      "disabled": false
+    },
+    {
+      "label": "참고",
+      "disabled": false
+    },
+    {
+      "label": "전체",
+      "disabled": false
+    },
+    {
+      "label": "SEO",
+      "disabled": false
+    },
+    {
+      "label": "GEO",
+      "disabled": false
+    },
+    {
+      "label": "성능",
+      "disabled": false
+    },
+    {
+      "label": "봇 접근성\n2",
+      "disabled": false
+    },
+    {
+      "label": "신뢰도\n1",
+      "disabled": false
+    },
+    {
+      "label": "기술 건강도\n6",
+      "disabled": false
+    },
+    {
+      "label": "봇 접근성\n2",
+      "disabled": false
+    },
+    {
+      "label": "가이드에서 보기",
+      "disabled": false
+    },
+    {
+      "label": "해당 페이지 보기",
+      "disabled": false
+    },
+    {
+      "label": "가이드에서 보기",
+      "disabled": false
+    },
+    {
+      "label": "해당 페이지 보기",
+      "disabled": false
+    },
+    {
+      "label": "신뢰도\n1",
+      "disabled": false
+    },
+    {
+      "label": "가이드에서 보기",
+      "disabled": false
+    },
+    {
+      "label": "해당 페이지 보기",
+      "disabled": false
+    },
+    {
+      "label": "기술 건강도\n6",
+      "disabled": false
+    },
+    {
+      "label": "가이드에서 보기",
+      "disabled": false
+    },
+    {
+      "label": "해당 페이지 보기",
+      "disabled": false
+    },
+    {
+      "label": "가이드에서 보기",
+      "disabled": false
+    },
+    {
+      "label": "가이드에서 보기",
+      "disabled": false
+    },
+    {
+      "label": "가이드에서 보기",
+      "disabled": false
+    },
+    {
+      "label": "가이드에서 보기",
+      "disabled": false
+    },
+    {
+      "label": "가이드에서 보기",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [],
+  "inputs": [],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n전략\n사이트 진단\n50%\n[계정 이메일]\n사이트 진단\nbridzzi.com\n완료\n\nSEO와 AI 검색 가시성을 저해하는 기술적 이슈를 확인하고 해결하세요.\n\n·\n마지막 분석 2026년 10월 22일 오후 7:44\n·\n진단 페이지 50/50\n현재 진단\n진단 기록\nRaw\n새 진단\n—\n\nSEO\n\n측정 불가\n\n기술 SEO · 5개 항목\n\n측정 불가\n\n—\n\nGEO\n\n측정 불가\n\n기술 GEO · 4개 항목\n\n측정 불가\n\n심각\n2\n경고\n2\n참고\n5\n\n크롤 진행률\n\n50 / 50 페이지\n\n전체 수집 완료· 사이트 전체 50페이지\n\n개요\nAI 봇 접근성\n이슈\n(9)\n페이지\n(50)\n엔티티\n내부 링크\n가이드\n심각도(복수 선택)\n심각\n경고\n참고\n영역(하나만 선택)\n전체\nSEO\nGEO\n성능\n카테고리(복수 선택)\n봇 접근성\n2\n신뢰도\n1\n기술 건강도\n6\n봇 접근성\n2\n심각\t\nrobots.txt가 AI 봇을 차단 중\n\t\nGEO\n\t1p\t\n\n\n참고\t\n이어지는 페이지 표시가 없는 목록 페이지 14개\n\t\nGEO\n\t14p\t\n신뢰도\n1\n심각\t\nHTTP 4xx 오류\n\t\nSEO\nGEO\n\t50p\t\n기술 건강도\n6\n경고\t\nLCP 속도 느림\n\t\n성능\n\t1p\t\n\n\n경고\t\n미사용 JavaScript 코드가 있어요\n\t\n성능\n\t-460ms / -68KB\t\n\n\n참고\t\nMinify CSS\n\t\n성능\n\t-310ms / -19KB\t\n\n\n참고\t\nReduce unused CSS\n\t\n성능\n\t-150ms / -12KB\t\n\n\n참고\t\nMinify JavaScript\n\t\n성능\n\t-3KB\t\n\n\n참고\t\nMinimize main-thread work\n\t\n성능\n\t1p\t",
+  "parent": "https://haloxlabs.ai/app/site-audit",
+  "item": "이슈"
+}

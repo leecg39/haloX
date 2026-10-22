@@ -1,0 +1,24 @@
+{
+  "url": "https://haloxlabs.ai/app/workspaces",
+  "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+  "headings": [
+    "내 워크스페이스",
+    "브리찌"
+  ],
+  "tabs": [],
+  "buttons": [
+    {
+      "label": "새 워크스페이스 만들기",
+      "disabled": false
+    },
+    {
+      "label": "상세",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [],
+  "inputs": [],
+  "links": [],
+  "text": "내 워크스페이스\n\n작업할 워크스페이스를 선택하세요\n\n새 워크스페이스 만들기\n브리찌\nTrial\n10/20\n키워드\n10/20\nAI Questions\n0/1\n콘텐츠\n상세"
+}

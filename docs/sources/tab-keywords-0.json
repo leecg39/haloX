@@ -1,0 +1,350 @@
+{
+  "url": "https://haloxlabs.ai/app/keywords",
+  "title": "키워드 현황 | HaloX",
+  "headings": [
+    "키워드 현황"
+  ],
+  "tabs": [
+    {
+      "label": "리스트\n(10)",
+      "selected": "true"
+    },
+    {
+      "label": "세트\n(1)",
+      "selected": "false"
+    },
+    {
+      "label": "태그",
+      "selected": "false"
+    },
+    {
+      "label": "네트워크",
+      "selected": "false"
+    },
+    {
+      "label": "아이디어",
+      "selected": "false"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "전체 세트",
+      "disabled": false
+    },
+    {
+      "label": "Raw",
+      "disabled": false
+    },
+    {
+      "label": "키워드 추가",
+      "disabled": false
+    },
+    {
+      "label": "Top 10 비율 info",
+      "disabled": false
+    },
+    {
+      "label": "AI 요약 인용 분포 info",
+      "disabled": false
+    },
+    {
+      "label": "자사\n1",
+      "disabled": false
+    },
+    {
+      "label": "경합\n0",
+      "disabled": false
+    },
+    {
+      "label": "경쟁사\n0",
+      "disabled": false
+    },
+    {
+      "label": "미점유\n8",
+      "disabled": false
+    },
+    {
+      "label": "AIO 없음\n1",
+      "disabled": false
+    },
+    {
+      "label": "자사 순위 info",
+      "disabled": false
+    },
+    {
+      "label": "우위\n0",
+      "disabled": false
+    },
+    {
+      "label": "경합\n0",
+      "disabled": false
+    },
+    {
+      "label": "뒤처짐\n0",
+      "disabled": false
+    },
+    {
+      "label": "미점유\n10",
+      "disabled": false
+    },
+    {
+      "label": "평균 순위 info",
+      "disabled": false
+    },
+    {
+      "label": "리스트\n(10)",
+      "disabled": false
+    },
+    {
+      "label": "세트\n(1)",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "네트워크",
+      "disabled": false
+    },
+    {
+      "label": "아이디어",
+      "disabled": false
+    },
+    {
+      "label": "전체 언어",
+      "disabled": false
+    },
+    {
+      "label": "자사·경쟁사",
+      "disabled": false
+    },
+    {
+      "label": "인텐트",
+      "disabled": false
+    },
+    {
+      "label": "진행상태",
+      "disabled": false
+    },
+    {
+      "label": "최신 등록순",
+      "disabled": false
+    },
+    {
+      "label": "전체 보기",
+      "disabled": false
+    },
+    {
+      "label": "세트별로 묶기",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "행 액션",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "행 액션",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "행 액션",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "행 액션",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "행 액션",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "행 액션",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "행 액션",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "행 액션",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "행 액션",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "행 액션",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [
+    "",
+    "세트 · 키워드",
+    "태그",
+    "순위",
+    "AI",
+    "검색량",
+    "트렌드",
+    "의도",
+    "PAA",
+    "연관\n검색어",
+    "추천\n프롬프트",
+    "TTR",
+    "진행",
+    ""
+  ],
+  "inputs": [
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "키워드 검색",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n분석\n키워드 현황\n50%\n[계정 이메일]\n키워드 현황\n\n키워드 현황을 한눈에 확인하고 관리하세요\n\n전체 세트\nRaw\n키워드 추가\nTop 10 키워드\n0\n/ 10\n\n자사 1~10위 노출 0%\n\n분석 10 / 전체 10\n\n0%\nAI 요약 인용\nAI Overview 노출 기준\n자사\n1\n경합\n0\n경쟁사\n0\n미점유\n8\nAIO 없음\n1\n자사 순위\n자사 vs 경쟁사 최고 순위\n우위\n0\n경합\n0\n뒤처짐\n0\n미점유\n10\n평균 순위\n순위 있는 키워드 평균\n\n—\n위\n\nTop3\nTop10\nTop30\n31+\n리스트\n(10)\n세트\n(1)\n태그\n네트워크\n아이디어\n전체 언어\n자사·경쟁사\n인텐트\n진행상태\n최신 등록순\n전체 보기\n세트별로 묶기\n\t세트 · 키워드\n\t태그\t순위\n\t\nAI\n\t검색량\n\t트렌드\n\t\n의도\n\t\nPAA\n\t\n연관\n검색어\n\t추천\n프롬프트\t\nTTR\n\t진행\t\n\n\t\nAI 광고대행사\n브리찌 키워드 · 추적 시작일 2026-10-22\n\t\n태그\n\t—\t\n\t< 10\t\n—\n\t비교·검토\t—\t—\t\n\t\n에버그린\n~6개월\n\t\n-\n\t\n\n\n\t\n브리찌\n브리찌 키워드 · 추적 시작일 2026-10-22\n\t\n태그\n\t—\t\n\t70\t\n\t정보 탐색\t—\t—\t\n\t\n빠름\n~1개월\n\t\n-\n\t\n\n\n\t\nAEO 마케팅\n브리찌 키워드 · 추적 시작일 2026-10-22\n\t\n태그\n\t—\t\n\t< 10\t\n—\n\t정보 탐색\t—\t\n8\n\t\n\t\n보통\n~3개월\n\t\n-\n\t\n\n\n\t\n성과형 광고대행사\n브리찌 키워드 · 추적 시작일 2026-10-22\n\t\n태그\n\t—\t\n\t< 10\t\n—\n\t비교·검토\t\n9\n\t\n8\n\t\n\t\n에버그린\n~6개월\n\t\n-\n\t\n\n\n\t\n광고 효율\n브리찌 키워드 · 추적 시작일 2026-10-22\n\t\n태그\n\t—\t\n\t10\t\n\t정보 탐색\t—\t—\t\n\t\n에버그린\n~6개월\n\t\n-\n\t\n\n\n\t\n매출 정체\n브리찌 키워드 · 추적 시작일 2026-10-22\n\t\n태그\n\t—\t\n\t< 10\t\n—\n\t정보 탐색\t—\t—\t\n\t—\t\n-\n\t\n\n\n\t\n숏폼 영상\n브리찌 키워드 · 추적 시작일 2026-10-22\n\t\n태그\n\t—\t\n\t210\t\n\t정보 탐색\t—\t\n6\n\t\n\t\n에버그린\n~6개월\n\t\n-\n\t\n\n\n\t\n검색 상위노출\n브리찌 키워드 · 추적 시작일 2026-10-22\n\t\n태그\n\t—\t\n\t10\t\n\t비교·검토\t—\t\n7\n\t\n\t\n에버그린\n~6개월\n\t\n-\n\t\n\n\n\t\nAI 마케팅\n브리찌 키워드 · 추적 시작일 2026-10-22\n\t\n태그\n\t—\t\n\t480\t\n\t정보 탐색\t\n9\n\t\n8\n\t\n\t\n보통\n~3개월\n\t\n-\n\t\n\n\n\t\n에코마케팅 대안\n브리찌 키워드 · 추적 시작일 2026-10-22\n\t\n태그\n\t—\t-\t< 10\t\n—\n\t정보 탐색\t—\t—\t\n\t\n에버그린\n~6개월\n\t\n-\n\t\n\n1-10 / 총 10개",
+  "parent": "https://haloxlabs.ai/app/keywords",
+  "item": "리스트"
+}

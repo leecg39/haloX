@@ -1,0 +1,120 @@
+{
+  "url": "https://haloxlabs.ai/app/feedback",
+  "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+  "headings": [
+    "피드백 보드"
+  ],
+  "tabs": [],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "새 피드백",
+      "disabled": false
+    },
+    {
+      "label": "전체",
+      "disabled": false
+    },
+    {
+      "label": "전체",
+      "disabled": false
+    },
+    {
+      "label": "최신순",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [],
+  "inputs": [
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n피드백\n50%\n[계정 이메일]\n피드백 보드\n\n서비스 개선 아이디어와 버그 리포트를 공유해주세요\n\n새 피드백\n\n피드백을 남기면 Trial +3일!\n\n0/5 사용 · 5 남은 횟수\n\n전체\n전체\n최신순\n\n아직 피드백이 없습니다\n\n첫 번째 피드백을 남겨보세요!"
+}

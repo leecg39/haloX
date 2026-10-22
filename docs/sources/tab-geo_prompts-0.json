@@ -1,0 +1,342 @@
+{
+  "url": "https://haloxlabs.ai/app/geo/prompts",
+  "title": "프롬프트 현황 - GEO",
+  "headings": [
+    "프롬프트 현황"
+  ],
+  "tabs": [
+    {
+      "label": "리스트\n(10)",
+      "selected": "true"
+    },
+    {
+      "label": "세트\n(1)",
+      "selected": "false"
+    },
+    {
+      "label": "태그",
+      "selected": "false"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "경쟁사 우위 보기",
+      "disabled": false
+    },
+    {
+      "label": "Dismiss",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만 계산",
+      "disabled": false
+    },
+    {
+      "label": "세트",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "Raw",
+      "disabled": false
+    },
+    {
+      "label": "설정",
+      "disabled": false
+    },
+    {
+      "label": "추가",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트 분포 info",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트 분포 info",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트 분포 info",
+      "disabled": false
+    },
+    {
+      "label": "자사만: 1 (10.0%)",
+      "disabled": false
+    },
+    {
+      "label": "경쟁사만: 1 (10.0%)",
+      "disabled": false
+    },
+    {
+      "label": "미노출: 8 (80.0%)",
+      "disabled": false
+    },
+    {
+      "label": "멘션 순위 info",
+      "disabled": false
+    },
+    {
+      "label": "멘션 점유율 info",
+      "disabled": false
+    },
+    {
+      "label": "소스 점유율 info",
+      "disabled": false
+    },
+    {
+      "label": "인용 점유율 info",
+      "disabled": false
+    },
+    {
+      "label": "인용 순위 info",
+      "disabled": false
+    },
+    {
+      "label": "리스트\n(10)",
+      "disabled": false
+    },
+    {
+      "label": "세트\n(1)",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "퍼널 현황",
+      "disabled": false
+    },
+    {
+      "label": "전체 엔진",
+      "disabled": false
+    },
+    {
+      "label": "경쟁 상태",
+      "disabled": false
+    },
+    {
+      "label": "자사·경쟁사 범위",
+      "disabled": false
+    },
+    {
+      "label": "전체 보기",
+      "disabled": false
+    },
+    {
+      "label": "세트별로 묶기",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트 분포 info",
+      "disabled": false
+    },
+    {
+      "label": "멘션 순위 info",
+      "disabled": false
+    },
+    {
+      "label": "브리찌 Monitoring",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "브리찌 Monitoring",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "브리찌 Monitoring",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "브리찌 Monitoring",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "브리찌 Monitoring",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "브리찌 Monitoring",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "브리찌 Monitoring",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "브리찌 Monitoring",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "브리찌 Monitoring",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "브리찌 Monitoring",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    }
+  ],
+  "labels": [
+    "기간 시작 전 생성분만"
+  ],
+  "columns": [
+    "",
+    "프롬프트",
+    "태그",
+    "ChatGPT",
+    "Gemini",
+    "Pplx",
+    "Claude",
+    "프롬프트 분포",
+    "멘션 순위",
+    ""
+  ],
+  "inputs": [
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "프롬프트 검색...",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n분석\n프롬프트 현황\n50%\n[계정 이메일]\n경쟁사에 인용 밀린 프롬프트 1건\n자사는 인용 링크를 못 받고 경쟁사가 받고 있습니다 (본문 언급 여부와 별개)\n경쟁사 우위 보기\n프롬프트 현황\n\nAI 응답에서 자사 노출 현황을 모니터링하세요\n\n기간 시작 전 생성분만\n세트\n태그\nRaw\n설정\n추가\n멘션율\n최근 28일\n30%\n자사 3·경쟁 2\n/ 10\n소스율\n최근 28일\n10%\n자사 1·경쟁 1\n/ 10\n인용률\n최근 28일\n10%\n자사 1·경쟁 1\n/ 10\n멘션 순위\n최근 28일\n\n1위\n\n· 1위 비율 100% (3/3)\n멘션 점유율\n—\n71%\n자사 48·경쟁 20\n/ 68\n소스 점유율\n—\n40%\n자사 2·경쟁 3\n/ 5\n인용 점유율\n—\n50%\n자사 1·경쟁 1\n/ 2\n인용 순위\n최근 28일\n\n1위\n\n· 1위 비율 100% (1/1) · 표본 1건\n리스트\n(10)\n세트\n(1)\n태그\n퍼널 현황\n전체 엔진\n경쟁 상태\n자사·경쟁사 범위\n전체 보기\n세트별로 묶기\n\t프롬프트\n\t태그\t\nChatGPT\n\t\nGemini\n\t\nPplx\n\t\nClaude\n\t\n프롬프트 분포\n\t\n멘션 순위\n\t\n\n\t\n\n브리찌와 에코마케팅 서비스 운영 방식 비교\n\n브리찌 Monitoring\n\t\n태그\n\t\nM\nS\nC\n1위\n\t—\t—\t—\t\n1:1\n\t\n1위\n1/1\n평균 순위 1.0위, 1위 비율 100%\n\t\n\n\n\t\n\n운영 중인 광고 효율이 갑자기 떨어졌을 때 해결책\n\n브리찌 Monitoring\n\t\n태그\n\t\nM\nS\nC\n\t—\t—\t—\t\n0:0\n\t—\t\n\n\n\t\n\nAEO 마케팅이 최근 마케팅 시장에서 주목받는 이유\n\n브리찌 Monitoring\n\t\n태그\n\t\nM\nS\nC\n\t—\t—\t—\t\n0:0\n\t—\t\n\n\n\t\n\n성과형 광고대행사 선정 시 비교해야 할 항목들\n\n브리찌 Monitoring\n\t\n태그\n\t\nM\nS\nC\n\t—\t—\t—\t\n0:0\n\t—\t\n\n\n\t\n\n매출 정체기 극복을 위한 숏폼 영상 제작 가이드\n\n브리찌 Monitoring\n\t\n태그\n\t\nM\nS\nC\n\t—\t—\t—\t\n0:0\n\t—\t\n\n\n\t\n\n브리찌를 통한 검색 상위노출 세팅 방법\n\n브리찌 Monitoring\n\t\n태그\n\t\nM\nS\nC\n1위\n\t—\t—\t—\t\n1:0\n\t\n1위\n1/1\n평균 순위 1.0위, 1위 비율 100%\n\t\n\n\n\t\n\n스타트업 광고 효율을 높여줄 광고대행사 추천\n\n브리찌 Monitoring\n\t\n태그\n\t\nM\nS\nC\n\t—\t—\t—\t\n0:0\n\t—\t\n\n\n\t\n\nAI 마케팅 최신 도구 및 솔루션 추천 리스트\n\n브리찌 Monitoring\n\t\n태그\n\t\nM\nS\nC\n\t—\t—\t—\t\n0:0\n\t—\t\n\n\n\t\n\nGEO 마케팅과 SEO 마케팅의 핵심 차이점\n\n브리찌 Monitoring\n\t\n태그\n\t\nM\nS\nC\n\t—\t—\t—\t\n0:0\n\t—\t\n\n\n\t\n\n브리찌 광고 집행 시 최소 예산 자격 조건\n\n브리찌 Monitoring\n\t\n태그\n\t\nM\nS\nC\n1위\n\t—\t—\t—\t\n1:0\n\t\n1위\n1/1\n평균 순위 1.0위, 1위 비율 100%\n\t\n\n1-10 / 총 10개",
+  "parent": "https://haloxlabs.ai/app/geo/prompts",
+  "item": "리스트"
+}

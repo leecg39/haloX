@@ -1,0 +1,222 @@
+{
+  "url": "https://haloxlabs.ai/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+  "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+  "headings": [
+    "AI 광고대행사",
+    "엔진별 현황",
+    "추천 프롬프트",
+    "콘텐츠 전략 추천",
+    "INTENT",
+    "콘텐츠 구조",
+    "인용 관계",
+    "최신성",
+    "VIDEO"
+  ],
+  "tabs": [
+    {
+      "label": "상위 결과\n(18)",
+      "selected": "true"
+    },
+    {
+      "label": "AI 요약\n(16)",
+      "selected": "false"
+    },
+    {
+      "label": "검색 결과 분석",
+      "selected": "false"
+    },
+    {
+      "label": "트렌드",
+      "selected": "false"
+    },
+    {
+      "label": "아이디어",
+      "selected": "false"
+    },
+    {
+      "label": "GEO 연결",
+      "selected": "false"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "태그 추가",
+      "disabled": false
+    },
+    {
+      "label": "URL 등록",
+      "disabled": false
+    },
+    {
+      "label": "콘텐츠 제작소 생성",
+      "disabled": false
+    },
+    {
+      "label": "상위 결과\n(18)",
+      "disabled": false
+    },
+    {
+      "label": "AI 요약\n(16)",
+      "disabled": false
+    },
+    {
+      "label": "검색 결과 분석",
+      "disabled": false
+    },
+    {
+      "label": "트렌드",
+      "disabled": false
+    },
+    {
+      "label": "아이디어",
+      "disabled": false
+    },
+    {
+      "label": "GEO 연결",
+      "disabled": false
+    },
+    {
+      "label": "내 콘텐츠로 등록",
+      "disabled": false
+    },
+    {
+      "label": "내 콘텐츠로 등록",
+      "disabled": false
+    },
+    {
+      "label": "내 콘텐츠로 등록",
+      "disabled": false
+    },
+    {
+      "label": "내 콘텐츠로 등록",
+      "disabled": false
+    },
+    {
+      "label": "내 콘텐츠로 등록",
+      "disabled": false
+    },
+    {
+      "label": "내 콘텐츠로 등록",
+      "disabled": false
+    },
+    {
+      "label": "내 콘텐츠로 등록",
+      "disabled": false
+    },
+    {
+      "label": "내 콘텐츠로 등록",
+      "disabled": false
+    },
+    {
+      "label": "내 콘텐츠로 등록",
+      "disabled": false
+    },
+    {
+      "label": "내 콘텐츠로 등록",
+      "disabled": false
+    },
+    {
+      "label": "더보기",
+      "disabled": false
+    },
+    {
+      "label": "AI 추천 더 받기",
+      "disabled": false
+    },
+    {
+      "label": "검색 성과 분석 보기",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [
+    "순위",
+    "자사",
+    "제목 & 도메인",
+    "유형",
+    "날짜",
+    "AI 인용",
+    "미리보기",
+    ""
+  ],
+  "inputs": [],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    }
+  ],
+  "text": "Toggle Sidebar\n분석\n키워드 현황\nAI 광고대행사\n50%\n[계정 이메일]\nAI 광고대행사\n한국어\n비교·검토\n태그 추가\nGoogle 분석: 21분 전\nURL 등록\n콘텐츠 제작소 생성\n콘텐츠 1건 차감\n· 잔여 1건→ 실행 후 0건\n엔진별 현황\n스냅샷 0일 전\nGoogle\n\n자사 순위\n\n—\n\n미노출\n\n경쟁사 순위\n\n—\n\n경쟁사 미노출\n\nAI 인용\n\n자사\n✕\n경쟁\n✕\n\nAI Overview 인용 없음\n\nSERP 특성\n\nAIO 감지\n\nAIO · Video\n\nVOL\n\n—\n\n미수집\n\nCPC\n\n—\n\n미수집\n\nKD\n\n—\n\n미수집\n\nCOMP\n\n—\n\n광고 경쟁 강도\n\n상위 결과\n(18)\nAI 요약\n(16)\n검색 결과 분석\n트렌드\n아이디어\nGEO 연결\n순위\t자사\t제목 & 도메인\t유형\t날짜\tAI 인용\t미리보기\t\n2위\t-\t\n\n[광고 생태계 뒤흔드는 AI] '멋진 광고'는 필요 없다? 전환기 ...\n\nblog.naver.com\n\n\t\n블로그\n\t\n약 1년 전\n\t-\t\n\n2025. 9. 8. — 광고주들이 광고대행사에 빅테크의 AI 기술 도입을 통해 업무 효율을 높이라고 요구하고 있기 때문이다. 광고대행사가 요구에 맞춰 AI 기술을 활용해 ...\n\n\t\n\n3위\t-\t\n\nAI 마케팅 서비스 찾기 | 아이엔 AI\n\nai.inmarketing.kr\n\n\t\n일반\n\t—\t-\t\n\n광고대행사 서비스 찾기. AI 마케팅 대행사 아이엔마케팅의 7개 이상 맞춤 광고대행 서비스 중 귀하의 비즈니스에 최적화된 광고대행사 솔루션을 찾아보세요.\n\n\t\n\n5위\t-\t\n\nAI 시대에 대행사가 활용할 수 있는 3가지 주요 전략\n\nbusiness.google.com\n\n\t\n일반\n\t—\t-\t\n\n전 세계적으로 AI를 적극 활용하는 업계 상위 대행사는 AI 도입 초기 단계인 동종 업체들에 비해 지난 12개월 동안 신규 비즈니스 성장률이 1.6배, 효율 개선율이 2.6배, ...\n\n\t\n\n6위\t-\t\n\n글로벌 스케일의 AI 퍼포먼스 광고\n\nmoloco.com\n\n\t\n일반\n\t—\t-\t\n\nMoloco Ads 는 퍼포먼스 마케터가 280만 개의 독립 앱에서 가치 높은 신규 유저를 확보하고, 기존 유저의 리텐션과 구매 전환을 높이도록 돕습니다. AI는 전환 가능성이 ...\n\n\t\n\n7위\t-\t\n\n마케터와 에이전시를 위한 광고에서의 AI 활용 사례\n\nadgenai.com\n\n\t\n일반\n\t\n거의 3년 전\n\t-\t\n\n2023. 10. 26. — AdGen AI를 사용하면 여러 언어에 걸쳐 맞춤형 콘텐츠와 비주얼을 제작하고 몇 초 만에 Google 및 Meta와 같은 플랫폼에 직접 게재할 수 있습니다. 또한 ...\n\n\t\n\n8위\t-\t\n\n이미지팩토리, 온라인 사업자·소상공인 위한 'AI 광고대행사' ...\n\ndgn.kr\n\n\t\n일반\n\t—\t-\t\n\n이미지팩토리 의 서비스는 성과를 계속 확인해 광고비 대비 매출이 잘 나오는 매체로 예산을 옮기고, 반응이 없는 광고는 문구와 이미지를 바꾼다. 특히 잘 ...\n\n\t\n\n9위\t-\t\n\n광고 대행사의 AI 활용이 아닌, AI Native Ad Agency를 지향 ...\n\nnote.com\n\n\t\n일반\n\t—\t-\t\n\n'AI를 활용한다'는 것은 수단에 관한 이야기입니다. 도입하는 순간부터 진부화가 시작됩니다. 'AI Native이다'라는 것은 경영의 의지에 관한 이야기입니다 ...\n\n\t\n\n10위\t-\t\n\n위기의 광고대행사·13억원 AI 공모전·한강 신드롬… 2024년 ...\n\nbrandbrief.co.kr\n\n\t\n일반\n\t\n거의 2년 전\n\t-\t\n\n2024. 12. 31. — 태양의서커스는 아드리엘 도입 전 400%였던 ROAS(광고수익률)을 600%까지 향상시킨 것으로 전해졌다. 기흥그룹은 할리데이비슨을 시작으로 맥라렌, 애스턴 ...\n\n\t\n\n11위\t-\t\n\n아드리엘 ㅣ 마케터를 위한 AI 에이전트 솔루션\n\nadriel.com\n\n\t\n일반\n\t—\t-\t\n\n아드리엘 은 '기업의 성장을 돕는다'는 미션 하에 기업이 수익 개선을 목적으로 디지털 마케팅을 효율적으로 운영하고 관리할 수 있는 '애드옵스(AdOps)' 플랫폼을 제공하는 ...\n\n\t\n\n12위\t-\t\n\nAI 광고대행사 선택 기준 7가지, 이것부터 확인하세요\n\nluviaos.com\n\n\t\n일반\n\t\n2개월 전\n\t-\t\n\n2026. 8. 14. — 1. 실제 자동화 수준 확인 마켓에 나온 모든 솔루션이 동일한 수준의 AI를 탑재하지는 않습니다. · 2. 지원하는 광고 채널의 범위 · 3. 데이터 연동 및 통합 ...\n\n\t\n더보기\n추천 프롬프트\n0\n실제 AI가 받을 법한 질문 시나리오\nAI 추천 더 받기\n콘텐츠 전략 추천\n비교형\n\n구매 의도 키워드 — 비교/리뷰 형식 적합\n\n근거: SERP 일반형 89% · 일반 도메인 83%\n\n1\nINTENT\n검색 의도: 비교·검토\n비교표/매트릭스 필수 포함\n2\n콘텐츠 구조\n일반형 16개 + 뉴스형 2개\n[일반형 + 뉴스형] 복합 구조\n3\n인용 관계\nAI 인용→상위10: 0/16(0%), 상위10→AI 인용: 0/8(0%)\n외부 소스도 인용됨, 신뢰할 수 있는 출처 확보\n4\n최신성\n평균 발행일 19개월 전\n에버그린 키워드, 깊이로 차별화\n5\nVIDEO\nVideo Pack 1개\n영상 콘텐츠 임베드 또는 유튜브 SEO 병행\n월 검색량\n< 10\nAI 소스\n16개\n\n개선할 항목이 없어요\n\n현재 키워드 성과가 양호해요. 다음 스냅샷까지 유지 상태를 지켜보세요.\n\n검색 성과 분석 보기\n\n경쟁사 등록 · 관리 0곳"
+}

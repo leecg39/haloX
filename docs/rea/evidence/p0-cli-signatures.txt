@@ -1,0 +1,21 @@
+## analyze-web-bundle
+Usage: rea analyze-web-bundle <endpoint> <targetId> [options]
+
+## inspect-web-network-capture
+Usage: rea inspect-web-network-capture <capturePath> <har|mitmproxy> [options]
+
+## capture-web-screenshot
+Usage: rea capture-web-screenshot <endpoint> <targetId> [options]
+
+## build-reconstruction-obligation-ledger
+Usage: rea build-reconstruction-obligation-ledger <inputJson>
+
+## export-web-scripts
+Usage: rea export-web-scripts <capturePath> <outputDirectory>
+
+## analyze-javascript-application
+Usage: rea analyze-javascript-application <path> [options]
+
+## recover-javascript-sources
+Usage: rea recover-javascript-sources <path> <outputDirectory> [options]
+

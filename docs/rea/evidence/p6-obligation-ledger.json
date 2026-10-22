@@ -1,0 +1,845 @@
+{
+  "evidence_id": "ev_acf7404de421d92d833a44457c70af6e5175ec6795af521bedcd43697954bd01",
+  "subject": null,
+  "provider": {
+    "id": "rea-javascript-application-workflows",
+    "name": "REA JavaScript application workflows",
+    "version": "1"
+  },
+  "predicate_type": "rea.reconstruction-obligation-ledger",
+  "operation": "build_reconstruction_obligation_ledger",
+  "parameters": {
+    "ledger_id": "rol_8c51204a26d9e9b7f61f4de243f25e4f508ecf09a92f49c2a0136937757039fe",
+    "closure_digest": "69e174d45ed17c16afd4ced5ac4d24e2724f98596bb1397642c1a260d03b47f8"
+  },
+  "raw_result": null,
+  "normalized_result": {
+    "schema": "ReconstructionObligationLedger",
+    "ledger_id": "rol_8c51204a26d9e9b7f61f4de243f25e4f508ecf09a92f49c2a0136937757039fe",
+    "closure_digest": "69e174d45ed17c16afd4ced5ac4d24e2724f98596bb1397642c1a260d03b47f8",
+    "status": "unknown",
+    "coverage": {
+      "status": "complete"
+    },
+    "summary": {
+      "total": 11,
+      "required": 11,
+      "verified": 0,
+      "required_open": 11,
+      "by_status": [
+        {
+          "key": "unowned",
+          "count": 9
+        },
+        {
+          "key": "characterized",
+          "count": 0
+        },
+        {
+          "key": "implemented",
+          "count": 0
+        },
+        {
+          "key": "verified",
+          "count": 0
+        },
+        {
+          "key": "contradicted",
+          "count": 0
+        },
+        {
+          "key": "blocked",
+          "count": 0
+        },
+        {
+          "key": "out-of-scope",
+          "count": 0
+        },
+        {
+          "key": "unknown",
+          "count": 2
+        }
+      ],
+      "by_application_layer": [
+        {
+          "key": "cli",
+          "count": 0
+        },
+        {
+          "key": "protocol",
+          "count": 4
+        },
+        {
+          "key": "electron",
+          "count": 0
+        },
+        {
+          "key": "persistence",
+          "count": 1
+        },
+        {
+          "key": "process",
+          "count": 1
+        },
+        {
+          "key": "runtime",
+          "count": 0
+        },
+        {
+          "key": "packaging",
+          "count": 0
+        },
+        {
+          "key": "native-abi",
+          "count": 0
+        },
+        {
+          "key": "application",
+          "count": 5
+        },
+        {
+          "key": "other",
+          "count": 0
+        }
+      ],
+      "by_evidence_authority": [
+        {
+          "key": "candidate",
+          "count": 0
+        },
+        {
+          "key": "observed",
+          "count": 0
+        },
+        {
+          "key": "reviewed",
+          "count": 11
+        },
+        {
+          "key": "unknown",
+          "count": 0
+        }
+      ]
+    },
+    "reports": {
+      "missing_owner_obligation_ids": [
+        "halox.api.edge-functions",
+        "halox.api.postgrest-tables",
+        "halox.api.rpc",
+        "halox.jobs.async-pipelines",
+        "halox.metrics.avi-composite",
+        "halox.metrics.avi-server",
+        "halox.metrics.geo-score",
+        "halox.metrics.seo-score",
+        "halox.persistence.data-model",
+        "halox.routing.app-shell",
+        "halox.ui.design-tokens"
+      ],
+      "missing_verifier_obligation_ids": [],
+      "contradicted_obligation_ids": [],
+      "residual_unknown_ids": []
+    },
+    "ownership_graph": [],
+    "dependency_graph": [],
+    "obligations": [
+      {
+        "obligation_id": "halox.api.edge-functions",
+        "obligation_version": 1,
+        "title": "Edge function invocation contracts (functions/v1/*)",
+        "origin": "reviewed",
+        "application_layer": "protocol",
+        "family": "api",
+        "target": {
+          "artifact_sha256": null,
+          "application_node_id": null,
+          "semantic_node_id": null,
+          "location": "https://haloxlabs.ai/app"
+        },
+        "authority_references": [
+          {
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "authority": "external-service",
+            "state": "observed",
+            "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          }
+        ],
+        "source_state": "reviewed",
+        "observed_cases": [],
+        "required": true,
+        "required_case_kinds": [
+          "positive",
+          "negative"
+        ],
+        "required_original_authority": "static",
+        "required_fixture_authority": "integration",
+        "required_verifier_authority": "integration",
+        "requires_parser_type": true,
+        "dependency_obligation_ids": [],
+        "residual_unknown_ids": [],
+        "unavailable_authority": [],
+        "required_next_evidence": [
+          "clone implementation binding (Phase 7)",
+          "integration test result evidence"
+        ],
+        "binding": null,
+        "status": "unowned",
+        "diagnostics": [
+          {
+            "code": "missing-original-case",
+            "detail": "Original negative behavior has not been observed."
+          },
+          {
+            "code": "missing-original-case",
+            "detail": "Original positive behavior has not been observed."
+          },
+          {
+            "code": "missing-owner",
+            "detail": "No reconstruction manifest binding owns this obligation."
+          },
+          {
+            "code": "static-only",
+            "detail": "No static authority characterizes the original finite behavior."
+          }
+        ]
+      },
+      {
+        "obligation_id": "halox.api.postgrest-tables",
+        "obligation_version": 1,
+        "title": "PostgREST table reads used by app routes (rest/v1)",
+        "origin": "reviewed",
+        "application_layer": "protocol",
+        "family": "api",
+        "target": {
+          "artifact_sha256": null,
+          "application_node_id": null,
+          "semantic_node_id": null,
+          "location": "https://haloxlabs.ai/app"
+        },
+        "authority_references": [
+          {
+            "evidence_id": "ev_97890c9fc4b13b805c7e12347db96f687cfd33f6dbb6d6c23898ec34f1127352",
+            "authority": "historical-reference",
+            "state": "reviewed",
+            "location": "/evidence/ev_97890c9fc4b13b805c7e12347db96f687cfd33f6dbb6d6c23898ec34f1127352"
+          },
+          {
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "authority": "external-service",
+            "state": "observed",
+            "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          }
+        ],
+        "source_state": "reviewed",
+        "observed_cases": [],
+        "required": true,
+        "required_case_kinds": [
+          "positive",
+          "negative"
+        ],
+        "required_original_authority": "runtime",
+        "required_fixture_authority": "integration",
+        "required_verifier_authority": "integration",
+        "requires_parser_type": true,
+        "dependency_obligation_ids": [],
+        "residual_unknown_ids": [],
+        "unavailable_authority": [],
+        "required_next_evidence": [
+          "clone implementation binding (Phase 7)",
+          "integration test result evidence"
+        ],
+        "binding": null,
+        "status": "unowned",
+        "diagnostics": [
+          {
+            "code": "missing-original-case",
+            "detail": "Original negative behavior has not been observed."
+          },
+          {
+            "code": "missing-original-case",
+            "detail": "Original positive behavior has not been observed."
+          },
+          {
+            "code": "missing-owner",
+            "detail": "No reconstruction manifest binding owns this obligation."
+          }
+        ]
+      },
+      {
+        "obligation_id": "halox.api.rpc",
+        "obligation_version": 1,
+        "title": "Postgres RPC contracts (rest/v1/rpc/*) request/response shapes",
+        "origin": "reviewed",
+        "application_layer": "protocol",
+        "family": "api",
+        "target": {
+          "artifact_sha256": null,
+          "application_node_id": null,
+          "semantic_node_id": null,
+          "location": "https://haloxlabs.ai/app"
+        },
+        "authority_references": [
+          {
+            "evidence_id": "ev_97890c9fc4b13b805c7e12347db96f687cfd33f6dbb6d6c23898ec34f1127352",
+            "authority": "historical-reference",
+            "state": "reviewed",
+            "location": "/evidence/ev_97890c9fc4b13b805c7e12347db96f687cfd33f6dbb6d6c23898ec34f1127352"
+          }
+        ],
+        "source_state": "reviewed",
+        "observed_cases": [],
+        "required": true,
+        "required_case_kinds": [
+          "positive",
+          "negative"
+        ],
+        "required_original_authority": "runtime",
+        "required_fixture_authority": "integration",
+        "required_verifier_authority": "integration",
+        "requires_parser_type": true,
+        "dependency_obligation_ids": [],
+        "residual_unknown_ids": [],
+        "unavailable_authority": [],
+        "required_next_evidence": [
+          "clone implementation binding (Phase 7)",
+          "integration test result evidence"
+        ],
+        "binding": null,
+        "status": "unowned",
+        "diagnostics": [
+          {
+            "code": "missing-original-case",
+            "detail": "Original negative behavior has not been observed."
+          },
+          {
+            "code": "missing-original-case",
+            "detail": "Original positive behavior has not been observed."
+          },
+          {
+            "code": "missing-owner",
+            "detail": "No reconstruction manifest binding owns this obligation."
+          },
+          {
+            "code": "static-only",
+            "detail": "No runtime authority characterizes the original finite behavior."
+          }
+        ]
+      },
+      {
+        "obligation_id": "halox.jobs.async-pipelines",
+        "obligation_version": 1,
+        "title": "Server-side async pipelines (GEO runs, SERP, site audit crawl, content generation)",
+        "origin": "reviewed",
+        "application_layer": "process",
+        "family": "backend-behavior",
+        "target": {
+          "artifact_sha256": null,
+          "application_node_id": null,
+          "semantic_node_id": null,
+          "location": "https://haloxlabs.ai/app"
+        },
+        "authority_references": [
+          {
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "authority": "external-service",
+            "state": "observed",
+            "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          }
+        ],
+        "source_state": "reviewed",
+        "observed_cases": [],
+        "required": true,
+        "required_case_kinds": [
+          "positive",
+          "negative"
+        ],
+        "required_original_authority": "external",
+        "required_fixture_authority": "integration",
+        "required_verifier_authority": "integration",
+        "requires_parser_type": false,
+        "dependency_obligation_ids": [],
+        "residual_unknown_ids": [],
+        "unavailable_authority": [
+          "server-source"
+        ],
+        "required_next_evidence": [
+          "clone implementation binding (Phase 7)",
+          "integration test result evidence"
+        ],
+        "binding": null,
+        "status": "unknown",
+        "diagnostics": [
+          {
+            "code": "missing-original-case",
+            "detail": "Original negative behavior has not been observed."
+          },
+          {
+            "code": "missing-original-case",
+            "detail": "Original positive behavior has not been observed."
+          },
+          {
+            "code": "missing-owner",
+            "detail": "No reconstruction manifest binding owns this obligation."
+          },
+          {
+            "code": "unavailable-authority",
+            "detail": "server-source"
+          }
+        ]
+      },
+      {
+        "obligation_id": "halox.metrics.avi-composite",
+        "obligation_version": 1,
+        "title": "Dashboard AVI composite weights by data availability",
+        "origin": "reviewed",
+        "application_layer": "application",
+        "family": "metrics",
+        "target": {
+          "artifact_sha256": null,
+          "application_node_id": null,
+          "semantic_node_id": null,
+          "location": "https://haloxlabs.ai/app"
+        },
+        "authority_references": [
+          {
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "authority": "external-service",
+            "state": "observed",
+            "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          }
+        ],
+        "source_state": "reviewed",
+        "observed_cases": [],
+        "required": true,
+        "required_case_kinds": [
+          "positive",
+          "negative"
+        ],
+        "required_original_authority": "static",
+        "required_fixture_authority": "integration",
+        "required_verifier_authority": "integration",
+        "requires_parser_type": false,
+        "dependency_obligation_ids": [],
+        "residual_unknown_ids": [],
+        "unavailable_authority": [],
+        "required_next_evidence": [
+          "clone implementation binding (Phase 7)",
+          "integration test result evidence"
+        ],
+        "binding": null,
+        "status": "unowned",
+        "diagnostics": [
+          {
+            "code": "missing-original-case",
+            "detail": "Original negative behavior has not been observed."
+          },
+          {
+            "code": "missing-original-case",
+            "detail": "Original positive behavior has not been observed."
+          },
+          {
+            "code": "missing-owner",
+            "detail": "No reconstruction manifest binding owns this obligation."
+          },
+          {
+            "code": "static-only",
+            "detail": "No static authority characterizes the original finite behavior."
+          }
+        ]
+      },
+      {
+        "obligation_id": "halox.metrics.avi-server",
+        "obligation_version": 1,
+        "title": "Server-side AVI (get_avi_overview) formula",
+        "origin": "reviewed",
+        "application_layer": "protocol",
+        "family": "metrics",
+        "target": {
+          "artifact_sha256": null,
+          "application_node_id": null,
+          "semantic_node_id": null,
+          "location": "https://haloxlabs.ai/app"
+        },
+        "authority_references": [
+          {
+            "evidence_id": "ev_97890c9fc4b13b805c7e12347db96f687cfd33f6dbb6d6c23898ec34f1127352",
+            "authority": "historical-reference",
+            "state": "reviewed",
+            "location": "/evidence/ev_97890c9fc4b13b805c7e12347db96f687cfd33f6dbb6d6c23898ec34f1127352"
+          }
+        ],
+        "source_state": "reviewed",
+        "observed_cases": [],
+        "required": true,
+        "required_case_kinds": [
+          "positive",
+          "negative"
+        ],
+        "required_original_authority": "external",
+        "required_fixture_authority": "integration",
+        "required_verifier_authority": "integration",
+        "requires_parser_type": false,
+        "dependency_obligation_ids": [],
+        "residual_unknown_ids": [],
+        "unavailable_authority": [
+          "server-source"
+        ],
+        "required_next_evidence": [
+          "clone implementation binding (Phase 7)",
+          "integration test result evidence"
+        ],
+        "binding": null,
+        "status": "unknown",
+        "diagnostics": [
+          {
+            "code": "missing-original-case",
+            "detail": "Original negative behavior has not been observed."
+          },
+          {
+            "code": "missing-original-case",
+            "detail": "Original positive behavior has not been observed."
+          },
+          {
+            "code": "missing-owner",
+            "detail": "No reconstruction manifest binding owns this obligation."
+          },
+          {
+            "code": "static-only",
+            "detail": "No external authority characterizes the original finite behavior."
+          },
+          {
+            "code": "unavailable-authority",
+            "detail": "server-source"
+          }
+        ]
+      },
+      {
+        "obligation_id": "halox.metrics.geo-score",
+        "obligation_version": 1,
+        "title": "GEO score = 4 x 0.25 weighted components",
+        "origin": "reviewed",
+        "application_layer": "application",
+        "family": "metrics",
+        "target": {
+          "artifact_sha256": null,
+          "application_node_id": null,
+          "semantic_node_id": null,
+          "location": "https://haloxlabs.ai/app"
+        },
+        "authority_references": [
+          {
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "authority": "external-service",
+            "state": "observed",
+            "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          }
+        ],
+        "source_state": "reviewed",
+        "observed_cases": [],
+        "required": true,
+        "required_case_kinds": [
+          "positive",
+          "negative"
+        ],
+        "required_original_authority": "static",
+        "required_fixture_authority": "integration",
+        "required_verifier_authority": "integration",
+        "requires_parser_type": false,
+        "dependency_obligation_ids": [],
+        "residual_unknown_ids": [],
+        "unavailable_authority": [],
+        "required_next_evidence": [
+          "clone implementation binding (Phase 7)",
+          "integration test result evidence"
+        ],
+        "binding": null,
+        "status": "unowned",
+        "diagnostics": [
+          {
+            "code": "missing-original-case",
+            "detail": "Original negative behavior has not been observed."
+          },
+          {
+            "code": "missing-original-case",
+            "detail": "Original positive behavior has not been observed."
+          },
+          {
+            "code": "missing-owner",
+            "detail": "No reconstruction manifest binding owns this obligation."
+          },
+          {
+            "code": "static-only",
+            "detail": "No static authority characterizes the original finite behavior."
+          }
+        ]
+      },
+      {
+        "obligation_id": "halox.metrics.seo-score",
+        "obligation_version": 1,
+        "title": "SEO score = position 0.4 + top10 0.3 + AIO 0.3",
+        "origin": "reviewed",
+        "application_layer": "application",
+        "family": "metrics",
+        "target": {
+          "artifact_sha256": null,
+          "application_node_id": null,
+          "semantic_node_id": null,
+          "location": "https://haloxlabs.ai/app"
+        },
+        "authority_references": [
+          {
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "authority": "external-service",
+            "state": "observed",
+            "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          }
+        ],
+        "source_state": "reviewed",
+        "observed_cases": [],
+        "required": true,
+        "required_case_kinds": [
+          "positive",
+          "negative"
+        ],
+        "required_original_authority": "static",
+        "required_fixture_authority": "integration",
+        "required_verifier_authority": "integration",
+        "requires_parser_type": false,
+        "dependency_obligation_ids": [],
+        "residual_unknown_ids": [],
+        "unavailable_authority": [],
+        "required_next_evidence": [
+          "clone implementation binding (Phase 7)",
+          "integration test result evidence"
+        ],
+        "binding": null,
+        "status": "unowned",
+        "diagnostics": [
+          {
+            "code": "missing-original-case",
+            "detail": "Original negative behavior has not been observed."
+          },
+          {
+            "code": "missing-original-case",
+            "detail": "Original positive behavior has not been observed."
+          },
+          {
+            "code": "missing-owner",
+            "detail": "No reconstruction manifest binding owns this obligation."
+          },
+          {
+            "code": "static-only",
+            "detail": "No static authority characterizes the original finite behavior."
+          }
+        ]
+      },
+      {
+        "obligation_id": "halox.persistence.data-model",
+        "obligation_version": 1,
+        "title": "Entity model and relations (workspaces, keywords, geo, audit, content)",
+        "origin": "reviewed",
+        "application_layer": "persistence",
+        "family": "data-model",
+        "target": {
+          "artifact_sha256": null,
+          "application_node_id": null,
+          "semantic_node_id": null,
+          "location": "https://haloxlabs.ai/app"
+        },
+        "authority_references": [
+          {
+            "evidence_id": "ev_97890c9fc4b13b805c7e12347db96f687cfd33f6dbb6d6c23898ec34f1127352",
+            "authority": "historical-reference",
+            "state": "reviewed",
+            "location": "/evidence/ev_97890c9fc4b13b805c7e12347db96f687cfd33f6dbb6d6c23898ec34f1127352"
+          },
+          {
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "authority": "external-service",
+            "state": "observed",
+            "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          }
+        ],
+        "source_state": "reviewed",
+        "observed_cases": [],
+        "required": true,
+        "required_case_kinds": [
+          "positive",
+          "negative"
+        ],
+        "required_original_authority": "runtime",
+        "required_fixture_authority": "integration",
+        "required_verifier_authority": "integration",
+        "requires_parser_type": true,
+        "dependency_obligation_ids": [],
+        "residual_unknown_ids": [],
+        "unavailable_authority": [],
+        "required_next_evidence": [
+          "clone implementation binding (Phase 7)",
+          "integration test result evidence"
+        ],
+        "binding": null,
+        "status": "unowned",
+        "diagnostics": [
+          {
+            "code": "missing-original-case",
+            "detail": "Original negative behavior has not been observed."
+          },
+          {
+            "code": "missing-original-case",
+            "detail": "Original positive behavior has not been observed."
+          },
+          {
+            "code": "missing-owner",
+            "detail": "No reconstruction manifest binding owns this obligation."
+          }
+        ]
+      },
+      {
+        "obligation_id": "halox.routing.app-shell",
+        "obligation_version": 1,
+        "title": "/app route tree (46 routes) and auth/onboarding gates",
+        "origin": "reviewed",
+        "application_layer": "application",
+        "family": "routing",
+        "target": {
+          "artifact_sha256": null,
+          "application_node_id": null,
+          "semantic_node_id": null,
+          "location": "https://haloxlabs.ai/app"
+        },
+        "authority_references": [
+          {
+            "evidence_id": "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+            "authority": "external-service",
+            "state": "observed",
+            "location": "/evidence/ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d"
+          }
+        ],
+        "source_state": "reviewed",
+        "observed_cases": [],
+        "required": true,
+        "required_case_kinds": [
+          "positive",
+          "negative"
+        ],
+        "required_original_authority": "static",
+        "required_fixture_authority": "integration",
+        "required_verifier_authority": "integration",
+        "requires_parser_type": false,
+        "dependency_obligation_ids": [],
+        "residual_unknown_ids": [],
+        "unavailable_authority": [],
+        "required_next_evidence": [
+          "clone implementation binding (Phase 7)",
+          "integration test result evidence"
+        ],
+        "binding": null,
+        "status": "unowned",
+        "diagnostics": [
+          {
+            "code": "missing-original-case",
+            "detail": "Original negative behavior has not been observed."
+          },
+          {
+            "code": "missing-original-case",
+            "detail": "Original positive behavior has not been observed."
+          },
+          {
+            "code": "missing-owner",
+            "detail": "No reconstruction manifest binding owns this obligation."
+          },
+          {
+            "code": "static-only",
+            "detail": "No static authority characterizes the original finite behavior."
+          }
+        ]
+      },
+      {
+        "obligation_id": "halox.ui.design-tokens",
+        "obligation_version": 1,
+        "title": "Design tokens, typography and layout shell",
+        "origin": "reviewed",
+        "application_layer": "application",
+        "family": "design",
+        "target": {
+          "artifact_sha256": null,
+          "application_node_id": null,
+          "semantic_node_id": null,
+          "location": "https://haloxlabs.ai/app"
+        },
+        "authority_references": [
+          {
+            "evidence_id": "ev_3db97694fa9c9a0a859105a043968b285d72f15a92baf0157b0c4717d0d2ce50",
+            "authority": "external-service",
+            "state": "observed",
+            "location": "/evidence/ev_3db97694fa9c9a0a859105a043968b285d72f15a92baf0157b0c4717d0d2ce50"
+          },
+          {
+            "evidence_id": "ev_bdde7cadf5a6c02308f5a090ad74bc7a040844ff8485b1fdcda6c7fd6f428f5e",
+            "authority": "external-service",
+            "state": "observed",
+            "location": "/evidence/ev_bdde7cadf5a6c02308f5a090ad74bc7a040844ff8485b1fdcda6c7fd6f428f5e"
+          }
+        ],
+        "source_state": "reviewed",
+        "observed_cases": [],
+        "required": true,
+        "required_case_kinds": [
+          "positive",
+          "negative"
+        ],
+        "required_original_authority": "static",
+        "required_fixture_authority": "integration",
+        "required_verifier_authority": "integration",
+        "requires_parser_type": false,
+        "dependency_obligation_ids": [],
+        "residual_unknown_ids": [],
+        "unavailable_authority": [],
+        "required_next_evidence": [
+          "clone implementation binding (Phase 7)",
+          "integration test result evidence"
+        ],
+        "binding": null,
+        "status": "unowned",
+        "diagnostics": [
+          {
+            "code": "missing-original-case",
+            "detail": "Original negative behavior has not been observed."
+          },
+          {
+            "code": "missing-original-case",
+            "detail": "Original positive behavior has not been observed."
+          },
+          {
+            "code": "missing-owner",
+            "detail": "No reconstruction manifest binding owns this obligation."
+          },
+          {
+            "code": "static-only",
+            "detail": "No static authority characterizes the original finite behavior."
+          }
+        ]
+      }
+    ],
+    "evidence_links": [
+      "ev_3db97694fa9c9a0a859105a043968b285d72f15a92baf0157b0c4717d0d2ce50",
+      "ev_97890c9fc4b13b805c7e12347db96f687cfd33f6dbb6d6c23898ec34f1127352",
+      "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+      "ev_bdde7cadf5a6c02308f5a090ad74bc7a040844ff8485b1fdcda6c7fd6f428f5e"
+    ],
+    "limitations": []
+  },
+  "confidence": "inferred",
+  "authority": "analyst-inference",
+  "environment": null,
+  "limitations": [
+    "Artifact identity is unavailable for this observation."
+  ],
+  "locations": [],
+  "evidence_links": [
+    "ev_3db97694fa9c9a0a859105a043968b285d72f15a92baf0157b0c4717d0d2ce50",
+    "ev_97890c9fc4b13b805c7e12347db96f687cfd33f6dbb6d6c23898ec34f1127352",
+    "ev_a81541fdad6392c90a488db276adc160ff2f16fd636dd05a43137359a79b845d",
+    "ev_bdde7cadf5a6c02308f5a090ad74bc7a040844ff8485b1fdcda6c7fd6f428f5e"
+  ]
+}

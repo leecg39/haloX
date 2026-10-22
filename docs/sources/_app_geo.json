@@ -1,0 +1,94 @@
+{
+  "url": "https://haloxlabs.ai/app/geo",
+  "title": "AI 대화 분석 - HaloX",
+  "headings": [
+    "AI 대화 개요",
+    "AI 노출 종합점수",
+    "경쟁사 점유율 요약"
+  ],
+  "tabs": [],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "상세 분석 보기",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [],
+  "inputs": [],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n대시보드\n50%\n[계정 이메일]\nAI 대화 개요\n\nAI 응답에서 자사 노출도 모니터링\n\nAI 노출 종합점수\n7일\n60\n🟢 높음\n멘션율\n30%\n인용률\n10%\n멘션 순위\n100%\n인용 순위\n100%\n\n2026-09-08 산식 개편 (점유율 제외, 4지표 각 25%)\n\n질문 세트\n\n1\n\n10 총 프롬프트\n\n인용 점유율\n\n100%\n\n584/587건\n\n경쟁사 점유율 요약\n\n자사 vs 주요 경쟁사 인용 점유율\n\n상세 분석 보기\n1\n자사\n100%\n2\nechomarketing.co.kr\n1%"
+}

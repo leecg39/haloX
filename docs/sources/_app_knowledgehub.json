@@ -1,0 +1,132 @@
+{
+  "url": "https://haloxlabs.ai/app/knowledgehub",
+  "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+  "headings": [
+    "자료실"
+  ],
+  "tabs": [],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "엔티티 추가",
+      "disabled": false
+    },
+    {
+      "label": "전체\n(4)",
+      "disabled": false
+    },
+    {
+      "label": "제품\n(4)",
+      "disabled": false
+    },
+    {
+      "label": "토픽",
+      "disabled": false
+    },
+    {
+      "label": "수집 대기\n(4)",
+      "disabled": false
+    },
+    {
+      "label": "최근 업데이트순",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [
+    "",
+    "이름",
+    "유형",
+    "클레임",
+    "소스",
+    "키워드",
+    "수정일"
+  ],
+  "inputs": [
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "엔티티 검색...",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n기타\n자료실\n50%\n[계정 이메일]\n자료실\n\n제품과 토픽 엔티티를 관리하세요.\n\n엔티티 추가\n제품\n\n4\n\n등록된 제품 엔티티\n토픽\n\n0\n\n등록된 토픽 엔티티\n클레임\n\n0\n\n전체 수집된 클레임\n키워드\n\n0\n\n연결된 키워드\n전체\n(4)\n제품\n(4)\n토픽\n수집 대기\n(4)\n최근 업데이트순\n\t이름\t유형\t클레임\t소스\n\t키워드\t수정일\n\n\t\nad-efficiency\n수집 대기\n\t제품\t0\t\n\t0\t2026.10.22\n\n\t\nmobidays\n수집 대기\n\t제품\t0\t\n\t0\t2026.10.22\n\n\t\nechomarketing\n수집 대기\n\t제품\t0\t\n\t0\t2026.10.22\n\n\t\n브리찌\n수집 대기\n\t제품\t0\t\n\t0\t2026.10.22\n\n총 4개"
+}

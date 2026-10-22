@@ -1,0 +1,571 @@
+{
+  "url": "https://haloxlabs.ai/app/site-audit?tab=pages",
+  "title": "사이트 진단 - HaloX",
+  "headings": [
+    "사이트 진단"
+  ],
+  "tabs": [
+    {
+      "label": "개요",
+      "selected": "false"
+    },
+    {
+      "label": "AI 봇 접근성",
+      "selected": "false"
+    },
+    {
+      "label": "이슈\n(9)",
+      "selected": "false"
+    },
+    {
+      "label": "페이지\n(50)",
+      "selected": "true"
+    },
+    {
+      "label": "엔티티",
+      "selected": "false"
+    },
+    {
+      "label": "내부 링크",
+      "selected": "false"
+    },
+    {
+      "label": "가이드",
+      "selected": "false"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "현재 진단",
+      "disabled": false
+    },
+    {
+      "label": "진단 기록",
+      "disabled": false
+    },
+    {
+      "label": "Raw",
+      "disabled": false
+    },
+    {
+      "label": "새 진단",
+      "disabled": false
+    },
+    {
+      "label": "개요",
+      "disabled": false
+    },
+    {
+      "label": "AI 봇 접근성",
+      "disabled": false
+    },
+    {
+      "label": "이슈\n(9)",
+      "disabled": false
+    },
+    {
+      "label": "페이지\n(50)",
+      "disabled": false
+    },
+    {
+      "label": "엔티티",
+      "disabled": false
+    },
+    {
+      "label": "내부 링크",
+      "disabled": false
+    },
+    {
+      "label": "가이드",
+      "disabled": false
+    },
+    {
+      "label": "전체",
+      "disabled": false
+    },
+    {
+      "label": "전체 상태",
+      "disabled": false
+    },
+    {
+      "label": "전체 렌더링",
+      "disabled": false
+    },
+    {
+      "label": "목록",
+      "disabled": false
+    },
+    {
+      "label": "경로 구조",
+      "disabled": false
+    },
+    {
+      "label": "컬럼\n34",
+      "disabled": false
+    },
+    {
+      "label": "CSV",
+      "disabled": false
+    },
+    {
+      "label": "전체",
+      "disabled": false
+    },
+    {
+      "label": "주소",
+      "disabled": false
+    },
+    {
+      "label": "제목",
+      "disabled": false
+    },
+    {
+      "label": "설명",
+      "disabled": false
+    },
+    {
+      "label": "제목 구조",
+      "disabled": false
+    },
+    {
+      "label": "캐노니컬",
+      "disabled": false
+    },
+    {
+      "label": "색인",
+      "disabled": false
+    },
+    {
+      "label": "콘텐츠",
+      "disabled": false
+    },
+    {
+      "label": "링크",
+      "disabled": false
+    },
+    {
+      "label": "스키마",
+      "disabled": false
+    },
+    {
+      "label": "다국어",
+      "disabled": false
+    },
+    {
+      "label": "이어지는 페이지",
+      "disabled": false
+    },
+    {
+      "label": "페이지",
+      "disabled": false
+    },
+    {
+      "label": "렌더링 · AI 가시성",
+      "disabled": false
+    },
+    {
+      "label": "Meta (T/D/S)",
+      "disabled": false
+    },
+    {
+      "label": "주소 길이",
+      "disabled": false
+    },
+    {
+      "label": "주소 점검",
+      "disabled": false
+    },
+    {
+      "label": "중복 주소",
+      "disabled": false
+    },
+    {
+      "label": "제목",
+      "disabled": false
+    },
+    {
+      "label": "제목 길이",
+      "disabled": false
+    },
+    {
+      "label": "설명",
+      "disabled": false
+    },
+    {
+      "label": "설명 길이",
+      "disabled": false
+    },
+    {
+      "label": "H1",
+      "disabled": false
+    },
+    {
+      "label": "H1 길이",
+      "disabled": false
+    },
+    {
+      "label": "H2",
+      "disabled": false
+    },
+    {
+      "label": "스키마 종류",
+      "disabled": false
+    },
+    {
+      "label": "캐노니컬",
+      "disabled": false
+    },
+    {
+      "label": "색인 가능",
+      "disabled": false
+    },
+    {
+      "label": "메타 로봇",
+      "disabled": false
+    },
+    {
+      "label": "메타 키워드",
+      "disabled": false
+    },
+    {
+      "label": "OG 제목 / 이미지",
+      "disabled": false
+    },
+    {
+      "label": "본문 단어수",
+      "disabled": false
+    },
+    {
+      "label": "내부 링크",
+      "disabled": false
+    },
+    {
+      "label": "유입 내부 링크",
+      "disabled": false
+    },
+    {
+      "label": "외부 링크",
+      "disabled": false
+    },
+    {
+      "label": "이미지 / alt 없음",
+      "disabled": false
+    },
+    {
+      "label": "가독성",
+      "disabled": false
+    },
+    {
+      "label": "크롤 깊이",
+      "disabled": false
+    },
+    {
+      "label": "HTML 크기",
+      "disabled": false
+    },
+    {
+      "label": "콘텐츠 유형",
+      "disabled": false
+    },
+    {
+      "label": "응답 시간",
+      "disabled": false
+    },
+    {
+      "label": "최종 수정",
+      "disabled": false
+    },
+    {
+      "label": "리다이렉트 대상",
+      "disabled": false
+    },
+    {
+      "label": "hreflang",
+      "disabled": false
+    },
+    {
+      "label": "이어지는 페이지",
+      "disabled": false
+    },
+    {
+      "label": "HTTP",
+      "disabled": false
+    },
+    {
+      "label": "이슈",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "진단",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "진단",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "진단",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "진단",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "진단",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "진단",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "진단",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "진단",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "진단",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "진단",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "진단",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "진단",
+      "disabled": false
+    },
+    {
+      "label": "제외 옵션",
+      "disabled": false
+    },
+    {
+      "label": "30개 더 보기 (남은 30)",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [
+    "페이지",
+    "렌더링 · AI 가시성",
+    "Meta (T/D/S)",
+    "주소 길이",
+    "주소 점검",
+    "중복 주소",
+    "제목",
+    "제목 길이",
+    "설명",
+    "설명 길이",
+    "H1",
+    "H1 길이",
+    "H2",
+    "스키마 종류",
+    "캐노니컬",
+    "색인 가능",
+    "메타 로봇",
+    "메타 키워드",
+    "OG 제목 / 이미지",
+    "본문 단어수",
+    "내부 링크",
+    "유입 내부 링크",
+    "외부 링크",
+    "이미지 / alt 없음",
+    "가독성",
+    "크롤 깊이",
+    "HTML 크기",
+    "콘텐츠 유형",
+    "응답 시간",
+    "최종 수정",
+    "리다이렉트 대상",
+    "hreflang",
+    "이어지는 페이지",
+    "HTTP",
+    "이슈",
+    "",
+    ""
+  ],
+  "inputs": [
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "URL·제목 검색",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n전략\n사이트 진단\n50%\n[계정 이메일]\n사이트 진단\nbridzzi.com\n완료\n\nSEO와 AI 검색 가시성을 저해하는 기술적 이슈를 확인하고 해결하세요.\n\n·\n마지막 분석 2026년 10월 22일 오후 7:44\n·\n진단 페이지 50/50\n현재 진단\n진단 기록\nRaw\n새 진단\n—\n\nSEO\n\n측정 불가\n\n기술 SEO · 5개 항목\n\n측정 불가\n\n—\n\nGEO\n\n측정 불가\n\n기술 GEO · 4개 항목\n\n측정 불가\n\n심각\n2\n경고\n2\n참고\n5\n\n크롤 진행률\n\n50 / 50 페이지\n\n전체 수집 완료· 사이트 전체 50페이지\n\n개요\nAI 봇 접근성\n이슈\n(9)\n페이지\n(50)\n엔티티\n내부 링크\n가이드\n전체\n전체 상태\n전체 렌더링\n목록\n경로 구조\n컬럼\n34\nCSV\n50/50페이지\n관점\n전체\n주소\n제목\n설명\n제목 구조\n캐노니컬\n색인\n콘텐츠\n링크\n스키마\n다국어\n이어지는 페이지\n· 직접 설정\n페이지\n\t렌더링 · AI 가시성\n\tMeta (T/D/S)\n\t주소 길이\n\t주소 점검\n\t중복 주소\n\t제목\n\t제목 길이\n\t설명\n\t설명 길이\n\tH1\n\tH1 길이\n\tH2\n\t스키마 종류\n\t캐노니컬\n\t색인 가능\n\t메타 로봇\n\t메타 키워드\n\tOG 제목 / 이미지\n\t본문 단어수\n\t내부 링크\n\t유입 내부 링크\n\t외부 링크\n\t이미지 / alt 없음\n\t가독성\n\t크롤 깊이\n\tHTML 크기\n\t콘텐츠 유형\n\t응답 시간\n\t최종 수정\n\t리다이렉트 대상\n\threflang\n\t이어지는 페이지\n\tHTTP\n\t이슈\n\t\t\n\n/\n\t\n차단\n—\n\t\nT\n✕\nD\n✕\nS\n✕\n\t20\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t27 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t2\t\t\n\n\n/about\n\t\n차단\n—\n\t\nT\n✕\nD\n✕\nS\n✕\n\t25\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t27 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/contact\n\t\n차단\n—\n\t\nT\n✕\nD\n✕\nS\n✕\n\t27\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t27 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/insights\n\t\n차단\n—\n\t\nT\n✕\nD\n✕\nS\n✕\n\t28\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t27 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/process\n\t\n차단\n—\n\t\nT\n✕\nD\n✕\nS\n✕\n\t27\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t27 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/solutions\n\t\n차단\n—\n\t\nT\n✕\nD\n✕\nS\n✕\n\t29\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t27 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/work\n\t\n차단\n—\n\t\nT\n✕\nD\n✕\nS\n✕\n\t24\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t27 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/insights/aeo-cost-structure-guide\n\t\n차단\n—\n\t\nT\n✕\nD\n✕\nS\n✕\n\t53\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t28 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/insights/agency-contract-checkpoints\n\t\n진단\t\nT\n✕\nD\n✕\nS\n✕\n\t56\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t28 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/insights/campaign-naming-taxonomy-reporting\n\t\n진단\t\nT\n✕\nD\n✕\nS\n✕\n\t63\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t28 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/insights/conversion-tracking-audit-checklist\n\t\n진단\t\nT\n✕\nD\n✕\nS\n✕\n\t64\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t28 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/insights/creative-fatigue-post-click-signals\n\t\n진단\t\nT\n✕\nD\n✕\nS\n✕\n\t64\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t28 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/insights/executive-performance-report-one-page\n\t\n진단\t\nT\n✕\nD\n✕\nS\n✕\n\t66\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t28 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/insights/first-purchase-offer-reduce-risk\n\t\n진단\t\nT\n✕\nD\n✕\nS\n✕\n\t61\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t28 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/insights/landing-message-match-cpa\n\t\n진단\t\nT\n✕\nD\n✕\nS\n✕\n\t54\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t28 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/insights/naver-search-ad-budget-intent-split\n\t\n진단\t\nT\n✕\nD\n✕\nS\n✕\n\t64\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t28 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/insights/negative-keyword-weekly-routine\n\t\n진단\t\nT\n✕\nD\n✕\nS\n✕\n\t60\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t28 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/insights/repeat-purchase-crm-timing\n\t\n진단\t\nT\n✕\nD\n✕\nS\n✕\n\t55\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t28 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/insights/retargeting-window-by-category\n\t\n진단\t\nT\n✕\nD\n✕\nS\n✕\n\t59\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t28 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/insights/review-content-usage-scene\n\t\n진단\t\nT\n✕\nD\n✕\nS\n✕\n\t55\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t28 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n30개 더 보기 (남은 30)",
+  "parent": "https://haloxlabs.ai/app/site-audit",
+  "item": "페이지"
+}

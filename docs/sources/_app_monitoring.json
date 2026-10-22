@@ -1,0 +1,100 @@
+{
+  "url": "https://haloxlabs.ai/app/monitoring",
+  "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+  "headings": [
+    "모니터링 대시보드"
+  ],
+  "tabs": [],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "연동 설정 열기",
+      "disabled": false
+    },
+    {
+      "label": "닫기",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [],
+  "inputs": [],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    },
+    {
+      "label": "연동 설정으로 이동",
+      "href": "https://haloxlabs.ai/app/settings?tab=integrations"
+    }
+  ],
+  "text": "Toggle Sidebar\n모니터링\n모니터링 대시보드\n50%\n[계정 이메일]\nGSC가 아직 연결되지 않았습니다\nGoogle Search Console을 연결하면 검색 성과를 모니터링할 수 있습니다.\n연동 설정 열기\n모니터링 대시보드\n\nGSC 검색 성과 + GA4 트래픽을 한눈에\n\n먼저 데이터 소스를 연결해 주세요\n\nSearch Console과 GA4를 연결하면 검색 성과와 트래픽이 여기에 채워져요.\n\n연동 설정으로 이동\n\nGoogle Search Console\n\n미연결\n\n검색 노출 · 클릭 · 순위 데이터를 가져와요\n\nGoogle Analytics 4\n\n미연결\n\n오가닉/AI 트래픽 · 전환 데이터를 가져와요"
+}

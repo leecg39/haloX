@@ -1,0 +1,270 @@
+{
+  "url": "https://haloxlabs.ai/app/geo/analysis",
+  "title": "프롬프트 분석",
+  "headings": [
+    "프롬프트 분석",
+    "엔진별 노출 비교",
+    "세트/태그별 노출 비교"
+  ],
+  "tabs": [
+    {
+      "label": "개요",
+      "selected": "true"
+    },
+    {
+      "label": "프롬프트",
+      "selected": "false"
+    },
+    {
+      "label": "멘션",
+      "selected": "false"
+    },
+    {
+      "label": "인용 소스",
+      "selected": "false"
+    },
+    {
+      "label": "상품",
+      "selected": "false"
+    },
+    {
+      "label": "인용 매트릭스",
+      "selected": "false"
+    },
+    {
+      "label": "경쟁사",
+      "selected": "false"
+    },
+    {
+      "label": "플랫폼",
+      "selected": "false"
+    },
+    {
+      "label": "검색 패턴",
+      "selected": "false"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "엔진",
+      "disabled": false
+    },
+    {
+      "label": "세트",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만 계산",
+      "disabled": false
+    },
+    {
+      "label": "일별\n지난 28일",
+      "disabled": false
+    },
+    {
+      "label": "개요",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트",
+      "disabled": false
+    },
+    {
+      "label": "멘션",
+      "disabled": false
+    },
+    {
+      "label": "인용 소스",
+      "disabled": false
+    },
+    {
+      "label": "상품",
+      "disabled": false
+    },
+    {
+      "label": "인용 매트릭스",
+      "disabled": false
+    },
+    {
+      "label": "경쟁사",
+      "disabled": false
+    },
+    {
+      "label": "플랫폼",
+      "disabled": false
+    },
+    {
+      "label": "검색 패턴",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트 분포 info",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트 분포 info",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트 분포 info",
+      "disabled": false
+    },
+    {
+      "label": "멘션 순위 info",
+      "disabled": false
+    },
+    {
+      "label": "멘션 점유율 info",
+      "disabled": false
+    },
+    {
+      "label": "소스 점유율 info",
+      "disabled": false
+    },
+    {
+      "label": "인용 점유율 info",
+      "disabled": false
+    },
+    {
+      "label": "인용 순위 info",
+      "disabled": false
+    },
+    {
+      "label": "엔진",
+      "disabled": false
+    },
+    {
+      "label": "세트",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트 세트",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트",
+      "disabled": false
+    },
+    {
+      "label": "멘션",
+      "disabled": false
+    },
+    {
+      "label": "소스",
+      "disabled": false
+    },
+    {
+      "label": "인용",
+      "disabled": false
+    }
+  ],
+  "labels": [
+    "기간 시작 전 생성분만"
+  ],
+  "columns": [
+    "엔진",
+    "프롬프트",
+    "멘션",
+    "소스",
+    "인용",
+    "프롬프트 분포",
+    "멘션 순위",
+    "프롬프트 세트",
+    "프롬프트",
+    "멘션",
+    "소스",
+    "인용",
+    "프롬프트 분포",
+    "멘션 순위"
+  ],
+  "inputs": [],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n분석\n프롬프트 분석\n50%\n[계정 이메일]\n프롬프트 분석\n\nAI 답변에서의 자사 노출도 분석 및 경쟁사 비교\n\n엔진\n세트\n태그\n기간 시작 전 생성분만\n일별\n지난 28일\n개요\n프롬프트\n멘션\n인용 소스\n상품\n인용 매트릭스\n경쟁사\n플랫폼\n검색 패턴\n멘션율\n최근 28일\n30%\n자사 3·경쟁 2\n/ 10\n소스율\n최근 28일\n10%\n자사 1·경쟁 1\n/ 10\n인용률\n최근 28일\n10%\n자사 1·경쟁 1\n/ 10\n멘션 순위\n최근 28일\n\n1위\n\n· 1위 비율 100% (3/3)\n멘션 점유율\n—\n71%\n자사 48·경쟁 20\n/ 68\n소스 점유율\n—\n40%\n자사 2·경쟁 3\n/ 5\n인용 점유율\n—\n50%\n자사 1·경쟁 1\n/ 2\n인용 순위\n최근 28일\n\n1위\n\n· 1위 비율 100% (1/1) · 표본 1건\n엔진별 노출 비교\n\n엔진마다 측정·인용 방식이 다릅니다. 선택 기간의 실제 수집 슬롯 기준으로 멘션율·소스율·인용률을 비교합니다.\n\n28일 멘션율·소스율·인용률 · 2026-09-25 ~ 2026-10-22\n직전 28일 대비 (2026-08-28 ~ 2026-09-24)\n엔진\t프롬프트\t멘션\t소스\t인용\t프롬프트 분포\t멘션 순위\n\nChatGPT\n\t10\t\n30%\n3/10\n\t\n10%\n1/10\n\t\n10%\n1/10\n\t\n3:1\n\t\n1위\n3/3\n평균 순위 1.0위, 1위 비율 100%\n\n\n전체 평균\nKPI 기준 (엔진 가중평균)\n\t10\t\n30%\n3/10\n\t\n10%\n1/10\n\t\n10%\n1/10\n\t\n3:1\n\t\n1위\n3/3\n평균 순위 1.0위, 1위 비율 100%\n멘션\n최대 30%\n09-27\n10-02\n10-07\n10-12\n10-17\n10-22\n0%\n10%\n20%\n30%\n40%\n소스\n최대 10%\n09-27\n10-02\n10-07\n10-12\n10-17\n10-22\n0%\n5%\n10%\n15%\n20%\n인용\n최대 10%\n09-27\n10-02\n10-07\n10-12\n10-17\n10-22\n0%\n5%\n10%\n15%\n20%\n프롬프트 분포\n자사만\n경합\n경쟁사만\n미노출\nChatGPT\nChatGPT\n전체 평균\n세트/태그별 노출 비교\n\n세트 또는 태그 축으로 멘션·소스·인용·프롬프트 분포·멘션 순위를 비교합니다.\n\n엔진\n세트\n태그\n프롬프트 세트\n\t\n프롬프트\n\t\n멘션\n\t\n소스\n\t\n인용\n\t프롬프트 분포\t멘션 순위\n브리찌 Monitoring\t10\t\n30%\n3/10\n\t\n10%\n1/10\n\t\n10%\n1/10\n\t\n3:1\n\t\n1위\n3/3\n평균 순위 1.0위, 1위 비율 100%\n\n상위 1개 및 전체 평균 · 최근 28일 rolling KPI 기준\n\n멘션\n최대 30%\n09-27\n10-02\n10-07\n10-12\n10-17\n10-22\n0%\n10%\n20%\n30%\n40%\n소스\n최대 10%\n09-27\n10-02\n10-07\n10-12\n10-17\n10-22\n0%\n5%\n10%\n15%\n20%\n인용\n최대 10%\n09-27\n10-02\n10-07\n10-12\n10-17\n10-22\n0%\n5%\n10%\n15%\n20%\n프롬프트 분포\n자사만\n경합\n경쟁사만\n미노출\nChatGPT\n브리찌 Monitoring\n전체 평균",
+  "parent": "https://haloxlabs.ai/app/geo/analysis",
+  "item": "개요"
+}

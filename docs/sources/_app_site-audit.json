@@ -1,0 +1,271 @@
+{
+  "url": "https://haloxlabs.ai/app/site-audit",
+  "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+  "headings": [
+    "사이트 진단",
+    "SEO 분석",
+    "GEO 분석",
+    "구조화 데이터",
+    "테크니컬 SEO",
+    "사이트 건강 진단",
+    "봇 접근성 · 정책 파일 · 렌더링 진단",
+    "AI 전략 리포트로 이어가기"
+  ],
+  "tabs": [
+    {
+      "label": "개요",
+      "selected": "true"
+    },
+    {
+      "label": "AI 봇 접근성",
+      "selected": "false"
+    },
+    {
+      "label": "이슈",
+      "selected": "false"
+    },
+    {
+      "label": "페이지",
+      "selected": "false"
+    },
+    {
+      "label": "엔티티",
+      "selected": "false"
+    },
+    {
+      "label": "내부 링크",
+      "selected": "false"
+    },
+    {
+      "label": "가이드",
+      "selected": "false"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "현재 진단",
+      "disabled": false
+    },
+    {
+      "label": "진단 기록",
+      "disabled": false
+    },
+    {
+      "label": "Raw",
+      "disabled": false
+    },
+    {
+      "label": "새 진단",
+      "disabled": false
+    },
+    {
+      "label": "개요",
+      "disabled": false
+    },
+    {
+      "label": "AI 봇 접근성",
+      "disabled": false
+    },
+    {
+      "label": "이슈",
+      "disabled": false
+    },
+    {
+      "label": "페이지",
+      "disabled": false
+    },
+    {
+      "label": "엔티티",
+      "disabled": false
+    },
+    {
+      "label": "내부 링크",
+      "disabled": false
+    },
+    {
+      "label": "가이드",
+      "disabled": false
+    },
+    {
+      "label": "봇 접근성\n64",
+      "disabled": false
+    },
+    {
+      "label": "구조화 데이터\n100",
+      "disabled": false
+    },
+    {
+      "label": "콘텐츠 품질\n100",
+      "disabled": false
+    },
+    {
+      "label": "신뢰도 시그널\n100",
+      "disabled": false
+    },
+    {
+      "label": "기술 건강도\n100",
+      "disabled": false
+    },
+    {
+      "label": "봇 접근성\n64",
+      "disabled": false
+    },
+    {
+      "label": "구조화 데이터\n100",
+      "disabled": false
+    },
+    {
+      "label": "인용 가능성\n100",
+      "disabled": false
+    },
+    {
+      "label": "기술 건강도\n100",
+      "disabled": false
+    },
+    {
+      "label": "현재\necommerce → CollectionPage · Product",
+      "disabled": false
+    },
+    {
+      "label": "스키마 재분석",
+      "disabled": false
+    },
+    {
+      "label": "coverage definition",
+      "disabled": false
+    },
+    {
+      "label": "전체 보기",
+      "disabled": false
+    },
+    {
+      "label": "전체 보기",
+      "disabled": false
+    },
+    {
+      "label": "경고\n미사용 JavaScript 코드가 있어요\n1p",
+      "disabled": false
+    },
+    {
+      "label": "✓\n깨진 링크\n정상\n→",
+      "disabled": false
+    },
+    {
+      "label": "✓\n중복 콘텐츠\n정상\n→",
+      "disabled": false
+    },
+    {
+      "label": "✓\n중복 태그\n정상\n→",
+      "disabled": false
+    },
+    {
+      "label": "✓\n리다이렉트 체인\n정상\n→",
+      "disabled": false
+    },
+    {
+      "label": "✓\n비인덱서블\n정상\n→",
+      "disabled": false
+    },
+    {
+      "label": "✓\n에러 페이지\n정상\n→",
+      "disabled": false
+    },
+    {
+      "label": "AI 봇 접근성 탭 열기",
+      "disabled": false
+    },
+    {
+      "label": "전략 리포트 생성",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [
+    "타입 · 페이지",
+    "ORGANIZATION",
+    "WEBPAGE",
+    "BREADCRUMBLIST",
+    "COLLECTIONPAGE",
+    "ITEMLIST"
+  ],
+  "inputs": [],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    },
+    {
+      "label": "전략 리포트 생성",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    }
+  ],
+  "text": "Toggle Sidebar\n전략\n사이트 진단\n50%\n[계정 이메일]\n사이트 진단\nbridzzi.com\n완료\n\nSEO와 AI 검색 가시성을 저해하는 기술적 이슈를 확인하고 해결하세요.\n\n·\n마지막 분석 2026년 10월 22일 오후 7:44\n·\n진단 페이지 50/50\n현재 진단\n진단 기록\nRaw\n새 진단\n—\n\nSEO\n\n측정 불가\n\n기술 SEO · 5개 항목\n\n측정 불가\n\n—\n\nGEO\n\n측정 불가\n\n기술 GEO · 4개 항목\n\n측정 불가\n\n심각\n51\n경고\n1\n참고\n0\n\n크롤 진행률\n\n50 / 50 페이지\n\n전체 수집 완료· 사이트 전체 50페이지\n\n개요\nAI 봇 접근성\n이슈\n페이지\n엔티티\n내부 링크\n가이드\nSEO 분석\n\n봇 접근성·구조화 데이터·콘텐츠 품질·신뢰도·기술 건강도 5축\n\n봇\n접근성\n64\n구조화\n데이터\n100\n콘텐츠\n품질\n100\n신뢰도\n시그널\n100\n기술\n건강도\n100\n봇 접근성\n64\n구조화 데이터\n100\n콘텐츠 품질\n100\n신뢰도 시그널\n100\n기술 건강도\n100\nGEO 분석\n\nAI 크롤러 접근성·구조화·인용 가능성·신선도 4축\n\n봇\n접근성\n64\n구조화\n데이터\n100\n인용\n가능성\n100\n기술\n건강도\n100\n봇 접근성\n64\n구조화 데이터\n100\n인용 가능성\n100\n기술 건강도\n100\nCORE\nSchema 분류 정책\n\n이 설정 하나가 아래 페이지 타입별 커버리지와 필수 스키마 매트릭스, 그리고 구조화 데이터 점수 전체를 결정합니다.\n\n현재\necommerce → CollectionPage · Product\n구조화 데이터\n\nschema.org 커버리지 · 페이지 타입 × 필수 스키마 매트릭스\n\n필드 수준 분석 데이터가 없어요 — [스키마 재분석]을 한 번 실행하면 누락된 url/dateModified 같은 필드를 보여드려요.\n\n이 스캔은 구버전 분석본이라 0%로 보일 수 있어요. 같은 사이트의 다른 날짜 스캔과 차이가 크면 재분석을 권장합니다. 자세한 필수/권장 스키마 구조는 [스키마 가이드] 탭을 눌러 가이드를 확인해보세요.\n\n스키마 재분석\n\n구조화 데이터 보유 비율\n\n0\n적용률\n\n0 / 0 페이지\n\n누락 TOP 3\n\n✓ 누락 스키마가 없습니다.\n\n구조화 데이터 이슈 (0)\n\n전체 보기\n✓ 누락된 권장 스키마가 없어요.\n\n페이지 타입별 커버리지\n\n아직 페이지 타입이 없어요\n\n페이지 타입 × 필수 스키마 매트릭스\n\n타입 · 페이지\tORGANIZATION\tWEBPAGE\tBREADCRUMBLIST\tCOLLECTIONPAGE\tITEMLIST\n아직 분석 가능한 페이지가 없어요\n✓\n정확\n·\n=\n호환\n·\n✕\n누락\n·\n—\n해당 없음\n·\n총 0셀 중 누락 0\n\n매트릭스 판정 규칙\n\n하위 타입 자동 충족 — WebPage는 CollectionPage / ItemPage 등 상위 타입으로 자동 인정\nWebPage 묵시적 예외 — JSON-LD가 없어도 <html> 자체를 WebPage로 인정\n보유율 계산 — AND 연산 (필수 필드 모두 충족해야 인정)\n페이지별 분모 변동 — 각 페이지 타입별 필수 스키마 개수만 분모로 사용\n재분석 시 필드 수준 데이터가 함께 수집되어 누락 필드 (url · dateModified 등) 목록이 채워집니다\n테크니컬 SEO\n\n* 분석 가능 페이지(200 OK) 기준으로 지표 계산됩니다.\n\n분석 가능 0\n·\n에러 0\n0%\n\n이 영역의 이슈 (5)\n\n전체 보기\n경고\n미사용 JavaScript 코드가 있어요\n1p\n우선순위 산정Description·H1·Canonical·OG Tags가 0%인 근본 원인은 CSR 렌더링(초기 HTML에 태그 부재)입니다. 개별 항목으로 나누지 않고 \"메타 태그가 초기 HTML에 없음\" 이슈 한 건으로 묶어 있어요.\n\nSEO 메타 현황 / 0p 기준\n\n아직 측정 가능한 메타 정보가 없어요\n\n사이트 건강 진단\n\n각 항목 클릭 시 판정 기준 · 상세 페이지 목록으로 이동\n\n✓\n깨진 링크\n정상\n→\n✓\n중복 콘텐츠\n정상\n→\n✓\n중복 태그\n정상\n→\n✓\n리다이렉트 체인\n정상\n→\n✓\n비인덱서블\n정상\n→\n✓\n에러 페이지\n정상\n→\n봇 접근성 · 정책 파일 · 렌더링 진단\n\nrobots / llms / sitemap 상태, GPTBot·ClaudeBot·Googlebot 별 응답, CSR 렌더링 위험까지 한 화면에서 점검하세요.\n\nAI 봇 접근성 탭 열기\nAI 전략 리포트로 이어가기\n\n이 진단 결과를 기반으로 어떤 AI 검색 쿼리에 노출·인용될지, 어떤 콘텐츠를 우선 만들어야 할지 리포트를 생성해요.\n\n전략 리포트 생성"
+}

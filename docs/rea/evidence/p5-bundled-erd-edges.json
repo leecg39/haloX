@@ -1,0 +1,139 @@
+{
+ "classification": "observation",
+ "source": "public chunk db-schema-overview-ee1ITfwS.js (bundled internal doc, version 1.1 dated 2026-02-23; may be stale)",
+ "sha256": "801517a0ce70ad4d7875c9ed8c937dea018d0b046e6713dc5053dd89e1b6fd72",
+ "edges": [
+  {
+   "from": "workspaces",
+   "card": "||--o{",
+   "to": "workspace_members",
+   "label": "has"
+  },
+  {
+   "from": "workspaces",
+   "card": "||--o{",
+   "to": "workspace_plans",
+   "label": "has"
+  },
+  {
+   "from": "workspaces",
+   "card": "||--o{",
+   "to": "keywords",
+   "label": "contains"
+  },
+  {
+   "from": "workspaces",
+   "card": "||--o{",
+   "to": "content_jobs",
+   "label": "contains"
+  },
+  {
+   "from": "workspaces",
+   "card": "||--o{",
+   "to": "content_review_runs",
+   "label": "contains"
+  },
+  {
+   "from": "workspaces",
+   "card": "||--o{",
+   "to": "geo_prompt_sets",
+   "label": "contains"
+  },
+  {
+   "from": "workspaces",
+   "card": "||--o{",
+   "to": "writing_style_profiles",
+   "label": "contains"
+  },
+  {
+   "from": "keywords",
+   "card": "||--o{",
+   "to": "serp_snapshots",
+   "label": "has"
+  },
+  {
+   "from": "keywords",
+   "card": "||--o{",
+   "to": "keyword_strategy",
+   "label": "has"
+  },
+  {
+   "from": "keywords",
+   "card": "||--o{",
+   "to": "content_jobs",
+   "label": "triggers"
+  },
+  {
+   "from": "keywords",
+   "card": "||--o{",
+   "to": "keyword_cluster_members",
+   "label": "grouped"
+  },
+  {
+   "from": "content_jobs",
+   "card": "||--o{",
+   "to": "content_drafts",
+   "label": "produces"
+  },
+  {
+   "from": "content_drafts",
+   "card": "}o--o|",
+   "to": "articles",
+   "label": "creates"
+  },
+  {
+   "from": "articles",
+   "card": "||--o{",
+   "to": "article_translations",
+   "label": "has"
+  },
+  {
+   "from": "articles",
+   "card": "||--o{",
+   "to": "article_topics",
+   "label": "categorized"
+  },
+  {
+   "from": "articles",
+   "card": "||--o{",
+   "to": "article_tools",
+   "label": "references"
+  },
+  {
+   "from": "content_review_runs",
+   "card": "||--o{",
+   "to": "content_change_items",
+   "label": "has"
+  },
+  {
+   "from": "geo_prompt_sets",
+   "card": "||--o{",
+   "to": "geo_prompts",
+   "label": "contains"
+  },
+  {
+   "from": "geo_prompts",
+   "card": "||--o{",
+   "to": "geo_prompt_runs",
+   "label": "measured"
+  },
+  {
+   "from": "geo_prompt_runs",
+   "card": "||--o{",
+   "to": "geo_citations",
+   "label": "cited"
+  },
+  {
+   "from": "knowledge_entities",
+   "card": "||--o{",
+   "to": "evidence_claims",
+   "label": "has"
+  },
+  {
+   "from": "knowledge_entities",
+   "card": "||--o{",
+   "to": "keyword_knowledge_entities",
+   "label": "linked"
+  }
+ ]
+}

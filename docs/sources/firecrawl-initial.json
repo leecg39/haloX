@@ -1,0 +1,964 @@
+{
+  "map": {
+    "links": [
+      {
+        "url": "https://haloxlabs.ai/en/consulting",
+        "title": "SEO & GEO Consulting - HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요., A team that measures search and AI answer data f..."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/customers",
+        "title": "고객 사례 | HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요., HaloX로 AI 가시성과 검색 성과를 높이는 팀들의 이야기."
+      },
+      {
+        "url": "https://haloxlabs.ai",
+        "title": "HaloX - SEO & AI 검색 최적화 플랫폼",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요., AI 답변에 우리 브랜드가 나오게 하세요. ChatGPT, Gemini, Perplex..."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/consulting",
+        "title": "SEO·GEO 컨설팅 - HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요., 검색과 AI 답변 데이터를 직접 측정하는 팀이 진단부터 실행까지 함께합니다. HaloX..."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog",
+        "title": "블로그 | HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/topics",
+        "title": "토픽 | HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/authors"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/tools"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/tools/ai-questions",
+        "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/tools/site-audit"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/features"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/pricing"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/integrations",
+        "title": "연동 — HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/workflows",
+        "title": "워크플로우 - HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/methodology",
+        "title": "우리의 측정 방식 - HaloX가 검색을 보는 법 | HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/research"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/compare/semrush"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/compare/ahrefs"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/compare/profound",
+        "title": "HaloX vs Profound: AI 대화 + SEO 플랫폼 비교 (2026)",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/compare/otterly",
+        "title": "HaloX vs Otterly: AI 검색 모니터링 비교 (2026)",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/use-cases"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/use-cases/brand-monitoring"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/use-cases/competitor-analysis"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/use-cases/content-optimization"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/use-cases/seo-geo-integration"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/solutions/agency"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/solutions/in-house"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/about",
+        "title": "HaloX 소개",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/faq",
+        "title": "FAQ - HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/changelog",
+        "title": "업데이트 소식 | HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/feedback"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/privacy",
+        "title": "개인정보처리방침 & 쿠키 설정 - HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/terms"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/refund-policy"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/disclosure",
+        "title": "Ads & Affiliate Disclosure - 헤일로X(haloX)",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/security"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/seo"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/serp"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/keyword"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/keyword-difficulty"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/search-volume"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/search-intent"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/organic-traffic"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/featured-snippet",
+        "title": "추천 스니펫란? - 뜻과 의미 | Halox 용어 사전",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/backlink"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/domain-authority"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/geo"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/avi"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/ai-citation",
+        "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/citation-sov"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/ai-overview"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/prompt-tracking"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/llm"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/rag",
+        "title": "RAG (검색 증강 생성)란? - 뜻과 의미 | Halox 용어 사전",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/brand-sov"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/top10-ratio",
+        "title": "Top 10 비율란? — 뜻과 의미 | Halox 용어 사전",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/content-optimization"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/e-e-a-t"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/schema-markup"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/paa",
+        "title": "PAA (함께 묻는 질문)란? - 뜻과 의미 | Halox 용어 사전",
+        "description": "PAA (함께 묻는 질문)는 사용자의 검색어와 관련된 펼칠 수 있는 질문을 표시하는 SERP 기능이에요. 각 질문을 클릭하면 웹페이지에서 추출한 짧은 답변 스니펫과 소스 링크가 나타나요. 하나를 클릭하면 추가 관련 질문이 이어져서 사용자 의도 신호의 무한 스크롤이 만들어져요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/llms-txt",
+        "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/query-fan-out"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/topical-authority"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/aeo"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/ai-crawlers"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/ai-brand-mentions"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/llm-seo",
+        "title": "LLM SEO란? - 뜻과 의미 | Halox 용어 사전",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/citation-rate"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/zero-click-search"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/internal-linking",
+        "title": "내부 링크란? - 뜻과 의미 | Halox 용어 사전",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/ctr"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/on-page-seo"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/content-cluster",
+        "title": "콘텐츠 클러스터란? - 뜻과 의미 | Halox 용어 사전",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/json-ld"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/technical-seo"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/meta-tags"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/seo"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/serp"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/keyword"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/keyword-difficulty"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/search-volume"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/search-intent"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/organic-traffic"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/featured-snippet"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/backlink"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/domain-authority"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/geo"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/avi"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/ai-citation"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/citation-sov"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/ai-overview"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/prompt-tracking"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/llm"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/rag"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/brand-sov"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/top10-ratio"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/content-optimization"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/e-e-a-t"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/schema-markup"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/paa"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/llms-txt"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/query-fan-out"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/topical-authority"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/aeo"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/ai-crawlers"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/ai-brand-mentions"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/llm-seo"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/citation-rate"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/zero-click-search"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/internal-linking"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/ctr",
+        "title": "What is CTR (Click-Through Rate)? — Definition & Meaning",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/on-page-seo"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/content-cluster"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/json-ld",
+        "title": "What is JSON-LD? - Definition & Meaning | Halox Glossary",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/technical-seo"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary/meta-tags"
+      },
+      {
+        "url": "https://haloxlabs.ai/en",
+        "title": "HaloX - SEO & GEO Platform | AI Search Optimization",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/blog",
+        "title": "Blog | HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/blog/topics"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/glossary",
+        "title": "SEO & GEO Glossary - Key Terms Explained | Halox",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/authors"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/tools"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/tools/ai-questions"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/tools/site-audit"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/features"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/pricing"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/integrations",
+        "title": "Integrations - 헤일로X(haloX)",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/workflows",
+        "title": "Workflows — HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/methodology"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/research",
+        "title": "AI Citation Research - 헤일로X(haloX)",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/compare/semrush",
+        "title": "HaloX vs Semrush: AI-Powered SEO Comparison (2026)",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/compare/ahrefs"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/compare/profound"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/compare/otterly",
+        "title": "HaloX vs Otterly: AI Search Monitoring Comparison (2026)",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/use-cases",
+        "title": "Use Cases - AI Visibility for Every Team | HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/use-cases/brand-monitoring"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/use-cases/competitor-analysis"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/use-cases/content-optimization"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/use-cases/seo-geo-integration"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/solutions/agency"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/solutions/in-house"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/about"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/customers"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/faq"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/changelog",
+        "title": "Changelog | HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/feedback"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/privacy"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/terms"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/refund-policy"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/disclosure",
+        "title": "Ads & Affiliate Disclosure - 헤일로X(haloX)",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/security",
+        "title": "Security & Trust — HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/authors/juny-lee",
+        "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+        "description": "AI-driven messaging strategist specializing in GEO (Generative Engine Optimization) and communication architecture. With deep expertise in PR, ..."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/authors/juny-lee"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/authors/jaechullee"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/authors/jaechullee",
+        "title": "Author - HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/blog/topics/ai-trends"
+      },
+      {
+        "url": "https://haloxlabs.ai/en/tools/lovable",
+        "title": "Lovable - 헤일로X(haloX)",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/tools/genspark",
+        "title": "젠스파크 - HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/brand-entity-seo-for-ai-search"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/llms-txt-agentic-browsing-readiness"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/naver-ai-briefing-citation-count-geo-kpi"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/ai-search-delegation-recommendation-action-path"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/google-search-console-ai-report-geo-measurement"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/naver-ai-tab-execution-kpi-action-path"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/ai-search-citation-count-before-diagnosis"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/google-core-update-geo-analysis"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/naver-geo-guide-ai-briefing-mate"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/seo-geo-top-exposure-strategy"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/naver-ai-briefing-longtail-query-search-behavior"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/schema-ai-citation-hygiene"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/ai-visibility-single-score-risk"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/aeo-brand-consensus-ownership"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/commerce-geo-google-product-pack-sales-channel"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/ga4-ai-assistant-channel-ai-search-measurement"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/google-geo-aeo-safety-line"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/prompt-level-ai-search-experiment"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/faq-rich-results-deprecation-qa-evidence-structure"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/offsite-aeo-moat"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/ai-search-10-gate-diagnostic-checklist"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/ai-search-attribution-gap-reporting-framework"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/why-reddit-search-matters-in-ai-search-2026"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/why-chatgpt-cites-listicles"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/ai-search-fake-brand-entity-coherence"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/ai-traffic-small-but-strategic"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/openai-crawl-channel-signal"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/ai-search-location-service-page-checklist"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/geo-reputation-brand-consensus"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/chatgpt-citation-retrieval-fit"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/ai-search-measurement-framework"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/ai-crawler-observability"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/ai-customer-product-info-structure"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/ai-visibility-metrics-beyond-avi"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/ai-kpi"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/gpt-fan-out-search-analysis"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/fan-out-geo-content-strategy"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/ai-search-fan-out-market-landscape"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/geocommerce"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/chatgpt-optimization-guide"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/korean-seo-geo-differences"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/competitor-seo-geo-analysis"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/content-optimization-workflow"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/keyword-expansion-5-signal"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/brand-sov-measurement"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/backlink-strategy-2026"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/eeat-content-checklist"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/featured-snippet-paa-strategy"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/seo-geo-metrics-guide"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/prompt-tracking-monitoring"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/content-dual-optimization"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/ai-platform-citation-comparison-data"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/halox-ai-agent-building-story"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/seo-geo-keyword-strategy-framework"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/rag-hallucination-defense"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/agentic-workflow-patterns"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/hierarchical-classification"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/pev-workflow-case-study"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/ai-content-pipeline"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/seo-geo-unified-strategy"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/eeat-complete-guide"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/topical-authority-cluster-design"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/schema-markup-practical",
+        "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/on-page-seo-checklist-2026"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/keyword-research-intent-based"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/seo-fundamentals-ai-era"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/llms-txt-setup-guide"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/geo-content-structure",
+        "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/how-to-get-cited-by-ai"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/avi-score-explained"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/geo-vs-seo-vs-aeo"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/what-is-geo-optimization"
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/topics/ai-trends"
+      },
+      {
+        "url": "https://haloxlabs.ai/tag",
+        "title": "헤일로X - AI 대화 최적화 플랫폼 - HaloX",
+        "description": "헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/partners",
+        "title": "파트너 추천 프로그램 - HaloX",
+        "description": "Partner Program. 소개하고, 1년 동안 함께 버세요. 내 추천 링크로 가입한 고객이 결제하면, 가입일로부터 1년간 결제 금액의 20%를 현금으로 드려요."
+      },
+      {
+        "url": "https://haloxlabs.ai/id",
+        "title": "haloxlabs.ai",
+        "description": "We would like to show you a description here but the site won’t allow us."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/agentic-commerce-geo",
+        "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+        "description": "HaloX란? HaloX는 Afterwork Lab이 만든 AI 대화 최적화 (GEO) 플랫폼이에요. ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/features/content",
+        "title": "Content Studio - HaloX",
+        "description": "Content Studio 검색과 AI에 최적화된 콘텐츠를 생성합니다 키워드 분석 결과를 기반으로 콘텐츠 작성부터 발행까지 하나의 흐름으로 관리합니다."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/customers/shopnest",
+        "title": "ShopNest - 고객 사례 - HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/topics",
+        "title": "Topics | HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/customers/growthly",
+        "title": "Growthly - 고객 사례 - HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/vi/contact",
+        "title": "Contact Us - haloxlabs.ai",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/zh/contact",
+        "title": "Contact Us - haloxlabs.ai",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/zh/blog/topics",
+        "title": "Topics | HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/tag/semrush",
+        "title": "Semrush - 태그별 글 | HaloX",
+        "description": "GEO. AI 검색 유입은 작지만 왜 무시하면 안 될까? 2026.04.28 · HaloX. 상호: Afterwork Lab (애프터워크 랩) · 대표: 이재철. 사업자등록번호: 619-64-00733."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/features/analytics",
+        "title": "GEO Dashboard — HaloX",
+        "description": "GEO Dashboard. Compare search and AI visibility at a glance. Compare SEO rankings and AI citation rates in one dashboard, and find the opportunities you're ..."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/customers/shopnest",
+        "title": "ShopNest - Customer Story | HaloX",
+        "description": "ShopNest ; 58%. Revenue Increase ; 3,200+. Pages Optimized ; 45%. Ranking Improvement ; 5x. Content Velocity ..."
+      },
+      {
+        "url": "https://haloxlabs.ai/zh/about",
+        "title": "Halox — AI 대화 최적화 플랫폼",
+        "description": "What is HaloX? HaloX is an AI conversation optimization (GEO) platform built by Afterwork Lab. It tracks how AI models like ChatGPT, Claude, Gemini, and Perplexity talk about your brand, and helps you optimize your visibility in AI-generated answers."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/features/analytics",
+        "title": "GEO Dashboard - HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/zh/pricing",
+        "title": "Pricing - HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/blog/topics/geo",
+        "title": "geo - HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/en/free-tools",
+        "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/tag/rag",
+        "title": "Rag - 태그별 글 | HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/glossary/eeat",
+        "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/blog/topics/geo",
+        "title": "AI 대화 최적화 플랫폼 - HaloX | 헤일로X",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/?ref=CUZCE8SM",
+        "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/tag/ai-traffic",
+        "title": "Ai Traffic - 태그별 글 | HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      },
+      {
+        "url": "https://haloxlabs.ai/ko/tag/retrieval-fit",
+        "title": "Retrieval Fit - 태그별 글 | HaloX",
+        "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요."
+      }
+    ],
+    "id": "01a1633f-2a8f-708d-a68e-97a81e142194"
+  },
+  "appLogin": {
+    "markdown": "[![HaloX](https://haloxlabs.ai/assets/halox-logo-CobhEqyu.png)](https://haloxlabs.ai/)\n\n# Log in\n\nEmail\n\nPassword\n\n[Forgot password?](https://haloxlabs.ai/app/forgot-password)\n\nSign In\n\n계정이 없으신가요? [회원가입하기](https://haloxlabs.ai/app/signup)\n\n계속하면 HaloX의 [이용약관](https://haloxlabs.ai/ko/terms) 및 [개인정보 처리방침](https://haloxlabs.ai/ko/privacy) 에 동의하게 됩니다.\n\n© 2026 HaloX\n\n## We analyze how our brand appears across AI and search\n\n-31519\n\nActive brands\n\n-543.9M\n\nAI citations analyzed\n\n-12913.0K\n\nSearch results analyzed\n\nAs of Oct 22, 2026 19:54",
+    "links": [
+      "https://haloxlabs.ai/",
+      "https://haloxlabs.ai/app/forgot-password",
+      "https://haloxlabs.ai/app/signup",
+      "https://haloxlabs.ai/ko/terms",
+      "https://haloxlabs.ai/ko/privacy"
+    ],
+    "metadata": {
+      "twitter:image": "https://storage.googleapis.com/gpt-engineer-file-uploads/1cMN4ntNI2Q9QRAsBAyGY5eZvAb2/social-images/social-1771234432368-halox_social.webp",
+      "description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요.",
+      "twitter:card": "summary_large_image",
+      "ogImage": "https://storage.googleapis.com/gpt-engineer-file-uploads/1cMN4ntNI2Q9QRAsBAyGY5eZvAb2/social-images/social-1771234432368-halox_social.webp",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "ogDescription": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요.",
+      "robots": "noindex, nofollow, noarchive, nosnippet",
+      "googlebot": "noindex, nofollow",
+      "ogTitle": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "language": "ko",
+      "og:description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요.",
+      "og:type": "website",
+      "og:title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "twitter:description": "HaloX | 헤일로X 는 ChatGPT, Claude, Gemini, Perplexity 같은 AI 모델이 우리 브랜드를 어떻게 말하는지 추적하고, AI 답변에서의 브랜드 가시성을 높여줘요.",
+      "og:image": "https://storage.googleapis.com/gpt-engineer-file-uploads/1cMN4ntNI2Q9QRAsBAyGY5eZvAb2/social-images/social-1771234432368-halox_social.webp",
+      "author": "Afterwork Lab",
+      "twitter:title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "viewport": "width=device-width, initial-scale=1.0",
+      "favicon": "https://haloxlabs.ai/favicon.png?v=2",
+      "scrapeId": "01a1633f-2ab3-7279-adf8-ab029bae3274",
+      "sourceURL": "https://haloxlabs.ai/app",
+      "url": "https://haloxlabs.ai/app/login",
+      "statusCode": 200,
+      "contentType": "text/html; charset=utf-8",
+      "timezone": "America/New_York",
+      "proxyUsed": "basic",
+      "indexId": "02b815d2-f8c7-4514-92df-c7b4818c2bdb",
+      "creditsUsed": 1,
+      "concurrencyLimited": false
+    }
+  }
+}

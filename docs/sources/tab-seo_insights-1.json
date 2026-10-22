@@ -1,0 +1,298 @@
+{
+  "url": "https://haloxlabs.ai/app/seo/insights?tab=performance",
+  "title": "키워드 분석",
+  "headings": [
+    "키워드 분석",
+    "순위 변동 TOP"
+  ],
+  "tabs": [
+    {
+      "label": "개요",
+      "selected": "false"
+    },
+    {
+      "label": "성과",
+      "selected": "true"
+    },
+    {
+      "label": "경쟁사",
+      "selected": "false"
+    },
+    {
+      "label": "기회",
+      "selected": "false"
+    },
+    {
+      "label": "AIO",
+      "selected": "false"
+    },
+    {
+      "label": "SERP 매트릭스",
+      "selected": "false"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "전체 언어",
+      "disabled": false
+    },
+    {
+      "label": "전체 국가",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만 계산",
+      "disabled": false
+    },
+    {
+      "label": "세트",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "일별\n지난 28일",
+      "disabled": false
+    },
+    {
+      "label": "개요",
+      "disabled": false
+    },
+    {
+      "label": "성과",
+      "disabled": false
+    },
+    {
+      "label": "경쟁사",
+      "disabled": false
+    },
+    {
+      "label": "기회",
+      "disabled": false
+    },
+    {
+      "label": "AIO",
+      "disabled": false
+    },
+    {
+      "label": "SERP 매트릭스",
+      "disabled": false
+    },
+    {
+      "label": "Top 10 비율 info",
+      "disabled": false
+    },
+    {
+      "label": "AI 요약 인용률 info",
+      "disabled": false
+    },
+    {
+      "label": "자사 순위 info",
+      "disabled": false
+    },
+    {
+      "label": "평균 순위 info",
+      "disabled": false
+    },
+    {
+      "label": "상승 키워드 info",
+      "disabled": false
+    },
+    {
+      "label": "하락 키워드 info",
+      "disabled": false
+    },
+    {
+      "label": "유지 키워드 info",
+      "disabled": false
+    },
+    {
+      "label": "신규 진입 info",
+      "disabled": false
+    },
+    {
+      "label": "전체",
+      "disabled": false
+    },
+    {
+      "label": "AIO 상태",
+      "disabled": false
+    },
+    {
+      "label": "변동",
+      "disabled": false
+    },
+    {
+      "label": "검색량",
+      "disabled": false
+    },
+    {
+      "label": "난이도",
+      "disabled": false
+    }
+  ],
+  "labels": [
+    "기간 시작 전 생성분만"
+  ],
+  "columns": [
+    "방향",
+    "키워드",
+    "시작 → 현재",
+    "변동",
+    "이동",
+    "검색량",
+    "난이도",
+    "AIO"
+  ],
+  "inputs": [
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "키워드",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    },
+    {
+      "label": "AI 광고대행사",
+      "href": "https://haloxlabs.ai/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6"
+    },
+    {
+      "label": "브리찌",
+      "href": "https://haloxlabs.ai/app/keywords/4749bf67-fe95-4b93-a246-5e48fa60bf6b"
+    },
+    {
+      "label": "AEO 마케팅",
+      "href": "https://haloxlabs.ai/app/keywords/7dc09246-7fd3-44aa-9b4f-c19cd9091991"
+    },
+    {
+      "label": "성과형 광고대행사",
+      "href": "https://haloxlabs.ai/app/keywords/157dbafb-7e4c-415d-9b7f-41d96a958eaf"
+    },
+    {
+      "label": "광고 효율",
+      "href": "https://haloxlabs.ai/app/keywords/cdf04655-496b-491e-bec3-c961302406ce"
+    },
+    {
+      "label": "매출 정체",
+      "href": "https://haloxlabs.ai/app/keywords/7e5d44ef-b679-4779-885d-0f6dd0bd1b35"
+    },
+    {
+      "label": "숏폼 영상",
+      "href": "https://haloxlabs.ai/app/keywords/1081c8cf-2d2e-48ce-ab31-5d1429956ba2"
+    },
+    {
+      "label": "검색 상위노출",
+      "href": "https://haloxlabs.ai/app/keywords/14f4ea1f-0b21-417e-81a4-65291bf03bfb"
+    },
+    {
+      "label": "AI 마케팅",
+      "href": "https://haloxlabs.ai/app/keywords/7b27ce54-3acc-40ea-8254-db6886258d6b"
+    },
+    {
+      "label": "에코마케팅 대안",
+      "href": "https://haloxlabs.ai/app/keywords/7c59d3f3-1e66-4ae1-bc2c-efb3d3093170"
+    }
+  ],
+  "text": "Toggle Sidebar\n분석\n키워드 분석\n50%\n[계정 이메일]\n키워드 분석\n\n검색 순위, AI 요약 인용, 자사 점유율을 분석하세요 · 9월 25일 ~ 10월 22일\n\n전체 언어\n전체 국가\n기간 시작 전 생성분만\n세트\n태그\n일별\n지난 28일\n개요\n성과\n경쟁사\n기회\nAIO\nSERP 매트릭스\nTop 10 키워드\n—\n0 / 10개\n0%\nAI 요약 인용\n11%\n1 / 9\n자사 순위\n0개\n우위 0% · 전체 10개\n평균 순위\n—\n표본 0개\n\n최근 28일 기준 · 미노출 10개는 변동 집계에서 제외\n\n상승\n\n0\n\n하락\n\n0\n\n유지\n\n0\n\n변동 없음\n신규 진입\n\n0\n\n순위 변동 TOP\n\n기간 시작 대비 변동 · 상승 0 · 하락 0\n\n전체\nAIO 상태\n방향\t키워드\t시작 → 현재\t변동\n\t이동\t검색량\n\t난이도\n\tAIO\n\n미노출\tAI 광고대행사\t미노출 → 미노출\t—\t—\t—\t—\t—\n\n미노출\t브리찌\t미노출 → 미노출\t—\t—\t70\t—\t인용\n\n미노출\tAEO 마케팅\t미노출 → 미노출\t—\t—\t—\t0\t—\n\n미노출\t성과형 광고대행사\t미노출 → 미노출\t—\t—\t—\t—\t—\n\n미노출\t광고 효율\t미노출 → 미노출\t—\t—\t10\t0\t—\n\n미노출\t매출 정체\t미노출 → 미노출\t—\t—\t—\t—\t—\n\n미노출\t숏폼 영상\t미노출 → 미노출\t—\t—\t210\t—\t—\n\n미노출\t검색 상위노출\t미노출 → 미노출\t—\t—\t10\t—\t—\n\n미노출\tAI 마케팅\t미노출 → 미노출\t—\t—\t480\t0\t—\n\n미노출\t에코마케팅 대안\t미노출 → 미노출\t—\t—\t—\t—\t—",
+  "parent": "https://haloxlabs.ai/app/seo/insights",
+  "item": "성과"
+}

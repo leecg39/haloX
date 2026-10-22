@@ -1,0 +1,139 @@
+{
+  "url": "https://haloxlabs.ai/app/strategy-map",
+  "title": "Strategy Map | HaloX",
+  "headings": [
+    "전략맵"
+  ],
+  "tabs": [
+    {
+      "label": "리스트",
+      "selected": "false"
+    },
+    {
+      "label": "포트폴리오",
+      "selected": "true"
+    },
+    {
+      "label": "네트워크",
+      "selected": "false"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "AI 전략 리포트",
+      "disabled": false
+    },
+    {
+      "label": "클러스터링 재실행",
+      "disabled": false
+    },
+    {
+      "label": "빈틈 찾아보기",
+      "disabled": false
+    },
+    {
+      "label": "Close",
+      "disabled": false
+    },
+    {
+      "label": "리스트",
+      "disabled": false
+    },
+    {
+      "label": "포트폴리오",
+      "disabled": false
+    },
+    {
+      "label": "네트워크",
+      "disabled": false
+    },
+    {
+      "label": "포트폴리오",
+      "disabled": false
+    },
+    {
+      "label": "확대 초기화",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [],
+  "inputs": [],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n전략\n전략맵\n50%\n[계정 이메일]\n전략맵\n\n키워드 클러스터의 기회와 우선순위를 파악하고, 콘텐츠 전략을 시작하세요.\n\n16분 전\nAI 전략 리포트\n클러스터링 재실행\n\n지금 놓치고 있는 키워드가 있어요\n\n현재 10개만 분석 중이에요. 50개 이상이면 경쟁사가 점유한 영역까지 발견할 수 있어요.\n\n분석 범위 10/50\n\n빈틈 찾아보기\n전체 클러스터\n\n5\n\n개\n긴급\n\n4\n\n80%\n기회\n\n1\n\nGEO 0 · SEO 1\n유지\n\n0\n\n0%\n리스트\n포트폴리오\n네트워크\n확대 초기화",
+  "parent": "https://haloxlabs.ai/app/strategy-map",
+  "item": "포트폴리오"
+}

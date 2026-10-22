@@ -1,0 +1,275 @@
+{
+  "url": "https://haloxlabs.ai/app/seo/insights?tab=aio",
+  "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+  "headings": [
+    "키워드 분석",
+    "AIO 인용 분석",
+    "AIO 요약",
+    "AIO 추이",
+    "AIO × Organic 교차 분석",
+    "Volume × Gap Type",
+    "AIO 최적화 팁"
+  ],
+  "tabs": [
+    {
+      "label": "개요",
+      "selected": "false"
+    },
+    {
+      "label": "성과",
+      "selected": "false"
+    },
+    {
+      "label": "경쟁사",
+      "selected": "false"
+    },
+    {
+      "label": "기회",
+      "selected": "false"
+    },
+    {
+      "label": "AIO",
+      "selected": "true"
+    },
+    {
+      "label": "SERP 매트릭스",
+      "selected": "false"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "전체 언어",
+      "disabled": false
+    },
+    {
+      "label": "전체 국가",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만 계산",
+      "disabled": false
+    },
+    {
+      "label": "세트",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "일별\n지난 28일",
+      "disabled": false
+    },
+    {
+      "label": "개요",
+      "disabled": false
+    },
+    {
+      "label": "성과",
+      "disabled": false
+    },
+    {
+      "label": "경쟁사",
+      "disabled": false
+    },
+    {
+      "label": "기회",
+      "disabled": false
+    },
+    {
+      "label": "AIO",
+      "disabled": false
+    },
+    {
+      "label": "SERP 매트릭스",
+      "disabled": false
+    },
+    {
+      "label": "Top 10 비율 info",
+      "disabled": false
+    },
+    {
+      "label": "AI 요약 인용률 info",
+      "disabled": false
+    },
+    {
+      "label": "자사 순위 info",
+      "disabled": false
+    },
+    {
+      "label": "평균 순위 info",
+      "disabled": false
+    },
+    {
+      "label": "AI 요약 인용률 info",
+      "disabled": false
+    },
+    {
+      "label": "자사 인용률 info",
+      "disabled": false
+    },
+    {
+      "label": "경쟁사 인용률 info",
+      "disabled": false
+    },
+    {
+      "label": "인용률 갭 info",
+      "disabled": false
+    },
+    {
+      "label": "전체 (9)",
+      "disabled": false
+    }
+  ],
+  "labels": [
+    "기간 시작 전 생성분만"
+  ],
+  "columns": [
+    "키워드",
+    "검색량",
+    "AIO 상태",
+    "이슈 유형",
+    "인용 도메인"
+  ],
+  "inputs": [
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "키워드 검색",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    },
+    {
+      "label": "숏폼 영상",
+      "href": "https://haloxlabs.ai/app/keywords/1081c8cf-2d2e-48ce-ab31-5d1429956ba2"
+    },
+    {
+      "label": "검색 상위노출",
+      "href": "https://haloxlabs.ai/app/keywords/14f4ea1f-0b21-417e-81a4-65291bf03bfb"
+    },
+    {
+      "label": "성과형 광고대행사",
+      "href": "https://haloxlabs.ai/app/keywords/157dbafb-7e4c-415d-9b7f-41d96a958eaf"
+    },
+    {
+      "label": "AI 광고대행사",
+      "href": "https://haloxlabs.ai/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6"
+    },
+    {
+      "label": "AI 마케팅",
+      "href": "https://haloxlabs.ai/app/keywords/7b27ce54-3acc-40ea-8254-db6886258d6b"
+    },
+    {
+      "label": "AEO 마케팅",
+      "href": "https://haloxlabs.ai/app/keywords/7dc09246-7fd3-44aa-9b4f-c19cd9091991"
+    },
+    {
+      "label": "매출 정체",
+      "href": "https://haloxlabs.ai/app/keywords/7e5d44ef-b679-4779-885d-0f6dd0bd1b35"
+    },
+    {
+      "label": "광고 효율",
+      "href": "https://haloxlabs.ai/app/keywords/cdf04655-496b-491e-bec3-c961302406ce"
+    },
+    {
+      "label": "브리찌",
+      "href": "https://haloxlabs.ai/app/keywords/4749bf67-fe95-4b93-a246-5e48fa60bf6b"
+    }
+  ],
+  "text": "Toggle Sidebar\n분석\n키워드 분석\n50%\n[계정 이메일]\n키워드 분석\n\n검색 순위, AI 요약 인용, 자사 점유율을 분석하세요 · 9월 25일 ~ 10월 22일\n\n전체 언어\n전체 국가\n기간 시작 전 생성분만\n세트\n태그\n일별\n지난 28일\n개요\n성과\n경쟁사\n기회\nAIO\nSERP 매트릭스\nTop 10 키워드\n—\n0 / 10개\n0%\nAI 요약 인용\n11%\n1 / 9\n자사 순위\n0개\n우위 0% · 전체 10개\n평균 순위\n—\n표본 0개\nAI 요약 비율\n\n90%\n\n10개 키워드 중 9개 AIO 감지 · Google가 결정\n자사 AIO 인용률\n\n11.1%\n\n1/9 AIO 키워드\n경쟁사 인용률\n\n0%\n\n0/9 AIO 키워드\n커버리지 차이\n\n+11.1%p\n\n자사(11.1%) − 경쟁사(0%)\n\n키워드의 90%에서 AI Overview가 나타나고 있어요. AIO 최적화가 점점 중요해지고 있어요.\n\nAIO 인용 분석\n전체 분석 키워드 10개 기준 구성비\n양측 인용\n0\n0%\n인용 없음\n8\n80%\nAIO 없음\n1\n10%\nAIO 요약\n\nAIO 감지 키워드의 인용 현황 요약\n\nAIO 감지 키워드\n9\n자사만 인용\n1\n경쟁사만 인용\n0\n양측 인용\n0\nAIO 없음\n1\nAIO 추이\n\n주간별 AIO 출현율과 자사 인용률 변화\n\nAIO × Organic 교차 분석\n\n유기적 순위와 AI 인용 상태를 4사분면으로 비교합니다\n\n순위○ 인용○\n순위○ 인용✗\n순위✗ 인용○\n순위✗ 인용✗\nVolume × Gap Type\n\n검색량과 AIO 인용 갭의 교차 분석 — 큰 버블일수록 영향력이 큽니다\n\n경쟁사만\n인용 없음\n양측\n자사만\n전체 (9)\n키워드\t검색량\tAIO 상태\t이슈 유형\t인용 도메인\n숏폼 영상\t210\t인용 없음\t—\tnamu.wiki, tosspayments.com, youtube.com +11\n검색 상위노출\t10\t인용 없음\t—\tnaver.com, tbwakorea.com, lawtalk.co.kr +12\n성과형 광고대행사\t—\t인용 없음\t—\ti-boss.co.kr, youtube.com, youtube.com +9\nAI 광고대행사\t—\t인용 없음\t—\thankyung.com, brunch.co.kr, hankyung.com +13\nAI 마케팅\t480\t인용 없음\t—\tmaxonomy.net, salesforce.com, maxonomy.net +13\nAEO 마케팅\t—\t인용 없음\t—\tbatcrew.co.kr, bizspring.co.kr, recatch.cc +8\n매출 정체\t—\t인용 없음\t—\t\n광고 효율\t10\t인용 없음\t—\temcg.co.kr, tistory.com, naver.com +16\n브리찌\t70\t자사만\t—\tbridzzi.com, bridzzi.com, bridzzi.com +2\nAIO 최적화 팁\n\nAI Overview에서 인용될 확률을 높이는 방법\n\n1\n\n직접 답변\n\n질문에 직접 답변하는 간결한 단락을 추가하세요 (40~60단어)\n\n2\n\n스키마 마크업\n\nFAQ 스키마와 HowTo 스키마를 구현하세요\n\n3\n\n데이터 인용\n\n신뢰할 수 있는 데이터와 통계를 인라인 인용으로 포함하세요\n\n4\n\n정의형 H2\n\n정의형 콘텐츠에서 \"~란?\" 형식의 H2를 사용하세요\n\n5\n\n최신성 표시\n\n최신 날짜와 업데이트 정보를 명시하세요",
+  "item": "AIO",
+  "parent": "https://haloxlabs.ai/app/seo/insights"
+}

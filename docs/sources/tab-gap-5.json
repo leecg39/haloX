@@ -1,0 +1,193 @@
+{
+  "url": "https://haloxlabs.ai/app/gap",
+  "title": "기회 분석",
+  "headings": [
+    "기회 분석",
+    "미작성\n10"
+  ],
+  "tabs": [
+    {
+      "label": "개요",
+      "selected": "false"
+    },
+    {
+      "label": "매트릭스",
+      "selected": "false"
+    },
+    {
+      "label": "키워드",
+      "selected": "false"
+    },
+    {
+      "label": "프롬프트",
+      "selected": "false"
+    },
+    {
+      "label": "경쟁사",
+      "selected": "false"
+    },
+    {
+      "label": "콘텐츠",
+      "selected": "true"
+    },
+    {
+      "label": "트렌드",
+      "selected": "false"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "전체 언어",
+      "disabled": false
+    },
+    {
+      "label": "전체 국가",
+      "disabled": false
+    },
+    {
+      "label": "지난 90일",
+      "disabled": false
+    },
+    {
+      "label": "개요",
+      "disabled": false
+    },
+    {
+      "label": "매트릭스",
+      "disabled": false
+    },
+    {
+      "label": "키워드",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트",
+      "disabled": false
+    },
+    {
+      "label": "경쟁사",
+      "disabled": false
+    },
+    {
+      "label": "콘텐츠",
+      "disabled": false
+    },
+    {
+      "label": "트렌드",
+      "disabled": false
+    },
+    {
+      "label": "미작성 콘텐츠 info",
+      "disabled": false
+    },
+    {
+      "label": "약한 콘텐츠 info",
+      "disabled": false
+    },
+    {
+      "label": "오래된 콘텐츠 info",
+      "disabled": false
+    },
+    {
+      "label": "콘텐츠 커버리지 info",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [
+    "키워드",
+    "검색량",
+    "난이도",
+    "자사 순위",
+    "상태"
+  ],
+  "inputs": [
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n기회 분석\n50%\n[계정 이메일]\n기회 분석\n\n검색과 AI 대화의 갭을 분석하고 우선순위를 정하세요\n\n전체 언어\n전체 국가\n지난 90일\n개요\n매트릭스\n키워드\n프롬프트\n경쟁사\n콘텐츠\n트렌드\n\n콘텐츠—갭 해소를 위한 콘텐츠 기회를 발견하세요\n\n미작성 콘텐츠\n\n10\n\n10\n약한 콘텐츠\n\n0\n\n경쟁사보다 순위가 낮은 콘텐츠\n오래된 콘텐츠\n\n0\n\n12개월 이상 업데이트 안 된 콘텐츠\n콘텐츠 커버리지\n\n0%\n\n0/10\n미작성\n10\n키워드\t검색량\t난이도\t자사 순위\t상태\n에코마케팅 대안\t100\t30\t—\t미작성 콘텐츠\nAI 마케팅\t480\t0\t—\t미작성 콘텐츠\n검색 상위노출\t10\t30\t—\t미작성 콘텐츠\n숏폼 영상\t210\t30\t—\t미작성 콘텐츠\n매출 정체\t100\t30\t—\t미작성 콘텐츠\n광고 효율\t10\t0\t—\t미작성 콘텐츠\n성과형 광고대행사\t100\t30\t—\t미작성 콘텐츠\nAEO 마케팅\t100\t0\t—\t미작성 콘텐츠\nAI 광고대행사\t100\t30\t—\t미작성 콘텐츠\n브리찌\t70\t30\t—\t미작성 콘텐츠",
+  "parent": "https://haloxlabs.ai/app/gap",
+  "item": "콘텐츠"
+}

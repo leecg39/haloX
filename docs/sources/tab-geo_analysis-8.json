@@ -1,0 +1,225 @@
+{
+  "url": "https://haloxlabs.ai/app/geo/analysis?tab=fan-out",
+  "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+  "headings": [
+    "프롬프트 분석",
+    "전체 서브쿼리 탐색\n0"
+  ],
+  "tabs": [
+    {
+      "label": "개요",
+      "selected": "false"
+    },
+    {
+      "label": "프롬프트",
+      "selected": "false"
+    },
+    {
+      "label": "멘션",
+      "selected": "false"
+    },
+    {
+      "label": "인용 소스",
+      "selected": "false"
+    },
+    {
+      "label": "상품",
+      "selected": "false"
+    },
+    {
+      "label": "인용 매트릭스",
+      "selected": "false"
+    },
+    {
+      "label": "경쟁사",
+      "selected": "false"
+    },
+    {
+      "label": "플랫폼",
+      "selected": "false"
+    },
+    {
+      "label": "검색 패턴",
+      "selected": "true"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "엔진",
+      "disabled": false
+    },
+    {
+      "label": "세트",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만 계산",
+      "disabled": false
+    },
+    {
+      "label": "일별\n지난 28일",
+      "disabled": false
+    },
+    {
+      "label": "개요",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트",
+      "disabled": false
+    },
+    {
+      "label": "멘션",
+      "disabled": false
+    },
+    {
+      "label": "인용 소스",
+      "disabled": false
+    },
+    {
+      "label": "상품",
+      "disabled": false
+    },
+    {
+      "label": "인용 매트릭스",
+      "disabled": false
+    },
+    {
+      "label": "경쟁사",
+      "disabled": false
+    },
+    {
+      "label": "플랫폼",
+      "disabled": false
+    },
+    {
+      "label": "검색 패턴",
+      "disabled": false
+    },
+    {
+      "label": "전체 확장 질의 info",
+      "disabled": false
+    },
+    {
+      "label": "허브 질의 info",
+      "disabled": false
+    },
+    {
+      "label": "갭 질의 info",
+      "disabled": false
+    },
+    {
+      "label": "안정 허브 info",
+      "disabled": false
+    },
+    {
+      "label": "전체 서브쿼리 탐색\n0\n\nAI가 수집한 모든 서브쿼리를 검색하고 탐색할 수 있습니다",
+      "disabled": false
+    },
+    {
+      "label": "일반 검색\n0",
+      "disabled": false
+    },
+    {
+      "label": "site: 검증 검색\n0",
+      "disabled": false
+    }
+  ],
+  "labels": [
+    "기간 시작 전 생성분만"
+  ],
+  "columns": [],
+  "inputs": [
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "서브쿼리 검색...",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n분석\n프롬프트 분석\n50%\n[계정 이메일]\n프롬프트 분석\n\nAI 답변에서의 자사 노출도 분석 및 경쟁사 비교\n\n갱신 중\n엔진\n세트\n태그\n기간 시작 전 생성분만\n일별\n지난 28일\n개요\n프롬프트\n멘션\n인용 소스\n상품\n인용 매트릭스\n경쟁사\n플랫폼\n검색 패턴\n총 서브쿼리\n반복 쿼리\n콘텐츠 갭\n안정 허브\n전체 서브쿼리 탐색\n0\n\nAI가 수집한 모든 서브쿼리를 검색하고 탐색할 수 있습니다\n\n일반 검색\n0\nsite: 검증 검색\n0\n0개 중 0개 표시",
+  "item": "검색 패턴",
+  "parent": "https://haloxlabs.ai/app/geo/analysis"
+}

@@ -1,0 +1,58 @@
+{
+  "evidence_id": "ev_d2766a40c06a4b032960b1616c75b19153d76a3c19b59e21f8d1a7253c08e2d7",
+  "subject": null,
+  "provider": {
+    "id": "rea-cdp-browser",
+    "name": "REA Chrome DevTools Protocol observation provider",
+    "version": "2"
+  },
+  "predicate_type": "rea.browser-target-list",
+  "operation": "list_browser_targets",
+  "parameters": {
+    "cdp_endpoint": "http://127.0.0.1:9333",
+    "allowed_origins": []
+  },
+  "raw_result": null,
+  "normalized_result": {
+    "browser": {
+      "product": "Chrome/149.0.7827.201",
+      "protocol_version": "1.3",
+      "revision": "537.36 (@6a7b3dbec3b2ca25877c2553b5473b2f277ef644)",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/149.0.0.0 Safari/537.36",
+      "js_version": "14.9.207.35"
+    },
+    "targets": [
+      {
+        "target_id": "A5BBE5681EF08839AC7E27E0613DD950",
+        "type": "page",
+        "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+        "url": "https://haloxlabs.ai/app/login",
+        "origin": "https://haloxlabs.ai",
+        "attached": false
+      }
+    ],
+    "excluded": {
+      "disallowed_origin": 0,
+      "unsupported_url": 0,
+      "non_page": 6
+    },
+    "limitations": [
+      "All page targets with supported HTTP(S) URLs are listed."
+    ]
+  },
+  "confidence": "observed",
+  "authority": "external-service",
+  "environment": {
+    "id": "Chrome/149.0.7827.201@537.36 (@6a7b3dbec3b2ca25877c2553b5473b2f277ef644)",
+    "platform": "unknown",
+    "architecture": "unknown",
+    "isolation": "none"
+  },
+  "limitations": [
+    "Artifact identity is unavailable for this observation.",
+    "All page targets with supported HTTP(S) URLs are listed.",
+    "Browser host platform and architecture were not observed."
+  ],
+  "locations": [],
+  "evidence_links": []
+}

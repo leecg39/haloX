@@ -1,0 +1,927 @@
+{
+ "classification": "observation",
+ "source": "public chunk edge-function-catalog-BJy1kLih.js (bundled internal doc)",
+ "sha256": "c4f106af4203b0e99698601ec00b3b412012a7be8824ec72000f192a3008c0c4",
+ "section_headings": [
+  "Admin",
+  "Agent (AI 에이전트)",
+  "Content Factory (콘텐츠 생성)",
+  "Discovery (키워드/SERP)",
+  "GEO (AI 검색 가시성)",
+  "Onboarding",
+  "Optimize (콘텐츠 개선)",
+  "Prompt Lab / 테스트",
+  "Publishing (발행)",
+  "SERP 배치",
+  "Site Audit",
+  "Strategy Map (v1.5)",
+  "결제 (NicePay)",
+  "리포트/분석",
+  "유틸리티",
+  "이미지/다이어그램"
+ ],
+ "function_names_in_doc": [
+  "admin-classify-domains",
+  "admin-user",
+  "admin-workspace",
+  "agent-chat",
+  "ai-expand-keywords",
+  "analyze-domain-for-onboarding",
+  "analyze-keyword-strategy",
+  "analyze-serp-decision",
+  "analyze-writing-style",
+  "auto-classify-domains",
+  "auto-feedback-content",
+  "auto-publish-scheduled",
+  "calculate-content-scores",
+  "calculate-dynamic-targets",
+  "cluster-keywords",
+  "curated-admin",
+  "daily-ops-report",
+  "dataforseo-keyword-difficulty",
+  "dataforseo-keywords-for-keywords",
+  "dataforseo-keywords-for-site",
+  "dataforseo-search-intent",
+  "dataforseo-search-volume",
+  "detect-new-ai-models",
+  "extract-content-features",
+  "fetch-serp-snapshot",
+  "fetch-url-content",
+  "free-tool-analyze",
+  "gemini-3-flash-preview",
+  "generate-content-draft",
+  "generate-diagram-svg",
+  "generate-image-gemini",
+  "generate-onboarding-prompts",
+  "generate-report-summary",
+  "generate-weekly-snapshot",
+  "geo-batch-poller",
+  "geo-batch-scheduler",
+  "geo-batch-test",
+  "geo-discover-run",
+  "geo-models",
+  "geo-parse-results",
+  "geo-run-claude",
+  "geo-run-mentions",
+  "geo-run-openai",
+  "geo-run-responses",
+  "get-platform-stats",
+  "improve-content",
+  "kd-batch-scheduler",
+  "lighthouse-callback",
+  "newsletter-subscribe",
+  "nicepay-approve",
+  "nicepay-billing-charge",
+  "nicepay-cancel",
+  "nicepay-change-plan",
+  "nicepay-create-order",
+  "nicepay-refund",
+  "o4-mini",
+  "onboarding-keyword-analysis",
+  "optimize-audit-content",
+  "optimize-rewrite-content",
+  "optimize-serp-fetch",
+  "optimize-strategy-synthesis",
+  "parse-document",
+  "proof-metrics",
+  "qa-gate-evaluate",
+  "recalculate-pillar-scores",
+  "reparse-content-draft",
+  "run-cluster-batch",
+  "run-grounding-only",
+  "run-prompt-node",
+  "serp-batch-poller",
+  "serp-batch-scheduler",
+  "site-audit-callback",
+  "site-audit-check",
+  "site-audit-og",
+  "site-audit-start",
+  "strategy-map-cluster",
+  "strategy-map-link-prompts",
+  "strategy-map-orchestrator",
+  "subscription-renew-cron",
+  "sync-gsc-data",
+  "test-grounding-api",
+  "test-pass1-only",
+  "test-pass2-only",
+  "test-strategy-grounding",
+  "test-url-context",
+  "test-url-redirect",
+  "track-link-click",
+  "translate-content-v2",
+  "trigger-onboarding-async",
+  "update-cluster-geo",
+  "user-create-workspace",
+  "user-create-workspace-onboarding",
+  "verify-claims-url-context"
+ ],
+ "in_doc_and_code": [
+  "admin-classify-domains",
+  "admin-user",
+  "admin-workspace",
+  "ai-expand-keywords",
+  "analyze-domain-for-onboarding",
+  "analyze-keyword-strategy",
+  "analyze-writing-style",
+  "calculate-content-scores",
+  "cluster-keywords",
+  "dataforseo-keyword-difficulty",
+  "dataforseo-keywords-for-keywords",
+  "dataforseo-keywords-for-site",
+  "dataforseo-search-intent",
+  "dataforseo-search-volume",
+  "detect-new-ai-models",
+  "extract-content-features",
+  "fetch-serp-snapshot",
+  "fetch-url-content",
+  "free-tool-analyze",
+  "generate-content-draft",
+  "generate-diagram-svg",
+  "generate-image-gemini",
+  "generate-onboarding-prompts",
+  "generate-report-summary",
+  "generate-weekly-snapshot",
+  "geo-batch-poller",
+  "geo-batch-scheduler",
+  "geo-discover-run",
+  "geo-models",
+  "geo-parse-results",
+  "geo-run-mentions",
+  "geo-run-openai",
+  "geo-run-responses",
+  "improve-content",
+  "newsletter-subscribe",
+  "nicepay-cancel",
+  "nicepay-change-plan",
+  "nicepay-create-order",
+  "nicepay-refund",
+  "onboarding-keyword-analysis",
+  "optimize-audit-content",
+  "optimize-rewrite-content",
+  "optimize-serp-fetch",
+  "optimize-strategy-synthesis",
+  "parse-document",
+  "reparse-content-draft",
+  "run-cluster-batch",
+  "run-grounding-only",
+  "serp-batch-scheduler",
+  "site-audit-check",
+  "site-audit-start",
+  "strategy-map-cluster",
+  "strategy-map-link-prompts",
+  "strategy-map-orchestrator",
+  "test-pass1-only",
+  "test-pass2-only",
+  "track-link-click",
+  "trigger-onboarding-async",
+  "update-cluster-geo",
+  "verify-claims-url-context"
+ ],
+ "doc_only": [
+  "agent-chat",
+  "analyze-serp-decision",
+  "auto-classify-domains",
+  "auto-feedback-content",
+  "auto-publish-scheduled",
+  "calculate-dynamic-targets",
+  "curated-admin",
+  "daily-ops-report",
+  "gemini-3-flash-preview",
+  "geo-batch-test",
+  "geo-run-claude",
+  "get-platform-stats",
+  "kd-batch-scheduler",
+  "lighthouse-callback",
+  "nicepay-approve",
+  "nicepay-billing-charge",
+  "o4-mini",
+  "proof-metrics",
+  "qa-gate-evaluate",
+  "recalculate-pillar-scores",
+  "run-prompt-node",
+  "serp-batch-poller",
+  "site-audit-callback",
+  "site-audit-og",
+  "subscription-renew-cron",
+  "sync-gsc-data",
+  "test-grounding-api",
+  "test-strategy-grounding",
+  "test-url-context",
+  "test-url-redirect",
+  "translate-content-v2",
+  "user-create-workspace",
+  "user-create-workspace-onboarding"
+ ],
+ "code_only": [
+  "account-deletion-precheck",
+  "account-deletion-request",
+  "admin-impersonation-log",
+  "admin-suggest-domain-tier",
+  "app-deleted",
+  "backfill-keyword-prompt-links",
+  "backfill-site-audit-sitemap-stats",
+  "bad-app-name",
+  "billing-inquiry",
+  "bulk-collect-keyword-data",
+  "citability-fetch-url",
+  "citability-improve",
+  "derive-prompt-clusters",
+  "duplicate-app",
+  "embed-claims",
+  "evidence-reclassify-brand-role",
+  "extract-claims-from-pdf",
+  "extract-clusters-from-prompt-text",
+  "finalization-registry-not-supported",
+  "ga4-list-properties",
+  "geo-backfill-mentions",
+  "geo-run-perplexity",
+  "geo-run-prompts-fanout",
+  "google-oauth-init",
+  "gsc-list-properties",
+  "gsc-sync-enqueue",
+  "idb-get",
+  "idb-open",
+  "idb-set",
+  "intent-batch-scheduler",
+  "login-blocked",
+  "mirror-geo-fanout",
+  "mirror-geo-reparse-drain",
+  "mirror-serp-fanout",
+  "mirror-sync",
+  "naver-related-keywords",
+  "naver-serp-scheduler",
+  "nicepay-cancel-pending-change",
+  "nicepay-create-auth-order",
+  "nicepay-get-order-meta",
+  "nicepay-inquire",
+  "nicepay-retry-charge",
+  "nicepay-undo-cancel",
+  "no-app",
+  "notify-feedback",
+  "notify-feedback-reply",
+  "preview-blueprint-body",
+  "rpc-cache",
+  "run-blueprint-body-tests",
+  "run-blueprint-exposure-tests",
+  "run-blueprint-llm-sample",
+  "run-regression-tests",
+  "run-response-eval",
+  "schema-coach-suggest",
+  "send-contact-email",
+  "seo-backfill-brand-presence",
+  "serp-job-worker",
+  "site-audit-backfill-schema",
+  "site-audit-backfill-v2",
+  "site-audit-diagnose-page",
+  "site-audit-finish-crawl",
+  "site-audit-reanalyze",
+  "site-audit-recheck-url",
+  "site-audit-render-samples",
+  "site-audit-worker",
+  "strategy-map-control",
+  "suggest-keyword-prompts",
+  "sync-ga4-data",
+  "unsupported-password-policy-schema-version",
+  "volume-batch-scheduler",
+  "workspace-invite"
+ ],
+ "rows": [
+  {
+   "section": "Content Factory (콘텐츠 생성)",
+   "name": "generate-content-draft",
+   "input": "content_job_id",
+   "output": "content_drafts",
+   "llm": "Gemini"
+  },
+  {
+   "section": "Content Factory (콘텐츠 생성)",
+   "name": "analyze-keyword-strategy",
+   "input": "keyword_id",
+   "output": "keyword_strategy, evidence_claims",
+   "llm": "Gemini + Grounding"
+  },
+  {
+   "section": "Content Factory (콘텐츠 생성)",
+   "name": "run-grounding-only",
+   "input": "keyword, questions",
+   "output": "grounding_results",
+   "llm": "Gemini Grounding"
+  },
+  {
+   "section": "Content Factory (콘텐츠 생성)",
+   "name": "reparse-content-draft",
+   "input": "draft_id",
+   "output": "parsed content_md",
+   "llm": "-"
+  },
+  {
+   "section": "Content Factory (콘텐츠 생성)",
+   "name": "calculate-content-scores",
+   "input": "content_md, features",
+   "output": "scores",
+   "llm": "Gemini"
+  },
+  {
+   "section": "Content Factory (콘텐츠 생성)",
+   "name": "extract-content-features",
+   "input": "content_md",
+   "output": "content_feature_snapshots",
+   "llm": "-"
+  },
+  {
+   "section": "Content Factory (콘텐츠 생성)",
+   "name": "auto-feedback-content",
+   "input": "draft_id",
+   "output": "feedback_json",
+   "llm": "Gemini"
+  },
+  {
+   "section": "Content Factory (콘텐츠 생성)",
+   "name": "qa-gate-evaluate",
+   "input": "draft_id",
+   "output": "qa_report",
+   "llm": "Gemini"
+  },
+  {
+   "section": "Content Factory (콘텐츠 생성)",
+   "name": "improve-content",
+   "input": "draft_id",
+   "output": "improved_md",
+   "llm": "Gemini"
+  },
+  {
+   "section": "Optimize (콘텐츠 개선)",
+   "name": "optimize-audit-content",
+   "input": "run_id, input_md",
+   "output": "audit_json, scores_before",
+   "llm": "gemini-2.5-flash-lite"
+  },
+  {
+   "section": "Optimize (콘텐츠 개선)",
+   "name": "optimize-serp-fetch",
+   "input": "run_id, keyword",
+   "output": "serp_json",
+   "llm": "- (DataForSEO)"
+  },
+  {
+   "section": "Optimize (콘텐츠 개선)",
+   "name": "optimize-strategy-synthesis",
+   "input": "run_id",
+   "output": "strategy_json, change_items",
+   "llm": "Gemini"
+  },
+  {
+   "section": "Optimize (콘텐츠 개선)",
+   "name": "optimize-rewrite-content",
+   "input": "run_id",
+   "output": "rewritten_md, scores_after",
+   "llm": "-"
+  },
+  {
+   "section": "Discovery (키워드/SERP)",
+   "name": "analyze-serp-decision",
+   "input": "keyword_id",
+   "output": "serp_analysis_json",
+   "llm": "DataForSEO"
+  },
+  {
+   "section": "Discovery (키워드/SERP)",
+   "name": "fetch-serp-snapshot",
+   "input": "keyword_id",
+   "output": "serp_snapshots",
+   "llm": "DataForSEO"
+  },
+  {
+   "section": "Discovery (키워드/SERP)",
+   "name": "dataforseo-search-volume",
+   "input": "keywords[]",
+   "output": "search_volume 업데이트",
+   "llm": "DataForSEO"
+  },
+  {
+   "section": "Discovery (키워드/SERP)",
+   "name": "dataforseo-search-intent",
+   "input": "keywords[]",
+   "output": "intent 업데이트",
+   "llm": "DataForSEO"
+  },
+  {
+   "section": "Discovery (키워드/SERP)",
+   "name": "dataforseo-keyword-difficulty",
+   "input": "keywords[]",
+   "output": "keyword_difficulty 업데이트",
+   "llm": "DataForSEO"
+  },
+  {
+   "section": "Discovery (키워드/SERP)",
+   "name": "dataforseo-keywords-for-site",
+   "input": "domain",
+   "output": "keyword 후보",
+   "llm": "DataForSEO"
+  },
+  {
+   "section": "Discovery (키워드/SERP)",
+   "name": "dataforseo-keywords-for-keywords",
+   "input": "seed_keywords[]",
+   "output": "관련 키워드",
+   "llm": "DataForSEO"
+  },
+  {
+   "section": "GEO (AI 검색 가시성)",
+   "name": "geo-run-openai",
+   "input": "prompt_id, model",
+   "output": "geo_run_results",
+   "llm": "OpenAI"
+  },
+  {
+   "section": "GEO (AI 검색 가시성)",
+   "name": "geo-run-claude",
+   "input": "prompt_id, model",
+   "output": "geo_run_results",
+   "llm": "Claude Sonnet 4.6"
+  },
+  {
+   "section": "GEO (AI 검색 가시성)",
+   "name": "geo-run-responses",
+   "input": "prompt_id, model",
+   "output": "geo_run_results",
+   "llm": "OpenAI"
+  },
+  {
+   "section": "GEO (AI 검색 가시성)",
+   "name": "geo-run-mentions",
+   "input": "run_result_id",
+   "output": "geo_citations",
+   "llm": "-"
+  },
+  {
+   "section": "GEO (AI 검색 가시성)",
+   "name": "geo-parse-results",
+   "input": "raw_response",
+   "output": "parsed_results",
+   "llm": "-"
+  },
+  {
+   "section": "GEO (AI 검색 가시성)",
+   "name": "geo-discover-run",
+   "input": "prompt_set_id",
+   "output": "geo_prompt_candidates",
+   "llm": "OpenAI"
+  },
+  {
+   "section": "GEO (AI 검색 가시성)",
+   "name": "geo-batch-scheduler",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "GEO (AI 검색 가시성)",
+   "name": "geo-batch-poller",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "GEO (AI 검색 가시성)",
+   "name": "geo-batch-test",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "GEO (AI 검색 가시성)",
+   "name": "geo-models",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "GEO (AI 검색 가시성)",
+   "name": "detect-new-ai-models",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "SERP 배치",
+   "name": "serp-batch-scheduler",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "SERP 배치",
+   "name": "serp-batch-poller",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "SERP 배치",
+   "name": "kd-batch-scheduler",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Publishing (발행)",
+   "name": "translate-content-v2",
+   "input": "article_id, target_lang",
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Publishing (발행)",
+   "name": "auto-publish-scheduled",
+   "input": "- (cron)",
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Publishing (발행)",
+   "name": "sitemap",
+   "input": "-",
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Publishing (발행)",
+   "name": "track-link-click",
+   "input": "link_id",
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "이미지/다이어그램",
+   "name": "generate-image-gemini",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "이미지/다이어그램",
+   "name": "generate-diagram-svg",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "리포트/분석",
+   "name": "generate-report-summary",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "리포트/분석",
+   "name": "generate-weekly-snapshot",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "리포트/분석",
+   "name": "calculate-dynamic-targets",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "리포트/분석",
+   "name": "recalculate-pillar-scores",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "리포트/분석",
+   "name": "sync-gsc-data",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "리포트/분석",
+   "name": "daily-ops-report",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Site Audit",
+   "name": "site-audit-start",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Site Audit",
+   "name": "site-audit-check",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Site Audit",
+   "name": "site-audit-og",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Site Audit",
+   "name": "site-audit-callback",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Site Audit",
+   "name": "lighthouse-callback",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Onboarding",
+   "name": "analyze-domain-for-onboarding",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Onboarding",
+   "name": "generate-onboarding-prompts",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Onboarding",
+   "name": "onboarding-keyword-analysis",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Onboarding",
+   "name": "trigger-onboarding-async",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Onboarding",
+   "name": "user-create-workspace-onboarding",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Onboarding",
+   "name": "user-create-workspace",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Strategy Map (v1.5)",
+   "name": "strategy-map-orchestrator",
+   "input": "workspace_id, domain_url?",
+   "output": "steps[] 결과",
+   "llm": "-"
+  },
+  {
+   "section": "Strategy Map (v1.5)",
+   "name": "strategy-map-cluster",
+   "input": "workspace_id",
+   "output": "keyword_clusters 갱신",
+   "llm": "-"
+  },
+  {
+   "section": "Strategy Map (v1.5)",
+   "name": "strategy-map-link-prompts",
+   "input": "discover_run_id, workspace_id",
+   "output": "keyword_prompt_links",
+   "llm": "-"
+  },
+  {
+   "section": "Strategy Map (v1.5)",
+   "name": "update-cluster-geo",
+   "input": "workspace_id",
+   "output": "stats_json.geo 업데이트",
+   "llm": "-"
+  },
+  {
+   "section": "Strategy Map (v1.5)",
+   "name": "ai-expand-keywords",
+   "input": "workspace_id, cluster_ids?, hints?",
+   "output": "suggested keywords[]",
+   "llm": "Gemini"
+  },
+  {
+   "section": "결제 (NicePay)",
+   "name": "nicepay-create-order",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "결제 (NicePay)",
+   "name": "nicepay-approve",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "결제 (NicePay)",
+   "name": "nicepay-billing-charge",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "결제 (NicePay)",
+   "name": "nicepay-cancel",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "결제 (NicePay)",
+   "name": "nicepay-refund",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "결제 (NicePay)",
+   "name": "nicepay-change-plan",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "결제 (NicePay)",
+   "name": "subscription-renew-cron",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Admin",
+   "name": "admin-user",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Admin",
+   "name": "admin-workspace",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Admin",
+   "name": "admin-classify-domains",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Prompt Lab / 테스트",
+   "name": "run-prompt-node",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Prompt Lab / 테스트",
+   "name": "test-pass1-only",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Prompt Lab / 테스트",
+   "name": "test-pass2-only",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Prompt Lab / 테스트",
+   "name": "test-grounding-api",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Prompt Lab / 테스트",
+   "name": "test-strategy-grounding",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Prompt Lab / 테스트",
+   "name": "test-url-context",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Prompt Lab / 테스트",
+   "name": "test-url-redirect",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "Agent (AI 에이전트)",
+   "name": "agent-chat",
+   "input": "message, conversation_id, workspace_id",
+   "output": "SSE stream (status/chunk/done)",
+   "llm": "Gemini Flash Lite"
+  },
+  {
+   "section": "유틸리티",
+   "name": "curated-admin",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "유틸리티",
+   "name": "fetch-url-content",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "유틸리티",
+   "name": "parse-document",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "유틸리티",
+   "name": "verify-claims-url-context",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "유틸리티",
+   "name": "cluster-keywords",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "유틸리티",
+   "name": "run-cluster-batch",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "유틸리티",
+   "name": "analyze-writing-style",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "유틸리티",
+   "name": "newsletter-subscribe",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "유틸리티",
+   "name": "get-platform-stats",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "유틸리티",
+   "name": "proof-metrics",
+   "input": null,
+   "output": null,
+   "llm": null
+  },
+  {
+   "section": "유틸리티",
+   "name": "free-tool-analyze",
+   "input": null,
+   "output": null,
+   "llm": null
+  }
+ ]
+}

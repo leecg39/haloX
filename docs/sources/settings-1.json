@@ -1,0 +1,183 @@
+{
+  "url": "https://haloxlabs.ai/app/settings?tab=workspace",
+  "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+  "headings": [
+    "설정",
+    "워크스페이스 프로필",
+    "워크스페이스 이름",
+    "워크스페이스 ID",
+    "생성일",
+    "사이트 진단 정책 파일",
+    "위험 영역"
+  ],
+  "tabs": [],
+  "buttons": [
+    {
+      "label": "워크스페이스",
+      "disabled": false
+    },
+    {
+      "label": "멤버",
+      "disabled": false
+    },
+    {
+      "label": "일반",
+      "disabled": false
+    },
+    {
+      "label": "사용량",
+      "disabled": false
+    },
+    {
+      "label": "구독/결제",
+      "disabled": false
+    },
+    {
+      "label": "연동",
+      "disabled": false
+    },
+    {
+      "label": "브랜드 트래킹",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "등록 URL",
+      "disabled": false
+    },
+    {
+      "label": "내보내기",
+      "disabled": false
+    },
+    {
+      "label": "알림",
+      "disabled": false
+    },
+    {
+      "label": "API & MCP",
+      "disabled": false
+    },
+    {
+      "label": "결제 도움이 필요하신가요?",
+      "disabled": false
+    },
+    {
+      "label": "Close",
+      "disabled": false
+    },
+    {
+      "label": "저장",
+      "disabled": false
+    },
+    {
+      "label": "계정 탈퇴 요청",
+      "disabled": false
+    }
+  ],
+  "labels": [
+    "robots.txt",
+    "sitemap.xml",
+    "llms.txt",
+    "기존 진단의 sitemap 통계 다시 채우기"
+  ],
+  "columns": [],
+  "inputs": [
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "검색",
+      "label": null
+    },
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "워크스페이스 이름",
+      "label": null
+    },
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "https://example.com/robots.txt",
+      "label": null
+    },
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "https://example.com/sitemap.xml",
+      "label": null
+    },
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "https://example.com/llms.txt",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "설정\n설정\n워크스페이스\n멤버\n일반\n사용량\n구독/결제\n연동\n브랜드 트래킹\n태그\n등록 URL\n내보내기\n알림\nAPI & MCP\n결제 도움이 필요하신가요?\nClose\n워크스페이스 프로필\n워크스페이스 이름\n\n팀원과 리포트에 표시되는 이름\n\n워크스페이스 ID\n\n고유 식별 슬러그 (Slug)\n\n브리찌\n생성일\n\n워크스페이스가 생성된 날짜\n\n2026.10.22\n사이트 진단 정책 파일\n\n지정하지 않고 비워두면 도메인의 기본 경로(/robots.txt, /sitemap.xml 등)에서 정책 파일을 자동으로 추정하여 진단을 진행합니다.\n\nrobots.txt\nsitemap.xml\nllms.txt\n기존 진단의 sitemap 통계 다시 채우기\n저장\n위험 영역\n\n계정을 탈퇴하면 30일 후 모든 워크스페이스, 키워드, 콘텐츠가 영구 삭제돼요. 30일 안에 다시 로그인하면 자동으로 복구됩니다.\n\n계정 탈퇴 요청",
+  "item": "워크스페이스"
+}

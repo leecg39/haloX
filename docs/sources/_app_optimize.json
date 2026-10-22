@@ -1,0 +1,109 @@
+{
+  "url": "https://haloxlabs.ai/app/optimize",
+  "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+  "headings": [
+    "콘텐츠 최적화",
+    "무엇을 채점하나요",
+    "최근 채점"
+  ],
+  "tabs": [],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "채점하기",
+      "disabled": false
+    },
+    {
+      "label": "텍스트로 붙여넣기",
+      "disabled": false
+    },
+    {
+      "label": "채점 기준 보기",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [],
+  "inputs": [
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "https://blog.example.com/post",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n실행\n콘텐츠 최적화\n50%\n[계정 이메일]\n콘텐츠 최적화\n\nAI가 인용하기 좋은 글인지 10가지 조건으로 채점해요\n\n채점하기\n발행 전 초안이라면 \n텍스트로 붙여넣기\n채점은 크레딧을 쓰지 않아요\n무엇을 채점하나요\n\n핵심 · 15점 × 4\n\n결론 먼저 쓰기 · 수치 근거 · 출처 인용 · 섹션 청킹\n\n주요 · 10점 × 4\n\nFAQ · 핵심 요약 · 표·리스트 · 연도·기준 시점\n\n보조 · 5점 × 2\n\n최종 업데이트일 · 저자·전문가 정보\n\n채점 기준 보기\n최근 채점\n\n첫 글을 채점해 보세요\n\nURL을 넣으면 AI가 인용하기 좋은 글인지 바로 알려 드려요"
+}

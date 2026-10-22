@@ -1,0 +1,330 @@
+{
+  "url": "https://haloxlabs.ai/app/geo/analysis?tab=platforms",
+  "title": "프롬프트 분석",
+  "headings": [
+    "프롬프트 분석",
+    "엔진별 자사 인용률 추이",
+    "엔진별 인용 매체 비율 추이",
+    "매체 안정성 분석",
+    "엔진별 노출 매트릭스",
+    "코어 매체 포트폴리오",
+    "축별 매체 심층 분석"
+  ],
+  "tabs": [
+    {
+      "label": "개요",
+      "selected": "false"
+    },
+    {
+      "label": "프롬프트",
+      "selected": "false"
+    },
+    {
+      "label": "멘션",
+      "selected": "false"
+    },
+    {
+      "label": "인용 소스",
+      "selected": "false"
+    },
+    {
+      "label": "상품",
+      "selected": "false"
+    },
+    {
+      "label": "인용 매트릭스",
+      "selected": "false"
+    },
+    {
+      "label": "경쟁사",
+      "selected": "false"
+    },
+    {
+      "label": "플랫폼",
+      "selected": "true"
+    },
+    {
+      "label": "검색 패턴",
+      "selected": "false"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "엔진",
+      "disabled": false
+    },
+    {
+      "label": "세트",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만 계산",
+      "disabled": false
+    },
+    {
+      "label": "일별\n지난 28일",
+      "disabled": false
+    },
+    {
+      "label": "개요",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트",
+      "disabled": false
+    },
+    {
+      "label": "멘션",
+      "disabled": false
+    },
+    {
+      "label": "인용 소스",
+      "disabled": false
+    },
+    {
+      "label": "상품",
+      "disabled": false
+    },
+    {
+      "label": "인용 매트릭스",
+      "disabled": false
+    },
+    {
+      "label": "경쟁사",
+      "disabled": false
+    },
+    {
+      "label": "플랫폼",
+      "disabled": false
+    },
+    {
+      "label": "검색 패턴",
+      "disabled": false
+    },
+    {
+      "label": "전체",
+      "disabled": false
+    },
+    {
+      "label": "인용",
+      "disabled": false
+    },
+    {
+      "label": "소스",
+      "disabled": false
+    },
+    {
+      "label": "라인",
+      "disabled": false
+    },
+    {
+      "label": "스택",
+      "disabled": false
+    },
+    {
+      "label": "기타 제외 (상위 10개 기준)",
+      "disabled": false
+    },
+    {
+      "label": "기타 포함",
+      "disabled": false
+    },
+    {
+      "label": "전체 0",
+      "disabled": false
+    },
+    {
+      "label": "핵심 0",
+      "disabled": false
+    },
+    {
+      "label": "준안정 0",
+      "disabled": false
+    },
+    {
+      "label": "유동 0",
+      "disabled": false
+    },
+    {
+      "label": "CSV 다운로드",
+      "disabled": true
+    },
+    {
+      "label": "통합",
+      "disabled": false
+    },
+    {
+      "label": "ChatGPT",
+      "disabled": false
+    },
+    {
+      "label": "Gemini",
+      "disabled": false
+    },
+    {
+      "label": "Perplexity",
+      "disabled": false
+    },
+    {
+      "label": "Claude",
+      "disabled": false
+    },
+    {
+      "label": "소스",
+      "disabled": false
+    },
+    {
+      "label": "인용",
+      "disabled": false
+    },
+    {
+      "label": "건수",
+      "disabled": false
+    },
+    {
+      "label": "엔진 비중",
+      "disabled": false
+    },
+    {
+      "label": "매체",
+      "disabled": false
+    },
+    {
+      "label": "페이지",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트",
+      "disabled": false
+    },
+    {
+      "label": "세트",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "한 엔진 쏠림만",
+      "disabled": false
+    },
+    {
+      "label": "세트",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트",
+      "disabled": false
+    },
+    {
+      "label": "세트",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    }
+  ],
+  "labels": [
+    "기간 시작 전 생성분만"
+  ],
+  "columns": [],
+  "inputs": [
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "이름·도메인 검색",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n분석\n프롬프트 분석\n50%\n[계정 이메일]\n프롬프트 분석\n\nAI 답변에서의 자사 노출도 분석 및 경쟁사 비교\n\n엔진\n세트\n태그\n기간 시작 전 생성분만\n일별\n지난 28일\n개요\n프롬프트\n멘션\n인용 소스\n상품\n인용 매트릭스\n경쟁사\n플랫폼\n검색 패턴\n전체\n인용\n소스\n엔진별 자사 인용률 추이\n\n엔진별 자사 인용률 변화를 확인하세요\n\n엔진별 인용 매체 비율 추이\n\n엔진이 인용한 매체 도메인의 비율이 시간에 따라 어떻게 바뀌는지 보여줘요. 세로 점선은 모델이 바뀐 날(파랑)과 매체 구성이 크게 바뀐 날(주황)이에요.\n\n라인\n스택\n기타 제외 (상위 10개 기준)\n기타 포함\n매체 안정성 분석\n\n같은 질문을 반복 실행했을 때 해당 매체가 인용되는 비율과 변동성입니다. 등장률이 높고 변동성(σ)이 낮을수록 안정적인 매체입니다.\n\n전체 0\n핵심 0\n준안정 0\n유동 0\n엔진별 노출 매트릭스\n\n어떤 매체·페이지·프롬프트가 어느 엔진에서 나오는지 비교해요 · 1개 엔진 0 · 2개 0 · 3개+ 0 · 괄호는 직전 같은 기간 대비 증감\n\nCSV 다운로드\n통합\nChatGPT\nGemini\nPerplexity\nClaude\n소스\n인용\n건수\n엔진 비중\n매체\n페이지\n프롬프트\n세트\n태그\n한 엔진 쏠림만\n코어 매체 포트폴리오\n\n세트·태그마다 반복적으로 인용되는 매체 구성을 비교합니다.\n\n세트\n태그\n축별 매체 심층 분석\n\n프롬프트·세트·태그 단위로 인용 규모와 핵심 매체, 경쟁 도메인을 비교합니다.\n\n프롬프트\n세트\n태그",
+  "parent": "https://haloxlabs.ai/app/geo/analysis",
+  "item": "플랫폼"
+}

@@ -1,0 +1,4430 @@
+{
+ "classification": "observation",
+ "source": "Ego Lite logged-in session, read-only navigation of 34 routes (own trial workspace)",
+ "captured_at": "2026-10-22T11:30:44.159Z",
+ "redaction": "no header/cookie/token values; bodies reduced to key/type shapes; UUIDs normalized",
+ "endpoint_count": 105,
+ "endpoints": [
+  {
+   "method": "POST",
+   "path": "/functions/v1/rpc-cache",
+   "routes": [
+    "/app",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/seo/insights",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "rpc_name": "string",
+    "args": {
+     "p_workspace_id": "string<uuid>",
+     "p_since": "string<date>"
+    }
+   },
+   "response_shape": {
+    "error_fallback": "boolean",
+    "reason": "string",
+    "data": "null"
+   },
+   "statuses": [
+    200
+   ],
+   "count": 29
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/brand_reclassify_jobs",
+   "routes": [
+    "/app/settings?tab=brand-tracking"
+   ],
+   "query_params": [
+    "limit",
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/client_web_vitals",
+   "routes": [
+    "/app",
+    "/app/factory",
+    "/app/gap",
+    "/app/optimize",
+    "/app/reports/monthly",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=notifications",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/strategy-map"
+   ],
+   "query_params": [
+    "columns"
+   ],
+   "select_columns": [],
+   "request_body_shape": [
+    {
+     "route": "string",
+     "metric": "string",
+     "value": "number",
+     "rating": "string",
+     "navigation_type": "string",
+     "session_id": "string",
+     "user_agent": "string",
+     "app_mode": "string"
+    }
+   ],
+   "response_shape": null,
+   "statuses": [
+    201
+   ],
+   "count": 13
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/cluster_stats_history",
+   "routes": [
+    "/app/strategy-map"
+   ],
+   "query_params": [
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "id,cluster_id,lineage_id,snapshot_at,volume_sum,opportunity_score,member_count,geo_our_cite_pct,geo_comp_cite_pct,geo_avi_median,geo_gap_type,aio_cite_pct,aio_keywords_cited,aio_best_position,aio_avg_position,geo_our_seo_rank,geo_click_upside,geo_prompt_count,geo_prompt_cited"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/content_jobs",
+   "routes": [
+    "/app/factory"
+   ],
+   "query_params": [
+    "order",
+    "select",
+    "title",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*,keyword:keywords(keyword,language,country,search_volume)"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/content_review_runs",
+   "routes": [
+    "/app/optimize"
+   ],
+   "query_params": [
+    "limit",
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "id,status,source_type,source_url,meta_title,scores_before,scores_after,created_at,reverted:qa_report->reverted"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/earned_publications",
+   "routes": [
+    "/app/keywords",
+    "/app/settings?tab=earned"
+   ],
+   "query_params": [
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 2
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/export_history",
+   "routes": [
+    "/app/exports"
+   ],
+   "query_params": [
+    "limit",
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*,content_jobs:content_job_id(id,target_region,keyword_id,published_at_override,keywords:keyword_id(id,keyword,keyword_prompt_links(prompt_id,geo_prompts!keyword_prompt_links_prompt_id_fkey(id,prompt_text))))"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/ga4_page_stats",
+   "routes": [
+    "/app",
+    "/app/seo/insights",
+    "/app/settings?tab=integrations",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "date",
+    "limit",
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "date",
+    "date,organic_sessions,ai_sessions_total",
+    "date,total_sessions",
+    "page_path,organic_sessions,organic_conversions"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 6
+  },
+  {
+   "method": "HEAD",
+   "path": "/rest/v1/ga4_page_stats",
+   "routes": [
+    "/app/settings?tab=integrations"
+   ],
+   "query_params": [
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "page_path"
+   ],
+   "request_body_shape": null,
+   "response_shape": "<unavailable>",
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/geo_discover_runs",
+   "routes": [
+    "/app/discover"
+   ],
+   "query_params": [
+    "limit",
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/geo_prompt_candidates",
+   "routes": [
+    "/app/keywords"
+   ],
+   "query_params": [
+    "select",
+    "source_keyword_id",
+    "source_type",
+    "status"
+   ],
+   "select_columns": [
+    "source_keyword_id"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "HEAD",
+   "path": "/rest/v1/geo_prompt_candidates",
+   "routes": [
+    "/app/discover"
+   ],
+   "query_params": [
+    "select",
+    "status",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "id"
+   ],
+   "request_body_shape": null,
+   "response_shape": "<unavailable>",
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "HEAD",
+   "path": "/rest/v1/geo_prompt_runs",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "finished_at",
+    "prompt.prompt_set.workspace_id",
+    "prompt_id",
+    "select",
+    "status"
+   ],
+   "select_columns": [
+    "id",
+    "id,prompt:geo_prompts!inner(prompt_set:geo_prompt_sets!inner(workspace_id))"
+   ],
+   "request_body_shape": null,
+   "response_shape": "<unavailable>",
+   "statuses": [
+    200
+   ],
+   "count": 73
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/geo_prompt_sets",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "is_active",
+    "limit",
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*,latest_batch:geo_batch_jobs(status,started_at,finished_at)",
+    "id"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "id": "string<uuid>"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 42
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/geo_prompt_tag_assignments",
+   "routes": [
+    "/app/geo/prompts"
+   ],
+   "query_params": [
+    "limit",
+    "offset",
+    "prompt_id",
+    "select"
+   ],
+   "select_columns": [
+    "prompt_id,tag_id"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/geo_prompts",
+   "routes": [
+    "/app",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/reports/weekly",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "deleted_at",
+    "is_active",
+    "limit",
+    "offset",
+    "prompt_set_id",
+    "select"
+   ],
+   "select_columns": [
+    "id",
+    "id,created_at"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "id": "string<uuid>"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 6
+  },
+  {
+   "method": "HEAD",
+   "path": "/rest/v1/geo_prompts",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "is_active",
+    "prompt_set_id",
+    "select"
+   ],
+   "select_columns": [
+    "id"
+   ],
+   "request_body_shape": null,
+   "response_shape": "<unavailable>",
+   "statuses": [
+    200
+   ],
+   "count": 37
+  },
+  {
+   "method": "HEAD",
+   "path": "/rest/v1/gsc_daily_keywords",
+   "routes": [
+    "/app/settings?tab=integrations"
+   ],
+   "query_params": [
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "query"
+   ],
+   "request_body_shape": null,
+   "response_shape": "<unavailable>",
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/gsc_daily_pages",
+   "routes": [
+    "/app",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "date",
+    "search_type",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "date,clicks"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 2
+  },
+  {
+   "method": "HEAD",
+   "path": "/rest/v1/gsc_daily_pages",
+   "routes": [
+    "/app/settings?tab=integrations"
+   ],
+   "query_params": [
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "page"
+   ],
+   "request_body_shape": null,
+   "response_shape": "<unavailable>",
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/gsc_daily_totals",
+   "routes": [
+    "/app/settings?tab=integrations"
+   ],
+   "query_params": [
+    "limit",
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "date"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 2
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/gsc_sync_state",
+   "routes": [
+    "/app/settings?tab=integrations"
+   ],
+   "query_params": [
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/keyword_cluster_members",
+   "routes": [
+    "/app/strategy-map"
+   ],
+   "query_params": [
+    "cluster_id",
+    "select"
+   ],
+   "select_columns": [
+    "cluster_id,keyword_id,keywords!keyword_cluster_members_keyword_id_fkey(keyword,search_volume)"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "cluster_id": "string<uuid>",
+     "keyword_id": "string<uuid>",
+     "keywords": {
+      "keyword": "string",
+      "search_volume": "number"
+     }
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/keyword_clusters",
+   "routes": [
+    "/app",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "id,stats_json",
+    "id,workspace_id,label,category,primary_keyword_id,stats_json,diagnosis_cache,diagnosis_cached_at,created_at,updated_at,keywords!keyword_clusters_primary_keyword_id_fkey(id,keyword,language,search_volume)"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "id": "string<uuid>",
+     "stats_json": {
+      "aio": {
+       "cite_pct": "number",
+       "updated_at": "string<datetime>",
+       "avg_position": "null",
+       "best_position": "null",
+       "keywords_cited": "number",
+       "keywords_with_aio": "number"
+      },
+      "geo": {
+       "gap_type": "string",
+       "neighbors": [
+        "<empty>"
+       ],
+       "avi_median": "number",
+       "updated_at": "string<datetime>",
+       "click_upside": "number",
+       "our_cite_pct": "number",
+       "our_seo_rank": "null",
+       "prompt_cited": "number",
+       "prompt_count": "number",
+       "comp_cite_pct": "number",
+       "metrics_count": "number",
+       "unclaimed_pct": "number",
+       "top_competitor": "string",
+       "avg_our_position": "number",
+       "best_our_position": "number",
+       "top_competitor_cite_count": "number"
+      },
+      "volume_sum": "number",
+      "member_count": "number",
+      "cluster_policy": {
+       "weights": {
+        "paa": "number",
+        "ngram": "number",
+        "domains": "number",
+        "related": "number"
+       },
+       "threshold": "number",
+       "snapshot_policy": "string"
+      },
+      "difficulty_avg": "null",
+      "target_country": "string",
+      "confidence_level": "string",
+      "last_clustered_at": "string<datetime>",
+      "opportunity_score": "number",
+      "dominant_content_type": "string",
+      "dominant_intent_major": "string",
+      "serp_features_summary": {
+       "forum_ugc": "boolean",
+       "video_pack": "boolean",
+       "paa_strength": "string",
+       "has_ai_overview": "boolean"
+      }
+     }
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 4
+  },
+  {
+   "method": "HEAD",
+   "path": "/rest/v1/keyword_clusters",
+   "routes": [
+    "/app/strategy-map"
+   ],
+   "query_params": [
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "id"
+   ],
+   "request_body_shape": null,
+   "response_shape": "<unavailable>",
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/keyword_knowledge_entities",
+   "routes": [
+    "/app/knowledgehub"
+   ],
+   "query_params": [
+    "knowledge_entity_id",
+    "select"
+   ],
+   "select_columns": [
+    "knowledge_entity_id"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "HEAD",
+   "path": "/rest/v1/keyword_serp_jobs",
+   "routes": [
+    "/app/keywords"
+   ],
+   "query_params": [
+    "select",
+    "status",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "id"
+   ],
+   "request_body_shape": null,
+   "response_shape": "<unavailable>",
+   "statuses": [
+    200
+   ],
+   "count": 2
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/keyword_sets",
+   "routes": [
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/seo/insights",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages"
+   ],
+   "query_params": [
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "id": "string<uuid>",
+     "workspace_id": "string<uuid>",
+     "name": "string",
+     "description": "string",
+     "is_active": "boolean",
+     "target_domain": "null",
+     "competitor_domains": [
+      "<empty>"
+     ],
+     "language": "null",
+     "country": "null",
+     "brand_name": "null",
+     "industry": "null",
+     "industry_tags": [
+      "<empty>"
+     ],
+     "journey_stage": "null",
+     "created_at": "string<datetime>",
+     "updated_at": "string<datetime>",
+     "is_default": "boolean",
+     "mirror_of_id": "null"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 6
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/keyword_tag_assignments",
+   "routes": [
+    "/app/keywords"
+   ],
+   "query_params": [
+    "keyword_id",
+    "limit",
+    "offset",
+    "select"
+   ],
+   "select_columns": [
+    "keyword_id,tag_id"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/keywords",
+   "routes": [
+    "/app",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/seo/insights",
+    "/app/settings?tab=earned",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "deleted_at",
+    "is_active",
+    "keyword_set_id",
+    "limit",
+    "offset",
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*,keyword_strategy!left(id,keyword_id,created_at,updated_at),keyword_knowledge_entities!left(knowledge_entity:knowledge_entities(id,name,knowledge_type)),articles!left(id,article_translations!left(id,published_at,status,language)),content_jobs!content_jobs_keyword_id_fkey(id,published_at_override,export_history!export_history_content_job_id_fkey(id,exported_at))",
+    "id",
+    "id,created_at",
+    "id,keyword",
+    "id,keyword,language,country"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "id": "string<uuid>",
+     "keyword": "string",
+     "search_volume": "number",
+     "keyword_difficulty": "number"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 24
+  },
+  {
+   "method": "HEAD",
+   "path": "/rest/v1/keywords",
+   "routes": [
+    "/app/keywords"
+   ],
+   "query_params": [
+    "is_active",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "id"
+   ],
+   "request_body_shape": null,
+   "response_shape": "<unavailable>",
+   "statuses": [
+    200
+   ],
+   "count": 2
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/knowledge_claim_stats",
+   "routes": [
+    "/app/knowledgehub"
+   ],
+   "query_params": [
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "entity_id": "string<uuid>",
+     "name": "string",
+     "slug": "null",
+     "knowledge_type": "string",
+     "program_type": "string",
+     "logo_url": "null",
+     "base_url": "null",
+     "workspace_id": "string<uuid>",
+     "context_count": "number",
+     "total_claims": "number",
+     "verified_claims": "number",
+     "unverified_claims": "number",
+     "stale_claims": "number",
+     "conflicted_claims": "number",
+     "avg_confidence": "null",
+     "last_updated": "null"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/knowledge_entities",
+   "routes": [
+    "/app/knowledgehub"
+   ],
+   "query_params": [
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "id": "string<uuid>",
+     "name": "string",
+     "slug": "null",
+     "description": "string",
+     "logo_url": "null",
+     "base_url": "null",
+     "created_at": "string<datetime>",
+     "updated_at": "string<datetime>",
+     "program_type": "string",
+     "workspace_id": "string<uuid>",
+     "parent_program_id": "null",
+     "related_programs": "null",
+     "coverage_type": "null",
+     "knowledge_type": "string"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/knowledge_entity_sources",
+   "routes": [
+    "/app/knowledgehub"
+   ],
+   "query_params": [
+    "knowledge_entity_id",
+    "select"
+   ],
+   "select_columns": [
+    "knowledge_entity_id"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/onboarding_jobs",
+   "routes": [
+    "/app/strategy-map"
+   ],
+   "query_params": [
+    "limit",
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "phase,expected_count,completed_count,updated_at"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "phase": "string",
+     "expected_count": "number",
+     "completed_count": "number",
+     "updated_at": "string<datetime>"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/orders",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "limit",
+    "order",
+    "paid_at",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*",
+    "amount,refunded_amount,paid_at,currency"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 45
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/plan_templates",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "is_active",
+    "order",
+    "plan_key",
+    "select"
+   ],
+   "select_columns": [
+    "*",
+    "features",
+    "plan_key,max_workspaces"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "id": "string<uuid>",
+     "plan_key": "string",
+     "name": "string",
+     "description": "string",
+     "is_active": "boolean",
+     "features": {
+      "max_members": "number",
+      "export_formats": [
+       "string"
+      ],
+      "enabled_engines": [
+       "string"
+      ],
+      "wordpress_integration": "boolean"
+     },
+     "created_at": "string<datetime>",
+     "max_workspaces": "number",
+     "monthly_price": "number",
+     "annual_price": "number",
+     "is_archived": "boolean",
+     "sort_order": "number",
+     "clone_of": "null",
+     "price_krw_monthly": "number",
+     "price_krw_annual": "number",
+     "price_usd_monthly": "number",
+     "price_usd_annual": "number",
+     "launch_original_krw_monthly": "number",
+     "launch_original_usd_monthly": "number",
+     "display_currency_default": "string",
+     "internal_alias": "null",
+     "color_token": "null",
+     "icon_name": "null"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 73
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/plan_unit_limits",
+   "routes": [
+    "/app/settings?tab=usage"
+   ],
+   "query_params": [
+    "plan_key",
+    "select"
+   ],
+   "select_columns": [
+    "unit_key,monthly_limit"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "unit_key": "string",
+     "monthly_limit": "number"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/platform_admins",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "select",
+    "user_id"
+   ],
+   "select_columns": [
+    "id,role",
+    "user_id"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 68
+  },
+  {
+   "method": "HEAD",
+   "path": "/rest/v1/report_snapshots",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "created_at",
+    "period_type",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "id"
+   ],
+   "request_body_shape": null,
+   "response_shape": "<unavailable>",
+   "statuses": [
+    200
+   ],
+   "count": 36
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/report_snapshots",
+   "routes": [
+    "/app",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "order",
+    "period_key",
+    "period_type",
+    "prompt_set_id",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*",
+    "*,report_summaries(*)"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 8
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/cancel_account_deletion",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {},
+   "response_shape": "boolean",
+   "statuses": [
+    200
+   ],
+   "count": 83
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_avi_daily_components",
+   "routes": [
+    "/app",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_days": "number"
+   },
+   "response_shape": [
+    {
+     "date": "string<date>",
+     "label": "string",
+     "mentionRank": "number",
+     "citationRank": "number",
+     "mentionCoverage": "number",
+     "citationCoverage": "number"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 2
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_avi_overview",
+   "routes": [
+    "/app",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_days": "number"
+   },
+   "response_shape": {
+    "level": "string",
+    "setCount": "number",
+    "totalRuns": "number",
+    "components": {
+     "mentionSov": "number",
+     "citationSov": "number",
+     "mentionRank": "number",
+     "mentionRate": "number",
+     "citationRank": "number",
+     "citationRate": "number"
+    },
+    "dailySeries": [
+     {
+      "date": "string<date>",
+      "label": "string",
+      "score": "number"
+     }
+    ],
+    "averageScore": "number",
+    "citedPrompts": "number",
+    "coverageRate": "number",
+    "totalPrompts": "number",
+    "activeSetCount": "number",
+    "avgMentionRank": "number",
+    "avgCitationRank": "number",
+    "firstMentionRate": "number",
+    "firstCitationRate": "number"
+   },
+   "statuses": [
+    200
+   ],
+   "count": 2
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_billing_period_range",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "_workspace_id": "string<uuid>"
+   },
+   "response_shape": [
+    {
+     "period_start": "string<datetime>",
+     "period_end": "string<datetime>"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 34
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_full_funnel_stats",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_days": "number",
+    "p_limit": "number"
+   },
+   "response_shape": {
+    "pages": [
+     "<empty>"
+    ],
+    "summary": {
+     "total_pages": "number",
+     "total_clicks": "number",
+     "matched_pages": "number",
+     "ga4_only_pages": "number",
+     "gsc_only_pages": "number",
+     "total_ai_sessions": "number",
+     "total_conversions": "number",
+     "has_conversion_setup": "boolean",
+     "total_engagement_rate": "number",
+     "total_organic_sessions": "number"
+    }
+   },
+   "statuses": [
+    200
+   ],
+   "count": 35
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_ga4_channel_summary",
+   "routes": [
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_start_date": "string<date>",
+    "p_end_date": "string<date>"
+   },
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 3
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_ga4_dashboard_timeseries",
+   "routes": [
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_start_date": "string<date>",
+    "p_end_date": "string<date>"
+   },
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 6
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_gap_overview_light",
+   "routes": [
+    "/app",
+    "/app/gap",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_since": "string<date>"
+   },
+   "response_shape": [
+    {
+     "id": "string<uuid>",
+     "keyword_id": "string<uuid>",
+     "captured_at": "string<datetime>",
+     "brand_presence": {
+      "aio": {
+       "our_cited": "boolean",
+       "aio_detected": "boolean",
+       "our_position": "null",
+       "cited_domains": [
+        "<empty>"
+       ],
+       "total_references": "number",
+       "competitors_cited": "boolean"
+      },
+      "organic": {
+       "our": {
+        "urls": [
+         "<empty>"
+        ],
+        "count": "number",
+        "best_rank": "null"
+       },
+       "competitors": {
+        "by_domain": {},
+        "total_count": "number"
+       }
+      },
+      "analyzed_at": "string<datetime>",
+      "settings_hash": "string"
+     }
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 3
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_geo_collection_days",
+   "routes": [
+    "/app/geo/analysis"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_since": "string<datetime>",
+    "p_until": "null",
+    "p_engines": "null",
+    "p_set_id": "null"
+   },
+   "response_shape": [
+    {
+     "day": "string<date>"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_geo_group_status_kpi_multi",
+   "routes": [
+    "/app/geo/analysis"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_buckets": [
+     {
+      "key": "string",
+      "prompt_ids": [
+       "string<uuid>"
+      ],
+      "engines": "null"
+     }
+    ],
+    "p_days": "number"
+   },
+   "response_shape": {
+    "buckets": [
+     {
+      "key": "string",
+      "payload": {
+       "kpi": {
+        "total": "number",
+        "cited_count": "number",
+        "sourced_count": "number",
+        "brand_coverage": "number",
+        "mentioned_count": "number",
+        "source_coverage": "number",
+        "citation_coverage": "number",
+        "comp_only_cited_count": "number"
+       },
+       "sparklines": {
+        "source": [
+         {
+          "label": "string",
+          "value": "number"
+         }
+        ],
+        "mention": [
+         {
+          "label": "string",
+          "value": "number"
+         }
+        ],
+        "citation": [
+         {
+          "label": "string",
+          "value": "number"
+         }
+        ],
+        "distribution": [
+         {
+          "gap": "number",
+          "both": "number",
+          "comp": "number",
+          "ours": "number",
+          "label": "string",
+          "total": "number"
+         }
+        ]
+       }
+      }
+     }
+    ]
+   },
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_geo_slot_counts",
+   "routes": [
+    "/app",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_set_id": "null",
+    "p_days": "number",
+    "p_engines": "null"
+   },
+   "response_shape": {
+    "slot_cited": "number",
+    "slot_total": "number",
+    "slot_sourced": "number",
+    "slot_mentioned": "number"
+   },
+   "statuses": [
+    200
+   ],
+   "count": 2
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_geo_ws_mention_terms",
+   "routes": [
+    "/app/settings?tab=brand-tracking"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_since": "string<date>",
+    "p_engines": "null",
+    "p_set_id": "null",
+    "p_prompt_ids": "null"
+   },
+   "response_shape": {
+    "our_terms": [
+     {
+      "term": "string",
+      "engines": {
+       "chatgpt": "number"
+      },
+      "total_count": "number",
+      "unique_count": "number",
+      "co_occurrence": "number"
+     }
+    ],
+    "our_total": "number",
+    "comp_terms": [
+     {
+      "term": "string",
+      "engines": {
+       "chatgpt": "number"
+      },
+      "total_count": "number",
+      "unique_count": "number",
+      "co_occurrence": "number"
+     }
+    ],
+    "comp_total": "number",
+    "our_unique": "number",
+    "runs_total": "number",
+    "both_unique": "number",
+    "comp_unique": "number",
+    "our_mapped_unique": "number"
+   },
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_gsc_dashboard_dimensions",
+   "routes": [
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_start_date": "string<date>",
+    "p_end_date": "string<date>",
+    "p_search_type": "string",
+    "p_dimension": "string",
+    "p_limit": "number"
+   },
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 18
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_gsc_dashboard_kpis",
+   "routes": [
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_start_date": "string<date>",
+    "p_end_date": "string<date>",
+    "p_prev_start_date": "string<date>",
+    "p_prev_end_date": "string<date>",
+    "p_search_type": "string"
+   },
+   "response_shape": {
+    "clicks": "number",
+    "impressions": "number",
+    "ctr": "number",
+    "avg_position": "number",
+    "prev_clicks": "number",
+    "prev_impressions": "number",
+    "prev_ctr": "number",
+    "prev_avg_position": "number"
+   },
+   "statuses": [
+    200
+   ],
+   "count": 3
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_gsc_dashboard_timeseries",
+   "routes": [
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_start_date": "string<date>",
+    "p_end_date": "string<date>",
+    "p_search_type": "string"
+   },
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 6
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_keywords_with_gsc_stats",
+   "routes": [
+    "/app/gap"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_days_back": "number",
+    "p_workspace_id": "string<uuid>"
+   },
+   "response_shape": [
+    {
+     "keyword_id": "string<uuid>",
+     "keyword_text": "string",
+     "gsc_clicks": "number",
+     "gsc_impressions": "number",
+     "gsc_ctr": "number",
+     "gsc_avg_position": "number",
+     "gsc_insight_type": "null"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_latest_serp_snapshots",
+   "routes": [
+    "/app/keywords"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_keyword_ids": [
+     "string<uuid>"
+    ]
+   },
+   "response_shape": [
+    {
+     "id": "string<uuid>",
+     "keyword_id": "string<uuid>",
+     "captured_at": "string<datetime>",
+     "provider": "string",
+     "country": "string",
+     "language": "string",
+     "engine": "string",
+     "serp_analysis_json": {
+      "source": "string",
+      "version": "string",
+      "analyzed_at": "string<datetime>",
+      "paa_clusters": [
+       "<empty>"
+      ],
+      "brand_presence": {
+       "aio": {
+        "our_cited": "boolean",
+        "aio_detected": "boolean",
+        "our_position": "number",
+        "cited_domains": [
+         "string"
+        ],
+        "total_references": "number",
+        "competitors_cited": "boolean"
+       },
+       "organic": {
+        "our": {
+         "urls": [
+          "<empty>"
+         ],
+         "count": "number",
+         "best_rank": "null"
+        },
+        "competitors": {
+         "by_domain": {},
+         "total_count": "number"
+        }
+       },
+       "analyzed_at": "string<datetime>",
+       "settings_hash": "string"
+      },
+      "intent_subtype": "null",
+      "dominant_format": "string",
+      "strategy_points": [
+       {
+        "insight": "string",
+        "category": "string",
+        "priority": "number",
+        "data_label": "string"
+       }
+      ],
+      "trends_analysis": {
+       "volatility_pct": "number",
+       "change_rate_pct": "number",
+       "trend_direction": "string"
+      },
+      "trends_available": "boolean",
+      "volatility_level": "string",
+      "input_snapshot_id": "string<uuid>",
+      "aio_cross_analysis": {
+       "top10_count": "number",
+       "aio_in_top10": "number",
+       "top10_in_aio": "number",
+       "aio_ref_count": "number",
+       "aio_to_top10_pct": "number",
+       "top10_to_aio_pct": "number"
+      },
+      "domain_composition": {
+       "blog": "number",
+       "general": "number"
+      },
+      "freshness_analysis": {
+       "dates_count": "number",
+       "avg_days_old": "number",
+       "is_evergreen": "boolean",
+       "max_days_old": "number",
+       "min_days_old": "number",
+       "recent_count": "number",
+       "freshness_type": "string",
+       "monitoring_guide": {
+        "judgment_point_weeks": "number",
+        "monitoring_frequency": "string",
+        "initial_response_weeks": "number"
+       },
+       "freshness_important": "boolean"
+      },
+      "volatility_signals": [
+       "string"
+      ],
+      "decision_analyzed_at": "string<datetime>",
+      "serp_features_summary": {
+       "ads_count": "number",
+       "forum_ugc": "boolean",
+       "paa_count": "number",
+       "video_pack": "boolean",
+       "forum_count": "number",
+       "video_count": "number",
+       "has_shopping": "boolean",
+       "paa_strength": "string",
+       "ads_intensity": "string",
+       "has_local_pack": "boolean",
+       "has_ai_overview": "boolean",
+       "has_images_pack": "boolean",
+       "has_top_stories": "boolean",
+       "has_knowledge_graph": "boolean",
+       "featured_snippet_type": "null",
+       "ai_overview_source_count": "number"
+      },
+      "related_searches_count": "number",
+      "recommended_content_type": "string",
+      "content_type_distribution": {
+       "review": "number",
+       "general": "number"
+      },
+      "related_searches_analysis": "null",
+      "recommended_content_type_reason": "string"
+     },
+     "paa_questions_json": [
+      "<empty>"
+     ],
+     "related_searches_json": [
+      "<empty>"
+     ]
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_light_dashboard_overview",
+   "routes": [
+    "/app",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_period_days": "number"
+   },
+   "response_shape": {
+    "gap": {
+     "top10_count": "number",
+     "matrix_items": [
+      {
+       "keyword": "string",
+       "our_rank": "null",
+       "geo_cited": "boolean",
+       "keyword_id": "string<uuid>",
+       "seo_strong": "boolean",
+       "aio_detected": "boolean",
+       "search_volume": "number",
+       "keyword_difficulty": "number"
+      }
+     ],
+     "total_keywords": "number",
+     "aio_cited_count": "number",
+     "analyzed_keywords": "number",
+     "aio_detected_count": "number"
+    },
+    "avi_summary": {
+     "run_count": "number",
+     "prompt_count": "number",
+     "sum_sentiment": "number",
+     "mentioned_count": "number",
+     "sum_citation_rate": "number",
+     "cited_prompt_count": "number",
+     "cited_runs_with_position": "number",
+     "sum_position_quality_norm": "number"
+    },
+    "audit_active": "null",
+    "audit_latest": {
+     "id": "string<uuid>",
+     "status": "string",
+     "created_at": "string<datetime>",
+     "target_url": "string<url>",
+     "completed_at": "string<datetime>",
+     "notice_count": "number",
+     "target_domain": "string",
+     "warning_count": "number",
+     "critical_count": "number",
+     "site_health_score": "number",
+     "ai_readiness_score": "number"
+    },
+    "weekly_report": {
+     "has_report": "boolean"
+    },
+    "funnel_summary": {
+     "total_clicks": "number",
+     "total_ai_sessions": "number",
+     "total_conversions": "number",
+     "total_impressions": "number",
+     "has_conversion_setup": "boolean",
+     "total_engagement_rate": "number",
+     "total_organic_sessions": "number"
+    },
+    "top10_sparkline": [
+     {
+      "date": "string",
+      "value": "number"
+     }
+    ],
+    "prompt_stats_summary": {
+     "total_runs": "number",
+     "top_domains": [
+      {
+       "domain": "string",
+       "citation_count": "number"
+      }
+     ],
+     "top_prompts": [
+      {
+       "label": "string",
+       "prompt_id": "string<uuid>",
+       "total_runs": "number",
+       "last_run_at": "string<datetime>",
+       "prompt_set_id": "string<uuid>",
+       "any_cited_runs": "number",
+       "our_cited_runs": "number",
+       "prompt_category": "string"
+      }
+     ],
+     "total_prompts": "number",
+     "any_cited_runs": "number",
+     "category_stats": [
+      {
+       "category": "string",
+       "total_runs": "number",
+       "any_cited_runs": "number",
+       "our_cited_runs": "number"
+      }
+     ],
+     "our_cited_runs": "number"
+    },
+    "web_health_sparkline": [
+     {
+      "date": "string",
+      "value": "number"
+     }
+    ],
+    "ga4_traffic_sparkline": [
+     "<empty>"
+    ],
+    "citation_rate_sparkline": [
+     {
+      "date": "string",
+      "value": "number"
+     }
+    ]
+   },
+   "statuses": [
+    200
+   ],
+   "count": 2
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_light_prompt_stats",
+   "routes": [
+    "/app",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_since": "string<date>"
+   },
+   "response_shape": {
+    "domain_stats": [
+     {
+      "domain": "string",
+      "citation_count": "number"
+     }
+    ],
+    "prompt_stats": [
+     {
+      "label": "string",
+      "prompt_id": "string<uuid>",
+      "total_runs": "number",
+      "last_run_at": "string<datetime>",
+      "prompt_set_id": "string<uuid>",
+      "any_cited_runs": "number",
+      "our_cited_runs": "number",
+      "prompt_category": "string"
+     }
+    ],
+    "category_stats": [
+     {
+      "category": "string",
+      "total_runs": "number",
+      "any_cited_runs": "number",
+      "our_cited_runs": "number"
+     }
+    ]
+   },
+   "statuses": [
+    200
+   ],
+   "count": 2
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_page_ga4_stats",
+   "routes": [
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_start_date": "string<date>",
+    "p_end_date": "string<date>"
+   },
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 3
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_paused_summary",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>"
+   },
+   "response_shape": {
+    "prompt_limit": "number",
+    "keyword_limit": "number",
+    "active_prompts": "number",
+    "paused_prompts": "number",
+    "active_keywords": "number",
+    "paused_keywords": "number",
+    "restorable_prompts": "number",
+    "restorable_keywords": "number"
+   },
+   "statuses": [
+    200
+   ],
+   "count": 34
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_pro_dashboard_kpi",
+   "routes": [
+    "/app",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_days": "number",
+    "p_set_id": "null",
+    "p_engines": "null"
+   },
+   "response_shape": {
+    "kpi": {
+     "total": "number",
+     "tracked": "number",
+     "cited_count": "number",
+     "prev_tracked": "number",
+     "sourced_count": "number",
+     "brand_coverage": "number",
+     "mentioned_count": "number",
+     "source_coverage": "number",
+     "citation_coverage": "number",
+     "prev_citation_coverage": "number"
+    },
+    "engine_sov": [
+     {
+      "our": "number",
+      "total": "number",
+      "engine": "string",
+      "is_active": "boolean",
+      "sov_percent": "number"
+     }
+    ],
+    "overall_sov": "number",
+    "mention_rank": {
+     "avg_position": "number",
+     "insufficient": "boolean",
+     "position_delta": "null",
+     "evaluated_count": "number",
+     "avg_position_prev": "null",
+     "first_mention_rate": "number",
+     "first_mention_count": "number",
+     "first_mention_delta_pp": "null",
+     "first_mention_rate_prev": "null"
+    },
+    "total_engines": "number",
+    "daily_citation_series": [
+     {
+      "day": "string<date>",
+      "coverage_pct": "number",
+      "cited_prompts": "number",
+      "tracked_prompts": "number"
+     }
+    ],
+    "daily_mention_rank_series": [
+     {
+      "day": "string<date>",
+      "evaluated": "number",
+      "avg_position": "number",
+      "first_mention_rate": "number"
+     }
+    ]
+   },
+   "statuses": [
+    200
+   ],
+   "count": 2
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_seo_aio_cross_trend",
+   "routes": [
+    "/app/seo/insights"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_engine": "string",
+    "p_since": "string<date>",
+    "p_until": "string<date>",
+    "p_keyword_ids": "null"
+   },
+   "response_shape": [
+    {
+     "day": "string<date>",
+     "aio_detected": "number",
+     "our_cited": "number",
+     "our_top10": "number",
+     "cross_count": "number",
+     "aio_pos_sum": "number",
+     "aio_pos_cnt": "number",
+     "excluded_count": "number"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_seo_overview_agg",
+   "routes": [
+    "/app",
+    "/app/seo/insights",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_engine": "string",
+    "p_cur_since": "string<date>",
+    "p_cur_until": "string<date>",
+    "p_prev_since": "string<date>",
+    "p_prev_until": "string<date>",
+    "p_keyword_ids": "null"
+   },
+   "response_shape": {
+    "current": {
+     "b1_5": "number",
+     "top3": "number",
+     "aioP1": "number",
+     "aioP2": "number",
+     "aioP3": "number",
+     "b6_10": "number",
+     "top10": "number",
+     "b11_15": "number",
+     "ranked": "number",
+     "serpP1": "number",
+     "serpP2": "number",
+     "serpP3": "number",
+     "aioBoth": "number",
+     "aioNone": "number",
+     "b15plus": "number",
+     "aioCited": "number",
+     "analyzed": "number",
+     "serpBoth": "number",
+     "serpNone": "number",
+     "aioP4plus": "number",
+     "aioPosSum": "number",
+     "notRanked": "number",
+     "aioOwnOnly": "number",
+     "serpP4plus": "number",
+     "aioCompOnly": "number",
+     "aioDetected": "number",
+     "aioPosCount": "number",
+     "positionSum": "number",
+     "serpOwnOnly": "number",
+     "serpCompOnly": "number"
+    },
+    "previous": {
+     "b1_5": "number",
+     "top3": "number",
+     "b6_10": "number",
+     "top10": "number",
+     "b11_15": "number",
+     "ranked": "number",
+     "b15plus": "number",
+     "aioCited": "number",
+     "analyzed": "number",
+     "aioPosSum": "number",
+     "aioDetected": "number",
+     "aioPosCount": "number",
+     "positionSum": "number"
+    }
+   },
+   "statuses": [
+    200
+   ],
+   "count": 3
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_seo_rank_movers",
+   "routes": [
+    "/app/seo/insights"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_engine": "string",
+    "p_since": "string<date>",
+    "p_until": "string<date>"
+   },
+   "response_shape": [
+    {
+     "keyword_id": "string<uuid>",
+     "first_date": "string<date>",
+     "last_date": "string<date>",
+     "first_rank": "null",
+     "last_rank": "null",
+     "last_aio_cited": "boolean",
+     "last_best_url": "null"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_serp_brand_presence_slim",
+   "routes": [
+    "/app/seo/insights"
+   ],
+   "query_params": [
+    "limit",
+    "offset"
+   ],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_engine": "string",
+    "p_since": "string<date>",
+    "p_until": "string<date>"
+   },
+   "response_shape": [
+    {
+     "keyword_id": "string<uuid>",
+     "captured_at": "string<datetime>",
+     "ai_overview_detected": "boolean",
+     "brand_presence": {
+      "aio": {
+       "our_cited": "boolean",
+       "cited_domains": [
+        "string"
+       ]
+      },
+      "organic": {
+       "our": {
+        "urls": [
+         "<empty>"
+        ],
+        "best_url": "null",
+        "best_rank": "null"
+       },
+       "competitors": {
+        "by_domain": {}
+       }
+      }
+     }
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 2
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_serp_brand_presence_trend",
+   "routes": [
+    "/app",
+    "/app/gap",
+    "/app/seo/insights",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_engine": "string",
+    "p_since": "string<date>"
+   },
+   "response_shape": [
+    {
+     "keyword_id": "string<uuid>",
+     "captured_at": "string<datetime>",
+     "ai_overview_detected": "boolean",
+     "brand_presence": {
+      "aio": {
+       "our_cited": "boolean",
+       "our_position": "null",
+       "cited_domains": [
+        "string"
+       ],
+       "competitors_cited": "boolean"
+      },
+      "organic": {
+       "our": {
+        "urls": [
+         "<empty>"
+        ],
+        "best_url": "null",
+        "best_rank": "null"
+       },
+       "competitors": {
+        "by_domain": {}
+       }
+      }
+     }
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 4
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_serp_brand_presence_window",
+   "routes": [
+    "/app/keywords"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_engine": "string",
+    "p_since": "string<datetime>",
+    "p_until": "string<datetime>"
+   },
+   "response_shape": [
+    {
+     "keyword_id": "string<uuid>",
+     "captured_at": "string<datetime>",
+     "ai_overview_detected": "boolean",
+     "brand_presence": {
+      "aio": {
+       "our_cited": "boolean",
+       "aio_detected": "boolean",
+       "our_position": "number",
+       "cited_domains": [
+        "string"
+       ],
+       "total_references": "number",
+       "competitors_cited": "boolean"
+      },
+      "organic": {
+       "our": {
+        "urls": [
+         "<empty>"
+        ],
+        "count": "number",
+        "best_rank": "null"
+       },
+       "competitors": {
+        "by_domain": {},
+        "total_count": "number"
+       }
+      },
+      "analyzed_at": "string<datetime>",
+      "settings_hash": "string"
+     }
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_user_activity_snapshot",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {},
+   "response_shape": [
+    {
+     "export_count": "number",
+     "last_export_at": "null",
+     "content_job_count": "number",
+     "last_content_job_at": "null",
+     "agent_conversation_count": "number",
+     "api_key_count": "number",
+     "last_api_key_at": "null"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 34
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_web_health_sparkline",
+   "routes": [
+    "/app",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>",
+    "p_period_days": "number"
+   },
+   "response_shape": [
+    {
+     "date": "string",
+     "value": "number"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 2
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_workspace_activity_snapshot",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "_workspace_id": "string<uuid>"
+   },
+   "response_shape": [
+    {
+     "keyword_count": "number",
+     "prompt_count": "number",
+     "prompt_set_count": "number",
+     "has_schedule_enabled": "boolean",
+     "run_count_30d": "number",
+     "last_run_at": "string<datetime>",
+     "scan_count": "number",
+     "last_scan_at": "string<datetime>",
+     "content_job_count": "number",
+     "last_content_job_at": "null",
+     "api_key_count": "number",
+     "last_api_key_used_at": "null",
+     "last_keyword_at": "string<datetime>",
+     "last_prompt_at": "string<datetime>",
+     "last_report_snapshot_at": "null"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 34
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_workspace_members",
+   "routes": [
+    "/app/settings?tab=members"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>"
+   },
+   "response_shape": [
+    {
+     "user_id": "string<uuid>",
+     "email": "string",
+     "full_name": "string",
+     "role": "string",
+     "allowed_sections": "null",
+     "joined_at": "string<datetime>"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/get_workspace_quota_summary",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "_workspace_id": "string<uuid>"
+   },
+   "response_shape": [
+    {
+     "unit_key": "string",
+     "unit_label": "string",
+     "unit_type": "string",
+     "plan_limit": "number",
+     "plan_used": "number",
+     "plan_remaining": "number",
+     "credit_balance": "number",
+     "override_limit": "null",
+     "effective_limit": "number",
+     "effective_remaining": "number"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 41
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/record_auth_login",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_method": "string",
+    "p_device_id": "null"
+   },
+   "response_shape": "boolean",
+   "statuses": [
+    200
+   ],
+   "count": 83
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/site_audit_links_summary",
+   "routes": [
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_scan_id": "string<uuid>"
+   },
+   "response_shape": {
+    "total": "number",
+    "orphans": [
+     "<empty>"
+    ],
+    "to_broken": "number",
+    "top_linked": [
+     "<empty>"
+    ],
+    "computed_at": "string<datetime>",
+    "to_redirect": "number",
+    "broken_pages": [
+     {
+      "id": "string<uuid>",
+      "url": "string<url>",
+      "status_code": "number"
+     }
+    ],
+    "orphan_count": "number",
+    "nofollow_count": "number",
+    "pages_3xx_count": "number",
+    "pages_4xx_count": "number",
+    "descriptive_count": "number",
+    "descriptive_ratio": "number"
+   },
+   "statuses": [
+    200
+   ],
+   "count": 3
+  },
+  {
+   "method": "POST",
+   "path": "/rest/v1/rpc/strategy_map_effective_state",
+   "routes": [
+    "/app/strategy-map"
+   ],
+   "query_params": [],
+   "select_columns": [],
+   "request_body_shape": {
+    "p_workspace_id": "string<uuid>"
+   },
+   "response_shape": {
+    "reason": "null",
+    "status": "string",
+    "effective": "string",
+    "scanned_at": "string<datetime>",
+    "cluster_count": "number",
+    "prompt_set_count": "number",
+    "active_prompt_count": "number",
+    "active_keyword_count": "number",
+    "latest_prompt_set_id": "string<uuid>",
+    "linked_keyword_count": "number",
+    "auto_generate_prompts": "boolean",
+    "recommended_entrypoint": "null",
+    "recommended_resume_from": "null"
+   },
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "HEAD",
+   "path": "/rest/v1/serp_snapshots",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "captured_at",
+    "select",
+    "serp_analysis_json",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "id"
+   ],
+   "request_body_shape": null,
+   "response_shape": "<unavailable>",
+   "statuses": [
+    200
+   ],
+   "count": 34
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/serp_snapshots",
+   "routes": [
+    "/app/gap",
+    "/app/raw-data",
+    "/app/seo/insights",
+    "/app/settings?tab=earned"
+   ],
+   "query_params": [
+    "captured_at",
+    "engine",
+    "keyword_id",
+    "keywords.deleted_at",
+    "limit",
+    "offset",
+    "order",
+    "select",
+    "serp_analysis_json",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "id,keyword_id,captured_at,serp_analysis_json,ai_overview_detected",
+    "keyword_id,captured_at,brand_presence:serp_analysis_json->brand_presence",
+    "keyword_id,captured_at,serp_analysis_json",
+    "keyword_id,engine,language,country,keywords!inner(id)",
+    "keyword_id,serp_analysis_json"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "keyword_id": "string<uuid>",
+     "captured_at": "string<datetime>",
+     "serp_analysis_json": {
+      "source": "string",
+      "version": "string",
+      "analyzed_at": "string<datetime>",
+      "paa_clusters": [
+       "<empty>"
+      ],
+      "brand_presence": {
+       "aio": {
+        "our_cited": "boolean",
+        "aio_detected": "boolean",
+        "our_position": "null",
+        "cited_domains": [
+         "string"
+        ],
+        "total_references": "number",
+        "competitors_cited": "boolean"
+       },
+       "organic": {
+        "our": {
+         "urls": [
+          "<empty>"
+         ],
+         "count": "number",
+         "best_rank": "null"
+        },
+        "competitors": {
+         "by_domain": {},
+         "total_count": "number"
+        }
+       },
+       "analyzed_at": "string<datetime>",
+       "settings_hash": "string"
+      },
+      "intent_subtype": "null",
+      "dominant_format": "string",
+      "strategy_points": [
+       {
+        "insight": "string",
+        "category": "string",
+        "priority": "number",
+        "data_label": "string"
+       }
+      ],
+      "trends_analysis": {
+       "volatility_pct": "number",
+       "change_rate_pct": "number",
+       "trend_direction": "string"
+      },
+      "trends_available": "boolean",
+      "volatility_level": "string",
+      "input_snapshot_id": "string<uuid>",
+      "aio_cross_analysis": {
+       "top10_count": "number",
+       "aio_in_top10": "number",
+       "top10_in_aio": "number",
+       "aio_ref_count": "number",
+       "aio_to_top10_pct": "number",
+       "top10_to_aio_pct": "number"
+      },
+      "domain_composition": {
+       "blog": "number",
+       "general": "number",
+       "youtube": "number",
+       "community": "number"
+      },
+      "freshness_analysis": {
+       "dates_count": "number",
+       "avg_days_old": "number",
+       "is_evergreen": "boolean",
+       "max_days_old": "number",
+       "min_days_old": "number",
+       "recent_count": "number",
+       "freshness_type": "string",
+       "monitoring_guide": {
+        "judgment_point_weeks": "number",
+        "monitoring_frequency": "string",
+        "initial_response_weeks": "number"
+       },
+       "freshness_important": "boolean"
+      },
+      "volatility_signals": [
+       "<empty>"
+      ],
+      "decision_analyzed_at": "string<datetime>",
+      "serp_features_summary": {
+       "ads_count": "number",
+       "forum_ugc": "boolean",
+       "paa_count": "number",
+       "video_pack": "boolean",
+       "forum_count": "number",
+       "video_count": "number",
+       "has_shopping": "boolean",
+       "paa_strength": "string",
+       "ads_intensity": "string",
+       "has_local_pack": "boolean",
+       "has_ai_overview": "boolean",
+       "has_images_pack": "boolean",
+       "has_top_stories": "boolean",
+       "has_knowledge_graph": "boolean",
+       "featured_snippet_type": "null",
+       "ai_overview_source_count": "number"
+      },
+      "related_searches_count": "number",
+      "recommended_content_type": "string",
+      "content_type_distribution": {
+       "howto": "number",
+       "general": "number"
+      },
+      "related_searches_analysis": "null",
+      "recommended_content_type_reason": "string"
+     }
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 6
+  },
+  {
+   "method": "HEAD",
+   "path": "/rest/v1/site_audit_issues",
+   "routes": [
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages"
+   ],
+   "query_params": [
+    "scan_id",
+    "select"
+   ],
+   "select_columns": [
+    "id"
+   ],
+   "request_body_shape": null,
+   "response_shape": "<unavailable>",
+   "statuses": [
+    200
+   ],
+   "count": 3
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/site_audit_issues",
+   "routes": [
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages"
+   ],
+   "query_params": [
+    "limit",
+    "offset",
+    "order",
+    "scan_id",
+    "select"
+   ],
+   "select_columns": [
+    "id,scan_id,page_id,page_url,issue_type,category,severity,layer,score_dimension,title,description,fix_recommendation,fix_difficulty,engine_impact,impact_level,evidence,is_resolved,resolved_at,created_at"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "id": "string<uuid>",
+     "scan_id": "string<uuid>",
+     "page_id": "string<uuid>",
+     "page_url": "string<url>",
+     "issue_type": "string",
+     "category": "string",
+     "severity": "string",
+     "layer": "null",
+     "score_dimension": "null",
+     "title": "string",
+     "description": "string",
+     "fix_recommendation": "string",
+     "fix_difficulty": "string",
+     "engine_impact": {
+      "claude": "string",
+      "gemini": "string",
+      "chatgpt": "string",
+      "perplexity": "string"
+     },
+     "impact_level": "string",
+     "evidence": {
+      "in_sitemap": "boolean",
+      "status_code": "number",
+      "inbound_internal_links": "number"
+     },
+     "is_resolved": "boolean",
+     "resolved_at": "null",
+     "created_at": "string<datetime>"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 3
+  },
+  {
+   "method": "HEAD",
+   "path": "/rest/v1/site_audit_pages",
+   "routes": [
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages"
+   ],
+   "query_params": [
+    "scan_id",
+    "select"
+   ],
+   "select_columns": [
+    "id"
+   ],
+   "request_body_shape": null,
+   "response_shape": "<unavailable>",
+   "statuses": [
+    200
+   ],
+   "count": 3
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/site_audit_pages",
+   "routes": [
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages"
+   ],
+   "query_params": [
+    "limit",
+    "offset",
+    "order",
+    "scan_id",
+    "select"
+   ],
+   "select_columns": [
+    "id,scan_id,url,status_code,content_type,load_time_ms,word_count,title,meta_description,issues_count,page_score,seo_score,geo_score,rendering_diagnosis,created_at,updated_at,analysis_snapshot",
+    "url,lighthouse_data"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "url": "string<url>",
+     "lighthouse_data": {}
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 6
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/site_audit_scans",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "order",
+    "select",
+    "status",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*",
+    "id,workspace_id,status,created_at,completed_at,scan_type,scan_mode,crawled_urls,max_pages,critical_count,warning_count,notice_count,site_health_score,ai_readiness_score,site_health_score_v2,ai_readiness_score_v2"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "id": "string<uuid>",
+     "workspace_id": "string<uuid>",
+     "status": "string",
+     "created_at": "string<datetime>",
+     "completed_at": "string<datetime>",
+     "scan_type": "string",
+     "scan_mode": "string",
+     "crawled_urls": "number",
+     "max_pages": "number",
+     "critical_count": "number",
+     "warning_count": "number",
+     "notice_count": "number",
+     "site_health_score": "number",
+     "ai_readiness_score": "number",
+     "site_health_score_v2": "number",
+     "ai_readiness_score_v2": "number"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 68
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/subscriptions",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "limit",
+    "order",
+    "select",
+    "status",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*",
+    "status,bid,cancel_at_period_end,retry_count,current_period_end",
+    "status,billing_cycle,current_period_start,current_period_end,cancel_at_period_end,created_at,custom_offer_id"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 102
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/system_settings",
+   "routes": [
+    "/app/geo/prompts",
+    "/app/keywords"
+   ],
+   "query_params": [
+    "key",
+    "select"
+   ],
+   "select_columns": [
+    "value"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 2
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/usage_reservations",
+   "routes": [
+    "/app/settings?tab=usage"
+   ],
+   "query_params": [
+    "limit",
+    "order",
+    "select",
+    "status",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "id,unit_key,amount,status,idempotency_key,created_at"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "id": "string<uuid>",
+     "unit_key": "string",
+     "amount": "number",
+     "status": "string",
+     "idempotency_key": "string",
+     "created_at": "string<datetime>"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/vw_gsc_connection_health",
+   "routes": [
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries"
+   ],
+   "query_params": [
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 3
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/welcome_guide_config",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "is_active",
+    "order",
+    "select"
+   ],
+   "select_columns": [
+    "*"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "id": "string<uuid>",
+     "step_order": "number",
+     "icon_name": "string",
+     "title_ko": "string",
+     "title_en": "string",
+     "description_ko": "string",
+     "description_en": "string",
+     "metric_label": "string",
+     "color_phase": "string",
+     "is_active": "boolean",
+     "created_at": "string<datetime>",
+     "updated_at": "string<datetime>"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 34
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/welcome_guide_settings",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "limit",
+    "select"
+   ],
+   "select_columns": [
+    "*"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "id": "string<uuid>",
+     "header_title_ko": "string",
+     "header_title_en": "string",
+     "header_subtitle_ko": "string",
+     "header_subtitle_en": "string",
+     "layout_type": "string",
+     "is_enabled": "boolean",
+     "created_at": "string<datetime>",
+     "updated_at": "string<datetime>"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 34
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/workspace_api_keys",
+   "routes": [
+    "/app/settings?tab=api"
+   ],
+   "query_params": [
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "id,workspace_id,name,key_prefix,scopes,created_at,last_used_at,revoked_at,expires_at"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/workspace_billing_overrides",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "unit_key,override_limit,expires_at"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 34
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/workspace_events",
+   "routes": [
+    "/app/settings?tab=usage",
+    "/app/strategy-map"
+   ],
+   "query_params": [
+    "created_at",
+    "event_type",
+    "limit",
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "id,event_type,metadata,created_at",
+    "metadata,created_at"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "id": "string<uuid>",
+     "event_type": "string",
+     "metadata": {
+      "amount": "number",
+      "unit_key": "string",
+      "source_type": "string",
+      "reservation_id": "string<uuid>"
+     },
+     "created_at": "string<datetime>"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 2
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/workspace_google_connections",
+   "routes": [
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/settings?tab=integrations"
+   ],
+   "query_params": [
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 4
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/workspace_invitations",
+   "routes": [
+    "/app/settings?tab=members"
+   ],
+   "query_params": [
+    "expires_at",
+    "order",
+    "select",
+    "status",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "id,email,role,allowed_sections,status,expires_at,created_at"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 1
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/workspace_members",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "role",
+    "select",
+    "user_id"
+   ],
+   "select_columns": [
+    "role,allowed_sections,workspaces!fk_workspace_members_workspace(id,name,slug,created_at,settings)",
+    "workspace_id,workspaces!fk_workspace_members_workspace(id,status)"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "workspace_id": "string<uuid>",
+     "workspaces": {
+      "id": "string<uuid>",
+      "status": "string"
+     }
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 68
+  },
+  {
+   "method": "HEAD",
+   "path": "/rest/v1/workspace_members",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "user_id"
+   ],
+   "request_body_shape": null,
+   "response_shape": "<unavailable>",
+   "statuses": [
+    200
+   ],
+   "count": 34
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/workspace_mirrors",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "is_active",
+    "mirror_workspace_id",
+    "select"
+   ],
+   "select_columns": [
+    "source_workspace_id"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 5
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/workspace_plans",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*",
+    "plan",
+    "plan,workspace_id"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "plan": "string",
+     "workspace_id": "string<uuid>"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 74
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/workspace_tag_groups",
+   "routes": [
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/settings?tab=tags"
+   ],
+   "query_params": [
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 3
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/workspace_tags",
+   "routes": [
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/raw-data",
+    "/app/seo/insights",
+    "/app/settings?tab=tags"
+   ],
+   "query_params": [
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*,group:workspace_tag_groups!inner(*)"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 6
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/workspace_usage",
+   "routes": [
+    "/app",
+    "/app/discover",
+    "/app/exports",
+    "/app/factory",
+    "/app/gap",
+    "/app/geo/analysis",
+    "/app/geo/prompts",
+    "/app/keywords",
+    "/app/knowledgehub",
+    "/app/monitoring",
+    "/app/monitoring?tab=pages",
+    "/app/monitoring?tab=queries",
+    "/app/optimize",
+    "/app/personas",
+    "/app/raw-data",
+    "/app/reports/monthly",
+    "/app/reports/weekly",
+    "/app/seo/insights",
+    "/app/settings",
+    "/app/settings?tab=api",
+    "/app/settings?tab=billing",
+    "/app/settings?tab=brand-tracking",
+    "/app/settings?tab=earned",
+    "/app/settings?tab=general",
+    "/app/settings?tab=integrations",
+    "/app/settings?tab=members",
+    "/app/settings?tab=notifications",
+    "/app/settings?tab=tags",
+    "/app/settings?tab=usage",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "period",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    {
+     "workspace_id": "string<uuid>",
+     "period": "string",
+     "content_generated": "number",
+     "keywords_created": "number",
+     "llm_cost": "number",
+     "image_cost": "number",
+     "updated_at": "string<datetime>"
+    }
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 34
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/workspaces",
+   "routes": [
+    "/app",
+    "/app/settings",
+    "/app/settings?tab=general",
+    "/app/site-audit",
+    "/app/site-audit?tab=issues",
+    "/app/site-audit?tab=pages",
+    "/app/strategy-map",
+    "/app/workspaces"
+   ],
+   "query_params": [
+    "id",
+    "select"
+   ],
+   "select_columns": [
+    "auto_generate_prompts",
+    "schema_classification_policy",
+    "strategy_map_status",
+    "strategy_map_status,strategy_map_scanned_at"
+   ],
+   "request_body_shape": null,
+   "response_shape": {
+    "strategy_map_status": "string"
+   },
+   "statuses": [
+    200
+   ],
+   "count": 9
+  },
+  {
+   "method": "GET",
+   "path": "/rest/v1/writing_style_profiles",
+   "routes": [
+    "/app/factory",
+    "/app/personas"
+   ],
+   "query_params": [
+    "order",
+    "select",
+    "workspace_id"
+   ],
+   "select_columns": [
+    "*"
+   ],
+   "request_body_shape": null,
+   "response_shape": [
+    "<empty>"
+   ],
+   "statuses": [
+    200
+   ],
+   "count": 2
+  }
+ ]
+}

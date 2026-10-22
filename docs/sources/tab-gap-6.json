@@ -1,0 +1,202 @@
+{
+  "url": "https://haloxlabs.ai/app/gap",
+  "title": "기회 분석",
+  "headings": [
+    "기회 분석",
+    "기회 점수 추이",
+    "분포 추이",
+    "해결된 Gap\n0",
+    "새로운 Gap\n0"
+  ],
+  "tabs": [
+    {
+      "label": "개요",
+      "selected": "false"
+    },
+    {
+      "label": "매트릭스",
+      "selected": "false"
+    },
+    {
+      "label": "키워드",
+      "selected": "false"
+    },
+    {
+      "label": "프롬프트",
+      "selected": "false"
+    },
+    {
+      "label": "경쟁사",
+      "selected": "false"
+    },
+    {
+      "label": "콘텐츠",
+      "selected": "false"
+    },
+    {
+      "label": "트렌드",
+      "selected": "true"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "전체 언어",
+      "disabled": false
+    },
+    {
+      "label": "전체 국가",
+      "disabled": false
+    },
+    {
+      "label": "지난 90일",
+      "disabled": false
+    },
+    {
+      "label": "개요",
+      "disabled": false
+    },
+    {
+      "label": "매트릭스",
+      "disabled": false
+    },
+    {
+      "label": "키워드",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트",
+      "disabled": false
+    },
+    {
+      "label": "경쟁사",
+      "disabled": false
+    },
+    {
+      "label": "콘텐츠",
+      "disabled": false
+    },
+    {
+      "label": "트렌드",
+      "disabled": false
+    },
+    {
+      "label": "4주",
+      "disabled": false
+    },
+    {
+      "label": "8주",
+      "disabled": false
+    },
+    {
+      "label": "12주",
+      "disabled": false
+    },
+    {
+      "label": "현재 점수 info",
+      "disabled": false
+    },
+    {
+      "label": "점수 변동 info",
+      "disabled": false
+    },
+    {
+      "label": "최고 주차 info",
+      "disabled": false
+    },
+    {
+      "label": "최악 주차 info",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [],
+  "inputs": [
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n기회 분석\n50%\n[계정 이메일]\n기회 분석\n\n검색과 AI 대화의 갭을 분석하고 우선순위를 정하세요\n\n전체 언어\n전체 국가\n지난 90일\n개요\n매트릭스\n키워드\n프롬프트\n경쟁사\n콘텐츠\n트렌드\n\n트렌드—Gap Score 추이와 해결/악화 키워드를 확인하세요\n\n4주\n8주\n12주\n현재 점수\n\n93\n\n위험\n점수 변동\n—\n\n0\n\n비교 데이터가 부족해요\n최고 주차\n\n93\n\nW43\n최악 주차\n\n93\n\nW43\n기회 점수 추이\n최소 2주 데이터가 필요해요\n분포 추이\n최소 2주 데이터가 필요해요\n해결된 Gap\n0\n새로운 Gap\n0",
+  "parent": "https://haloxlabs.ai/app/gap",
+  "item": "트렌드"
+}

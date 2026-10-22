@@ -1,0 +1,206 @@
+{
+  "url": "https://haloxlabs.ai/app/site-audit?tab=guide",
+  "title": "사이트 진단 - HaloX",
+  "headings": [
+    "사이트 진단",
+    "AI 봇 정책",
+    "AI 봇 접근 정책",
+    "검색 엔진",
+    "AI 검색 · 에이전트",
+    "플랫폼 AI",
+    "권장 robots.txt 템플릿",
+    "robots.txt 작성 규칙"
+  ],
+  "tabs": [
+    {
+      "label": "개요",
+      "selected": "false"
+    },
+    {
+      "label": "AI 봇 접근성",
+      "selected": "false"
+    },
+    {
+      "label": "이슈\n(9)",
+      "selected": "false"
+    },
+    {
+      "label": "페이지\n(50)",
+      "selected": "false"
+    },
+    {
+      "label": "엔티티",
+      "selected": "false"
+    },
+    {
+      "label": "내부 링크",
+      "selected": "false"
+    },
+    {
+      "label": "가이드",
+      "selected": "true"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "현재 진단",
+      "disabled": false
+    },
+    {
+      "label": "진단 기록",
+      "disabled": false
+    },
+    {
+      "label": "Raw",
+      "disabled": false
+    },
+    {
+      "label": "새 진단",
+      "disabled": false
+    },
+    {
+      "label": "개요",
+      "disabled": false
+    },
+    {
+      "label": "AI 봇 접근성",
+      "disabled": false
+    },
+    {
+      "label": "이슈\n(9)",
+      "disabled": false
+    },
+    {
+      "label": "페이지\n(50)",
+      "disabled": false
+    },
+    {
+      "label": "엔티티",
+      "disabled": false
+    },
+    {
+      "label": "내부 링크",
+      "disabled": false
+    },
+    {
+      "label": "가이드",
+      "disabled": false
+    },
+    {
+      "label": "AI 봇 정책\n1",
+      "disabled": false
+    },
+    {
+      "label": "사이트맵",
+      "disabled": false
+    },
+    {
+      "label": "구조화 데이터",
+      "disabled": false
+    },
+    {
+      "label": "서버 렌더링 진단\n1",
+      "disabled": false
+    },
+    {
+      "label": "AI 가시성",
+      "disabled": false
+    },
+    {
+      "label": "테크니컬 SEO\n7",
+      "disabled": false
+    },
+    {
+      "label": "내부 링크",
+      "disabled": false
+    },
+    {
+      "label": "관련 이슈 보기",
+      "disabled": false
+    },
+    {
+      "label": "복사",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [],
+  "inputs": [],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n전략\n사이트 진단\n50%\n[계정 이메일]\n사이트 진단\nbridzzi.com\n완료\n\nSEO와 AI 검색 가시성을 저해하는 기술적 이슈를 확인하고 해결하세요.\n\n·\n마지막 분석 2026년 10월 22일 오후 7:44\n·\n진단 페이지 50/50\n현재 진단\n진단 기록\nRaw\n새 진단\n—\n\nSEO\n\n측정 불가\n\n기술 SEO · 5개 항목\n\n측정 불가\n\n—\n\nGEO\n\n측정 불가\n\n기술 GEO · 4개 항목\n\n측정 불가\n\n심각\n2\n경고\n2\n참고\n5\n\n크롤 진행률\n\n50 / 50 페이지\n\n전체 수집 완료· 사이트 전체 50페이지\n\n개요\nAI 봇 접근성\n이슈\n(9)\n페이지\n(50)\n엔티티\n내부 링크\n가이드\nAI 봇 정책\n1\n사이트맵\n구조화 데이터\n서버 렌더링 진단\n1\nAI 가시성\n테크니컬 SEO\n7\n내부 링크\nAI 봇 정책\n이슈 1\n관련 이슈 보기\nAI 봇 접근 정책\n차단 8\n\nAI 검색 가시성을 높이려면 검색·AI·소셜 봇을 폭넓게 허용하세요. 학습 봇은 저작권 정책에 따라 선택적으로 차단합니다\n\n검색 엔진\n6개\n대부분 허용 권장\nGooglebot\n허용\n현재 차단\n구글 검색\n\n검색 노출의 기본. 차단하면 모든 구글 검색 결과에서 제외됩니다\n\nBingbot\n허용\n현재 차단\n빙·ChatGPT 검색\n\nBing + ChatGPT 검색 색인. AI 검색의 보조 경로\n\nDuckDuckBot\n허용\nDuckDuckGo\n\n프라이버시 검색엔진. 트래픽 작지만 차단 이유 없음\n\nYandexBot\n선택\nYandex (러시아)\n\n러시아권 타겟이면 허용. 그 외엔 선택\n\nBaiduspider\n선택\nBaidu (중국)\n\n중국권 타겟이면 허용\n\nSlurp\n선택\nYahoo\n\n야후 일본 등 일부 시장. 트래픽 미미\n\nAI 검색 · 에이전트\n6개\n학습 봇만 선택 차단\nGPTBot\n선택\n현재 차단\nOpenAI 학습\n\nChatGPT 학습 데이터 수집. 저작권 민감 사이트는 차단 검토\n\nOAI-SearchBot\n허용\n현재 차단\nChatGPT 검색\n\nChatGPT의 실시간 검색·인용. 차단 시 ChatGPT 답변에서 인용 불가\n\nChatGPT-User\n허용\n현재 차단\nChatGPT 사용자 요청\n\n사용자가 ChatGPT에서 URL을 직접 붙여넣었을 때의 fetch. 차단 시 사용자 직접 인용도 막힙니다\n\nClaudeBot\n허용\n현재 차단\nAnthropic Claude\n\nClaude 학습·검색. 차단 시 Claude 인용 불가\n\nPerplexityBot\n허용\n현재 차단\nPerplexity 검색\n\nPerplexity 실시간 인용. AI 검색 점유율 빠르게 성장 중\n\nGoogle-Extended\n선택\n현재 차단\nGemini 학습\n\nGemini/Vertex AI 학습용. Google 검색 색인과 분리됨\n\n플랫폼 AI\n8개\n정책에 따라 사업자 판단\nApplebot\n허용\nApple Siri·Spotlight\n\nSiri·Spotlight 검색. iOS 사용자 비중 높으면 허용\n\nApplebot-Extended\n선택\nApple Intelligence 학습\n\nApple Intelligence 학습용. 저작권 정책에 따라 선택\n\nAmazonbot\n선택\nAmazon Alexa·Rufus\n\nAlexa 음성·Rufus 쇼핑 AI. 커머스 사이트는 허용\n\nCCBot\n선택\nCommon Crawl\n\n대부분 LLM의 학습 데이터셋(C4·Pile 등)이 여기서 파생. 학습 거부 시 차단\n\nBytespider\n선택\nByteDance/TikTok\n\nTikTok·Doubao 학습. 공격적 크롤로 자주 차단됨\n\nMeta-ExternalAgent\n선택\nMeta AI 학습\n\nLlama 등 Meta AI 모델 학습용\n\ncohere-ai\n선택\nCohere\n\nCohere 모델 학습·검색. 영향 작음\n\nDiffbot\n선택\nDiffbot Knowledge Graph\n\n엔터프라이즈 지식그래프. B2B 데이터 활용\n\n권장 robots.txt 템플릿\n복사\nrobots.txt\n# 검색 · AI · 소셜 봇 허용\nUser-agent: Googlebot\nUser-agent: Bingbot\nUser-agent: GPTBot\nUser-agent: OAI-SearchBot\nUser-agent: ChatGPT-User\nUser-agent: ClaudeBot\nUser-agent: PerplexityBot\nUser-agent: Google-Extended\nUser-agent: Applebot\nUser-agent: facebookexternalhit\nUser-agent: Twitterbot\nUser-agent: LinkedInBot\nAllow: /\n \n# 그 외 전체 — 관리 경로만 차단\nUser-agent: *\nDisallow: /admin/\nDisallow: /api/\n \nSitemap: https://bridzzi.com/sitemap.xml\nrobots.txt 작성 규칙\n1\n\nUser-agent 대소문자 무시 — 봇 이름 매칭 시 대소문자를 구분하지 않습니다.\n\n2\n\nAllow가 Disallow보다 우선 — 더 구체적이거나 Allow 규칙이 우선 적용됩니다.\n\n3\n\nnoindex는 여기서 안 됨 — 색인 제외는 meta robots·X-Robots-Tag로 처리하세요.\n\n4\n\nCrawl-delay는 무시됨 — 구글은 Crawl-delay를 읽지 않습니다. GSC에서 크롤 속도를 조정하세요.\n\n5\n\nDisallow ≠ 색인 제외 — 외부 링크가 있으면 색인될 수 있어, 확실한 제외는 noindex입니다.",
+  "parent": "https://haloxlabs.ai/app/site-audit",
+  "item": "가이드"
+}

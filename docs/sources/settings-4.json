@@ -1,0 +1,158 @@
+{
+  "url": "https://haloxlabs.ai/app/settings?tab=billing",
+  "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+  "headings": [
+    "설정",
+    "Trial",
+    "결제 수단",
+    "등록된 카드",
+    "결제 내역",
+    "세금계산서 안내",
+    "세금계산서 발급 문의"
+  ],
+  "tabs": [],
+  "buttons": [
+    {
+      "label": "워크스페이스",
+      "disabled": false
+    },
+    {
+      "label": "멤버",
+      "disabled": false
+    },
+    {
+      "label": "일반",
+      "disabled": false
+    },
+    {
+      "label": "사용량",
+      "disabled": false
+    },
+    {
+      "label": "구독/결제",
+      "disabled": false
+    },
+    {
+      "label": "연동",
+      "disabled": false
+    },
+    {
+      "label": "브랜드 트래킹",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "등록 URL",
+      "disabled": false
+    },
+    {
+      "label": "내보내기",
+      "disabled": false
+    },
+    {
+      "label": "알림",
+      "disabled": false
+    },
+    {
+      "label": "API & MCP",
+      "disabled": false
+    },
+    {
+      "label": "결제 도움이 필요하신가요?",
+      "disabled": false
+    },
+    {
+      "label": "Close",
+      "disabled": false
+    },
+    {
+      "label": "플랜 변경",
+      "disabled": false
+    },
+    {
+      "label": "카드 등록",
+      "disabled": false
+    },
+    {
+      "label": "1:1 결제 문의",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [],
+  "inputs": [
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "검색",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "설정\n설정\n워크스페이스\n멤버\n일반\n사용량\n구독/결제\n연동\n브랜드 트래킹\n태그\n등록 URL\n내보내기\n알림\nAPI & MCP\n결제 도움이 필요하신가요?\nClose\nTrial\n월간\n\n플랜 변경\n결제 수단\n등록된 카드\n\n안전한 정기 결제를 위한 결제 수단 정보\n\n카드 등록\n결제 내역\n\n결제 이력이 없습니다.\n\n세금계산서 안내\n세금계산서 발급 문의\n\n모든 결제 영수증은 가입 계정 이메일로 자동 발송됩니다. 세금계산서 발급은 1:1 문의를 등록해 주세요.\n\n1:1 결제 문의",
+  "item": "구독/결제"
+}

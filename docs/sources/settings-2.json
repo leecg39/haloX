@@ -1,0 +1,153 @@
+{
+  "url": "https://haloxlabs.ai/app/settings?tab=members",
+  "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+  "headings": [
+    "설정",
+    "멤버",
+    "멤버 0명",
+    "역할별 권한 매트릭스"
+  ],
+  "tabs": [],
+  "buttons": [
+    {
+      "label": "워크스페이스",
+      "disabled": false
+    },
+    {
+      "label": "멤버",
+      "disabled": false
+    },
+    {
+      "label": "일반",
+      "disabled": false
+    },
+    {
+      "label": "사용량",
+      "disabled": false
+    },
+    {
+      "label": "구독/결제",
+      "disabled": false
+    },
+    {
+      "label": "연동",
+      "disabled": false
+    },
+    {
+      "label": "브랜드 트래킹",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "등록 URL",
+      "disabled": false
+    },
+    {
+      "label": "내보내기",
+      "disabled": false
+    },
+    {
+      "label": "알림",
+      "disabled": false
+    },
+    {
+      "label": "API & MCP",
+      "disabled": false
+    },
+    {
+      "label": "결제 도움이 필요하신가요?",
+      "disabled": false
+    },
+    {
+      "label": "Close",
+      "disabled": false
+    },
+    {
+      "label": "멤버 초대",
+      "disabled": false
+    }
+  ],
+  "labels": [],
+  "columns": [
+    "권한",
+    "소유자\n내 역할",
+    "관리자",
+    "편집자",
+    "뷰어"
+  ],
+  "inputs": [
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "검색",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "설정\n설정\n워크스페이스\n멤버\n일반\n사용량\n구독/결제\n연동\n브랜드 트래킹\n태그\n등록 URL\n내보내기\n알림\nAPI & MCP\n결제 도움이 필요하신가요?\nClose\n멤버\n\n워크스페이스 멤버를 초대하고 역할·메뉴 접근을 관리해요.\n\n멤버 초대\n멤버 0명\n역할별 권한 매트릭스\n\n역할이 무엇을 할 수 있는지 한눈에 확인해요. 화면 제한뿐 아니라 서버에서도 동일하게 적용돼요.\n\n권한\t\n소유자\n내 역할\n\t\n관리자\n\t\n편집자\n\t\n뷰어\n\n\n보기\n데이터 조회\n대시보드·분석·리포트 등 허용된 메뉴의 데이터 열람\n\t\n\t\n\t\n\t\n\n\n쓰기\n생성·수정·삭제\n키워드·프롬프트·세트·태그·콘텐츠 편집\n\t\n\t\n\t\n\t\n\n\n수집·실행 (크레딧 소모)\nGEO 수집, 사이트 진단, 콘텐츠 생성 실행\n\t\n\t\n\t\n\t\n\n\nCSV 내보내기\n테이블·리포트 데이터 다운로드\n\t\n\t\n\t\n\t\n\n\n관리\n멤버 초대·역할 변경\n초대 발송·취소, 멤버 제거\n\t\n\t\n\t\n\t\n\n\n결제·플랜 관리\n플랜 변경, 결제 수단·인보이스\n\t\n\t\n\t\n\t\n\n\n워크스페이스 설정\n브랜드·도메인·연동 설정\n\t\n\t\n\t\n\t\n소유자 전용\n· 소유권 이전\n· 워크스페이스 삭제\n섹션(메뉴) 접근\n\n역할과 별개로 멤버마다 볼 수 있는 메뉴를 제한할 수 있어요. 아무것도 선택하지 않으면 전체 메뉴가 보여요.\n\n대시보드\n분석 (키워드·프롬프트)\n전략 (전략맵·사이트 진단)\n실행 (콘텐츠 제작·내보내기)\n모니터링 (대시보드·리포트)\n기타 (페르소나·자료실·Raw)\n소유자\n전체 권한. 워크스페이스 삭제·결제 관리 포함\n관리자\n멤버 초대·역할 변경, 모든 편집·실행 가능\n편집자\n생성·수정·삭제·수집 실행 가능. 멤버/결제 관리 불가\n뷰어\n읽기 전용. 편집·실행·내보내기 불가",
+  "item": "멤버"
+}

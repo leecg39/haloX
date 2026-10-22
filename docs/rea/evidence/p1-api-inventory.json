@@ -1,0 +1,4936 @@
+{
+ "classification": "observation",
+ "method": "regex over captured+fetched public chunks; identifiers only, no source text",
+ "chunk_count": 1094,
+ "chunk_digest": "3f26d698e1c65071994d734ebd44b010de3ad0dc271ccdaca40effc34abcfde3",
+ "totals": {
+  "tables": {
+   "count": 164,
+   "items": [
+    "admin_user_notes",
+    "adsense_stats",
+    "affiliate_clicks",
+    "affiliate_links",
+    "agent_classification_logs",
+    "agent_conversations",
+    "agent_messages",
+    "agent_traces",
+    "ai_keyword_expansion_logs",
+    "ai_model_candidates",
+    "ai_model_versions",
+    "ai_prompts",
+    "api_call_logs",
+    "article_categories",
+    "article_generation_jobs",
+    "article_tags",
+    "article_tools",
+    "article_topics",
+    "article_translations",
+    "articles",
+    "audit_batch_failures",
+    "authors",
+    "bot_visits",
+    "brand_reclassify_jobs",
+    "changelog_entries",
+    "chart_annotations",
+    "citation_matrix_by_media",
+    "client_errors",
+    "client_web_vitals",
+    "cluster_batch_runs",
+    "cluster_stats_history",
+    "contact_submissions",
+    "content_change_items",
+    "content_compositions",
+    "content_drafts",
+    "content_jobs",
+    "content_review_runs",
+    "custom_offer_items",
+    "custom_offers",
+    "doc_sync_versions",
+    "earned_cannibal_dismissals",
+    "earned_publications",
+    "email_send_log",
+    "eval_runs",
+    "evidence_claim_embeddings",
+    "evidence_claims",
+    "evidence_context_keywords",
+    "evidence_contexts",
+    "evidence_sources",
+    "export_history",
+    "feature_request_votes",
+    "feature_requests",
+    "feedback_reply_notifications",
+    "free_tool_results",
+    "ga4_page_stats",
+    "geo_alerts",
+    "geo_answers_raw",
+    "geo_batch_jobs",
+    "geo_citations",
+    "geo_discover_runs",
+    "geo_domain_analyses",
+    "geo_fan_out_queries",
+    "geo_prompt_candidates",
+    "geo_prompt_runs",
+    "geo_prompt_sets",
+    "geo_prompt_tag_assignments",
+    "geo_prompts",
+    "geo_run_metrics",
+    "geo_sources",
+    "grounding_failure_patterns",
+    "gsc_daily_keywords",
+    "gsc_daily_pages",
+    "gsc_daily_totals",
+    "gsc_sync_state",
+    "image_generation_runs",
+    "keyword_cluster_members",
+    "keyword_clusters",
+    "keyword_expansion_candidates",
+    "keyword_knowledge_entities",
+    "keyword_prompt_links",
+    "keyword_serp_jobs",
+    "keyword_sets",
+    "keyword_strategy",
+    "keyword_tag_assignments",
+    "keywords",
+    "knowledge_claim_stats",
+    "knowledge_entities",
+    "knowledge_entity_keywords",
+    "knowledge_entity_sources",
+    "languages",
+    "llm_usage_logs",
+    "n8n_webhooks",
+    "naver_seed_lookups",
+    "newsletter_subscribers",
+    "nicepay_webhook_events",
+    "onboarding_jobs",
+    "ops_job_runs",
+    "ops_metrics",
+    "orders",
+    "plan_templates",
+    "plan_unit_limits",
+    "platform_admins",
+    "profiles",
+    "prompt_performance",
+    "prompt_test_runs",
+    "qa_checklist_items",
+    "redirects",
+    "referral_commissions",
+    "referral_partners",
+    "referral_payouts",
+    "regression_test_runs",
+    "report_action_items",
+    "report_snapshots",
+    "schema_coach_results",
+    "score_calculation_rules",
+    "search_console_stats",
+    "serp_batch_jobs",
+    "serp_decision_alert_log",
+    "serp_snapshots",
+    "site_audit_issues",
+    "site_audit_links",
+    "site_audit_pages",
+    "site_audit_phase_metrics",
+    "site_audit_reanalyze_jobs",
+    "site_audit_retry_logs",
+    "site_audit_scans",
+    "site_audit_scores",
+    "source_tier_domain_stats",
+    "source_tier_domains",
+    "strategy_pipeline_runs",
+    "subscription_events",
+    "subscriptions",
+    "system_settings",
+    "tags",
+    "tool_alternatives",
+    "tool_translations",
+    "tools",
+    "topic_tool_curations",
+    "topic_translations",
+    "topics",
+    "translation_jobs",
+    "translation_runs",
+    "usage_reservations",
+    "usage_unit_catalog",
+    "vw_gsc_connection_health",
+    "welcome_guide_config",
+    "welcome_guide_settings",
+    "workspace_api_keys",
+    "workspace_billing_overrides",
+    "workspace_brand_domains",
+    "workspace_credit_balances",
+    "workspace_credit_ledger",
+    "workspace_events",
+    "workspace_google_connections",
+    "workspace_invitations",
+    "workspace_members",
+    "workspace_mirrors",
+    "workspace_plans",
+    "workspace_tag_groups",
+    "workspace_tags",
+    "workspace_usage",
+    "workspaces",
+    "writing_style_profiles",
+    "writing_style_samples"
+   ]
+  },
+  "rpcs": {
+   "count": 139,
+   "items": [
+    "accept_workspace_invitation",
+    "admin_workspace_list",
+    "admin_workspace_summary",
+    "calculate_prorated_refund",
+    "cancel_account_deletion",
+    "commit_reservation",
+    "delete_geo_prompt",
+    "delete_gsc_property_stats",
+    "delete_keyword",
+    "delete_keywords_bulk",
+    "expire_stale_pending_orders",
+    "find_keyword_id_canonical",
+    "get_admin_login_report",
+    "get_admin_monthly_activity_report",
+    "get_api_cost_breakdown",
+    "get_api_key_usage_stats",
+    "get_api_limit_status",
+    "get_avi_daily_components",
+    "get_avi_overview",
+    "get_billing_period_range",
+    "get_category_cost",
+    "get_citation_match_summary",
+    "get_citation_stability_full",
+    "get_citation_stability_summary",
+    "get_cost_summary",
+    "get_daily_api_cost",
+    "get_daily_citation_stats",
+    "get_daily_cost",
+    "get_domain_citation_rankings",
+    "get_domain_classification_stats",
+    "get_domain_classification_summary",
+    "get_domain_cross_analytics",
+    "get_domain_tier_stats",
+    "get_domain_trace_count",
+    "get_domain_trace_list",
+    "get_fan_out_hub_data",
+    "get_full_funnel_stats",
+    "get_ga4_channel_summary",
+    "get_ga4_dashboard_timeseries",
+    "get_ga4_source_summary",
+    "get_geo_citation_rank_range",
+    "get_geo_domain_citations",
+    "get_geo_domain_detail",
+    "get_geo_group_status_kpi",
+    "get_geo_group_status_kpi_multi",
+    "get_geo_poller_status",
+    "get_geo_product_engines",
+    "get_geo_product_metrics",
+    "get_geo_product_prompts",
+    "get_geo_product_trend",
+    "get_geo_prompt_rows_v2",
+    "get_geo_prompt_status_kpi_range",
+    "get_geo_scope_prompt_ids",
+    "get_geo_slot_counts",
+    "get_geo_ws_mention_term_prompts",
+    "get_gsc_cannibalizations",
+    "get_gsc_dashboard_dimensions",
+    "get_gsc_dashboard_kpis",
+    "get_gsc_dashboard_timeseries",
+    "get_gsc_dimension_timeseries",
+    "get_gsc_page_query_counts",
+    "get_gsc_query_page_cross",
+    "get_gsc_ranking_timeseries",
+    "get_keyword_ga4_evidence",
+    "get_keyword_network",
+    "get_keywords_with_gsc_stats",
+    "get_latest_naver_snapshots",
+    "get_latest_serp_snapshots",
+    "get_light_dashboard_overview",
+    "get_light_prompt_stats",
+    "get_matrix_cell_detail",
+    "get_page_ga4_stats",
+    "get_page_top_queries",
+    "get_pages_top_keywords",
+    "get_partner_proposal_link",
+    "get_paused_preview",
+    "get_paused_summary",
+    "get_payment_ops_summary",
+    "get_pipeline_cost",
+    "get_platform_users_with_workspaces",
+    "get_pro_dashboard_kpi",
+    "get_registry_domains",
+    "get_registry_domains_count",
+    "get_seo_aio_cross_trend",
+    "get_seo_rank_movers",
+    "get_serp_brand_presence_slim",
+    "get_serp_brand_presence_window",
+    "get_serp_cron_status",
+    "get_serp_decision_health_stats",
+    "get_serp_decision_throughput",
+    "get_serp_matrix_data",
+    "get_serp_rank_trend",
+    "get_source_type_breakdown",
+    "get_tier_promotion_candidates",
+    "get_user_activity_snapshot",
+    "get_web_health_sparkline",
+    "get_workspace_activity_snapshot",
+    "get_workspace_billing_timeline",
+    "get_workspace_members",
+    "get_workspace_quota_summary",
+    "grant_credit",
+    "is_platform_admin",
+    "mirror_pending_geo_run_counts",
+    "mirror_pending_serp_counts",
+    "mirror_unparsed_run_counts",
+    "ops_global_search",
+    "peek_workspace_invitation",
+    "record_auth_login",
+    "referral_admin_list_partners",
+    "referral_admin_list_payouts",
+    "referral_admin_set_partner_status",
+    "referral_admin_set_payout_status",
+    "referral_apply",
+    "referral_attribute",
+    "referral_code_available",
+    "referral_create_code",
+    "referral_my_codes",
+    "referral_my_referrals",
+    "referral_my_summary",
+    "referral_my_timeseries",
+    "referral_request_payout",
+    "referral_track_click",
+    "referral_update_code",
+    "refresh_citation_stability_mv_admin",
+    "release_reservation",
+    "remove_workspace_member",
+    "reserve_unit_with_bypass",
+    "restore_paused_for_downgrade",
+    "resume_site_audit_scan",
+    "revoke_trial_extension",
+    "revoke_workspace_api_key",
+    "set_keyword_paused",
+    "set_prompt_paused",
+    "site_audit_links_summary",
+    "strategy_map_effective_state",
+    "transfer_workspace_ownership",
+    "update_workspace_api_key_limits",
+    "update_workspace_api_limits",
+    "update_workspace_member"
+   ]
+  },
+  "edge_functions": {
+   "count": 131,
+   "items": [
+    "account-deletion-precheck",
+    "account-deletion-request",
+    "admin-classify-domains",
+    "admin-impersonation-log",
+    "admin-suggest-domain-tier",
+    "admin-user",
+    "admin-workspace",
+    "ai-expand-keywords",
+    "analyze-domain-for-onboarding",
+    "analyze-keyword-strategy",
+    "analyze-writing-style",
+    "app-deleted",
+    "backfill-keyword-prompt-links",
+    "backfill-site-audit-sitemap-stats",
+    "bad-app-name",
+    "billing-inquiry",
+    "bulk-collect-keyword-data",
+    "calculate-content-scores",
+    "citability-fetch-url",
+    "citability-improve",
+    "cluster-keywords",
+    "dataforseo-keyword-difficulty",
+    "dataforseo-keywords-for-keywords",
+    "dataforseo-keywords-for-site",
+    "dataforseo-search-intent",
+    "dataforseo-search-volume",
+    "derive-prompt-clusters",
+    "detect-new-ai-models",
+    "duplicate-app",
+    "embed-claims",
+    "evidence-reclassify-brand-role",
+    "extract-claims-from-pdf",
+    "extract-clusters-from-prompt-text",
+    "extract-content-features",
+    "fetch-serp-snapshot",
+    "fetch-url-content",
+    "finalization-registry-not-supported",
+    "free-tool-analyze",
+    "ga4-list-properties",
+    "generate-content-draft",
+    "generate-diagram-svg",
+    "generate-image-gemini",
+    "generate-onboarding-prompts",
+    "generate-report-summary",
+    "generate-weekly-snapshot",
+    "geo-backfill-mentions",
+    "geo-batch-poller",
+    "geo-batch-scheduler",
+    "geo-discover-run",
+    "geo-models",
+    "geo-parse-results",
+    "geo-run-mentions",
+    "geo-run-openai",
+    "geo-run-perplexity",
+    "geo-run-prompts-fanout",
+    "geo-run-responses",
+    "google-oauth-init",
+    "gsc-list-properties",
+    "gsc-sync-enqueue",
+    "idb-get",
+    "idb-open",
+    "idb-set",
+    "improve-content",
+    "intent-batch-scheduler",
+    "login-blocked",
+    "mirror-geo-fanout",
+    "mirror-geo-reparse-drain",
+    "mirror-serp-fanout",
+    "mirror-sync",
+    "naver-related-keywords",
+    "naver-serp-scheduler",
+    "newsletter-subscribe",
+    "nicepay-cancel",
+    "nicepay-cancel-pending-change",
+    "nicepay-change-plan",
+    "nicepay-create-auth-order",
+    "nicepay-create-order",
+    "nicepay-get-order-meta",
+    "nicepay-inquire",
+    "nicepay-refund",
+    "nicepay-retry-charge",
+    "nicepay-undo-cancel",
+    "no-app",
+    "notify-feedback",
+    "notify-feedback-reply",
+    "onboarding-keyword-analysis",
+    "optimize-audit-content",
+    "optimize-rewrite-content",
+    "optimize-serp-fetch",
+    "optimize-strategy-synthesis",
+    "parse-document",
+    "preview-blueprint-body",
+    "reparse-content-draft",
+    "rpc-cache",
+    "run-blueprint-body-tests",
+    "run-blueprint-exposure-tests",
+    "run-blueprint-llm-sample",
+    "run-cluster-batch",
+    "run-grounding-only",
+    "run-regression-tests",
+    "run-response-eval",
+    "schema-coach-suggest",
+    "send-contact-email",
+    "seo-backfill-brand-presence",
+    "serp-batch-scheduler",
+    "serp-job-worker",
+    "site-audit-backfill-schema",
+    "site-audit-backfill-v2",
+    "site-audit-check",
+    "site-audit-diagnose-page",
+    "site-audit-finish-crawl",
+    "site-audit-reanalyze",
+    "site-audit-recheck-url",
+    "site-audit-render-samples",
+    "site-audit-start",
+    "site-audit-worker",
+    "strategy-map-cluster",
+    "strategy-map-control",
+    "strategy-map-link-prompts",
+    "strategy-map-orchestrator",
+    "suggest-keyword-prompts",
+    "sync-ga4-data",
+    "test-pass1-only",
+    "test-pass2-only",
+    "track-link-click",
+    "trigger-onboarding-async",
+    "unsupported-password-policy-schema-version",
+    "update-cluster-geo",
+    "verify-claims-url-context",
+    "volume-batch-scheduler",
+    "workspace-invite"
+   ]
+  },
+  "query_keys": {
+   "count": 585,
+   "items": [
+    "ab-test-prompts",
+    "account-deletion-precheck",
+    "acquisition-cost",
+    "active-languages",
+    "admin",
+    "admin-agent-recent-traces",
+    "admin-agent-stats",
+    "admin-articles",
+    "admin-changelog",
+    "admin-keyword-expansion-logs",
+    "admin-login-report",
+    "admin-mirror-candidates",
+    "admin-mirror-geo-status",
+    "admin-mirror-health",
+    "admin-mirror-parse-status",
+    "admin-mirror-serp-status",
+    "admin-mirror-source-catalog",
+    "admin-monthly-activity",
+    "admin-newsletter",
+    "admin-newsletter-stats",
+    "admin-programs",
+    "admin-recent-scans-for-retry",
+    "admin-redirects",
+    "admin-retry-logs-for-scan",
+    "admin-retry-logs-kpi",
+    "admin-serp-decision-alerts",
+    "admin-serp-decision-stats",
+    "admin-serp-decision-throughput",
+    "admin-site-audit-bench-scans",
+    "admin-site-audit-phase-metrics",
+    "admin-tools",
+    "admin-topic",
+    "admin-topics",
+    "admin-user-notes",
+    "admin-workspace-brand-tracking",
+    "admin-workspace-mirrors",
+    "admin-workspace-owner-email",
+    "admin-workspace-quota",
+    "admin-workspaces",
+    "affected-page-rows",
+    "affiliate-links-inline",
+    "affiliate-programs",
+    "agent-conversations",
+    "agent-messages",
+    "ai-model-candidates",
+    "ai-model-versions",
+    "ai-prompts",
+    "all-geo-prompts",
+    "all-platform-users",
+    "all-programs-for-selection",
+    "all-subscriptions",
+    "all-topics-filter",
+    "all-topics-for-selection",
+    "all-workspace-members",
+    "analytics-summary",
+    "api-cost-breakdown",
+    "article-basic",
+    "article-concepts-relations",
+    "article-content-job",
+    "article-content-job-link",
+    "article-detail",
+    "article-generation-job",
+    "article-optimize-run",
+    "article-programs-relations",
+    "article-tools",
+    "article-topics",
+    "article-topics-relations",
+    "article-translations",
+    "article-translations-for-affiliate",
+    "articles",
+    "audit-batch-failures",
+    "author",
+    "author-articles",
+    "author-profile",
+    "author-slug",
+    "authors",
+    "authors-active",
+    "benchmark",
+    "benchmark-fan-out-analysis-v3",
+    "benchmark-prompt-meta",
+    "billing-center",
+    "billing-period-range",
+    "billing-timeline",
+    "blog-editor-picks-v2",
+    "blueprint-coverage",
+    "bot-visits",
+    "brand-reclassify-job",
+    "brand-tracking-config",
+    "breadcrumb-job",
+    "breadcrumb-keyword",
+    "breadcrumb-optimize-run",
+    "breadcrumb-persona",
+    "bundle-strategy",
+    "can-create-workspace",
+    "category-cost",
+    "changelog-detail",
+    "changelog-entries",
+    "changelog-entries-nav",
+    "chart-annotations",
+    "chart-annotations-auto",
+    "checklist-program-links",
+    "citation-matrix-data",
+    "citation-stability",
+    "citation-stability-full",
+    "citation-stability-summary",
+    "claim-quality-stats",
+    "claims-with-sources",
+    "classification-logs",
+    "cleanup-keywords",
+    "cleanup-prompts",
+    "cluster-batch-runs",
+    "cluster-detail",
+    "cluster-execution-plan",
+    "cluster-gap-context",
+    "cluster-history",
+    "cluster-history-all",
+    "cluster-keywords",
+    "cluster-members",
+    "cluster-prompts",
+    "clusters",
+    "competitor-gap-analysis",
+    "compose-evidence-claims",
+    "concept-claims",
+    "connected-programs",
+    "content-change-items",
+    "content-drafts",
+    "content-job",
+    "content-job-by-keyword",
+    "content-jobs",
+    "content-links-translations",
+    "content-review-run",
+    "content-review-runs",
+    "cost-overview",
+    "credibility-report-claims",
+    "curated-examples",
+    "custom-offers",
+    "daily-api-cost",
+    "daily-combined-cost",
+    "daily-link-clicks",
+    "daily-provider-cost",
+    "daily-revenue",
+    "dashboard-kpis",
+    "dashboard-new-report",
+    "dashboard-stats",
+    "dashboard-traffic-trend",
+    "diff-page-issues",
+    "discover-completion-watcher",
+    "discover-run-meta",
+    "discover-run-samples",
+    "doc-sync-status",
+    "domain-classification-stats",
+    "domain-source-type-breakdown",
+    "domain-trace-count",
+    "domain-trace-detail",
+    "domain-trace-list",
+    "dunning-queue",
+    "edge-function-deploy-status",
+    "email-audit",
+    "embedding-status",
+    "enabled-engines",
+    "entities-with-keywords",
+    "evidence-by-concept",
+    "evidence-by-program",
+    "evidence-claims",
+    "evidence-claims-by-concept",
+    "evidence-claims-by-program",
+    "evidence-claims-for-content",
+    "evidence-contexts",
+    "existing-keyword-set",
+    "existing-prompt-text-set",
+    "expansion-candidates",
+    "export-history",
+    "extraction-status-poll",
+    "factory-waiting-kw-status",
+    "failed-orders",
+    "feature-requests",
+    "feature-requests-all",
+    "feature-requests-public",
+    "feedback-reply-notification",
+    "freetool-history",
+    "full-funnel-stats",
+    "ga4-dashboard-channels",
+    "ga4-dashboard-pages",
+    "ga4-dashboard-sources",
+    "ga4-dashboard-ts",
+    "ga4-dashboard-ts-prev",
+    "ga4-data-summary",
+    "ga4-properties",
+    "gap-competitor-trend",
+    "gap-content-articles",
+    "gap-keywords",
+    "gap-overview",
+    "gap-prompts",
+    "gap-state-changes",
+    "geo",
+    "geo-brand-unique-runs",
+    "geo-citation-matrix",
+    "geo-citation-matrix-all-prompts",
+    "geo-citation-matrix-domains",
+    "geo-citation-trend",
+    "geo-collection-days",
+    "geo-collection-progress",
+    "geo-discover-candidates",
+    "geo-discover-clusters",
+    "geo-discover-run-progress",
+    "geo-discover-runs",
+    "geo-domain-citations",
+    "geo-prompt-sets",
+    "geo-prompts",
+    "geo-saved-candidates",
+    "geo-saved-candidates-count",
+    "google-connection",
+    "google-serp-history",
+    "gross-margin",
+    "grounding-failure-patterns",
+    "grounding-failures",
+    "grounding-recent-logs",
+    "grounding-segment-stats",
+    "grounding-stats",
+    "gsc-aio-cross",
+    "gsc-cannib",
+    "gsc-connection-health",
+    "gsc-cross",
+    "gsc-data-summary",
+    "gsc-dim",
+    "gsc-dim-prev",
+    "gsc-dim-ts",
+    "gsc-dim-ts-ondemand",
+    "gsc-discover-countries",
+    "gsc-discover-kpis",
+    "gsc-discover-pages",
+    "gsc-discover-ts",
+    "gsc-geo-cross",
+    "gsc-kpis",
+    "gsc-landing-page",
+    "gsc-owned-pages",
+    "gsc-pq-counts",
+    "gsc-properties",
+    "gsc-rank-ts",
+    "gsc-sync-state",
+    "gsc-ts",
+    "gsc-ts-prev",
+    "home-articles",
+    "ideas-candidates",
+    "ideas-clusters",
+    "ideas-tracked",
+    "image-generation-run-by-url",
+    "impersonated-workspace",
+    "intent-batch-jobs",
+    "internal-link-articles",
+    "issue-page-matches",
+    "job-seed-refs",
+    "judgment-due-keywords",
+    "keyword",
+    "keyword-clusters",
+    "keyword-created-dates",
+    "keyword-decision",
+    "keyword-exists",
+    "keyword-ga4-evidence",
+    "keyword-gsc-performance",
+    "keyword-knowledge-entities",
+    "keyword-link-modal",
+    "keyword-linked-entities",
+    "keyword-llm-mentions",
+    "keyword-matched-prompts",
+    "keyword-network",
+    "keyword-panel",
+    "keyword-prompt-context",
+    "keyword-prompt-links",
+    "keyword-prompt-suggestions",
+    "keyword-quick-panel-naver",
+    "keyword-quick-panel-serp",
+    "keyword-quick-panel-serp-job",
+    "keyword-quick-panel-strategy",
+    "keyword-recommended-type",
+    "keyword-serp-job",
+    "keyword-set-quick",
+    "keyword-sets",
+    "keyword-strategy",
+    "keyword-suggestion-counts",
+    "keywords",
+    "keywords-count",
+    "keywords-gsc-stats",
+    "keywords-kpi",
+    "keywords-total-count",
+    "knowledge-claim-stats",
+    "knowledge-entities-chips",
+    "language-coverage-health",
+    "language-performance",
+    "latest-strategy-pipeline-run",
+    "light-dashboard-overview",
+    "light-prompt-stats",
+    "link-kpis",
+    "locked-workspace-data",
+    "matching-programs",
+    "matrix-cell-detail",
+    "model-cost-summary",
+    "monthly-mrr-trend",
+    "mrr-movement",
+    "multi-prompt-picker",
+    "multi-prompt-picker-answers",
+    "multi-seed-browse",
+    "multi-seed-hydrate",
+    "multi-seed-picker",
+    "multi-seed-strategy",
+    "my-votes",
+    "my-workspaces",
+    "n8n-webhooks",
+    "naver-overview-stats",
+    "naver-serp-detail",
+    "naver-serp-history",
+    "naver-snapshots",
+    "naver-snapshots-admin",
+    "new-claim-detection",
+    "news-articles",
+    "nicepay-test-counts",
+    "nicepay-webhook-events",
+    "onboarding-history",
+    "operator-api-keys",
+    "ops-global-search",
+    "ops-job-runs-24h",
+    "ops-job-runs-failures",
+    "ops-metrics-alerts",
+    "ops-trace",
+    "orchestrator-progress",
+    "page-ga4-ts",
+    "page-top-queries",
+    "pages-top-keywords-batch",
+    "partner-proposal-link",
+    "paused-preview",
+    "paused-summary",
+    "payment-history",
+    "payment-ops-summary",
+    "persona-content-counts",
+    "persona-content-usage",
+    "pipeline-cost",
+    "pipeline-debug-candidates",
+    "pipeline-debug-mappings",
+    "pipeline-debug-runs",
+    "pipeline-status-events",
+    "pipeline-status-onboarding-job",
+    "plan-next-limits",
+    "plan-price-map",
+    "plan-reference-counts",
+    "plan-template-cadence",
+    "plan-templates",
+    "plan-unit-limits",
+    "platform-activity",
+    "platform-admin-check",
+    "platform-admin-list",
+    "platform-stats",
+    "platform-stats-public",
+    "popular-tools",
+    "pro-dashboard-kpi",
+    "program",
+    "program-claim-stats",
+    "program-claims",
+    "program-claims-count",
+    "program-keywords",
+    "program-links",
+    "program-sources",
+    "programs",
+    "prompt-clusters",
+    "prompt-performance",
+    "prompt-performance-stats",
+    "prompt-set-of",
+    "prompt-to-content-support-texts",
+    "prompt-version-history",
+    "publisher-article",
+    "publisher-articles",
+    "publisher-translations",
+    "qa-checklist-items",
+    "quick-panel-linked-entities",
+    "raw-data-count-fanout",
+    "raw-data-count-ga4",
+    "raw-data-count-gsc-keywords",
+    "raw-data-count-gsc-pages",
+    "raw-data-count-gsc-totals",
+    "raw-data-count-prompt",
+    "raw-data-count-serp",
+    "raw-data-count-site-audit-issues",
+    "raw-data-count-site-audit-pages",
+    "raw-data-count-site-audit-scans",
+    "raw-data-site-audit-scan-ids",
+    "raw-popover-count-fanout",
+    "raw-popover-count-prompt",
+    "raw-popover-count-sa-issues",
+    "raw-popover-count-sa-pages",
+    "raw-popover-count-sa-scans",
+    "raw-popover-count-serp",
+    "raw-popover-sa-scan-ids",
+    "recent-activity",
+    "recent-keywords",
+    "recent-scan-scope-rules",
+    "recent-subscribers",
+    "recommended-sources",
+    "referral",
+    "regression-runs",
+    "report-trend-series",
+    "reports",
+    "retention-overview",
+    "revenue-overview",
+    "robots-health",
+    "rss-health",
+    "scheduled-translations",
+    "scope-names",
+    "score-calculation-rules",
+    "search",
+    "search-articles-for-pin",
+    "search-suggestions",
+    "search-tools",
+    "search-tools-article",
+    "search-topics-article",
+    "seed-article-slugs",
+    "seed-positions-brand",
+    "seed-positions-snapshots",
+    "selected-draft-meta",
+    "seo-aio-analysis",
+    "seo-aio-cross-trend",
+    "seo-competitor-sov",
+    "seo-health-check",
+    "seo-keyword-rank-series",
+    "seo-keyword-tag-scope",
+    "seo-opportunities",
+    "seo-overview-stats",
+    "seo-performance",
+    "seo-sov-trend",
+    "serp-batch-jobs",
+    "serp-cron-status",
+    "serp-detail",
+    "serp-job-stats",
+    "serp-linked-entities",
+    "serp-matrix",
+    "serp-matrix-keywords",
+    "serp-matrix-site-types",
+    "serp-program",
+    "serp-rank-trend",
+    "serp-snapshots",
+    "sidebar-badges",
+    "sidebar-related",
+    "single-program-claim-stats",
+    "site-audit-completed-scans",
+    "site-audit-diff-pages-v2",
+    "site-audit-history",
+    "site-audit-issues",
+    "site-audit-link-count",
+    "site-audit-links",
+    "site-audit-links-infinite",
+    "site-audit-links-summary",
+    "site-audit-owned-counts",
+    "site-audit-page-detail",
+    "site-audit-page-perf",
+    "site-audit-pages",
+    "site-audit-parent-dedup",
+    "site-audit-parent-summaries-v2",
+    "site-audit-parent-url-ownership",
+    "site-audit-reanalyze-job",
+    "site-audit-result",
+    "site-audit-round-issues",
+    "site-audit-scan",
+    "site-audit-scan-meta",
+    "site-audit-scans",
+    "site-audit-scans-light",
+    "site-audit-scoring-debug",
+    "sitemap-health",
+    "slug-duplicate-check",
+    "source-claim-status",
+    "source-tier-classification-summary",
+    "source-tier-cross-analytics",
+    "source-tier-daily-stats",
+    "source-tier-domain-rankings",
+    "source-tier-domains",
+    "source-tier-match-summary",
+    "source-tier-stats",
+    "sources-for-verify",
+    "strategy-map-active-kw-count",
+    "strategy-map-cluster-keywords",
+    "strategy-map-clusters",
+    "strategy-map-effective-state",
+    "strategy-map-inspect",
+    "strategy-map-keywords-only-mode",
+    "strategy-map-members",
+    "strategy-map-scanned-at",
+    "strategy-map-status",
+    "strategy-map-status-lite",
+    "strategy-prep-stages",
+    "strategy-step-runner-inspect",
+    "subscription",
+    "subscription-status-counts",
+    "system-settings",
+    "tag",
+    "tag-articles",
+    "tag-assignments",
+    "test-runs",
+    "thumbnail-history",
+    "tool",
+    "tool-alternatives",
+    "tool-articles",
+    "tool-by-program",
+    "tool-filter-counts",
+    "tool-related-articles",
+    "tools",
+    "top-articles",
+    "top-keywords",
+    "topic",
+    "topic-articles",
+    "topic-keywords",
+    "topic-pinned-articles",
+    "topic-tool-curations",
+    "topic-with-articles",
+    "topics",
+    "tracked-links",
+    "translation-edit",
+    "translation-runs",
+    "translations",
+    "trial-extension-count",
+    "trial-funnel",
+    "unclassified-domains",
+    "unified-claims",
+    "unit-economics",
+    "unverified-claims",
+    "usage-units",
+    "user-analytics-snapshot",
+    "user-detail",
+    "volume-batch-jobs",
+    "web-health-sparkline-avg",
+    "weekly-report-avi-daily",
+    "weekly-report-avi-overview",
+    "weekly-report-range-kpi",
+    "workshop-affiliates",
+    "workspace",
+    "workspace-activity",
+    "workspace-analytics-profile",
+    "workspace-api-keys",
+    "workspace-api-limits",
+    "workspace-api-usage",
+    "workspace-auto-gen-prompts",
+    "workspace-billing-overrides",
+    "workspace-billing-period-range",
+    "workspace-brand-context",
+    "workspace-card-plan",
+    "workspace-card-quota",
+    "workspace-content-jobs",
+    "workspace-cost-ranking",
+    "workspace-credit-balances",
+    "workspace-credit-ledger",
+    "workspace-custom-offer",
+    "workspace-detail",
+    "workspace-detail-integration",
+    "workspace-detail-members",
+    "workspace-detail-mirror",
+    "workspace-detail-plan",
+    "workspace-detail-quota",
+    "workspace-entry-meta",
+    "workspace-gate-subscription",
+    "workspace-invitations",
+    "workspace-keywords",
+    "workspace-keywords-lite",
+    "workspace-last-activity",
+    "workspace-members",
+    "workspace-mirror",
+    "workspace-mirror-map",
+    "workspace-overrides",
+    "workspace-payment-history",
+    "workspace-plan",
+    "workspace-plan-cadence",
+    "workspace-plan-key",
+    "workspace-plan-row",
+    "workspace-pnl",
+    "workspace-policy-urls",
+    "workspace-quota",
+    "workspace-quota-summary",
+    "workspace-schema-policy",
+    "workspace-scope-rules",
+    "workspace-status-distribution",
+    "workspace-subscription",
+    "workspace-summary",
+    "workspace-tracked-seeds",
+    "workspace-usage",
+    "workspace-usage-history",
+    "workspace-usage-reservations",
+    "workspaces",
+    "writing-style-profile",
+    "writing-style-profiles",
+    "writing-style-samples"
+   ]
+  },
+  "storage_buckets": {
+   "count": 4,
+   "items": [
+    "article-images",
+    "changelog-images",
+    "generated-images",
+    "knowledge-hub-files"
+   ]
+  }
+ },
+ "select_columns_by_chunk": {
+  "useChartAnnotations": [
+   "id, topic, published_at"
+  ],
+  "SEOInsightsContent": [
+   "id, created_at",
+   "id, keyword",
+   "id, keyword, search_volume",
+   "id, keyword, search_volume, keyword_difficulty",
+   "id, keyword_id, captured_at, serp_analysis_json, ai_overview_detected",
+   "keyword_id, captured_at, serp_analysis_json",
+   "keyword_id, serp_analysis_json, ai_overview_detected",
+   "page_path, organic_sessions, organic_conversions"
+  ],
+  "KeywordsPage": [
+   "entity_id, total_claims",
+   "id, full_name",
+   "id, keyword",
+   "id, seeds, result_count, created_by, created_at",
+   "keyword_id, captured_at, top_results_json, ai_overview_json, keywords:keyword_id(keyword)",
+   "knowledge_entity_id, evidence_claims(claim_text)",
+   "self_roots"
+  ],
+  "useSEOOverviewStats": [
+   "id, keyword, search_volume, keyword_difficulty"
+  ],
+  "useTagAssignments": [
+   "answer_text",
+   "id, intent_display_group, funnel_stage, opportunity_score, recommended_content_type",
+   "prompt_id, keyword_id, keywords:keyword_id(keyword)",
+   "prompt_text",
+   "prompt_text, geo_prompt_sets!inner(workspace_id)",
+   "workspace_id"
+  ],
+  "AddEarnedDialog": [
+   "id, keyword, language, country"
+  ],
+  "useSEOCompetitorSOV": [
+   "id, keyword, search_volume"
+  ],
+  "useGapOverview": [
+   "id, keyword, search_volume, keyword_difficulty"
+  ],
+  "GeoCohortToggle": [
+   "id, created_at"
+  ],
+  "useClusterKeywords": [
+   "keyword_id, keywords!keyword_cluster_members_keyword_id_fkey ( keyword )",
+   "keyword_id, prompt_id, avi_score"
+  ],
+  "AddEarnedInlineButton": [
+   "default_brand_filter",
+   "id, keyword, language, country",
+   "id, keyword, language, country, search_volume"
+  ],
+  "FactoryPage": [
+   "id, keyword, language, country, created_at, updated_at"
+  ],
+  "useKnowledgeSources": [
+   "content_job_id, grounding_sources, grounding_used",
+   "id, title",
+   "url",
+   "workspace_id"
+  ],
+  "index": [
+   "id, locale, seed_keyword, target_keyword, status, scores_before, scores_after, source_type, source_url, source_file_name, article_id, published_at, created_at, updated_at"
+  ],
+  "useBrandExposureSignals": [
+   "name, settings, product_lineup_hints"
+  ],
+  "normalize-search-diagnostics": [
+   "id, prompt_text",
+   "id, prompt_text, is_active, is_paused, prompt_set_id",
+   "id, source_refs",
+   "prompt_id",
+   "prompt_set_id",
+   "strategy_status"
+  ],
+  "useDiscoverRunProgress": [
+   "id, status, progress_data, created_at, stats_json, error_message"
+  ],
+  "personaFields": [
+   "id, title, target_keyword, stage, article_id, created_at",
+   "writing_style_profile_id"
+  ],
+  "GeoSetCreateDialog": [
+   "plan"
+  ],
+  "useKeywordSets": [
+   "keyword_set_id"
+  ],
+  "useGoogleConnection": [
+   "date",
+   "date, total_sessions",
+   "page",
+   "page_path",
+   "query",
+   "total_sessions"
+  ],
+  "readme-builder": [
+   "id, keywords!inner(id)",
+   "id, prompt_id, created_at, finished_at, engine, model_name, mode, status, cost_usd",
+   "id, target_domain, completed_at",
+   "keyword_id, engine, language, country, keywords!inner(id)",
+   "prompt_id",
+   "prompt_id, engine",
+   "prompt_id, tag:workspace_tags!inner(label)",
+   "run_id, answer_text, web_sources, tokens_used, generation_time_ms",
+   "run_id, cited_url, root_domain, domain, title, context_snippet, position_index, is_ours, is_competitor, citation_type, domain_classification",
+   "run_id, is_cited, our_citation_count, competitor_citation_count, other_citation_count, brand_mentioned, brand_mention_count, competitor_mention_count, competitor_mention_terms, source_count, our_source_count, source_but_not_cited"
+  ],
+  "GeoAnalysisPage": [
+   "prompt_id, tag_id"
+  ],
+  "cardSpec": [
+   "*, report_summaries(*)"
+  ],
+  "GapIntelligenceContent": [
+   "id, keyword, search_volume, keyword_difficulty",
+   "keyword_id, serp_analysis_json"
+  ],
+  "useWorkspaceTags": [
+   "*, group:workspace_tag_groups!inner(*)"
+  ],
+  "cohortContext": [
+   "keyword_id, tag_id"
+  ],
+  "IssueSeverityBadge": [
+   "schema_classification_policy"
+  ],
+  "KeywordAddDialog": [
+   "id, keyword, language, country, search_volume, keyword_difficulty, intent",
+   "id, keyword, search_volume, search_volume_google_ads, competition, competition_score, cpc_min, cpc_max, trends_json, volume_updated_at, intent, intent_probability, intent_secondary_json, intent_updated_at, keyword_difficulty, kd_updated_at, dataforseo_last_updated",
+   "id, name, knowledge_type",
+   "keyword_id, cluster_id, keyword_clusters!inner(label, workspace_id)",
+   "seed_keyword, candidate, source, volume, language, country, metadata"
+  ],
+  "SiteAuditPage": [
+   "created_at, target_domain",
+   "id, created_at",
+   "id, created_at, crawled_urls, site_health_score, site_health_score_v2, ai_readiness_score, ai_readiness_score_v2, ai_readiness_breakdown, ai_readiness_breakdown_v2, lighthouse_data",
+   "id, scan_id, link_from, link_to, anchor_text, dofollow, link_type, direction, target_status_code, is_broken",
+   "id, scan_id, link_from, link_to, anchor_text, dofollow, link_type, direction, target_status_code, is_broken, created_at",
+   "id, scan_id, status, phase, cursor, total_items, links_inserted, error, started_at, updated_at, created_at",
+   "id, target_domain, target_url, crawled_urls, created_at, scan_mode, parent_scan_ids, parent_scan_id",
+   "id, target_url, created_at, scope_rules",
+   "id, url, status_code, seo_score, page_score, issues_count, analysis_snapshot",
+   "robots_txt_url, sitemap_url, llms_txt_url",
+   "scan_id, url",
+   "site_audit_scope_rules",
+   "url",
+   "url, lighthouse_data"
+  ],
+  "useEarnedPublicationStats": [
+   "keyword_id, captured_at, brand_presence:serp_analysis_json->brand_presence"
+  ],
+  "GapStatusMini": [
+   "*, report_summaries(*)",
+   "completed_at, created_at, site_health_score",
+   "date, clicks",
+   "date, organic_sessions, ai_sessions_total",
+   "id, finished_at",
+   "run_id, our_citation_count, citation_rate, is_cited"
+  ],
+  "GeoPromptSetsPage": [
+   "id, language_code"
+  ],
+  "StrategyMapPage": [
+   "auto_generate_prompts",
+   "id, cluster_id, snapshot_at, volume_sum, opportunity_score, member_count, geo_our_cite_pct, geo_comp_cite_pct, geo_avi_median, geo_gap_type, aio_cite_pct, aio_keywords_cited, aio_best_position, aio_avg_position, geo_our_seo_rank, geo_click_upside, geo_prompt_count, geo_prompt_cited",
+   "id, status, completed_at",
+   "id, status, keyword_count, completed_count, failed_count, error_message, started_at, finished_at",
+   "keyword_id",
+   "metadata, created_at",
+   "phase, expected_count, completed_count, updated_at",
+   "prompt_text, source_type, intent_display_group, opportunity_score, source_keyword_id, status, seed_brand_type, homonym_verdict, homonym_reason, original_paa_text, keywords:source_keyword_id(keyword)",
+   "seed_filter_stats",
+   "strategy_map_scanned_at",
+   "strategy_map_status, strategy_map_scanned_at"
+  ],
+  "KeywordQuickPanel": [
+   "id, captured_at, gap_summary, top_results_json, serp_analysis_json, paa_questions_json, related_searches_json, images_pack_json, video_results_json, shopping_results_json, local_pack_json, knowledge_graph_json, ai_overview_json, featured_snippet_json, top_stories_json",
+   "id, captured_at, top_results_json, ai_overview_json, serp_analysis_json",
+   "knowledge_entity:knowledge_entities(id, name, knowledge_type)",
+   "knowledge_entity_id",
+   "source_keyword_id",
+   "status, attempts, last_error, updated_at"
+  ],
+  "useCitabilityRuns": [
+   "audit_json, locale, source_url, meta_title",
+   "id, workspace_id, input_md, locale, source_type, source_url, meta_title, status, error_message, audit_json, rewritten_md, scores_before, scores_after, qa_report, created_at, updated_at"
+  ],
+  "useEnabledEngines": [
+   "features",
+   "plan"
+  ],
+  "round-diff": [
+   "issue_type, category, severity, title, page_url"
+  ],
+  "useGeoSettings": [
+   "value"
+  ],
+  "SEOKeywordBubble": [
+   "id, actions_payload",
+   "id, rank, status",
+   "id, title, status, rank"
+  ],
+  "useGeoRuns": [
+   "default_engine",
+   "prompt_id, status",
+   "value"
+  ],
+  "useKeywordPromptContext": [
+   "id, prompt_text, intent_subtype, status, source_type, labels, created_at",
+   "keyword",
+   "prompt_context, geo_prompt_id, seed_prompt"
+  ],
+  "useContentJobs": [
+   "id, source_refs",
+   "keyword_id, featured_image_url, generated_images",
+   "stats_json"
+  ],
+  "SettingsPage": [
+   "auto_generate_prompts",
+   "id, email, role, allowed_sections, status, expires_at, created_at",
+   "id, event_type, metadata, created_at",
+   "id, unit_key, amount, status, idempotency_key, created_at",
+   "id, workspace_id, name, key_prefix, scopes, created_at, last_used_at, revoked_at, expires_at",
+   "id, workspace_id, publication_id, keyword_id, created_at",
+   "keyword_id, captured_at, brand_presence:serp_analysis_json->brand_presence",
+   "robots_txt_url, sitemap_url, llms_txt_url",
+   "unit_key, monthly_limit"
+  ],
+  "AiVisibilitySnapshotPanel": [
+   "id, captured_at, serp_analysis_json, ai_overview_json"
+  ],
+  "GeoFanOutTab": [
+   "query_text, engine, prompt_id, created_at",
+   "query_text, query_normalized, engine, has_site_operator, prompt_id, created_at, geo_prompts(prompt_text)"
+  ],
+  "TranslationEdit": [
+   "topic, article_translations(og_image_url)"
+  ],
+  "SEOSerpMatrixTab": [
+   "domain, site_type",
+   "id, search_volume",
+   "keyword_id, captured_at"
+  ],
+  "SerpComparison": [
+   "id, captured_at, top_results_json"
+  ],
+  "AgentMonitorPage": [
+   "id, intent, complexity, routing_decision, latency_ms, total_tokens, total_cost_usd, created_at",
+   "latency_ms, total_tokens, total_cost_usd, intent, complexity"
+  ],
+  "MarketingHomePage": [
+   "id, domain, result_json, curated_order"
+  ],
+  "GeoMonitorPage": [
+   "keyword_count, completed_count, failed_count, estimated_cost_usd, status",
+   "status"
+  ],
+  "ChangelogPage": [
+   "id, date, category, title_en, title_ko, desc_en, desc_ko, slug, image_url, authors(name, name_ko, avatar_url)"
+  ],
+  "WorkspaceDetailPage": [
+   "id, keyword, keyword_set_id",
+   "id, keyword, language, country, status, created_at",
+   "id, keyword, language, created_at",
+   "id, name",
+   "id, name, status",
+   "id, owner_id, settings",
+   "id, prompt_text, prompt_set_id",
+   "id, title, stage, created_at, completed_at",
+   "id, title, target_keyword, stage, writing_status, created_at",
+   "id, user_id, role, joined_at",
+   "keyword_id, tag_id",
+   "mirror_workspace_id",
+   "name, settings",
+   "order_id, plan, amount, currency, status, tid, paid_at, created_at, billing_cycle",
+   "plan, batch_cadence_override, batch_cycle_anchor_date",
+   "plan_key, features",
+   "prompt_id, tag_id",
+   "unit_key, balance, expires_at",
+   "workspace_id"
+  ],
+  "SiteAuditDiffPage": [
+   "id, page_url, issue_type, category, severity, title, description, fix_recommendation",
+   "url, seo_score, geo_score, issues_count, lighthouse_data"
+  ],
+  "Publisher": [
+   "*, keyword:keywords(keyword, language), translations:article_translations(id, language, status, title)",
+   "id, title, language, scheduled_at, status, article_id"
+  ],
+  "DiscoverLoadingOverlay": [
+   "id, prompt_text"
+  ],
+  "SiteAuditResultPage": [
+   "id, target_domain, status, site_health_score, ai_readiness_score, created_at, site_audit_issues(id, category, severity, title, description, seo_impact, geo_impact, fix_recommendation, fix_difficulty)"
+  ],
+  "PublishedContentCard": [
+   "published_contents"
+  ],
+  "Tags": [
+   "tag_id"
+  ],
+  "GeoSettingsPage": [
+   "value"
+  ],
+  "OptimizeWorkshopPage": [
+   "id, slug",
+   "locale"
+  ],
+  "usePlanPriceMap": [
+   "plan_key, name, monthly_price, annual_price, price_krw_monthly, price_krw_annual, price_usd_monthly, price_usd_annual, launch_original_krw_monthly, launch_original_usd_monthly, display_currency_default",
+   "workspace_id, plan, current_mrr, billing_cycle, cancelled_at, trial_ends_at, is_poc"
+  ],
+  "ArticleDetail": [
+   "id, name, slug, description",
+   "id, name, slug, logo_url, program_type",
+   "id, name, slug, logo_url, program_type, is_active",
+   "id, target_keyword, status, created_at",
+   "id, title, stage",
+   "og_image_url, content_md",
+   "status"
+  ],
+  "Newsletter": [
+   "id, is_verified, unsubscribed_at, language"
+  ],
+  "PricingPage": [
+   "id, keyword, search_volume, updated_at, is_paused",
+   "id, name, company_name, base_plan_key, amount_override_krw_monthly, amount_override_krw_annual, allowed_cycles, notes, custom_offer_items(kind, qty, unit_price_krw)",
+   "id, prompt, search_volume, updated_at, is_paused, geo_prompt_sets!inner(workspace_id)"
+  ],
+  "PlatformDashboard": [
+   "content_generated, llm_cost",
+   "id, name, created_at",
+   "user_id"
+  ],
+  "Analytics": [
+   "clicked_at, converted",
+   "converted",
+   "date, revenue",
+   "revenue, clicks, impressions, ctr"
+  ],
+  "AdminBotAnalyticsPage": [
+   "id,bot_name,bot_category,user_agent_raw,path,lang,referer,country,visited_at"
+  ],
+  "CostCenter": [
+   "content_job_id",
+   "cost_estimate",
+   "domain",
+   "event_type, previous_mrr, new_mrr, amount",
+   "id, input_url, domain, industry_estimate, is_curated, created_at",
+   "id, name, workspace_plans(plan, billing_cycle)",
+   "id, target_url, target_domain, ai_readiness_score, site_health_score, status, scan_type, created_at, completed_at",
+   "name, workspace_plans(plan, billing_cycle)",
+   "plan, trial_ends_at, cancelled_at",
+   "plan, workspace_id",
+   "target_domain",
+   "target_domain, workspace_id, workspaces!inner(name, workspace_plans(plan, started_at))",
+   "total_cost",
+   "workspace_id, metadata",
+   "workspace_id, metadata, created_at",
+   "workspace_id, plan, trial_ends_at",
+   "workspace_id, total_cost"
+  ],
+  "TranslationWorkspace": [
+   "keyword_id, selected_draft_id"
+  ],
+  "MonitoringPagesTab": [
+   "date, page_path, organic_sessions, ai_sessions_perplexity, ai_sessions_chatgpt, ai_sessions_claude, ai_sessions_gemini, ai_sessions_total"
+  ],
+  "GSCDashboardContent": [
+   "keyword_id, serp_analysis_json, keywords!inner(keyword_text)",
+   "keywords!inner(keyword_text)"
+  ],
+  "ToolsDirectoryPage": [
+   "category, price_model, platforms"
+  ],
+  "CustomOffersPage": [
+   "*, custom_offer_items(*)",
+   "workspace_id, billing_cycle, status"
+  ],
+  "useLLMPricing": [
+   "value"
+  ],
+  "GapTrendsTab": [
+   "id, keyword",
+   "keyword_id, captured_at, serp_analysis_json"
+  ],
+  "SiteAuditBenchmarksPage": [
+   "id,target_domain,status,max_pages,priority,benchmark_mode,degraded_mode,partial_failures,created_at,completed_at"
+  ],
+  "EntityEvidenceSection": [
+   "id, extraction_status",
+   "id, keyword, language, country",
+   "id, source_url, claim_kind, verified_at",
+   "keyword_id"
+  ],
+  "useArticleRelations": [
+   "id, slug",
+   "id, slug, icon",
+   "id, slug, logo_url, category",
+   "tool_id, name, lang",
+   "topic_id, name, lang"
+  ],
+  "SearchPage": [
+   "name, tools!inner(slug, is_featured)",
+   "name, topics!inner(slug, is_featured)"
+  ],
+  "ContentLinks": [
+   "id, article_id, slug, title, language, status, content_md, articles!inner(site)"
+  ],
+  "SerpDetail": [
+   "date, clicks, impressions, avg_position, ctr",
+   "id, name",
+   "id, prompt_set_id, discover_candidate_id, discover_candidate:geo_prompt_candidates!geo_prompts_discover_candidate_id_fkey(source_keyword_id)",
+   "knowledge_entity:knowledge_entities(id, name, knowledge_type)"
+  ],
+  "ChangelogDetailPage": [
+   "id, date, category, title_en, title_ko, desc_en, desc_ko, slug, image_url, content_en, content_ko, authors(id, name, name_ko, title, title_ko, avatar_url, slug)",
+   "id, slug, title_en, title_ko, date"
+  ],
+  "SiteAuditScoringDebugPage": [
+   "id,target_domain,target_url,max_pages,crawled_urls,completed_at,status,site_health_score,ai_readiness_score,ai_readiness_breakdown,site_health_score_v2,ai_readiness_score_v2,ai_readiness_breakdown_v2,scoring_version"
+  ],
+  "pipeline-topic-plan": [
+   "id, keyword_id"
+  ],
+  "GapPromptsTab": [
+   "id, engine, prompt_id, finished_at, citations:geo_citations!fk_geo_citations_run(root_domain)",
+   "id, prompt_text"
+  ],
+  "KeywordDetailPage": [
+   "id, captured_at, country, language, engine, serp_analysis_json, ai_overview_json, top_results_json, all_serp_items_json, paa_questions_json, related_searches_json, featured_snippet_json, video_results_json, images_pack_json, shopping_results_json, top_stories_json, local_pack_json, knowledge_graph_json, gap_summary",
+   "id, captured_at, top_results_json, ai_overview_json, serp_analysis_json",
+   "id, topic, status, created_at, article_translations!inner (id, title, language, status, published_at)",
+   "knowledge_entity:knowledge_entities(id, name, knowledge_type)",
+   "page",
+   "status, attempts, last_error, updated_at"
+  ],
+  "Factory": [
+   "id, name, slug, description, logo_url"
+  ],
+  "TopicHubPage": [
+   "article_id, topics!inner(slug)"
+  ],
+  "ArticleList": [
+   "og_image_url, content_md",
+   "primary_slug"
+  ],
+  "AdminWorkspaceSelector": [
+   "id, name, slug"
+  ],
+  "Quality": [
+   "affiliate_program_id",
+   "grounding_category, grounding_status, grounding_source_count, grounding_claim_count",
+   "grounding_status, grounding_failure_reason",
+   "id, created_at, grounding_category, grounding_status, grounding_failure_reason, grounding_source_count, grounding_claim_count, grounding_query, keyword_id",
+   "id, keyword",
+   "id, name, slug",
+   "id, slug, tool_translations(name, lang)",
+   "id, slug, topic_translations(name, lang)",
+   "id, topic",
+   "research_cache"
+  ],
+  "AllUsersPage": [
+   "id, name, slug"
+  ],
+  "FactoryDetail": [
+   "id, name",
+   "id, verifiability_status, evidence_contexts!inner(knowledge_entity_id)",
+   "name, knowledge_type",
+   "serp_analysis_json",
+   "thumbnail_url, meta_title, meta_description, blueprint_type, blueprint_keyword"
+  ],
+  "SEOOpportunitiesTab": [
+   "id, keyword, search_volume, keyword_difficulty",
+   "page_path, organic_sessions, organic_conversions"
+  ],
+  "NewsIndexPage": [
+   "article_id, topics!inner(slug)"
+  ],
+  "TipTapEditor": [
+   "title, slug, language"
+  ],
+  "Changelog": [
+   "*, authors(id, name, name_ko, avatar_url, slug)"
+  ],
+  "PublisherDetail": [
+   "language, slug, canonical_url"
+  ],
+  "DomainIntelligence": [
+   "domain, site_type",
+   "domain, site_type, tier, discovery_source",
+   "id, engine, query_text, is_primary, has_site_operator, language, prompt_id",
+   "id, keyword",
+   "id, prompt_id",
+   "id, prompt_id, engine, status, requested_at, finished_at",
+   "id, prompt_text",
+   "id, prompt_text, cm_industry, cm_brand, cm_question_type",
+   "id, prompt_text, cm_question_type, cm_industry",
+   "prompt_id, engine",
+   "root_domain, cited_url, context_snippet, created_at",
+   "root_domain, context_snippet",
+   "tier, site_type, content_format, industry_tags"
+  ],
+  "GapCompetitorsTab": [
+   "keyword_id, captured_at, serp_analysis_json"
+  ],
+  "SEORankTable": [
+   "id, keyword, search_volume"
+  ],
+  "BillingCenter": [
+   "amount",
+   "created_at",
+   "event_type, new_mrr, amount",
+   "event_type, new_mrr, previous_mrr, new_plan, created_at",
+   "event_type, previous_mrr, new_mrr, amount",
+   "id, name",
+   "id,full_name",
+   "id,moid,tid,result_code,result_msg,amt,signature_valid,reconciled,reconcile_action,received_at",
+   "id,order_id,tid,workspace_id,amount,failure_reason,failure_detail,created_at,workspaces(name)",
+   "id,order_id,tid,workspace_id,user_id,amount,currency,plan,billing_cycle,status,failure_reason,failure_detail,payment_gateway,created_at,workspaces(name)",
+   "id,order_id,tid,workspace_id,user_id,amount,refunded_amount,currency,plan,billing_cycle,status,paid_at,created_at,payment_gateway,workspaces(name)",
+   "id,order_id,workspace_id,user_id,amount,refunded_amount,refund_reason,refunded_at,status,plan,billing_cycle,workspaces(name)",
+   "id,workspace_id,event_type,previous_plan,new_plan,amount,created_at,workspaces(name)",
+   "id,workspace_id,plan,status,retry_count,last_retry_at,next_retry_at,next_billing_at,current_period_end,user_id,bid,workspaces(name)",
+   "id,workspace_id,user_id,plan,billing_cycle,payment_gateway,bid,status,current_period_start,current_period_end,next_billing_at,cancelled_at,cancel_at_period_end,retry_count,last_retry_at,pending_plan_change,card_exp_yymm,card_no_masked,created_at,updated_at,workspaces(name)",
+   "status,cancel_at_period_end,pending_plan_change,card_exp_yymm,bid,billing_cycle",
+   "value",
+   "workspace_id, event_type, new_plan, amount, new_mrr, created_at",
+   "workspace_id, event_type, previous_plan, previous_mrr, cancel_reason, created_at"
+  ],
+  "useFeatureRequests": [
+   "feature_request_id",
+   "id, full_name",
+   "id, name"
+  ],
+  "GeoPromptDetailContent": [
+   "id, finished_at",
+   "run_id, root_domain, domain"
+  ],
+  "SystemHub": [
+   "id, keyword",
+   "id, workspace_id, seed_type, seed_payload_json, stats_json, progress_data, status, created_at, completed_at"
+  ],
+  "Links": [
+   "clicked_at, converted",
+   "converted",
+   "id, title, language"
+  ],
+  "WorkspaceDetailSheet": [
+   "plan, started_at, expires_at, trial_ends_at",
+   "plan_key, name, is_active"
+  ],
+  "KeywordExpansionLogsPage": [
+   "id, run_id, workspace_id, keyword, category, judge_confidence, judge_reason, relevance, mode, created_at, user_selected_at"
+  ],
+  "useAdminTopics": [
+   "article_id",
+   "topic_id"
+  ],
+  "cost-utils": [
+   "event_type, previous_mrr, new_mrr, amount",
+   "total_cost"
+  ],
+  "FactoryDetailPage": [
+   "created_at, updated_at",
+   "domain, original_uri, resolved_url",
+   "evidence_context_id",
+   "geo_gap_type, geo_our_cite_pct, geo_comp_cite_pct",
+   "id, claim_text, claim_kind, source_tier, source_url, source_domain, source_title, brand_role, citation_confidence",
+   "id, claim_text, verifiability_status, source_tier, source_url, source_domain, source_title, evidence_contexts!inner(keyword_id)",
+   "id, claim_text, verifiability_status, source_tier, source_url, source_domain, source_title, evidence_contexts!inner(knowledge_entity_id)",
+   "id, created_at, source_file_path",
+   "id, keyword",
+   "knowledge_entity_id, knowledge_entities(name)",
+   "search_volume, keyword_difficulty, volume_updated_at, kd_updated_at, created_at",
+   "serp_analysis_json",
+   "status"
+  ],
+  "useLatestStrategyPipelineRun": [
+   "generated_images",
+   "id, article_id",
+   "id, blueprint_index, version",
+   "id, keyword",
+   "id, status, current_step, last_error, created_at, updated_at",
+   "id, title, meta_title, meta_description, slug",
+   "id, title, slug",
+   "id, title, slug, language",
+   "id, top_results_json, paa_questions_json, ai_overview_json",
+   "is_selected, blueprint_index",
+   "keyword_id, selected_draft_id",
+   "snapshot",
+   "source_refs",
+   "version"
+  ],
+  "Dashboard": [
+   "clicks",
+   "id, topic, created_at, status"
+  ],
+  "GeoAlertsPage": [
+   "id, severity, is_read, created_at"
+  ],
+  "TagPage": [
+   "article_id"
+  ],
+  "PlansPage": [
+   "id, plan_key",
+   "id, unit_key, monthly_limit",
+   "unit_key, monthly_limit",
+   "workspace_id"
+  ],
+  "SiteAuditDiagnosticsPage": [
+   "attempt, crawler_used, reason",
+   "id, target_domain, workspace_id, status, crawled_urls, max_pages, created_at"
+  ],
+  "authors": [
+   "author_id, articles!inner(site)"
+  ],
+  "WorkspacesPage": [
+   "google_email, gsc_connected, gsc_property_url, ga4_connected, ga4_property_name",
+   "id, full_name",
+   "id, name",
+   "mirror_workspace_id, source_workspace_id",
+   "plan",
+   "plan, started_at, expires_at, trial_ends_at",
+   "source_workspace_id, sync_prompts, sync_keywords, prompt_filter, keyword_filter, last_synced_at",
+   "user_id, role, joined_at",
+   "workspace_id, created_at"
+  ],
+  "Keywords": [
+   "*, keywords!inner(workspace_id)",
+   "cpc_max, keyword_difficulty",
+   "id, keyword_strategy!inner(id)",
+   "id, serp_snapshots!inner(id)",
+   "keyword_id, captured_at, top_results_json, ai_overview_json, ai_overview_detected",
+   "keyword_id, serp_analysis_json, keywords!inner(workspace_id)"
+  ],
+  "AppOverview": [
+   "date, clicks",
+   "date, organic_sessions, ai_sessions_total",
+   "id, stats_json",
+   "strategy_map_status"
+  ],
+  "GapContentTab": [
+   "id, keyword_id, status, updated_at"
+  ],
+  "useEvidenceContexts": [
+   "keyword_id"
+  ],
+  "GSCPagesTab": [
+   "id, canonical_url, title, slug"
+  ],
+  "SerpDecisionMonitorPage": [
+   "id, alert_kind, level, message, sent_at, resolved_at"
+  ],
+  "ArticleDetailPage": [
+   "article_id",
+   "id, slug, title, og_image_url, published_at, articles(content_type)"
+  ],
+  "Prompts": [
+   "id, name, version, category",
+   "key",
+   "prompt_id, seo_score, aio_score, word_count",
+   "version"
+  ]
+ },
+ "pages": {
+  "AboutPage": {
+   "chunk": "AboutPage-BIDSSJQ-.js",
+   "closure_size": 6,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "AcceptInvitePage": {
+   "chunk": "AcceptInvitePage-BNbX8D-7.js",
+   "closure_size": 1,
+   "tables": [],
+   "rpcs": [
+    "accept_workspace_invitation",
+    "peek_workspace_invitation"
+   ],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "AdminBotAnalyticsPage": {
+   "chunk": "AdminBotAnalyticsPage-BALS2Yd_.js",
+   "closure_size": 8,
+   "tables": [
+    "bot_visits"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "bot-visits"
+   ],
+   "storage_buckets": []
+  },
+  "AdminOpsJobRunsPage": {
+   "chunk": "AdminOpsJobRunsPage-CQ2ijyS2.js",
+   "closure_size": 2,
+   "tables": [
+    "ops_job_runs"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "ops-job-runs-24h",
+    "ops-job-runs-failures",
+    "ops-trace"
+   ],
+   "storage_buckets": []
+  },
+  "AgentEvalPage": {
+   "chunk": "AgentEvalPage-nBE7gbjG.js",
+   "closure_size": 9,
+   "tables": [
+    "agent_classification_logs",
+    "eval_runs",
+    "workspaces"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "run-response-eval"
+   ],
+   "query_keys": [
+    "classification-logs"
+   ],
+   "storage_buckets": []
+  },
+  "AgentMonitorPage": {
+   "chunk": "AgentMonitorPage-BFytranX.js",
+   "closure_size": 2,
+   "tables": [
+    "agent_conversations",
+    "agent_messages",
+    "agent_traces"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "admin-agent-recent-traces",
+    "admin-agent-stats"
+   ],
+   "storage_buckets": []
+  },
+  "AgentPage": {
+   "chunk": "AgentPage-De9aCxWr.js",
+   "closure_size": 6,
+   "tables": [
+    "agent_conversations",
+    "agent_messages"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "agent-conversations",
+    "agent-messages"
+   ],
+   "storage_buckets": []
+  },
+  "AiQuestionsToolPage": {
+   "chunk": "AiQuestionsToolPage-D5Gm0bA8.js",
+   "closure_size": 20,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [
+    "free-tool-analyze"
+   ],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "AllUsersPage": {
+   "chunk": "AllUsersPage-C1OOt8M8.js",
+   "closure_size": 20,
+   "tables": [
+    "admin_user_notes",
+    "workspaces"
+   ],
+   "rpcs": [
+    "get_platform_users_with_workspaces"
+   ],
+   "edge_functions": [
+    "admin-user",
+    "admin-workspace"
+   ],
+   "query_keys": [
+    "admin-user-notes",
+    "admin-workspace-quota",
+    "admin-workspaces",
+    "all-platform-users",
+    "all-workspace-members",
+    "user-detail",
+    "workspace",
+    "workspace-detail",
+    "workspace-quota-summary",
+    "workspaces"
+   ],
+   "storage_buckets": []
+  },
+  "AppLogin": {
+   "chunk": "AppLogin-DpxCqD66.js",
+   "closure_size": 9,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "platform-stats"
+   ],
+   "storage_buckets": []
+  },
+  "AppOnboarding": {
+   "chunk": "AppOnboarding-DjbIjRcV.js",
+   "closure_size": 25,
+   "tables": [
+    "workspaces"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "analyze-domain-for-onboarding",
+    "generate-onboarding-prompts",
+    "onboarding-keyword-analysis",
+    "site-audit-start",
+    "trigger-onboarding-async"
+   ],
+   "query_keys": [
+    "my-workspaces",
+    "site-audit-scans",
+    "workspace-plan",
+    "workspace-usage"
+   ],
+   "storage_buckets": []
+  },
+  "AppOverview": {
+   "chunk": "AppOverview-9GN6P96G.js",
+   "closure_size": 45,
+   "tables": [
+    "ga4_page_stats",
+    "geo_prompt_runs",
+    "geo_prompt_sets",
+    "geo_prompts",
+    "gsc_daily_pages",
+    "keyword_clusters",
+    "keyword_tag_assignments",
+    "keywords",
+    "report_snapshots",
+    "site_audit_issues",
+    "site_audit_pages",
+    "workspaces"
+   ],
+   "rpcs": [
+    "get_avi_daily_components",
+    "get_avi_overview",
+    "get_full_funnel_stats",
+    "get_geo_slot_counts",
+    "get_keyword_ga4_evidence",
+    "get_light_dashboard_overview",
+    "get_pro_dashboard_kpi",
+    "get_serp_brand_presence_slim",
+    "get_serp_brand_presence_window",
+    "get_web_health_sparkline"
+   ],
+   "edge_functions": [
+    "rpc-cache"
+   ],
+   "query_keys": [
+    "dashboard-new-report",
+    "dashboard-traffic-trend",
+    "full-funnel-stats",
+    "gap-overview",
+    "keyword-ga4-evidence",
+    "light-dashboard-overview",
+    "my-workspaces",
+    "pro-dashboard-kpi",
+    "seo-keyword-tag-scope",
+    "seo-overview-stats",
+    "site-audit-issues",
+    "site-audit-pages",
+    "strategy-map-status-lite",
+    "web-health-sparkline-avg",
+    "workspace-schema-policy"
+   ],
+   "storage_buckets": []
+  },
+  "AppSignup": {
+   "chunk": "AppSignup-HowmooCg.js",
+   "closure_size": 6,
+   "tables": [],
+   "rpcs": [
+    "peek_workspace_invitation"
+   ],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "ArticleDetailPage": {
+   "chunk": "ArticleDetailPage-Byg5YK-5.js",
+   "closure_size": 57,
+   "tables": [
+    "article_topics",
+    "article_translations",
+    "authors"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "track-link-click"
+   ],
+   "query_keys": [
+    "author",
+    "author-slug",
+    "authors",
+    "authors-active",
+    "sidebar-related"
+   ],
+   "storage_buckets": []
+  },
+  "AuditLogsPage": {
+   "chunk": "AuditLogsPage-ZyEL171c.js",
+   "closure_size": 4,
+   "tables": [],
+   "rpcs": [
+    "get_admin_login_report",
+    "get_admin_monthly_activity_report"
+   ],
+   "edge_functions": [],
+   "query_keys": [
+    "admin-login-report",
+    "admin-monthly-activity"
+   ],
+   "storage_buckets": []
+  },
+  "AuthorProfilePage": {
+   "chunk": "AuthorProfilePage-ji94-DnJ.js",
+   "closure_size": 187,
+   "tables": [
+    "article_translations",
+    "authors"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "author-articles",
+    "author-profile"
+   ],
+   "storage_buckets": []
+  },
+  "AuthorsListPage": {
+   "chunk": "AuthorsListPage-B4JAWYKp.js",
+   "closure_size": 8,
+   "tables": [
+    "article_translations",
+    "authors"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "author",
+    "author-slug",
+    "authors",
+    "authors-active"
+   ],
+   "storage_buckets": []
+  },
+  "AuthorsPage": {
+   "chunk": "AuthorsPage-Bn61RBtl.js",
+   "closure_size": 12,
+   "tables": [
+    "article_translations",
+    "authors"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "author",
+    "author-slug",
+    "authors",
+    "authors-active"
+   ],
+   "storage_buckets": []
+  },
+  "ChangelogDetailPage": {
+   "chunk": "ChangelogDetailPage-CFJAcYe8.js",
+   "closure_size": 9,
+   "tables": [
+    "changelog_entries"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "changelog-detail",
+    "changelog-entries-nav"
+   ],
+   "storage_buckets": []
+  },
+  "ChangelogPage": {
+   "chunk": "ChangelogPage-BVxGljA5.js",
+   "closure_size": 8,
+   "tables": [
+    "changelog_entries"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "changelog-entries"
+   ],
+   "storage_buckets": []
+  },
+  "CitationMatrixPage": {
+   "chunk": "CitationMatrixPage-DOfePtM5.js",
+   "closure_size": 19,
+   "tables": [
+    "citation_matrix_by_media"
+   ],
+   "rpcs": [
+    "get_citation_stability_full",
+    "get_citation_stability_summary",
+    "get_matrix_cell_detail",
+    "refresh_citation_stability_mv_admin"
+   ],
+   "edge_functions": [],
+   "query_keys": [
+    "citation-matrix-data",
+    "citation-stability",
+    "citation-stability-full",
+    "citation-stability-summary",
+    "matrix-cell-detail"
+   ],
+   "storage_buckets": []
+  },
+  "ClusterDetailPage": {
+   "chunk": "ClusterDetailPage-CeoT0Loz.js",
+   "closure_size": 17,
+   "tables": [
+    "cluster_batch_runs",
+    "keyword_cluster_members",
+    "keyword_clusters"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "cluster-keywords",
+    "run-cluster-batch"
+   ],
+   "query_keys": [
+    "cluster-batch-runs",
+    "cluster-detail",
+    "cluster-execution-plan",
+    "cluster-members",
+    "clusters",
+    "content-jobs",
+    "strategy-map-clusters",
+    "workspace-quota"
+   ],
+   "storage_buckets": []
+  },
+  "ComparisonPage": {
+   "chunk": "ComparisonPage-DdFbKcG5.js",
+   "closure_size": 15,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "ComposePage": {
+   "chunk": "ComposePage-BYQeIyFu.js",
+   "closure_size": 6,
+   "tables": [
+    "content_compositions"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "ConsultingPage": {
+   "chunk": "ConsultingPage-h9DBbDYH.js",
+   "closure_size": 14,
+   "tables": [
+    "contact_submissions"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "send-contact-email"
+   ],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "ConsultingProposalPage": {
+   "chunk": "ConsultingProposalPage-3cw0Ng5b.js",
+   "closure_size": 6,
+   "tables": [],
+   "rpcs": [
+    "get_partner_proposal_link"
+   ],
+   "edge_functions": [],
+   "query_keys": [
+    "partner-proposal-link"
+   ],
+   "storage_buckets": []
+  },
+  "ContactPage": {
+   "chunk": "ContactPage-CvZQOE0w.js",
+   "closure_size": 4,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "ContactSalesPage": {
+   "chunk": "ContactSalesPage-cR2nTTes.js",
+   "closure_size": 11,
+   "tables": [
+    "contact_submissions"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "send-contact-email"
+   ],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "CustomOffersPage": {
+   "chunk": "CustomOffersPage-L5xixIYm.js",
+   "closure_size": 7,
+   "tables": [
+    "custom_offer_items",
+    "custom_offers",
+    "subscriptions"
+   ],
+   "rpcs": [
+    "admin_workspace_list"
+   ],
+   "edge_functions": [],
+   "query_keys": [
+    "custom-offers"
+   ],
+   "storage_buckets": []
+  },
+  "CustomerStoryPage": {
+   "chunk": "CustomerStoryPage-C9zM_GFj.js",
+   "closure_size": 9,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "CustomersPage": {
+   "chunk": "CustomersPage-C7Kpqvev.js",
+   "closure_size": 12,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "DisclosurePage": {
+   "chunk": "DisclosurePage-WaHO6MkJ.js",
+   "closure_size": 3,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "DiscoverPage": {
+   "chunk": "DiscoverPage-BrW_DKWx.js",
+   "closure_size": 29,
+   "tables": [
+    "geo_discover_runs",
+    "geo_prompt_candidates",
+    "geo_prompt_sets",
+    "geo_prompts",
+    "keyword_prompt_links"
+   ],
+   "rpcs": [
+    "commit_reservation",
+    "release_reservation",
+    "reserve_unit_with_bypass"
+   ],
+   "edge_functions": [
+    "analyze-domain-for-onboarding",
+    "geo-discover-run",
+    "geo-run-prompts-fanout"
+   ],
+   "query_keys": [
+    "geo-discover-candidates",
+    "geo-discover-clusters",
+    "geo-discover-run-progress",
+    "geo-discover-runs",
+    "geo-prompt-sets",
+    "geo-prompts",
+    "geo-saved-candidates",
+    "geo-saved-candidates-count",
+    "keyword-prompt-links",
+    "workspace-quota",
+    "workspace-usage-history",
+    "workspace-usage-reservations"
+   ],
+   "storage_buckets": []
+  },
+  "ExportsPage": {
+   "chunk": "ExportsPage-CoPFWdxg.js",
+   "closure_size": 31,
+   "tables": [
+    "content_drafts",
+    "content_review_runs",
+    "earned_publications",
+    "export_history",
+    "keywords",
+    "serp_snapshots"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "seo-backfill-brand-presence"
+   ],
+   "query_keys": [
+    "export-history",
+    "keyword-quick-panel-serp",
+    "keywords",
+    "serp-detail",
+    "serp-matrix",
+    "workspace-keywords-lite"
+   ],
+   "storage_buckets": []
+  },
+  "FAQPage": {
+   "chunk": "FAQPage-DH0cMbXs.js",
+   "closure_size": 10,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "FactoryDetailPage": {
+   "chunk": "FactoryDetailPage-BgcHvTYU.js",
+   "closure_size": 145,
+   "tables": [
+    "article_tags",
+    "article_tools",
+    "article_topics",
+    "article_translations",
+    "articles",
+    "cluster_stats_history",
+    "content_compositions",
+    "content_drafts",
+    "content_jobs",
+    "evidence_claims",
+    "evidence_context_keywords",
+    "evidence_contexts",
+    "evidence_sources",
+    "export_history",
+    "image_generation_runs",
+    "keyword_clusters",
+    "keyword_knowledge_entities",
+    "keyword_serp_jobs",
+    "keyword_strategy",
+    "keywords",
+    "knowledge_entities",
+    "qa_checklist_items",
+    "score_calculation_rules",
+    "serp_snapshots",
+    "strategy_pipeline_runs",
+    "system_settings",
+    "tags",
+    "tools",
+    "topics",
+    "translation_runs",
+    "workspaces",
+    "writing_style_profiles",
+    "writing_style_samples"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "analyze-keyword-strategy",
+    "analyze-writing-style",
+    "fetch-url-content",
+    "generate-content-draft",
+    "generate-diagram-svg",
+    "generate-image-gemini",
+    "reparse-content-draft",
+    "run-grounding-only",
+    "track-link-click"
+   ],
+   "query_keys": [
+    "article-translations",
+    "articles",
+    "blueprint-coverage",
+    "bundle-strategy",
+    "claim-quality-stats",
+    "claims-with-sources",
+    "cluster-gap-context",
+    "compose-evidence-claims",
+    "connected-programs",
+    "content-drafts",
+    "content-job",
+    "content-jobs",
+    "credibility-report-claims",
+    "evidence-claims",
+    "evidence-claims-by-program",
+    "evidence-claims-for-content",
+    "export-history",
+    "factory-waiting-kw-status",
+    "image-generation-run-by-url",
+    "internal-link-articles",
+    "job-seed-refs",
+    "keyword-clusters",
+    "keyword-quick-panel-serp",
+    "keyword-quick-panel-strategy",
+    "keyword-recommended-type",
+    "keyword-strategy",
+    "keywords",
+    "latest-strategy-pipeline-run",
+    "multi-seed-strategy",
+    "new-claim-detection",
+    "qa-checklist-items",
+    "score-calculation-rules",
+    "slug-duplicate-check",
+    "system-settings",
+    "thumbnail-history",
+    "translation-runs",
+    "translations",
+    "workshop-affiliates",
+    "workspace-brand-context",
+    "workspace-quota",
+    "workspace-usage-history",
+    "workspace-usage-reservations",
+    "writing-style-profile",
+    "writing-style-profiles",
+    "writing-style-samples"
+   ],
+   "storage_buckets": [
+    "generated-images"
+   ]
+  },
+  "FactoryPage": {
+   "chunk": "FactoryPage-HFe_Wgnw.js",
+   "closure_size": 42,
+   "tables": [
+    "cluster_batch_runs",
+    "content_compositions",
+    "content_drafts",
+    "content_jobs",
+    "keyword_cluster_members",
+    "keyword_clusters",
+    "keyword_prompt_links",
+    "keyword_strategy",
+    "keywords",
+    "workspaces",
+    "writing_style_profiles",
+    "writing_style_samples"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "analyze-keyword-strategy",
+    "analyze-writing-style",
+    "cluster-keywords",
+    "fetch-url-content",
+    "run-cluster-batch"
+   ],
+   "query_keys": [
+    "cluster-batch-runs",
+    "cluster-detail",
+    "cluster-execution-plan",
+    "cluster-keywords",
+    "cluster-prompts",
+    "clusters",
+    "content-drafts",
+    "content-job",
+    "content-jobs",
+    "keyword-clusters",
+    "keyword-strategy",
+    "recent-keywords",
+    "strategy-map-clusters",
+    "workspace-brand-context",
+    "workspace-quota",
+    "workspace-usage-history",
+    "workspace-usage-reservations",
+    "writing-style-profile",
+    "writing-style-profiles",
+    "writing-style-samples"
+   ],
+   "storage_buckets": [
+    "generated-images"
+   ]
+  },
+  "FeatureDetailPage": {
+   "chunk": "FeatureDetailPage-DZkIYPHF.js",
+   "closure_size": 18,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "FeaturesPage": {
+   "chunk": "FeaturesPage-TOvx6X6-.js",
+   "closure_size": 23,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "platform-stats-public"
+   ],
+   "storage_buckets": []
+  },
+  "FeedbackAdminPage": {
+   "chunk": "FeedbackAdminPage-D9DwttoB.js",
+   "closure_size": 11,
+   "tables": [
+    "feature_request_votes",
+    "feature_requests",
+    "feedback_reply_notifications",
+    "profiles",
+    "workspaces"
+   ],
+   "rpcs": [
+    "get_platform_users_with_workspaces",
+    "revoke_trial_extension"
+   ],
+   "edge_functions": [
+    "notify-feedback",
+    "notify-feedback-reply"
+   ],
+   "query_keys": [
+    "feature-requests",
+    "feature-requests-all",
+    "feature-requests-public",
+    "feedback-reply-notification",
+    "my-votes",
+    "trial-extension-count",
+    "workspace-plan"
+   ],
+   "storage_buckets": []
+  },
+  "FeedbackPage": {
+   "chunk": "FeedbackPage-1ZQARyL7.js",
+   "closure_size": 12,
+   "tables": [
+    "feature_request_votes",
+    "feature_requests",
+    "feedback_reply_notifications",
+    "profiles",
+    "workspaces"
+   ],
+   "rpcs": [
+    "get_platform_users_with_workspaces",
+    "revoke_trial_extension"
+   ],
+   "edge_functions": [
+    "notify-feedback",
+    "notify-feedback-reply"
+   ],
+   "query_keys": [
+    "feature-requests",
+    "feature-requests-all",
+    "feature-requests-public",
+    "feedback-reply-notification",
+    "my-votes",
+    "trial-extension-count",
+    "workspace-plan"
+   ],
+   "storage_buckets": []
+  },
+  "FreeToolsIndexPage": {
+   "chunk": "FreeToolsIndexPage-B7OZkkeK.js",
+   "closure_size": 11,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "GA4DashboardPage": {
+   "chunk": "GA4DashboardPage-nZjeujrw.js",
+   "closure_size": 46,
+   "tables": [
+    "articles",
+    "chart_annotations",
+    "ga4_page_stats",
+    "gsc_daily_keywords",
+    "gsc_daily_pages",
+    "gsc_daily_totals",
+    "vw_gsc_connection_health",
+    "workspace_google_connections"
+   ],
+   "rpcs": [
+    "delete_gsc_property_stats",
+    "get_full_funnel_stats",
+    "get_ga4_channel_summary",
+    "get_ga4_dashboard_timeseries",
+    "get_ga4_source_summary",
+    "get_keyword_ga4_evidence",
+    "get_page_ga4_stats"
+   ],
+   "edge_functions": [
+    "ga4-list-properties",
+    "google-oauth-init",
+    "gsc-sync-enqueue"
+   ],
+   "query_keys": [
+    "chart-annotations",
+    "chart-annotations-auto",
+    "full-funnel-stats",
+    "ga4-dashboard-channels",
+    "ga4-dashboard-pages",
+    "ga4-dashboard-sources",
+    "ga4-dashboard-ts",
+    "ga4-dashboard-ts-prev",
+    "ga4-data-summary",
+    "ga4-properties",
+    "google-connection",
+    "gsc-connection-health",
+    "gsc-data-summary",
+    "keyword-ga4-evidence"
+   ],
+   "storage_buckets": []
+  },
+  "GSCDashboardPage": {
+   "chunk": "GSCDashboardPage-cldT_EJF.js",
+   "closure_size": 66,
+   "tables": [
+    "article_translations",
+    "articles",
+    "chart_annotations",
+    "ga4_page_stats",
+    "gsc_daily_keywords",
+    "gsc_daily_pages",
+    "gsc_daily_totals",
+    "keyword_prompt_links",
+    "serp_snapshots",
+    "vw_gsc_connection_health",
+    "workspace_google_connections",
+    "workspaces"
+   ],
+   "rpcs": [
+    "delete_gsc_property_stats",
+    "get_gsc_cannibalizations",
+    "get_gsc_dashboard_dimensions",
+    "get_gsc_dashboard_kpis",
+    "get_gsc_dashboard_timeseries",
+    "get_gsc_dimension_timeseries",
+    "get_gsc_page_query_counts",
+    "get_gsc_query_page_cross",
+    "get_gsc_ranking_timeseries",
+    "get_keywords_with_gsc_stats"
+   ],
+   "edge_functions": [
+    "google-oauth-init",
+    "gsc-list-properties",
+    "gsc-sync-enqueue"
+   ],
+   "query_keys": [
+    "admin",
+    "chart-annotations",
+    "chart-annotations-auto",
+    "ga4-data-summary",
+    "google-connection",
+    "gsc-aio-cross",
+    "gsc-cannib",
+    "gsc-connection-health",
+    "gsc-cross",
+    "gsc-data-summary",
+    "gsc-dim",
+    "gsc-dim-prev",
+    "gsc-dim-ts",
+    "gsc-discover-countries",
+    "gsc-discover-kpis",
+    "gsc-discover-pages",
+    "gsc-discover-ts",
+    "gsc-geo-cross",
+    "gsc-kpis",
+    "gsc-owned-pages",
+    "gsc-pq-counts",
+    "gsc-properties",
+    "gsc-rank-ts",
+    "gsc-ts",
+    "gsc-ts-prev",
+    "keywords-gsc-stats"
+   ],
+   "storage_buckets": []
+  },
+  "GapIntelligencePage": {
+   "chunk": "GapIntelligencePage-_4Dl_K6k.js",
+   "closure_size": 70,
+   "tables": [
+    "articles",
+    "geo_prompt_runs",
+    "geo_prompt_sets",
+    "geo_prompts",
+    "keyword_tag_assignments",
+    "keywords",
+    "serp_snapshots"
+   ],
+   "rpcs": [
+    "get_full_funnel_stats",
+    "get_keyword_ga4_evidence",
+    "get_serp_brand_presence_slim",
+    "get_serp_brand_presence_window"
+   ],
+   "edge_functions": [
+    "rpc-cache"
+   ],
+   "query_keys": [
+    "full-funnel-stats",
+    "gap-competitor-trend",
+    "gap-content-articles",
+    "gap-keywords",
+    "gap-overview",
+    "gap-prompts",
+    "gap-state-changes",
+    "keyword-ga4-evidence",
+    "seo-competitor-sov",
+    "seo-keyword-tag-scope"
+   ],
+   "storage_buckets": []
+  },
+  "GeoAlertsPage": {
+   "chunk": "GeoAlertsPage-CUhn-nGR.js",
+   "closure_size": 11,
+   "tables": [
+    "geo_alerts"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "GeoAnalysisPage": {
+   "chunk": "GeoAnalysisPage-CpkIsjQ2.js",
+   "closure_size": 127,
+   "tables": [
+    "geo_answers_raw",
+    "geo_fan_out_queries",
+    "geo_prompt_candidates",
+    "geo_prompt_runs",
+    "geo_prompt_sets",
+    "geo_prompt_tag_assignments",
+    "geo_prompts",
+    "keyword_cluster_members",
+    "keyword_clusters",
+    "keyword_prompt_links",
+    "keywords",
+    "plan_templates",
+    "workspace_plans",
+    "workspace_tag_groups",
+    "workspace_tags"
+   ],
+   "rpcs": [
+    "commit_reservation",
+    "delete_geo_prompt",
+    "get_fan_out_hub_data",
+    "get_geo_domain_citations",
+    "get_geo_domain_detail",
+    "get_geo_group_status_kpi",
+    "get_geo_group_status_kpi_multi",
+    "get_geo_product_engines",
+    "get_geo_product_metrics",
+    "get_geo_product_prompts",
+    "get_geo_product_trend",
+    "get_geo_prompt_rows_v2",
+    "get_geo_scope_prompt_ids",
+    "get_geo_ws_mention_term_prompts",
+    "is_platform_admin",
+    "release_reservation",
+    "reserve_unit_with_bypass"
+   ],
+   "edge_functions": [
+    "geo-run-prompts-fanout",
+    "rpc-cache"
+   ],
+   "query_keys": [
+    "enabled-engines",
+    "geo",
+    "geo-brand-unique-runs",
+    "geo-citation-matrix",
+    "geo-citation-matrix-all-prompts",
+    "geo-citation-matrix-domains",
+    "geo-citation-trend",
+    "geo-collection-days",
+    "geo-domain-citations",
+    "geo-prompt-sets",
+    "geo-prompts",
+    "keyword-clusters",
+    "keywords",
+    "tag-assignments",
+    "workspace-quota",
+    "workspace-usage-history",
+    "workspace-usage-reservations"
+   ],
+   "storage_buckets": []
+  },
+  "GeoDiscoverPage": {
+   "chunk": "GeoDiscoverPage-JtzIwCjZ.js",
+   "closure_size": 25,
+   "tables": [
+    "geo_discover_runs",
+    "geo_prompt_candidates",
+    "geo_prompt_sets",
+    "geo_prompts",
+    "keyword_prompt_links",
+    "serp_snapshots"
+   ],
+   "rpcs": [
+    "commit_reservation",
+    "release_reservation",
+    "reserve_unit_with_bypass"
+   ],
+   "edge_functions": [
+    "analyze-domain-for-onboarding",
+    "geo-discover-run",
+    "geo-run-prompts-fanout"
+   ],
+   "query_keys": [
+    "competitor-gap-analysis",
+    "geo-discover-candidates",
+    "geo-discover-clusters",
+    "geo-discover-run-progress",
+    "geo-discover-runs",
+    "geo-prompt-sets",
+    "geo-prompts",
+    "geo-saved-candidates",
+    "geo-saved-candidates-count",
+    "keyword-prompt-links",
+    "workspace-quota",
+    "workspace-usage-history",
+    "workspace-usage-reservations"
+   ],
+   "storage_buckets": []
+  },
+  "GeoInsightsPage": {
+   "chunk": "GeoInsightsPage-DjmCEFCo.js",
+   "closure_size": 128,
+   "tables": [
+    "geo_answers_raw",
+    "geo_fan_out_queries",
+    "geo_prompt_candidates",
+    "geo_prompt_runs",
+    "geo_prompt_sets",
+    "geo_prompt_tag_assignments",
+    "geo_prompts",
+    "keyword_cluster_members",
+    "keyword_clusters",
+    "keyword_prompt_links",
+    "keywords",
+    "plan_templates",
+    "workspace_plans",
+    "workspace_tag_groups",
+    "workspace_tags"
+   ],
+   "rpcs": [
+    "commit_reservation",
+    "delete_geo_prompt",
+    "get_fan_out_hub_data",
+    "get_geo_domain_citations",
+    "get_geo_domain_detail",
+    "get_geo_group_status_kpi",
+    "get_geo_group_status_kpi_multi",
+    "get_geo_product_engines",
+    "get_geo_product_metrics",
+    "get_geo_product_prompts",
+    "get_geo_product_trend",
+    "get_geo_prompt_rows_v2",
+    "get_geo_scope_prompt_ids",
+    "get_geo_ws_mention_term_prompts",
+    "is_platform_admin",
+    "release_reservation",
+    "reserve_unit_with_bypass"
+   ],
+   "edge_functions": [
+    "geo-run-prompts-fanout",
+    "rpc-cache"
+   ],
+   "query_keys": [
+    "enabled-engines",
+    "geo",
+    "geo-brand-unique-runs",
+    "geo-citation-matrix",
+    "geo-citation-matrix-all-prompts",
+    "geo-citation-matrix-domains",
+    "geo-citation-trend",
+    "geo-collection-days",
+    "geo-domain-citations",
+    "geo-prompt-sets",
+    "geo-prompts",
+    "keyword-clusters",
+    "keywords",
+    "tag-assignments",
+    "workspace-quota",
+    "workspace-usage-history",
+    "workspace-usage-reservations"
+   ],
+   "storage_buckets": []
+  },
+  "GeoModelLabPage": {
+   "chunk": "GeoModelLabPage-DCU4t1i0.js",
+   "closure_size": 8,
+   "tables": [
+    "geo_batch_jobs"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "geo-batch-poller",
+    "geo-batch-scheduler"
+   ],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "GeoMonitorPage": {
+   "chunk": "GeoMonitorPage-Y1rS39rc.js",
+   "closure_size": 24,
+   "tables": [
+    "geo_batch_jobs",
+    "serp_batch_jobs"
+   ],
+   "rpcs": [
+    "get_geo_poller_status",
+    "get_serp_cron_status"
+   ],
+   "edge_functions": [
+    "geo-batch-poller",
+    "geo-batch-scheduler",
+    "geo-models",
+    "geo-parse-results",
+    "geo-run-mentions",
+    "geo-run-openai",
+    "geo-run-perplexity",
+    "geo-run-responses"
+   ],
+   "query_keys": [
+    "serp-batch-jobs",
+    "serp-cron-status"
+   ],
+   "storage_buckets": []
+  },
+  "GeoOverviewPage": {
+   "chunk": "GeoOverviewPage-gy15jgBK.js",
+   "closure_size": 20,
+   "tables": [],
+   "rpcs": [
+    "get_avi_overview"
+   ],
+   "edge_functions": [
+    "rpc-cache"
+   ],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "GeoPromptDetailPage": {
+   "chunk": "GeoPromptDetailPage-k7qn5g0t.js",
+   "closure_size": 71,
+   "tables": [
+    "content_compositions",
+    "content_jobs",
+    "geo_answers_raw",
+    "geo_citations",
+    "geo_prompt_candidates",
+    "geo_prompt_runs",
+    "geo_prompt_sets",
+    "geo_prompts",
+    "geo_sources",
+    "keyword_prompt_links",
+    "keywords",
+    "system_settings",
+    "workspace_tag_groups",
+    "workspace_tags",
+    "workspaces"
+   ],
+   "rpcs": [
+    "commit_reservation",
+    "delete_geo_prompt",
+    "is_platform_admin",
+    "release_reservation",
+    "reserve_unit_with_bypass",
+    "set_prompt_paused"
+   ],
+   "edge_functions": [
+    "analyze-keyword-strategy",
+    "dataforseo-keyword-difficulty",
+    "dataforseo-search-intent",
+    "dataforseo-search-volume",
+    "derive-prompt-clusters",
+    "extract-clusters-from-prompt-text",
+    "rpc-cache"
+   ],
+   "query_keys": [
+    "content-jobs",
+    "geo",
+    "keywords",
+    "multi-prompt-picker",
+    "multi-prompt-picker-answers",
+    "prompt-clusters",
+    "prompt-set-of",
+    "prompt-to-content-support-texts",
+    "tag-assignments",
+    "workspace-brand-context",
+    "workspace-quota",
+    "workspace-usage-history",
+    "workspace-usage-reservations"
+   ],
+   "storage_buckets": []
+  },
+  "GeoPromptSetsPage": {
+   "chunk": "GeoPromptSetsPage-g_tTVQg5.js",
+   "closure_size": 124,
+   "tables": [
+    "content_compositions",
+    "content_jobs",
+    "geo_answers_raw",
+    "geo_citations",
+    "geo_fan_out_queries",
+    "geo_prompt_candidates",
+    "geo_prompt_runs",
+    "geo_prompt_sets",
+    "geo_prompt_tag_assignments",
+    "geo_prompts",
+    "geo_run_metrics",
+    "geo_sources",
+    "keyword_prompt_links",
+    "keyword_sets",
+    "keywords",
+    "plan_templates",
+    "serp_snapshots",
+    "site_audit_issues",
+    "site_audit_pages",
+    "site_audit_scans",
+    "site_audit_scores",
+    "system_settings",
+    "workspace_plans",
+    "workspace_tag_groups",
+    "workspace_tags",
+    "workspaces"
+   ],
+   "rpcs": [
+    "commit_reservation",
+    "delete_geo_prompt",
+    "get_geo_prompt_rows_v2",
+    "is_platform_admin",
+    "release_reservation",
+    "reserve_unit_with_bypass",
+    "set_prompt_paused"
+   ],
+   "edge_functions": [
+    "analyze-keyword-strategy",
+    "dataforseo-keyword-difficulty",
+    "dataforseo-search-intent",
+    "dataforseo-search-volume",
+    "derive-prompt-clusters",
+    "extract-clusters-from-prompt-text",
+    "geo-run-prompts-fanout",
+    "rpc-cache"
+   ],
+   "query_keys": [
+    "content-jobs",
+    "enabled-engines",
+    "geo",
+    "keywords",
+    "multi-prompt-picker",
+    "multi-prompt-picker-answers",
+    "prompt-clusters",
+    "prompt-set-of",
+    "prompt-to-content-support-texts",
+    "raw-popover-count-fanout",
+    "raw-popover-count-prompt",
+    "raw-popover-count-sa-issues",
+    "raw-popover-count-sa-pages",
+    "raw-popover-count-sa-scans",
+    "raw-popover-count-serp",
+    "raw-popover-sa-scan-ids",
+    "tag-assignments",
+    "workspace-brand-context",
+    "workspace-plan-key",
+    "workspace-quota",
+    "workspace-usage-history",
+    "workspace-usage-reservations"
+   ],
+   "storage_buckets": []
+  },
+  "GeoSetDetailPage": {
+   "chunk": "GeoSetDetailPage-DfcYlJ3k.js",
+   "closure_size": 84,
+   "tables": [
+    "content_compositions",
+    "content_jobs",
+    "geo_answers_raw",
+    "geo_prompt_candidates",
+    "geo_prompt_runs",
+    "geo_prompt_sets",
+    "geo_prompts",
+    "geo_sources",
+    "keyword_prompt_links",
+    "keywords",
+    "plan_templates",
+    "system_settings",
+    "workspace_plans",
+    "workspace_tag_groups",
+    "workspace_tags",
+    "workspaces"
+   ],
+   "rpcs": [
+    "commit_reservation",
+    "delete_geo_prompt",
+    "get_keyword_ga4_evidence",
+    "is_platform_admin",
+    "release_reservation",
+    "reserve_unit_with_bypass",
+    "set_prompt_paused"
+   ],
+   "edge_functions": [
+    "analyze-keyword-strategy",
+    "dataforseo-keyword-difficulty",
+    "dataforseo-search-intent",
+    "dataforseo-search-volume",
+    "derive-prompt-clusters",
+    "extract-clusters-from-prompt-text",
+    "geo-run-prompts-fanout",
+    "rpc-cache"
+   ],
+   "query_keys": [
+    "content-jobs",
+    "enabled-engines",
+    "geo",
+    "keywords",
+    "multi-prompt-picker",
+    "multi-prompt-picker-answers",
+    "prompt-clusters",
+    "prompt-set-of",
+    "prompt-to-content-support-texts",
+    "tag-assignments",
+    "workspace-brand-context",
+    "workspace-quota",
+    "workspace-usage-history",
+    "workspace-usage-reservations"
+   ],
+   "storage_buckets": []
+  },
+  "GeoSettingsPage": {
+   "chunk": "GeoSettingsPage-EDBH6VnD.js",
+   "closure_size": 14,
+   "tables": [
+    "system_settings"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "GlossaryPage": {
+   "chunk": "GlossaryPage-B20GSUnm.js",
+   "closure_size": 7,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "GlossaryTermPage": {
+   "chunk": "GlossaryTermPage-D7zWLmx_.js",
+   "closure_size": 12,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "IntegrationsPage": {
+   "chunk": "IntegrationsPage-D-V4_FzU.js",
+   "closure_size": 10,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "KeywordDetailPage": {
+   "chunk": "KeywordDetailPage-DFhnWxAv.js",
+   "closure_size": 97,
+   "tables": [
+    "articles",
+    "content_compositions",
+    "content_drafts",
+    "content_jobs",
+    "earned_publications",
+    "geo_answers_raw",
+    "geo_prompt_candidates",
+    "geo_prompt_runs",
+    "geo_prompt_sets",
+    "geo_prompts",
+    "keyword_cluster_members",
+    "keyword_clusters",
+    "keyword_expansion_candidates",
+    "keyword_knowledge_entities",
+    "keyword_prompt_links",
+    "keyword_serp_jobs",
+    "keyword_strategy",
+    "keywords",
+    "knowledge_entities",
+    "plan_templates",
+    "search_console_stats",
+    "serp_snapshots",
+    "workspace_plans",
+    "workspace_tag_groups",
+    "workspace_tags",
+    "workspaces",
+    "writing_style_profiles",
+    "writing_style_samples"
+   ],
+   "rpcs": [
+    "commit_reservation",
+    "delete_geo_prompt",
+    "find_keyword_id_canonical",
+    "get_full_funnel_stats",
+    "get_keyword_ga4_evidence",
+    "is_platform_admin",
+    "release_reservation",
+    "reserve_unit_with_bypass",
+    "strategy_map_effective_state"
+   ],
+   "edge_functions": [
+    "analyze-keyword-strategy",
+    "analyze-writing-style",
+    "bulk-collect-keyword-data",
+    "dataforseo-keyword-difficulty",
+    "dataforseo-keywords-for-keywords",
+    "dataforseo-keywords-for-site",
+    "fetch-serp-snapshot",
+    "fetch-url-content",
+    "geo-run-prompts-fanout",
+    "intent-batch-scheduler",
+    "naver-serp-scheduler",
+    "rpc-cache",
+    "seo-backfill-brand-presence",
+    "serp-job-worker",
+    "strategy-map-link-prompts",
+    "suggest-keyword-prompts",
+    "trigger-onboarding-async",
+    "volume-batch-scheduler"
+   ],
+   "query_keys": [
+    "clusters",
+    "content-drafts",
+    "content-job",
+    "content-job-by-keyword",
+    "content-jobs",
+    "dashboard-kpis",
+    "enabled-engines",
+    "existing-keyword-set",
+    "full-funnel-stats",
+    "gap-overview",
+    "geo",
+    "geo-prompt-sets",
+    "geo-prompts",
+    "google-serp-history",
+    "gsc-landing-page",
+    "ideas-candidates",
+    "ideas-clusters",
+    "ideas-tracked",
+    "intent-batch-jobs",
+    "keyword-clusters",
+    "keyword-decision",
+    "keyword-exists",
+    "keyword-ga4-evidence",
+    "keyword-linked-entities",
+    "keyword-llm-mentions",
+    "keyword-panel",
+    "keyword-prompt-context",
+    "keyword-prompt-suggestions",
+    "keyword-quick-panel-serp",
+    "keyword-serp-job",
+    "keyword-strategy",
+    "keyword-suggestion-counts",
+    "keywords",
+    "keywords-count",
+    "keywords-gsc-stats",
+    "keywords-kpi",
+    "keywords-total-count",
+    "knowledge-entities-chips",
+    "multi-seed-browse",
+    "multi-seed-hydrate",
+    "multi-seed-picker",
+    "naver-serp-detail",
+    "naver-serp-history",
+    "recent-keywords",
+    "serp-detail",
+    "serp-linked-entities",
+    "serp-matrix",
+    "tag-assignments",
+    "volume-batch-jobs",
+    "workspace-brand-context",
+    "workspace-keywords",
+    "workspace-keywords-lite",
+    "workspace-quota",
+    "workspace-usage-history",
+    "workspace-usage-reservations",
+    "writing-style-profile",
+    "writing-style-profiles",
+    "writing-style-samples"
+   ],
+   "storage_buckets": [
+    "generated-images"
+   ]
+  },
+  "KeywordExpansionLogsPage": {
+   "chunk": "KeywordExpansionLogsPage-B_NrwJIL.js",
+   "closure_size": 2,
+   "tables": [
+    "ai_keyword_expansion_logs"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "admin-keyword-expansion-logs"
+   ],
+   "storage_buckets": []
+  },
+  "KeywordsPage": {
+   "chunk": "KeywordsPage-CVAAHbhl.js",
+   "closure_size": 152,
+   "tables": [
+    "content_compositions",
+    "content_drafts",
+    "content_jobs",
+    "earned_publications",
+    "evidence_contexts",
+    "geo_answers_raw",
+    "geo_citations",
+    "geo_fan_out_queries",
+    "geo_prompt_candidates",
+    "geo_prompt_runs",
+    "geo_prompt_sets",
+    "geo_prompt_tag_assignments",
+    "geo_prompts",
+    "geo_run_metrics",
+    "geo_sources",
+    "keyword_cluster_members",
+    "keyword_clusters",
+    "keyword_expansion_candidates",
+    "keyword_knowledge_entities",
+    "keyword_prompt_links",
+    "keyword_serp_jobs",
+    "keyword_sets",
+    "keyword_strategy",
+    "keywords",
+    "knowledge_claim_stats",
+    "knowledge_entities",
+    "naver_seed_lookups",
+    "plan_templates",
+    "profiles",
+    "serp_snapshots",
+    "site_audit_issues",
+    "site_audit_pages",
+    "site_audit_scans",
+    "site_audit_scores",
+    "system_settings",
+    "workspace_brand_domains",
+    "workspace_plans",
+    "workspace_tag_groups",
+    "workspace_tags",
+    "workspaces",
+    "writing_style_profiles",
+    "writing_style_samples"
+   ],
+   "rpcs": [
+    "commit_reservation",
+    "delete_geo_prompt",
+    "delete_keyword",
+    "delete_keywords_bulk",
+    "find_keyword_id_canonical",
+    "get_keyword_network",
+    "get_keywords_with_gsc_stats",
+    "get_latest_naver_snapshots",
+    "get_latest_serp_snapshots",
+    "get_serp_brand_presence_window",
+    "is_platform_admin",
+    "release_reservation",
+    "reserve_unit_with_bypass",
+    "set_prompt_paused",
+    "strategy_map_effective_state"
+   ],
+   "edge_functions": [
+    "analyze-keyword-strategy",
+    "analyze-writing-style",
+    "bulk-collect-keyword-data",
+    "dataforseo-keyword-difficulty",
+    "dataforseo-keywords-for-keywords",
+    "dataforseo-keywords-for-site",
+    "fetch-serp-snapshot",
+    "fetch-url-content",
+    "geo-run-prompts-fanout",
+    "intent-batch-scheduler",
+    "naver-related-keywords",
+    "naver-serp-scheduler",
+    "rpc-cache",
+    "seo-backfill-brand-presence",
+    "serp-job-worker",
+    "strategy-map-link-prompts",
+    "suggest-keyword-prompts",
+    "trigger-onboarding-async",
+    "volume-batch-scheduler"
+   ],
+   "query_keys": [
+    "clusters",
+    "content-drafts",
+    "content-job",
+    "content-jobs",
+    "dashboard-kpis",
+    "enabled-engines",
+    "existing-keyword-set",
+    "existing-prompt-text-set",
+    "expansion-candidates",
+    "export-history",
+    "gap-overview",
+    "geo",
+    "geo-prompt-sets",
+    "geo-prompts",
+    "ideas-candidates",
+    "ideas-clusters",
+    "ideas-tracked",
+    "intent-batch-jobs",
+    "keyword-clusters",
+    "keyword-decision",
+    "keyword-exists",
+    "keyword-knowledge-entities",
+    "keyword-linked-entities",
+    "keyword-network",
+    "keyword-panel",
+    "keyword-prompt-context",
+    "keyword-prompt-suggestions",
+    "keyword-quick-panel-naver",
+    "keyword-quick-panel-serp",
+    "keyword-quick-panel-serp-job",
+    "keyword-set-quick",
+    "keyword-sets",
+    "keyword-strategy",
+    "keyword-suggestion-counts",
+    "keywords",
+    "keywords-count",
+    "keywords-gsc-stats",
+    "keywords-kpi",
+    "keywords-total-count",
+    "knowledge-entities-chips",
+    "multi-seed-browse",
+    "multi-seed-hydrate",
+    "multi-seed-picker",
+    "naver-snapshots",
+    "quick-panel-linked-entities",
+    "raw-popover-count-fanout",
+    "raw-popover-count-prompt",
+    "raw-popover-count-sa-issues",
+    "raw-popover-count-sa-pages",
+    "raw-popover-count-sa-scans",
+    "raw-popover-count-serp",
+    "raw-popover-sa-scan-ids",
+    "recent-keywords",
+    "seed-positions-brand",
+    "seed-positions-snapshots",
+    "serp-detail",
+    "serp-job-stats",
+    "serp-linked-entities",
+    "serp-matrix",
+    "tag-assignments",
+    "volume-batch-jobs",
+    "workspace-brand-context",
+    "workspace-keywords",
+    "workspace-keywords-lite",
+    "workspace-quota",
+    "workspace-tracked-seeds",
+    "workspace-usage-history",
+    "workspace-usage-reservations",
+    "writing-style-profile",
+    "writing-style-profiles",
+    "writing-style-samples"
+   ],
+   "storage_buckets": [
+    "generated-images"
+   ]
+  },
+  "KnowledgeEntityDetailPage": {
+   "chunk": "KnowledgeEntityDetailPage-kWgZnoC3.js",
+   "closure_size": 38,
+   "tables": [
+    "content_drafts",
+    "content_jobs",
+    "evidence_claims",
+    "evidence_contexts",
+    "keyword_knowledge_entities",
+    "keywords",
+    "knowledge_claim_stats",
+    "knowledge_entities",
+    "knowledge_entity_sources"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "extract-claims-from-pdf",
+    "verify-claims-url-context"
+   ],
+   "query_keys": [
+    "admin-programs",
+    "claim-quality-stats",
+    "concept-claims",
+    "evidence-by-concept",
+    "evidence-by-program",
+    "evidence-claims",
+    "evidence-claims-by-concept",
+    "evidence-claims-by-program",
+    "evidence-claims-for-content",
+    "evidence-contexts",
+    "extraction-status-poll",
+    "keyword-link-modal",
+    "knowledge-claim-stats",
+    "program-claim-stats",
+    "program-claims",
+    "program-claims-count",
+    "program-sources",
+    "recommended-sources",
+    "single-program-claim-stats",
+    "source-claim-status",
+    "topic-keywords",
+    "unverified-claims"
+   ],
+   "storage_buckets": [
+    "knowledge-hub-files"
+   ]
+  },
+  "KnowledgeHubPage": {
+   "chunk": "KnowledgeHubPage-BS5PJ0aZ.js",
+   "closure_size": 30,
+   "tables": [
+    "content_drafts",
+    "content_jobs",
+    "knowledge_claim_stats",
+    "knowledge_entities",
+    "knowledge_entity_keywords",
+    "knowledge_entity_sources"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "extract-claims-from-pdf",
+    "verify-claims-url-context"
+   ],
+   "query_keys": [
+    "admin-programs",
+    "concept-claims",
+    "entities-with-keywords",
+    "evidence-claims",
+    "knowledge-claim-stats",
+    "program-claims",
+    "program-sources",
+    "programs",
+    "recommended-sources",
+    "source-claim-status"
+   ],
+   "storage_buckets": []
+  },
+  "MarketingAboutPage": {
+   "chunk": "MarketingAboutPage-BUj2LDZY.js",
+   "closure_size": 8,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "MarketingFeedbackPage": {
+   "chunk": "MarketingFeedbackPage-BfrN2bw-.js",
+   "closure_size": 5,
+   "tables": [
+    "feature_request_votes",
+    "feature_requests",
+    "feedback_reply_notifications",
+    "profiles",
+    "workspaces"
+   ],
+   "rpcs": [
+    "get_platform_users_with_workspaces",
+    "revoke_trial_extension"
+   ],
+   "edge_functions": [
+    "notify-feedback",
+    "notify-feedback-reply"
+   ],
+   "query_keys": [
+    "feature-requests",
+    "feature-requests-all",
+    "feature-requests-public",
+    "feedback-reply-notification",
+    "my-votes",
+    "trial-extension-count",
+    "workspace-plan"
+   ],
+   "storage_buckets": []
+  },
+  "MarketingHomePage": {
+   "chunk": "MarketingHomePage-Bw2AlhED.js",
+   "closure_size": 42,
+   "tables": [
+    "free_tool_results",
+    "system_settings"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "curated-examples",
+    "platform-stats",
+    "system-settings"
+   ],
+   "storage_buckets": []
+  },
+  "MarketingPrivacyPage": {
+   "chunk": "MarketingPrivacyPage-DIN0c_TE.js",
+   "closure_size": 4,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "MarketingRefundPolicyPage": {
+   "chunk": "MarketingRefundPolicyPage-DlQJUkX-.js",
+   "closure_size": 5,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "MarketingTermsPage": {
+   "chunk": "MarketingTermsPage-DN_BCDFu.js",
+   "closure_size": 4,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "MethodologyPage": {
+   "chunk": "MethodologyPage-Boz6DRtG.js",
+   "closure_size": 12,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "MonitoringDashboardPage": {
+   "chunk": "MonitoringDashboardPage-DvdO0zB-.js",
+   "closure_size": 69,
+   "tables": [
+    "articles",
+    "chart_annotations",
+    "ga4_page_stats",
+    "geo_answers_raw",
+    "geo_citations",
+    "geo_fan_out_queries",
+    "geo_prompt_runs",
+    "geo_prompt_tag_assignments",
+    "geo_prompts",
+    "geo_run_metrics",
+    "gsc_daily_keywords",
+    "gsc_daily_pages",
+    "gsc_daily_totals",
+    "keyword_cluster_members",
+    "keyword_expansion_candidates",
+    "keyword_knowledge_entities",
+    "keyword_serp_jobs",
+    "keywords",
+    "knowledge_entities",
+    "plan_templates",
+    "serp_snapshots",
+    "site_audit_issues",
+    "site_audit_pages",
+    "site_audit_scans",
+    "site_audit_scores",
+    "vw_gsc_connection_health",
+    "workspace_google_connections",
+    "workspace_plans"
+   ],
+   "rpcs": [
+    "commit_reservation",
+    "delete_gsc_property_stats",
+    "find_keyword_id_canonical",
+    "get_full_funnel_stats",
+    "get_ga4_channel_summary",
+    "get_ga4_dashboard_timeseries",
+    "get_ga4_source_summary",
+    "get_gsc_cannibalizations",
+    "get_gsc_dashboard_dimensions",
+    "get_gsc_dashboard_kpis",
+    "get_gsc_dashboard_timeseries",
+    "get_gsc_dimension_timeseries",
+    "get_gsc_page_query_counts",
+    "get_gsc_query_page_cross",
+    "get_gsc_ranking_timeseries",
+    "get_keyword_ga4_evidence",
+    "get_keywords_with_gsc_stats",
+    "get_page_ga4_stats",
+    "get_page_top_queries",
+    "get_pages_top_keywords",
+    "release_reservation",
+    "reserve_unit_with_bypass",
+    "strategy_map_effective_state"
+   ],
+   "edge_functions": [
+    "bulk-collect-keyword-data",
+    "dataforseo-keyword-difficulty",
+    "dataforseo-keywords-for-keywords",
+    "dataforseo-keywords-for-site",
+    "google-oauth-init",
+    "gsc-sync-enqueue",
+    "intent-batch-scheduler",
+    "naver-serp-scheduler",
+    "serp-job-worker",
+    "strategy-map-link-prompts",
+    "trigger-onboarding-async",
+    "volume-batch-scheduler"
+   ],
+   "query_keys": [
+    "chart-annotations",
+    "chart-annotations-auto",
+    "clusters",
+    "dashboard-kpis",
+    "enabled-engines",
+    "full-funnel-stats",
+    "ga4-dashboard-channels",
+    "ga4-dashboard-pages",
+    "ga4-dashboard-sources",
+    "ga4-dashboard-ts",
+    "ga4-dashboard-ts-prev",
+    "ga4-data-summary",
+    "gap-overview",
+    "google-connection",
+    "gsc-cannib",
+    "gsc-connection-health",
+    "gsc-cross",
+    "gsc-data-summary",
+    "gsc-dim",
+    "gsc-dim-prev",
+    "gsc-dim-ts",
+    "gsc-dim-ts-ondemand",
+    "gsc-discover-countries",
+    "gsc-discover-kpis",
+    "gsc-discover-pages",
+    "gsc-discover-ts",
+    "gsc-kpis",
+    "gsc-pq-counts",
+    "gsc-rank-ts",
+    "gsc-ts",
+    "gsc-ts-prev",
+    "ideas-candidates",
+    "ideas-clusters",
+    "ideas-tracked",
+    "intent-batch-jobs",
+    "keyword-exists",
+    "keyword-ga4-evidence",
+    "keyword-linked-entities",
+    "keyword-panel",
+    "keywords",
+    "keywords-count",
+    "keywords-gsc-stats",
+    "keywords-kpi",
+    "keywords-total-count",
+    "knowledge-entities-chips",
+    "page-ga4-ts",
+    "page-top-queries",
+    "pages-top-keywords-batch",
+    "recent-keywords",
+    "serp-linked-entities",
+    "volume-batch-jobs",
+    "workspace-keywords",
+    "workspace-quota"
+   ],
+   "storage_buckets": []
+  },
+  "MonthlyReportPage": {
+   "chunk": "MonthlyReportPage-xdYLVQ4Z.js",
+   "closure_size": 58,
+   "tables": [
+    "ga4_page_stats",
+    "geo_prompt_runs",
+    "geo_prompt_sets",
+    "geo_prompts",
+    "geo_run_metrics",
+    "gsc_daily_pages",
+    "keyword_tag_assignments",
+    "report_action_items",
+    "report_snapshots",
+    "site_audit_scans"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "generate-report-summary",
+    "rpc-cache"
+   ],
+   "query_keys": [
+    "report-trend-series",
+    "reports",
+    "seo-keyword-tag-scope"
+   ],
+   "storage_buckets": []
+  },
+  "NewsIndexPage": {
+   "chunk": "NewsIndexPage-_SNuW0QA.js",
+   "closure_size": 9,
+   "tables": [
+    "article_topics",
+    "article_translations"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "blog-editor-picks-v2",
+    "news-articles"
+   ],
+   "storage_buckets": []
+  },
+  "OperatorApiPage": {
+   "chunk": "OperatorApiPage-BpUvcMwB.js",
+   "closure_size": 5,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "operator-api-keys"
+   ],
+   "storage_buckets": []
+  },
+  "OptimizePage": {
+   "chunk": "OptimizePage-DHezD-bZ.js",
+   "closure_size": 9,
+   "tables": [
+    "content_review_runs"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "citability-fetch-url",
+    "citability-improve"
+   ],
+   "query_keys": [
+    "content-review-runs",
+    "export-history"
+   ],
+   "storage_buckets": []
+  },
+  "OptimizeWorkshopPage": {
+   "chunk": "OptimizeWorkshopPage-Hf9yAO-C.js",
+   "closure_size": 27,
+   "tables": [
+    "content_review_runs",
+    "export_history"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "citability-fetch-url",
+    "citability-improve"
+   ],
+   "query_keys": [
+    "content-review-runs",
+    "export-history"
+   ],
+   "storage_buckets": []
+  },
+  "PartnersPage": {
+   "chunk": "PartnersPage-DsB2VUMA.js",
+   "closure_size": 8,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "PersonaDetailPage": {
+   "chunk": "PersonaDetailPage-B4EnT8_b.js",
+   "closure_size": 26,
+   "tables": [
+    "content_jobs",
+    "writing_style_profiles",
+    "writing_style_samples"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "analyze-writing-style",
+    "fetch-url-content",
+    "parse-document"
+   ],
+   "query_keys": [
+    "persona-content-counts",
+    "persona-content-usage",
+    "writing-style-profile",
+    "writing-style-profiles",
+    "writing-style-samples"
+   ],
+   "storage_buckets": []
+  },
+  "PersonasPage": {
+   "chunk": "PersonasPage-CnyPhM-d.js",
+   "closure_size": 13,
+   "tables": [
+    "content_jobs",
+    "writing_style_profiles",
+    "writing_style_samples"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "analyze-writing-style",
+    "fetch-url-content"
+   ],
+   "query_keys": [
+    "persona-content-counts",
+    "persona-content-usage",
+    "writing-style-profile",
+    "writing-style-profiles",
+    "writing-style-samples"
+   ],
+   "storage_buckets": []
+  },
+  "PlansPage": {
+   "chunk": "PlansPage-BQGRjhBt.js",
+   "closure_size": 21,
+   "tables": [
+    "plan_templates",
+    "plan_unit_limits",
+    "subscriptions",
+    "system_settings",
+    "workspace_plans"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "plan-reference-counts",
+    "plan-unit-limits",
+    "system-settings"
+   ],
+   "storage_buckets": []
+  },
+  "PlatformAdminRolesPage": {
+   "chunk": "PlatformAdminRolesPage-kRgMsSTD.js",
+   "closure_size": 6,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [
+    "admin-user"
+   ],
+   "query_keys": [
+    "platform-admin-list"
+   ],
+   "storage_buckets": []
+  },
+  "PricingPage": {
+   "chunk": "PricingPage-FpIEzrGl.js",
+   "closure_size": 20,
+   "tables": [
+    "custom_offers",
+    "geo_prompts",
+    "keywords",
+    "plan_templates",
+    "workspace_plans"
+   ],
+   "rpcs": [
+    "set_keyword_paused",
+    "set_prompt_paused"
+   ],
+   "edge_functions": [
+    "nicepay-cancel",
+    "nicepay-cancel-pending-change",
+    "nicepay-change-plan",
+    "nicepay-create-auth-order",
+    "nicepay-create-order",
+    "nicepay-get-order-meta",
+    "nicepay-undo-cancel"
+   ],
+   "query_keys": [
+    "all-geo-prompts",
+    "cleanup-keywords",
+    "cleanup-prompts",
+    "geo-prompts",
+    "keywords",
+    "payment-history",
+    "plan-price-map",
+    "subscription",
+    "workspace-custom-offer",
+    "workspace-plan",
+    "workspace-quota"
+   ],
+   "storage_buckets": []
+  },
+  "PrivacyPolicyPage": {
+   "chunk": "PrivacyPolicyPage-CmEkNiqX.js",
+   "closure_size": 3,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "RawDataPage": {
+   "chunk": "RawDataPage-nS0dIiSB.js",
+   "closure_size": 28,
+   "tables": [
+    "geo_answers_raw",
+    "geo_citations",
+    "geo_fan_out_queries",
+    "geo_prompt_runs",
+    "geo_prompt_tag_assignments",
+    "geo_prompts",
+    "geo_run_metrics",
+    "keywords",
+    "plan_templates",
+    "serp_snapshots",
+    "site_audit_issues",
+    "site_audit_pages",
+    "site_audit_scans",
+    "site_audit_scores",
+    "workspace_plans",
+    "workspace_tag_groups",
+    "workspace_tags"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "enabled-engines",
+    "raw-data-count-fanout",
+    "raw-data-count-ga4",
+    "raw-data-count-gsc-keywords",
+    "raw-data-count-gsc-pages",
+    "raw-data-count-gsc-totals",
+    "raw-data-count-prompt",
+    "raw-data-count-serp",
+    "raw-data-count-site-audit-issues",
+    "raw-data-count-site-audit-pages",
+    "raw-data-count-site-audit-scans",
+    "raw-data-site-audit-scan-ids"
+   ],
+   "storage_buckets": []
+  },
+  "ReferralAdminPage": {
+   "chunk": "ReferralAdminPage-B4jpYTts.js",
+   "closure_size": 6,
+   "tables": [
+    "referral_commissions",
+    "referral_partners",
+    "referral_payouts"
+   ],
+   "rpcs": [
+    "referral_admin_list_partners",
+    "referral_admin_list_payouts",
+    "referral_admin_set_partner_status",
+    "referral_admin_set_payout_status",
+    "referral_apply",
+    "referral_code_available",
+    "referral_create_code",
+    "referral_my_codes",
+    "referral_my_referrals",
+    "referral_my_summary",
+    "referral_my_timeseries",
+    "referral_request_payout",
+    "referral_update_code"
+   ],
+   "edge_functions": [],
+   "query_keys": [
+    "referral"
+   ],
+   "storage_buckets": []
+  },
+  "ReferralPage": {
+   "chunk": "ReferralPage-4koLvnsf.js",
+   "closure_size": 15,
+   "tables": [
+    "referral_commissions",
+    "referral_partners",
+    "referral_payouts"
+   ],
+   "rpcs": [
+    "referral_admin_list_partners",
+    "referral_admin_list_payouts",
+    "referral_admin_set_partner_status",
+    "referral_admin_set_payout_status",
+    "referral_apply",
+    "referral_code_available",
+    "referral_create_code",
+    "referral_my_codes",
+    "referral_my_referrals",
+    "referral_my_summary",
+    "referral_my_timeseries",
+    "referral_request_payout",
+    "referral_update_code"
+   ],
+   "edge_functions": [],
+   "query_keys": [
+    "referral"
+   ],
+   "storage_buckets": []
+  },
+  "RegressionTestsPage": {
+   "chunk": "RegressionTestsPage-CDAxsJrI.js",
+   "closure_size": 15,
+   "tables": [
+    "regression_test_runs"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "preview-blueprint-body",
+    "run-blueprint-body-tests",
+    "run-blueprint-exposure-tests",
+    "run-blueprint-llm-sample",
+    "run-regression-tests"
+   ],
+   "query_keys": [
+    "regression-runs"
+   ],
+   "storage_buckets": []
+  },
+  "ReportsPage": {
+   "chunk": "ReportsPage-rmKv8LK8.js",
+   "closure_size": 1,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "ResearchPage": {
+   "chunk": "ResearchPage-I-mEWwlz.js",
+   "closure_size": 14,
+   "tables": [
+    "citation_matrix_by_media"
+   ],
+   "rpcs": [
+    "get_matrix_cell_detail"
+   ],
+   "edge_functions": [],
+   "query_keys": [
+    "citation-matrix-data",
+    "matrix-cell-detail"
+   ],
+   "storage_buckets": []
+  },
+  "RolesPage": {
+   "chunk": "RolesPage-BzuQnc0w.js",
+   "closure_size": 6,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "SEOHealthCheckPage": {
+   "chunk": "SEOHealthCheckPage-CO4Q1DTA.js",
+   "closure_size": 7,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "language-coverage-health",
+    "robots-health",
+    "rss-health",
+    "sitemap-health"
+   ],
+   "storage_buckets": []
+  },
+  "SEOInsightsPage": {
+   "chunk": "SEOInsightsPage-OONlreQH.js",
+   "closure_size": 97,
+   "tables": [
+    "ga4_page_stats",
+    "keyword_sets",
+    "keyword_tag_assignments",
+    "keywords",
+    "plan_templates",
+    "serp_snapshots",
+    "source_tier_domains",
+    "workspace_plans",
+    "workspace_tag_groups",
+    "workspace_tags"
+   ],
+   "rpcs": [
+    "get_seo_aio_cross_trend",
+    "get_seo_rank_movers",
+    "get_serp_brand_presence_slim",
+    "get_serp_brand_presence_window",
+    "get_serp_matrix_data",
+    "get_serp_rank_trend"
+   ],
+   "edge_functions": [
+    "rpc-cache"
+   ],
+   "query_keys": [
+    "enabled-engines",
+    "keyword-created-dates",
+    "keywords",
+    "naver-overview-stats",
+    "seo-aio-analysis",
+    "seo-aio-cross-trend",
+    "seo-competitor-sov",
+    "seo-keyword-rank-series",
+    "seo-keyword-tag-scope",
+    "seo-opportunities",
+    "seo-overview-stats",
+    "seo-performance",
+    "seo-sov-trend",
+    "serp-matrix",
+    "serp-matrix-keywords",
+    "serp-matrix-site-types",
+    "serp-rank-trend"
+   ],
+   "storage_buckets": []
+  },
+  "SearchPage": {
+   "chunk": "SearchPage-DVu2cRre.js",
+   "closure_size": 184,
+   "tables": [
+    "article_translations",
+    "tool_translations",
+    "topic_translations"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "search",
+    "search-suggestions"
+   ],
+   "storage_buckets": []
+  },
+  "SecurityPage": {
+   "chunk": "SecurityPage-Dh8ED60z.js",
+   "closure_size": 8,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "SerpDecisionMonitorPage": {
+   "chunk": "SerpDecisionMonitorPage-lqVeAhT6.js",
+   "closure_size": 8,
+   "tables": [
+    "serp_decision_alert_log"
+   ],
+   "rpcs": [
+    "get_serp_decision_health_stats",
+    "get_serp_decision_throughput"
+   ],
+   "edge_functions": [],
+   "query_keys": [
+    "admin-serp-decision-alerts",
+    "admin-serp-decision-stats",
+    "admin-serp-decision-throughput"
+   ],
+   "storage_buckets": []
+  },
+  "SettingsPage": {
+   "chunk": "SettingsPage-1Tt0fClZ.js",
+   "closure_size": 74,
+   "tables": [
+    "brand_reclassify_jobs",
+    "earned_cannibal_dismissals",
+    "earned_publications",
+    "ga4_page_stats",
+    "gsc_daily_keywords",
+    "gsc_daily_pages",
+    "gsc_daily_totals",
+    "gsc_sync_state",
+    "keywords",
+    "plan_templates",
+    "plan_unit_limits",
+    "serp_snapshots",
+    "usage_reservations",
+    "vw_gsc_connection_health",
+    "workspace_api_keys",
+    "workspace_events",
+    "workspace_google_connections",
+    "workspace_invitations",
+    "workspace_plans",
+    "workspace_tag_groups",
+    "workspace_tags",
+    "workspaces"
+   ],
+   "rpcs": [
+    "delete_gsc_property_stats",
+    "get_api_key_usage_stats",
+    "get_api_limit_status",
+    "get_workspace_members",
+    "remove_workspace_member",
+    "revoke_workspace_api_key",
+    "transfer_workspace_ownership",
+    "update_workspace_api_key_limits",
+    "update_workspace_api_limits",
+    "update_workspace_member"
+   ],
+   "edge_functions": [
+    "account-deletion-precheck",
+    "account-deletion-request",
+    "backfill-site-audit-sitemap-stats",
+    "billing-inquiry",
+    "ga4-list-properties",
+    "geo-backfill-mentions",
+    "google-oauth-init",
+    "gsc-list-properties",
+    "gsc-sync-enqueue",
+    "nicepay-cancel",
+    "nicepay-cancel-pending-change",
+    "nicepay-create-auth-order",
+    "nicepay-create-order",
+    "nicepay-get-order-meta",
+    "nicepay-retry-charge",
+    "nicepay-undo-cancel",
+    "seo-backfill-brand-presence",
+    "sync-ga4-data",
+    "workspace-invite"
+   ],
+   "query_keys": [
+    "account-deletion-precheck",
+    "brand-reclassify-job",
+    "enabled-engines",
+    "ga4-data-summary",
+    "ga4-properties",
+    "google-connection",
+    "gsc-connection-health",
+    "gsc-data-summary",
+    "gsc-properties",
+    "gsc-sync-state",
+    "keyword-quick-panel-serp",
+    "keywords",
+    "my-workspaces",
+    "payment-history",
+    "plan-next-limits",
+    "serp-detail",
+    "serp-matrix",
+    "strategy-map-effective-state",
+    "subscription",
+    "workspace-api-keys",
+    "workspace-api-limits",
+    "workspace-api-usage",
+    "workspace-auto-gen-prompts",
+    "workspace-invitations",
+    "workspace-keywords-lite",
+    "workspace-members",
+    "workspace-plan",
+    "workspace-policy-urls",
+    "workspace-quota",
+    "workspace-usage-history",
+    "workspace-usage-reservations"
+   ],
+   "storage_buckets": []
+  },
+  "SiteAuditBenchmarksPage": {
+   "chunk": "SiteAuditBenchmarksPage-BO-tl2Y8.js",
+   "closure_size": 1,
+   "tables": [
+    "site_audit_phase_metrics",
+    "site_audit_scans"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "admin-site-audit-bench-scans",
+    "admin-site-audit-phase-metrics"
+   ],
+   "storage_buckets": []
+  },
+  "SiteAuditDiagnosticsPage": {
+   "chunk": "SiteAuditDiagnosticsPage-BWYCJ6Q9.js",
+   "closure_size": 2,
+   "tables": [
+    "site_audit_retry_logs",
+    "site_audit_scans"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "admin-recent-scans-for-retry",
+    "admin-retry-logs-for-scan",
+    "admin-retry-logs-kpi"
+   ],
+   "storage_buckets": []
+  },
+  "SiteAuditDiffPage": {
+   "chunk": "SiteAuditDiffPage-eJNpC9Bj.js",
+   "closure_size": 6,
+   "tables": [
+    "site_audit_issues",
+    "site_audit_pages"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "diff-page-issues",
+    "site-audit-diff-pages-v2",
+    "site-audit-round-issues"
+   ],
+   "storage_buckets": []
+  },
+  "SiteAuditInternalLinksPage": {
+   "chunk": "SiteAuditInternalLinksPage-BuhuuDsb.js",
+   "closure_size": 1,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "SiteAuditPage": {
+   "chunk": "SiteAuditPage-BXZ55fiO.js",
+   "closure_size": 77,
+   "tables": [
+    "audit_batch_failures",
+    "geo_answers_raw",
+    "geo_citations",
+    "geo_fan_out_queries",
+    "geo_prompt_runs",
+    "geo_prompt_tag_assignments",
+    "geo_prompts",
+    "geo_run_metrics",
+    "keyword_sets",
+    "keywords",
+    "schema_coach_results",
+    "serp_snapshots",
+    "site_audit_issues",
+    "site_audit_links",
+    "site_audit_pages",
+    "site_audit_reanalyze_jobs",
+    "site_audit_scans",
+    "site_audit_scores",
+    "workspaces"
+   ],
+   "rpcs": [
+    "resume_site_audit_scan",
+    "site_audit_links_summary"
+   ],
+   "edge_functions": [
+    "schema-coach-suggest",
+    "site-audit-backfill-schema",
+    "site-audit-diagnose-page",
+    "site-audit-finish-crawl",
+    "site-audit-reanalyze",
+    "site-audit-recheck-url",
+    "site-audit-render-samples",
+    "site-audit-start",
+    "site-audit-worker"
+   ],
+   "query_keys": [
+    "affected-page-rows",
+    "audit-batch-failures",
+    "issue-page-matches",
+    "keywords",
+    "my-workspaces",
+    "raw-popover-count-fanout",
+    "raw-popover-count-prompt",
+    "raw-popover-count-sa-issues",
+    "raw-popover-count-sa-pages",
+    "raw-popover-count-sa-scans",
+    "raw-popover-count-serp",
+    "raw-popover-sa-scan-ids",
+    "recent-scan-scope-rules",
+    "site-audit-completed-scans",
+    "site-audit-issues",
+    "site-audit-link-count",
+    "site-audit-links",
+    "site-audit-links-infinite",
+    "site-audit-links-summary",
+    "site-audit-owned-counts",
+    "site-audit-page-detail",
+    "site-audit-page-perf",
+    "site-audit-pages",
+    "site-audit-parent-dedup",
+    "site-audit-parent-summaries-v2",
+    "site-audit-parent-url-ownership",
+    "site-audit-reanalyze-job",
+    "site-audit-round-issues",
+    "site-audit-scan",
+    "site-audit-scan-meta",
+    "site-audit-scans",
+    "workspace-policy-urls",
+    "workspace-quota",
+    "workspace-schema-policy",
+    "workspace-scope-rules"
+   ],
+   "storage_buckets": []
+  },
+  "SiteAuditResultPage": {
+   "chunk": "SiteAuditResultPage-CHDoHyKr.js",
+   "closure_size": 16,
+   "tables": [
+    "site_audit_scans"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "newsletter-subscribe"
+   ],
+   "query_keys": [
+    "site-audit-result"
+   ],
+   "storage_buckets": []
+  },
+  "SiteAuditScoringDebugPage": {
+   "chunk": "SiteAuditScoringDebugPage-4QhR79IR.js",
+   "closure_size": 3,
+   "tables": [
+    "site_audit_scans"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "site-audit-backfill-v2"
+   ],
+   "query_keys": [
+    "site-audit-scoring-debug"
+   ],
+   "storage_buckets": []
+  },
+  "SiteAuditToolPage": {
+   "chunk": "SiteAuditToolPage-FFlYSh3X.js",
+   "closure_size": 24,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [
+    "newsletter-subscribe",
+    "site-audit-check"
+   ],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "SolutionPage": {
+   "chunk": "SolutionPage-Dc_fw_AS.js",
+   "closure_size": 5,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "StrategyMapPage": {
+   "chunk": "StrategyMapPage-X57VxhPK.js",
+   "closure_size": 63,
+   "tables": [
+    "ai_keyword_expansion_logs",
+    "cluster_batch_runs",
+    "cluster_stats_history",
+    "geo_discover_runs",
+    "geo_prompt_candidates",
+    "geo_prompt_runs",
+    "geo_prompt_sets",
+    "geo_prompts",
+    "keyword_cluster_members",
+    "keyword_clusters",
+    "keyword_prompt_links",
+    "keywords",
+    "onboarding_jobs",
+    "workspace_events",
+    "workspaces"
+   ],
+   "rpcs": [
+    "commit_reservation",
+    "get_keywords_with_gsc_stats",
+    "release_reservation",
+    "reserve_unit_with_bypass",
+    "strategy_map_effective_state"
+   ],
+   "edge_functions": [
+    "ai-expand-keywords",
+    "backfill-keyword-prompt-links",
+    "cluster-keywords",
+    "run-cluster-batch",
+    "strategy-map-cluster",
+    "strategy-map-control",
+    "strategy-map-orchestrator",
+    "trigger-onboarding-async",
+    "update-cluster-geo"
+   ],
+   "query_keys": [
+    "cluster-batch-runs",
+    "cluster-detail",
+    "cluster-execution-plan",
+    "cluster-history",
+    "cluster-history-all",
+    "cluster-keywords",
+    "cluster-prompts",
+    "clusters",
+    "content-jobs",
+    "discover-completion-watcher",
+    "discover-run-meta",
+    "discover-run-samples",
+    "geo",
+    "geo-collection-progress",
+    "geo-discover-run-progress",
+    "orchestrator-progress",
+    "pipeline-status-events",
+    "pipeline-status-onboarding-job",
+    "strategy-map-active-kw-count",
+    "strategy-map-cluster-keywords",
+    "strategy-map-clusters",
+    "strategy-map-inspect",
+    "strategy-map-keywords-only-mode",
+    "strategy-map-members",
+    "strategy-map-scanned-at",
+    "strategy-map-status",
+    "strategy-map-status-lite",
+    "strategy-prep-stages",
+    "strategy-step-runner-inspect",
+    "workspace-quota",
+    "workspace-usage-history",
+    "workspace-usage-reservations"
+   ],
+   "storage_buckets": []
+  },
+  "SystemDocsPage": {
+   "chunk": "SystemDocsPage-CraI96la.js",
+   "closure_size": 135,
+   "tables": [
+    "content_jobs",
+    "doc_sync_versions"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "doc-sync-status"
+   ],
+   "storage_buckets": []
+  },
+  "TagPage": {
+   "chunk": "TagPage--t3rz8WA.js",
+   "closure_size": 10,
+   "tables": [
+    "article_tags",
+    "article_translations",
+    "tags"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "tag",
+    "tag-articles"
+   ],
+   "storage_buckets": []
+  },
+  "TermsOfServicePage": {
+   "chunk": "TermsOfServicePage-BLEecQSc.js",
+   "closure_size": 3,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "ToolDetailAdminPage": {
+   "chunk": "ToolDetailAdminPage-BniOo6y-.js",
+   "closure_size": 11,
+   "tables": [
+    "article_tools",
+    "tool_alternatives",
+    "tool_translations",
+    "tools"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "admin-tools",
+    "search-tools",
+    "seo-health-check",
+    "tool",
+    "tool-alternatives",
+    "tool-articles",
+    "tool-by-program"
+   ],
+   "storage_buckets": []
+  },
+  "ToolDetailPage": {
+   "chunk": "ToolDetailPage-B88-aBKg.js",
+   "closure_size": 193,
+   "tables": [
+    "article_tools"
+   ],
+   "rpcs": [],
+   "edge_functions": [
+    "newsletter-subscribe"
+   ],
+   "query_keys": [
+    "tool-related-articles"
+   ],
+   "storage_buckets": []
+  },
+  "ToolSubmitPage": {
+   "chunk": "ToolSubmitPage-DWE2tsJ8.js",
+   "closure_size": 3,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "ToolsAdminPage": {
+   "chunk": "ToolsAdminPage-Bl4Bdz4V.js",
+   "closure_size": 8,
+   "tables": [
+    "article_tools",
+    "tool_alternatives",
+    "tool_translations",
+    "tools"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "admin-tools",
+    "search-tools",
+    "seo-health-check",
+    "tool",
+    "tool-alternatives",
+    "tool-articles",
+    "tool-by-program"
+   ],
+   "storage_buckets": []
+  },
+  "ToolsDirectoryPage": {
+   "chunk": "ToolsDirectoryPage-CUvJ3U9-.js",
+   "closure_size": 15,
+   "tables": [
+    "tools"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "tool-filter-counts"
+   ],
+   "storage_buckets": []
+  },
+  "TopicHubPage": {
+   "chunk": "TopicHubPage-Dwffm_Ko.js",
+   "closure_size": 13,
+   "tables": [
+    "article_topics",
+    "article_translations"
+   ],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [
+    "topic-articles"
+   ],
+   "storage_buckets": []
+  },
+  "TopicsListPage": {
+   "chunk": "TopicsListPage-BSAsQRaN.js",
+   "closure_size": 186,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "UseCasePage": {
+   "chunk": "UseCasePage-CJ3utWTI.js",
+   "closure_size": 6,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "UseCasesIndexPage": {
+   "chunk": "UseCasesIndexPage-D-6bBQcc.js",
+   "closure_size": 9,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "WeeklyReportPage": {
+   "chunk": "WeeklyReportPage-ry4RDH6g.js",
+   "closure_size": 64,
+   "tables": [
+    "geo_prompt_runs",
+    "geo_prompt_sets",
+    "geo_prompts",
+    "keyword_tag_assignments",
+    "keywords",
+    "report_action_items",
+    "report_snapshots"
+   ],
+   "rpcs": [
+    "get_avi_daily_components",
+    "get_avi_overview",
+    "get_geo_citation_rank_range",
+    "get_geo_prompt_status_kpi_range",
+    "get_serp_brand_presence_slim",
+    "get_serp_brand_presence_window"
+   ],
+   "edge_functions": [
+    "generate-report-summary",
+    "generate-weekly-snapshot",
+    "rpc-cache"
+   ],
+   "query_keys": [
+    "reports",
+    "seo-keyword-tag-scope",
+    "seo-overview-stats",
+    "weekly-report-avi-daily",
+    "weekly-report-avi-overview",
+    "weekly-report-range-kpi"
+   ],
+   "storage_buckets": []
+  },
+  "WelcomeGuidePage": {
+   "chunk": "WelcomeGuidePage-DDxO--UH.js",
+   "closure_size": 7,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "WorkflowDetailPage": {
+   "chunk": "WorkflowDetailPage-Dezqhf_F.js",
+   "closure_size": 189,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "WorkflowsIndexPage": {
+   "chunk": "WorkflowsIndexPage-BJZWTjOa.js",
+   "closure_size": 10,
+   "tables": [],
+   "rpcs": [],
+   "edge_functions": [],
+   "query_keys": [],
+   "storage_buckets": []
+  },
+  "WorkspaceDetailPage": {
+   "chunk": "WorkspaceDetailPage-DbNadFKr.js",
+   "closure_size": 26,
+   "tables": [
+    "content_jobs",
+    "geo_prompt_sets",
+    "geo_prompt_tag_assignments",
+    "geo_prompts",
+    "keyword_sets",
+    "keyword_tag_assignments",
+    "keywords",
+    "orders",
+    "plan_templates",
+    "subscriptions",
+    "usage_unit_catalog",
+    "workspace_billing_overrides",
+    "workspace_credit_balances",
+    "workspace_credit_ledger",
+    "workspace_members",
+    "workspace_mirrors",
+    "workspace_plans",
+    "workspace_tags",
+    "workspaces"
+   ],
+   "rpcs": [
+    "get_billing_period_range",
+    "get_workspace_quota_summary",
+    "grant_credit",
+    "mirror_pending_geo_run_counts",
+    "mirror_pending_serp_counts",
+    "mirror_unparsed_run_counts"
+   ],
+   "edge_functions": [
+    "admin-workspace",
+    "geo-backfill-mentions",
+    "geo-batch-scheduler",
+    "mirror-geo-fanout",
+    "mirror-geo-reparse-drain",
+    "mirror-serp-fanout",
+    "mirror-sync",
+    "naver-serp-scheduler",
+    "nicepay-cancel",
+    "nicepay-retry-charge",
+    "nicepay-undo-cancel",
+    "serp-batch-scheduler"
+   ],
+   "query_keys": [
+    "admin-mirror-candidates",
+    "admin-mirror-geo-status",
+    "admin-mirror-health",
+    "admin-mirror-parse-status",
+    "admin-mirror-serp-status",
+    "admin-mirror-source-catalog",
+    "admin-workspace-brand-tracking",
+    "admin-workspace-mirrors",
+    "admin-workspace-owner-email",
+    "admin-workspace-quota",
+    "all-subscriptions",
+    "plan-price-map",
+    "plan-template-cadence",
+    "plan-templates",
+    "subscription-status-counts",
+    "usage-units",
+    "workspace",
+    "workspace-activity",
+    "workspace-billing-period-range",
+    "workspace-content-jobs",
+    "workspace-credit-balances",
+    "workspace-credit-ledger",
+    "workspace-detail",
+    "workspace-keywords",
+    "workspace-overrides",
+    "workspace-payment-history",
+    "workspace-plan",
+    "workspace-plan-cadence",
+    "workspace-quota-summary",
+    "workspace-subscription",
+    "workspaces"
+   ],
+   "storage_buckets": []
+  },
+  "WorkspaceListPage": {
+   "chunk": "WorkspaceListPage-DPD1BWHU.js",
+   "closure_size": 24,
+   "tables": [
+    "plan_templates",
+    "workspace_plans"
+   ],
+   "rpcs": [
+    "admin_workspace_list",
+    "admin_workspace_summary"
+   ],
+   "edge_functions": [
+    "admin-workspace"
+   ],
+   "query_keys": [
+    "admin-workspace-quota",
+    "gross-margin",
+    "monthly-mrr-trend",
+    "mrr-movement",
+    "plan-price-map",
+    "plan-templates",
+    "retention-overview",
+    "revenue-overview",
+    "unit-economics",
+    "workspace",
+    "workspace-detail",
+    "workspace-plan",
+    "workspace-plan-row",
+    "workspace-quota-summary",
+    "workspace-summary",
+    "workspaces"
+   ],
+   "storage_buckets": []
+  },
+  "WorkspacesPage": {
+   "chunk": "WorkspacesPage-lP0vLULO.js",
+   "closure_size": 4,
+   "tables": [
+    "profiles",
+    "workspace_events",
+    "workspace_google_connections",
+    "workspace_members",
+    "workspace_mirrors",
+    "workspace_plans",
+    "workspaces"
+   ],
+   "rpcs": [
+    "get_workspace_quota_summary"
+   ],
+   "edge_functions": [],
+   "query_keys": [
+    "workspace-card-plan",
+    "workspace-card-quota",
+    "workspace-detail-integration",
+    "workspace-detail-members",
+    "workspace-detail-mirror",
+    "workspace-detail-plan",
+    "workspace-detail-quota",
+    "workspace-last-activity",
+    "workspace-mirror-map"
+   ],
+   "storage_buckets": []
+  }
+ }
+}

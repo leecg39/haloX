@@ -5,3 +5,6 @@ node_modules/
 .DS_Store
 *.log
 docs/research/captures/
+__pycache__/
+*.pyc
+docs/research/haloxlabs.ai/initial.json

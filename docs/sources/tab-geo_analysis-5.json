@@ -1,0 +1,227 @@
+{
+  "url": "https://haloxlabs.ai/app/geo/analysis?tab=matrix",
+  "title": "프롬프트 분석",
+  "headings": [
+    "프롬프트 분석"
+  ],
+  "tabs": [
+    {
+      "label": "개요",
+      "selected": "false"
+    },
+    {
+      "label": "프롬프트",
+      "selected": "false"
+    },
+    {
+      "label": "멘션",
+      "selected": "false"
+    },
+    {
+      "label": "인용 소스",
+      "selected": "false"
+    },
+    {
+      "label": "상품",
+      "selected": "false"
+    },
+    {
+      "label": "인용 매트릭스",
+      "selected": "true"
+    },
+    {
+      "label": "경쟁사",
+      "selected": "false"
+    },
+    {
+      "label": "플랫폼",
+      "selected": "false"
+    },
+    {
+      "label": "검색 패턴",
+      "selected": "false"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "엔진",
+      "disabled": false
+    },
+    {
+      "label": "세트",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만 계산",
+      "disabled": false
+    },
+    {
+      "label": "일별\n지난 28일",
+      "disabled": false
+    },
+    {
+      "label": "개요",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트",
+      "disabled": false
+    },
+    {
+      "label": "멘션",
+      "disabled": false
+    },
+    {
+      "label": "인용 소스",
+      "disabled": false
+    },
+    {
+      "label": "상품",
+      "disabled": false
+    },
+    {
+      "label": "인용 매트릭스",
+      "disabled": false
+    },
+    {
+      "label": "경쟁사",
+      "disabled": false
+    },
+    {
+      "label": "플랫폼",
+      "disabled": false
+    },
+    {
+      "label": "검색 패턴",
+      "disabled": false
+    },
+    {
+      "label": "유형 전체",
+      "disabled": false
+    },
+    {
+      "label": "등장",
+      "disabled": false
+    },
+    {
+      "label": "소스",
+      "disabled": false
+    },
+    {
+      "label": "인용",
+      "disabled": false
+    },
+    {
+      "label": "건수",
+      "disabled": false
+    },
+    {
+      "label": "점유율",
+      "disabled": false
+    },
+    {
+      "label": "전체 접기",
+      "disabled": false
+    },
+    {
+      "label": "인용 점유율 추이",
+      "disabled": false
+    }
+  ],
+  "labels": [
+    "기간 시작 전 생성분만"
+  ],
+  "columns": [],
+  "inputs": [
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n분석\n프롬프트 분석\n50%\n[계정 이메일]\n프롬프트 분석\n\nAI 답변에서의 자사 노출도 분석 및 경쟁사 비교\n\n엔진\n세트\n태그\n기간 시작 전 생성분만\n일별\n지난 28일\n개요\n프롬프트\n멘션\n인용 소스\n상품\n인용 매트릭스\n경쟁사\n플랫폼\n검색 패턴\n유형 전체\n등장\n소스\n인용\n건수\n점유율\n전체 접기\n인용:\n0\n1-1\n2-2\n3-3\n4+\n인용 점유율 추이\n도메인\n\n50\n\n상위 50개 기준이며, 자사·경쟁사 도메인은 제한과 무관하게 항상 포함됩니다.\n\n자사\n\nbridzzi.com\n\n2 (2.7%)\n\n경쟁 1위\n\nechomarketing.co.kr\n\n1 (1.4%)\n\n브리찌 Monitoring\n(10)\n▾\n도메인\n매출 정체기 극복을 위한 숏폼 영상 제작 가이드\n브리찌 광고 집행 시 최소 예산 자격 조건\n브리찌를 통한 검색 상위노출 세팅 방법\n브리찌와 에코마케팅 서비스 운영 방식 비교\n성과형 광고대행사 선정 시 비교해야 할 항목들\n스타트업 광고 효율을 높여줄 광고대행사 추천\n운영 중인 광고 효율이 갑자기 떨어졌을 때 해결책\nAEO 마케팅이 최근 마케팅 시장에서 주목받는 이유\nAI 마케팅 최신 도구 및 솔루션 추천 리스트\nGEO 마케팅과 SEO 마케팅의 핵심 차이점\n합계\n미분류\nbridzzi.com\n·\n1\n1\n·\n·\n·\n·\n·\n·\n·\n2\n미분류\nechomarketing.co.kr\n·\n·\n·\n1\n·\n·\n·\n·\n·\n·\n1\n영상\ntiktok.com\n2\n·\n·\n·\n·\n·\n2\n·\n·\n·\n4\nSaaS\nhubspot.com\n2\n·\n·\n·\n·\n·\n·\n1\n1\n·\n4\n미분류\nbrizy.io\n·\n·\n1\n·\n·\n·\n·\n·\n·\n·\n1\n기타\ngoogle.com\n1\n·\n·\n·\n1\n·\n2\n1\n·\n·\n5\n연구\ngartner.com\n·\n·\n·\n·\n·\n·\n·\n2\n1\n·\n3\n미분류\nsearchengineland.com\n·\n·\n·\n·\n·\n·\n·\n2\n·\n1\n3\n미디어\ntechradar.com\n·\n·\n·\n·\n·\n·\n·\n·\n1\n·\n1\n연구\narxiv.org\n·\n·\n·\n·\n·\n·\n·\n2\n·\n1\n3\n블로그\nblog.google\n·\n·\n·\n·\n·\n·\n·\n2\n·\n·\n2\n소셜\nlinkedin.com\n1\n·\n·\n·\n·\n·\n1\n·\n·\n·\n2\n미분류\nadef.co.kr\n·\n·\n·\n·\n·\n2\n·\n·\n·\n·\n2\n미디어\naxios.com\n·\n·\n·\n·\n·\n·\n·\n2\n·\n·\n2\n미분류\nclutch.co\n·\n·\n·\n·\n·\n2\n·\n·\n·\n·\n2\n미분류\ngoogle.cn\n·\n·\n·\n·\n·\n·\n·\n·\n·\n1\n1\nSaaS\nsemrush.com\n·\n·\n·\n·\n·\n·\n·\n1\n·\n1\n2\n참고\nwikipedia.org\n·\n·\n·\n·\n1\n·\n·\n·\n1\n·\n2\n미분류\nad-rium.co.kr\n·\n·\n·\n·\n·\n1\n·\n·\n·\n·\n1\n미분류\naeocanon.com\n·\n·\n·\n·\n·\n·\n·\n1\n·\n·\n1\n미분류\nahrefs.com\n·\n·\n·\n·\n·\n·\n·\n1\n·\n·\n1\n미분류\namazonaws.com\n·\n1\n·\n·\n·\n·\n·\n·\n·\n·\n1\n미분류\namericanadvertisingandmarketingassociation.org\n·\n·\n·\n·\n1\n·\n·\n·\n·\n·\n1\n미분류\nappsilon.co.kr\n·\n·\n·\n·\n1\n·\n·\n·\n·\n·\n1\n미분류\nbosoop.com\n·\n·\n·\n1\n·\n·\n·\n·\n·\n·\n1\n미분류\nbrizy.site\n·\n·\n1\n·\n·\n·\n·\n·\n·\n·\n1\n미분류\ncometly.com\n·\n·\n·\n·\n·\n·\n1\n·\n·\n·\n1\n미분류\ndailyinvest.kr\n·\n·\n·\n1\n·\n·\n·\n·\n·\n·\n1\n미분류\ndekkgt.com\n·\n·\n·\n·\n·\n1\n·\n·\n·\n·\n1\n미분류\ndiscover-tiktok.com\n·\n·\n·\n·\n·\n·\n1\n·\n·\n·\n1\n미분류\ndisrupt.co.kr\n·\n·\n·\n·\n·\n1\n·\n·\n·\n·\n1\n미분류\nexpandk.com\n·\n·\n·\n·\n·\n1\n·\n·\n·\n·\n1\n미분류\nianmedia.kr\n·\n·\n·\n·\n·\n1\n·\n·\n·\n·\n1\n미분류\njasper.ai\n·\n·\n·\n·\n·\n·\n·\n·\n1\n·\n1\nSaaS\njobkorea.co.kr\n·\n·\n·\n1\n·\n·\n·\n·\n·\n·\n1\n미분류\nkakaopaycdn.com\n·\n1\n·\n·\n·\n·\n·\n·\n·\n·\n1\n미분류\nkeepersdigital.com\n·\n·\n·\n·\n1\n·\n·\n·\n·\n·\n1\n미분류\nmedicompartners.co.kr\n·\n1\n·\n·\n·\n·\n·\n·\n·\n·\n1\n미분류\nmetaadsagency.com\n·\n·\n·\n·\n1\n·\n·\n·\n·\n·\n1\n미분류\nnasmedia.co.kr\n·\n·\n·\n·\n·\n1\n·\n·\n·\n·\n1\n미분류\nnicecore.kr\n·\n·\n·\n·\n·\n1\n·\n·\n·\n·\n1\n미분류\nonmarketing.ai\n·\n·\n·\n·\n·\n·\n·\n1\n·\n·\n1\n미분류\npango-gy.com\n·\n·\n·\n·\n·\n1\n·\n·\n·\n·\n1\n미분류\nprogressionagency.com\n·\n·\n·\n·\n1\n·\n·\n·\n·\n·\n1\n포럼\nreddit.com\n·\n·\n·\n·\n1\n·\n·\n·\n·\n·\n1\n미분류\nreplit.app\n·\n·\n·\n·\n·\n·\n·\n·\n1\n·\n1\n미분류\nrework.com\n·\n·\n·\n·\n·\n·\n·\n·\n1\n·\n1\n미분류\nsinsoop.com\n·\n·\n·\n·\n·\n1\n·\n·\n·\n·\n1\n미분류\nwadiz.kr\n·\n1\n·\n·\n·\n·\n·\n·\n·\n·\n1\n미분류\nwyzowl.com\n1\n·\n·\n·\n·\n·\n·\n·\n·\n·\n1\n합계\n7\n5\n3\n4\n8\n13\n7\n16\n7\n4\n74",
+  "item": "인용 매트릭스",
+  "parent": "https://haloxlabs.ai/app/geo/analysis"
+}

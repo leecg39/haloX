@@ -1,0 +1,249 @@
+{
+  "url": "https://haloxlabs.ai/app/geo/analysis?tab=sources",
+  "title": "프롬프트 분석",
+  "headings": [
+    "프롬프트 분석",
+    "도메인 등장 (Unique)",
+    "인용 건수 (Total)",
+    "인용률 추이",
+    "인용 상위 도메인"
+  ],
+  "tabs": [
+    {
+      "label": "개요",
+      "selected": "false"
+    },
+    {
+      "label": "프롬프트",
+      "selected": "false"
+    },
+    {
+      "label": "멘션",
+      "selected": "false"
+    },
+    {
+      "label": "인용 소스",
+      "selected": "true"
+    },
+    {
+      "label": "상품",
+      "selected": "false"
+    },
+    {
+      "label": "인용 매트릭스",
+      "selected": "false"
+    },
+    {
+      "label": "경쟁사",
+      "selected": "false"
+    },
+    {
+      "label": "플랫폼",
+      "selected": "false"
+    },
+    {
+      "label": "검색 패턴",
+      "selected": "false"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "엔진",
+      "disabled": false
+    },
+    {
+      "label": "세트",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만 계산",
+      "disabled": false
+    },
+    {
+      "label": "일별\n지난 28일",
+      "disabled": false
+    },
+    {
+      "label": "개요",
+      "disabled": false
+    },
+    {
+      "label": "프롬프트",
+      "disabled": false
+    },
+    {
+      "label": "멘션",
+      "disabled": false
+    },
+    {
+      "label": "인용 소스",
+      "disabled": false
+    },
+    {
+      "label": "상품",
+      "disabled": false
+    },
+    {
+      "label": "인용 매트릭스",
+      "disabled": false
+    },
+    {
+      "label": "경쟁사",
+      "disabled": false
+    },
+    {
+      "label": "플랫폼",
+      "disabled": false
+    },
+    {
+      "label": "검색 패턴",
+      "disabled": false
+    },
+    {
+      "label": "인용",
+      "disabled": false
+    },
+    {
+      "label": "소스",
+      "disabled": false
+    },
+    {
+      "label": "율(Rate)",
+      "disabled": false
+    },
+    {
+      "label": "점유율(Share)",
+      "disabled": false
+    },
+    {
+      "label": "소스순",
+      "disabled": false
+    },
+    {
+      "label": "인용순",
+      "disabled": false
+    },
+    {
+      "label": "도메인",
+      "disabled": false
+    },
+    {
+      "label": "페이지",
+      "disabled": false
+    },
+    {
+      "label": "전체 분류",
+      "disabled": false
+    },
+    {
+      "label": "세트",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    }
+  ],
+  "labels": [
+    "기간 시작 전 생성분만"
+  ],
+  "columns": [],
+  "inputs": [
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "INPUT",
+      "type": "text",
+      "placeholder": "도메인 검색...",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n분석\n프롬프트 분석\n50%\n[계정 이메일]\n프롬프트 분석\n\nAI 답변에서의 자사 노출도 분석 및 경쟁사 비교\n\n갱신 중\n엔진\n세트\n태그\n기간 시작 전 생성분만\n일별\n지난 28일\n개요\n프롬프트\n멘션\n인용 소스\n상품\n인용 매트릭스\n경쟁사\n플랫폼\n검색 패턴\n\n선택한 지표 기준으로 등장(Unique)·건수(Total)·추이·순위·상세를 보여줍니다\n\n인용\n소스\n기준\n율(Rate)\n점유율(Share)\n도메인 등장 (Unique)\n\n도메인이 등장한 고유 런(프롬프트×엔진) 수 · 상위 8개\n\n인용 건수 (Total)\n\n선택한 지표의 누적 건수 · 상위 8개\n\n인용률 추이\n\n자사와 상위 5개 경쟁사의 인용률 변화 · 전체 실행 슬롯 대비 (상단 율 KPI와 동일 기준)\n\n인용률 순위\n\n전체 실행 슬롯 대비 (상단 율 KPI와 동일 기준) · 추세 = 기간 첫날 → 마지막 날 변화(%p)\n\n인용 상세\n\n브랜드 트래킹에 등록한 도메인 기준입니다. 행을 클릭하면 소속 도메인이 열립니다.\n\n인용 상위 도메인\n\n0 개 도메인\n\n소스순\n인용순\n도메인\n페이지\n인용\n전체 분류\n세트\n태그",
+  "item": "인용 소스",
+  "parent": "https://haloxlabs.ai/app/geo/analysis"
+}

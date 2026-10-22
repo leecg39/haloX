@@ -1,0 +1,244 @@
+{
+  "url": "https://haloxlabs.ai/app/seo/insights",
+  "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+  "headings": [
+    "키워드 분석",
+    "검색 엔진 노출 비교",
+    "Top 키워드 순위 흐름",
+    "키워드 순위 요약",
+    "순위 변동 TOP\n(28D)"
+  ],
+  "tabs": [
+    {
+      "label": "개요",
+      "selected": "true"
+    },
+    {
+      "label": "성과",
+      "selected": "false"
+    },
+    {
+      "label": "경쟁사",
+      "selected": "false"
+    },
+    {
+      "label": "기회",
+      "selected": "false"
+    },
+    {
+      "label": "AIO",
+      "selected": "false"
+    },
+    {
+      "label": "SERP 매트릭스",
+      "selected": "false"
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Toggle Sidebar",
+      "disabled": false
+    },
+    {
+      "label": "50%",
+      "disabled": false
+    },
+    {
+      "label": "[계정 이메일]",
+      "disabled": false
+    },
+    {
+      "label": "전체 언어",
+      "disabled": false
+    },
+    {
+      "label": "전체 국가",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만",
+      "disabled": false
+    },
+    {
+      "label": "기간 시작 전 생성분만 계산",
+      "disabled": false
+    },
+    {
+      "label": "세트",
+      "disabled": false
+    },
+    {
+      "label": "태그",
+      "disabled": false
+    },
+    {
+      "label": "일별\n지난 28일",
+      "disabled": false
+    },
+    {
+      "label": "개요",
+      "disabled": false
+    },
+    {
+      "label": "성과",
+      "disabled": false
+    },
+    {
+      "label": "경쟁사",
+      "disabled": false
+    },
+    {
+      "label": "기회",
+      "disabled": false
+    },
+    {
+      "label": "AIO",
+      "disabled": false
+    },
+    {
+      "label": "SERP 매트릭스",
+      "disabled": false
+    },
+    {
+      "label": "Top 10 비율 info",
+      "disabled": false
+    },
+    {
+      "label": "AI 요약 인용률 info",
+      "disabled": false
+    },
+    {
+      "label": "자사 순위 info",
+      "disabled": false
+    },
+    {
+      "label": "평균 순위 info",
+      "disabled": false
+    },
+    {
+      "label": "검색량순",
+      "disabled": false
+    },
+    {
+      "label": "순위순",
+      "disabled": false
+    },
+    {
+      "label": "Top 5",
+      "disabled": false
+    },
+    {
+      "label": "Top 10",
+      "disabled": false
+    },
+    {
+      "label": "전체 0",
+      "disabled": false
+    },
+    {
+      "label": "상승 0",
+      "disabled": false
+    },
+    {
+      "label": "하락 0",
+      "disabled": false
+    },
+    {
+      "label": "성과 상세 보기",
+      "disabled": false
+    },
+    {
+      "label": "SERP 기준 경쟁사 비교",
+      "disabled": false
+    },
+    {
+      "label": "AI 요약(AIO) 분석",
+      "disabled": false
+    }
+  ],
+  "labels": [
+    "기간 시작 전 생성분만"
+  ],
+  "columns": [
+    "검색 엔진",
+    "노출·인용률",
+    "분포",
+    "평균 순위",
+    "교차율"
+  ],
+  "inputs": [
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    },
+    {
+      "tag": "BUTTON",
+      "type": "button",
+      "label": null
+    }
+  ],
+  "links": [
+    {
+      "label": "대시보드",
+      "href": "https://haloxlabs.ai/app"
+    },
+    {
+      "label": "키워드 현황",
+      "href": "https://haloxlabs.ai/app/keywords"
+    },
+    {
+      "label": "키워드 분석",
+      "href": "https://haloxlabs.ai/app/seo/insights"
+    },
+    {
+      "label": "프롬프트 현황",
+      "href": "https://haloxlabs.ai/app/geo/prompts"
+    },
+    {
+      "label": "프롬프트 분석",
+      "href": "https://haloxlabs.ai/app/geo/analysis"
+    },
+    {
+      "label": "전략맵",
+      "href": "https://haloxlabs.ai/app/strategy-map"
+    },
+    {
+      "label": "사이트 진단",
+      "href": "https://haloxlabs.ai/app/site-audit"
+    },
+    {
+      "label": "콘텐츠 제작소",
+      "href": "https://haloxlabs.ai/app/factory"
+    },
+    {
+      "label": "콘텐츠 최적화",
+      "href": "https://haloxlabs.ai/app/optimize"
+    },
+    {
+      "label": "콘텐츠 내보내기",
+      "href": "https://haloxlabs.ai/app/exports"
+    },
+    {
+      "label": "모니터링 대시보드",
+      "href": "https://haloxlabs.ai/app/monitoring"
+    },
+    {
+      "label": "주간 리포트",
+      "href": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "label": "페르소나",
+      "href": "https://haloxlabs.ai/app/personas"
+    },
+    {
+      "label": "자료실",
+      "href": "https://haloxlabs.ai/app/knowledgehub"
+    },
+    {
+      "label": "Raw 데이터",
+      "href": "https://haloxlabs.ai/app/raw-data"
+    }
+  ],
+  "text": "Toggle Sidebar\n분석\n키워드 분석\n50%\n[계정 이메일]\n키워드 분석\n\n검색 순위, AI 요약 인용, 자사 점유율을 분석하세요 · 9월 25일 ~ 10월 22일\n\n전체 언어\n전체 국가\n기간 시작 전 생성분만\n세트\n태그\n일별\n지난 28일\n개요\n성과\n경쟁사\n기회\nAIO\nSERP 매트릭스\nTop 10 키워드\n—\n0 / 10개\n0%\nAI 요약 인용\n11%\n1 / 9\n자사 순위\n0개\n우위 0% · 전체 10개\n평균 순위\n—\n표본 0개\n검색 엔진 노출 비교\n\n검색 엔진마다 노출 방식이 달라요. 노출률·평균 순위·자사 경쟁사 분포를 비교합니다 · 지난 28일 · 일별\n\n검색 엔진\t노출·인용률\t분포\t평균 순위\t교차율\n\nGoogle SERP\n\t\n0%\n0 / 10\nTop10 노출률 · Top10 / 분석 키워드\n\t\n0:0\n\t\n—\n\t—\n\nGoogle AIO\nAI\n\t\n11.1%\n1 / 9\nAIO 인용률 · 자사 인용 / AIO 감지\n\t\n1:0\n\t\n1위\n1/1\n평균 순위 1.0위, 1위 비율 100%\n\t\n0%\nAIO → Top10\n0 / 1\n검색 엔진별 추이\nGoogle SERP\n09/27\n09/30\n10/03\n10/06\n10/09\n10/11\n10/13\n10/15\n10/17\n10/19\n10/22\n0%\n25%\n50%\n75%\n100%\nTop10 노출률\nGoogle AIO\n09/25\n09/28\n10/01\n10/04\n10/07\n10/10\n10/13\n10/16\n10/19\n10/22\n0%\n25%\n50%\n75%\n100%\n#2\nAIO 인용률평균 순위\n검색량순\n순위순\nTop 5\nTop 10\nTop 키워드 순위 흐름\n\n검색량 상위 키워드의 일별 순위 · 지난 28일 · 일별\n\n아직 순위 데이터가 없어요\n\n첫 수집이 끝나면 여기에 채워져요.\n\n기간 내 수집 데이터가 없는 키워드 10개는 제외했어요.\n\n키워드 순위 요약\n\n자사·경쟁사 최신 순위 · 기간 시작 대비 변동 (경쟁사는 최상위 1개)\n\n아직 순위 데이터가 없어요\n\n첫 수집이 끝나면 여기에 채워져요.\n\n순위 변동 TOP\n(28D)\n\n기간 시작 대비 변동 · 상승 0 · 하락 0\n\n전체 0\n상승 0\n하락 0\n성과 상세 보기\n더 자세히 보기\nSERP 기준 경쟁사 비교\nAI 요약(AIO) 분석"
+}

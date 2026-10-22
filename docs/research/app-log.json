@@ -1,0 +1,521 @@
+[
+  {
+    "route": "/app",
+    "url": "https://haloxlabs.ai/app",
+    "text": 1163,
+    "tail": "\t—\n에코마케팅 대안\t—\t100\t\n취약\t—\n매출 정체\t—\t100\t\n취약\t—\n성과형 광고대행사\t—\t100\t\n취약\t—\nAEO 마케팅\t—\t100\t\n취약\t—\nAI 광고대행사\t—\t100\t\n취약\t—\n브리찌\t—\t70\t\nSEO 약함\t\n분석된 10개 키워드 · 1–8행\n1\n2\n검색 성과 분석\nTop 10: 0\nAI 대화 분석\n11%\n기회 분석\n7/100\n리포트\n리포트 없음"
+  },
+  {
+    "route": "/app/keywords",
+    "url": "https://haloxlabs.ai/app/keywords",
+    "text": 1503,
+    "tail": "\n~6개월\n\t\n-\n\t\n\n\n\t\nAI 마케팅\n브리찌 키워드 · 추적 시작일 2026-10-22\n\t\n태그\n\t—\t\n\t480\t\n\t정보 탐색\t\n9\n\t\n8\n\t\n\t\n보통\n~3개월\n\t\n-\n\t\n\n\n\t\n에코마케팅 대안\n브리찌 키워드 · 추적 시작일 2026-10-22\n\t\n태그\n\t—\t-\t< 10\t\n—\n\t정보 탐색\t—\t—\t\n\t\n에버그린\n~6개월\n\t\n-\n\t\n\n1-10 / 총 10개"
+  },
+  {
+    "route": "/app/seo/insights",
+    "url": "https://haloxlabs.ai/app/seo/insights",
+    "text": 1295,
+    "tail": "상위 1개)\n\n아직 순위 데이터가 없어요\n\n첫 수집이 끝나면 여기에 채워져요.\n\n순위 변동 TOP\n(28D)\n\n기간 시작 대비 변동 · 상승 0 · 하락 0\n\n전체 0\n상승 0\n하락 0\n성과 상세 보기\n\n기간 내 순위 변동이 없어요\n\n순위가 오르거나 내린 키워드가 생기면 여기에 표시돼요.\n\n더 자세히 보기\nSERP 기준 경쟁사 비교\nAI 요약(AIO) 분석"
+  },
+  {
+    "route": "/app/geo/prompts",
+    "url": "https://haloxlabs.ai/app/geo/prompts",
+    "text": 1631,
+    "tail": "\n\t—\t\n\n\n\t\n\nGEO 마케팅과 SEO 마케팅의 핵심 차이점\n\n브리찌 Monitoring\n\t\n태그\n\t\nM\nS\nC\n\t—\t—\t—\t\n0:0\n\t—\t\n\n\n\t\n\n브리찌 광고 집행 시 최소 예산 자격 조건\n\n브리찌 Monitoring\n\t\n태그\n\t\nM\nS\nC\n1위\n\t—\t—\t—\t\n1:0\n\t\n1위\n1/1\n평균 순위 1.0위, 1위 비율 100%\n\t\n\n1-10 / 총 10개"
+  },
+  {
+    "route": "/app/geo/analysis",
+    "url": "https://haloxlabs.ai/app/geo/analysis",
+    "text": 1631,
+    "tail": "\n09-29\n10-07\n10-14\n10-22\n0%\n10%\n20%\n30%\n40%\n소스\n최대 10%\n09-29\n10-07\n10-14\n10-22\n0%\n5%\n10%\n15%\n20%\n인용\n최대 10%\n09-29\n10-07\n10-14\n10-22\n0%\n5%\n10%\n15%\n20%\n프롬프트 분포\n자사만\n경합\n경쟁사만\n미노출\nChatGPT\n브리찌 Monitoring\n전체 평균"
+  },
+  {
+    "route": "/app/strategy-map",
+    "url": "https://haloxlabs.ai/app/strategy-map",
+    "text": 793,
+    "tail": "2\n마케팅 성과 최적화\n검색 상위노출\n매출 정체\n+1\n3\n30\n—\n0%\n0/3\n0%\n0/2\n긴급\n3\n숏폼 마케팅 활용\n숏폼 영상\n1\n210\n—\n0%\n0/1\n0%\n0/1\n긴급\n4\n브리찌 브랜드 소개\n브리찌\n1\n70\n—\n100%\n1/1\n—\n긴급\n5\n성과형 광고대행사 추천\n성과형 광고대행사\nAI 광고대행사\n+1\n3\n30\n—\n0%\n0/3\n50%\n2/4\nSEO 기회"
+  },
+  {
+    "route": "/app/site-audit",
+    "url": "https://haloxlabs.ai/app/site-audit",
+    "text": 2392,
+    "tail": "진단\n\nrobots / llms / sitemap 상태, GPTBot·ClaudeBot·Googlebot 별 응답, CSR 렌더링 위험까지 한 화면에서 점검하세요.\n\nAI 봇 접근성 탭 열기\nAI 전략 리포트로 이어가기\n\n이 진단 결과를 기반으로 어떤 AI 검색 쿼리에 노출·인용될지, 어떤 콘텐츠를 우선 만들어야 할지 리포트를 생성해요.\n\n전략 리포트 생성"
+  },
+  {
+    "route": "/app/factory",
+    "url": "https://haloxlabs.ai/app/factory",
+    "text": 367,
+    "tail": "비스 개선 피드백\n의견 남기기\n7일 남음\n플랜 보기 →\nToggle Sidebar\n실행\n콘텐츠 제작소\n50%\ndemo@halox.local\n콘텐츠 제작\n\n키워드 기반 콘텐츠를 자동으로 생성하세요.\n\n새 콘텐츠 만들기\n\n콘텐츠를 만들어보세요\n\n등록된 키워드 10개에서 바로 시작할 수 있어요. 키워드를 고르면 AI가 전략과 초안을 만들어요.\n\n새 콘텐츠 만들기"
+  },
+  {
+    "route": "/app/optimize",
+    "url": "https://haloxlabs.ai/app/optimize",
+    "text": 533,
+    "tail": "채점하나요\n\n핵심 · 15점 × 4\n\n결론 먼저 쓰기 · 수치 근거 · 출처 인용 · 섹션 청킹\n\n주요 · 10점 × 4\n\nFAQ · 핵심 요약 · 표·리스트 · 연도·기준 시점\n\n보조 · 5점 × 2\n\n최종 업데이트일 · 저자·전문가 정보\n\n채점 기준 보기\n최근 채점\n\n첫 글을 채점해 보세요\n\nURL을 넣으면 AI가 인용하기 좋은 글인지 바로 알려 드려요"
+  },
+  {
+    "route": "/app/exports",
+    "url": "https://haloxlabs.ai/app/exports",
+    "text": 361,
+    "tail": "석 받기\n서비스 개선 피드백\n의견 남기기\n7일 남음\n플랜 보기 →\nToggle Sidebar\n실행\n콘텐츠 내보내기\n50%\ndemo@halox.local\n콘텐츠 내보내기\n\n완료된 콘텐츠를 다운로드하세요.\n\n전체 유형\n일별\n기간 선택\n최근 다운로드순\n\n내보낼 콘텐츠가 없어요\n\n콘텐츠 제작소에서 콘텐츠를 생성하면 여기서 내보낼 수 있어요.\n\n콘텐츠 제작소로 이동"
+  },
+  {
+    "route": "/app/monitoring",
+    "url": "https://haloxlabs.ai/app/monitoring",
+    "text": 549,
+    "tail": "GA4 트래픽을 한눈에\n\n먼저 데이터 소스를 연결해 주세요\n\nSearch Console과 GA4를 연결하면 검색 성과와 트래픽이 여기에 채워져요.\n\n연동 설정으로 이동\n\nGoogle Search Console\n\n미연결\n\n검색 노출 · 클릭 · 순위 데이터를 가져와요\n\nGoogle Analytics 4\n\n미연결\n\n오가닉/AI 트래픽 · 전환 데이터를 가져와요"
+  },
+  {
+    "route": "/app/reports/weekly",
+    "url": "https://haloxlabs.ai/app/reports/weekly",
+    "text": 407,
+    "tail": "debar\n모니터링\n주간 리포트\n50%\ndemo@halox.local\n주간 리포트\n\nAI 가시성 주간 진단과 우선순위 요약\n\n내보내기\n42주차\n10월 12일 – 10월 18일\n이 주차 합계 기준 · 변화량은 직전 주차 대비\n\n리포트가 없어요\n\n이 기간에는 생성된 주간 리포트가 없어요\n42주차 (10월 12일 – 10월 18일)\n\nAI 대화 모니터링 시작하기"
+  },
+  {
+    "route": "/app/personas",
+    "url": "https://haloxlabs.ai/app/personas",
+    "text": 410,
+    "tail": "ar\n기타\n페르소나\n50%\ndemo@halox.local\n페르소나\n\nAI 글쓰기 스타일 프로필을 관리하세요.\n\n새 페르소나\n기본\n시스템 기본 스타일\n역할\nSEO 전문 콘텐츠 라이터\n톤\n전문적이고 신뢰감 있는 톤\n스타일\n명확하고 구조적인 글쓰기\n수정 불가 · 기본 적용\n커스텀 페르소나 만들기\n\n글쓰기 샘플을 분석해서 맞춤 스타일을 만들어보세요.\n\n새 페르소나"
+  },
+  {
+    "route": "/app/knowledgehub",
+    "url": "https://haloxlabs.ai/app/knowledgehub",
+    "text": 569,
+    "tail": ")\n최근 업데이트순\n\t이름\t유형\t클레임\t소스\n\t키워드\t수정일\n\n\t\nad-efficiency\n수집 대기\n\t제품\t0\t\n\t0\t2026.10.22\n\n\t\nmobidays\n수집 대기\n\t제품\t0\t\n\t0\t2026.10.22\n\n\t\nechomarketing\n수집 대기\n\t제품\t0\t\n\t0\t2026.10.22\n\n\t\n브리찌\n수집 대기\n\t제품\t0\t\n\t0\t2026.10.22\n\n총 4개"
+  },
+  {
+    "route": "/app/raw-data",
+    "url": "https://haloxlabs.ai/app/raw-data",
+    "text": 858,
+    "tail": "\n6개 CSV\n·\nREADME.txt\nZip 다운로드 (정규화 CSV 묶음)\n유의사항 · 데이터 정책\nSERP는 주 3회(월·수·금) 자동 수집됩니다.\n키워드 난이도(KD)는 매월 1회 갱신됩니다.\n한 번에 최대 90일, 100,000행까지 다운로드할 수 있습니다.\nRaw 데이터는 정규화된 CSV 묶음(zip)으로 제공되며 README.txt가 포함됩니다."
+  },
+  {
+    "route": "/app/keywords?view=sets",
+    "url": "https://haloxlabs.ai/app/keywords?view=sets",
+    "text": 614,
+    "tail": "s 경쟁사 최고 순위\n우위\n0\n경합\n0\n뒤처짐\n0\n미점유\n10\n평균 순위\n순위 있는 키워드 평균\n\n—\n위\n\nTop3\nTop10\nTop30\n31+\n리스트\n(10)\n세트\n(1)\n태그\n네트워크\n아이디어\n빈 세트\n모두 펼치기\n\t\n\t세트명\t키워드\tTop10\tAIO\t평균순위\t자사 분포\t\n\n\t\n\t\n브리찌 키워드\n자동 생성된 기본 키워드 세트\n\t10\t0%\t10%\t—\t\n\t"
+  },
+  {
+    "route": "/app/keywords?view=tags",
+    "url": "https://haloxlabs.ai/app/keywords?view=tags",
+    "text": 559,
+    "tail": "w 노출 기준\n자사\n1\n경합\n0\n경쟁사\n0\n미점유\n8\nAIO 없음\n1\n자사 순위\n자사 vs 경쟁사 최고 순위\n우위\n0\n경합\n0\n뒤처짐\n0\n미점유\n10\n평균 순위\n순위 있는 키워드 평균\n\n—\n위\n\nTop3\nTop10\nTop30\n31+\n리스트\n(10)\n세트\n(1)\n태그\n네트워크\n아이디어\n모두 펼치기\n빈 태그 표시\n\n태그가 없어요. 설정에서 태그를 만들어보세요."
+  },
+  {
+    "route": "/app/keywords?view=network",
+    "url": "https://haloxlabs.ai/app/keywords?view=network",
+    "text": 1582,
+    "tail": "색\n0\n구글 상위 작업\n0\n구글 키워드 검색 량 조회\n0\n네이버 광고 소개서\n0\n네이버 성과형 광고\n0\n네이버 성과형 디스플레이 광고 소개서\n0\n네이버 성과형 디스플레이 광고 제작 가이드\n0\n롱폼 뜻\n0\n롱폼 숏폼\n0\n생성 형 AI 마케팅 사례\n0\n성과형 디스플레이 광고\n0\n숏폼 롱폼 차이\n0\n숏폼 콘텐츠 종류\n0\n워프스타\n0\n유튜브 롱폼 디시\n0\n틱톡\n0"
+  },
+  {
+    "route": "/app/keywords?view=ideas",
+    "url": "https://haloxlabs.ai/app/keywords?view=ideas",
+    "text": 642,
+    "tail": "\n평균 순위\n순위 있는 키워드 평균\n\n—\n위\n\nTop3\nTop10\nTop30\n31+\n리스트\n(10)\n세트\n(1)\n태그\n네트워크\n아이디어\n키워드 발굴\n· 후보 20 · 강력 추천 0\n약점 강화\n0\n블루오션\n16\n새 시드 발굴\n연관 키워드 발굴\n전체 등급\n전체 출처\n시드\n클러스터\n추적 중 숨김\nPAA 포함\n강화할 약한 시드가 없어요\n다른 의도 탭을 확인해보세요"
+  },
+  {
+    "route": "/app/seo/insights?tab=performance",
+    "url": "https://haloxlabs.ai/app/seo/insights?tab=performance",
+    "text": 937,
+    "tail": "\t—\n\n미노출\t광고 효율\t미노출 → 미노출\t—\t—\t10\t0\t—\n\n미노출\t매출 정체\t미노출 → 미노출\t—\t—\t—\t—\t—\n\n미노출\t숏폼 영상\t미노출 → 미노출\t—\t—\t210\t—\t—\n\n미노출\t검색 상위노출\t미노출 → 미노출\t—\t—\t10\t—\t—\n\n미노출\tAI 마케팅\t미노출 → 미노출\t—\t—\t480\t0\t—\n\n미노출\t에코마케팅 대안\t미노출 → 미노출\t—\t—\t—\t—\t—"
+  },
+  {
+    "route": "/app/seo/insights?tab=competitors",
+    "url": "https://haloxlabs.ai/app/seo/insights?tab=competitors",
+    "text": 504,
+    "tail": "체 언어\n전체 국가\n기간 시작 전 생성분만\n세트\n태그\n일별\n지난 28일\n개요\n성과\n경쟁사\n기회\nAIO\nSERP 매트릭스\nTop 10 키워드\n—\n0 / 10개\n0%\nAI 요약 인용\n11%\n1 / 9\n자사 순위\n0개\n우위 0% · 전체 10개\n평균 순위\n—\n표본 0개\n\n아직 비교할 기록이 없어요\n\n수집이 2일 이상 쌓이면 경쟁사 추이와 순위가 여기에 표시돼요."
+  },
+  {
+    "route": "/app/seo/insights?tab=opportunities",
+    "url": "https://haloxlabs.ai/app/seo/insights?tab=opportunities",
+    "text": 772,
+    "tail": "0)\n키워드\t순위\t난이도\t검색량\t기회 점수\nAI 마케팅\t—\t0\t480\t35\n숏폼 영상\t—\t50\t210\t29\n광고 효율\t—\t0\t10\t28\n브리찌\t—\t50\t70\t27\nAEO 마케팅\t—\t0\t—\t24\n검색 상위노출\t—\t50\t10\t24\nAI 광고대행사\t—\t50\t—\t20\n성과형 광고대행사\t—\t50\t—\t20\n매출 정체\t—\t50\t—\t20\n에코마케팅 대안\t—\t50\t—\t20"
+  },
+  {
+    "route": "/app/seo/insights?tab=aio",
+    "url": "https://haloxlabs.ai/app/seo/insights?tab=aio",
+    "text": 1784,
+    "tail": " 답변\n\n질문에 직접 답변하는 간결한 단락을 추가하세요 (40~60단어)\n\n2\n\n스키마 마크업\n\nFAQ 스키마와 HowTo 스키마를 구현하세요\n\n3\n\n데이터 인용\n\n신뢰할 수 있는 데이터와 통계를 인라인 인용으로 포함하세요\n\n4\n\n정의형 H2\n\n정의형 콘텐츠에서 \"~란?\" 형식의 H2를 사용하세요\n\n5\n\n최신성 표시\n\n최신 날짜와 업데이트 정보를 명시하세요"
+  },
+  {
+    "route": "/app/seo/insights?tab=serp-matrix",
+    "url": "https://haloxlabs.ai/app/seo/insights?tab=serp-matrix",
+    "text": 1943,
+    "tail": "ry.com\n·\n5\n·\n·\n·\n·\n·\n·\n·\n·\n1\n미분류\nmedia-planners.co.kr\n·\n7\n·\n·\n·\n·\n·\n·\n·\n·\n1\n미분류\nblog.hsad.co.kr\n·\n9\n·\n·\n·\n·\n·\n·\n·\n·\n1\nSaaS\nmaily.so\n·\n10\n·\n·\n·\n·\n·\n·\n·\n·\n1\n도메인 수\n16\n10\n2\n7\n6\n1\n·\n6\n6\n2\n56\n전체 111개 도메인 보기"
+  },
+  {
+    "route": "/app/geo/prompts?view=sets",
+    "url": "https://haloxlabs.ai/app/geo/prompts?view=sets",
+    "text": 853,
+    "tail": ")\n태그\n빈 세트 표시\n모두 펼치기\n\t\n\t\n세트명\n\t\n프롬프트\n\t\n멘션\n\t\n소스\n\t\n인용\n\t프롬프트 분포\t\n멘션 순위\n\t\n\n\t\n\t\n브리찌 Monitoring\nOnboarding-generated prompts for 브리찌\n\t10\t\n30%\n3/10\n\t\n10%\n1/10\n\t\n10%\n1/10\n\t\n3:1\n\t\n1위\n3/3\n평균 순위 1.0위, 1위 비율 100%\n\t"
+  },
+  {
+    "route": "/app/geo/prompts?view=tags",
+    "url": "https://haloxlabs.ai/app/geo/prompts?view=tags",
+    "text": 710,
+    "tail": "멘션 점유율\n—\n71%\n자사 48·경쟁 20\n/ 68\n소스 점유율\n—\n40%\n자사 2·경쟁 3\n/ 5\n인용 점유율\n—\n50%\n자사 1·경쟁 1\n/ 2\n인용 순위\n최근 28일\n\n1위\n\n· 1위 비율 100% (1/1) · 표본 1건\n리스트\n(10)\n세트\n(1)\n태그\n빈 태그 표시\n모두 펼치기\n\n아직 태그가 없습니다\n\n설정에서 태그를 만들면 여기에 표시됩니다."
+  },
+  {
+    "route": "/app/geo/analysis?tab=prompts",
+    "url": "https://haloxlabs.ai/app/geo/analysis?tab=prompts",
+    "text": 2609,
+    "tail": "ring\n\t\n태그\n\t\nM\nS\nC\n—\n\t\n0%\n±0p\n평균 0%\n\t\n0%\n±0p\n평균 0%\n\t\n0%\n±0p\n평균 0%\n\t\n0:0\n\t—\n\n\t\nAEO 마케팅이 최근 마케팅 시장에서 주목받는 이유\n브리찌 Monitoring\n\t\n태그\n\t\nM\nS\nC\n—\n\t\n0%\n±0p\n평균 0%\n\t\n0%\n±0p\n평균 0%\n\t\n0%\n±0p\n평균 0%\n\t\n0:0\n\t—\n20개씩\n1\n25%"
+  },
+  {
+    "route": "/app/geo/analysis?tab=mentions",
+    "url": "https://haloxlabs.ai/app/geo/analysis?tab=mentions",
+    "text": 1618,
+    "tail": ".0%\t1\n\n전체 실행 10건 · 최근 28일 · 한 답변에서 같은 브랜드의 별칭이 여러 개 잡히면 브랜드 합계에 중복될 수 있습니다.\n\n엔진별 멘션\n세트·기간만 반영 · 엔진·태그·코호트 필터 미적용\n\n엔진별 실행 대비 자사 멘션 비율 — 멘션 전용 / 멘션+인용 분해\n\n엔진\t멘션율\t멘션\t멘션+인용\t멘션 전용\t실행\nChatgpt\t30.0%\t3\t1\t2\t10"
+  },
+  {
+    "route": "/app/geo/analysis?tab=sources",
+    "url": "https://haloxlabs.ai/app/geo/analysis?tab=sources",
+    "text": 3000,
+    "tail": ".0%\n\t\n\n27\t\namazonaws.com\n\t\n기타\t3\t1\t100.0%\t3\t2\t\n1.0%\n\t\n\n28\t\nyoutube.com\n\t\n기타\t7\t0\t100.0%\t7\t5\t\n0.0%\n\t\n\n29\t\nbritg.kr\n\t\n기타\t4\t0\t100.0%\t4\t1\t\n0.0%\n\t\n\n30\t\nandroidcentral.com\n\t\n기타\t3\t0\t100.0%\t2\t2\t\n0.0%\n\t\n70개 더 보기"
+  },
+  {
+    "route": "/app/geo/analysis?tab=products",
+    "url": "https://haloxlabs.ai/app/geo/analysis?tab=products",
+    "text": 434,
+    "tail": "alox.local\n프롬프트 분석\n\nAI 답변에서의 자사 노출도 분석 및 경쟁사 비교\n\n엔진\n세트\n태그\n기간 시작 전 생성분만\n일별\n지난 28일\n개요\n프롬프트\n멘션\n인용 소스\n상품\n인용 매트릭스\n경쟁사\n플랫폼\n검색 패턴\n\n추적 중인 자사 상품이 없습니다. 브랜드 설정에서 상품을 등록하면 AI 답변 속 상품 노출을 분석할 수 있습니다.\n\n브랜드 설정으로 이동"
+  },
+  {
+    "route": "/app/geo/analysis?tab=matrix",
+    "url": "https://haloxlabs.ai/app/geo/analysis?tab=matrix",
+    "text": 2841,
+    "tail": "app\n·\n·\n·\n·\n·\n·\n·\n·\n1\n·\n1\n미분류\nrework.com\n·\n·\n·\n·\n·\n·\n·\n·\n1\n·\n1\n미분류\nsinsoop.com\n·\n·\n·\n·\n·\n1\n·\n·\n·\n·\n1\n미분류\nwadiz.kr\n·\n1\n·\n·\n·\n·\n·\n·\n·\n·\n1\n미분류\nwyzowl.com\n1\n·\n·\n·\n·\n·\n·\n·\n·\n·\n1\n합계\n7\n5\n3\n4\n8\n13\n7\n16\n7\n4\n74"
+  },
+  {
+    "route": "/app/geo/analysis?tab=competitors",
+    "url": "https://haloxlabs.ai/app/geo/analysis?tab=competitors",
+    "text": 2583,
+    "tail": "\t\n0\n–\n\n\n스타트업 광고 효율을 높여줄 광고대행사 추천\n10/22 · 비교 10/22\n\t\n0\n±0\n\t\n0\n±0\n\t\n0\n±0\n\t\n0\n±0\n\n\n운영 중인 광고 효율이 갑자기 떨어졌을 때 해결책\n10/22 · 비교 10/22\n\t\n0\n±0\n\t\n0\n±0\n\t\n0\n±0\n\t\n0\n±0\n\n합계\t\n1\n±0\n\t\n1\n▲\n1\n\t\n0\n±0\n\t\n0\n±0\n값 크기\n적음\n많음\n최대 1"
+  },
+  {
+    "route": "/app/geo/analysis?tab=platforms",
+    "url": "https://haloxlabs.ai/app/geo/analysis?tab=platforms",
+    "text": 4634,
+    "tail": "핵심 매체\t핵심 경쟁 도메인\n\n브리찌 Monitoring\n\t79.2%\t0.25\t15\t587\t162\t\n2\n3\n157\n\t\narxiv.org\n93%\nreddit.com\n87%\nwikipedia.org\n73%\ntechradar.com\n47%\ngoogle.com\n47%\n\t\nechomarketing.co.kr\n3\n\n다양한 플랫폼에서 테스트해서 편향을 줄여보세요\n\n0%"
+  },
+  {
+    "route": "/app/geo/analysis?tab=fan-out",
+    "url": "https://haloxlabs.ai/app/geo/analysis?tab=fan-out",
+    "text": 5984,
+    "tail": "earch Engine Land generative engine optimization GEO SEO difference\t\nGEO 마케팅과 SEO 마케팅의 핵심 차이점\n\tChatGPT\nSemrush generative engine optimization GEO vs SEO\t\nGEO 마케팅과 SEO 마케팅의 핵심 차이점\n\tChatGPT\n56개 중 56개 표시"
+  },
+  {
+    "route": "/app/site-audit?tab=bot-access",
+    "url": "https://haloxlabs.ai/app/site-audit?tab=bot-access",
+    "text": 4858,
+    "tail": " 제대로 노출되는지 검증합니다.\n\ncurl -A \"GPTBot/1.2\" https://bridzzi.com로 본문 포함 확인\n사이트 진단을 다시 실행해 % 가 개선됐는지 확인\n4\n모니터링\n0/2\n\n주기적인 체크를 통해 가시성 회귀를 방지합니다.\n\nChatGPT · Perplexity · Claude에서 자사 인용 빈도 추적\n월 1회 진단 스케줄로 회귀 감지"
+  },
+  {
+    "route": "/app/site-audit?tab=issues",
+    "url": "https://haloxlabs.ai/app/site-audit?tab=issues",
+    "text": 1010,
+    "tail": "aScript 코드가 있어요\n\t\n성능\n\t-460ms / -68KB\t\n\n\n참고\t\nMinify CSS\n\t\n성능\n\t-310ms / -19KB\t\n\n\n참고\t\nReduce unused CSS\n\t\n성능\n\t-150ms / -12KB\t\n\n\n참고\t\nMinify JavaScript\n\t\n성능\n\t-3KB\t\n\n\n참고\t\nMinimize main-thread work\n\t\n성능\n\t1p\t"
+  },
+  {
+    "route": "/app/site-audit?tab=pages",
+    "url": "https://haloxlabs.ai/app/site-audit?tab=pages",
+    "text": 3984,
+    "tail": "\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n\n\n/insights/review-content-usage-scene\n\t\n진단\t\nT\n✕\nD\n✕\nS\n✕\n\t55\n적정\n\t\n깨끗함\t\n없음\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\n없음\n\t—\t—\t—\t불가\t—\t—\t—\t—\t—\t—\t—\t—\t—\t—\t28 KB\t\nbr\n\t—\t—\t—\t—\t—\t\n403\n\t1\t\t\n30개 더 보기 (남은 30)"
+  },
+  {
+    "route": "/app/site-audit?tab=entities",
+    "url": "https://haloxlabs.ai/app/site-audit?tab=entities",
+    "text": 719,
+    "tail": "봇 접근성\n이슈\n(9)\n페이지\n(50)\n엔티티\n내부 링크\n가이드\n\n주제 수\n\n2\n\n분석한 페이지\n\n50\n\n대표 글 없는 주제\n\n2\n\n제목·소제목에 내건 페이지 (대표)\n설명·주소에만 등장 (언급)\nCSV\n/insights/\n주제 1개 · 최대 31\ninsight\n31 페이지 · 0 대표\n/work/\n주제 1개 · 최대 13\nwork\n13 페이지 · 0 대표"
+  },
+  {
+    "route": "/app/site-audit?tab=internal-links",
+    "url": "https://haloxlabs.ai/app/site-audit?tab=internal-links",
+    "text": 1386,
+    "tail": ".\n\n· 링크 수집 기능이 들어오기 전에 실행된 예전 회차\n· 수집 도중 데이터 제공처 오류로 중단된 경우\n· 크롤이 차단되거나 부분 수집으로 끝나 링크를 뽑을 원본이 없는 경우\n\n재측정은 페이지를 다시 크롤하지 않고 링크만 다시 가져옵니다. 점수·이슈는 그대로 유지되고, 사이트 규모에 따라 수십 초에서 몇 분 정도 걸려요.\n\n링크 재측정 (최대 100k)"
+  },
+  {
+    "route": "/app/site-audit?tab=guide",
+    "url": "https://haloxlabs.ai/app/site-audit?tab=guide",
+    "text": 2885,
+    "tail": "됩니다.\n\n3\n\nnoindex는 여기서 안 됨 — 색인 제외는 meta robots·X-Robots-Tag로 처리하세요.\n\n4\n\nCrawl-delay는 무시됨 — 구글은 Crawl-delay를 읽지 않습니다. GSC에서 크롤 속도를 조정하세요.\n\n5\n\nDisallow ≠ 색인 제외 — 외부 링크가 있으면 색인될 수 있어, 확실한 제외는 noindex입니다."
+  },
+  {
+    "route": "/app/geo",
+    "url": "https://haloxlabs.ai/app/geo",
+    "text": 491,
+    "tail": "음\n멘션율\n30%\n인용률\n10%\n멘션 순위\n100%\n인용 순위\n100%\n\n2026-09-08 산식 개편 (점유율 제외, 4지표 각 25%)\n\n질문 세트\n\n1\n\n10 총 프롬프트\n\n인용 점유율\n\n100%\n\n584/587건\n\n경쟁사 점유율 요약\n\n자사 vs 주요 경쟁사 인용 점유율\n\n상세 분석 보기\n1\n자사\n100%\n2\nechomarketing.co.kr\n1%"
+  },
+  {
+    "route": "/app/gap",
+    "url": "https://haloxlabs.ai/app/gap",
+    "text": 953,
+    "tail": "목\nTop 5\n키워드\tGap 유형\t검색량\t기회 점수\tQuick Win\nAI 마케팅\t검색과 AI 모두 약함\t480\t50\t\nAEO 마케팅\t검색과 AI 모두 약함\t100\t47\t\n숏폼 영상\t검색과 AI 모두 약함\t210\t46\t\n에코마케팅 대안\t검색과 AI 모두 약함\t100\t44\t\n매출 정체\t검색과 AI 모두 약함\t100\t44\t\n\n검색과 AI 모두 약한 키워드: 9"
+  },
+  {
+    "route": "/app/referral",
+    "url": "https://haloxlabs.ai/app/referral",
+    "text": 406,
+    "tail": "idebar\n대시보드\n50%\ndemo@halox.local\n추천 프로그램\n\n내 추천 링크로 가입한 고객이 결제하면, 1년간 결제 금액의 일정 비율을 현금으로 받아요.\n\n파트너 신청\n\n연락처만 남기면 바로 전용 추천 링크가 발급돼요. 계좌 정보는 정산 신청할 때 입력하면 됩니다.\n\n이름 / 상호\n연락받을 이메일\n휴대폰 번호\n주로 소개할 채널 (선택)\n시작하기"
+  },
+  {
+    "route": "/app/feedback",
+    "url": "https://haloxlabs.ai/app/feedback",
+    "text": 362,
+    "tail": " 받기\n서비스 개선 피드백\n의견 남기기\n7일 남음\n플랜 보기 →\nToggle Sidebar\n피드백\n50%\ndemo@halox.local\n피드백 보드\n\n서비스 개선 아이디어와 버그 리포트를 공유해주세요\n\n새 피드백\n\n피드백을 남기면 Trial +3일!\n\n0/5 사용 · 5 남은 횟수\n\n전체\n전체\n최신순\n\n아직 피드백이 없습니다\n\n첫 번째 피드백을 남겨보세요!"
+  },
+  {
+    "route": "/app/workspaces",
+    "url": "https://haloxlabs.ai/app",
+    "text": 1200,
+    "tail": "\t—\n에코마케팅 대안\t—\t100\t\n취약\t—\n매출 정체\t—\t100\t\n취약\t—\n성과형 광고대행사\t—\t100\t\n취약\t—\nAEO 마케팅\t—\t100\t\n취약\t—\nAI 광고대행사\t—\t100\t\n취약\t—\n브리찌\t—\t70\t\nSEO 약함\t\n분석된 10개 키워드 · 1–8행\n1\n2\n검색 성과 분석\nTop 10: 0\nAI 대화 분석\n11%\n기회 분석\n7/100\n리포트\n리포트 없음"
+  },
+  {
+    "route": "/app/reports",
+    "url": "https://haloxlabs.ai/app/reports/weekly",
+    "text": 407,
+    "tail": "debar\n모니터링\n주간 리포트\n50%\ndemo@halox.local\n주간 리포트\n\nAI 가시성 주간 진단과 우선순위 요약\n\n내보내기\n42주차\n10월 12일 – 10월 18일\n이 주차 합계 기준 · 변화량은 직전 주차 대비\n\n리포트가 없어요\n\n이 기간에는 생성된 주간 리포트가 없어요\n42주차 (10월 12일 – 10월 18일)\n\nAI 대화 모니터링 시작하기"
+  },
+  {
+    "route": "/app/settings",
+    "url": "https://haloxlabs.ai/app/settings",
+    "text": 530,
+    "tail": "경 설정\n인터페이스 언어\n\n관리자 화면에 표시되는 언어를 설정해요.\n\n한국어\nEnglish\n데이터 수집 기본 타겟\n\n키워드·프롬프트 추가 시 기본으로 적용되는 언어와 지역이에요.\n\n분석 언어\n한국어\n대상 국가\n대한민국\n프롬프트 자동 생성\n\n키워드 추가 시 GEO 프롬프트를 자동으로 생성해요. 끄면 GEO 분석은 프롬프트를 직접 등록하기 전까지 비활성화돼요."
+  },
+  {
+    "route": "/app/settings?tab=workspace",
+    "url": "https://haloxlabs.ai/app/settings?tab=workspace",
+    "text": 678,
+    "tail": "xt, /sitemap.xml 등)에서 정책 파일을 자동으로 추정하여 진단을 진행합니다.\n\nrobots.txt\nsitemap.xml\nllms.txt\n기존 진단의 sitemap 통계 다시 채우기\n저장\n위험 영역\n\n계정을 탈퇴하면 30일 후 모든 워크스페이스, 키워드, 콘텐츠가 영구 삭제돼요. 30일 안에 다시 로그인하면 자동으로 복구됩니다.\n\n계정 탈퇴 요청"
+  },
+  {
+    "route": "/app/settings?tab=members",
+    "url": "https://haloxlabs.ai/app/settings?tab=members",
+    "text": 1098,
+    "tail": "드\n분석 (키워드·프롬프트)\n전략 (전략맵·사이트 진단)\n실행 (콘텐츠 제작·내보내기)\n모니터링 (대시보드·리포트)\n기타 (페르소나·자료실·Raw)\n소유자\n전체 권한. 워크스페이스 삭제·결제 관리 포함\n관리자\n멤버 초대·역할 변경, 모든 편집·실행 가능\n편집자\n생성·수정·삭제·수집 실행 가능. 멤버/결제 관리 불가\n뷰어\n읽기 전용. 편집·실행·내보내기 불가"
+  },
+  {
+    "route": "/app/settings?tab=plan",
+    "url": "https://haloxlabs.ai/app/settings?tab=plan",
+    "text": 754,
+    "tail": "사용 누적 · 실패 시 자동 환불 · 결제 주기마다 리셋\n\n11월 22일에 재설정\n100% 사용\n\n다음 플랜에서 한도가 늘어나요\n\n한도가 임박한 항목이 있어요. 다음 플랜으로 더 넉넉하게 사용해보세요.\n\n플랜 변경\n최근 활동\n활동 내용\t종류\t사용량\t시간\n사용량 확정\t-\t50건\t35분 전\nAI 질문 생성\t-\t10건\t39분 전\n키워드 생성\t-\t10건\t39분 전"
+  },
+  {
+    "route": "/app/settings?tab=billing",
+    "url": "https://haloxlabs.ai/app/settings?tab=billing",
+    "text": 498,
+    "tail": " & MCP\n결제 도움이 필요하신가요?\nClose\nTrial\n월간\n\n플랜 변경\n결제 수단\n등록된 카드\n\n안전한 정기 결제를 위한 결제 수단 정보\n\n카드 등록\n결제 내역\n\n결제 이력이 없습니다.\n\n세금계산서 안내\n세금계산서 발급 문의\n\n모든 결제 영수증은 가입 계정 이메일로 자동 발송됩니다. 세금계산서 발급은 1:1 문의를 등록해 주세요.\n\n1:1 결제 문의"
+  },
+  {
+    "route": "/app/settings?tab=integrations",
+    "url": "https://haloxlabs.ai/app/settings?tab=integrations",
+    "text": 542,
+    "tail": "ogle 계정을 연결하여 Search Console 및 Analytics 데이터를 수집하세요.\n\nGoogle 계정 연결\n\nGoogle 계정을 연결하면 Search Console 및 Analytics 4 수집 데이터가 자동으로 연동되어 전략 맵과 진단 리포트에 반영됩니다.\n\n네이버 서치어드바이저 · Bing 웹마스터 도구 · Slack 연동은 준비 중입니다."
+  },
+  {
+    "route": "/app/settings?tab=brand-tracking",
+    "url": "https://haloxlabs.ai/app/settings?tab=brand-tracking",
+    "text": 1466,
+    "tail": " 데이터도 현재 기준으로 다시 계산해요. 설정 저장 시 자동 실행되며, 필요하면 여기서 전체 기간을 수동으로 다시 돌릴 수 있어요.\n\n전체 기간 재계산\n자사 제품 라인업\n\n위 자사 브랜드 카드의 '상품'과 같은 목록이에요. 여기서 카테고리·URL·소개까지 관리해요.\n\n제품 추가\n\n등록된 자사 제품이 없습니다. 우측 [제품 추가] 버튼을 눌러 등록해 보세요."
+  },
+  {
+    "route": "/app/settings?tab=tags",
+    "url": "https://haloxlabs.ai/app/settings?tab=tags",
+    "text": 505,
+    "tail": "결제 도움이 필요하신가요?\nClose\n태그 관리\n\n그룹 안에 태그가 들어가는 구조입니다. 같은 태그를 키워드와 프롬프트가 함께 사용합니다.\n\n태그는 그룹 안에 태그가 들어가는 구조예요. 같은 태그를 키워드와 프롬프트가 함께 사용합니다. 실제 부여는 프롬프트나 키워드 화면에서 행을 선택해 진행하면 됩니다. 거기서도 새 태그를 바로 만들 수 있어요.\n\n새 그룹"
+  },
+  {
+    "route": "/app/settings?tab=earned",
+    "url": "https://haloxlabs.ai/app/settings?tab=earned",
+    "text": 434,
+    "tail": "al\n설정\n설정\n워크스페이스\n멤버\n일반\n사용량\n구독/결제\n연동\n브랜드 트래킹\n태그\n등록 URL\n내보내기\n알림\nAPI & MCP\n결제 도움이 필요하신가요?\nClose\n등록 URL\n아직 등록된 URL이 없습니다.\n\n네이버 블로그·PR·미디엄 등 자사 외 채널에 발행한 URL을 등록하면 SERP/AIO 노출이 별도 집계됩니다.\n\nCSV 업로드\n첫 URL 등록하기"
+  },
+  {
+    "route": "/app/settings?tab=export",
+    "url": "https://haloxlabs.ai/app/settings?tab=export",
+    "text": 627,
+    "tail": "될 이름과 프로필 주소예요.\n\n작성자 이름\n작성자 프로필 URL\n변경 사항 저장\n구조화 데이터 미리보기\n\n내보낸 콘텐츠의 SEO 강화를 위해 검색엔진에 제공될 메타데이터(Schema.org)예요. 입력하면 바로 반영돼요.\n\n스키마 복사\n1\n{\n2\n  \"@context\": \"https://schema.org\",\n3\n  \"@type\": \"Article\"\n4\n}"
+  },
+  {
+    "route": "/app/settings?tab=notifications",
+    "url": "https://haloxlabs.ai/app/settings?tab=notifications",
+    "text": 355,
+    "tail": "\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n7일 남음\n플랜 보기 →\nToggle Sidebar\n설정\n50%\ndemo@halox.local\n설정\n설정\n워크스페이스\n멤버\n일반\n사용량\n구독/결제\n연동\n브랜드 트래킹\n태그\n등록 URL\n내보내기\n알림\nAPI & MCP\n결제 도움이 필요하신가요?\nClose\n알림\n\n준비 중\n\n알림 기능이 곧 제공될 예정이에요."
+  },
+  {
+    "route": "/app/settings?tab=api",
+    "url": "https://haloxlabs.ai/app/settings?tab=api",
+    "text": 985,
+    "tail": "Y> 자리에 발급받은 키를 넣으세요.\n\nClaude Code (CLI)\nClaude 앱 (커스텀 커넥터)\nREST API\nclaude mcp add --transport http halox https://app.haloxlabs.ai/functions/v1/halox-mcp \\\n  --header \"Authorization: Bearer <API_KEY>\""
+  },
+  {
+    "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+    "url": "https://haloxlabs.ai/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+    "text": 2845,
+    "tail": " 수 있는 출처 확보\n4\n최신성\n평균 발행일 19개월 전\n에버그린 키워드, 깊이로 차별화\n5\nVIDEO\nVideo Pack 1개\n영상 콘텐츠 임베드 또는 유튜브 SEO 병행\n월 검색량\n< 10\nAI 소스\n16개\n\n개선할 항목이 없어요\n\n현재 키워드 성과가 양호해요. 다음 스냅샷까지 유지 상태를 지켜보세요.\n\n검색 성과 분석 보기\n\n경쟁사 등록 · 관리 0곳"
+  },
+  {
+    "route": "/app?cloneTab=0",
+    "url": "https://haloxlabs.ai/app",
+    "text": 1163,
+    "label": "키워드 상위",
+    "tail": "\t—\n에코마케팅 대안\t—\t100\t\n취약\t—\n매출 정체\t—\t100\t\n취약\t—\n성과형 광고대행사\t—\t100\t\n취약\t—\nAEO 마케팅\t—\t100\t\n취약\t—\nAI 광고대행사\t—\t100\t\n취약\t—\n브리찌\t—\t70\t\nSEO 약함\t\n분석된 10개 키워드 · 1–8행\n1\n2\n검색 성과 분석\nTop 10: 0\nAI 대화 분석\n11%\n기회 분석\n7/100\n리포트\n리포트 없음"
+  },
+  {
+    "route": "/app?cloneTab=1",
+    "url": "https://haloxlabs.ai/app",
+    "text": 1218,
+    "label": "AI 질문 상위",
+    "tail": "마케팅 서비스 운영 방식 비교\t1\t0%\n매출 정체기 극복을 위한 숏폼 영상 제작 가이드\t2\t0%\n스타트업 광고 효율을 높여줄 광고대행사 추천\t2\t0%\n성과형 광고대행사 선정 시 비교해야 할 항목들\t1\t0%\nAI 마케팅 최신 도구 및 솔루션 추천 리스트\t1\t0%\n검색 성과 분석\nTop 10: 0\nAI 대화 분석\n11%\n기회 분석\n7/100\n리포트\n리포트 없음"
+  },
+  {
+    "route": "/app?cloneTab=2",
+    "url": "https://haloxlabs.ai/app",
+    "text": 1213,
+    "label": "사이트 진단",
+    "tail": "각\t1\nLCP 속도 느림\t\n경고\t1\n미사용 JavaScript 코드가 있어요\t\n경고\t1\nMinify CSS\t\n참고\t1\nReduce unused CSS\t\n참고\t1\nMinify JavaScript\t\n참고\t1\nMinimize main-thread work\t\n참고\t1\n검색 성과 분석\nTop 10: 0\nAI 대화 분석\n11%\n기회 분석\n7/100\n리포트\n리포트 없음"
+  },
+  {
+    "route": "/app?cloneTab=3",
+    "url": "https://haloxlabs.ai/app",
+    "text": 1389,
+    "label": "주요 변화 Top 4",
+    "tail": " 형태로 콘텐츠를 구조화해 보세요.\n\n경고\nAI 대화 최적화 전략 확인 →\n\n검색 Top 10 비율 0%\n\n등록된 키워드 중 0%만 검색 결과 상위 10위 안에 있어요. 검색 순위를 높이면 트래픽이 크게 늘어날 수 있어요.\n\n경고\n검색 최적화 인사이트 확인 →\n검색 성과 분석\nTop 10: 0\nAI 대화 분석\n11%\n기회 분석\n7/100\n리포트\n리포트 없음"
+  },
+  {
+    "route": "/app?cloneTab=4",
+    "url": "https://haloxlabs.ai/app",
+    "text": 1292,
+    "label": "키워드 상태 현황",
+    "tail": "100\t\n취약\t—\nAI 마케팅\t—\t480\t\n취약\t—\n검색 상위노출\t—\t10\t\n취약\t—\n숏폼 영상\t—\t210\t\n취약\t—\n매출 정체\t—\t100\t\n취약\t—\n광고 효율\t—\t10\t\n취약\t—\n성과형 광고대행사\t—\t100\t\n취약\t—\n분석된 10개 키워드 · 1–8행\n1\n2\n검색 성과 분석\nTop 10: 0\nAI 대화 분석\n11%\n기회 분석\n7/100\n리포트\n리포트 없음"
+  },
+  {
+    "route": "/app/strategy-map?cloneTab=0",
+    "url": "https://haloxlabs.ai/app/strategy-map",
+    "text": 793,
+    "label": "리스트",
+    "tail": "2\n마케팅 성과 최적화\n검색 상위노출\n매출 정체\n+1\n3\n30\n—\n0%\n0/3\n0%\n0/2\n긴급\n3\n숏폼 마케팅 활용\n숏폼 영상\n1\n210\n—\n0%\n0/1\n0%\n0/1\n긴급\n4\n브리찌 브랜드 소개\n브리찌\n1\n70\n—\n100%\n1/1\n—\n긴급\n5\n성과형 광고대행사 추천\n성과형 광고대행사\nAI 광고대행사\n+1\n3\n30\n—\n0%\n0/3\n50%\n2/4\nSEO 기회"
+  },
+  {
+    "route": "/app/strategy-map?cloneTab=1",
+    "url": "https://haloxlabs.ai/app/strategy-map",
+    "text": 485,
+    "label": "포트폴리오",
+    "tail": ".\n\n39분 전\nAI 전략 리포트\n클러스터링 재실행\n\n지금 놓치고 있는 키워드가 있어요\n\n현재 10개만 분석 중이에요. 50개 이상이면 경쟁사가 점유한 영역까지 발견할 수 있어요.\n\n분석 범위 10/50\n\n빈틈 찾아보기\n전체 클러스터\n\n5\n\n개\n긴급\n\n4\n\n80%\n기회\n\n1\n\nGEO 0 · SEO 1\n유지\n\n0\n\n0%\n리스트\n포트폴리오\n네트워크\n확대 초기화"
+  },
+  {
+    "route": "/app/strategy-map?cloneTab=2",
+    "url": "https://haloxlabs.ai/app/strategy-map",
+    "text": 547,
+    "label": "네트워크",
+    "tail": "이에요. 50개 이상이면 경쟁사가 점유한 영역까지 발견할 수 있어요.\n\n분석 범위 10/50\n\n빈틈 찾아보기\n전체 클러스터\n\n5\n\n개\n긴급\n\n4\n\n80%\n기회\n\n1\n\nGEO 0 · SEO 1\n유지\n\n0\n\n0%\n리스트\n포트폴리오\n네트워크\n\n아직 연결 데이터가 없어요.\n\n경쟁사 공유 또는 유사도 연결이 없어요. GEO 스캔 데이터가 쌓이면 네트워크가 생성돼요."
+  },
+  {
+    "route": "/app/gap?cloneTab=0",
+    "url": "https://haloxlabs.ai/app/gap",
+    "text": 953,
+    "label": "개요",
+    "tail": "목\nTop 5\n키워드\tGap 유형\t검색량\t기회 점수\tQuick Win\nAI 마케팅\t검색과 AI 모두 약함\t480\t50\t\nAEO 마케팅\t검색과 AI 모두 약함\t100\t47\t\n숏폼 영상\t검색과 AI 모두 약함\t210\t46\t\n에코마케팅 대안\t검색과 AI 모두 약함\t100\t44\t\n매출 정체\t검색과 AI 모두 약함\t100\t44\t\n\n검색과 AI 모두 약한 키워드: 9"
+  },
+  {
+    "route": "/app/gap?cloneTab=1",
+    "url": "https://haloxlabs.ai/app/gap",
+    "text": 669,
+    "label": "매트릭스",
+    "tail": "드 매트릭스\n0\n검색 + AI 모두 강함\nSEO ✓\nGEO ✓\n0\n검색만 강함\nSEO ✓\nGEO ✗\n1\nAI만 강함\nSEO ✗\nGEO ✓\n9\n둘 다 약함\nSEO ✗\nGEO ✗\n\n키워드 건강 인사이트\n\n가장 많은 영역: 검색과 AI 모두 약함 — 9 (90%)\n\n검색과 AI 대화 모두 약한 키워드예요. 검색량이 높은 키워드부터 콘텐츠를 개선하면 효과가 커요."
+  },
+  {
+    "route": "/app/gap?cloneTab=2",
+    "url": "https://haloxlabs.ai/app/gap",
+    "text": 411,
+    "label": "키워드",
+    "tail": "r\n기회 분석\n50%\ndemo@halox.local\n기회 분석\n\n검색과 AI 대화의 갭을 분석하고 우선순위를 정하세요\n\n전체 언어\n전체 국가\n지난 90일\n개요\n매트릭스\n키워드\n프롬프트\n경쟁사\n콘텐츠\n트렌드\n\n키워드—키워드별 갭 유형과 기회 점수를 확인하세요\n\n아직 키워드 데이터가 없어요\n\n검색 결과를 수집하고 키워드를 등록하면 기회 분석을 시작할 수 있어요"
+  },
+  {
+    "route": "/app/gap?cloneTab=3",
+    "url": "https://haloxlabs.ai/app/gap",
+    "text": 556,
+    "label": "프롬프트",
+    "tail": "\n갭 프롬프트\n\n1\n\n1 / 10\n인용 갭\n\n1\n\n경쟁사는 인용되고 자사는 안 된 프롬프트\n엔진 갭\n\n0\n\n특정 플랫폼에서 약한 프롬프트\n프롬프트 커버리지\n\n90%\n\n자사 인용률\n전체\n인용 갭\n멘션 갭\n엔진 갭\n프롬프트\t자사 인용\t경쟁사 인용\tGap 유형\t엔진\t인용수\n브리찌와 에코마케팅 서비스 운영 방식 비교\t인용 안 됨\t인용됨\t인용 갭\tchatgpt\t27"
+  },
+  {
+    "route": "/app/gap?cloneTab=4",
+    "url": "https://haloxlabs.ai/app/gap",
+    "text": 732,
+    "label": "경쟁사",
+    "tail": "Gap\t추세\n1\techomarketing.co.kr숨은 AI 경쟁사\t낮음\t0\t1\t1\t\n안정\nSEO vs GEO Gap 비교\n0\n0.25\n0.5\n0.75\n1\nechomarketin...\nAI만 강함 (검색 약함)검색만 강함 (AI 약함)\n경쟁사 맵\n0%\n1%\n2%\n3%\n4%\n0%\n0.15%\n0.3%\n0.45%\n0.6%\n\n1개 숨은 AI 경쟁사 발견\n\n0.15"
+  },
+  {
+    "route": "/app/gap?cloneTab=5",
+    "url": "https://haloxlabs.ai/app/gap",
+    "text": 720,
+    "label": "콘텐츠",
+    "tail": "미작성 콘텐츠\n검색 상위노출\t10\t30\t—\t미작성 콘텐츠\n숏폼 영상\t210\t30\t—\t미작성 콘텐츠\n매출 정체\t100\t30\t—\t미작성 콘텐츠\n광고 효율\t10\t0\t—\t미작성 콘텐츠\n성과형 광고대행사\t100\t30\t—\t미작성 콘텐츠\nAEO 마케팅\t100\t0\t—\t미작성 콘텐츠\nAI 광고대행사\t100\t30\t—\t미작성 콘텐츠\n브리찌\t70\t30\t—\t미작성 콘텐츠\n0.15"
+  },
+  {
+    "route": "/app/gap?cloneTab=6",
+    "url": "https://haloxlabs.ai/app/gap",
+    "text": 539,
+    "label": "트렌드",
+    "tail": "e 추이와 해결/악화 키워드를 확인하세요\n\n4주\n8주\n12주\n현재 점수\n\n93\n\n위험\n점수 변동\n—\n\n0\n\n비교 데이터가 부족해요\n최고 주차\n\n93\n\nW43\n최악 주차\n\n93\n\nW43\n기회 점수 추이\n최소 2주 데이터가 필요해요\n분포 추이\n최소 2주 데이터가 필요해요\n해결된 Gap\n0\n해결된 Gap이 없어요\n새로운 Gap\n0\n새로운 Gap이 없어요\n0.15"
+  },
+  {
+    "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=0",
+    "url": "https://haloxlabs.ai/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+    "text": 2845,
+    "label": "상위 결과(18)",
+    "tail": " 수 있는 출처 확보\n4\n최신성\n평균 발행일 19개월 전\n에버그린 키워드, 깊이로 차별화\n5\nVIDEO\nVideo Pack 1개\n영상 콘텐츠 임베드 또는 유튜브 SEO 병행\n월 검색량\n< 10\nAI 소스\n16개\n\n개선할 항목이 없어요\n\n현재 키워드 성과가 양호해요. 다음 스냅샷까지 유지 상태를 지켜보세요.\n\n검색 성과 분석 보기\n\n경쟁사 등록 · 관리 0곳"
+  },
+  {
+    "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=1",
+    "url": "https://haloxlabs.ai/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+    "text": 3629,
+    "label": "AI 요약(16)",
+    "tail": " 수 있는 출처 확보\n4\n최신성\n평균 발행일 19개월 전\n에버그린 키워드, 깊이로 차별화\n5\nVIDEO\nVideo Pack 1개\n영상 콘텐츠 임베드 또는 유튜브 SEO 병행\n월 검색량\n< 10\nAI 소스\n16개\n\n개선할 항목이 없어요\n\n현재 키워드 성과가 양호해요. 다음 스냅샷까지 유지 상태를 지켜보세요.\n\n검색 성과 분석 보기\n\n경쟁사 등록 · 관리 0곳"
+  },
+  {
+    "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=2",
+    "url": "https://haloxlabs.ai/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+    "text": 1267,
+    "label": "검색 결과 분석",
+    "tail": " 수 있는 출처 확보\n4\n최신성\n평균 발행일 19개월 전\n에버그린 키워드, 깊이로 차별화\n5\nVIDEO\nVideo Pack 1개\n영상 콘텐츠 임베드 또는 유튜브 SEO 병행\n월 검색량\n< 10\nAI 소스\n16개\n\n개선할 항목이 없어요\n\n현재 키워드 성과가 양호해요. 다음 스냅샷까지 유지 상태를 지켜보세요.\n\n검색 성과 분석 보기\n\n경쟁사 등록 · 관리 0곳"
+  },
+  {
+    "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=3",
+    "url": "https://haloxlabs.ai/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+    "text": 1521,
+    "label": "트렌드",
+    "tail": " 수 있는 출처 확보\n4\n최신성\n평균 발행일 19개월 전\n에버그린 키워드, 깊이로 차별화\n5\nVIDEO\nVideo Pack 1개\n영상 콘텐츠 임베드 또는 유튜브 SEO 병행\n월 검색량\n< 10\nAI 소스\n16개\n\n개선할 항목이 없어요\n\n현재 키워드 성과가 양호해요. 다음 스냅샷까지 유지 상태를 지켜보세요.\n\n검색 성과 분석 보기\n\n경쟁사 등록 · 관리 0곳"
+  },
+  {
+    "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=4",
+    "url": "https://haloxlabs.ai/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+    "text": 1127,
+    "label": "아이디어",
+    "tail": " 수 있는 출처 확보\n4\n최신성\n평균 발행일 19개월 전\n에버그린 키워드, 깊이로 차별화\n5\nVIDEO\nVideo Pack 1개\n영상 콘텐츠 임베드 또는 유튜브 SEO 병행\n월 검색량\n< 10\nAI 소스\n16개\n\n개선할 항목이 없어요\n\n현재 키워드 성과가 양호해요. 다음 스냅샷까지 유지 상태를 지켜보세요.\n\n검색 성과 분석 보기\n\n경쟁사 등록 · 관리 0곳"
+  },
+  {
+    "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=5",
+    "url": "https://haloxlabs.ai/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+    "text": 1315,
+    "label": "GEO 연결",
+    "tail": " 수 있는 출처 확보\n4\n최신성\n평균 발행일 19개월 전\n에버그린 키워드, 깊이로 차별화\n5\nVIDEO\nVideo Pack 1개\n영상 콘텐츠 임베드 또는 유튜브 SEO 병행\n월 검색량\n< 10\nAI 소스\n16개\n\n개선할 항목이 없어요\n\n현재 키워드 성과가 양호해요. 다음 스냅샷까지 유지 상태를 지켜보세요.\n\n검색 성과 분석 보기\n\n경쟁사 등록 · 관리 0곳"
+  },
+  {
+    "route": "/app/login",
+    "url": "https://haloxlabs.ai/app",
+    "text": 1163,
+    "tail": "그 외 10 / 전체 10\n\nAIO 인용률\n30%\n11\n%\n신규\n\n인용 1 · 미인용 8 / 전체 9\n\n웹 건강도\n93\n/100\n지난 28일 대비\n±0pt\n키워드 상위\nAI 질문 상위\n사이트 진단\n주요 변화 Top 4\n키워드 상태 현황\n키워드 전체 보기\n키워드\n\t순위\n\t월 검색량\n\t상태\n\tAIO\nAI 마케팅\t—\t480\t\n취약\t—\n숏폼 영상\t—\t210\t\n취약\t—\n에코마케팅 대안\t—\t100\t\n취약\t—\n매출 정체\t—\t100\t\n취약\t—\n성과형 광고대행사\t—\t100\t\n취약\t—\nAEO 마케팅\t—\t100\t\n취약\t—\nAI 광고대행사\t—\t100\t\n취약\t—\n브리찌\t—\t70\t\nSEO 약함\t\n분석된 10개 키워드 · 1–8행\n1\n2\n검색 성과 분석\nTop 10: 0\nAI 대화 분석\n11%\n기회 분석\n7/100\n리포트\n리포트 없음"
+  },
+  {
+    "route": "/app/signup",
+    "url": "https://haloxlabs.ai/app",
+    "text": 1163,
+    "tail": "그 외 10 / 전체 10\n\nAIO 인용률\n30%\n11\n%\n신규\n\n인용 1 · 미인용 8 / 전체 9\n\n웹 건강도\n93\n/100\n지난 28일 대비\n±0pt\n키워드 상위\nAI 질문 상위\n사이트 진단\n주요 변화 Top 4\n키워드 상태 현황\n키워드 전체 보기\n키워드\n\t순위\n\t월 검색량\n\t상태\n\tAIO\nAI 마케팅\t—\t480\t\n취약\t—\n숏폼 영상\t—\t210\t\n취약\t—\n에코마케팅 대안\t—\t100\t\n취약\t—\n매출 정체\t—\t100\t\n취약\t—\n성과형 광고대행사\t—\t100\t\n취약\t—\nAEO 마케팅\t—\t100\t\n취약\t—\nAI 광고대행사\t—\t100\t\n취약\t—\n브리찌\t—\t70\t\nSEO 약함\t\n분석된 10개 키워드 · 1–8행\n1\n2\n검색 성과 분석\nTop 10: 0\nAI 대화 분석\n11%\n기회 분석\n7/100\n리포트\n리포트 없음"
+  },
+  {
+    "route": "/app/forgot-password",
+    "url": "https://haloxlabs.ai/app/forgot-password",
+    "text": 255,
+    "tail": "비밀번호 재설정\n\n가입하신 이메일로 재설정 링크를 보내드려요.\n\n이메일\n재설정 링크 보내기\n로그인으로 돌아가기\n© 2026 HaloX\nAI 검색 가시성 분석 플랫폼\n\n안전한 계정 복구\n\n재설정 링크는 본인 이메일로만 전송되며 일정 시간 후 만료돼요.\n\nAI 검색 가시성 관리\n\nGPT·Gemini·Perplexity·Claude에서 브랜드 노출을 한눈에 확인하세요.\n\nSEO와 GEO를 하나로\n\n검색 순위와 AI 인용을 같은 대시보드에서 비교할 수 있어요."
+  }
+]

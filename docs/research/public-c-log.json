@@ -1,0 +1,776 @@
+[
+  {
+    "route": "/ko/authors/juny-lee",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/authors/juny-lee",
+    "title": "이중대 | HaloX",
+    "textLength": 743,
+    "htmlLength": 21381,
+    "possible404": false
+  },
+  {
+    "route": "/ko/blog/agentic-commerce-geo",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/agentic-commerce-geo",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/ai-crawler-observability",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/ai-crawler-observability",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/ai-platform-citation-comparison-data",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/ai-platform-citation-comparison-data",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/ai-search-citation-count-before-diagnosis",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/ai-search-citation-count-before-diagnosis",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/ai-search-fan-out-market-landscape",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/ai-search-fan-out-market-landscape",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/ai-traffic-small-but-strategic",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/ai-traffic-small-but-strategic",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/avi-score-explained",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/avi-score-explained",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/brand-sov-measurement",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/brand-sov-measurement",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/commerce-geo-google-product-pack-sales-channel",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/commerce-geo-google-product-pack-sales-channel",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/content-optimization-workflow",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/content-optimization-workflow",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/fan-out-geo-content-strategy",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/fan-out-geo-content-strategy",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/ga4-ai-assistant-channel-ai-search-measurement",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/ga4-ai-assistant-channel-ai-search-measurement",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/geo-vs-seo-vs-aeo",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/geo-vs-seo-vs-aeo",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/google-geo-aeo-safety-line",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/google-geo-aeo-safety-line",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/halox-ai-agent-building-story",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/halox-ai-agent-building-story",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/keyword-expansion-5-signal",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/keyword-expansion-5-signal",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/llms-txt-agentic-browsing-readiness",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/llms-txt-agentic-browsing-readiness",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/naver-ai-briefing-longtail-query-search-behavior",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/naver-ai-briefing-longtail-query-search-behavior",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/offsite-aeo-moat",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/offsite-aeo-moat",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/pev-workflow-case-study",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/pev-workflow-case-study",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 18040,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/rag-hallucination-defense",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/rag-hallucination-defense",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 18014,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/seo-fundamentals-ai-era",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/seo-fundamentals-ai-era",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 18040,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/seo-geo-top-exposure-strategy",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/seo-geo-top-exposure-strategy",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 18040,
+    "possible404": true
+  },
+  {
+    "route": "/ko/blog/topics",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/topics",
+    "title": "토픽 | HaloX",
+    "textLength": 673,
+    "htmlLength": 22242,
+    "possible404": false
+  },
+  {
+    "route": "/ko/blog/what-is-geo-optimization",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/blog/what-is-geo-optimization",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "textLength": 465,
+    "htmlLength": 16160,
+    "possible404": true
+  },
+  {
+    "route": "/ko/compare/ahrefs",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/compare/ahrefs",
+    "title": "HaloX vs Ahrefs: SEO + AI 대화 완벽 비교 (2026)",
+    "textLength": 1757,
+    "htmlLength": 622679,
+    "possible404": false
+  },
+  {
+    "route": "/ko/compare/semrush",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/compare/semrush",
+    "title": "HaloX vs Semrush: AI 기반 SEO 비교 (2026)",
+    "textLength": 1797,
+    "htmlLength": 618752,
+    "possible404": false
+  },
+  {
+    "route": "/ko/customers/shopnest",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/customers/shopnest",
+    "title": "ShopNest - 고객 사례 | HaloX",
+    "textLength": 961,
+    "htmlLength": 620997,
+    "possible404": false
+  },
+  {
+    "route": "/ko/features/content",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/features/content",
+    "title": "Content Studio — HaloX",
+    "textLength": 1914,
+    "htmlLength": 692865,
+    "possible404": false
+  },
+  {
+    "route": "/ko/glossary/ai-brand-mentions",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/glossary/ai-brand-mentions",
+    "title": "AI 브랜드 언급란? - 뜻과 의미 | Halox 용어 사전",
+    "textLength": 2735,
+    "htmlLength": 38428,
+    "possible404": false
+  },
+  {
+    "route": "/ko/glossary/ai-overview",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/glossary/ai-overview",
+    "title": "AI 오버뷰 (AIO)란? - 뜻과 의미 | Halox 용어 사전",
+    "textLength": 4039,
+    "htmlLength": 52287,
+    "possible404": false
+  },
+  {
+    "route": "/ko/glossary/brand-sov",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/glossary/brand-sov",
+    "title": "키워드 노출률란? - 뜻과 의미 | Halox 용어 사전",
+    "textLength": 2897,
+    "htmlLength": 41803,
+    "possible404": false
+  },
+  {
+    "route": "/ko/glossary/content-cluster",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/glossary/content-cluster",
+    "title": "콘텐츠 클러스터란? - 뜻과 의미 | Halox 용어 사전",
+    "textLength": 2874,
+    "htmlLength": 43088,
+    "possible404": false
+  },
+  {
+    "route": "/ko/glossary/domain-authority",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/glossary/domain-authority",
+    "title": "도메인 권위란? - 뜻과 의미 | Halox 용어 사전",
+    "textLength": 4034,
+    "htmlLength": 50486,
+    "possible404": false
+  },
+  {
+    "route": "/ko/glossary/featured-snippet",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/glossary/featured-snippet",
+    "title": "추천 스니펫란? - 뜻과 의미 | Halox 용어 사전",
+    "textLength": 3162,
+    "htmlLength": 46132,
+    "possible404": false
+  },
+  {
+    "route": "/ko/glossary/json-ld",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/glossary/json-ld",
+    "title": "JSON-LD란? - 뜻과 의미 | Halox 용어 사전",
+    "textLength": 3206,
+    "htmlLength": 42202,
+    "possible404": false
+  },
+  {
+    "route": "/ko/glossary/llm",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/glossary/llm",
+    "title": "LLM (대규모 언어 모델)란? - 뜻과 의미 | Halox 용어 사전",
+    "textLength": 4168,
+    "htmlLength": 50705,
+    "possible404": false
+  },
+  {
+    "route": "/ko/glossary/meta-tags",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/glossary/meta-tags",
+    "title": "메타 태그란? - 뜻과 의미 | Halox 용어 사전",
+    "textLength": 2629,
+    "htmlLength": 39034,
+    "possible404": false
+  },
+  {
+    "route": "/ko/glossary/paa",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/glossary/paa",
+    "title": "PAA (함께 묻는 질문)란? - 뜻과 의미 | Halox 용어 사전",
+    "textLength": 3626,
+    "htmlLength": 46926,
+    "possible404": false
+  },
+  {
+    "route": "/ko/glossary/rag",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/glossary/rag",
+    "title": "RAG (검색 증강 생성)란? - 뜻과 의미 | Halox 용어 사전",
+    "textLength": 4045,
+    "htmlLength": 46329,
+    "possible404": false
+  },
+  {
+    "route": "/ko/glossary/search-volume",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/glossary/search-volume",
+    "title": "검색량란? - 뜻과 의미 | Halox 용어 사전",
+    "textLength": 3208,
+    "htmlLength": 43510,
+    "possible404": false
+  },
+  {
+    "route": "/ko/glossary/technical-seo",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/glossary/technical-seo",
+    "title": "테크니컬 SEO란? - 뜻과 의미 | Halox 용어 사전",
+    "textLength": 3516,
+    "htmlLength": 45274,
+    "possible404": false
+  },
+  {
+    "route": "/ko/glossary/zero-click-search",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/glossary/zero-click-search",
+    "title": "제로클릭 검색란? - 뜻과 의미 | Halox 용어 사전",
+    "textLength": 2654,
+    "htmlLength": 41234,
+    "possible404": false
+  },
+  {
+    "route": "/ko/tag/ai-traffic",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/tag/ai-traffic",
+    "title": "Ai Traffic - 태그별 글 | HaloX",
+    "textLength": 491,
+    "htmlLength": 18991,
+    "possible404": false
+  },
+  {
+    "route": "/ko/tag/semrush",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/tag/semrush",
+    "title": "Semrush - 태그별 글 | HaloX",
+    "textLength": 485,
+    "htmlLength": 18985,
+    "possible404": false
+  },
+  {
+    "route": "/ko/tools/site-audit",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/tools/site-audit",
+    "title": "무료 AI 검색 대비 점검기 - 내 사이트 AI 검색 준비됐을까? | HaloX",
+    "textLength": 1769,
+    "htmlLength": 629213,
+    "possible404": false
+  },
+  {
+    "route": "/ko/use-cases/competitor-analysis",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/use-cases/competitor-analysis",
+    "title": "AI 경쟁사 분석 — AI 결과에서 경쟁사 추적 | HaloX",
+    "textLength": 981,
+    "htmlLength": 23963,
+    "possible404": false
+  },
+  {
+    "route": "/ko",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko",
+    "title": "HaloX - SEO & AI 검색 최적화 플랫폼",
+    "textLength": 3072,
+    "htmlLength": 574885,
+    "possible404": false
+  },
+  {
+    "route": "/ko/consulting",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/consulting",
+    "title": "SEO·GEO 컨설팅 - HaloX",
+    "textLength": 1502,
+    "htmlLength": 59482,
+    "possible404": false
+  },
+  {
+    "route": "/ko/feedback",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/feedback",
+    "title": "피드백 보드 | HaloX",
+    "textLength": 6270,
+    "htmlLength": 74581,
+    "possible404": false
+  },
+  {
+    "route": "/ko/partners",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/partners",
+    "title": "파트너 추천 프로그램 - HaloX",
+    "textLength": 1264,
+    "htmlLength": 28260,
+    "possible404": false
+  },
+  {
+    "route": "/ko/refund-policy",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/refund-policy",
+    "title": "환불 정책 - HaloX",
+    "textLength": 1316,
+    "htmlLength": 21166,
+    "possible404": false
+  },
+  {
+    "route": "/ko/terms",
+    "success": true,
+    "url": "https://haloxlabs.ai/ko/terms",
+    "title": "이용약관 - HaloX",
+    "textLength": 2882,
+    "htmlLength": 21693,
+    "possible404": false
+  },
+  {
+    "route": "/en/authors/jaechullee",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/authors/jaechullee",
+    "title": "Jaechul LEE | HaloX",
+    "textLength": 1631,
+    "htmlLength": 26192,
+    "possible404": false
+  },
+  {
+    "route": "/en/blog/topics",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/blog/topics",
+    "title": "Topics | HaloX",
+    "textLength": 1101,
+    "htmlLength": 25536,
+    "possible404": false
+  },
+  {
+    "route": "/en/compare/otterly",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/compare/otterly",
+    "title": "HaloX vs Otterly: AI Search Monitoring Comparison (2026)",
+    "textLength": 2921,
+    "htmlLength": 620125,
+    "possible404": false
+  },
+  {
+    "route": "/en/customers",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/customers",
+    "title": "Customer Stories | HaloX",
+    "textLength": 3054,
+    "htmlLength": 644849,
+    "possible404": false
+  },
+  {
+    "route": "/en/features/analytics",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/features/analytics",
+    "title": "GEO Dashboard — HaloX",
+    "textLength": 3127,
+    "htmlLength": 705973,
+    "possible404": false
+  },
+  {
+    "route": "/en/glossary/ai-brand-mentions",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/glossary/ai-brand-mentions",
+    "title": "What is AI Brand Mentions? - Definition & Meaning | Halox Glossary",
+    "textLength": 5221,
+    "htmlLength": 41015,
+    "possible404": false
+  },
+  {
+    "route": "/en/glossary/ai-overview",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/glossary/ai-overview",
+    "title": "What is AI Overview (AIO)? - Definition & Meaning | Halox Glossary",
+    "textLength": 7232,
+    "htmlLength": 55584,
+    "possible404": false
+  },
+  {
+    "route": "/en/glossary/brand-sov",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/glossary/brand-sov",
+    "title": "What is Keyword Visibility? - Definition & Meaning | Halox Glossary",
+    "textLength": 5241,
+    "htmlLength": 44237,
+    "possible404": false
+  },
+  {
+    "route": "/en/glossary/content-cluster",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/glossary/content-cluster",
+    "title": "What is Content Cluster? - Definition & Meaning | Halox Glossary",
+    "textLength": 5466,
+    "htmlLength": 45768,
+    "possible404": false
+  },
+  {
+    "route": "/en/glossary/domain-authority",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/glossary/domain-authority",
+    "title": "What is Domain Authority? - Definition & Meaning | Halox Glossary",
+    "textLength": 7261,
+    "htmlLength": 53788,
+    "possible404": false
+  },
+  {
+    "route": "/en/glossary/geo",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/glossary/geo",
+    "title": "What is GEO (Generative Engine Optimization)? - Definition & Meaning | Halox Glossary",
+    "textLength": 6992,
+    "htmlLength": 56648,
+    "possible404": false
+  },
+  {
+    "route": "/en/glossary/keyword",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/glossary/keyword",
+    "title": "What is Keyword? - Definition & Meaning | Halox Glossary",
+    "textLength": 6286,
+    "htmlLength": 48573,
+    "possible404": false
+  },
+  {
+    "route": "/en/glossary/llm-seo",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/glossary/llm-seo",
+    "title": "What is LLM SEO? - Definition & Meaning | Halox Glossary",
+    "textLength": 5073,
+    "htmlLength": 40413,
+    "possible404": false
+  },
+  {
+    "route": "/en/glossary/on-page-seo",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/glossary/on-page-seo",
+    "title": "What is On-Page SEO? - Definition & Meaning | Halox Glossary",
+    "textLength": 6529,
+    "htmlLength": 50738,
+    "possible404": false
+  },
+  {
+    "route": "/en/glossary/prompt-tracking",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/glossary/prompt-tracking",
+    "title": "What is Prompt Tracking? - Definition & Meaning | Halox Glossary",
+    "textLength": 7209,
+    "htmlLength": 52081,
+    "possible404": false
+  },
+  {
+    "route": "/en/glossary/schema-markup",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/glossary/schema-markup",
+    "title": "What is Schema Markup (Structured Data)? - Definition & Meaning | Halox Glossary",
+    "textLength": 6854,
+    "htmlLength": 53164,
+    "possible404": false
+  },
+  {
+    "route": "/en/glossary/seo",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/glossary/seo",
+    "title": "What is SEO (Search Engine Optimization)? - Definition & Meaning | Halox Glossary",
+    "textLength": 7230,
+    "htmlLength": 57282,
+    "possible404": false
+  },
+  {
+    "route": "/en/glossary/top10-ratio",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/glossary/top10-ratio",
+    "title": "What is Top 10? - Definition & Meaning | Halox Glossary",
+    "textLength": 4538,
+    "htmlLength": 41055,
+    "possible404": false
+  },
+  {
+    "route": "/en/solutions/agency",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/solutions/agency",
+    "title": "HaloX for Search & Marketing Agencies | Multi-Client Management",
+    "textLength": 1850,
+    "htmlLength": 26418,
+    "possible404": false
+  },
+  {
+    "route": "/en/tools/ai-questions",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/tools/ai-questions",
+    "title": "Free AI Question Generator - SEO & GEO Optimization | HaloX",
+    "textLength": 3487,
+    "htmlLength": 651038,
+    "possible404": false
+  },
+  {
+    "route": "/en/tools/site-audit",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/tools/site-audit",
+    "title": "Free AI Search Readiness Checker - Is Your Site AI-Ready? | HaloX",
+    "textLength": 2900,
+    "htmlLength": 635265,
+    "possible404": false
+  },
+  {
+    "route": "/en/use-cases/competitor-analysis",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/use-cases/competitor-analysis",
+    "title": "AI Competitor Analysis — Track Competitors in AI Results | HaloX",
+    "textLength": 1772,
+    "htmlLength": 24800,
+    "possible404": false
+  },
+  {
+    "route": "/en",
+    "success": true,
+    "url": "https://haloxlabs.ai/en",
+    "title": "HaloX - SEO & GEO Platform | AI Search Optimization",
+    "textLength": 2400,
+    "htmlLength": 1548402,
+    "possible404": false
+  },
+  {
+    "route": "/en/consulting",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/consulting",
+    "title": "SEO & GEO Consulting - HaloX",
+    "textLength": 2627,
+    "htmlLength": 60764,
+    "possible404": false
+  },
+  {
+    "route": "/en/feedback",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/feedback",
+    "title": "피드백 보드 | HaloX",
+    "textLength": 6465,
+    "htmlLength": 74850,
+    "possible404": false
+  },
+  {
+    "route": "/en/methodology",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/methodology",
+    "title": "Our Methodology - How HaloX Measures Search | HaloX",
+    "textLength": 2612,
+    "htmlLength": 646647,
+    "possible404": false
+  },
+  {
+    "route": "/en/refund-policy",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/refund-policy",
+    "title": "Refund Policy - HaloX",
+    "textLength": 2266,
+    "htmlLength": 22164,
+    "possible404": false
+  },
+  {
+    "route": "/en/terms",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/terms",
+    "title": "Terms of Service - HaloX",
+    "textLength": 5040,
+    "htmlLength": 23896,
+    "possible404": false
+  },
+  {
+    "route": "/id",
+    "success": true,
+    "url": "https://haloxlabs.ai/en",
+    "title": "HaloX - SEO & GEO Platform | AI Search Optimization",
+    "textLength": 4001,
+    "htmlLength": 2724247,
+    "possible404": false
+  },
+  {
+    "route": "/zh/about",
+    "success": true,
+    "url": "https://haloxlabs.ai/en/about",
+    "title": "About HaloX",
+    "textLength": 2995,
+    "htmlLength": 644533,
+    "possible404": false
+  },
+  {
+    "route": "/",
+    "success": true,
+    "url": "https://haloxlabs.ai/",
+    "title": "HaloX - SEO & AI 검색 최적화 플랫폼",
+    "textLength": 3562,
+    "htmlLength": 1117287,
+    "possible404": false
+  },
+  {
+    "route": "/tag",
+    "success": true,
+    "url": "https://haloxlabs.ai/en",
+    "title": "HaloX - SEO & GEO Platform | AI Search Optimization",
+    "textLength": 13670,
+    "htmlLength": 2155314,
+    "possible404": false
+  }
+]

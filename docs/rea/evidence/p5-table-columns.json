@@ -1,0 +1,2940 @@
+{
+ "classification": "observation+inference",
+ "tables": {
+  "admin_user_notes": {
+   "static_columns": [
+    "author_id",
+    "content",
+    "created_at",
+    "id",
+    "target_user_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "adsense_stats": {
+   "static_columns": [
+    "clicks",
+    "ctr",
+    "date",
+    "impressions",
+    "revenue"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "affiliate_clicks": {
+   "static_columns": [
+    "clicked_at",
+    "converted"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "affiliate_links": {
+   "static_columns": [
+    "anchor_text",
+    "article_translation_id",
+    "created_at",
+    "id",
+    "position",
+    "url"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "agent_classification_logs": {
+   "static_columns": [
+    "classified_intent",
+    "created_at",
+    "id",
+    "promoted_to_golden"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "agent_conversations": {
+   "static_columns": [
+    "id",
+    "status",
+    "updated_at",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "agent_messages": {
+   "static_columns": [
+    "conversation_id",
+    "created_at",
+    "id",
+    "role"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "agent_traces": {
+   "static_columns": [
+    "complexity",
+    "created_at",
+    "id",
+    "intent",
+    "latency_ms",
+    "routing_decision",
+    "total_cost_usd",
+    "total_tokens"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "ai_keyword_expansion_logs": {
+   "static_columns": [
+    "category",
+    "created_at",
+    "id",
+    "judge_confidence",
+    "judge_reason",
+    "keyword",
+    "mode",
+    "relevance",
+    "run_id",
+    "user_selected_at",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "ai_model_candidates": {
+   "static_columns": [
+    "detected_at",
+    "id",
+    "reviewed_at",
+    "status"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "ai_model_versions": {
+   "static_columns": [
+    "category",
+    "id",
+    "is_latest",
+    "model_line",
+    "model_name",
+    "notes",
+    "outdated_patterns",
+    "release_year"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "ai_prompts": {
+   "static_columns": [
+    "ab_test_weight",
+    "category",
+    "id",
+    "is_ab_test",
+    "is_active",
+    "key",
+    "name",
+    "version"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "api_call_logs": {
+   "static_columns": [
+    "cost_estimate",
+    "created_at",
+    "edge_function"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "article_categories": {
+   "static_columns": [
+    "article_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "categories"
+   ],
+   "agreement": []
+  },
+  "article_generation_jobs": {
+   "static_columns": [
+    "article_id",
+    "created_at"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "article_tags": {
+   "static_columns": [
+    "article_id",
+    "tag_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "tags"
+   ],
+   "agreement": []
+  },
+  "article_tools": {
+   "static_columns": [
+    "anchor_heading",
+    "article_id",
+    "display_position",
+    "position_index",
+    "recommendation_reason",
+    "tool_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "article_topics": {
+   "static_columns": [
+    "article_id",
+    "is_primary",
+    "pin_order",
+    "pin_type",
+    "topic_id",
+    "topics"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "topics"
+   ],
+   "agreement": []
+  },
+  "article_translations": {
+   "static_columns": [
+    "article_id",
+    "articles",
+    "author_id",
+    "author_name",
+    "canonical_url",
+    "content_md",
+    "created_at",
+    "id",
+    "is_auto_generated",
+    "keyword_primary",
+    "keyword_secondary",
+    "language",
+    "last_generated_at",
+    "last_reviewed_at",
+    "meta_description",
+    "meta_title",
+    "og_image_url",
+    "published_at",
+    "region",
+    "review_status",
+    "scheduled_at",
+    "slug",
+    "source_language",
+    "status",
+    "title",
+    "updated_at",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "articles"
+   ],
+   "agreement": []
+  },
+  "articles": {
+   "static_columns": [
+    "article_translations",
+    "base_content_md",
+    "concept_ids",
+    "content_type",
+    "created_at",
+    "id",
+    "keyword_id",
+    "knowledge_entity_ids",
+    "primary_language",
+    "primary_slug",
+    "published_at",
+    "site",
+    "source_type",
+    "status",
+    "topic",
+    "updated_at",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "article_translations",
+    "keywords"
+   ],
+   "agreement": []
+  },
+  "audit_batch_failures": {
+   "static_columns": [
+    "scan_id",
+    "updated_at"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "authors": {
+   "static_columns": [
+    "id",
+    "is_active",
+    "name",
+    "slug"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "bot_visits": {
+   "static_columns": [
+    "bot_category",
+    "bot_name",
+    "country",
+    "id",
+    "lang",
+    "path",
+    "referer",
+    "user_agent_raw",
+    "visited_at"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "brand_reclassify_jobs": {
+   "static_columns": [
+    "enqueued_at",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "changelog_entries": {
+   "static_columns": [
+    "category",
+    "content_en",
+    "content_ko",
+    "date",
+    "desc_en",
+    "desc_ko",
+    "id",
+    "image_url",
+    "is_published",
+    "slug",
+    "sort_order",
+    "title_en",
+    "title_ko"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "authors"
+   ],
+   "agreement": []
+  },
+  "chart_annotations": {
+   "static_columns": [
+    "category",
+    "created_by",
+    "description",
+    "event_date",
+    "id",
+    "source_type",
+    "title",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "citation_matrix_by_media": {
+   "static_columns": [],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "client_errors": {
+   "static_columns": [
+    "col_no",
+    "error_type",
+    "fingerprint",
+    "line_no",
+    "message",
+    "page_url",
+    "release",
+    "severity",
+    "source_url",
+    "stack",
+    "user_agent",
+    "user_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "client_web_vitals": {
+   "static_columns": [],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "cluster_batch_runs": {
+   "static_columns": [
+    "cluster_id",
+    "created_at"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "cluster_stats_history": {
+   "static_columns": [
+    "aio_avg_position",
+    "aio_best_position",
+    "aio_cite_pct",
+    "aio_keywords_cited",
+    "cluster_id",
+    "geo_avi_median",
+    "geo_click_upside",
+    "geo_comp_cite_pct",
+    "geo_gap_type",
+    "geo_our_cite_pct",
+    "geo_our_seo_rank",
+    "geo_prompt_cited",
+    "geo_prompt_count",
+    "id",
+    "member_count",
+    "opportunity_score",
+    "snapshot_at",
+    "volume_sum",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "contact_submissions": {
+   "static_columns": [
+    "email",
+    "id",
+    "lang",
+    "message"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "content_change_items": {
+   "static_columns": [
+    "created_at",
+    "priority",
+    "run_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "content_compositions": {
+   "static_columns": [
+    "description",
+    "id",
+    "keyword",
+    "outline",
+    "snapshot",
+    "source_kind",
+    "source_refs",
+    "title",
+    "updated_at",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "content_drafts": {
+   "static_columns": [
+    "aio_score",
+    "article_id",
+    "blueprint_index",
+    "blueprint_keyword",
+    "blueprint_type",
+    "content_job_id",
+    "content_md",
+    "grounding_sources",
+    "grounding_used",
+    "id",
+    "image_suggestions",
+    "is_selected",
+    "meta_description",
+    "meta_title",
+    "optimization_log",
+    "quality_analysis",
+    "seo_score",
+    "slug",
+    "thumbnail_url",
+    "title",
+    "version",
+    "word_count"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "content_jobs": {
+   "static_columns": [
+    "article_id",
+    "brand_filter",
+    "cluster_batch_run_id",
+    "cluster_id",
+    "completed_at",
+    "composition_id",
+    "created_at",
+    "draft_content_md",
+    "draft_meta_description",
+    "draft_title",
+    "featured_image_url",
+    "generated_images",
+    "geo_prompt_id",
+    "id",
+    "keyword_id",
+    "knowledge_entity_ids",
+    "priority",
+    "prompt_context",
+    "published_at_override",
+    "seed_mode",
+    "seed_prompt",
+    "selected_draft_id",
+    "stage",
+    "strategy_status",
+    "target_keyword",
+    "title",
+    "translation_status",
+    "workspace_id",
+    "writing_status",
+    "writing_style_profile_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "content_review_runs": {
+   "static_columns": [
+    "article_id",
+    "audit_json",
+    "created_at",
+    "created_by",
+    "error_message",
+    "id",
+    "input_md",
+    "locale",
+    "meta_title",
+    "published_at",
+    "qa_report",
+    "rewritten_md",
+    "scores_after",
+    "scores_before",
+    "seed_keyword",
+    "serp_json",
+    "source_file_name",
+    "source_type",
+    "source_url",
+    "status",
+    "strategy_json",
+    "target_keyword",
+    "updated_at",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "custom_offer_items": {
+   "static_columns": [
+    "offer_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "custom_offers": {
+   "static_columns": [
+    "allowed_cycles",
+    "amount_override_krw_annual",
+    "amount_override_krw_monthly",
+    "base_plan_key",
+    "company_name",
+    "created_at",
+    "id",
+    "name",
+    "notes",
+    "status",
+    "updated_at",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "custom_offer_items"
+   ],
+   "agreement": []
+  },
+  "doc_sync_versions": {
+   "static_columns": [
+    "function_name",
+    "id",
+    "is_outdated",
+    "last_code_update",
+    "last_doc_sync"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "earned_cannibal_dismissals": {
+   "static_columns": [
+    "created_at",
+    "dismissed_by",
+    "id",
+    "keyword_id",
+    "note",
+    "publication_id",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "earned_publications": {
+   "static_columns": [
+    "channel_label",
+    "channel_type",
+    "created_at",
+    "created_by",
+    "id",
+    "kind",
+    "notes",
+    "pattern",
+    "published_at",
+    "source_keyword_id",
+    "title",
+    "url",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "email_send_log": {
+   "static_columns": [
+    "created_at",
+    "recipient_email",
+    "status",
+    "template_name"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "eval_runs": {
+   "static_columns": [
+    "created_at",
+    "run_type"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "evidence_claim_embeddings": {
+   "static_columns": [
+    "id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "evidence_claims": {
+   "static_columns": [
+    "brand_role",
+    "brand_role_source",
+    "citation_confidence",
+    "claim_kind",
+    "claim_text",
+    "claim_value",
+    "created_at",
+    "evidence_context_id",
+    "evidence_contexts",
+    "extraction_confidence",
+    "id",
+    "source_domain",
+    "source_file_path",
+    "source_tier",
+    "source_title",
+    "source_url",
+    "verifiability_status",
+    "verified_at"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "evidence_contexts"
+   ],
+   "agreement": []
+  },
+  "evidence_context_keywords": {
+   "static_columns": [
+    "evidence_context_id",
+    "keyword_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "evidence_contexts": {
+   "static_columns": [
+    "applies_to_content_types",
+    "captured_at",
+    "confidence",
+    "content_job_id",
+    "content_text",
+    "evidence_type",
+    "expires_at",
+    "id",
+    "is_approved",
+    "is_pinned",
+    "is_required",
+    "keyword_id",
+    "knowledge_entity_id",
+    "locale_country",
+    "locale_language",
+    "priority",
+    "scope_type",
+    "serp_payload",
+    "source_title",
+    "source_url",
+    "title"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "evidence_claims"
+   ],
+   "agreement": []
+  },
+  "evidence_sources": {
+   "static_columns": [
+    "domain",
+    "evidence_context_id",
+    "original_uri",
+    "resolved_url"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "export_history": {
+   "static_columns": [
+    "exported_at",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "feature_request_votes": {
+   "static_columns": [
+    "feature_request_id",
+    "user_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "feature_requests": {
+   "static_columns": [
+    "category",
+    "created_at",
+    "description",
+    "id",
+    "is_public",
+    "status",
+    "title",
+    "trial_extended",
+    "trial_extension_revoked",
+    "user_id",
+    "vote_count",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "feedback_reply_notifications": {
+   "static_columns": [
+    "created_at",
+    "feedback_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "free_tool_results": {
+   "static_columns": [
+    "created_at",
+    "curated_order",
+    "domain",
+    "id",
+    "industry_estimate",
+    "input_url",
+    "is_curated",
+    "result_json"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "ga4_page_stats": {
+   "static_columns": [
+    "ai_sessions_chatgpt",
+    "ai_sessions_claude",
+    "ai_sessions_gemini",
+    "ai_sessions_perplexity",
+    "ai_sessions_total",
+    "date",
+    "organic_conversions",
+    "organic_sessions",
+    "page_path",
+    "total_sessions",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "geo_alerts": {
+   "static_columns": [
+    "alert_type",
+    "created_at",
+    "id",
+    "is_dismissed",
+    "is_read",
+    "severity",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "geo_answers_raw": {
+   "static_columns": [
+    "answer_text",
+    "created_at",
+    "generation_time_ms",
+    "run_id",
+    "tokens_used",
+    "web_sources"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "geo_batch_jobs": {
+   "static_columns": [
+    "created_at",
+    "engine",
+    "prompt_set_id",
+    "status"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "geo_citations": {
+   "static_columns": [
+    "citation_type",
+    "cited_url",
+    "context_snippet",
+    "created_at",
+    "domain",
+    "domain_classification",
+    "id",
+    "is_competitor",
+    "is_ours",
+    "position_index",
+    "root_domain",
+    "run_id",
+    "title"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "geo_discover_runs": {
+   "static_columns": [
+    "completed_at",
+    "created_at",
+    "error_message",
+    "id",
+    "progress_data",
+    "seed_filter_stats",
+    "seed_payload_json",
+    "seed_type",
+    "stats_json",
+    "status",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "geo_domain_analyses": {
+   "static_columns": [
+    "target_domain",
+    "workspace_id",
+    "workspaces"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "workspace_plans",
+    "workspaces"
+   ],
+   "agreement": []
+  },
+  "geo_fan_out_queries": {
+   "static_columns": [
+    "created_at",
+    "engine",
+    "has_site_operator",
+    "id",
+    "is_primary",
+    "language",
+    "prompt_id",
+    "query_normalized",
+    "query_text",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "geo_prompts"
+   ],
+   "agreement": []
+  },
+  "geo_prompt_candidates": {
+   "static_columns": [
+    "created_at",
+    "discover_run_id",
+    "funnel_stage",
+    "geo_prompt_id",
+    "homonym_reason",
+    "homonym_verdict",
+    "id",
+    "intent_display_group",
+    "intent_subtype",
+    "labels",
+    "opportunity_score",
+    "original_paa_text",
+    "prompt_text",
+    "question_scope",
+    "recommended_content_type",
+    "seed_brand_type",
+    "source_keyword_id",
+    "source_type",
+    "status",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "source_keyword_id"
+   ],
+   "agreement": []
+  },
+  "geo_prompt_runs": {
+   "static_columns": [
+    "cost_usd",
+    "created_at",
+    "engine",
+    "finished_at",
+    "geo_citations",
+    "geo_prompts",
+    "id",
+    "mode",
+    "model_name",
+    "prompt_id",
+    "requested_at",
+    "status"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "geo_citations",
+    "geo_prompt_sets",
+    "geo_prompts"
+   ],
+   "agreement": []
+  },
+  "geo_prompt_sets": {
+   "static_columns": [
+    "created_at",
+    "default_engine",
+    "id",
+    "is_active",
+    "mirror_of_id",
+    "name",
+    "published_contents",
+    "schedule_enabled",
+    "schedule_hour",
+    "updated_at",
+    "workspace_id"
+   ],
+   "runtime_columns": {
+    "id": "string<uuid>"
+   },
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": [
+    "id"
+   ]
+  },
+  "geo_prompt_tag_assignments": {
+   "static_columns": [
+    "prompt_id",
+    "tag_id",
+    "workspace_tags"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "workspace_tags"
+   ],
+   "agreement": []
+  },
+  "geo_prompts": {
+   "static_columns": [
+    "cm_brand",
+    "cm_industry",
+    "cm_question_type",
+    "created_at",
+    "deleted_at",
+    "discover_candidate_id",
+    "geo_prompt_candidates",
+    "geo_prompt_sets",
+    "id",
+    "is_active",
+    "is_paused",
+    "language_code",
+    "location_code",
+    "mirror_of_id",
+    "prompt",
+    "prompt_category",
+    "prompt_set_id",
+    "prompt_text",
+    "search_volume",
+    "updated_at"
+   ],
+   "runtime_columns": {
+    "id": "string<uuid>"
+   },
+   "runtime_nested": [],
+   "embedded_relations": [
+    "geo_prompt_candidates",
+    "geo_prompt_sets"
+   ],
+   "agreement": [
+    "id"
+   ]
+  },
+  "geo_run_metrics": {
+   "static_columns": [
+    "brand_mention_count",
+    "brand_mentioned",
+    "citation_rate",
+    "competitor_citation_count",
+    "competitor_mention_count",
+    "competitor_mention_terms",
+    "is_cited",
+    "other_citation_count",
+    "our_citation_count",
+    "our_source_count",
+    "run_id",
+    "source_but_not_cited",
+    "source_count"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "geo_sources": {
+   "static_columns": [
+    "position",
+    "run_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "grounding_failure_patterns": {
+   "static_columns": [
+    "failure_count"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "gsc_daily_keywords": {
+   "static_columns": [
+    "avg_position",
+    "clicks",
+    "ctr",
+    "date",
+    "impressions",
+    "query",
+    "search_type",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "gsc_daily_pages": {
+   "static_columns": [
+    "clicks",
+    "date",
+    "page",
+    "search_type",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "gsc_daily_totals": {
+   "static_columns": [
+    "clicks",
+    "date",
+    "search_type",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "gsc_sync_state": {
+   "static_columns": [
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "image_generation_runs": {
+   "static_columns": [
+    "content_job_id",
+    "created_at",
+    "image_url",
+    "rich_type"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "keyword_cluster_members": {
+   "static_columns": [
+    "cluster_id",
+    "id",
+    "keyword_clusters",
+    "keyword_id",
+    "keywords",
+    "pillar_score",
+    "similarity_score"
+   ],
+   "runtime_columns": {
+    "cluster_id": "string<uuid>",
+    "keyword_id": "string<uuid>"
+   },
+   "runtime_nested": [
+    "keywords"
+   ],
+   "embedded_relations": [
+    "keyword_clusters"
+   ],
+   "agreement": [
+    "cluster_id",
+    "keyword_id",
+    "keywords"
+   ]
+  },
+  "keyword_clusters": {
+   "static_columns": [
+    "id",
+    "label",
+    "stats_json",
+    "updated_at",
+    "workspace_id"
+   ],
+   "runtime_columns": {
+    "id": "string<uuid>"
+   },
+   "runtime_nested": [
+    "stats_json"
+   ],
+   "embedded_relations": [],
+   "agreement": [
+    "id",
+    "stats_json"
+   ]
+  },
+  "keyword_expansion_candidates": {
+   "static_columns": [
+    "candidate",
+    "country",
+    "expires_at",
+    "language",
+    "metadata",
+    "seed_keyword",
+    "source",
+    "volume"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "keyword_knowledge_entities": {
+   "static_columns": [
+    "created_at",
+    "id",
+    "keyword_id",
+    "knowledge_entity_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "knowledge_entities"
+   ],
+   "agreement": []
+  },
+  "keyword_prompt_links": {
+   "static_columns": [
+    "avi_score",
+    "keyword_id",
+    "keywords",
+    "prompt_id",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "keyword_id",
+    "keywords"
+   ],
+   "agreement": []
+  },
+  "keyword_serp_jobs": {
+   "static_columns": [
+    "attempts",
+    "created_at",
+    "engine",
+    "id",
+    "keyword_id",
+    "last_error",
+    "next_run_at",
+    "status",
+    "updated_at",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "keyword_sets": {
+   "static_columns": [
+    "created_at",
+    "id",
+    "mirror_of_id",
+    "name",
+    "workspace_id"
+   ],
+   "runtime_columns": {
+    "id": "string<uuid>",
+    "workspace_id": "string<uuid>",
+    "name": "string",
+    "description": "string",
+    "is_active": "boolean",
+    "target_domain": "null",
+    "language": "null",
+    "country": "null",
+    "brand_name": "null",
+    "industry": "null",
+    "journey_stage": "null",
+    "created_at": "string<datetime>",
+    "updated_at": "string<datetime>",
+    "is_default": "boolean",
+    "mirror_of_id": "null"
+   },
+   "runtime_nested": [
+    "competitor_domains",
+    "industry_tags"
+   ],
+   "embedded_relations": [],
+   "agreement": [
+    "created_at",
+    "id",
+    "mirror_of_id",
+    "name",
+    "workspace_id"
+   ]
+  },
+  "keyword_strategy": {
+   "static_columns": [
+    "created_at",
+    "id",
+    "keyword_id",
+    "research_cache",
+    "semantic_entities",
+    "updated_at"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "keyword_tag_assignments": {
+   "static_columns": [
+    "keyword_id",
+    "tag_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "keywords": {
+   "static_columns": [
+    "competition",
+    "competition_score",
+    "country",
+    "cpc_max",
+    "cpc_min",
+    "created_at",
+    "dataforseo_last_updated",
+    "deleted_at",
+    "disambiguation_context",
+    "geo_cluster_id",
+    "geo_prompt_id",
+    "id",
+    "intent",
+    "intent_probability",
+    "intent_secondary_json",
+    "intent_updated_at",
+    "is_active",
+    "is_paused",
+    "kd_updated_at",
+    "keyword",
+    "keyword_difficulty",
+    "keyword_set_id",
+    "keyword_strategy",
+    "language",
+    "mirror_of_id",
+    "origin_type",
+    "search_volume",
+    "search_volume_google_ads",
+    "seed_prompt",
+    "serp_snapshots",
+    "source_prompt_id",
+    "status",
+    "trends_json",
+    "updated_at",
+    "volume_fail_count",
+    "volume_updated_at",
+    "workspace_id"
+   ],
+   "runtime_columns": {
+    "id": "string<uuid>",
+    "keyword": "string",
+    "search_volume": "number",
+    "keyword_difficulty": "number"
+   },
+   "runtime_nested": [],
+   "embedded_relations": [
+    "keyword_strategy",
+    "serp_snapshots"
+   ],
+   "agreement": [
+    "id",
+    "keyword",
+    "keyword_difficulty",
+    "search_volume"
+   ]
+  },
+  "knowledge_claim_stats": {
+   "static_columns": [
+    "entity_id",
+    "name",
+    "total_claims",
+    "workspace_id"
+   ],
+   "runtime_columns": {
+    "entity_id": "string<uuid>",
+    "name": "string",
+    "slug": "null",
+    "knowledge_type": "string",
+    "program_type": "string",
+    "logo_url": "null",
+    "base_url": "null",
+    "workspace_id": "string<uuid>",
+    "context_count": "number",
+    "total_claims": "number",
+    "verified_claims": "number",
+    "unverified_claims": "number",
+    "stale_claims": "number",
+    "conflicted_claims": "number",
+    "avg_confidence": "null",
+    "last_updated": "null"
+   },
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": [
+    "entity_id",
+    "name",
+    "total_claims",
+    "workspace_id"
+   ]
+  },
+  "knowledge_entities": {
+   "static_columns": [
+    "base_url",
+    "created_at",
+    "description",
+    "id",
+    "is_active",
+    "knowledge_type",
+    "logo_url",
+    "name",
+    "program_type",
+    "slug",
+    "workspace_id"
+   ],
+   "runtime_columns": {
+    "id": "string<uuid>",
+    "name": "string",
+    "slug": "null",
+    "description": "string",
+    "logo_url": "null",
+    "base_url": "null",
+    "created_at": "string<datetime>",
+    "updated_at": "string<datetime>",
+    "program_type": "string",
+    "workspace_id": "string<uuid>",
+    "parent_program_id": "null",
+    "related_programs": "null",
+    "coverage_type": "null",
+    "knowledge_type": "string"
+   },
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": [
+    "base_url",
+    "created_at",
+    "description",
+    "id",
+    "knowledge_type",
+    "logo_url",
+    "name",
+    "program_type",
+    "slug",
+    "workspace_id"
+   ]
+  },
+  "knowledge_entity_keywords": {
+   "static_columns": [
+    "created_at",
+    "id",
+    "keyword",
+    "knowledge_entities",
+    "knowledge_entity_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "knowledge_entities"
+   ],
+   "agreement": []
+  },
+  "knowledge_entity_sources": {
+   "static_columns": [
+    "extraction_status",
+    "id",
+    "is_active",
+    "knowledge_entity_id",
+    "last_verified_at",
+    "source_type",
+    "url"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "languages": {
+   "static_columns": [
+    "code",
+    "is_active"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "llm_usage_logs": {
+   "static_columns": [
+    "content_job_id",
+    "created_at",
+    "edge_function",
+    "grounding_category",
+    "grounding_claim_count",
+    "grounding_failure_reason",
+    "grounding_query",
+    "grounding_source_count",
+    "grounding_status",
+    "id",
+    "keyword_id",
+    "pipeline_step",
+    "total_cost",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "n8n_webhooks": {
+   "static_columns": [
+    "id",
+    "name"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "naver_seed_lookups": {
+   "static_columns": [
+    "created_at",
+    "created_by",
+    "id",
+    "result_count",
+    "seeds",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "newsletter_subscribers": {
+   "static_columns": [
+    "created_at",
+    "id",
+    "is_verified",
+    "language",
+    "unsubscribed_at"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "nicepay_webhook_events": {
+   "static_columns": [
+    "amt",
+    "id",
+    "moid",
+    "received_at",
+    "reconcile_action",
+    "reconciled",
+    "result_code",
+    "result_msg",
+    "signature_valid",
+    "tid"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "onboarding_jobs": {
+   "static_columns": [
+    "completed_count",
+    "created_at",
+    "expected_count",
+    "phase",
+    "updated_at",
+    "workspace_id"
+   ],
+   "runtime_columns": {
+    "phase": "string",
+    "expected_count": "number",
+    "completed_count": "number",
+    "updated_at": "string<datetime>"
+   },
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": [
+    "completed_count",
+    "expected_count",
+    "phase",
+    "updated_at"
+   ]
+  },
+  "ops_job_runs": {
+   "static_columns": [
+    "ok",
+    "started_at",
+    "trace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "ops_metrics": {
+   "static_columns": [
+    "checked_at"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "orders": {
+   "static_columns": [
+    "amount",
+    "billing_cycle",
+    "created_at",
+    "currency",
+    "failure_detail",
+    "failure_reason",
+    "id",
+    "is_test",
+    "order_id",
+    "paid_at",
+    "payment_gateway",
+    "plan",
+    "refund_reason",
+    "refunded_amount",
+    "refunded_at",
+    "status",
+    "tid",
+    "user_id",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "workspaces"
+   ],
+   "agreement": []
+  },
+  "plan_templates": {
+   "static_columns": [
+    "annual_price",
+    "color_token",
+    "created_at",
+    "description",
+    "display_currency_default",
+    "features",
+    "icon_name",
+    "id",
+    "internal_alias",
+    "is_active",
+    "is_archived",
+    "launch_original_krw_monthly",
+    "launch_original_usd_monthly",
+    "max_workspaces",
+    "monthly_price",
+    "name",
+    "plan_key",
+    "price_krw_annual",
+    "price_krw_monthly",
+    "price_usd_annual",
+    "price_usd_monthly",
+    "sort_order"
+   ],
+   "runtime_columns": {
+    "id": "string<uuid>",
+    "plan_key": "string",
+    "name": "string",
+    "description": "string",
+    "is_active": "boolean",
+    "created_at": "string<datetime>",
+    "max_workspaces": "number",
+    "monthly_price": "number",
+    "annual_price": "number",
+    "is_archived": "boolean",
+    "sort_order": "number",
+    "clone_of": "null",
+    "price_krw_monthly": "number",
+    "price_krw_annual": "number",
+    "price_usd_monthly": "number",
+    "price_usd_annual": "number",
+    "launch_original_krw_monthly": "number",
+    "launch_original_usd_monthly": "number",
+    "display_currency_default": "string",
+    "internal_alias": "null",
+    "color_token": "null",
+    "icon_name": "null"
+   },
+   "runtime_nested": [
+    "features"
+   ],
+   "embedded_relations": [],
+   "agreement": [
+    "annual_price",
+    "color_token",
+    "created_at",
+    "description",
+    "display_currency_default",
+    "features",
+    "icon_name",
+    "id",
+    "internal_alias",
+    "is_active",
+    "is_archived",
+    "launch_original_krw_monthly",
+    "launch_original_usd_monthly",
+    "max_workspaces",
+    "monthly_price",
+    "name",
+    "plan_key",
+    "price_krw_annual",
+    "price_krw_monthly",
+    "price_usd_annual",
+    "price_usd_monthly",
+    "sort_order"
+   ]
+  },
+  "plan_unit_limits": {
+   "static_columns": [
+    "id",
+    "monthly_limit",
+    "plan_key",
+    "unit_key"
+   ],
+   "runtime_columns": {
+    "unit_key": "string",
+    "monthly_limit": "number"
+   },
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": [
+    "monthly_limit",
+    "unit_key"
+   ]
+  },
+  "platform_admins": {
+   "static_columns": [
+    "id",
+    "role",
+    "user_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "profiles": {
+   "static_columns": [
+    "full_name",
+    "id",
+    "phone_number"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "prompt_performance": {
+   "static_columns": [
+    "aio_score",
+    "generated_at",
+    "prompt_id",
+    "seo_score",
+    "word_count"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "prompt_test_runs": {
+   "static_columns": [
+    "content_job_id",
+    "created_at",
+    "diff_additions",
+    "diff_deletions",
+    "id",
+    "pass2_citations_converted",
+    "pass2_content",
+    "pass2_format_fixes",
+    "pass2_style_edits",
+    "test_type"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "qa_checklist_items": {
+   "static_columns": [
+    "id",
+    "priority",
+    "sort_order"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "redirects": {
+   "static_columns": [
+    "created_at",
+    "from_path",
+    "id",
+    "is_active",
+    "status_code",
+    "to_path",
+    "updated_at"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "referral_commissions": {
+   "static_columns": [
+    "created_at",
+    "partner_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "referral_partners": {
+   "static_columns": [
+    "user_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "referral_payouts": {
+   "static_columns": [
+    "partner_id",
+    "requested_at"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "regression_test_runs": {
+   "static_columns": [
+    "created_at",
+    "suite"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "report_action_items": {
+   "static_columns": [
+    "id",
+    "rank",
+    "snapshot_id",
+    "status",
+    "title"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "report_snapshots": {
+   "static_columns": [
+    "actions_payload",
+    "brand_name",
+    "changes_payload",
+    "created_at",
+    "created_by",
+    "end_date",
+    "id",
+    "kpi_payload",
+    "period_key",
+    "period_type",
+    "prompt_set_id",
+    "start_date",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "report_summaries"
+   ],
+   "agreement": []
+  },
+  "schema_coach_results": {
+   "static_columns": [
+    "consistency_warnings",
+    "entities",
+    "jsonld_snippet",
+    "language",
+    "page_type",
+    "page_type_confidence",
+    "recommended_schemas",
+    "updated_at",
+    "url",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "score_calculation_rules": {
+   "static_columns": [
+    "sort_order"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "search_console_stats": {
+   "static_columns": [
+    "clicks",
+    "date",
+    "page",
+    "query",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "serp_batch_jobs": {
+   "static_columns": [
+    "completed_count",
+    "created_at",
+    "estimated_cost_usd",
+    "failed_count",
+    "keyword_count",
+    "scheduled_date",
+    "status"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "serp_decision_alert_log": {
+   "static_columns": [
+    "alert_kind",
+    "id",
+    "level",
+    "message",
+    "resolved_at",
+    "sent_at"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "serp_snapshots": {
+   "static_columns": [
+    "ai_overview_detected",
+    "ai_overview_json",
+    "all_serp_items_json",
+    "captured_at",
+    "country",
+    "created_at",
+    "engine",
+    "featured_snippet_json",
+    "gap_summary",
+    "id",
+    "images_pack_json",
+    "keyword_id",
+    "keywords",
+    "knowledge_graph_json",
+    "language",
+    "local_pack_json",
+    "paa_questions_json",
+    "related_searches_json",
+    "serp_analysis_json",
+    "shopping_results_json",
+    "top_results_json",
+    "top_stories_json",
+    "video_results_json",
+    "workspace_id"
+   ],
+   "runtime_columns": {
+    "keyword_id": "string<uuid>",
+    "captured_at": "string<datetime>"
+   },
+   "runtime_nested": [
+    "serp_analysis_json"
+   ],
+   "embedded_relations": [
+    "keyword_id",
+    "keywords"
+   ],
+   "agreement": [
+    "captured_at",
+    "keyword_id",
+    "serp_analysis_json"
+   ]
+  },
+  "site_audit_issues": {
+   "static_columns": [
+    "category",
+    "description",
+    "fix_recommendation",
+    "id",
+    "issue_type",
+    "page_url",
+    "scan_id",
+    "severity",
+    "title"
+   ],
+   "runtime_columns": {
+    "id": "string<uuid>",
+    "scan_id": "string<uuid>",
+    "page_id": "string<uuid>",
+    "page_url": "string<url>",
+    "issue_type": "string",
+    "category": "string",
+    "severity": "string",
+    "layer": "null",
+    "score_dimension": "null",
+    "title": "string",
+    "description": "string",
+    "fix_recommendation": "string",
+    "fix_difficulty": "string",
+    "impact_level": "string",
+    "is_resolved": "boolean",
+    "resolved_at": "null",
+    "created_at": "string<datetime>"
+   },
+   "runtime_nested": [
+    "engine_impact",
+    "evidence"
+   ],
+   "embedded_relations": [],
+   "agreement": [
+    "category",
+    "description",
+    "fix_recommendation",
+    "id",
+    "issue_type",
+    "page_url",
+    "scan_id",
+    "severity",
+    "title"
+   ]
+  },
+  "site_audit_links": {
+   "static_columns": [
+    "anchor_text",
+    "created_at",
+    "direction",
+    "dofollow",
+    "id",
+    "is_broken",
+    "link_from",
+    "link_to",
+    "link_type",
+    "scan_id",
+    "target_status_code"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "site_audit_pages": {
+   "static_columns": [
+    "analysis_snapshot",
+    "geo_score",
+    "id",
+    "issues_count",
+    "lighthouse_data",
+    "page_score",
+    "scan_id",
+    "seo_score",
+    "status_code",
+    "url"
+   ],
+   "runtime_columns": {
+    "url": "string<url>"
+   },
+   "runtime_nested": [
+    "lighthouse_data"
+   ],
+   "embedded_relations": [],
+   "agreement": [
+    "lighthouse_data",
+    "url"
+   ]
+  },
+  "site_audit_phase_metrics": {
+   "static_columns": [
+    "scan_id",
+    "started_at"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "site_audit_reanalyze_jobs": {
+   "static_columns": [
+    "created_at",
+    "cursor",
+    "error",
+    "id",
+    "links_inserted",
+    "phase",
+    "scan_id",
+    "started_at",
+    "status",
+    "total_items",
+    "updated_at"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "site_audit_retry_logs": {
+   "static_columns": [
+    "attempt",
+    "crawler_used",
+    "created_at",
+    "reason",
+    "scan_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "site_audit_scans": {
+   "static_columns": [
+    "ai_readiness_breakdown",
+    "ai_readiness_breakdown_v2",
+    "ai_readiness_score",
+    "ai_readiness_score_v2",
+    "benchmark_mode",
+    "completed_at",
+    "crawled_urls",
+    "created_at",
+    "date",
+    "degraded_mode",
+    "id",
+    "lighthouse_data",
+    "max_pages",
+    "parent_scan_id",
+    "parent_scan_ids",
+    "partial_failures",
+    "priority",
+    "scan_mode",
+    "scan_type",
+    "scope_rules",
+    "scoring_version",
+    "site_health_score",
+    "site_health_score_v2",
+    "status",
+    "target_domain",
+    "target_url",
+    "workspace_id"
+   ],
+   "runtime_columns": {
+    "id": "string<uuid>",
+    "workspace_id": "string<uuid>",
+    "status": "string",
+    "created_at": "string<datetime>",
+    "completed_at": "string<datetime>",
+    "scan_type": "string",
+    "scan_mode": "string",
+    "crawled_urls": "number",
+    "max_pages": "number",
+    "critical_count": "number",
+    "warning_count": "number",
+    "notice_count": "number",
+    "site_health_score": "number",
+    "ai_readiness_score": "number",
+    "site_health_score_v2": "number",
+    "ai_readiness_score_v2": "number"
+   },
+   "runtime_nested": [],
+   "embedded_relations": [
+    "site_audit_issues"
+   ],
+   "agreement": [
+    "ai_readiness_score",
+    "ai_readiness_score_v2",
+    "completed_at",
+    "crawled_urls",
+    "created_at",
+    "id",
+    "max_pages",
+    "scan_mode",
+    "scan_type",
+    "site_health_score",
+    "site_health_score_v2",
+    "status",
+    "workspace_id"
+   ]
+  },
+  "site_audit_scores": {
+   "static_columns": [
+    "scan_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "source_tier_domain_stats": {
+   "static_columns": [
+    "domain",
+    "matched_at"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "source_tier_domains": {
+   "static_columns": [
+    "content_format",
+    "discovery_source",
+    "domain",
+    "id",
+    "industry_tags",
+    "site_type",
+    "tier"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "strategy_pipeline_runs": {
+   "static_columns": [
+    "content_job_id",
+    "created_at",
+    "current_step",
+    "id",
+    "last_error",
+    "status",
+    "updated_at"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "subscription_events": {
+   "static_columns": [
+    "amount",
+    "cancel_reason",
+    "created_at",
+    "event_type",
+    "id",
+    "new_mrr",
+    "new_plan",
+    "previous_mrr",
+    "previous_plan",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "workspaces"
+   ],
+   "agreement": []
+  },
+  "subscriptions": {
+   "static_columns": [
+    "bid",
+    "billing_cycle",
+    "cancel_at_period_end",
+    "cancel_reason",
+    "cancelled_at",
+    "card_exp_yymm",
+    "card_no_masked",
+    "created_at",
+    "current_period_end",
+    "current_period_start",
+    "custom_offer_id",
+    "id",
+    "is_test",
+    "last_retry_at",
+    "next_billing_at",
+    "next_retry_at",
+    "payment_gateway",
+    "pending_plan_change",
+    "plan",
+    "retry_count",
+    "status",
+    "updated_at",
+    "user_id",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "workspaces"
+   ],
+   "agreement": []
+  },
+  "system_settings": {
+   "static_columns": [
+    "description",
+    "key",
+    "updated_at",
+    "value"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "tags": {
+   "static_columns": [
+    "description",
+    "id",
+    "name",
+    "slug"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "tool_alternatives": {
+   "static_columns": [
+    "alternative_tool_id",
+    "comparison_note",
+    "display_order",
+    "tool_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "tool_translations": {
+   "static_columns": [
+    "description",
+    "lang",
+    "name",
+    "tool_id",
+    "tools"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "tools"
+   ],
+   "agreement": []
+  },
+  "tools": {
+   "static_columns": [
+    "affiliate_program_id",
+    "audience",
+    "category",
+    "created_at",
+    "display_order",
+    "id",
+    "is_featured",
+    "is_trending",
+    "logo_url",
+    "official_url",
+    "platforms",
+    "price_model",
+    "slug",
+    "status",
+    "tool_translations",
+    "view_count"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "tool_translations"
+   ],
+   "agreement": []
+  },
+  "topic_tool_curations": {
+   "static_columns": [
+    "display_order",
+    "recommendation_reason",
+    "tool_id",
+    "topic_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "topic_translations": {
+   "static_columns": [
+    "description",
+    "lang",
+    "name",
+    "status",
+    "topic_id",
+    "topics"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "topics"
+   ],
+   "agreement": []
+  },
+  "topics": {
+   "static_columns": [
+    "color",
+    "display_order",
+    "icon",
+    "id",
+    "is_active",
+    "is_featured",
+    "slug",
+    "status",
+    "topic_translations",
+    "updated_at"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "topic_translations"
+   ],
+   "agreement": []
+  },
+  "translation_jobs": {
+   "static_columns": [
+    "article_id",
+    "created_at",
+    "status",
+    "target_language"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "translation_runs": {
+   "static_columns": [
+    "article_id",
+    "created_at"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "usage_reservations": {
+   "static_columns": [
+    "amount",
+    "created_at",
+    "id",
+    "idempotency_key",
+    "status",
+    "unit_key",
+    "workspace_id"
+   ],
+   "runtime_columns": {
+    "id": "string<uuid>",
+    "unit_key": "string",
+    "amount": "number",
+    "status": "string",
+    "idempotency_key": "string",
+    "created_at": "string<datetime>"
+   },
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": [
+    "amount",
+    "created_at",
+    "id",
+    "idempotency_key",
+    "status",
+    "unit_key"
+   ]
+  },
+  "usage_unit_catalog": {
+   "static_columns": [
+    "is_active"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "vw_gsc_connection_health": {
+   "static_columns": [
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "welcome_guide_config": {
+   "static_columns": [
+    "id",
+    "is_active",
+    "step_order",
+    "updated_at"
+   ],
+   "runtime_columns": {
+    "id": "string<uuid>",
+    "step_order": "number",
+    "icon_name": "string",
+    "title_ko": "string",
+    "title_en": "string",
+    "description_ko": "string",
+    "description_en": "string",
+    "metric_label": "string",
+    "color_phase": "string",
+    "is_active": "boolean",
+    "created_at": "string<datetime>",
+    "updated_at": "string<datetime>"
+   },
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": [
+    "id",
+    "is_active",
+    "step_order",
+    "updated_at"
+   ]
+  },
+  "welcome_guide_settings": {
+   "static_columns": [
+    "id",
+    "updated_at"
+   ],
+   "runtime_columns": {
+    "id": "string<uuid>",
+    "header_title_ko": "string",
+    "header_title_en": "string",
+    "header_subtitle_ko": "string",
+    "header_subtitle_en": "string",
+    "layout_type": "string",
+    "is_enabled": "boolean",
+    "created_at": "string<datetime>",
+    "updated_at": "string<datetime>"
+   },
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": [
+    "id",
+    "updated_at"
+   ]
+  },
+  "workspace_api_keys": {
+   "static_columns": [
+    "created_at",
+    "expires_at",
+    "id",
+    "key_prefix",
+    "last_used_at",
+    "name",
+    "revoked_at",
+    "scopes",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "workspace_billing_overrides": {
+   "static_columns": [
+    "created_at",
+    "expires_at",
+    "id",
+    "override_limit",
+    "reason",
+    "unit_key",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "workspace_brand_domains": {
+   "static_columns": [
+    "self_roots",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "workspace_credit_balances": {
+   "static_columns": [
+    "balance",
+    "expires_at",
+    "unit_key",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "workspace_credit_ledger": {
+   "static_columns": [
+    "created_at",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "workspace_events": {
+   "static_columns": [
+    "created_at",
+    "event_type",
+    "id",
+    "metadata",
+    "workspace_id"
+   ],
+   "runtime_columns": {
+    "id": "string<uuid>",
+    "event_type": "string",
+    "created_at": "string<datetime>"
+   },
+   "runtime_nested": [
+    "metadata"
+   ],
+   "embedded_relations": [],
+   "agreement": [
+    "created_at",
+    "event_type",
+    "id",
+    "metadata"
+   ]
+  },
+  "workspace_google_connections": {
+   "static_columns": [
+    "ga4_connected",
+    "ga4_last_sync_error",
+    "ga4_last_sync_status",
+    "ga4_property_id",
+    "ga4_property_name",
+    "google_email",
+    "gsc_connected",
+    "gsc_last_sync_error",
+    "gsc_last_sync_status",
+    "gsc_property_type",
+    "gsc_property_url",
+    "is_active",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "workspace_invitations": {
+   "static_columns": [
+    "allowed_sections",
+    "created_at",
+    "email",
+    "expires_at",
+    "id",
+    "role",
+    "status",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "workspace_members": {
+   "static_columns": [
+    "created_at",
+    "id",
+    "joined_at",
+    "role",
+    "user_id",
+    "workspace_id"
+   ],
+   "runtime_columns": {
+    "workspace_id": "string<uuid>"
+   },
+   "runtime_nested": [
+    "workspaces"
+   ],
+   "embedded_relations": [],
+   "agreement": [
+    "workspace_id"
+   ]
+  },
+  "workspace_mirrors": {
+   "static_columns": [
+    "created_at",
+    "id",
+    "is_active",
+    "keyword_filter",
+    "last_synced_at",
+    "mirror_workspace_id",
+    "prompt_filter",
+    "source_workspace_id",
+    "sync_keywords",
+    "sync_prompts"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "workspace_plans": {
+   "static_columns": [
+    "batch_cadence_override",
+    "batch_cycle_anchor_date",
+    "billing_cycle",
+    "cancelled_at",
+    "current_mrr",
+    "expires_at",
+    "is_poc",
+    "plan",
+    "started_at",
+    "trial_ends_at",
+    "workspace_id"
+   ],
+   "runtime_columns": {
+    "plan": "string",
+    "workspace_id": "string<uuid>"
+   },
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": [
+    "plan",
+    "workspace_id"
+   ]
+  },
+  "workspace_tag_groups": {
+   "static_columns": [
+    "id",
+    "sort_order",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "workspace_tags": {
+   "static_columns": [
+    "id",
+    "mirror_of_id",
+    "name",
+    "sort_order",
+    "workspace_id",
+    "workspace_tag_groups"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "workspace_tag_groups"
+   ],
+   "agreement": []
+  },
+  "workspace_usage": {
+   "static_columns": [
+    "content_generated",
+    "llm_cost",
+    "period",
+    "workspace_id"
+   ],
+   "runtime_columns": {
+    "workspace_id": "string<uuid>",
+    "period": "string",
+    "content_generated": "number",
+    "keywords_created": "number",
+    "llm_cost": "number",
+    "image_cost": "number",
+    "updated_at": "string<datetime>"
+   },
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": [
+    "content_generated",
+    "llm_cost",
+    "period",
+    "workspace_id"
+   ]
+  },
+  "workspaces": {
+   "static_columns": [
+    "auto_generate_prompts",
+    "created_at",
+    "default_brand_filter",
+    "id",
+    "llms_txt_url",
+    "name",
+    "owner_id",
+    "product_lineup_hints",
+    "robots_txt_url",
+    "schema_classification_policy",
+    "settings",
+    "site_audit_scope_rules",
+    "sitemap_url",
+    "slug",
+    "status",
+    "strategy_map_scanned_at",
+    "strategy_map_status"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [
+    "workspace_plans"
+   ],
+   "agreement": []
+  },
+  "writing_style_profiles": {
+   "static_columns": [
+    "created_at",
+    "description",
+    "id",
+    "is_default",
+    "name",
+    "workspace_id"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  },
+  "writing_style_samples": {
+   "static_columns": [
+    "content",
+    "created_at",
+    "id",
+    "profile_id",
+    "source_file_name",
+    "source_type",
+    "source_url",
+    "title",
+    "word_count"
+   ],
+   "runtime_columns": {},
+   "runtime_nested": [],
+   "embedded_relations": [],
+   "agreement": []
+  }
+ }
+}
