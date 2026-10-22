@@ -1,0 +1,2906 @@
+[
+  {
+    "route": "/",
+    "file": "8a5edab282632443.json",
+    "title": "HaloX - SEO & AI 검색 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/",
+    "status": "captured",
+    "textLength": 3562
+  },
+  {
+    "route": "/?ref=CUZCE8SM",
+    "file": "34bdb2e7d9add6eb.json",
+    "title": "HaloX - SEO & AI 검색 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/?ref=CUZCE8SM",
+    "status": "captured",
+    "textLength": 12776
+  },
+  {
+    "route": "/app",
+    "file": "f53b52ad6d21cceb.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app",
+    "status": "captured",
+    "textLength": 1163
+  },
+  {
+    "route": "/app?cloneTab=0",
+    "file": "f7faa4aacd73b1be.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app",
+    "status": "captured",
+    "textLength": 1163
+  },
+  {
+    "route": "/app?cloneTab=1",
+    "file": "25d89717c7d43910.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app",
+    "status": "captured",
+    "textLength": 1218
+  },
+  {
+    "route": "/app?cloneTab=2",
+    "file": "5301765b7aa553d1.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app",
+    "status": "captured",
+    "textLength": 1213
+  },
+  {
+    "route": "/app?cloneTab=3",
+    "file": "45933397185d104f.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app",
+    "status": "captured",
+    "textLength": 1389
+  },
+  {
+    "route": "/app?cloneTab=4",
+    "file": "daf738fbbbbef24e.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app",
+    "status": "captured",
+    "textLength": 1292
+  },
+  {
+    "route": "/app/exports",
+    "file": "3d31ca6cb04ec6a2.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/exports",
+    "status": "captured",
+    "textLength": 361
+  },
+  {
+    "route": "/app/factory",
+    "file": "3f578251d40baf52.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/factory",
+    "status": "captured",
+    "textLength": 367
+  },
+  {
+    "route": "/app/feedback",
+    "file": "6bea34932fc8c9f6.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/feedback",
+    "status": "captured",
+    "textLength": 362
+  },
+  {
+    "route": "/app/forgot-password",
+    "file": "ae0e0125a7c65a6e.json",
+    "title": "Reset your password | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/forgot-password",
+    "status": "captured",
+    "textLength": 435
+  },
+  {
+    "route": "/app/gap",
+    "file": "adf21ce305a62057.json",
+    "title": "기회 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/gap",
+    "status": "captured",
+    "textLength": 953
+  },
+  {
+    "route": "/app/gap?cloneTab=0",
+    "file": "d4c88621e8f89355.json",
+    "title": "기회 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/gap",
+    "status": "captured",
+    "textLength": 953
+  },
+  {
+    "route": "/app/gap?cloneTab=1",
+    "file": "843da13b090a1645.json",
+    "title": "기회 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/gap",
+    "status": "captured",
+    "textLength": 669
+  },
+  {
+    "route": "/app/gap?cloneTab=2",
+    "file": "92c28231885cc1e3.json",
+    "title": "기회 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/gap",
+    "status": "captured",
+    "textLength": 411
+  },
+  {
+    "route": "/app/gap?cloneTab=3",
+    "file": "600adb7474d2445b.json",
+    "title": "기회 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/gap",
+    "status": "captured",
+    "textLength": 556
+  },
+  {
+    "route": "/app/gap?cloneTab=4",
+    "file": "6fcbf9c2c3137f2a.json",
+    "title": "기회 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/gap",
+    "status": "captured",
+    "textLength": 732
+  },
+  {
+    "route": "/app/gap?cloneTab=5",
+    "file": "106092bdf3e5c370.json",
+    "title": "기회 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/gap",
+    "status": "captured",
+    "textLength": 720
+  },
+  {
+    "route": "/app/gap?cloneTab=6",
+    "file": "7c9749304b70b257.json",
+    "title": "기회 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/gap",
+    "status": "captured",
+    "textLength": 539
+  },
+  {
+    "route": "/app/geo",
+    "file": "de81bf2238c49637.json",
+    "title": "AI 대화 분석 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/geo",
+    "status": "captured",
+    "textLength": 491
+  },
+  {
+    "route": "/app/geo/analysis",
+    "file": "45da5a1b87f18a30.json",
+    "title": "프롬프트 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/geo/analysis",
+    "status": "captured",
+    "textLength": 1631
+  },
+  {
+    "route": "/app/geo/analysis?tab=competitors",
+    "file": "5ff4aaf5da5aa8df.json",
+    "title": "프롬프트 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/geo/analysis?tab=competitors",
+    "status": "captured",
+    "textLength": 2583
+  },
+  {
+    "route": "/app/geo/analysis?tab=fan-out",
+    "file": "83c78176e31bbcad.json",
+    "title": "프롬프트 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/geo/analysis?tab=fan-out",
+    "status": "captured",
+    "textLength": 5984
+  },
+  {
+    "route": "/app/geo/analysis?tab=matrix",
+    "file": "647ea7bfc2932bb4.json",
+    "title": "프롬프트 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/geo/analysis?tab=matrix",
+    "status": "captured",
+    "textLength": 2841
+  },
+  {
+    "route": "/app/geo/analysis?tab=mentions",
+    "file": "0aad2133ca94cce0.json",
+    "title": "프롬프트 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/geo/analysis?tab=mentions",
+    "status": "captured",
+    "textLength": 1618
+  },
+  {
+    "route": "/app/geo/analysis?tab=platforms",
+    "file": "e42dc905f7d54862.json",
+    "title": "프롬프트 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/geo/analysis?tab=platforms",
+    "status": "captured",
+    "textLength": 4634
+  },
+  {
+    "route": "/app/geo/analysis?tab=products",
+    "file": "b160ba9aaf1d9b02.json",
+    "title": "프롬프트 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/geo/analysis?tab=products",
+    "status": "captured",
+    "textLength": 434
+  },
+  {
+    "route": "/app/geo/analysis?tab=prompts",
+    "file": "2a44d98de51ea929.json",
+    "title": "프롬프트 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/geo/analysis?tab=prompts",
+    "status": "captured",
+    "textLength": 2609
+  },
+  {
+    "route": "/app/geo/analysis?tab=sources",
+    "file": "d7ad48e7c0b15576.json",
+    "title": "프롬프트 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/geo/analysis?tab=sources",
+    "status": "captured",
+    "textLength": 3000
+  },
+  {
+    "route": "/app/geo/prompts",
+    "file": "cb1a44a5dd099ec5.json",
+    "title": "프롬프트 현황 - GEO",
+    "sourceUrl": "https://haloxlabs.ai/app/geo/prompts",
+    "status": "captured",
+    "textLength": 1631
+  },
+  {
+    "route": "/app/geo/prompts?view=sets",
+    "file": "ef9aa22d226b52db.json",
+    "title": "프롬프트 현황 - GEO",
+    "sourceUrl": "https://haloxlabs.ai/app/geo/prompts?view=sets",
+    "status": "captured",
+    "textLength": 853
+  },
+  {
+    "route": "/app/geo/prompts?view=tags",
+    "file": "b37824cf15525f70.json",
+    "title": "프롬프트 현황 - GEO",
+    "sourceUrl": "https://haloxlabs.ai/app/geo/prompts?view=tags",
+    "status": "captured",
+    "textLength": 710
+  },
+  {
+    "route": "/app/keywords",
+    "file": "5eca98ea11bf2798.json",
+    "title": "키워드 현황 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/keywords",
+    "status": "captured",
+    "textLength": 1503
+  },
+  {
+    "route": "/app/keywords?view=ideas",
+    "file": "8383316961ef92cc.json",
+    "title": "키워드 현황 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/keywords?view=ideas",
+    "status": "captured",
+    "textLength": 642
+  },
+  {
+    "route": "/app/keywords?view=network",
+    "file": "d1519323e605e6d5.json",
+    "title": "키워드 현황 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/keywords?view=network",
+    "status": "captured",
+    "textLength": 1582
+  },
+  {
+    "route": "/app/keywords?view=sets",
+    "file": "377d58d1ad8e5bb6.json",
+    "title": "키워드 현황 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/keywords?view=sets",
+    "status": "captured",
+    "textLength": 614
+  },
+  {
+    "route": "/app/keywords?view=tags",
+    "file": "dcb29e15d4a68741.json",
+    "title": "키워드 현황 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/keywords?view=tags",
+    "status": "captured",
+    "textLength": 559
+  },
+  {
+    "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+    "file": "de5bf9748f5fc122.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+    "status": "captured",
+    "textLength": 2845
+  },
+  {
+    "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=0",
+    "file": "58ddb584fd010cda.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+    "status": "captured",
+    "textLength": 2845
+  },
+  {
+    "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=1",
+    "file": "88aead297ce12366.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+    "status": "captured",
+    "textLength": 3629
+  },
+  {
+    "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=2",
+    "file": "465cfb14581c4837.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+    "status": "captured",
+    "textLength": 1267
+  },
+  {
+    "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=3",
+    "file": "35736f1dca3240d5.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+    "status": "captured",
+    "textLength": 1521
+  },
+  {
+    "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=4",
+    "file": "04791a728733f3d9.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+    "status": "captured",
+    "textLength": 1127
+  },
+  {
+    "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=5",
+    "file": "0acf092c492a9830.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+    "status": "captured",
+    "textLength": 1315
+  },
+  {
+    "route": "/app/knowledgehub",
+    "file": "19912d8be6ef8854.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/knowledgehub",
+    "status": "captured",
+    "textLength": 569
+  },
+  {
+    "route": "/app/login",
+    "file": "b6fde9403402d778.json",
+    "title": "Log in | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/login",
+    "status": "captured",
+    "textLength": 308
+  },
+  {
+    "route": "/app/monitoring",
+    "file": "b3ea38c6c55ba639.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/monitoring",
+    "status": "captured",
+    "textLength": 549
+  },
+  {
+    "route": "/app/optimize",
+    "file": "dcb3a3947dee4bef.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/optimize",
+    "status": "captured",
+    "textLength": 533
+  },
+  {
+    "route": "/app/personas",
+    "file": "72b3df4e189a8643.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/personas",
+    "status": "captured",
+    "textLength": 410
+  },
+  {
+    "route": "/app/raw-data",
+    "file": "37fe8bba288fb471.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/raw-data",
+    "status": "captured",
+    "textLength": 858
+  },
+  {
+    "route": "/app/referral",
+    "file": "084658e9805e050c.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/referral",
+    "status": "captured",
+    "textLength": 406
+  },
+  {
+    "route": "/app/reports",
+    "file": "9df2259c1173c28d.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/reports/weekly",
+    "status": "redirect",
+    "textLength": 407
+  },
+  {
+    "route": "/app/reports/weekly",
+    "file": "2cee161a60e7265a.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/reports/weekly",
+    "status": "captured",
+    "textLength": 407
+  },
+  {
+    "route": "/app/seo/insights",
+    "file": "27eab2691ae8d834.json",
+    "title": "키워드 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/seo/insights",
+    "status": "captured",
+    "textLength": 1295
+  },
+  {
+    "route": "/app/seo/insights?tab=aio",
+    "file": "26adf15cfa9beda0.json",
+    "title": "키워드 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/seo/insights?tab=aio",
+    "status": "captured",
+    "textLength": 1784
+  },
+  {
+    "route": "/app/seo/insights?tab=competitors",
+    "file": "57c30e2e3f2b2279.json",
+    "title": "키워드 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/seo/insights?tab=competitors",
+    "status": "captured",
+    "textLength": 504
+  },
+  {
+    "route": "/app/seo/insights?tab=opportunities",
+    "file": "747164378c6a00c9.json",
+    "title": "키워드 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/seo/insights?tab=opportunities",
+    "status": "captured",
+    "textLength": 772
+  },
+  {
+    "route": "/app/seo/insights?tab=performance",
+    "file": "cfc82dd5709f1fd4.json",
+    "title": "키워드 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/seo/insights?tab=performance",
+    "status": "captured",
+    "textLength": 937
+  },
+  {
+    "route": "/app/seo/insights?tab=serp-matrix",
+    "file": "386cf76cb877b50b.json",
+    "title": "키워드 분석",
+    "sourceUrl": "https://haloxlabs.ai/app/seo/insights?tab=serp-matrix",
+    "status": "captured",
+    "textLength": 1943
+  },
+  {
+    "route": "/app/settings",
+    "file": "d428a95a66d7c749.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/settings",
+    "status": "captured",
+    "textLength": 530
+  },
+  {
+    "route": "/app/settings?tab=api",
+    "file": "27aaa40e7c4e1b0b.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/settings?tab=api",
+    "status": "captured",
+    "textLength": 985
+  },
+  {
+    "route": "/app/settings?tab=billing",
+    "file": "611d8cda55bfcf93.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/settings?tab=billing",
+    "status": "captured",
+    "textLength": 498
+  },
+  {
+    "route": "/app/settings?tab=brand-tracking",
+    "file": "1852a4fee422967c.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/settings?tab=brand-tracking",
+    "status": "captured",
+    "textLength": 1466
+  },
+  {
+    "route": "/app/settings?tab=earned",
+    "file": "2011d43675e4e37c.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/settings?tab=earned",
+    "status": "captured",
+    "textLength": 434
+  },
+  {
+    "route": "/app/settings?tab=export",
+    "file": "b0a69018695afc74.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/settings?tab=export",
+    "status": "captured",
+    "textLength": 627
+  },
+  {
+    "route": "/app/settings?tab=integrations",
+    "file": "cabafa80709338f8.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/settings?tab=integrations",
+    "status": "captured",
+    "textLength": 542
+  },
+  {
+    "route": "/app/settings?tab=members",
+    "file": "639d507c7b2d5918.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/settings?tab=members",
+    "status": "captured",
+    "textLength": 1098
+  },
+  {
+    "route": "/app/settings?tab=notifications",
+    "file": "811b9e64182e0bac.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/settings?tab=notifications",
+    "status": "captured",
+    "textLength": 355
+  },
+  {
+    "route": "/app/settings?tab=plan",
+    "file": "b41002db8166c82f.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/settings?tab=plan",
+    "status": "captured",
+    "textLength": 754
+  },
+  {
+    "route": "/app/settings?tab=tags",
+    "file": "daa2c88c8b96821a.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/settings?tab=tags",
+    "status": "captured",
+    "textLength": 505
+  },
+  {
+    "route": "/app/settings?tab=workspace",
+    "file": "4f42462cd2097410.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app/settings?tab=workspace",
+    "status": "captured",
+    "textLength": 678
+  },
+  {
+    "route": "/app/signup",
+    "file": "73aef31b6063696b.json",
+    "title": "HaloX 시작하기 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/signup",
+    "status": "captured",
+    "textLength": 434
+  },
+  {
+    "route": "/app/site-audit",
+    "file": "2ee35389d3a61c27.json",
+    "title": "사이트 진단 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/site-audit",
+    "status": "captured",
+    "textLength": 2392
+  },
+  {
+    "route": "/app/site-audit?tab=bot-access",
+    "file": "1e55cae1b893b9ad.json",
+    "title": "사이트 진단 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/site-audit?tab=bot-access",
+    "status": "captured",
+    "textLength": 4858
+  },
+  {
+    "route": "/app/site-audit?tab=entities",
+    "file": "4f2951aa057e065d.json",
+    "title": "사이트 진단 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/site-audit?tab=entities",
+    "status": "captured",
+    "textLength": 719
+  },
+  {
+    "route": "/app/site-audit?tab=guide",
+    "file": "81e18c4bc2110c18.json",
+    "title": "사이트 진단 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/site-audit?tab=guide",
+    "status": "captured",
+    "textLength": 2885
+  },
+  {
+    "route": "/app/site-audit?tab=internal-links",
+    "file": "dc952fd924efa3b4.json",
+    "title": "사이트 진단 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/site-audit?tab=internal-links",
+    "status": "captured",
+    "textLength": 1386
+  },
+  {
+    "route": "/app/site-audit?tab=issues",
+    "file": "62b5bea72a1fe4f5.json",
+    "title": "사이트 진단 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/site-audit?tab=issues",
+    "status": "captured",
+    "textLength": 1010
+  },
+  {
+    "route": "/app/site-audit?tab=pages",
+    "file": "aadb74196e3189a3.json",
+    "title": "사이트 진단 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/site-audit?tab=pages",
+    "status": "captured",
+    "textLength": 3984
+  },
+  {
+    "route": "/app/strategy-map",
+    "file": "9205a7dadf4664d2.json",
+    "title": "Strategy Map | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/strategy-map",
+    "status": "captured",
+    "textLength": 793
+  },
+  {
+    "route": "/app/strategy-map?cloneTab=0",
+    "file": "ccc3b5e64f288b36.json",
+    "title": "Strategy Map | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/strategy-map",
+    "status": "captured",
+    "textLength": 793
+  },
+  {
+    "route": "/app/strategy-map?cloneTab=1",
+    "file": "836ea91f7a0ba4ec.json",
+    "title": "Strategy Map | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/strategy-map",
+    "status": "captured",
+    "textLength": 485
+  },
+  {
+    "route": "/app/strategy-map?cloneTab=2",
+    "file": "4499e2818a3fe8ca.json",
+    "title": "Strategy Map | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/app/strategy-map",
+    "status": "captured",
+    "textLength": 547
+  },
+  {
+    "route": "/app/workspaces",
+    "file": "6c27e02101f0a18c.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/app",
+    "status": "redirect",
+    "textLength": 1200
+  },
+  {
+    "route": "/blog/topics/geo",
+    "file": "a98d23c1b22fd601.json",
+    "title": "GEO (AI 검색 최적화) 가이드 — HaloX Blog",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/topics/geo",
+    "status": "redirect",
+    "textLength": 695
+  },
+  {
+    "route": "/en",
+    "file": "7a4ba3ba0fb8f6c3.json",
+    "title": "HaloX - SEO & GEO Platform | AI Search Optimization",
+    "sourceUrl": "https://haloxlabs.ai/en",
+    "status": "captured",
+    "textLength": 2400
+  },
+  {
+    "route": "/en/about",
+    "file": "5fd2a631fc51fbc1.json",
+    "title": "About HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/about",
+    "status": "captured",
+    "textLength": 2995
+  },
+  {
+    "route": "/en/authors",
+    "file": "ea6876644262d300.json",
+    "title": "Authors | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/authors",
+    "status": "captured",
+    "textLength": 711
+  },
+  {
+    "route": "/en/authors/jaechullee",
+    "file": "3005a9d90723b4b0.json",
+    "title": "Jaechul LEE | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/authors/jaechullee",
+    "status": "captured",
+    "textLength": 1631
+  },
+  {
+    "route": "/en/authors/juny-lee",
+    "file": "c3b007a2f9835016.json",
+    "title": "Juny Lee | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/authors/juny-lee",
+    "status": "captured",
+    "textLength": 1268
+  },
+  {
+    "route": "/en/blog",
+    "file": "c28d2f649aa5b320.json",
+    "title": "Blog | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/blog",
+    "status": "captured",
+    "textLength": 781
+  },
+  {
+    "route": "/en/blog/topics",
+    "file": "c0af76d638a46ed0.json",
+    "title": "Topics | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/blog/topics",
+    "status": "captured",
+    "textLength": 1101
+  },
+  {
+    "route": "/en/blog/topics/ai-trends",
+    "file": "a59983665fd53130.json",
+    "title": "AI Trends & News — HaloX Blog",
+    "sourceUrl": "https://haloxlabs.ai/en/blog/topics/ai-trends",
+    "status": "captured",
+    "textLength": 1139
+  },
+  {
+    "route": "/en/changelog",
+    "file": "93bfa65e28e3e86a.json",
+    "title": "Changelog | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/changelog",
+    "status": "captured",
+    "textLength": 2642
+  },
+  {
+    "route": "/en/compare/ahrefs",
+    "file": "7d09f9095cf37ea8.json",
+    "title": "HaloX vs Ahrefs: Complete Search + AI Comparison (2026)",
+    "sourceUrl": "https://haloxlabs.ai/en/compare/ahrefs",
+    "status": "captured",
+    "textLength": 2973
+  },
+  {
+    "route": "/en/compare/otterly",
+    "file": "4fadf0eaa75cf8c9.json",
+    "title": "HaloX vs Otterly: AI Search Monitoring Comparison (2026)",
+    "sourceUrl": "https://haloxlabs.ai/en/compare/otterly",
+    "status": "captured",
+    "textLength": 2921
+  },
+  {
+    "route": "/en/compare/profound",
+    "file": "83d965c88bf6cdf2.json",
+    "title": "HaloX vs Profound: GEO + SEO Platform Comparison (2026)",
+    "sourceUrl": "https://haloxlabs.ai/en/compare/profound",
+    "status": "captured",
+    "textLength": 2903
+  },
+  {
+    "route": "/en/compare/semrush",
+    "file": "53183d55ac656aae.json",
+    "title": "HaloX vs Semrush: AI-Powered SEO Comparison (2026)",
+    "sourceUrl": "https://haloxlabs.ai/en/compare/semrush",
+    "status": "captured",
+    "textLength": 3075
+  },
+  {
+    "route": "/en/consulting",
+    "file": "e05719a15b02e5da.json",
+    "title": "SEO & GEO Consulting - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/consulting",
+    "status": "captured",
+    "textLength": 2627
+  },
+  {
+    "route": "/en/contact-sales",
+    "file": "b0bc404c1f4f506e.json",
+    "title": "Contact sales - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/contact-sales",
+    "status": "captured",
+    "textLength": 1751
+  },
+  {
+    "route": "/en/customers",
+    "file": "5f6e34bce60e7537.json",
+    "title": "Customer Stories | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/customers",
+    "status": "captured",
+    "textLength": 3054
+  },
+  {
+    "route": "/en/customers/shopnest",
+    "file": "1746743aaaed54d5.json",
+    "title": "ShopNest - Customer Story | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/customers/shopnest",
+    "status": "captured",
+    "textLength": 1618
+  },
+  {
+    "route": "/en/disclosure",
+    "file": "94d89ab5e17e76c3.json",
+    "title": "Ads & Affiliate Disclosure - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/disclosure",
+    "status": "captured",
+    "textLength": 2222
+  },
+  {
+    "route": "/en/faq",
+    "file": "d907e83798465eb0.json",
+    "title": "FAQ | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/faq",
+    "status": "captured",
+    "textLength": 4183
+  },
+  {
+    "route": "/en/features",
+    "file": "69944099b68654e8.json",
+    "title": "Feature Guide - SEO & GEO Analytics - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/features",
+    "status": "captured",
+    "textLength": 7233
+  },
+  {
+    "route": "/en/features/analytics",
+    "file": "190c497da4e0e246.json",
+    "title": "GEO Dashboard — HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/features/analytics",
+    "status": "captured",
+    "textLength": 3127
+  },
+  {
+    "route": "/en/features/audit",
+    "file": "79def0700fa9729e.json",
+    "title": "Site Audit — HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/features/audit",
+    "status": "captured",
+    "textLength": 3863
+  },
+  {
+    "route": "/en/features/content",
+    "file": "9c59adfd0630bcb9.json",
+    "title": "Content Studio — HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/features/content",
+    "status": "captured",
+    "textLength": 3246
+  },
+  {
+    "route": "/en/features/monitoring",
+    "file": "6ecf7b71e9821579.json",
+    "title": "AIO Citation — HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/features/monitoring",
+    "status": "captured",
+    "textLength": 3191
+  },
+  {
+    "route": "/en/features/search",
+    "file": "4e7ce5b76b372f81.json",
+    "title": "SERP Analysis — HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/features/search",
+    "status": "captured",
+    "textLength": 3143
+  },
+  {
+    "route": "/en/feedback",
+    "file": "1de0eb447786092b.json",
+    "title": "피드백 보드 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/feedback",
+    "status": "captured",
+    "textLength": 6465
+  },
+  {
+    "route": "/en/free-tools",
+    "file": "b54210403afc9388.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/en/free-tools",
+    "status": "captured",
+    "textLength": 634
+  },
+  {
+    "route": "/en/glossary",
+    "file": "e02e866eddada7a1.json",
+    "title": "SEO & GEO Glossary - Key Terms Explained | Halox",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary",
+    "status": "captured",
+    "textLength": 12199
+  },
+  {
+    "route": "/en/glossary/aeo",
+    "file": "d51f871b793aa0c4.json",
+    "title": "What is AEO (Answer Engine Optimization)? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/aeo",
+    "status": "captured",
+    "textLength": 5441
+  },
+  {
+    "route": "/en/glossary/ai-brand-mentions",
+    "file": "04b2e5167b222259.json",
+    "title": "What is AI Brand Mentions? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/ai-brand-mentions",
+    "status": "captured",
+    "textLength": 5221
+  },
+  {
+    "route": "/en/glossary/ai-citation",
+    "file": "ee53ef6547534020.json",
+    "title": "What is AI Citation? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/ai-citation",
+    "status": "captured",
+    "textLength": 7207
+  },
+  {
+    "route": "/en/glossary/ai-crawlers",
+    "file": "41472ba56356551c.json",
+    "title": "What is AI Crawlers? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/ai-crawlers",
+    "status": "captured",
+    "textLength": 5516
+  },
+  {
+    "route": "/en/glossary/ai-overview",
+    "file": "d1aa28e41a6354c5.json",
+    "title": "What is AI Overview (AIO)? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/ai-overview",
+    "status": "captured",
+    "textLength": 7232
+  },
+  {
+    "route": "/en/glossary/avi",
+    "file": "041bfc7957cad260.json",
+    "title": "What is GEO Score? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/avi",
+    "status": "captured",
+    "textLength": 6798
+  },
+  {
+    "route": "/en/glossary/backlink",
+    "file": "6849e12fc1eb47ac.json",
+    "title": "What is Backlink? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/backlink",
+    "status": "captured",
+    "textLength": 6893
+  },
+  {
+    "route": "/en/glossary/brand-sov",
+    "file": "956bf36dcfa351ba.json",
+    "title": "What is Keyword Visibility? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/brand-sov",
+    "status": "captured",
+    "textLength": 5241
+  },
+  {
+    "route": "/en/glossary/citation-rate",
+    "file": "135aff480cdac2d5.json",
+    "title": "What is Citation Rate? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/citation-rate",
+    "status": "captured",
+    "textLength": 5172
+  },
+  {
+    "route": "/en/glossary/citation-sov",
+    "file": "297aefd6072627a9.json",
+    "title": "What is Citation SOV? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/citation-sov",
+    "status": "captured",
+    "textLength": 6286
+  },
+  {
+    "route": "/en/glossary/content-cluster",
+    "file": "fb50be8e062e8455.json",
+    "title": "What is Content Cluster? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/content-cluster",
+    "status": "captured",
+    "textLength": 5466
+  },
+  {
+    "route": "/en/glossary/content-optimization",
+    "file": "669b2d6ed7d6abc2.json",
+    "title": "What is Content Optimization? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/content-optimization",
+    "status": "captured",
+    "textLength": 6090
+  },
+  {
+    "route": "/en/glossary/ctr",
+    "file": "541f265ce20a8355.json",
+    "title": "What is CTR (Click-Through Rate)? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/ctr",
+    "status": "captured",
+    "textLength": 4508
+  },
+  {
+    "route": "/en/glossary/domain-authority",
+    "file": "8692bb5b5619132d.json",
+    "title": "What is Domain Authority? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/domain-authority",
+    "status": "captured",
+    "textLength": 7261
+  },
+  {
+    "route": "/en/glossary/e-e-a-t",
+    "file": "ac479640b6089f4a.json",
+    "title": "What is E-E-A-T? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/e-e-a-t",
+    "status": "captured",
+    "textLength": 6693
+  },
+  {
+    "route": "/en/glossary/featured-snippet",
+    "file": "c505477d46104e4f.json",
+    "title": "What is Featured Snippet? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/featured-snippet",
+    "status": "captured",
+    "textLength": 5692
+  },
+  {
+    "route": "/en/glossary/geo",
+    "file": "843cb097a4f8e431.json",
+    "title": "What is GEO (Generative Engine Optimization)? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/geo",
+    "status": "captured",
+    "textLength": 6992
+  },
+  {
+    "route": "/en/glossary/internal-linking",
+    "file": "ef6af5759130f31f.json",
+    "title": "What is Internal Linking? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/internal-linking",
+    "status": "captured",
+    "textLength": 5038
+  },
+  {
+    "route": "/en/glossary/json-ld",
+    "file": "b001af91ae20d0d2.json",
+    "title": "What is JSON-LD? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/json-ld",
+    "status": "captured",
+    "textLength": 5371
+  },
+  {
+    "route": "/en/glossary/keyword",
+    "file": "9363e945e36831e0.json",
+    "title": "What is Keyword? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/keyword",
+    "status": "captured",
+    "textLength": 6286
+  },
+  {
+    "route": "/en/glossary/keyword-difficulty",
+    "file": "ff18dd4acf418060.json",
+    "title": "What is Keyword Difficulty (KD)? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/keyword-difficulty",
+    "status": "captured",
+    "textLength": 6123
+  },
+  {
+    "route": "/en/glossary/llm",
+    "file": "7d660c0111392355.json",
+    "title": "What is LLM (Large Language Model)? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/llm",
+    "status": "captured",
+    "textLength": 7458
+  },
+  {
+    "route": "/en/glossary/llm-seo",
+    "file": "ccc1614c2470edb0.json",
+    "title": "What is LLM SEO? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/llm-seo",
+    "status": "captured",
+    "textLength": 5073
+  },
+  {
+    "route": "/en/glossary/llms-txt",
+    "file": "a0855f8848ef3fe9.json",
+    "title": "What is llms.txt? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/llms-txt",
+    "status": "captured",
+    "textLength": 6257
+  },
+  {
+    "route": "/en/glossary/meta-tags",
+    "file": "97f90c62727326e5.json",
+    "title": "What is Meta Tags? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/meta-tags",
+    "status": "captured",
+    "textLength": 4731
+  },
+  {
+    "route": "/en/glossary/on-page-seo",
+    "file": "97daf8b8ee078a9d.json",
+    "title": "What is On-Page SEO? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/on-page-seo",
+    "status": "captured",
+    "textLength": 6529
+  },
+  {
+    "route": "/en/glossary/organic-traffic",
+    "file": "9b2a2fa6a2b5fd3a.json",
+    "title": "What is Organic Traffic? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/organic-traffic",
+    "status": "captured",
+    "textLength": 6086
+  },
+  {
+    "route": "/en/glossary/paa",
+    "file": "c883b4cea67b22aa.json",
+    "title": "What is PAA (People Also Ask)? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/paa",
+    "status": "captured",
+    "textLength": 6503
+  },
+  {
+    "route": "/en/glossary/prompt-tracking",
+    "file": "78bd77bdd5ec18b9.json",
+    "title": "What is Prompt Tracking? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/prompt-tracking",
+    "status": "captured",
+    "textLength": 7209
+  },
+  {
+    "route": "/en/glossary/query-fan-out",
+    "file": "66de559357f727ac.json",
+    "title": "What is Query Fan-Out? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/query-fan-out",
+    "status": "captured",
+    "textLength": 6343
+  },
+  {
+    "route": "/en/glossary/rag",
+    "file": "0ec7c3af504f9c70.json",
+    "title": "What is RAG (Retrieval-Augmented Generation)? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/rag",
+    "status": "captured",
+    "textLength": 7414
+  },
+  {
+    "route": "/en/glossary/schema-markup",
+    "file": "ea24c50820ba904f.json",
+    "title": "What is Schema Markup (Structured Data)? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/schema-markup",
+    "status": "captured",
+    "textLength": 6854
+  },
+  {
+    "route": "/en/glossary/search-intent",
+    "file": "b778b272b2f06714.json",
+    "title": "What is Search Intent? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/search-intent",
+    "status": "captured",
+    "textLength": 6112
+  },
+  {
+    "route": "/en/glossary/search-volume",
+    "file": "08d3b1c471eb935e.json",
+    "title": "What is Search Volume? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/search-volume",
+    "status": "captured",
+    "textLength": 5892
+  },
+  {
+    "route": "/en/glossary/seo",
+    "file": "984b93df7d82830e.json",
+    "title": "What is SEO (Search Engine Optimization)? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/seo",
+    "status": "captured",
+    "textLength": 7230
+  },
+  {
+    "route": "/en/glossary/serp",
+    "file": "0c504d39a4b59432.json",
+    "title": "What is SERP (Search Engine Results Page)? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/serp",
+    "status": "captured",
+    "textLength": 7352
+  },
+  {
+    "route": "/en/glossary/technical-seo",
+    "file": "09175836221b3b7c.json",
+    "title": "What is Technical SEO? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/technical-seo",
+    "status": "captured",
+    "textLength": 5806
+  },
+  {
+    "route": "/en/glossary/top10-ratio",
+    "file": "440241a2d2abb477.json",
+    "title": "What is Top 10? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/top10-ratio",
+    "status": "captured",
+    "textLength": 4538
+  },
+  {
+    "route": "/en/glossary/topical-authority",
+    "file": "38d69c6ccd698bef.json",
+    "title": "What is Topical Authority? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/topical-authority",
+    "status": "captured",
+    "textLength": 6221
+  },
+  {
+    "route": "/en/glossary/zero-click-search",
+    "file": "f8f702277d92de8a.json",
+    "title": "What is Zero-Click Search? - Definition & Meaning | Halox Glossary",
+    "sourceUrl": "https://haloxlabs.ai/en/glossary/zero-click-search",
+    "status": "captured",
+    "textLength": 4986
+  },
+  {
+    "route": "/en/integrations",
+    "file": "04c5f5e6a289b301.json",
+    "title": "Integrations - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/integrations",
+    "status": "captured",
+    "textLength": 2383
+  },
+  {
+    "route": "/en/methodology",
+    "file": "5d91af256549b7a9.json",
+    "title": "Our Methodology - How HaloX Measures Search | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/methodology",
+    "status": "captured",
+    "textLength": 2612
+  },
+  {
+    "route": "/en/pricing",
+    "file": "0faa16d8779ddfb1.json",
+    "title": "Pricing - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/pricing",
+    "status": "captured",
+    "textLength": 4539
+  },
+  {
+    "route": "/en/privacy",
+    "file": "3dd6ec8be8903328.json",
+    "title": "Privacy Policy & Cookie Settings - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/privacy",
+    "status": "captured",
+    "textLength": 11032
+  },
+  {
+    "route": "/en/refund-policy",
+    "file": "8ffd2e64a6c2b8f0.json",
+    "title": "Refund Policy - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/refund-policy",
+    "status": "captured",
+    "textLength": 2266
+  },
+  {
+    "route": "/en/research",
+    "file": "3aa9ea3104566dd4.json",
+    "title": "AI Citation Research - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/research",
+    "status": "captured",
+    "textLength": 1993
+  },
+  {
+    "route": "/en/security",
+    "file": "f5da87f2764133f2.json",
+    "title": "Security & Trust - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/security",
+    "status": "captured",
+    "textLength": 3624
+  },
+  {
+    "route": "/en/solutions/agency",
+    "file": "b8fa6d9150955694.json",
+    "title": "HaloX for Search & Marketing Agencies | Multi-Client Management",
+    "sourceUrl": "https://haloxlabs.ai/en/solutions/agency",
+    "status": "captured",
+    "textLength": 1850
+  },
+  {
+    "route": "/en/solutions/in-house",
+    "file": "388c4c94f24dab95.json",
+    "title": "HaloX for In-House Teams | Brand Protection & ROI",
+    "sourceUrl": "https://haloxlabs.ai/en/solutions/in-house",
+    "status": "captured",
+    "textLength": 1901
+  },
+  {
+    "route": "/en/terms",
+    "file": "cdae343ceab772c6.json",
+    "title": "Terms of Service - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/terms",
+    "status": "captured",
+    "textLength": 5040
+  },
+  {
+    "route": "/en/tools",
+    "file": "200d0e05a2f2462c.json",
+    "title": "Free SEO Tools - AI Question Generator, Site Audit & More | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/tools",
+    "status": "captured",
+    "textLength": 2622
+  },
+  {
+    "route": "/en/tools/ai-questions",
+    "file": "2e1129b555faee5c.json",
+    "title": "Free AI Question Generator - SEO & GEO Optimization | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/tools/ai-questions",
+    "status": "captured",
+    "textLength": 3487
+  },
+  {
+    "route": "/en/tools/genspark",
+    "file": "8b384a043812010a.json",
+    "title": "젠스파크 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/tools/genspark",
+    "status": "captured",
+    "textLength": 941
+  },
+  {
+    "route": "/en/tools/lovable",
+    "file": "b50c7e5acfc22e17.json",
+    "title": "Lovable - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/tools/lovable",
+    "status": "captured",
+    "textLength": 1011
+  },
+  {
+    "route": "/en/tools/site-audit",
+    "file": "a900dad5a97a237a.json",
+    "title": "Free AI Search Readiness Checker - Is Your Site AI-Ready? | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/tools/site-audit",
+    "status": "captured",
+    "textLength": 2900
+  },
+  {
+    "route": "/en/topics",
+    "file": "b72abf7248f1784e.json",
+    "title": "Topics | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/blog/topics",
+    "status": "redirect",
+    "textLength": 1101
+  },
+  {
+    "route": "/en/use-cases",
+    "file": "071f296ded806a94.json",
+    "title": "Use Cases - AI Visibility for Every Team | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/use-cases",
+    "status": "captured",
+    "textLength": 1155
+  },
+  {
+    "route": "/en/use-cases/brand-monitoring",
+    "file": "756790b1927d404d.json",
+    "title": "AI Brand Monitoring — Track Your Brand in ChatGPT & AI | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/use-cases/brand-monitoring",
+    "status": "captured",
+    "textLength": 1864
+  },
+  {
+    "route": "/en/use-cases/competitor-analysis",
+    "file": "6b8a882dee73c73b.json",
+    "title": "AI Competitor Analysis — Track Competitors in AI Results | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/use-cases/competitor-analysis",
+    "status": "captured",
+    "textLength": 1772
+  },
+  {
+    "route": "/en/use-cases/content-optimization",
+    "file": "46fe69ebce31580a.json",
+    "title": "AI-Optimized Content Creation — Get Cited by AI Engines | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/use-cases/content-optimization",
+    "status": "captured",
+    "textLength": 1906
+  },
+  {
+    "route": "/en/use-cases/seo-geo-integration",
+    "file": "ff3564524ec0e0cc.json",
+    "title": "SEO + GEO Integration — Unified Search & AI Strategy | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/use-cases/seo-geo-integration",
+    "status": "captured",
+    "textLength": 1817
+  },
+  {
+    "route": "/en/workflows",
+    "file": "c790b95e457f9268.json",
+    "title": "Workflows - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/workflows",
+    "status": "captured",
+    "textLength": 3258
+  },
+  {
+    "route": "/en/workflows/competitor-gap-analysis",
+    "file": "90d7635e72e20ecc.json",
+    "title": "Competitor AI Gap Analysis - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/workflows/competitor-gap-analysis",
+    "status": "captured",
+    "textLength": 7020
+  },
+  {
+    "route": "/en/workflows/content-gap-reference-hub",
+    "file": "ff16f5cf7f3c7fdc.json",
+    "title": "Content Gap Analysis & Reference Hub Construction - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/workflows/content-gap-reference-hub",
+    "status": "captured",
+    "textLength": 6098
+  },
+  {
+    "route": "/en/workflows/customer-intent-analysis",
+    "file": "6f32ecfcc0cc23fd.json",
+    "title": "Customer Intent Analysis & Question Library - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/workflows/customer-intent-analysis",
+    "status": "captured",
+    "textLength": 5674
+  },
+  {
+    "route": "/en/workflows/execution-task-list",
+    "file": "b528901b383420ed.json",
+    "title": "Build an Execution Task List - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/workflows/execution-task-list",
+    "status": "captured",
+    "textLength": 4072
+  },
+  {
+    "route": "/en/workflows/report-automation",
+    "file": "794a32bb81f4784e.json",
+    "title": "Build Report Automation - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/workflows/report-automation",
+    "status": "captured",
+    "textLength": 4734
+  },
+  {
+    "route": "/en/workflows/seo-geo-strategy",
+    "file": "4e454b11b894efa5.json",
+    "title": "Build an Integrated SEO×GEO Strategy - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/workflows/seo-geo-strategy",
+    "status": "captured",
+    "textLength": 7421
+  },
+  {
+    "route": "/id",
+    "file": "031021627bad8f98.json",
+    "title": "HaloX - SEO & GEO Platform | AI Search Optimization",
+    "sourceUrl": "https://haloxlabs.ai/en",
+    "status": "redirect",
+    "textLength": 4001
+  },
+  {
+    "route": "/ko",
+    "file": "c447aa6427950916.json",
+    "title": "HaloX - SEO & AI 검색 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko",
+    "status": "captured",
+    "textLength": 3072
+  },
+  {
+    "route": "/ko/about",
+    "file": "d013c9682ab7bb29.json",
+    "title": "HaloX 소개",
+    "sourceUrl": "https://haloxlabs.ai/ko/about",
+    "status": "captured",
+    "textLength": 1781
+  },
+  {
+    "route": "/ko/authors",
+    "file": "61b2beb6ea4e2d58.json",
+    "title": "저자 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/authors",
+    "status": "captured",
+    "textLength": 484
+  },
+  {
+    "route": "/ko/authors/jaechullee",
+    "file": "5c5da495afcb9b93.json",
+    "title": "이재철 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/authors/jaechullee",
+    "status": "captured",
+    "textLength": 850
+  },
+  {
+    "route": "/ko/authors/juny-lee",
+    "file": "126fe6573dbc6345.json",
+    "title": "이중대 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/authors/juny-lee",
+    "status": "captured",
+    "textLength": 743
+  },
+  {
+    "route": "/ko/blog",
+    "file": "8fd8a5346e904ba1.json",
+    "title": "블로그 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog",
+    "status": "captured",
+    "textLength": 528
+  },
+  {
+    "route": "/ko/blog/aeo-brand-consensus-ownership",
+    "file": "60c6acadd2482870.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/aeo-brand-consensus-ownership",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/agentic-commerce-geo",
+    "file": "57419100af596949.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/agentic-commerce-geo",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/agentic-workflow-patterns",
+    "file": "4de959f1f2306664.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/agentic-workflow-patterns",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/ai-content-pipeline",
+    "file": "f0f97fd7edf1e697.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/ai-content-pipeline",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/ai-crawler-observability",
+    "file": "afdb1c47c744888e.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/ai-crawler-observability",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/ai-customer-product-info-structure",
+    "file": "f93ca994367050aa.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/ai-customer-product-info-structure",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/ai-kpi",
+    "file": "c9126f9e4638c7f8.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/ai-kpi",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/ai-platform-citation-comparison-data",
+    "file": "bf8e7afecd3d169d.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/ai-platform-citation-comparison-data",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/ai-search-10-gate-diagnostic-checklist",
+    "file": "d6b03e53ee2d80f2.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/ai-search-10-gate-diagnostic-checklist",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/ai-search-attribution-gap-reporting-framework",
+    "file": "0b429016b0002e99.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/ai-search-attribution-gap-reporting-framework",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/ai-search-citation-count-before-diagnosis",
+    "file": "d38ec78fb516514d.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/ai-search-citation-count-before-diagnosis",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/ai-search-delegation-recommendation-action-path",
+    "file": "12f54cf32f68c81d.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/ai-search-delegation-recommendation-action-path",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/ai-search-fake-brand-entity-coherence",
+    "file": "b30b72096702c0f4.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/ai-search-fake-brand-entity-coherence",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/ai-search-fan-out-market-landscape",
+    "file": "32b95538fa92cd7d.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/ai-search-fan-out-market-landscape",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/ai-search-location-service-page-checklist",
+    "file": "1308f15f2e69718a.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/ai-search-location-service-page-checklist",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/ai-search-measurement-framework",
+    "file": "675502625cc78c4c.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/ai-search-measurement-framework",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/ai-traffic-small-but-strategic",
+    "file": "e0292ed61a2567f1.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/ai-traffic-small-but-strategic",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/ai-visibility-metrics-beyond-avi",
+    "file": "766c51ba2c1de69b.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/ai-visibility-metrics-beyond-avi",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/ai-visibility-single-score-risk",
+    "file": "ab387f088d7114e9.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/ai-visibility-single-score-risk",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/avi-score-explained",
+    "file": "d9159b0b0f1aab5f.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/avi-score-explained",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/backlink-strategy-2026",
+    "file": "99d2517a402bb343.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/backlink-strategy-2026",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/brand-entity-seo-for-ai-search",
+    "file": "d8e54bbff145b2cd.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/brand-entity-seo-for-ai-search",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/brand-sov-measurement",
+    "file": "fc09a42bc2581470.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/brand-sov-measurement",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/chatgpt-citation-retrieval-fit",
+    "file": "104eca1f1f21a6f3.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/chatgpt-citation-retrieval-fit",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/chatgpt-optimization-guide",
+    "file": "591253e60fccf0b4.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/chatgpt-optimization-guide",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/commerce-geo-google-product-pack-sales-channel",
+    "file": "482885352e930574.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/commerce-geo-google-product-pack-sales-channel",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/competitor-seo-geo-analysis",
+    "file": "f0c091606b6491a8.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/competitor-seo-geo-analysis",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/content-dual-optimization",
+    "file": "20fc2c4a89ed31d5.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/content-dual-optimization",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/content-optimization-workflow",
+    "file": "7d1de1a7fa56e1bc.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/content-optimization-workflow",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/eeat-complete-guide",
+    "file": "6d608900af03bfe7.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/eeat-complete-guide",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/eeat-content-checklist",
+    "file": "7cd4a6802dc4afea.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/eeat-content-checklist",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/fan-out-geo-content-strategy",
+    "file": "99238f66cf118107.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/fan-out-geo-content-strategy",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/faq-rich-results-deprecation-qa-evidence-structure",
+    "file": "0a362462eb400c42.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/faq-rich-results-deprecation-qa-evidence-structure",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/featured-snippet-paa-strategy",
+    "file": "0d83dc09b33ecab5.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/featured-snippet-paa-strategy",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/ga4-ai-assistant-channel-ai-search-measurement",
+    "file": "c38dc526826207d1.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/ga4-ai-assistant-channel-ai-search-measurement",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/geo-content-structure",
+    "file": "e1371d61acef9cba.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/geo-content-structure",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/geo-reputation-brand-consensus",
+    "file": "c2e6b8b6aaa2a0e3.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/geo-reputation-brand-consensus",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/geo-vs-seo-vs-aeo",
+    "file": "a543aff3981fc15c.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/geo-vs-seo-vs-aeo",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/geocommerce",
+    "file": "6f66d91984ebc75d.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/geocommerce",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/google-core-update-geo-analysis",
+    "file": "41d0769a736c76b1.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/google-core-update-geo-analysis",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/google-geo-aeo-safety-line",
+    "file": "390f5899db96ddd9.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/google-geo-aeo-safety-line",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/google-search-console-ai-report-geo-measurement",
+    "file": "20d22969f8bbe436.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/google-search-console-ai-report-geo-measurement",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/gpt-fan-out-search-analysis",
+    "file": "5bad5c01a962a372.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/gpt-fan-out-search-analysis",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/halox-ai-agent-building-story",
+    "file": "e6dfa313ac8e2536.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/halox-ai-agent-building-story",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/hierarchical-classification",
+    "file": "bc8ae2bf08913767.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/hierarchical-classification",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/how-to-get-cited-by-ai",
+    "file": "3bd42edf0de45895.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/how-to-get-cited-by-ai",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/keyword-expansion-5-signal",
+    "file": "12f6c09431a97590.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/keyword-expansion-5-signal",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/keyword-research-intent-based",
+    "file": "4a2d4eb78129788d.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/keyword-research-intent-based",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/korean-seo-geo-differences",
+    "file": "7fba3686a2f3d522.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/korean-seo-geo-differences",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/llms-txt-agentic-browsing-readiness",
+    "file": "736882d9a86d4e7b.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/llms-txt-agentic-browsing-readiness",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/llms-txt-setup-guide",
+    "file": "693fa4ceed81754b.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/llms-txt-setup-guide",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/naver-ai-briefing-citation-count-geo-kpi",
+    "file": "029eef73aacb55e4.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/naver-ai-briefing-citation-count-geo-kpi",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/naver-ai-briefing-longtail-query-search-behavior",
+    "file": "733ee5c8ea3fdfff.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/naver-ai-briefing-longtail-query-search-behavior",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/naver-ai-tab-execution-kpi-action-path",
+    "file": "5f5e02c63a6c5f47.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/naver-ai-tab-execution-kpi-action-path",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/naver-geo-guide-ai-briefing-mate",
+    "file": "3d2e3b32f27f26fc.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/naver-geo-guide-ai-briefing-mate",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/offsite-aeo-moat",
+    "file": "38aeb1847387d90a.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/offsite-aeo-moat",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/on-page-seo-checklist-2026",
+    "file": "73d5e41385b14a65.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/on-page-seo-checklist-2026",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/openai-crawl-channel-signal",
+    "file": "f97fbdcd54bd7dfa.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/openai-crawl-channel-signal",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/pev-workflow-case-study",
+    "file": "f737f550c754f507.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/pev-workflow-case-study",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/prompt-level-ai-search-experiment",
+    "file": "f9fc16b18cdb83ce.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/prompt-level-ai-search-experiment",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/prompt-tracking-monitoring",
+    "file": "eb831dd456e186d3.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/prompt-tracking-monitoring",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/rag-hallucination-defense",
+    "file": "e4b009c02253b280.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/rag-hallucination-defense",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/schema-ai-citation-hygiene",
+    "file": "0d703cad75059854.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/schema-ai-citation-hygiene",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/schema-markup-practical",
+    "file": "aa79934c987d3ffb.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/schema-markup-practical",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/seo-fundamentals-ai-era",
+    "file": "d2d8734155b97412.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/seo-fundamentals-ai-era",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/seo-geo-keyword-strategy-framework",
+    "file": "240a465960632d30.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/seo-geo-keyword-strategy-framework",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/seo-geo-metrics-guide",
+    "file": "28e5819520af22b5.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/seo-geo-metrics-guide",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/seo-geo-top-exposure-strategy",
+    "file": "8bd20ff1ae81680f.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/seo-geo-top-exposure-strategy",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/seo-geo-unified-strategy",
+    "file": "aa42e5c64fde0aab.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/seo-geo-unified-strategy",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/topical-authority-cluster-design",
+    "file": "528ea5711ae3de91.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/topical-authority-cluster-design",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/topics",
+    "file": "52344378c472c436.json",
+    "title": "토픽 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/topics",
+    "status": "captured",
+    "textLength": 673
+  },
+  {
+    "route": "/ko/blog/topics/ai-trends",
+    "file": "79f82957ae3ca06e.json",
+    "title": "AI 트렌드 & 뉴스 — HaloX Blog",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/topics/ai-trends",
+    "status": "captured",
+    "textLength": 698
+  },
+  {
+    "route": "/ko/blog/topics/geo",
+    "file": "efc55a37ded46903.json",
+    "title": "GEO (AI 검색 최적화) 가이드 — HaloX Blog",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/topics/geo",
+    "status": "captured",
+    "textLength": 695
+  },
+  {
+    "route": "/ko/blog/what-is-geo-optimization",
+    "file": "91c97f45e356861b.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/what-is-geo-optimization",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/why-chatgpt-cites-listicles",
+    "file": "11d6108a274bd7a7.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/why-chatgpt-cites-listicles",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/blog/why-reddit-search-matters-in-ai-search-2026",
+    "file": "ff69e7d279bf84f9.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/blog/why-reddit-search-matters-in-ai-search-2026",
+    "status": "source-404",
+    "textLength": 465
+  },
+  {
+    "route": "/ko/changelog",
+    "file": "ef2013808d82dc8b.json",
+    "title": "업데이트 소식 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/changelog",
+    "status": "captured",
+    "textLength": 2301
+  },
+  {
+    "route": "/ko/compare/ahrefs",
+    "file": "61e95341b49761ab.json",
+    "title": "HaloX vs Ahrefs: SEO + AI 대화 완벽 비교 (2026)",
+    "sourceUrl": "https://haloxlabs.ai/ko/compare/ahrefs",
+    "status": "captured",
+    "textLength": 1757
+  },
+  {
+    "route": "/ko/compare/otterly",
+    "file": "cda614d726c6c3e4.json",
+    "title": "HaloX vs Otterly: AI 검색 모니터링 비교 (2026)",
+    "sourceUrl": "https://haloxlabs.ai/ko/compare/otterly",
+    "status": "captured",
+    "textLength": 1736
+  },
+  {
+    "route": "/ko/compare/profound",
+    "file": "8b752792ea665319.json",
+    "title": "HaloX vs Profound: AI 대화 + SEO 플랫폼 비교 (2026)",
+    "sourceUrl": "https://haloxlabs.ai/ko/compare/profound",
+    "status": "captured",
+    "textLength": 1740
+  },
+  {
+    "route": "/ko/compare/semrush",
+    "file": "31dd166e10f9fd21.json",
+    "title": "HaloX vs Semrush: AI 기반 SEO 비교 (2026)",
+    "sourceUrl": "https://haloxlabs.ai/ko/compare/semrush",
+    "status": "captured",
+    "textLength": 1797
+  },
+  {
+    "route": "/ko/consulting",
+    "file": "8e04b7fe9f7158f1.json",
+    "title": "SEO·GEO 컨설팅 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/consulting",
+    "status": "captured",
+    "textLength": 1502
+  },
+  {
+    "route": "/ko/contact-sales",
+    "file": "7c6fab6e40bcbf14.json",
+    "title": "도입 문의 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/contact-sales",
+    "status": "captured",
+    "textLength": 1037
+  },
+  {
+    "route": "/ko/contact-sales?type=onboarding&from=home_support",
+    "file": "e37da1eb2ec5c5d7.json",
+    "title": "도입 문의 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/contact-sales?type=onboarding&from=home_support",
+    "status": "captured",
+    "textLength": 1037
+  },
+  {
+    "route": "/ko/customers",
+    "file": "a7034a027451017b.json",
+    "title": "고객 사례 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/customers",
+    "status": "captured",
+    "textLength": 1891
+  },
+  {
+    "route": "/ko/customers/growthly",
+    "file": "7ad66b1ca3d9bd48.json",
+    "title": "Growthly - 고객 사례 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/customers/growthly",
+    "status": "captured",
+    "textLength": 990
+  },
+  {
+    "route": "/ko/customers/shopnest",
+    "file": "b9242ded5203f247.json",
+    "title": "ShopNest - 고객 사례 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/customers/shopnest",
+    "status": "captured",
+    "textLength": 961
+  },
+  {
+    "route": "/ko/disclosure",
+    "file": "c4e24a444adee339.json",
+    "title": "Ads & Affiliate Disclosure - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/disclosure",
+    "status": "captured",
+    "textLength": 2027
+  },
+  {
+    "route": "/ko/faq",
+    "file": "fd856ae9cca9eb70.json",
+    "title": "FAQ | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/faq",
+    "status": "captured",
+    "textLength": 2372
+  },
+  {
+    "route": "/ko/features",
+    "file": "92b4e291de6ec39a.json",
+    "title": "기능 가이드 - SEO & AI 검색 최적화 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/features",
+    "status": "captured",
+    "textLength": 4527
+  },
+  {
+    "route": "/ko/features/analytics",
+    "file": "a47f65ee53d4f079.json",
+    "title": "GEO Dashboard — HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/features/analytics",
+    "status": "captured",
+    "textLength": 1858
+  },
+  {
+    "route": "/ko/features/audit",
+    "file": "4bdfbdbe5d65b0b7.json",
+    "title": "사이트 점검 (Site Audit) — HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/features/audit",
+    "status": "captured",
+    "textLength": 2482
+  },
+  {
+    "route": "/ko/features/content",
+    "file": "d0d83130ff83306e.json",
+    "title": "Content Studio — HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/features/content",
+    "status": "captured",
+    "textLength": 1914
+  },
+  {
+    "route": "/ko/features/monitoring",
+    "file": "1f64f58d598ddf19.json",
+    "title": "AIO 인용 점검 — HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/features/monitoring",
+    "status": "captured",
+    "textLength": 1930
+  },
+  {
+    "route": "/ko/features/search",
+    "file": "b101bce53bcf0c1a.json",
+    "title": "SERP 분석 — HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/features/search",
+    "status": "captured",
+    "textLength": 1935
+  },
+  {
+    "route": "/ko/feedback",
+    "file": "93f1c00cc30c4332.json",
+    "title": "피드백 보드 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/feedback",
+    "status": "captured",
+    "textLength": 6270
+  },
+  {
+    "route": "/ko/glossary",
+    "file": "ce5432625ecd07f9.json",
+    "title": "SEO & GEO 용어 사전 - 핵심 용어 해설 | Halox",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary",
+    "status": "captured",
+    "textLength": 6627
+  },
+  {
+    "route": "/ko/glossary/aeo",
+    "file": "60b46e936e0b1525.json",
+    "title": "AEO (답변 엔진 최적화)란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/aeo",
+    "status": "captured",
+    "textLength": 2959
+  },
+  {
+    "route": "/ko/glossary/ai-brand-mentions",
+    "file": "20824f6a540a9adb.json",
+    "title": "AI 브랜드 언급란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/ai-brand-mentions",
+    "status": "captured",
+    "textLength": 2735
+  },
+  {
+    "route": "/ko/glossary/ai-citation",
+    "file": "8332df53c906eebd.json",
+    "title": "AI 인용란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/ai-citation",
+    "status": "captured",
+    "textLength": 3811
+  },
+  {
+    "route": "/ko/glossary/ai-crawlers",
+    "file": "db975cdaf4e12ca1.json",
+    "title": "AI 크롤러란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/ai-crawlers",
+    "status": "captured",
+    "textLength": 3299
+  },
+  {
+    "route": "/ko/glossary/ai-overview",
+    "file": "7fd60f47c7485c70.json",
+    "title": "AI 오버뷰 (AIO)란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/ai-overview",
+    "status": "captured",
+    "textLength": 4039
+  },
+  {
+    "route": "/ko/glossary/avi",
+    "file": "3ac5d5fdaff14416.json",
+    "title": "GEO 점수 (AI 노출 점수)란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/avi",
+    "status": "captured",
+    "textLength": 3564
+  },
+  {
+    "route": "/ko/glossary/backlink",
+    "file": "9e8c707892f7df3d.json",
+    "title": "백링크란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/backlink",
+    "status": "captured",
+    "textLength": 3627
+  },
+  {
+    "route": "/ko/glossary/brand-sov",
+    "file": "8c6467a1129d62d8.json",
+    "title": "키워드 노출률란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/brand-sov",
+    "status": "captured",
+    "textLength": 2897
+  },
+  {
+    "route": "/ko/glossary/citation-rate",
+    "file": "73d3c690515517a4.json",
+    "title": "인용률란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/citation-rate",
+    "status": "captured",
+    "textLength": 2680
+  },
+  {
+    "route": "/ko/glossary/citation-sov",
+    "file": "662126ac98d383b9.json",
+    "title": "인용 점유율란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/citation-sov",
+    "status": "captured",
+    "textLength": 3501
+  },
+  {
+    "route": "/ko/glossary/content-cluster",
+    "file": "443fab25496dae7f.json",
+    "title": "콘텐츠 클러스터란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/content-cluster",
+    "status": "captured",
+    "textLength": 2874
+  },
+  {
+    "route": "/ko/glossary/content-optimization",
+    "file": "c716a2efc16a2494.json",
+    "title": "콘텐츠 최적화란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/content-optimization",
+    "status": "captured",
+    "textLength": 3212
+  },
+  {
+    "route": "/ko/glossary/ctr",
+    "file": "25a0a6c0c6e9fe26.json",
+    "title": "CTR (클릭률)란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/ctr",
+    "status": "captured",
+    "textLength": 2558
+  },
+  {
+    "route": "/ko/glossary/domain-authority",
+    "file": "a0ae91a5af8f2cff.json",
+    "title": "도메인 권위란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/domain-authority",
+    "status": "captured",
+    "textLength": 4034
+  },
+  {
+    "route": "/ko/glossary/e-e-a-t",
+    "file": "afe1f10a23383401.json",
+    "title": "E-E-A-T란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/e-e-a-t",
+    "status": "captured",
+    "textLength": 3574
+  },
+  {
+    "route": "/ko/glossary/eeat",
+    "file": "34f4c7bda7a19ba0.json",
+    "title": "SEO & GEO 용어 사전 - 핵심 용어 해설 | Halox",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary",
+    "status": "redirect",
+    "textLength": 6627
+  },
+  {
+    "route": "/ko/glossary/featured-snippet",
+    "file": "f9ee6d571d1997c3.json",
+    "title": "추천 스니펫란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/featured-snippet",
+    "status": "captured",
+    "textLength": 3162
+  },
+  {
+    "route": "/ko/glossary/geo",
+    "file": "c392a0196407cd7c.json",
+    "title": "GEO (생성형 엔진 최적화)란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/geo",
+    "status": "captured",
+    "textLength": 3793
+  },
+  {
+    "route": "/ko/glossary/internal-linking",
+    "file": "be825bf6dd2c8717.json",
+    "title": "내부 링크란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/internal-linking",
+    "status": "captured",
+    "textLength": 2653
+  },
+  {
+    "route": "/ko/glossary/json-ld",
+    "file": "359b83bf249876cc.json",
+    "title": "JSON-LD란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/json-ld",
+    "status": "captured",
+    "textLength": 3206
+  },
+  {
+    "route": "/ko/glossary/keyword",
+    "file": "13ebf76f21972dc7.json",
+    "title": "키워드란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/keyword",
+    "status": "captured",
+    "textLength": 3384
+  },
+  {
+    "route": "/ko/glossary/keyword-difficulty",
+    "file": "532430f54c672906.json",
+    "title": "키워드 난이도 (KD)란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/keyword-difficulty",
+    "status": "captured",
+    "textLength": 3333
+  },
+  {
+    "route": "/ko/glossary/llm",
+    "file": "74e29ae3c371eb96.json",
+    "title": "LLM (대규모 언어 모델)란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/llm",
+    "status": "captured",
+    "textLength": 4168
+  },
+  {
+    "route": "/ko/glossary/llm-seo",
+    "file": "c442d61b1cbd9e00.json",
+    "title": "LLM SEO란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/llm-seo",
+    "status": "captured",
+    "textLength": 2814
+  },
+  {
+    "route": "/ko/glossary/llms-txt",
+    "file": "2ee7bd9b4ee284e7.json",
+    "title": "llms.txt란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/llms-txt",
+    "status": "captured",
+    "textLength": 3548
+  },
+  {
+    "route": "/ko/glossary/meta-tags",
+    "file": "5b030197dcad21d0.json",
+    "title": "메타 태그란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/meta-tags",
+    "status": "captured",
+    "textLength": 2629
+  },
+  {
+    "route": "/ko/glossary/on-page-seo",
+    "file": "b63d8bf66cf6ff04.json",
+    "title": "온페이지 SEO란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/on-page-seo",
+    "status": "captured",
+    "textLength": 3483
+  },
+  {
+    "route": "/ko/glossary/organic-traffic",
+    "file": "75312cb9e8094426.json",
+    "title": "자연 유입 트래픽란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/organic-traffic",
+    "status": "captured",
+    "textLength": 3361
+  },
+  {
+    "route": "/ko/glossary/paa",
+    "file": "2e9b8aab9bbd9fba.json",
+    "title": "PAA (함께 묻는 질문)란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/paa",
+    "status": "captured",
+    "textLength": 3626
+  },
+  {
+    "route": "/ko/glossary/prompt-tracking",
+    "file": "ae3d85f46896d0bc.json",
+    "title": "프롬프트 트래킹란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/prompt-tracking",
+    "status": "captured",
+    "textLength": 3880
+  },
+  {
+    "route": "/ko/glossary/query-fan-out",
+    "file": "552c6965afb81e97.json",
+    "title": "쿼리 팬아웃란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/query-fan-out",
+    "status": "captured",
+    "textLength": 3529
+  },
+  {
+    "route": "/ko/glossary/rag",
+    "file": "eb1c8674bf88ed9b.json",
+    "title": "RAG (검색 증강 생성)란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/rag",
+    "status": "captured",
+    "textLength": 4045
+  },
+  {
+    "route": "/ko/glossary/schema-markup",
+    "file": "f1158442a86ace48.json",
+    "title": "스키마 마크업 (구조화 데이터)란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/schema-markup",
+    "status": "captured",
+    "textLength": 3977
+  },
+  {
+    "route": "/ko/glossary/search-intent",
+    "file": "c8fa8443bdfaf2f1.json",
+    "title": "검색 의도란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/search-intent",
+    "status": "captured",
+    "textLength": 3254
+  },
+  {
+    "route": "/ko/glossary/search-volume",
+    "file": "f7ee1456ebf72155.json",
+    "title": "검색량란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/search-volume",
+    "status": "captured",
+    "textLength": 3208
+  },
+  {
+    "route": "/ko/glossary/seo",
+    "file": "5907029d9778750b.json",
+    "title": "SEO (검색 엔진 최적화)란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/seo",
+    "status": "captured",
+    "textLength": 3978
+  },
+  {
+    "route": "/ko/glossary/serp",
+    "file": "710216cd7c6cc91f.json",
+    "title": "SERP (검색 엔진 결과 페이지)란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/serp",
+    "status": "captured",
+    "textLength": 4024
+  },
+  {
+    "route": "/ko/glossary/technical-seo",
+    "file": "468a583158dce777.json",
+    "title": "테크니컬 SEO란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/technical-seo",
+    "status": "captured",
+    "textLength": 3516
+  },
+  {
+    "route": "/ko/glossary/top10-ratio",
+    "file": "7d59edc3d5ab8553.json",
+    "title": "Top 10 비율란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/top10-ratio",
+    "status": "captured",
+    "textLength": 2552
+  },
+  {
+    "route": "/ko/glossary/topical-authority",
+    "file": "9ff865d802d198bc.json",
+    "title": "토피컬 오소리티란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/topical-authority",
+    "status": "captured",
+    "textLength": 3203
+  },
+  {
+    "route": "/ko/glossary/zero-click-search",
+    "file": "8cc9217557283655.json",
+    "title": "제로클릭 검색란? - 뜻과 의미 | Halox 용어 사전",
+    "sourceUrl": "https://haloxlabs.ai/ko/glossary/zero-click-search",
+    "status": "captured",
+    "textLength": 2654
+  },
+  {
+    "route": "/ko/integrations",
+    "file": "ebc5146096cde645.json",
+    "title": "연동 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/integrations",
+    "status": "captured",
+    "textLength": 1510
+  },
+  {
+    "route": "/ko/methodology",
+    "file": "f76419210ffe44d7.json",
+    "title": "우리의 측정 방식 - HaloX가 검색을 보는 법 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/methodology",
+    "status": "captured",
+    "textLength": 1740
+  },
+  {
+    "route": "/ko/partners",
+    "file": "dc6baf05be7ab3f5.json",
+    "title": "파트너 추천 프로그램 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/partners",
+    "status": "captured",
+    "textLength": 1264
+  },
+  {
+    "route": "/ko/pricing",
+    "file": "becb8a5e0161cd9c.json",
+    "title": "가격 안내 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/pricing",
+    "status": "captured",
+    "textLength": 2904
+  },
+  {
+    "route": "/ko/privacy",
+    "file": "bdbf83cf7be77475.json",
+    "title": "개인정보처리방침 & 쿠키 설정 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/privacy",
+    "status": "captured",
+    "textLength": 5460
+  },
+  {
+    "route": "/ko/refund-policy",
+    "file": "64f57e8eabc53292.json",
+    "title": "환불 정책 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/refund-policy",
+    "status": "captured",
+    "textLength": 1316
+  },
+  {
+    "route": "/ko/research",
+    "file": "ebd3a43864a89dbf.json",
+    "title": "AI 인용 리서치 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/research",
+    "status": "captured",
+    "textLength": 1484
+  },
+  {
+    "route": "/ko/security",
+    "file": "01aea1a75faa18ad.json",
+    "title": "보안과 신뢰 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/security",
+    "status": "captured",
+    "textLength": 2034
+  },
+  {
+    "route": "/ko/solutions/agency",
+    "file": "2c08c96f8c4dd692.json",
+    "title": "HaloX 에이전시 솔루션 | 멀티 클라이언트 관리",
+    "sourceUrl": "https://haloxlabs.ai/ko/solutions/agency",
+    "status": "captured",
+    "textLength": 1111
+  },
+  {
+    "route": "/ko/solutions/in-house",
+    "file": "8d548a315cfaf417.json",
+    "title": "HaloX 인하우스 솔루션 | 브랜드 보호 & ROI",
+    "sourceUrl": "https://haloxlabs.ai/ko/solutions/in-house",
+    "status": "captured",
+    "textLength": 1134
+  },
+  {
+    "route": "/ko/tag/ai-traffic",
+    "file": "abd3f25c7cae8826.json",
+    "title": "Ai Traffic - 태그별 글 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/tag/ai-traffic",
+    "status": "captured",
+    "textLength": 491
+  },
+  {
+    "route": "/ko/tag/rag",
+    "file": "fafbcde28d5cd2aa.json",
+    "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+    "sourceUrl": "https://haloxlabs.ai/ko/tag/rag",
+    "status": "captured",
+    "textLength": 477
+  },
+  {
+    "route": "/ko/tag/retrieval-fit",
+    "file": "0ed57f1a2c739e2a.json",
+    "title": "Retrieval Fit - 태그별 글 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/tag/retrieval-fit",
+    "status": "captured",
+    "textLength": 497
+  },
+  {
+    "route": "/ko/tag/semrush",
+    "file": "5aa9718bba710550.json",
+    "title": "Semrush - 태그별 글 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/tag/semrush",
+    "status": "captured",
+    "textLength": 485
+  },
+  {
+    "route": "/ko/terms",
+    "file": "4c8b60ff0393dfc6.json",
+    "title": "이용약관 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/terms",
+    "status": "captured",
+    "textLength": 2882
+  },
+  {
+    "route": "/ko/tools",
+    "file": "3a2f41971df42431.json",
+    "title": "무료 SEO 도구 - AI 질문 생성기, 사이트 점검 등 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/tools",
+    "status": "captured",
+    "textLength": 1655
+  },
+  {
+    "route": "/ko/tools/ai-questions",
+    "file": "7f85c7b0e955bf31.json",
+    "title": "무료 AI 질문 생성기 - SEO & GEO 최적화 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/tools/ai-questions",
+    "status": "captured",
+    "textLength": 1946
+  },
+  {
+    "route": "/ko/tools/site-audit",
+    "file": "92c53d93a964f972.json",
+    "title": "무료 AI 검색 대비 점검기 - 내 사이트 AI 검색 준비됐을까? | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/tools/site-audit",
+    "status": "captured",
+    "textLength": 1769
+  },
+  {
+    "route": "/ko/use-cases",
+    "file": "70c54fa920f86e16.json",
+    "title": "유스케이스 - 모든 팀을 위한 AI 노출 분석 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/use-cases",
+    "status": "captured",
+    "textLength": 722
+  },
+  {
+    "route": "/ko/use-cases/brand-monitoring",
+    "file": "af3f55032aff0507.json",
+    "title": "AI 브랜드 모니터링 — ChatGPT & AI에서 브랜드 추적 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/use-cases/brand-monitoring",
+    "status": "captured",
+    "textLength": 1104
+  },
+  {
+    "route": "/ko/use-cases/competitor-analysis",
+    "file": "5d330f2563c8ade8.json",
+    "title": "AI 경쟁사 분석 — AI 결과에서 경쟁사 추적 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/use-cases/competitor-analysis",
+    "status": "captured",
+    "textLength": 981
+  },
+  {
+    "route": "/ko/use-cases/content-optimization",
+    "file": "e9d8530c4bd9176d.json",
+    "title": "AI 최적화 콘텐츠 제작 — AI 엔진에서 인용받기 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/use-cases/content-optimization",
+    "status": "captured",
+    "textLength": 1080
+  },
+  {
+    "route": "/ko/use-cases/seo-geo-integration",
+    "file": "c3ce88440251ad50.json",
+    "title": "SEO + GEO 통합 — 검색 & AI 통합 전략 | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/use-cases/seo-geo-integration",
+    "status": "captured",
+    "textLength": 1015
+  },
+  {
+    "route": "/ko/workflows",
+    "file": "526b124d4d44a965.json",
+    "title": "워크플로우 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/workflows",
+    "status": "captured",
+    "textLength": 2009
+  },
+  {
+    "route": "/ko/workflows/competitor-gap-analysis",
+    "file": "c9686081200e62b2.json",
+    "title": "경쟁사 AI 격차(Gap) 분석하기 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/workflows/competitor-gap-analysis",
+    "status": "captured",
+    "textLength": 3857
+  },
+  {
+    "route": "/ko/workflows/content-gap-reference-hub",
+    "file": "c0f68622b195ff1a.json",
+    "title": "콘텐츠 격차(Gap) 분석 & 레퍼런스 허브 구축하기 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/workflows/content-gap-reference-hub",
+    "status": "captured",
+    "textLength": 3362
+  },
+  {
+    "route": "/ko/workflows/customer-intent-analysis",
+    "file": "0534bf742d591d44.json",
+    "title": "고객 의도 분석 & 질문(Prompt) 라이브러리 만들기 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/workflows/customer-intent-analysis",
+    "status": "captured",
+    "textLength": 2981
+  },
+  {
+    "route": "/ko/workflows/execution-task-list",
+    "file": "1dd247bb942f9037.json",
+    "title": "실행 작업 리스트 만들기 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/workflows/execution-task-list",
+    "status": "captured",
+    "textLength": 2301
+  },
+  {
+    "route": "/ko/workflows/report-automation",
+    "file": "e6aee6690b58ac1e.json",
+    "title": "보고 자동화 구축하기 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/workflows/report-automation",
+    "status": "captured",
+    "textLength": 2563
+  },
+  {
+    "route": "/ko/workflows/seo-geo-strategy",
+    "file": "fcf9aa523eada9d5.json",
+    "title": "SEO×GEO 통합 전략 세우기 - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/ko/workflows/seo-geo-strategy",
+    "status": "captured",
+    "textLength": 4197
+  },
+  {
+    "route": "/tag",
+    "file": "73e4d7fe1bb7f50b.json",
+    "title": "HaloX - SEO & GEO Platform | AI Search Optimization",
+    "sourceUrl": "https://haloxlabs.ai/en",
+    "status": "redirect",
+    "textLength": 13670
+  },
+  {
+    "route": "/vi/contact",
+    "file": "060d0aa0a2e6e44e.json",
+    "title": "Contact sales - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/contact-sales",
+    "status": "redirect",
+    "textLength": 1751
+  },
+  {
+    "route": "/zh/about",
+    "file": "70fccfbad785b4c4.json",
+    "title": "About HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/about",
+    "status": "redirect",
+    "textLength": 2995
+  },
+  {
+    "route": "/zh/blog/topics",
+    "file": "ef75b3fcc49be44f.json",
+    "title": "Topics | HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/blog/topics",
+    "status": "redirect",
+    "textLength": 1101
+  },
+  {
+    "route": "/zh/contact",
+    "file": "c47736cdebbe9c50.json",
+    "title": "Contact sales - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/contact-sales",
+    "status": "redirect",
+    "textLength": 1751
+  },
+  {
+    "route": "/zh/pricing",
+    "file": "79f326a5be522bd2.json",
+    "title": "Pricing - HaloX",
+    "sourceUrl": "https://haloxlabs.ai/en/pricing",
+    "status": "redirect",
+    "textLength": 4539
+  }
+]

@@ -10,9 +10,9 @@
 - Workspace button text 브리찌 Trial: menu 내 워크스페이스, 워크스페이스 관리 (/app/settings?tab=workspace), 새 워크스페이스 만들기(openDialog).
 - Sidebar group buttons 분석/전략/실행/모니터링/기타 toggle adjacent UL and aria-expanded.
 - Sidebar Toggle Sidebar or button[data-sidebar=trigger] collapses data-collapsible to icon desktop. At <768px render local drawer with same navigation links (256px), backdrop click/Escape closes. Mobile sidebar existing desktop markup should not permanently change after close.
-- Public header menu labels 제품/Products, 리소스/Resources, 도입 문의/Contact: use real route list. Product /ko/features, /ko/features/seo, /ko/features/geo, /ko/features/site-audit, /ko/features/content; resources /ko/blog, /ko/glossary, /ko/updates, /ko/compare; contact /ko/consulting, /ko/contact. Respect /en locale for routes where applicable. Public font14px, dropdown width260px.
-- Language aria-label 언어 선택: 한국어/English/日本語/繁體中文/Indonesia/Việt Nam local locale routes.
-- Mobile public aria-label 메뉴 열기: drawer with product/resources/customers/pricing/contact links.
+- 공개 메뉴: 제품/Product, 리소스/Resources, 도입 문의/Contact sales. 실제 수집된 panelHtml·링크를 사용한다. 기능 경로는 /features/audit, /features/search, /features/monitoring, /features/content, /features/analytics이며 문의는 /contact-sales이다. 한국어·영어 경로를 구분한다.
+- 언어 메뉴는 원본에 표시되는 한국어·English 두 가지로 구성한다.
+- 공개 모바일 메뉴는 한국어·영어의 원본 DOM을 사용한다. 제품·리소스 하위 펼침을 지원하며, 390px 뷰포트에서 폭320px, 오른쪽 정렬이다. 640px 이상에서는 폭360px이다.
 - 빠른 탐색: searchable modal list all15 app routes + settings/geo/gap/referral/feedback, keyboard escape closes.
 - 도움 필요 collapses help panel. SEO/GEO컨설팅 -> /ko/consulting, 서비스개선피드백 -> /app/feedback, 플랜보기 -> billing.
 - Assets: existing inline SVG unchanged; shared lucide exports in icons.tsx.

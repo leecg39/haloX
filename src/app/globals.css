@@ -1,7 +1,7 @@
 @layer theme, base, components, utilities;
 @import 'tailwindcss/theme.css' layer(theme);
-@import 'tailwindcss/utilities.css' layer(utilities);
-@source '../components';
+@import 'tailwindcss/utilities.css' layer(utilities) source(none);
+@source '../components/ui';
 :root { --background:0 0% 100%; --foreground:0 0% 12%; --primary:0 0% 12%; --primary-foreground:0 0% 100%; --muted:0 0% 96%; --muted-foreground:0 0% 43%; --border:0 0% 90%; --radius:.5rem; --sidebar-background:36 9% 95%; }
 html,body{margin:0;min-height:100%;font-family:Pretendard,system-ui,sans-serif;color:hsl(var(--foreground));background:hsl(var(--background))}
 *{box-sizing:border-box}button,a,input,select,textarea{-webkit-tap-highlight-color:transparent}button:not(:disabled),[role=tab],a{cursor:pointer}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" fill="none" role="presentation">
+  <rect x="0" y="0" width="1200" height="675" rx="0" fill="#dce9fb"/><path d="M0 356 C 170 268 336 430 548 392 C 754 356 902 248 1200 318 L1200 675 L0 675 Z" fill="#c6dbf7"/>
+  <g transform="rotate(-3 600 172)"><rect x="344" y="128" width="512" height="88" rx="44" fill="#1c4a97"/><circle cx="392" cy="172" r="20" fill="#ff7a29"/><rect x="432" y="164" width="218" height="16" rx="8" fill="#fdfaf3"/></g>
+  <g transform="rotate(2 600 300)"><rect x="376" y="268" width="440" height="68" rx="22" fill="#fdfaf3"/><rect x="408" y="288" width="28" height="28" rx="9" fill="#4c86df"/><rect x="456" y="294" width="258" height="16" rx="8" fill="#a9c9f2"/></g>
+  <rect x="376" y="358" width="366" height="68" rx="22" fill="#fdfaf3"/>
+  <rect x="408" y="378" width="28" height="28" rx="9" fill="#4c86df"/>
+  <rect x="456" y="384" width="194" height="16" rx="8" fill="#a9c9f2"/>
+  <g transform="rotate(-2 600 480)"><rect x="376" y="448" width="288" height="68" rx="22" fill="#fdfaf3"/><rect x="408" y="468" width="28" height="28" rx="9" fill="#ff7a29"/><rect x="456" y="474" width="128" height="16" rx="8" fill="#a9c9f2"/></g>
+  <path d="M 902 474 Q 906.16 495.84 928 500 Q 906.16 504.16 902 526 Q 897.84 504.16 876 500 Q 897.84 495.84 902 474 Z" fill="#ff7a29"/>
+</svg>

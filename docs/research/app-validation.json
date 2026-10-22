@@ -1,0 +1,85 @@
+{
+  "capturedAt": "2026-10-22T11:23:18.061Z",
+  "requestedRoutes": 62,
+  "captures": 83,
+  "syntheticTabStates": 21,
+  "tabGroups": 9,
+  "tabMappings": 51,
+  "missing": [],
+  "loading": [],
+  "tabMismatches": [],
+  "redirects": [
+    {
+      "route": "/app/workspaces",
+      "url": "https://haloxlabs.ai/app"
+    },
+    {
+      "route": "/app/reports",
+      "url": "https://haloxlabs.ai/app/reports/weekly"
+    },
+    {
+      "route": "/app/login",
+      "url": "https://haloxlabs.ai/app"
+    },
+    {
+      "route": "/app/signup",
+      "url": "https://haloxlabs.ai/app"
+    }
+  ],
+  "settings": [
+    {
+      "route": "/app/settings",
+      "hasDialog": true
+    },
+    {
+      "route": "/app/settings?tab=workspace",
+      "hasDialog": true
+    },
+    {
+      "route": "/app/settings?tab=members",
+      "hasDialog": true
+    },
+    {
+      "route": "/app/settings?tab=plan",
+      "hasDialog": true
+    },
+    {
+      "route": "/app/settings?tab=billing",
+      "hasDialog": true
+    },
+    {
+      "route": "/app/settings?tab=integrations",
+      "hasDialog": true
+    },
+    {
+      "route": "/app/settings?tab=brand-tracking",
+      "hasDialog": true
+    },
+    {
+      "route": "/app/settings?tab=tags",
+      "hasDialog": true
+    },
+    {
+      "route": "/app/settings?tab=earned",
+      "hasDialog": true
+    },
+    {
+      "route": "/app/settings?tab=export",
+      "hasDialog": true
+    },
+    {
+      "route": "/app/settings?tab=notifications",
+      "hasDialog": true
+    },
+    {
+      "route": "/app/settings?tab=api",
+      "hasDialog": true
+    }
+  ],
+  "notes": [
+    "인증 폼 login/signup은 로그인 세션으로 /app 리디렉션됨. 로그아웃하지 않음.",
+    "/app/workspaces는 현재 세션에서 /app 자동 리디렉션됨. 이전 UI 텍스트는 docs/sources/_app_workspaces.json 참조.",
+    "원본의 데이터 제출/저장/재분석/가입/결제/로그아웃 수행하지 않음.",
+    "Ego snapshot이 다른 활성 탭을 보여주는 동시성 현상이 있어 모든 캡처/탭 상태는 대상 page.evaluate URL/DOM으로 검증함."
+  ]
+}

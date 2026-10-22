@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" fill="none" role="presentation">
+  <rect x="0" y="0" width="1200" height="675" rx="0" fill="#ffe7d0"/><path d="M0 675 C 150 470 340 452 600 508 C 856 562 1010 500 1200 430 L1200 675 Z" fill="#ffd5ae"/>
+  <path d="M 356 522 L 844 522" fill="none" stroke="#f0813c" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 388 516 L 388 430 A 32 32 0 0 1 452 430 L 452 516 Z" fill="#fffaf2"/>
+  <path d="M 486 516 L 486 372 A 32 32 0 0 1 550 372 L 550 516 Z" fill="#fffaf2"/>
+  <path d="M 584 516 L 584 400 A 32 32 0 0 1 648 400 L 648 516 Z" fill="#f0813c"/>
+  <path d="M 682 516 L 682 322 A 32 32 0 0 1 746 322 L 746 516 Z" fill="#fffaf2"/>
+  <path d="M 780 516 L 780 256 A 32 32 0 0 1 844 256 L 844 516 Z" fill="#b8480f"/>
+  <path d="M 420 342 L 518 302 L 616 322 L 714 244 L 812 176" fill="none" stroke="#f0813c" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="812" cy="176" r="24" fill="#1c4a97"/>
+  <path d="M 272 186 Q 276.48 209.52 300 214 Q 276.48 218.48 272 242 Q 267.52 218.48 244 214 Q 267.52 209.52 272 186 Z" fill="#1c4a97"/>
+  <path d="M 936 382 Q 938.88 397.12 954 400 Q 938.88 402.88 936 418 Q 933.12 402.88 918 400 Q 933.12 397.12 936 382 Z" fill="#fffaf2"/>
+</svg>

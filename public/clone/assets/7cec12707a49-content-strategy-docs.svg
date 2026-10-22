@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" fill="none" role="presentation">
+  <rect x="0" y="0" width="1200" height="675" rx="0" fill="#ddefdc"/><circle cx="986" cy="118" r="292" fill="#c3e3c1"/>
+  <g transform="rotate(8 600 338)"><rect x="400" y="190" width="340" height="290" rx="26" fill="#26663a"/></g>
+  <g transform="rotate(4 600 338)"><rect x="392" y="178" width="340" height="290" rx="26" fill="#55a267"/></g>
+  <g transform="rotate(-3 600 338)"><rect x="384" y="166" width="348" height="296" rx="26" fill="#fdfaf3"/><rect x="420" y="202" width="96" height="20" rx="10" fill="#ff7a29"/><rect x="420" y="250" width="256" height="16" rx="8" fill="#9dd3a7"/><rect x="420" y="288" width="214" height="16" rx="8" fill="#9dd3a7"/><rect x="420" y="326" width="256" height="16" rx="8" fill="#9dd3a7"/><rect x="420" y="364" width="158" height="16" rx="8" fill="#9dd3a7"/></g>
+  <path d="M 892 150 Q 896.16 171.84 918 176 Q 896.16 180.16 892 202 Q 887.84 180.16 866 176 Q 887.84 171.84 892 150 Z" fill="#ff7a29"/>
+</svg>

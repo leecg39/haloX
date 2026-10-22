@@ -4,3 +4,4 @@ node_modules/
 *.tsbuildinfo
 .DS_Store
 *.log
+docs/research/captures/

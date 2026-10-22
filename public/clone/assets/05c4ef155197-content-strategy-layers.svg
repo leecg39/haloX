@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" fill="none" role="presentation">
+  <rect x="0" y="0" width="1200" height="675" rx="0" fill="#ddefdc"/><path d="M0 512 C 260 400 420 560 660 500 C 880 446 1030 372 1200 404 L1200 675 L0 675 Z" fill="#c3e3c1"/><circle cx="240" cy="148" r="118" fill="#c3e3c1"/>
+  <g transform="rotate(-3 600 468)"><rect x="344" y="424" width="512" height="88" rx="26" fill="#26663a"/><rect x="388" y="458" width="168" height="18" rx="9" fill="#fdfaf3"/><rect x="768" y="452" width="44" height="30" rx="15" fill="#ff7a29"/></g>
+  <g transform="rotate(-3 600 340)"><rect x="376" y="296" width="448" height="88" rx="26" fill="#55a267"/><rect x="420" y="330" width="148" height="18" rx="9" fill="#fdfaf3"/></g>
+  <g transform="rotate(-3 600 212)"><rect x="410" y="168" width="380" height="88" rx="26" fill="#fdfaf3"/><rect x="454" y="202" width="128" height="18" rx="9" fill="#9dd3a7"/><circle cx="742" cy="212" r="20" fill="#55a267"/></g>
+  <path d="M 946 246 Q 950.48 269.52 974 274 Q 950.48 278.48 946 302 Q 941.52 278.48 918 274 Q 941.52 269.52 946 246 Z" fill="#ff7a29"/>
+  <path d="M 238 286 Q 241.2 302.8 258 306 Q 241.2 309.2 238 326 Q 234.8 309.2 218 306 Q 234.8 302.8 238 286 Z" fill="#fdfaf3"/>
+</svg>

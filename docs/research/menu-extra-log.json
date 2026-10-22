@@ -1,0 +1,182 @@
+[
+  {
+    "route": "/ko/features/audit",
+    "ok": true,
+    "final": "https://haloxlabs.ai/ko/features/audit",
+    "title": "사이트 점검 (Site Audit) — HaloX",
+    "text": 2482,
+    "html": 736146,
+    "errorPage": false
+  },
+  {
+    "route": "/ko/features/search",
+    "ok": true,
+    "final": "https://haloxlabs.ai/ko/features/search",
+    "title": "SERP 분석 — HaloX",
+    "text": 1935,
+    "html": 723571,
+    "errorPage": false
+  },
+  {
+    "route": "/ko/features/monitoring",
+    "ok": true,
+    "final": "https://haloxlabs.ai/ko/features/monitoring",
+    "title": "AIO 인용 점검 — HaloX",
+    "text": 1930,
+    "html": 186176,
+    "errorPage": false
+  },
+  {
+    "route": "/ko/workflows/seo-geo-strategy",
+    "ok": true,
+    "final": "https://haloxlabs.ai/ko/workflows/seo-geo-strategy",
+    "title": "SEO×GEO 통합 전략 세우기 - HaloX",
+    "text": 4197,
+    "html": 712121,
+    "errorPage": false
+  },
+  {
+    "route": "/ko/workflows/competitor-gap-analysis",
+    "ok": true,
+    "final": "https://haloxlabs.ai/ko/workflows/competitor-gap-analysis",
+    "title": "경쟁사 AI 격차(Gap) 분석하기 - HaloX",
+    "text": 3857,
+    "html": 696678,
+    "errorPage": false
+  },
+  {
+    "route": "/ko/workflows/customer-intent-analysis",
+    "ok": true,
+    "final": "https://haloxlabs.ai/ko/workflows/customer-intent-analysis",
+    "title": "고객 의도 분석 & 질문(Prompt) 라이브러리 만들기 - HaloX",
+    "text": 2981,
+    "html": 192100,
+    "errorPage": false
+  },
+  {
+    "route": "/ko/workflows/content-gap-reference-hub",
+    "ok": true,
+    "final": "https://haloxlabs.ai/ko/workflows/content-gap-reference-hub",
+    "title": "콘텐츠 격차(Gap) 분석 & 레퍼런스 허브 구축하기 - HaloX",
+    "text": 3362,
+    "html": 736888,
+    "errorPage": false
+  },
+  {
+    "route": "/ko/workflows/execution-task-list",
+    "ok": true,
+    "final": "https://haloxlabs.ai/ko/workflows/execution-task-list",
+    "title": "실행 작업 리스트 만들기 - HaloX",
+    "text": 2301,
+    "html": 162795,
+    "errorPage": false
+  },
+  {
+    "route": "/ko/workflows/report-automation",
+    "ok": true,
+    "final": "https://haloxlabs.ai/ko/workflows/report-automation",
+    "title": "보고 자동화 구축하기 - HaloX",
+    "text": 2563,
+    "html": 705132,
+    "errorPage": false
+  },
+  {
+    "route": "/en/features/audit",
+    "ok": true,
+    "final": "https://haloxlabs.ai/en/features/audit",
+    "title": "Site Audit — HaloX",
+    "text": 3863,
+    "html": 743723,
+    "errorPage": false
+  },
+  {
+    "route": "/en/features/search",
+    "ok": true,
+    "final": "https://haloxlabs.ai/en/features/search",
+    "title": "SERP Analysis — HaloX",
+    "text": 3143,
+    "html": 194396,
+    "errorPage": false
+  },
+  {
+    "route": "/en/features/monitoring",
+    "ok": true,
+    "final": "https://haloxlabs.ai/en/features/monitoring",
+    "title": "AIO Citation — HaloX",
+    "text": 3191,
+    "html": 700903,
+    "errorPage": false
+  },
+  {
+    "route": "/en/features/content",
+    "ok": true,
+    "final": "https://haloxlabs.ai/en/features/content",
+    "title": "Content Studio — HaloX",
+    "text": 3246,
+    "html": 184859,
+    "errorPage": false
+  },
+  {
+    "route": "/en/workflows/seo-geo-strategy",
+    "ok": true,
+    "final": "https://haloxlabs.ai/en/workflows/seo-geo-strategy",
+    "title": "Build an Integrated SEO×GEO Strategy - HaloX",
+    "text": 7421,
+    "html": 2331693,
+    "errorPage": false
+  },
+  {
+    "route": "/en/workflows/competitor-gap-analysis",
+    "ok": true,
+    "final": "https://haloxlabs.ai/en/workflows/competitor-gap-analysis",
+    "title": "Competitor AI Gap Analysis - HaloX",
+    "text": 7020,
+    "html": 1793929,
+    "errorPage": false
+  },
+  {
+    "route": "/en/workflows/customer-intent-analysis",
+    "ok": true,
+    "final": "https://haloxlabs.ai/en/workflows/customer-intent-analysis",
+    "title": "Customer Intent Analysis & Question Library - HaloX",
+    "text": 5674,
+    "html": 728284,
+    "errorPage": false
+  },
+  {
+    "route": "/en/workflows/content-gap-reference-hub",
+    "ok": true,
+    "final": "https://haloxlabs.ai/en/workflows/content-gap-reference-hub",
+    "title": "Content Gap Analysis & Reference Hub Construction - HaloX",
+    "text": 6098,
+    "html": 733412,
+    "errorPage": false
+  },
+  {
+    "route": "/en/workflows/execution-task-list",
+    "ok": true,
+    "final": "https://haloxlabs.ai/en/workflows/execution-task-list",
+    "title": "Build an Execution Task List - HaloX",
+    "text": 4072,
+    "html": 700053,
+    "errorPage": false
+  },
+  {
+    "route": "/en/workflows/report-automation",
+    "ok": true,
+    "final": "https://haloxlabs.ai/en/workflows/report-automation",
+    "title": "Build Report Automation - HaloX",
+    "text": 4734,
+    "html": 712808,
+    "errorPage": false
+  },
+  {
+    "route": "/en/contact-sales",
+    "ok": true,
+    "final": "https://haloxlabs.ai/en/contact-sales",
+    "title": "Contact sales - HaloX",
+    "text": 1751,
+    "html": 46678,
+    "errorPage": false
+  }
+]

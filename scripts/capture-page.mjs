@@ -8,7 +8,7 @@ export async function capture(page,route,options={}){
   await page.waitForFunction(()=>document.querySelector('#root')?.textContent.length>60&&!document.querySelector('#root')?.textContent.includes('페이지를 불러오는 중'),undefined,{timeout:20000}).catch(()=>{});
   await page.evaluate(async()=>{await document.fonts.ready;for(let i=0;i<10;i++){const t=document.body.innerText;if(t.length>150&&!/^(로딩 중|Loading)/.test(t))break;await new Promise(r=>setTimeout(r,180))}});
   if(!route.startsWith('/app')) await page.waitForFunction(()=>!!document.querySelector('h1')||document.querySelector('main')?.innerText.length>150,undefined,{timeout:15000}).catch(()=>{});
-  if(!route.startsWith('/app')) await page.evaluate(async()=>{for(let y=0;y<document.body.scrollHeight;y+=700){window.scrollTo(0,y);await new Promise(r=>setTimeout(r,85))}window.scrollTo(0,0);await new Promise(r=>setTimeout(r,250))});
+  if(!route.startsWith('/app')) await page.evaluate(async()=>{const total=document.body.scrollHeight;for(let y=0;y<total;y+=Math.max(700,Math.ceil(total/8))){window.scrollTo(0,y);await new Promise(r=>setTimeout(r,85))}window.scrollTo(0,0);await new Promise(r=>setTimeout(r,250))});
   const data=await page.evaluate(()=>{
     const source=document.body;
     const clone=source.cloneNode(true);

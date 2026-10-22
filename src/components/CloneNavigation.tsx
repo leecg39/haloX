@@ -1,34 +1,35 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type MouseEvent, type RefObject } from "react";
-import type { DialogRequest } from "@/types/clone";
+import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
+import parse from "html-react-parser";
+import type { DialogRequest, PublicMenu } from "@/types/clone";
 import { CloseIcon, SearchIcon, SidebarIcon } from "@/components/icons";
 import "./clone-navigation.css";
 
 type Item = readonly [label: string, url: string];
-type Menu = { kind: "menu" | "search" | "drawer"; title: string; items: readonly Item[]; left?: number; top?: number; public?: boolean };
-type Options = { rootRef: RefObject<HTMLDivElement | null>; route: string; navigate: (url: string) => void; openDialog: (request: DialogRequest) => void };
+type Menu = { kind: "menu" | "search" | "drawer"; title: string; items: readonly Item[]; left?: number; top?: number; public?: boolean; html?:string };
+type Options = { rootRef: RefObject<HTMLDivElement | null>; route: string; navigate: (url: string) => void; openDialog: (request: DialogRequest) => void; menus?:PublicMenu[] };
 const APP_ITEMS: readonly Item[] = [
   ["대시보드", "/app"], ["키워드 현황", "/app/keywords"], ["키워드 분석", "/app/seo/insights"], ["프롬프트 현황", "/app/geo/prompts"], ["프롬프트 분석", "/app/geo/analysis"],
   ["전략맵", "/app/strategy-map"], ["사이트 진단", "/app/site-audit"], ["콘텐츠 제작소", "/app/factory"], ["콘텐츠 최적화", "/app/optimize"], ["콘텐츠 내보내기", "/app/exports"],
   ["모니터링 대시보드", "/app/monitoring"], ["주간 리포트", "/app/reports/weekly"], ["페르소나", "/app/personas"], ["자료실", "/app/knowledgehub"], ["Raw 데이터", "/app/raw-data"],
 ];
 const SEARCH_ITEMS: readonly Item[] = [...APP_ITEMS, ["설정", "/app/settings"], ["AI 대화 개요", "/app/geo"], ["기회 분석", "/app/gap"], ["추천 프로그램", "/app/referral"], ["피드백", "/app/feedback"]];
-const ACCOUNT_ITEMS: readonly Item[] = [["Pro로 업그레이드", "/app/settings?tab=billing"], ["설정", "/app/settings"], ["결제", "/app/settings?tab=billing"], ["알림", "/app/settings?tab=notifications"], ["추천 프로그램", "/app/referral"], ["피드백", "/app/feedback"], ["문서", "/ko/docs"], ["로그아웃", "/app/login"]];
+const ACCOUNT_ITEMS: readonly Item[] = [["Pro로 업그레이드", "/app/settings?tab=billing"], ["설정", "/app/settings"], ["결제", "/app/settings?tab=billing"], ["알림", "/app/settings?tab=notifications"], ["추천 프로그램", "/app/referral"], ["피드백", "/app/feedback"], ["문서", "https://docs.haloxlabs.ai"], ["로그아웃", "/app/login"]];
 const WORKSPACE_ITEMS: readonly Item[] = [["내 워크스페이스", "/app/workspaces"], ["워크스페이스 관리", "/app/settings?tab=workspace"], ["새 워크스페이스 만들기", "#new-workspace"]];
-const LANGUAGE_ITEMS: readonly Item[] = [["한국어", "/ko"], ["English", "/en"], ["日本語", "/ja"], ["繁體中文", "/zh"], ["Indonesia", "/id"], ["Việt Nam", "/vi"]];
+const LANGUAGE_ITEMS: readonly Item[] = [["한국어", "/ko"], ["English", "/en"]];
 const GROUPS: Record<number, string> = { 1: "분석", 5: "전략", 7: "실행", 10: "모니터링", 12: "기타" };
 function publicItems(locale: string, kind: string): Item[] {
   const en = locale === "en";
   const lists: Record<string, Item[]> = {
-    products: [[en ? "All features" : "전체 기능", "features"], ["SEO", "features/seo"], ["GEO", "features/geo"], [en ? "Site audit" : "사이트 진단", "features/site-audit"], [en ? "Content" : "콘텐츠 제작", "features/content"]],
-    resources: [[en ? "Blog" : "블로그", "blog"], [en ? "Glossary" : "용어 사전", "glossary"], [en ? "Updates" : "업데이트", "updates"], [en ? "Compare" : "서비스 비교", "compare"]],
-    contact: [[en ? "Consulting" : "SEO/GEO 컨설팅", "consulting"], [en ? "Contact" : "도입 문의", "contact"]],
+    products: [[en ? "All features" : "전체 기능", "features"], ["SEO", "features/search"], ["GEO", "features/monitoring"], [en ? "Site audit" : "사이트 진단", "features/audit"], [en ? "Content" : "콘텐츠 제작", "features/content"]],
+    resources: [[en ? "Blog" : "블로그", "blog"], [en ? "Glossary" : "용어 사전", "glossary"], [en ? "Updates" : "업데이트", "changelog"], [en ? "Compare" : "서비스 비교", "methodology"]],
+    contact: [[en ? "Consulting" : "SEO/GEO 컨설팅", "consulting"], [en ? "Contact" : "도입 문의", "contact-sales"]],
   };
   return (lists[kind] || []).map(([label, path]) => [label, `/${locale}/${path}`]);
 }
 
-export function useCloneNavigation({ rootRef, route, navigate, openDialog }: Options) {
+export function useCloneNavigation({ rootRef, route, navigate, openDialog, menus }: Options) {
   const [menu, setMenu] = useState<Menu | null>(null);
   const [query, setQuery] = useState("");
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -67,13 +68,15 @@ export function useCloneNavigation({ rootRef, route, navigate, openDialog }: Opt
   function show(button: HTMLElement, next: Menu) {
     if (triggerRef.current === button && menu?.title === next.title) { close(); return; }
     close(); triggerRef.current = button; button.setAttribute("aria-expanded", "true"); button.setAttribute("data-state", "open");
+    if(next.public&&next.kind==="drawer"){const mobile=menus?.find(m=>m.label==="모바일 메인 메뉴");if(mobile)next={...next,html:mobile.panelHtml};}
+    const original=menus?.find(m=>m.label===next.title);if(original&&next.kind==="menu"&&original.links.some(l=>l.href)){next={...next,html:original.panelHtml,items:original.links.filter(l=>l.href).map(l=>[l.text,l.href!] as const)}}
     const rect = button.getBoundingClientRect();
     setMenu({ ...next, left: Math.max(8, Math.min(rect.left, window.innerWidth - 248)), top: rect.bottom + 6 > window.innerHeight - 320 ? Math.max(8, rect.top - Math.min(320, next.items.length * 32 + 12)) : rect.bottom + 6 });
   }
   function select(url: string) {
     close();
     if (url === "#new-workspace") openDialog({ title: "새 워크스페이스 만들기", route: "/app/workspaces", kind: "workspace", description: "워크스페이스 이름을 입력하세요." });
-    else navigate(url);
+    else if(url.startsWith("http"))window.open(url,"_blank","noopener,noreferrer");else navigate(url);
   }
   function handleClick(event: MouseEvent): boolean {
     const button = (event.target as Element)?.closest<HTMLElement>("button,[role=button]");
@@ -95,7 +98,7 @@ export function useCloneNavigation({ rootRef, route, navigate, openDialog }: Opt
     else if (/^SEO\/GEO 컨설팅/.test(text)) select("/ko/consulting");
     else if (/^서비스 개선 피드백/.test(text)) select("/app/feedback");
     else if (/^플랜\s*보기$/.test(text)) select("/app/settings?tab=billing");
-    else if (button.closest("header") && /^(제품|Products|리소스|Resources|도입 문의|Contact)$/.test(text)) show(button, { kind: "menu", title: text, items: publicItems(locale, /제품|Products/.test(text) ? "products" : /리소스|Resources/.test(text) ? "resources" : "contact") });
+    else if (button.closest("header") && /^(제품|Products?|리소스|Resources|도입 문의|Contact(?: sales)?)$/.test(text)) show(button, { kind: "menu", title: text, items: publicItems(locale, /제품|Products?/.test(text) ? "products" : /리소스|Resources/.test(text) ? "resources" : "contact") });
     else if (/언어 선택|Select language|Choose language/i.test(label)) show(button, { kind: "menu", title: "언어 / Language", items: LANGUAGE_ITEMS });
     else if (/메뉴 열기|Open menu|Toggle menu/i.test(label)) show(button, { kind: "drawer", title: locale === "en" ? "Menu" : "메뉴", public: true, items: [...publicItems(locale, "products"), ...publicItems(locale, "resources"), [locale === "en" ? "Customers" : "고객 사례", `/${locale}/customers`], [locale === "en" ? "Pricing" : "가격 안내", `/${locale}/pricing`], ...publicItems(locale, "contact")] });
     else handled = false;
@@ -103,14 +106,14 @@ export function useCloneNavigation({ rootRef, route, navigate, openDialog }: Opt
     return handled;
   }
   const visibleItems = menu?.items.filter(([label, url]) => `${label} ${url}`.toLowerCase().includes(query.toLowerCase())) || [];
-  const overlay = menu && <div className={`clone-nav-layer clone-nav-${menu.kind}`} data-clone-navigation="true" onClick={event => event.stopPropagation()}>
+  const overlay = menu && <div className={`clone-nav-layer clone-nav-${menu.kind}${menu.public?" clone-nav-public":""}`} data-clone-navigation="true" onClick={event => event.stopPropagation()}>
     {menu.kind !== "menu" && <div className="clone-nav-backdrop" onClick={close} />}
-    <div ref={overlayRef} className="clone-nav-panel" role={menu.kind === "menu" ? "menu" : "dialog"} aria-modal={menu.kind !== "menu" || undefined} aria-label={menu.title} style={menu.kind === "menu" ? { left: menu.left, top: menu.top } : undefined}>
+    <div ref={overlayRef} className={"clone-nav-panel"+(menu.html?" clone-nav-rich":"")} role={menu.kind === "menu" ? "menu" : "dialog"} aria-modal={menu.kind !== "menu" || undefined} aria-label={menu.title} style={menu.kind === "menu" ? { left: menu.left, top: menu.top } : undefined}>
       <div className="clone-nav-heading"><span>{menu.title}</span>{menu.kind !== "menu" && <button onClick={close} aria-label="닫기"><CloseIcon size={16} /></button>}</div>
       {menu.kind === "search" && <label className="clone-nav-searchbox"><SearchIcon size={16} /><input value={query} onChange={event => setQuery(event.target.value)} placeholder="페이지 이름으로 검색..." aria-label="페이지 검색" onKeyDown={event => { if (event.key === "Enter" && visibleItems[0]) select(visibleItems[0][1]); }} /><kbd>ESC</kbd></label>}
       {menu.kind === "drawer" && !menu.public && <button className="clone-nav-workspace" onClick={() => select("/app/workspaces")}><SidebarIcon size={24} /><span>브리찌<small>Trial</small></span></button>}
-      <div className="clone-nav-list">{visibleItems.map(([text, url], index) => <div key={url}>{menu.kind === "drawer" && !menu.public && GROUPS[index] && <p className="clone-nav-group">{GROUPS[index]}</p>}<a role={menu.kind === "menu" ? "menuitem" : undefined} href={url} aria-current={route.split("?")[0] === url ? "page" : undefined} onClick={event => { if (!event.metaKey && !event.ctrlKey && !event.shiftKey && event.button === 0) { event.preventDefault(); select(url); } }}><span>{text}</span>{menu.kind === "search" && <small>{url}</small>}</a></div>)}{!visibleItems.length && <p className="clone-nav-empty">검색 결과가 없습니다.</p>}</div>
-      {menu.kind === "drawer" && <div className="clone-nav-footer"><button onClick={() => select(menu.public ? "/app" : "/app/settings")}>{menu.public ? "대시보드로 이동" : "설정"}</button><button onClick={() => select(menu.public ? `/${locale}/contact` : "/app/feedback")}>{menu.public ? "문의하기" : "서비스 개선 피드백"}</button></div>}
+      <div className="clone-nav-list">{menu.html?<div onClick={event=>{const target=event.target as HTMLElement;const btn=target.closest<HTMLButtonElement>("button[aria-expanded]");if(btn&&menu.public){const original=menus?.find(m=>m.label==="모바일 "+btn.textContent?.trim());const panel=btn.nextElementSibling as HTMLElement|null;if(original&&panel){const open=btn.getAttribute("aria-expanded")!=="true";btn.setAttribute("aria-expanded",String(open));panel.hidden=!open;panel.style.display=open?"block":"none";if(open)panel.innerHTML=original.panelHtml;return}}const a=target.closest("a");if(a&&!event.metaKey&&!event.ctrlKey){event.preventDefault();select(a.getAttribute("href")||"/ko")}}}>{parse(menu.html)}</div>:visibleItems.map(([text, url], index) => <div key={url}>{menu.kind === "drawer" && !menu.public && GROUPS[index] && <p className="clone-nav-group">{GROUPS[index]}</p>}<a role={menu.kind === "menu" ? "menuitem" : undefined} href={url} aria-current={route.split("?")[0] === url ? "page" : undefined} onClick={event => { if (!event.metaKey && !event.ctrlKey && !event.shiftKey && event.button === 0) { event.preventDefault(); select(url); } }}><span>{text}</span>{menu.kind === "search" && <small>{url}</small>}</a></div>)}{!visibleItems.length && <p className="clone-nav-empty">검색 결과가 없습니다.</p>}</div>
+      {menu.kind === "drawer" && !menu.html && <div className="clone-nav-footer"><button onClick={() => select(menu.public ? "/app" : "/app/settings")}>{menu.public ? "대시보드로 이동" : "설정"}</button><button onClick={() => select(menu.public ? `/${locale}/contact-sales` : "/app/feedback")}>{menu.public ? "문의하기" : "서비스 개선 피드백"}</button></div>}
     </div>
   </div>;
   return { handleClick, overlay };

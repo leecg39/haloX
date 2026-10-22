@@ -1,0 +1,2553 @@
+{
+  "base": "http://localhost:3001",
+  "total": 363,
+  "expected": 322,
+  "missing": [],
+  "failed": [],
+  "assetMissing": [],
+  "remoteImages": [],
+  "source404": 73,
+  "results": [
+    {
+      "route": "/app",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app?cloneTab=0",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app?cloneTab=1",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX - SEO & AI 검색 최적화 플랫폼"
+    },
+    {
+      "route": "/?ref=CUZCE8SM",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX - SEO & AI 검색 최적화 플랫폼"
+    },
+    {
+      "route": "/app?cloneTab=2",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app?cloneTab=3",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app?cloneTab=4",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/exports",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/factory",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/forgot-password",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Reset your password | HaloX"
+    },
+    {
+      "route": "/app/feedback",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/gap",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "기회 분석"
+    },
+    {
+      "route": "/app/gap?cloneTab=0",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "기회 분석"
+    },
+    {
+      "route": "/app/gap?cloneTab=1",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "기회 분석"
+    },
+    {
+      "route": "/app/gap?cloneTab=2",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "기회 분석"
+    },
+    {
+      "route": "/app/gap?cloneTab=3",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "기회 분석"
+    },
+    {
+      "route": "/app/gap?cloneTab=4",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "기회 분석"
+    },
+    {
+      "route": "/app/gap?cloneTab=5",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "기회 분석"
+    },
+    {
+      "route": "/app/geo",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AI 대화 분석 - HaloX"
+    },
+    {
+      "route": "/app/gap?cloneTab=6",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "기회 분석"
+    },
+    {
+      "route": "/app/geo/analysis",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "프롬프트 분석"
+    },
+    {
+      "route": "/app/geo/analysis?tab=competitors",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "프롬프트 분석"
+    },
+    {
+      "route": "/app/geo/analysis?tab=mentions",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "프롬프트 분석"
+    },
+    {
+      "route": "/app/geo/analysis?tab=fan-out",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "프롬프트 분석"
+    },
+    {
+      "route": "/app/geo/analysis?tab=matrix",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "프롬프트 분석"
+    },
+    {
+      "route": "/app/geo/analysis?tab=products",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "프롬프트 분석"
+    },
+    {
+      "route": "/app/geo/analysis?tab=platforms",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "프롬프트 분석"
+    },
+    {
+      "route": "/app/geo/analysis?tab=prompts",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "프롬프트 분석"
+    },
+    {
+      "route": "/app/geo/prompts?view=sets",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "프롬프트 현황 - GEO"
+    },
+    {
+      "route": "/app/geo/analysis?tab=sources",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "프롬프트 분석"
+    },
+    {
+      "route": "/app/geo/prompts",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "프롬프트 현황 - GEO"
+    },
+    {
+      "route": "/app/geo/prompts?view=tags",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "프롬프트 현황 - GEO"
+    },
+    {
+      "route": "/app/keywords?view=ideas",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "키워드 현황 | HaloX"
+    },
+    {
+      "route": "/app/keywords",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "키워드 현황 | HaloX"
+    },
+    {
+      "route": "/app/keywords?view=network",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "키워드 현황 | HaloX"
+    },
+    {
+      "route": "/app/keywords?view=sets",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "키워드 현황 | HaloX"
+    },
+    {
+      "route": "/app/keywords?view=tags",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "키워드 현황 | HaloX"
+    },
+    {
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=0",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=1",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=2",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=3",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=4",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/login",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Log in | HaloX"
+    },
+    {
+      "route": "/app/knowledgehub",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=5",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/monitoring",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/optimize",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/personas",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/raw-data",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/referral",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/reports",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "redirect",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/reports/weekly",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/seo/insights",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "키워드 분석"
+    },
+    {
+      "route": "/app/seo/insights?tab=aio",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "키워드 분석"
+    },
+    {
+      "route": "/app/seo/insights?tab=competitors",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "키워드 분석"
+    },
+    {
+      "route": "/app/seo/insights?tab=opportunities",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "키워드 분석"
+    },
+    {
+      "route": "/app/seo/insights?tab=performance",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "키워드 분석"
+    },
+    {
+      "route": "/app/settings",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/settings?tab=api",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/seo/insights?tab=serp-matrix",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "키워드 분석"
+    },
+    {
+      "route": "/app/settings?tab=billing",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/settings?tab=earned",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/settings?tab=brand-tracking",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/settings?tab=export",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/settings?tab=integrations",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/settings?tab=members",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/settings?tab=notifications",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/settings?tab=plan",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/signup",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX 시작하기 | HaloX"
+    },
+    {
+      "route": "/app/settings?tab=tags",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/settings?tab=workspace",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/site-audit",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "사이트 진단 - HaloX"
+    },
+    {
+      "route": "/app/site-audit?tab=bot-access",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "사이트 진단 - HaloX"
+    },
+    {
+      "route": "/app/site-audit?tab=entities",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "사이트 진단 - HaloX"
+    },
+    {
+      "route": "/app/site-audit?tab=internal-links",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "사이트 진단 - HaloX"
+    },
+    {
+      "route": "/app/site-audit?tab=issues",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "사이트 진단 - HaloX"
+    },
+    {
+      "route": "/app/site-audit?tab=guide",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "사이트 진단 - HaloX"
+    },
+    {
+      "route": "/app/site-audit?tab=pages",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "사이트 진단 - HaloX"
+    },
+    {
+      "route": "/app/strategy-map",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Strategy Map | HaloX"
+    },
+    {
+      "route": "/app/strategy-map?cloneTab=1",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Strategy Map | HaloX"
+    },
+    {
+      "route": "/app/strategy-map?cloneTab=0",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Strategy Map | HaloX"
+    },
+    {
+      "route": "/app/workspaces",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "redirect",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/strategy-map?cloneTab=2",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Strategy Map | HaloX"
+    },
+    {
+      "route": "/blog/topics/geo",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "redirect",
+      "title": "GEO (AI 검색 최적화) 가이드 — HaloX Blog"
+    },
+    {
+      "route": "/en/about",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "About HaloX"
+    },
+    {
+      "route": "/en/authors",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Authors | HaloX"
+    },
+    {
+      "route": "/en/authors/jaechullee",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Jaechul LEE | HaloX"
+    },
+    {
+      "route": "/en",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX - SEO & GEO Platform | AI Search Optimization"
+    },
+    {
+      "route": "/en/authors/juny-lee",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Juny Lee | HaloX"
+    },
+    {
+      "route": "/en/blog",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Blog | HaloX"
+    },
+    {
+      "route": "/en/blog/topics",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Topics | HaloX"
+    },
+    {
+      "route": "/en/blog/topics/ai-trends",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AI Trends & News — HaloX Blog"
+    },
+    {
+      "route": "/en/changelog",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Changelog | HaloX"
+    },
+    {
+      "route": "/en/compare/ahrefs",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX vs Ahrefs: Complete Search + AI Comparison (2026)"
+    },
+    {
+      "route": "/en/compare/otterly",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX vs Otterly: AI Search Monitoring Comparison (2026)"
+    },
+    {
+      "route": "/en/compare/profound",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX vs Profound: GEO + SEO Platform Comparison (2026)"
+    },
+    {
+      "route": "/en/compare/semrush",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX vs Semrush: AI-Powered SEO Comparison (2026)"
+    },
+    {
+      "route": "/en/consulting",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "SEO & GEO Consulting - HaloX"
+    },
+    {
+      "route": "/en/contact-sales",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Contact sales - HaloX"
+    },
+    {
+      "route": "/en/customers/shopnest",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "ShopNest - Customer Story | HaloX"
+    },
+    {
+      "route": "/en/customers",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Customer Stories | HaloX"
+    },
+    {
+      "route": "/en/disclosure",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Ads & Affiliate Disclosure - HaloX"
+    },
+    {
+      "route": "/en/faq",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "FAQ | HaloX"
+    },
+    {
+      "route": "/en/features",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Feature Guide - SEO & GEO Analytics - HaloX"
+    },
+    {
+      "route": "/en/features/analytics",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "GEO Dashboard — HaloX"
+    },
+    {
+      "route": "/en/features/audit",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Site Audit — HaloX"
+    },
+    {
+      "route": "/en/features/content",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Content Studio — HaloX"
+    },
+    {
+      "route": "/en/features/monitoring",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AIO Citation — HaloX"
+    },
+    {
+      "route": "/en/features/search",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "SERP Analysis — HaloX"
+    },
+    {
+      "route": "/en/feedback",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "피드백 보드 | HaloX"
+    },
+    {
+      "route": "/en/free-tools",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/en/glossary",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "SEO & GEO Glossary - Key Terms Explained | Halox"
+    },
+    {
+      "route": "/en/glossary/aeo",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is AEO (Answer Engine Optimization)? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/ai-brand-mentions",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is AI Brand Mentions? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/ai-citation",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is AI Citation? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/ai-crawlers",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is AI Crawlers? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/ai-overview",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is AI Overview (AIO)? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/avi",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is GEO Score? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/backlink",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Backlink? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/brand-sov",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Keyword Visibility? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/citation-rate",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Citation Rate? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/citation-sov",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Citation SOV? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/content-cluster",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Content Cluster? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/content-optimization",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Content Optimization? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/ctr",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is CTR (Click-Through Rate)? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/e-e-a-t",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is E-E-A-T? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/domain-authority",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Domain Authority? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/featured-snippet",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Featured Snippet? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/geo",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is GEO (Generative Engine Optimization)? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/internal-linking",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Internal Linking? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/json-ld",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is JSON-LD? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/keyword",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Keyword? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/keyword-difficulty",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Keyword Difficulty (KD)? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/llm",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is LLM (Large Language Model)? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/llm-seo",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is LLM SEO? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/llms-txt",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is llms.txt? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/meta-tags",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Meta Tags? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/on-page-seo",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is On-Page SEO? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/organic-traffic",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Organic Traffic? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/paa",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is PAA (People Also Ask)? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/prompt-tracking",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Prompt Tracking? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/query-fan-out",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Query Fan-Out? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/rag",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is RAG (Retrieval-Augmented Generation)? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/schema-markup",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Schema Markup (Structured Data)? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/search-intent",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Search Intent? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/search-volume",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Search Volume? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/seo",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is SEO (Search Engine Optimization)? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/serp",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is SERP (Search Engine Results Page)? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/technical-seo",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Technical SEO? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/top10-ratio",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Top 10? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/topical-authority",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Topical Authority? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/glossary/zero-click-search",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "What is Zero-Click Search? - Definition & Meaning | Halox Glossary"
+    },
+    {
+      "route": "/en/integrations",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Integrations - HaloX"
+    },
+    {
+      "route": "/en/methodology",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Our Methodology - How HaloX Measures Search | HaloX"
+    },
+    {
+      "route": "/en/privacy",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Privacy Policy & Cookie Settings - HaloX"
+    },
+    {
+      "route": "/en/refund-policy",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Refund Policy - HaloX"
+    },
+    {
+      "route": "/en/pricing",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Pricing - HaloX"
+    },
+    {
+      "route": "/en/security",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Security & Trust - HaloX"
+    },
+    {
+      "route": "/en/research",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AI Citation Research - HaloX"
+    },
+    {
+      "route": "/en/solutions/agency",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX for Search & Marketing Agencies | Multi-Client Management"
+    },
+    {
+      "route": "/en/solutions/in-house",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX for In-House Teams | Brand Protection & ROI"
+    },
+    {
+      "route": "/en/terms",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Terms of Service - HaloX"
+    },
+    {
+      "route": "/en/tools",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Free SEO Tools - AI Question Generator, Site Audit & More | HaloX"
+    },
+    {
+      "route": "/en/tools/ai-questions",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Free AI Question Generator - SEO & GEO Optimization | HaloX"
+    },
+    {
+      "route": "/en/tools/genspark",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "젠스파크 - HaloX"
+    },
+    {
+      "route": "/en/tools/lovable",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Lovable - HaloX"
+    },
+    {
+      "route": "/en/tools/site-audit",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Free AI Search Readiness Checker - Is Your Site AI-Ready? | HaloX"
+    },
+    {
+      "route": "/en/topics",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "redirect",
+      "title": "Topics | HaloX"
+    },
+    {
+      "route": "/en/use-cases",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Use Cases - AI Visibility for Every Team | HaloX"
+    },
+    {
+      "route": "/en/use-cases/competitor-analysis",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AI Competitor Analysis — Track Competitors in AI Results | HaloX"
+    },
+    {
+      "route": "/en/use-cases/brand-monitoring",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AI Brand Monitoring — Track Your Brand in ChatGPT & AI | HaloX"
+    },
+    {
+      "route": "/en/use-cases/content-optimization",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AI-Optimized Content Creation — Get Cited by AI Engines | HaloX"
+    },
+    {
+      "route": "/en/use-cases/seo-geo-integration",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "SEO + GEO Integration — Unified Search & AI Strategy | HaloX"
+    },
+    {
+      "route": "/en/workflows",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Workflows - HaloX"
+    },
+    {
+      "route": "/en/workflows/content-gap-reference-hub",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Content Gap Analysis & Reference Hub Construction - HaloX"
+    },
+    {
+      "route": "/en/workflows/competitor-gap-analysis",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Competitor AI Gap Analysis - HaloX"
+    },
+    {
+      "route": "/en/workflows/execution-task-list",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Build an Execution Task List - HaloX"
+    },
+    {
+      "route": "/en/workflows/customer-intent-analysis",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Customer Intent Analysis & Question Library - HaloX"
+    },
+    {
+      "route": "/en/workflows/report-automation",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Build Report Automation - HaloX"
+    },
+    {
+      "route": "/en/workflows/seo-geo-strategy",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Build an Integrated SEO×GEO Strategy - HaloX"
+    },
+    {
+      "route": "/ko/about",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX 소개"
+    },
+    {
+      "route": "/ko/authors",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "저자 | HaloX"
+    },
+    {
+      "route": "/id",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "redirect",
+      "title": "HaloX - SEO & GEO Platform | AI Search Optimization"
+    },
+    {
+      "route": "/ko/authors/jaechullee",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "이재철 | HaloX"
+    },
+    {
+      "route": "/ko/authors/juny-lee",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "이중대 | HaloX"
+    },
+    {
+      "route": "/ko/blog",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "블로그 | HaloX"
+    },
+    {
+      "route": "/ko",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX - SEO & AI 검색 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/aeo-brand-consensus-ownership",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/agentic-commerce-geo",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/agentic-workflow-patterns",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/ai-content-pipeline",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/ai-crawler-observability",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/ai-kpi",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/ai-customer-product-info-structure",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/ai-platform-citation-comparison-data",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/ai-search-10-gate-diagnostic-checklist",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/ai-search-attribution-gap-reporting-framework",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/ai-search-citation-count-before-diagnosis",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/ai-search-delegation-recommendation-action-path",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/ai-search-fake-brand-entity-coherence",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/ai-search-fan-out-market-landscape",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/ai-search-location-service-page-checklist",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/ai-search-measurement-framework",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/ai-traffic-small-but-strategic",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/ai-visibility-metrics-beyond-avi",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/ai-visibility-single-score-risk",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/avi-score-explained",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/backlink-strategy-2026",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/brand-entity-seo-for-ai-search",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/brand-sov-measurement",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/chatgpt-citation-retrieval-fit",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/chatgpt-optimization-guide",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/commerce-geo-google-product-pack-sales-channel",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/competitor-seo-geo-analysis",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/content-dual-optimization",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/content-optimization-workflow",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/eeat-complete-guide",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/eeat-content-checklist",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/fan-out-geo-content-strategy",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/faq-rich-results-deprecation-qa-evidence-structure",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/featured-snippet-paa-strategy",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/ga4-ai-assistant-channel-ai-search-measurement",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/geo-content-structure",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/geo-reputation-brand-consensus",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/geocommerce",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/geo-vs-seo-vs-aeo",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/google-core-update-geo-analysis",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/google-geo-aeo-safety-line",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/google-search-console-ai-report-geo-measurement",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/gpt-fan-out-search-analysis",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/halox-ai-agent-building-story",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/hierarchical-classification",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/how-to-get-cited-by-ai",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/keyword-expansion-5-signal",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/keyword-research-intent-based",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/korean-seo-geo-differences",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/llms-txt-agentic-browsing-readiness",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/llms-txt-setup-guide",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/naver-ai-briefing-citation-count-geo-kpi",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/naver-ai-briefing-longtail-query-search-behavior",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/naver-ai-tab-execution-kpi-action-path",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/naver-geo-guide-ai-briefing-mate",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/offsite-aeo-moat",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/on-page-seo-checklist-2026",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/openai-crawl-channel-signal",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/pev-workflow-case-study",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/prompt-level-ai-search-experiment",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/prompt-tracking-monitoring",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/rag-hallucination-defense",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/schema-ai-citation-hygiene",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/seo-fundamentals-ai-era",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/schema-markup-practical",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/seo-geo-keyword-strategy-framework",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/seo-geo-metrics-guide",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/seo-geo-top-exposure-strategy",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/seo-geo-unified-strategy",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/topical-authority-cluster-design",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/topics",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "토픽 | HaloX"
+    },
+    {
+      "route": "/ko/blog/topics/ai-trends",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AI 트렌드 & 뉴스 — HaloX Blog"
+    },
+    {
+      "route": "/ko/blog/topics/geo",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "GEO (AI 검색 최적화) 가이드 — HaloX Blog"
+    },
+    {
+      "route": "/ko/blog/what-is-geo-optimization",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/why-chatgpt-cites-listicles",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/blog/why-reddit-search-matters-in-ai-search-2026",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "source-404",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/changelog",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "업데이트 소식 | HaloX"
+    },
+    {
+      "route": "/ko/compare/ahrefs",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX vs Ahrefs: SEO + AI 대화 완벽 비교 (2026)"
+    },
+    {
+      "route": "/ko/compare/otterly",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX vs Otterly: AI 검색 모니터링 비교 (2026)"
+    },
+    {
+      "route": "/ko/compare/profound",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX vs Profound: AI 대화 + SEO 플랫폼 비교 (2026)"
+    },
+    {
+      "route": "/ko/compare/semrush",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX vs Semrush: AI 기반 SEO 비교 (2026)"
+    },
+    {
+      "route": "/ko/consulting",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "SEO·GEO 컨설팅 - HaloX"
+    },
+    {
+      "route": "/ko/contact-sales?type=onboarding&from=home_support",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "도입 문의 - HaloX"
+    },
+    {
+      "route": "/ko/contact-sales",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "도입 문의 - HaloX"
+    },
+    {
+      "route": "/ko/customers/growthly",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Growthly - 고객 사례 | HaloX"
+    },
+    {
+      "route": "/ko/customers/shopnest",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "ShopNest - 고객 사례 | HaloX"
+    },
+    {
+      "route": "/ko/customers",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "고객 사례 | HaloX"
+    },
+    {
+      "route": "/ko/disclosure",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Ads & Affiliate Disclosure - HaloX"
+    },
+    {
+      "route": "/ko/faq",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "FAQ | HaloX"
+    },
+    {
+      "route": "/ko/features",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "기능 가이드 - SEO & AI 검색 최적화 - HaloX"
+    },
+    {
+      "route": "/ko/features/analytics",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "GEO Dashboard — HaloX"
+    },
+    {
+      "route": "/ko/features/content",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Content Studio — HaloX"
+    },
+    {
+      "route": "/ko/features/audit",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "사이트 점검 (Site Audit) — HaloX"
+    },
+    {
+      "route": "/ko/features/monitoring",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AIO 인용 점검 — HaloX"
+    },
+    {
+      "route": "/ko/features/search",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "SERP 분석 — HaloX"
+    },
+    {
+      "route": "/ko/feedback",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "피드백 보드 | HaloX"
+    },
+    {
+      "route": "/ko/glossary/aeo",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AEO (답변 엔진 최적화)란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/ai-brand-mentions",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AI 브랜드 언급란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "SEO & GEO 용어 사전 - 핵심 용어 해설 | Halox"
+    },
+    {
+      "route": "/ko/glossary/ai-citation",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AI 인용란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/ai-crawlers",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AI 크롤러란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/ai-overview",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AI 오버뷰 (AIO)란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/avi",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "GEO 점수 (AI 노출 점수)란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/backlink",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "백링크란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/brand-sov",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "키워드 노출률란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/citation-rate",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "인용률란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/citation-sov",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "인용 점유율란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/content-cluster",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "콘텐츠 클러스터란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/content-optimization",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "콘텐츠 최적화란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/ctr",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "CTR (클릭률)란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/domain-authority",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "도메인 권위란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/e-e-a-t",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "E-E-A-T란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/eeat",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "redirect",
+      "title": "SEO & GEO 용어 사전 - 핵심 용어 해설 | Halox"
+    },
+    {
+      "route": "/ko/glossary/featured-snippet",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "추천 스니펫란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/internal-linking",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "내부 링크란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/geo",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "GEO (생성형 엔진 최적화)란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/json-ld",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "JSON-LD란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/keyword",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "키워드란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/keyword-difficulty",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "키워드 난이도 (KD)란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/llm",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "LLM (대규모 언어 모델)란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/llm-seo",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "LLM SEO란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/llms-txt",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "llms.txt란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/meta-tags",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "메타 태그란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/organic-traffic",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "자연 유입 트래픽란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/on-page-seo",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "온페이지 SEO란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/paa",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "PAA (함께 묻는 질문)란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/prompt-tracking",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "프롬프트 트래킹란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/query-fan-out",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "쿼리 팬아웃란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/rag",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "RAG (검색 증강 생성)란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/schema-markup",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "스키마 마크업 (구조화 데이터)란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/search-intent",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "검색 의도란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/search-volume",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "검색량란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/seo",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "SEO (검색 엔진 최적화)란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/serp",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "SERP (검색 엔진 결과 페이지)란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/technical-seo",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "테크니컬 SEO란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/top10-ratio",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Top 10 비율란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/topical-authority",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "토피컬 오소리티란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/glossary/zero-click-search",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "제로클릭 검색란? - 뜻과 의미 | Halox 용어 사전"
+    },
+    {
+      "route": "/ko/integrations",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "연동 - HaloX"
+    },
+    {
+      "route": "/ko/methodology",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "우리의 측정 방식 - HaloX가 검색을 보는 법 | HaloX"
+    },
+    {
+      "route": "/ko/partners",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "파트너 추천 프로그램 - HaloX"
+    },
+    {
+      "route": "/ko/pricing",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "가격 안내 - HaloX"
+    },
+    {
+      "route": "/ko/privacy",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "개인정보처리방침 & 쿠키 설정 - HaloX"
+    },
+    {
+      "route": "/ko/refund-policy",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "환불 정책 - HaloX"
+    },
+    {
+      "route": "/ko/security",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "보안과 신뢰 - HaloX"
+    },
+    {
+      "route": "/ko/research",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AI 인용 리서치 - HaloX"
+    },
+    {
+      "route": "/ko/solutions/agency",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX 에이전시 솔루션 | 멀티 클라이언트 관리"
+    },
+    {
+      "route": "/ko/solutions/in-house",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX 인하우스 솔루션 | 브랜드 보호 & ROI"
+    },
+    {
+      "route": "/ko/tag/ai-traffic",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Ai Traffic - 태그별 글 | HaloX"
+    },
+    {
+      "route": "/ko/tag/rag",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/ko/tag/retrieval-fit",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Retrieval Fit - 태그별 글 | HaloX"
+    },
+    {
+      "route": "/ko/tag/semrush",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "Semrush - 태그별 글 | HaloX"
+    },
+    {
+      "route": "/ko/terms",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "이용약관 - HaloX"
+    },
+    {
+      "route": "/ko/tools",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "무료 SEO 도구 - AI 질문 생성기, 사이트 점검 등 | HaloX"
+    },
+    {
+      "route": "/ko/use-cases",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "유스케이스 - 모든 팀을 위한 AI 노출 분석 | HaloX"
+    },
+    {
+      "route": "/ko/tools/site-audit",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "무료 AI 검색 대비 점검기 - 내 사이트 AI 검색 준비됐을까? | HaloX"
+    },
+    {
+      "route": "/ko/tools/ai-questions",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "무료 AI 질문 생성기 - SEO & GEO 최적화 | HaloX"
+    },
+    {
+      "route": "/ko/use-cases/brand-monitoring",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AI 브랜드 모니터링 — ChatGPT & AI에서 브랜드 추적 | HaloX"
+    },
+    {
+      "route": "/ko/use-cases/competitor-analysis",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AI 경쟁사 분석 — AI 결과에서 경쟁사 추적 | HaloX"
+    },
+    {
+      "route": "/ko/use-cases/content-optimization",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AI 최적화 콘텐츠 제작 — AI 엔진에서 인용받기 | HaloX"
+    },
+    {
+      "route": "/ko/use-cases/seo-geo-integration",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "SEO + GEO 통합 — 검색 & AI 통합 전략 | HaloX"
+    },
+    {
+      "route": "/ko/workflows",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "워크플로우 - HaloX"
+    },
+    {
+      "route": "/ko/workflows/competitor-gap-analysis",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "경쟁사 AI 격차(Gap) 분석하기 - HaloX"
+    },
+    {
+      "route": "/ko/workflows/content-gap-reference-hub",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "콘텐츠 격차(Gap) 분석 & 레퍼런스 허브 구축하기 - HaloX"
+    },
+    {
+      "route": "/ko/workflows/customer-intent-analysis",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "고객 의도 분석 & 질문(Prompt) 라이브러리 만들기 - HaloX"
+    },
+    {
+      "route": "/ko/workflows/execution-task-list",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "실행 작업 리스트 만들기 - HaloX"
+    },
+    {
+      "route": "/ko/workflows/report-automation",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "보고 자동화 구축하기 - HaloX"
+    },
+    {
+      "route": "/ko/workflows/seo-geo-strategy",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "SEO×GEO 통합 전략 세우기 - HaloX"
+    },
+    {
+      "route": "/vi/contact",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "redirect",
+      "title": "Contact sales - HaloX"
+    },
+    {
+      "route": "/zh/about",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "redirect",
+      "title": "About HaloX"
+    },
+    {
+      "route": "/zh/blog/topics",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "redirect",
+      "title": "Topics | HaloX"
+    },
+    {
+      "route": "/zh/contact",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "redirect",
+      "title": "Contact sales - HaloX"
+    },
+    {
+      "route": "/zh/pricing",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "redirect",
+      "title": "Pricing - HaloX"
+    },
+    {
+      "route": "/tag",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "redirect",
+      "title": "HaloX - SEO & GEO Platform | AI Search Optimization"
+    }
+  ]
+}

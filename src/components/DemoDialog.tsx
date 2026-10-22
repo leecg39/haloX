@@ -20,6 +20,7 @@ export function DemoDialog({ request, ...props }: Props) {
 function DialogSession({ request, onClose, onComplete }: SessionProps) {
   const overlay = useRef<HTMLDivElement>(null), submitted = useRef(false);
   const [mode, setMode] = useState('single'), [values, setValues] = useState<Record<string, string>>({}), [error, setError] = useState('');
+  const [templateActive,setTemplateActive]=useState(true);
   const [knowledge, setKnowledge] = useState(false), [records, setRecords] = useState<LocalRecord[]>([]);
   const deleting = /삭제|delete/i.test(request.title), keyword = /키워드/.test(request.title), prompt = /프롬프트/.test(request.title);
   const email = /초대|이메일/.test(request.title), url = /URL|자료|진단|최적화/i.test(request.title), feedback = /피드백/.test(request.title);
@@ -81,6 +82,7 @@ function DialogSession({ request, onClose, onComplete }: SessionProps) {
     if (attrs.role === 'tab') { const selected = /일괄/.test(text) ? 'bulk' : /추천/.test(text) ? 'recommend' : 'single'; return <button {...props} type="button" onClick={() => setMode(selected)} aria-selected={mode === selected} data-state={mode === selected ? 'active' : 'inactive'} tabIndex={0}>{children()}</button>; }
     if (attrs.role === 'tabpanel') {
       const panelMode = attrs.id?.includes('bulk') ? 'bulk' : attrs.id?.includes('recommend') ? 'recommend' : 'single';
+      if(mode!==panelMode)return <div {...props} hidden />;
       return <div {...props} hidden={mode !== panelMode} data-state={mode === panelMode ? 'active' : 'inactive'}>{panelMode === 'bulk' ? entryField('키워드', 'name', true) : panelMode === 'recommend' ? recommendation : children()}</div>;
     }
     if (node.name === 'button' && attrs.role === 'combobox') {
@@ -91,14 +93,15 @@ function DialogSession({ request, onClose, onComplete }: SessionProps) {
     }
     if (node.name === 'select' && attrs['aria-hidden'] === 'true') return <></>;
     if (node.name === 'input' || node.name === 'textarea') {
-      const key = attrs.name || attrs.id || (attrs.placeholder?.includes('검색') ? 'search' : 'name'), isSearch = /검색|필터/.test(attrs.placeholder || ''), inputProps = { ...props, name: key, value: values[key] || '', onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => update(key, event.target.value), required: !isSearch && attrs.type !== 'checkbox' };
+      const key = attrs.name || attrs.id || (attrs.placeholder?.includes('검색') ? 'search' : 'name'), isSearch = /검색|필터/.test(attrs.placeholder || ''), inputProps = { ...props, name: key, value: values[key] || '', onChange: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => update(key, event.target.value), required: !isSearch && attrs.type !== 'checkbox' && (attrs.required!==undefined || key==='name' || key==='keyword' || node.name==='textarea'&&prompt) };
       if (attrs.type === 'password') return <input {...props} autoComplete="off" />;
       return node.name === 'textarea' ? <textarea {...inputProps} /> : <input {...inputProps} />;
     }
     if (node.name === 'button') {
-      if (attrs.type === 'submit') return <button {...props} type="submit" disabled={false}>{children()}</button>;
+      if (attrs.type === 'submit' || /^(저장|등록|추가|만들기|진단 시작|작성 완료|피드백 등록|피드백 제출|엔티티 추가|시작하기)$/.test(text)) return <button {...props} type="submit" disabled={false}>{children()}</button>;
       if (/^(취소|닫기|Close)$/.test(text)) return <button {...props} type="button" onClick={onClose}>{children()}</button>;
       if (text === '수정') return <button {...props} type="button" aria-expanded={knowledge} onClick={() => setKnowledge(!knowledge)}>{children()}</button>;
+      if (/콘텐츠/.test(request.title)&&!request.template?.includes('<input')) return <button {...props} type="button" onClick={()=>{update('source',text);setTemplateActive(false)}}>{children()}</button>;
       if (attrs.title === '새로 만들기') return <button {...props} type="button" onClick={() => setError('자료실에서 로컬 자료를 추가한 후 연결할 수 있습니다.')}>{children()}</button>;
     }
     if (attrs.class?.includes('max-h-0')) return <div {...props} className={attrs.class.replace('max-h-0', '').replace('opacity-0', '')} hidden={!knowledge}>{children()}</div>;
@@ -106,7 +109,7 @@ function DialogSession({ request, onClose, onComplete }: SessionProps) {
   } };
 
   return <div ref={overlay} className="hx-demo-overlay" onMouseDown={event => { if (event.target === event.currentTarget) onClose(); }}>
-    {request.template && !deleting ? parse(request.template, options) : <section className="hx-demo-dialog hx-demo-generic" role="dialog" aria-modal="true" aria-labelledby="hx-demo-title" tabIndex={-1}>
+    {request.template && templateActive && !deleting ? (request.template.includes('<form')?parse(request.template, options):<form style={{display:'contents'}} onSubmit={submit}>{parse(request.template,options)}</form>) : <section className="hx-demo-dialog hx-demo-generic" role="dialog" aria-modal="true" aria-labelledby="hx-demo-title" tabIndex={-1}>
       <header><h2 id="hx-demo-title">{request.title}</h2><p>{request.description || (deleting ? '이 브라우저에 저장된 로컬 항목만 삭제됩니다.' : '입력한 정보는 이 브라우저의 로컬 데모에 저장됩니다.')}</p><button type="button" className="hx-demo-close" aria-label="닫기" onClick={onClose}>×</button></header>
       <form onSubmit={submit}><div className="hx-demo-body">
         {(keyword || prompt) && !deleting && <div className="hx-demo-tabs" role="tablist">{[['single', '단일'], ['bulk', '일괄'], ['recommend', '추천']].map(([id, label]) => <button role="tab" type="button" key={id} aria-selected={mode === id} onClick={() => setMode(id)}>{label}</button>)}</div>}

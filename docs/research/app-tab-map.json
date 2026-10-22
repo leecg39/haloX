@@ -1,0 +1,224 @@
+{
+  "/app": [
+    {
+      "label": "키워드 상위",
+      "route": "/app?cloneTab=0"
+    },
+    {
+      "label": "AI 질문 상위",
+      "route": "/app?cloneTab=1"
+    },
+    {
+      "label": "사이트 진단",
+      "route": "/app?cloneTab=2"
+    },
+    {
+      "label": "주요 변화 Top 4",
+      "route": "/app?cloneTab=3"
+    },
+    {
+      "label": "키워드 상태 현황",
+      "route": "/app?cloneTab=4"
+    }
+  ],
+  "/app/strategy-map": [
+    {
+      "label": "리스트",
+      "route": "/app/strategy-map?cloneTab=0"
+    },
+    {
+      "label": "포트폴리오",
+      "route": "/app/strategy-map?cloneTab=1"
+    },
+    {
+      "label": "네트워크",
+      "route": "/app/strategy-map?cloneTab=2"
+    }
+  ],
+  "/app/gap": [
+    {
+      "label": "개요",
+      "route": "/app/gap?cloneTab=0"
+    },
+    {
+      "label": "매트릭스",
+      "route": "/app/gap?cloneTab=1"
+    },
+    {
+      "label": "키워드",
+      "route": "/app/gap?cloneTab=2"
+    },
+    {
+      "label": "프롬프트",
+      "route": "/app/gap?cloneTab=3"
+    },
+    {
+      "label": "경쟁사",
+      "route": "/app/gap?cloneTab=4"
+    },
+    {
+      "label": "콘텐츠",
+      "route": "/app/gap?cloneTab=5"
+    },
+    {
+      "label": "트렌드",
+      "route": "/app/gap?cloneTab=6"
+    }
+  ],
+  "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6": [
+    {
+      "label": "상위 결과(18)",
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=0"
+    },
+    {
+      "label": "AI 요약(16)",
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=1"
+    },
+    {
+      "label": "검색 결과 분석",
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=2"
+    },
+    {
+      "label": "트렌드",
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=3"
+    },
+    {
+      "label": "아이디어",
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=4"
+    },
+    {
+      "label": "GEO 연결",
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=5"
+    }
+  ],
+  "/app/keywords": [
+    {
+      "label": "리스트(10)",
+      "route": "/app/keywords"
+    },
+    {
+      "label": "세트(1)",
+      "route": "/app/keywords?view=sets"
+    },
+    {
+      "label": "태그",
+      "route": "/app/keywords?view=tags"
+    },
+    {
+      "label": "네트워크",
+      "route": "/app/keywords?view=network"
+    },
+    {
+      "label": "아이디어",
+      "route": "/app/keywords?view=ideas"
+    }
+  ],
+  "/app/seo/insights": [
+    {
+      "label": "개요",
+      "route": "/app/seo/insights"
+    },
+    {
+      "label": "성과",
+      "route": "/app/seo/insights?tab=performance"
+    },
+    {
+      "label": "경쟁사",
+      "route": "/app/seo/insights?tab=competitors"
+    },
+    {
+      "label": "기회",
+      "route": "/app/seo/insights?tab=opportunities"
+    },
+    {
+      "label": "AIO",
+      "route": "/app/seo/insights?tab=aio"
+    },
+    {
+      "label": "SERP 매트릭스",
+      "route": "/app/seo/insights?tab=serp-matrix"
+    }
+  ],
+  "/app/geo/prompts": [
+    {
+      "label": "리스트(10)",
+      "route": "/app/geo/prompts"
+    },
+    {
+      "label": "세트(1)",
+      "route": "/app/geo/prompts?view=sets"
+    },
+    {
+      "label": "태그",
+      "route": "/app/geo/prompts?view=tags"
+    }
+  ],
+  "/app/geo/analysis": [
+    {
+      "label": "개요",
+      "route": "/app/geo/analysis"
+    },
+    {
+      "label": "프롬프트",
+      "route": "/app/geo/analysis?tab=prompts"
+    },
+    {
+      "label": "멘션",
+      "route": "/app/geo/analysis?tab=mentions"
+    },
+    {
+      "label": "인용 소스",
+      "route": "/app/geo/analysis?tab=sources"
+    },
+    {
+      "label": "상품",
+      "route": "/app/geo/analysis?tab=products"
+    },
+    {
+      "label": "인용 매트릭스",
+      "route": "/app/geo/analysis?tab=matrix"
+    },
+    {
+      "label": "경쟁사",
+      "route": "/app/geo/analysis?tab=competitors"
+    },
+    {
+      "label": "플랫폼",
+      "route": "/app/geo/analysis?tab=platforms"
+    },
+    {
+      "label": "검색 패턴",
+      "route": "/app/geo/analysis?tab=fan-out"
+    }
+  ],
+  "/app/site-audit": [
+    {
+      "label": "개요",
+      "route": "/app/site-audit"
+    },
+    {
+      "label": "AI 봇 접근성",
+      "route": "/app/site-audit?tab=bot-access"
+    },
+    {
+      "label": "이슈(9)",
+      "route": "/app/site-audit?tab=issues"
+    },
+    {
+      "label": "페이지(50)",
+      "route": "/app/site-audit?tab=pages"
+    },
+    {
+      "label": "엔티티",
+      "route": "/app/site-audit?tab=entities"
+    },
+    {
+      "label": "내부 링크",
+      "route": "/app/site-audit?tab=internal-links"
+    },
+    {
+      "label": "가이드",
+      "route": "/app/site-audit?tab=guide"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+'use client';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import parse, { Element, attributesToProps, domToReact, type DOMNode, type HTMLReactParserOptions } from 'html-react-parser';
+import { createElement } from 'react';
+import type { Capture, DialogRequest, DialogResult } from '@/types/clone';
+import { useCloneNavigation } from './CloneNavigation';
+import { handleDataClick, handleDataInput, initializeDataControls } from './data-controls';
+import { DemoDialog } from './DemoDialog';
+import './clone-runtime.css';
+import { handlePublicClick } from './public-controls';
+const parserOptions:HTMLReactParserOptions={replace(node){if(!(node instanceof Element))return;if(['script','iframe','noscript'].includes(node.name))return <></>;if(['input','textarea','select'].includes(node.name)){const p=attributesToProps(node.attribs);if('value'in p){p.defaultValue=p.value;delete p.value}if('checked'in p){p.defaultChecked=p.checked;delete p.checked}if(node.name==='textarea')return createElement('textarea',{...p,defaultValue:node.children.map(c=>'data'in c?c.data:'').join('')});if(node.name==='input')return createElement('input',p);return createElement('select',p,domToReact(node.children as DOMNode[],parserOptions))}}};
+export default function ClonePage({data,requestedRoute}:{data:Capture;requestedRoute:string}){
+ const router=useRouter();const rootRef=useRef<HTMLDivElement>(null);const [dialog,setDialog]=useState<DialogRequest|null>(null);const [toast,setToast]=useState('');const toastTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
+ const navigate=useCallback((url:string)=>{if(url.startsWith('https://haloxlabs.ai'))url=url.replace('https://haloxlabs.ai','');router.push(url);},[router]);
+ const notify=useCallback((message:string)=>{setToast(message);if(toastTimer.current)clearTimeout(toastTimer.current);toastTimer.current=setTimeout(()=>setToast(''),3500)},[]);
+ const openDialog=useCallback(async(request:DialogRequest)=>{if(request.route.split('?')[0]==='/app/geo/prompts'&&request.title==='추가')request={...request,title:'프롬프트 추가'};try{if(/키워드 추가/.test(request.title)){const r=await fetch('/clone/keyword-dialog.json');request={...request,template:(await r.json()).html}}else{const r=await fetch('/clone/dialog-templates.json');if(r.ok){const templates=await r.json();const found=templates.find((t:{route:string;trigger:string;html:string;kind?:string})=>(t.route===request.route||t.route===request.route.split('?')[0])&&t.trigger===request.title&&t.kind!=='page');if(found)request={...request,template:found.html}}}}catch{}setDialog(request)},[]);
+ const navigation=useCloneNavigation({rootRef,route:requestedRoute,navigate,openDialog,menus:data.publicInteractions?.menus});
+ const content=useMemo(()=>parse(data.html,parserOptions),[data.html]);
+ useEffect(()=>{document.body.className=data.bodyClass;document.documentElement.className=data.htmlClass;document.body.style.removeProperty('pointer-events');document.body.style.removeProperty('overflow');return()=>{if(toastTimer.current)clearTimeout(toastTimer.current)}},[data]);
+ useEffect(()=>{const root=rootRef.current;if(!root)return;const cleanup=initializeDataControls(root,requestedRoute);
+  const originalFields=root.querySelectorAll<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>('input,textarea,select');
+  const saved=JSON.parse(localStorage.getItem('halox-clone:settings:'+requestedRoute)||'{}');originalFields.forEach((el,i)=>{if(saved[i]!==undefined&&el.type!=='password')el.value=saved[i]});
+  const reveal=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('clone-revealed');reveal.unobserve(entry.target)}},{threshold:.05});root.querySelectorAll('[data-clone-reveal]').forEach(el=>reveal.observe(el));
+  const click=(event:MouseEvent)=>{
+   const target=event.target as HTMLElement;if(!target?.closest)return;
+   const routed=target.closest<HTMLElement>('[data-clone-route]');if(routed){event.preventDefault();navigate(routed.dataset.cloneRoute!);return}
+   const link=target.closest<HTMLAnchorElement>('a[href]');if(link){const href=link.getAttribute('href')||'';if(href.startsWith('/')&&!event.metaKey&&!event.ctrlKey){event.preventDefault();navigate(href);return}if(href.startsWith('#'))return;}
+   if(navigation.handleClick(event))return;
+   if(handlePublicClick(event,root,data.publicInteractions))return;
+   if(handleDataClick(event,root,notify))return;
+   const button=target.closest<HTMLButtonElement>('button,[role=button]');if(!button||button.disabled)return;
+   const label=(button.getAttribute('aria-label')||button.textContent||'').trim();const text=(button.textContent||'').trim();
+   if(/Back to top|맨 위|TOP/.test(label)){window.scrollTo({top:0,behavior:'smooth'});root.querySelector('main')?.scrollTo({top:0,behavior:'smooth'});return}
+   if((label==='Close'||label==='닫기'||text==='닫기')&&button.closest('[role=dialog]')){navigate('/app');return}
+   if((label==='Close'||label==='닫기')&&!button.closest('[role=dialog]')){button.parentElement?.remove();return}
+   if(text==='키워드 전체 보기'){navigate('/app/keywords');return}if(text==='프롬프트 전체 보기'){navigate('/app/geo/prompts');return}
+   if(/Raw 데이터|^Raw$/.test(text)){navigate('/app/raw-data');return}
+   if(/빈틈 찾아보기/.test(text)){navigate('/app/gap');return}
+   if(/설정|연동하기|연동 설정/.test(text)&&!button.closest('[role=dialog]')){navigate('/app/settings?tab=integrations');return}
+   if(/More info/.test(label)){const card=button.parentElement?.parentElement;notify((card?.innerText||'지표')+' · 수집 시점의 분석 결과입니다.');return}
+   if(button.hasAttribute('aria-expanded')&&button.hasAttribute('aria-controls')){const id=button.getAttribute('aria-controls')!;const panel=root.querySelector('#'+CSS.escape(id));if(panel){const open=button.getAttribute('aria-expanded')!=='true';button.setAttribute('aria-expanded',String(open));button.dataset.state=open?'open':'closed';(panel as HTMLElement).hidden=!open;(panel as HTMLElement).style.display=open?'block':'none';(panel as HTMLElement).dataset.state=open?'open':'closed';return}}
+   if(/저장|변경 사항/.test(text)&&requestedRoute.startsWith('/app/settings')){const values:Record<string,string>={};root.querySelectorAll<HTMLInputElement>('input,textarea,select').forEach((el,i)=>{if(el.type!=='password')values[String(i)]=el.value});localStorage.setItem('halox-clone:settings:'+requestedRoute,JSON.stringify(values));notify('설정을 이 브라우저에 저장했습니다.');return}
+   if(/복사/.test(text)){const value=button.closest('div')?.querySelector('input')?.value||location.href;navigator.clipboard?.writeText(value).then(()=>notify('복사했습니다.')).catch(()=>notify(value));return}
+   if(/출력|인쇄/.test(text)){window.print();return}
+   if(/단일|일괄|추천/.test(text)&&button.getAttribute('role')==='tab')return;
+   if(button.type==='submit'&&button.closest('form'))return;
+   if(/추가|새 |새로|만들|생성|등록|초대|수정|편집|진단|분석|최적화|제작|업로드|문의|신청|시작|시도|확인하기|받기|구독|업그레이드/.test(text)){event.preventDefault();openDialog({title:text,route:requestedRoute});return}
+   if(text==='취소'){navigate('/app');return}
+   // Captured Radix comboboxes have hidden native options. Restore a native local selector.
+   if(button.getAttribute('role')==='combobox'){const select=button.parentElement?.querySelector('select');if(select){(select as HTMLElement).style.cssText='display:block;position:absolute;z-index:80;opacity:1;width:200px;height:36px;clip:auto;';select.focus();return}}
+   if(button.getAttribute('role')==='tab'){notify('이 보기의 수집된 상태를 표시하고 있습니다.');return}
+   if(text||label){openDialog({title:text||label,route:requestedRoute,description:'로컬 데모에서 내용을 확인하거나 입력할 수 있습니다.'})}
+  };
+  const input=(event:Event)=>{handleDataInput(event,root)};
+  const submit=(event:Event)=>{event.preventDefault();const form=event.target as HTMLFormElement;if(!form.reportValidity())return;if(requestedRoute.startsWith('/app/login')||requestedRoute.startsWith('/app/signup')){navigate('/app');return}if(requestedRoute.startsWith('/app/forgot-password')){notify('데모 화면입니다. 실제 재설정 이메일은 발송하지 않습니다.');return}notify('입력 내용을 확인했습니다. 로컬 데모에는 외부로 전송하지 않습니다.')};
+  const keydown=(event:KeyboardEvent)=>{if(event.key==='Escape'&&requestedRoute.startsWith('/app/settings'))navigate('/app')};
+  root.addEventListener('click',click);root.addEventListener('input',input);root.addEventListener('submit',submit);document.addEventListener('keydown',keydown);
+  return()=>{cleanup();reveal.disconnect();root.removeEventListener('click',click);root.removeEventListener('input',input);root.removeEventListener('submit',submit);document.removeEventListener('keydown',keydown)};
+ },[data,requestedRoute,navigate,notify,openDialog,navigation]);
+ const onComplete=(result:DialogResult)=>{window.dispatchEvent(new CustomEvent('halox:record-created',{detail:result}));notify('로컬 데모에 저장했습니다.');};
+ return <><div ref={rootRef} className={'clone-surface '+(requestedRoute.startsWith('/app')?'clone-app':'clone-public')} data-route={requestedRoute}>{content}</div>{navigation.overlay}<DemoDialog request={dialog} onClose={()=>setDialog(null)} onComplete={onComplete}/>{toast&&<div className="clone-toast" role="status">{toast}<button aria-label="알림 닫기" onClick={()=>setToast('')}>×</button></div>}</>;
+}
