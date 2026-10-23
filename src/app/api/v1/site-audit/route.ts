@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   if (!workspaceId) return NextResponse.json({ error: '워크스페이스를 선택해 주세요.' }, { status: 400 });
   try {
     const data = await haloxStore.read(db => {
-      db.assertWorkspaceMember(workspaceId, auth.actor);
+      db.assertWorkspaceAccess(workspaceId, auth.actor, 'strategy');
       return Object.fromEntries(AUDIT_TABLES.map(table => [table, db.queryTable(table, { filters: { workspace_id: `eq.${workspaceId}` }, order: 'created_at.desc' }, auth.actor).data]));
     });
     return NextResponse.json(data, { headers: { 'Cache-Control': 'private, no-store' } });

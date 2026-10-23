@@ -114,5 +114,6 @@ export function runExportCommand(db: HaloXDatabase, command: string, payload: Ro
 export function readExportFile(db: HaloXDatabase, id: string, actor: string): Row | null {
   const record = db.queryTable('export_history', { filters: { id: `eq.${id}` } }, actor).data[0];
   if (!record) return null;
+  db.assertWorkspaceAccess(String(record.workspace_id), actor, 'execution', 'download');
   return db.getServerRecords('export_files').find(file => file.export_id === id && file.workspace_id === record.workspace_id) ?? null;
 }

@@ -68,7 +68,7 @@
 |---|---|---|
 | S01 기본 프로필 `/app/settings?tab=profile` | profiles 이름 조회/수정, 인증된 전화 변경, 비밀번호 변경, 비공개 account_sessions 관리 | 구현·수정 버전/실패 입력 보존·현재 비밀번호/전화 증표·전체/개별 세션 폐기·다른 계정 차단·재시작/다른 로그인/모바일 검증. 이전 형식의 쿠키는 전환 후 재로그인 필요. [구현 내역](account-security-crud.md) |
 | S02 workspace | workspaces 브랜드/도메인/진단 범위 설정 | 이름·브랜드·도메인·슬러그·설명 수정/버전, W01과 같은 ID/값 및 헤더 갱신, 사이트 진단과 같은 대상·범위 CRUD 구현. **원본 화면의 사용자 지정 robots/sitemap/llms 정책 파일 주소·과거 통계 재수집은 남음**. [구현 내역](workspace-settings-crud.md) |
-| S03 members | members/invitations 초대 조회·권한 수정·취소/제거 | 초대 생성/조회/역할 수정/링크 재발급/취소/삭제·단회 링크 수락·실제 멤버 참여·역할 변경/제거·서버 권한/재시작/모바일 검증. 소유자 유지·자기 승격 불가. 이메일 자동 발송 없음. **읽기 전용 역할·메뉴별 서버 권한 집행은 남음**. [구현 내역](workspace-settings-crud.md) |
+| S03 members | members/invitations 초대 조회·권한 수정·취소/제거 | 초대 생성/조회/역할 수정/링크 재발급/취소/삭제·단회 링크 수락·실제 멤버 참여·역할 변경/제거·서버 권한/재시작/모바일 검증. 소유자 유지·자기 승격 불가. 이메일 자동 발송 없음. **뷰어와 6개 메뉴 범위·초대 상속·관리자 범위 상승 방지·REST/RPC/함수/집계/다운로드 권한 집행 구현**. 현재 멤버십을 매 요청 확인하며 발급자 권한 축소 시 기존 API 키 인증도 차단. 단위 238/238·전체 E2E 79/79, 마지막 보완 후 관련 E2E 10/10·백엔드 22/22·빌드 통과. [구현 내역](workspace-settings-crud.md) |
 | S04 brand-tracking | keyword_sets/brand_domains 경쟁사·자사 도메인 CRUD | 중복/URL 검증·분석 재분류 |
 | S05 tags | workspace_tag_groups/tags/assignments CRUD | 삭제 시 관계 정리·키워드/프롬프트 동기화 |
 | S06 plan/billing | plans/subscriptions/orders 조회, 변경/해지/취소 명령 | 실 결제 Provider와 콜백 검증 전에는 데모 상태를 명시; 원장 직접 수정 불가 |
@@ -78,7 +78,7 @@
 | S10 notifications | notification_preferences CRUD + 알림 읽음/삭제 | 토글 새로고침 유지·규칙별 실제 전달 Provider |
 | S11 api | workspace_api_keys 발급/목록/이름·권한·제한 수정/폐기 | 전체 비밀값은 최초 1회, prefix로 인증 불가, 폐기 즉시 차단 |
 
-프로필·워크스페이스 설정·멤버/초대의 주요 CRUD는 전용 서버 화면으로 전환했다. S02의 사용자 지정 정책 파일과 S03의 읽기 전용/메뉴별 권한은 남아 있다. 사용량 실조회와 S11 일부 API도 전체 탭 CRUD 완료를 의미하지 않는다. 다른 settings 탭의 인덱스 기반 localStorage 저장은 F07에서 제거해야 한다.
+프로필·워크스페이스 설정·멤버/초대의 주요 CRUD는 전용 서버 화면으로 전환했다. S03의 뷰어·메뉴 범위까지 구현했다. S02의 사용자 지정 정책 파일과 과거 통계 재수집은 남아 있다. 사용량 실조회와 S11 일부 API도 전체 탭 CRUD 완료를 의미하지 않는다. 다른 settings 탭의 인덱스 기반 localStorage 저장은 F07에서 제거해야 한다.
 
 ## 4. 공개 사이트 콘텐츠와 최종 인수
 

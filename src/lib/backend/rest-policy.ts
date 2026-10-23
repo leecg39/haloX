@@ -1,3 +1,4 @@
+import { grantSections } from './workspace-management.ts';
 import { DEFAULT_WORKSPACE_ID, RlsAccessDeniedError, type HaloXDatabase, type Row } from './database.ts';
 import { KEYWORD_EDITABLE_FIELDS } from './keyword-model.ts';
 import { GEO_EDITABLE_FIELDS, GEO_RESULT_TABLES } from './geo-model.ts';
@@ -16,6 +17,15 @@ export function assertRestWrite(db: HaloXDatabase, table: string, method: 'POST'
   if (method === 'PATCH' && Array.isArray(payload)) throw new Error('Object patch required');
   if (method !== 'POST' && !Object.entries(filters).some(([key, value]) => !['select', 'order', 'limit', 'offset', 'columns'].includes(key) && value)) {
     throw new Error('수정 또는 삭제할 항목을 선택해 주세요.');
+  }
+  if (table !== 'profiles' && !(table === 'workspaces' && method === 'POST')) {
+    const workspaceFilter = filters.workspace_id?.startsWith('eq.') ? filters.workspace_id.slice(3) : undefined;
+    if (workspaceFilter) db.assertTableAccess(table, workspaceFilter, actor, 'write');
+    const targets = method === 'POST' ? items : db.queryTable(table, { filters }, actor).data;
+    for (const row of targets) {
+      const workspace = table === 'workspaces' ? row.id : row.workspace_id;
+      if (workspace) db.assertTableAccess(table, String(workspace), actor, 'write');
+    }
   }
   if (table === 'workspace_invitations') throw new RlsAccessDeniedError('초대는 전용 초대 관리 기능으로만 변경합니다.');
   if (table === 'profiles' && method === 'PATCH') {
@@ -60,15 +70,17 @@ export function assertRestWrite(db: HaloXDatabase, table: string, method: 'POST'
     const workspaceId = table === 'workspaces' ? String(row.id) : String(row.workspace_id || DEFAULT_WORKSPACE_ID);
     const members = db.queryTable('workspace_members', { filters: { workspace_id: `eq.${workspaceId}`, user_id: `eq.${actor}` } }, actor).data;
     const role = members[0]?.role;
+    db.assertWorkspaceAccess(workspaceId, actor, 'other', 'write');
+    if (table === 'workspace_members') { grantSections(db, workspaceId, actor, row.allowed_sections); for (const item of items) grantSections(db, workspaceId, actor, item.allowed_sections ?? row.allowed_sections); }
+    if (table === 'workspace_api_keys') grantSections(db, workspaceId, actor, ['all']);
     if (role !== 'owner' && role !== 'admin') throw new RlsAccessDeniedError('Workspace administrator permission is required');
     if (table === 'workspaces' && method === 'DELETE' && role !== 'owner') throw new RlsAccessDeniedError('Only the workspace owner may delete it');
     if (table === 'workspace_members' && role !== 'owner' && (row.role === 'admin' || items.some(item => item.role === 'admin'))) throw new RlsAccessDeniedError('관리자 변경은 소유자만 할 수 있습니다.');
     if (table === 'workspace_members' && (row.role === 'owner' || items.some(item => item.role === 'owner'))) throw new RlsAccessDeniedError('Owner membership cannot be changed through this API');
   }
-  if (table === 'workspace_members' && method === 'POST' && items.some(row => Object.keys(row).some(key => !['workspace_id', 'user_id', 'role'].includes(key)))) throw new Error('멤버 계정과 권한만 지정할 수 있습니다.');
-  if (table === 'workspace_members' && items.some(row => 'allowed_sections' in row && JSON.stringify(row.allowed_sections) !== '["all"]')) throw new Error('현재는 전체 메뉴 접근만 지원합니다.');
+  if (table === 'workspace_members' && method === 'POST' && items.some(row => Object.keys(row).some(key => !['workspace_id', 'user_id', 'role', 'allowed_sections'].includes(key)))) throw new Error('멤버 계정과 권한만 지정할 수 있습니다.');
   if (table === 'workspace_members' && method === 'PATCH' && items.some(row => Object.keys(row).some(key => !['role', 'allowed_sections'].includes(key)))) throw new Error('멤버 권한만 변경할 수 있습니다.');
-  if (table === 'workspace_members' && items.some(row => 'role' in row && !['admin', 'member'].includes(String(row.role)))) throw new Error('유효하지 않은 멤버 권한입니다.');
+  if (table === 'workspace_members' && items.some(row => 'role' in row && !['admin', 'member', 'viewer'].includes(String(row.role)))) throw new Error('유효하지 않은 멤버 권한입니다.');
   if (table === 'workspace_api_keys' && method === 'PATCH' && items.some(row => Object.keys(row).some(key => !['name', 'revoked_at'].includes(key)))) throw new Error('API 키의 이름 또는 폐기 상태만 변경할 수 있습니다.');
   if (table === 'workspace_api_keys' && method === 'POST' && items.some(row => Object.keys(row).some(key => !['workspace_id', 'name', 'scopes', 'expires_at'].includes(key)))) throw new Error('API 키 비밀값은 서버에서 생성합니다.');
 }

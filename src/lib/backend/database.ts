@@ -1,3 +1,5 @@
+import { canAccess, canWrite, normalizeSections, type Permission, type Section } from '../permissions/workspace.ts';
+import { tableSection, rpcSection } from './permission-policy.ts';
 /**
  * HaloX Relational Store, RLS Guard, PostgREST Query Engine, RPC & Edge Function Runtime (S2–S7)
  */
@@ -959,6 +961,22 @@ export class HaloXDatabase {
     }
   }
 
+  public workspacePermissions(workspace: string, actor: string): Permission {
+    this.assertWorkspaceMember(workspace, actor);
+    const member = (this.tables.get('workspace_members') || []).find(row => row.workspace_id === workspace && row.user_id === actor)!;
+    return { role: String(member.role), allowed_sections: normalizeSections(member.allowed_sections) };
+  }
+
+  public assertWorkspaceAccess(workspace: string, actor: string, section?: Section, operation: 'read' | 'write' | 'download' = 'read'): void {
+    const permission = this.workspacePermissions(workspace, actor);
+    if (!canAccess(permission, section)) throw new RlsAccessDeniedError('이 메뉴에 접근할 권한이 없습니다. 워크스페이스 관리자에게 문의해 주세요.');
+    if (operation !== 'read' && !canWrite(permission)) throw new RlsAccessDeniedError('읽기 전용 멤버는 수정·실행·다운로드를 할 수 없습니다.');
+  }
+
+  public assertTableAccess(table: string, workspace: string, actor: string, operation: 'read' | 'write' = 'read'): void {
+    this.assertWorkspaceAccess(workspace, actor, tableSection(table), operation);
+  }
+
   private matchesPostgrestFilter(row: Row, key: string, rawExpr: string): boolean {
     const field = key.includes('.') ? key.split('.').pop()! : key;
     const val = row[field];
@@ -1065,6 +1083,10 @@ export class HaloXDatabase {
         crypto.timingSafeEqual(Buffer.from(k.key_hash), Buffer.from(candidateHash))
     );
     if (!matched) return null;
+    // Legacy keys are workspace-owner credentials; new keys follow their issuer's live authority.
+    const issuer = matched.created_by || (this.tables.get('workspaces') || []).find(row => row.id === matched.workspace_id)?.owner_id;
+    const member = (this.tables.get('workspace_members') || []).find(row => row.workspace_id === matched.workspace_id && row.user_id === issuer);
+    if (!member || !['owner', 'admin'].includes(String(member.role)) || (member.role !== 'owner' && !normalizeSections(member.allowed_sections).includes('all'))) return null;
     matched.last_used_at = new Date().toISOString();
     return this.sanitizeRowForClient('workspace_api_keys', matched);
   }
@@ -1084,8 +1106,11 @@ export class HaloXDatabase {
     // Apply RLS filter
     let rows = rawRows.filter(row => {
       if (GLOBAL_READ_TABLES.has(tableName)) return true;
+      const workspace = tableName === 'workspaces' ? row.id : row.workspace_id || (tableName === 'serp_snapshots' ? (this.tables.get('keywords') || []).find(keyword => keyword.id === row.keyword_id)?.workspace_id : undefined);
+      if (workspace && (!allowedWorkspaces.has(String(workspace)) || !canAccess(this.workspacePermissions(String(workspace), actorUserId), tableSection(tableName)))) return false;
       if (tableName === 'workspaces') return allowedWorkspaces.has(String(row.id));
       if (tableName === 'profiles') return String(row.id) === actorUserId;
+      if (['workspace_members', 'workspace_invitations'].includes(tableName) && row.user_id !== actorUserId && !canAccess(this.workspacePermissions(String(row.workspace_id), actorUserId), 'other')) return false;
       if (tableName === 'workspace_invitations') return (this.tables.get('workspace_members') || []).some(member => member.workspace_id === row.workspace_id && member.user_id === actorUserId && ['owner', 'admin'].includes(String(member.role)));
       if (tableName === 'dashboard_preferences') return row.user_id === actorUserId && allowedWorkspaces.has(String(row.workspace_id));
       if ('workspace_id' in row && row.workspace_id) {
@@ -1204,7 +1229,7 @@ export class HaloXDatabase {
       }
 
       const workspaceId = String(item.workspace_id || [...this.getAllowedWorkspaceIds(actorUserId)][0] || '');
-      this.assertWorkspaceMember(workspaceId, actorUserId);
+      this.assertWorkspaceAccess(workspaceId, actorUserId, tableName === 'workspace_events' ? undefined : ['workspaces', 'workspace_members', 'workspace_invitations'].includes(tableName) ? 'other' : tableSection(tableName), 'write');
 
       const record: Row = validateContentRecord(tableName, validateLibraryRecord(tableName, validateGeoRecord(tableName, validateKeywordRecord(tableName, {
         created_at: now,
@@ -1223,6 +1248,7 @@ export class HaloXDatabase {
       if (tableName === 'workspace_api_keys') {
         const rawSecret = typeof item.raw_key === 'string' ? item.raw_key : `hx_live_${crypto.randomBytes(32).toString('base64url')}`;
         delete record.raw_key;
+        record.created_by = actorUserId;
         record.key_prefix = rawSecret.slice(0, 12);
         record.key_hash = crypto.createHash('sha256').update(rawSecret).digest('hex');
         record.revoked_at = item.revoked_at ?? null;
@@ -1277,6 +1303,7 @@ export class HaloXDatabase {
         }
       }
 
+      if (tableName !== 'profiles') this.assertWorkspaceAccess(String(tableName === 'workspaces' ? row.id : row.workspace_id), actorUserId, tableName === 'workspace_events' ? undefined : ['workspaces', 'workspace_members', 'workspace_invitations'].includes(tableName) ? 'other' : tableSection(tableName), 'write');
       const safePatch: Row = tableName === 'workspaces' ? validateWorkspacePatch(patch, row) : { ...patch };
       if (tableName === 'workspaces' && safePatch.slug !== undefined && table.some(other => other.id !== row.id && String(other.slug).toLowerCase() === String(safePatch.slug).toLowerCase())) throw new Error('이미 사용 중인 슬러그입니다.');
       delete safePatch.id;
@@ -1348,6 +1375,7 @@ export class HaloXDatabase {
         }
       }
 
+      if (tableName !== 'profiles') this.assertWorkspaceAccess(String(tableName === 'workspaces' ? row.id : row.workspace_id), actorUserId, tableName === 'workspace_events' ? undefined : ['workspaces', 'workspace_members', 'workspace_invitations'].includes(tableName) ? 'other' : tableSection(tableName), 'write');
       deleted.push(this.sanitizeRowForClient(tableName, row));
     }
 
@@ -1447,7 +1475,7 @@ export class HaloXDatabase {
   }
 
   public uploadKnowledgeFile(workspaceId: string, entityId: string, title: string, filename: string, bytes: Uint8Array, actor = DEFAULT_USER_ID): Row {
-    this.assertWorkspaceMember(workspaceId, actor);
+    this.assertWorkspaceAccess(workspaceId, actor, 'other', 'write');
     const file = prepareLibraryFile(filename, bytes);
     const files = this.serverRecords.knowledge_files || [];
     const used = files.filter(row => row.workspace_id === workspaceId).reduce((sum, row) => sum + Number(row.byte_size), 0);
@@ -1462,14 +1490,14 @@ export class HaloXDatabase {
   public readKnowledgeFile(sourceId: string, actor = DEFAULT_USER_ID): Row | null {
     const file = (this.serverRecords.knowledge_files || []).find(row => row.source_id === sourceId);
     if (!file) return null;
-    this.assertWorkspaceMember(String(file.workspace_id), actor);
+    this.assertWorkspaceAccess(String(file.workspace_id), actor, 'other', 'download');
     return { ...file };
   }
 
   private contentContext(workspaceId: string, profileId: unknown, entityIds: unknown, actor: string): ContentGenerationContext {
     const profile = profileId === undefined
-      ? (this.tables.get('writing_style_profiles') || []).find(row => row.workspace_id === workspaceId && row.is_default)
-      : (this.tables.get('writing_style_profiles') || []).find(row => row.workspace_id === workspaceId && row.id === profileId);
+      ? this.queryTable('writing_style_profiles', {}, actor).data.find(row => row.workspace_id === workspaceId && row.is_default)
+      : this.queryTable('writing_style_profiles', {}, actor).data.find(row => row.workspace_id === workspaceId && row.id === profileId);
     const selection = validateLibraryRecord('content_jobs', { workspace_id: workspaceId, writing_style_profile_id: profileId === undefined ? profile?.id : profileId, knowledge_entity_ids: entityIds ?? [] }, this.tables);
     const context: ContentGenerationContext = { knowledge: [] };
     const rows = (table: string) => this.queryTable(table, { filters: { workspace_id: `eq.${workspaceId}` } }, actor).data;
@@ -1571,22 +1599,22 @@ export class HaloXDatabase {
 
     // Omitted workspace IDs must never fall back to another user's demo tenant.
     if (args.p_workspace_id || args._workspace_id || args.workspace_id || !['record_auth_login', 'cancel_account_deletion'].includes(rpcName)) {
-      this.assertWorkspaceMember(workspaceId, actorUserId);
+      this.assertWorkspaceAccess(workspaceId, actorUserId, rpcSection(rpcName), ['reserve_unit_with_bypass', 'commit_reservation', 'release_reservation', 'revoke_workspace_api_key'].includes(rpcName) ? 'write' : 'read');
     }
 
-    const keywords = (this.tables.get('keywords') || []).filter(
+    const keywords = this.queryTable('keywords', {}, actorUserId).data.filter(
       k => k.workspace_id === workspaceId && !k.deleted_at
     );
-    const prompts = (this.tables.get('geo_prompts') || []).filter(
+    const prompts = this.queryTable('geo_prompts', {}, actorUserId).data.filter(
       p => p.workspace_id === workspaceId && !p.deleted_at
     );
-    const promptSets = (this.tables.get('geo_prompt_sets') || []).filter(
+    const promptSets = this.queryTable('geo_prompt_sets', {}, actorUserId).data.filter(
       s => s.workspace_id === workspaceId
     );
-    const runs = (this.tables.get('geo_prompt_runs') || []).filter(
+    const runs = this.queryTable('geo_prompt_runs', {}, actorUserId).data.filter(
       r => r.workspace_id === workspaceId
     );
-    const scans = (this.tables.get('site_audit_scans') || []).filter(
+    const scans = this.queryTable('site_audit_scans', {}, actorUserId).data.filter(
       s => s.workspace_id === workspaceId
     );
     const latestScan = scans[scans.length - 1] || null;
@@ -1671,10 +1699,10 @@ export class HaloXDatabase {
         };
 
       case 'get_ga4_channel_summary': {
-        const ga4Rows = (this.tables.get('ga4_page_stats') || []).filter(
+        const ga4Rows = this.queryTable('ga4_page_stats', {}, actorUserId).data.filter(
           r => r.workspace_id === workspaceId
         );
-        const gscTotals = (this.tables.get('gsc_daily_totals') || []).filter(
+        const gscTotals = this.queryTable('gsc_daily_totals', {}, actorUserId).data.filter(
           r => r.workspace_id === workspaceId
         );
         const organicSessions = ga4Rows.reduce((s, r) => s + Number(r.organic_sessions || 0), 0);
@@ -1693,7 +1721,7 @@ export class HaloXDatabase {
       }
 
       case 'get_ga4_dashboard_timeseries': {
-        const ga4Rows = (this.tables.get('ga4_page_stats') || []).filter(
+        const ga4Rows = this.queryTable('ga4_page_stats', {}, actorUserId).data.filter(
           r => r.workspace_id === workspaceId
         );
         return ga4Rows.map(r => ({
@@ -1716,13 +1744,13 @@ export class HaloXDatabase {
       }
 
       case 'get_gsc_dashboard_timeseries': {
-        return (this.tables.get('gsc_daily_totals') || []).filter(
+        return this.queryTable('gsc_daily_totals', {}, actorUserId).data.filter(
           r => r.workspace_id === workspaceId
         );
       }
 
       case 'get_page_ga4_stats': {
-        return (this.tables.get('ga4_page_stats') || [])
+        return this.queryTable('ga4_page_stats', {}, actorUserId).data
           .filter(r => r.workspace_id === workspaceId)
           .map(r => ({
             ...r,
@@ -1803,7 +1831,7 @@ export class HaloXDatabase {
 
       case 'get_latest_serp_snapshots': {
         const ids = Array.isArray(args.p_keyword_ids) ? args.p_keyword_ids.map(String) : null;
-        const snaps = (this.tables.get('serp_snapshots') || []).filter(
+        const snaps = this.queryTable('serp_snapshots', {}, actorUserId).data.filter(
           s => s.workspace_id === workspaceId && (!ids || ids.includes(String(s.keyword_id)))
         );
         return snaps;
@@ -1821,7 +1849,7 @@ export class HaloXDatabase {
           },
           audit_active: false,
           audit_latest: latestScan,
-          weekly_report: (this.tables.get('report_snapshots') || []).find(
+          weekly_report: this.queryTable('report_snapshots', {}, actorUserId).data.find(
             r => r.workspace_id === workspaceId
           ) || null,
           funnel_summary: { awareness: 1, consideration: 1, conversion: 0 },
@@ -1936,13 +1964,13 @@ export class HaloXDatabase {
         }));
 
       case 'get_user_activity_snapshot': {
-        const exportsList = (this.tables.get('export_history') || []).filter(
+        const exportsList = this.queryTable('export_history', {}, actorUserId).data.filter(
           e => e.workspace_id === workspaceId
         );
-        const jobs = (this.tables.get('content_jobs') || []).filter(
+        const jobs = this.queryTable('content_jobs', {}, actorUserId).data.filter(
           j => j.workspace_id === workspaceId
         );
-        const keys = (this.tables.get('workspace_api_keys') || []).filter(
+        const keys = this.queryTable('workspace_api_keys', {}, actorUserId).data.filter(
           k => k.workspace_id === workspaceId && !k.revoked_at
         );
         return [
@@ -1962,10 +1990,10 @@ export class HaloXDatabase {
         return [{ date: '2026-10-22', value: currentWebHealth }];
 
       case 'get_workspace_activity_snapshot': {
-        const jobs = (this.tables.get('content_jobs') || []).filter(
+        const jobs = this.queryTable('content_jobs', {}, actorUserId).data.filter(
           j => j.workspace_id === workspaceId
         );
-        const keys = (this.tables.get('workspace_api_keys') || []).filter(
+        const keys = this.queryTable('workspace_api_keys', {}, actorUserId).data.filter(
           k => k.workspace_id === workspaceId && !k.revoked_at
         );
         return [
@@ -2123,7 +2151,7 @@ export class HaloXDatabase {
         const reservations = this.tables.get('usage_reservations') || [];
         const target = reservations.find(r => r.id === resId);
         if (!target) return false;
-        this.assertWorkspaceMember(String(target.workspace_id), actorUserId);
+        this.assertWorkspaceAccess(String(target.workspace_id), actorUserId, undefined, 'write');
         target.status = 'committed';
         target.updated_at = new Date().toISOString();
         return true;
@@ -2134,7 +2162,7 @@ export class HaloXDatabase {
         const reservations = this.tables.get('usage_reservations') || [];
         const target = reservations.find(r => r.id === resId);
         if (!target) return false;
-        this.assertWorkspaceMember(String(target.workspace_id), actorUserId);
+        this.assertWorkspaceAccess(String(target.workspace_id), actorUserId, undefined, 'write');
         target.status = 'released';
         target.updated_at = new Date().toISOString();
         return true;
@@ -2145,7 +2173,10 @@ export class HaloXDatabase {
         const keys = this.tables.get('workspace_api_keys') || [];
         const target = keys.find(k => k.id === keyId);
         if (!target) return false;
-        this.assertWorkspaceMember(String(target.workspace_id), actorUserId);
+        this.assertWorkspaceAccess(String(target.workspace_id), actorUserId, undefined, 'write');
+        const permission = this.workspacePermissions(String(target.workspace_id), actorUserId);
+        if (!['owner', 'admin'].includes(permission.role)) throw new RlsAccessDeniedError('관리자 권한이 필요합니다.');
+        this.assertWorkspaceAccess(String(target.workspace_id), actorUserId, 'other', 'write');
         target.revoked_at = new Date().toISOString();
         return true;
       }
@@ -2156,8 +2187,8 @@ export class HaloXDatabase {
           workspace: (this.tables.get('workspaces') || []).find(w => w.id === workspaceId) || null,
           quota: this.callRpc('get_workspace_quota_summary', { _workspace_id: workspaceId }, actorUserId),
           paused: this.callRpc('get_paused_summary', { p_workspace_id: workspaceId }, actorUserId),
-          members: this.callRpc('get_workspace_members', { p_workspace_id: workspaceId }, actorUserId),
-          funnel: this.callRpc('get_full_funnel_stats', { p_workspace_id: workspaceId }, actorUserId),
+          members: canAccess(this.workspacePermissions(workspaceId, actorUserId), 'other') ? this.callRpc('get_workspace_members', { p_workspace_id: workspaceId }, actorUserId) : [],
+          funnel: canAccess(this.workspacePermissions(workspaceId, actorUserId), 'dashboard') ? this.callRpc('get_full_funnel_stats', { p_workspace_id: workspaceId }, actorUserId) : null,
         };
       }
 
@@ -2182,6 +2213,7 @@ export class HaloXDatabase {
         const data = this.callRpc(rpcName, rpcArgs, actorUserId);
         return { data, error_fallback: false, reason: null };
       } catch (error) {
+        if (error instanceof RlsAccessDeniedError) throw error;
         return {
           data: null,
           error_fallback: true,
@@ -2276,7 +2308,12 @@ export class HaloXDatabase {
     if (FEEDBACK_COMMANDS.includes(fnName)) return runFeedbackCommand(this, fnName, payload, actorUserId);
 
     const workspaceId = String(payload.workspace_id || [...this.getAllowedWorkspaceIds(actorUserId)][0] || '');
-    this.assertWorkspaceMember(workspaceId, actorUserId);
+    const section: Section = fnName.startsWith('dashboard-') ? 'dashboard'
+      : ANALYSIS_COMMANDS.includes(fnName) || /^(keywords-|geo-|ai-expand-keywords|bulk-collect-keyword-data|fetch-serp-snapshot)$/.test(fnName) || fnName.startsWith('keywords-') || fnName.startsWith('geo-') ? 'analysis'
+      : AUDIT_COMMANDS.includes(fnName) || STRATEGY_COMMANDS.includes(fnName) || GAP_COMMANDS.includes(fnName) ? 'strategy'
+      : MONITOR_COMMANDS.includes(fnName) || REPORT_COMMANDS.includes(fnName) ? 'monitoring'
+      : RAW_COMMANDS.includes(fnName) || fnName === 'workspace-invite' || fnName.startsWith('nicepay-') || ['gsc-sync-enqueue', 'sync-ga4-data'].includes(fnName) ? 'other' : 'execution';
+    this.assertWorkspaceAccess(workspaceId, actorUserId, section, 'write');
     const now = new Date().toISOString();
 
     if (fnName === 'keywords-save') {

@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } fro
 import { useRouter } from 'next/navigation';
 import parse, { Element, attributesToProps, domToReact, type DOMNode, type HTMLReactParserOptions } from 'html-react-parser';
 import { createElement } from 'react';
+import { canAccess, routeSection } from '@/lib/permissions/workspace';
 import { Eye, EyeOff } from 'lucide-react';
 import type { Capture, DialogRequest, DialogResult } from '@/types/clone';
 import { useCloneNavigation, writeActiveWorkspace } from './CloneNavigation';
@@ -46,7 +47,9 @@ function applySessionIdentity(root:HTMLElement,user:{email?:unknown;full_name?:u
 
 const parserOptions:HTMLReactParserOptions={replace(node){if(!(node instanceof Element))return;if(['script','iframe','noscript'].includes(node.name))return <></>;const nodeText=node.children.map(child=>'data'in child?child.data:'').join('').trim();if(node.name==='form'&&hasNamedInput(node,'email')&&hasNamedInput(node,'password')){const p=attributesToProps(node.attribs);return createElement('form',{...p,method:'post'},domToReact(node.children as DOMNode[],parserOptions))}if(node.name==='button'&&node.attribs.type==='button'&&nodeText==='인증번호 발송')return <PhoneVerificationButton className={node.attribs.class}/>;if(node.name==='button'&&node.attribs.type==='button'&&node.children.some(child=>child instanceof Element&&child.name==='svg'&&child.attribs.class?.includes('lucide-eye')))return <PasswordVisibilityButton className={node.attribs.class}/>;if(['input','textarea','select'].includes(node.name)){const p=attributesToProps(node.attribs);if('value'in p){p.defaultValue=p.value;delete p.value}if('checked'in p){p.defaultChecked=p.checked;delete p.checked}if(node.name==='textarea')return createElement('textarea',{...p,defaultValue:node.children.map(c=>'data'in c?c.data:'').join('')});if(node.name==='input')return createElement('input',p);return createElement('select',p,domToReact(node.children as DOMNode[],parserOptions))}}};
 export default function ClonePage({data,requestedRoute,children}:{data:Capture;requestedRoute:string;children?:ReactNode}){
- const {user}=useWorkspace();
+ const {user,permission,loading:workspaceLoading,error:workspaceError,reload:reloadWorkspace}=useWorkspace();
+ const section=routeSection(requestedRoute);
+ const blocked=!!section&&(workspaceLoading||!!workspaceError||!canAccess(permission,section));
  const router=useRouter();const rootRef=useRef<HTMLDivElement>(null);const [dialog,setDialog]=useState<DialogRequest|null>(null);const [toast,setToast]=useState('');const toastTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
  const navigate=useCallback((url:string)=>{
   try {
@@ -59,7 +62,7 @@ export default function ClonePage({data,requestedRoute,children}:{data:Capture;r
  useEffect(()=>{if(user&&rootRef.current)applySessionIdentity(rootRef.current,user)},[user,requestedRoute,data.html]);
  const navigation=useCloneNavigation({rootRef,route:requestedRoute,navigate,openDialog,notify,menus:data.publicInteractions?.menus});
  const content=useMemo(()=>parse(data.html,{replace(node,index){
-  if(children&&node instanceof Element&&node.attribs.id==='main-scroll-container')return <main {...attributesToProps(node.attribs)} data-live-root="true">{children}</main>;
+  if((children||section)&&node instanceof Element&&node.attribs.id==='main-scroll-container')return <main {...attributesToProps(node.attribs)} data-live-root={children||blocked ? "true" : undefined}>{blocked ? <section className="live live-card" aria-label="메뉴 접근 안내"><h1>{workspaceLoading ? '권한 확인 중…' : workspaceError ? '계정 정보를 확인할 수 없습니다' : '접근 권한이 없습니다'}</h1><p>{workspaceError || (workspaceLoading ? '현재 워크스페이스의 권한을 확인하고 있습니다.' : '이 메뉴는 현재 멤버에게 허용되지 않았습니다. 관리자에게 메뉴 권한을 요청해 주세요.')}</p><button onClick={() => void reloadWorkspace()}>권한 다시 확인</button> <a href="/app/workspaces">워크스페이스 선택</a> · <a href="/app/settings?tab=profile">내 프로필</a></section> : <>{section && permission.role === 'viewer' && <p className="live-status" role="status">읽기 전용 · 조회와 검색을 할 수 있습니다. 수정·실행·다운로드는 제한됩니다.</p>}{section && !permission.allowed_sections.includes('all') && permission.role !== 'owner' && <p className="live-status">허용된 메뉴의 자료만 표시합니다. 다른 메뉴의 자료가 필요한 집계와 연결 목록은 일부가 생략될 수 있습니다.</p>}{children || (permission.role === 'viewer' ? <fieldset disabled>{domToReact(node.children as DOMNode[],parserOptions)}</fieldset> : domToReact(node.children as DOMNode[],parserOptions))}</>}</main>;
   const pageLabel=requestedRoute.split('?')[0]==='/app/referral'?'추천 프로그램':requestedRoute.split('?')[0]==='/app/settings'&&new URLSearchParams(requestedRoute.split('?')[1]).get('tab')==='profile'?'내 프로필과 보안':requestedRoute.split('?')[0]==='/app/settings'?'설정':undefined;
   if(pageLabel&&node instanceof Element&&node.name==='span'&&node.attribs.role==='link'&&node.attribs['aria-current']==='page')return <span {...attributesToProps(node.attribs)}>{pageLabel}</span>;
   if(requestedRoute.startsWith('/app/signup') && node instanceof Element && node.name==='form'){
@@ -67,7 +70,7 @@ export default function ClonePage({data,requestedRoute,children}:{data:Capture;r
    return <form {...attributesToProps(node.attribs)} data-clone-form="true">{domToReact(node.children as DOMNode[],signupOptions)}</form>;
   }
   return parserOptions.replace?.(node,index);
- }}),[data.html,children,requestedRoute]);
+ }}),[data.html,children,requestedRoute,section,blocked,permission,workspaceLoading,workspaceError,reloadWorkspace]);
  useEffect(()=>{document.body.className=data.bodyClass;document.documentElement.className=data.htmlClass;document.body.style.removeProperty('pointer-events');document.body.style.removeProperty('overflow');return()=>{if(toastTimer.current)clearTimeout(toastTimer.current)}},[data]);
  useEffect(()=>{const root=rootRef.current;if(!root)return;const cleanup=children?()=>{}:initializeDataControls(root,requestedRoute);
   const originalFields=root.querySelectorAll<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>('input:not([data-live-root] input),textarea:not([data-live-root] textarea),select:not([data-live-root] select)');

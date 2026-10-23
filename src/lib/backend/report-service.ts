@@ -97,6 +97,7 @@ export function generateScheduledReport(db: HaloXDatabase, workspace: string, ac
 export function reportDownload(db: HaloXDatabase, id: string, actor: string, format: string) {
   if (!['json', 'md'].includes(format)) throw new Error('JSON 또는 Markdown을 선택해 주세요.');
   const report = db.queryTable('report_snapshots', { filters: { id: `eq.${id}` } }, actor).data[0]; if (!report) return null;
+  db.assertWorkspaceAccess(String(report.workspace_id), actor, 'monitoring', 'download');
   const data = readReports(db, String(report.workspace_id), actor, id);
   if (report.schema_version !== 1) throw new Error('이전 데모 리포트는 새 리포트를 생성한 뒤 내려받아 주세요.');
   const snapshot = report.snapshot as ObservationSnapshot;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
+import { canAccess, routeSection, SECTIONS } from '@/lib/permissions/workspace';
 import parse from "html-react-parser";
 import type { DialogRequest, PublicMenu } from "@/types/clone";
 import { CloseIcon, SearchIcon, SidebarIcon } from "@/components/icons";
@@ -37,7 +38,6 @@ const APP_ITEMS: readonly Item[] = [
 const SEARCH_ITEMS: readonly Item[] = [...APP_ITEMS, ["설정", "/app/settings"], ["AI 대화 개요", "/app/geo"], ["기회 분석", "/app/gap"], ["추천 프로그램", "/app/referral"], ["피드백", "/app/feedback"]];
 const ACCOUNT_ITEMS: readonly Item[] = [["내 프로필과 보안", "/app/settings?tab=profile"], ["Pro로 업그레이드", "/app/settings?tab=billing"], ["설정", "/app/settings"], ["결제", "/app/settings?tab=billing"], ["알림", "/app/settings?tab=notifications"], ["추천 프로그램", "/app/referral"], ["피드백", "/app/feedback"], ["문서", "https://docs.haloxlabs.ai"], ["로그아웃", "/app/login"]];
 const LANGUAGE_ITEMS: readonly Item[] = [["한국어", "/ko"], ["English", "/en"]];
-const GROUPS: Record<number, string> = { 1: "분석", 5: "전략", 7: "실행", 10: "모니터링", 12: "기타" };
 const PUBLIC_APP_ROUTE = /^\/app\/(login|signup|forgot-password|reset-password|find-email|auth\/callback|verify-phone|invite)(\/|\?|$)/;
 
 function publicItems(locale: string, kind: string): Item[] {
@@ -53,7 +53,7 @@ function publicItems(locale: string, kind: string): Item[] {
 export function useCloneNavigation({ rootRef, route, navigate, openDialog, notify, menus }: Options) {
   const [menu, setMenu] = useState<Menu | null>(null);
   const [query, setQuery] = useState("");
-  const { activeWorkspace, workspaces } = useWorkspace();
+  const { activeWorkspace, workspaces, permission, loading } = useWorkspace();
   const overlayRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
   const collapsedRef = useRef(false);
@@ -74,7 +74,19 @@ export function useCloneNavigation({ rootRef, route, navigate, openDialog, notif
 
   useEffect(() => {
     applyWorkspaceToSidebarDom(rootRef.current, activeWorkspace);
-  }, [route, rootRef, activeWorkspace]);
+    rootRef.current?.querySelectorAll<HTMLAnchorElement>('[data-sidebar] a[href]').forEach(link => {
+      const section = routeSection(link.getAttribute('href') || '');
+      const container = link.closest<HTMLElement>('[data-sidebar="menu-item"]') || link;
+      container.hidden = !!section && (loading || !canAccess(permission, section));
+      if (container.hidden) container.style.display = 'none'; else container.style.removeProperty('display');
+    });
+    rootRef.current?.querySelectorAll<HTMLElement>('[data-sidebar="group"]').forEach(group => {
+      const links = [...group.querySelectorAll<HTMLAnchorElement>('a[href]')].filter(link => !!routeSection(link.getAttribute('href') || ''));
+      if (!links.length) return;
+      group.hidden = links.every(link => (link.closest<HTMLElement>('[data-sidebar="menu-item"]') || link).hidden);
+      if (group.hidden) group.style.display = 'none'; else group.style.removeProperty('display');
+    });
+  }, [route, rootRef, activeWorkspace, permission, loading]);
 
   useEffect(() => {
     if (!menu) return;
@@ -172,14 +184,14 @@ export function useCloneNavigation({ rootRef, route, navigate, openDialog, notif
     return handled;
   }
 
-  const visibleItems = menu?.items.filter(([label, url]) => `${label} ${url}`.toLowerCase().includes(query.toLowerCase())) || [];
+  const visibleItems = menu?.items.filter(([label, url]) => (menu.public || !routeSection(url) || (!loading && canAccess(permission, routeSection(url)))) && `${label} ${url}`.toLowerCase().includes(query.toLowerCase())) || [];
   const overlay = menu && <div className={`clone-nav-layer clone-nav-${menu.kind}${menu.public ? " clone-nav-public" : ""}`} data-clone-navigation="true" onClick={event => event.stopPropagation()}>
     {menu.kind !== "menu" && <div className="clone-nav-backdrop" onClick={close} />}
     <div ref={overlayRef} className={"clone-nav-panel" + (menu.html ? " clone-nav-rich" : "")} role={menu.kind === "menu" ? "menu" : "dialog"} aria-modal={menu.kind !== "menu" || undefined} aria-label={menu.title} style={menu.kind === "menu" ? { left: menu.left, top: menu.top } : undefined}>
       <div className="clone-nav-heading"><span>{menu.title}</span>{menu.kind !== "menu" && <button onClick={close} aria-label="닫기"><CloseIcon size={16} /></button>}</div>
       {menu.kind === "search" && <label className="clone-nav-searchbox"><SearchIcon size={16} /><input value={query} onChange={event => setQuery(event.target.value)} placeholder="페이지 이름으로 검색..." aria-label="페이지 검색" onKeyDown={event => { if (event.key === "Enter" && visibleItems[0]) select(visibleItems[0][1]); }} /><kbd>ESC</kbd></label>}
       {menu.kind === "drawer" && !menu.public && <button className="clone-nav-workspace" onClick={() => select("/app/workspaces")}><SidebarIcon size={24} /><span>{activeWorkspace.name}<small>{activeWorkspace.plan || "Trial"}</small></span></button>}
-      <div className="clone-nav-list">{menu.html ? <div onClick={event => { const target = event.target as HTMLElement; const btn = target.closest<HTMLButtonElement>("button[aria-expanded]"); if (btn && menu.public) { const original = menus?.find(m => m.label === "모바일 " + btn.textContent?.trim()); const panel = btn.nextElementSibling as HTMLElement | null; if (original && panel) { const open = btn.getAttribute("aria-expanded") !== "true"; btn.setAttribute("aria-expanded", String(open)); panel.hidden = !open; panel.style.display = open ? "block" : "none"; if (open) panel.innerHTML = original.panelHtml; return; } } const a = target.closest("a"); if (a && !event.metaKey && !event.ctrlKey) { event.preventDefault(); select(a.getAttribute("href") || "/ko"); } }}>{parse(menu.html)}</div> : visibleItems.map(([text, url], index) => <div key={`${text}:${url}`}>{menu.kind === "drawer" && !menu.public && GROUPS[index] && <p className="clone-nav-group">{GROUPS[index]}</p>}<a role={menu.kind === "menu" ? "menuitem" : undefined} href={url} aria-current={route.split("?")[0] === url || text.startsWith("✓ ") ? "page" : undefined} onClick={event => { if (!event.metaKey && !event.ctrlKey && !event.shiftKey && event.button === 0) { event.preventDefault(); select(url); } }}><span>{text}</span>{menu.kind === "search" && <small>{url}</small>}</a></div>)}{!visibleItems.length && <p className="clone-nav-empty">검색 결과가 없습니다.</p>}</div>
+      <div className="clone-nav-list">{menu.html && menu.public ? <div onClick={event => { const target = event.target as HTMLElement; const btn = target.closest<HTMLButtonElement>("button[aria-expanded]"); if (btn && menu.public) { const original = menus?.find(m => m.label === "모바일 " + btn.textContent?.trim()); const panel = btn.nextElementSibling as HTMLElement | null; if (original && panel) { const open = btn.getAttribute("aria-expanded") !== "true"; btn.setAttribute("aria-expanded", String(open)); panel.hidden = !open; panel.style.display = open ? "block" : "none"; if (open) panel.innerHTML = original.panelHtml; return; } } const a = target.closest("a"); if (a && !event.metaKey && !event.ctrlKey) { event.preventDefault(); select(a.getAttribute("href") || "/ko"); } }}>{parse(menu.html)}</div> : visibleItems.map(([text, url], index) => <div key={`${text}:${url}`}>{menu.kind === "drawer" && !menu.public && routeSection(url) && (index === 0 || routeSection(visibleItems[index - 1][1]) !== routeSection(url)) && <p className="clone-nav-group">{SECTIONS[routeSection(url)!]}</p>}<a role={menu.kind === "menu" ? "menuitem" : undefined} href={url} aria-current={route.split("?")[0] === url || text.startsWith("✓ ") ? "page" : undefined} onClick={event => { if (!event.metaKey && !event.ctrlKey && !event.shiftKey && event.button === 0) { event.preventDefault(); select(url); } }}><span>{text}</span>{menu.kind === "search" && <small>{url}</small>}</a></div>)}{!visibleItems.length && <p className="clone-nav-empty">검색 결과가 없습니다.</p>}</div>
       {menu.kind === "drawer" && !menu.html && <div className="clone-nav-footer"><button onClick={() => select(menu.public ? "/app" : "/app/settings")}>{menu.public ? "대시보드로 이동" : "설정"}</button><button onClick={() => select(menu.public ? `/${locale}/contact-sales` : "/app/feedback")}>{menu.public ? "문의하기" : "서비스 개선 피드백"}</button></div>}
     </div>
   </div>;

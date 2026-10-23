@@ -18,7 +18,7 @@ function get(db: HaloXDatabase, table: string, workspace: string, id: unknown, a
   return row;
 }
 function admin(db: HaloXDatabase, workspace: string, actor: string) {
-  db.assertWorkspaceMember(workspace, actor);
+  db.assertWorkspaceAccess(workspace, actor, 'execution', 'write');
   const member = db.queryTable('workspace_members', { filters: { ...where(workspace), user_id: `eq.${actor}` } }, actor).data[0];
   if (!['owner', 'admin'].includes(String(member?.role))) throw new RlsAccessDeniedError('외부 연결과 게시 작업에는 워크스페이스 관리자 권한이 필요합니다.');
 }

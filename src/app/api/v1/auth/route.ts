@@ -41,6 +41,7 @@ function sessionView(db: HaloXDatabase, userId: string) {
       : { id: userId },
     default_workspace_id: workspaces[0]?.id || null,
     workspaces,
+    permissions: Object.fromEntries(workspaces.map(row => [String(row.id), db.workspacePermissions(String(row.id), userId)])),
     workspace_plans: db.queryTable('workspace_plans', {}, userId).data,
   };
 }

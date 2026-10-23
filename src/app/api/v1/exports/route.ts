@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
   if (!workspaceId) return NextResponse.json({ error: '워크스페이스를 선택해 주세요.' }, { status: 400 });
   try {
     const data = await haloxStore.read(db => {
-      db.assertWorkspaceMember(workspaceId, auth.actor);
+      db.assertWorkspaceAccess(workspaceId, auth.actor, 'execution');
       const member = db.queryTable('workspace_members', { filters: { workspace_id: `eq.${workspaceId}`, user_id: `eq.${auth.actor}` } }, auth.actor).data[0];
       return { translation_configured: openAITranslationConfigured(), can_manage_connections: ['owner', 'admin'].includes(String(member?.role)), ...Object.fromEntries(EXPORT_TABLES.map(table => [table, db.queryTable(table, { filters: { workspace_id: `eq.${workspaceId}` }, order: 'created_at.desc' }, auth.actor).data])) };
     });

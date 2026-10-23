@@ -55,7 +55,9 @@ export async function GET(
   const selectParam = url.searchParams.get('select') || undefined;
 
   try {
-    const { data, count } = await haloxStore.read(db => db.queryTable(
+    const { data, count } = await haloxStore.read(db => {
+      if (filters.workspace_id?.startsWith('eq.') && db.getAllowedWorkspaceIds(userId).has(filters.workspace_id.slice(3))) db.assertTableAccess(table, filters.workspace_id.slice(3), userId);
+      return db.queryTable(
       table,
       {
         select: selectParam,
@@ -65,7 +67,7 @@ export async function GET(
         offset: offsetParam ? Number(offsetParam) : undefined,
       },
       userId
-    ));
+    ); });
 
     return NextResponse.json(data, {
       status: 200,
@@ -89,11 +91,13 @@ export async function HEAD(
   const filters = extractFilters(req);
 
   try {
-    const { count } = await haloxStore.read(db => db.queryTable(
+    const { count } = await haloxStore.read(db => {
+      if (filters.workspace_id?.startsWith('eq.') && db.getAllowedWorkspaceIds(userId).has(filters.workspace_id.slice(3))) db.assertTableAccess(table, filters.workspace_id.slice(3), userId);
+      return db.queryTable(
       table,
       { filters, headOnly: true },
       userId
-    ));
+    ); });
 
     return new NextResponse(null, {
       status: 200,

@@ -12,7 +12,7 @@ const where = (workspace: string, id?: unknown) => ({ workspace_id: `eq.${worksp
 const active = (row: Row) => ['running', 'unknown'].includes(String(row.status));
 const emptyBody = () => ({ title: '', content_md: '', meta_title: '', meta_description: '' });
 function admin(db: HaloXDatabase, workspace: string, actor: string) {
-  db.assertWorkspaceMember(workspace, actor);
+  db.assertWorkspaceAccess(workspace, actor, 'execution', 'write');
   const member = db.queryTable('workspace_members', { filters: { ...where(workspace), user_id: `eq.${actor}` } }, actor).data[0];
   if (!['owner', 'admin'].includes(String(member?.role))) throw new RlsAccessDeniedError('자동 번역 실행과 이력 관리에는 워크스페이스 관리자 권한이 필요합니다.');
 }
