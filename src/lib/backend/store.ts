@@ -103,9 +103,10 @@ export class PersistentHaloXStore {
     }
   }
 
-  private load(connection: DatabaseSync): HaloXDatabase {
+  private async load(connection: DatabaseSync): Promise<HaloXDatabase> {
     try {
-      const row = connection.prepare('SELECT state FROM runtime_state WHERE id = 1').get();
+      let row: Record<string, unknown> | undefined;
+      await this.retryLock(() => { row = connection.prepare('SELECT state FROM runtime_state WHERE id = 1').get() as Record<string, unknown> | undefined; });
       if (!row || typeof row.state !== 'string') throw new Error('Database state is missing');
       const db = this.factory();
       db.restoreState(JSON.parse(row.state) as DatabaseState);
@@ -120,7 +121,7 @@ export class PersistentHaloXStore {
     await this.ready();
     const connection = this.open();
     try {
-      return await operation(this.load(connection));
+      return await operation(await this.load(connection));
     } finally {
       connection.close();
     }
@@ -133,7 +134,7 @@ export class PersistentHaloXStore {
     try {
       await this.retryLock(() => connection.exec('BEGIN IMMEDIATE'));
       transaction = true;
-      const db = this.load(connection);
+      const db = await this.load(connection);
       // Domain errors propagate unchanged and roll back all partial writes.
       const result = await operation(db);
       try {

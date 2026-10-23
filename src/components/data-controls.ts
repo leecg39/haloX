@@ -40,6 +40,10 @@ function render(table: HTMLTableElement) {
 }
 function check(control: HTMLElement, checked: boolean) {
   if (control instanceof HTMLInputElement) control.checked = checked;
+  else if (control.getAttribute('role') === 'checkbox') {
+    const sibling = control.nextElementSibling;
+    if (sibling instanceof HTMLInputElement && sibling.type === 'checkbox') sibling.checked = checked;
+  }
   control.setAttribute('aria-checked', String(checked)); control.dataset.state = checked ? 'checked' : 'unchecked';
   control.querySelectorAll<HTMLElement>('[data-state]').forEach(child => child.dataset.state = control.dataset.state!);
   if (control.getAttribute('role') === 'checkbox' && !control.querySelector('svg, [data-clone-check]')) { const mark = document.createElement('span'); mark.dataset.cloneCheck = 'true'; mark.textContent = '✓'; mark.style.cssText = 'display:block;font-size:12px;line-height:14px'; control.append(mark); }

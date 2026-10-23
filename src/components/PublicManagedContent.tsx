@@ -1,0 +1,3 @@
+import type { ContentRow } from '@/lib/api/content';
+function body(value: unknown) { return String(value || '').split(/\n{2,}/).filter(Boolean).map((block, index) => /^#{1,3}\s/.test(block) ? <h2 key={index}>{block.replace(/^#{1,3}\s+/, '')}</h2> : <p key={index}>{block}</p>); }
+export function PublicManagedContent({ content }: { content: ContentRow }) { return <article><p className="clone-managed-locale">{String(content.locale).toUpperCase()}</p><h1>{String(content.title)}</h1>{content.excerpt ? <p className="lead">{String(content.excerpt)}</p> : null}<div>{body(content.body_md)}</div></article>; }

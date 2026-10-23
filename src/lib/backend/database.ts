@@ -21,6 +21,7 @@ import { readBrandConfig, reclassifyBrandData } from './brand-service.ts';
 import { createWorkspaceInvitation, validateMembership, validateWorkspacePatch, type WorkspacePrivateCollection } from './workspace-management.ts';
 import type { AccountCollection } from './account-session.ts';
 import type { PortalCollection } from '../api/portal.ts';
+import type { SiteCollection } from '../api/site-content.ts';
 import { REFERRAL_COMMANDS, runReferralCommand } from './referral-service.ts';
 import { FEEDBACK_COMMANDS, runFeedbackCommand } from './feedback-service.ts';
 import { RAW_COMMANDS, runRawImportCommand } from './raw-import-service.ts';
@@ -164,11 +165,11 @@ export class HaloXDatabase {
   }
 
   /** Separate from the public table whitelist: no REST/RPC access. */
-  public getServerRecords(collection: NotificationCollection | BillingPrivateCollection | GooglePrivateCollection | DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
+  public getServerRecords(collection: NotificationCollection | BillingPrivateCollection | GooglePrivateCollection | DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | SiteCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
     return structuredClone(this.serverRecords[collection] ?? []);
   }
 
-  public setServerRecords(collection: NotificationCollection | BillingPrivateCollection | GooglePrivateCollection | DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
+  public setServerRecords(collection: NotificationCollection | BillingPrivateCollection | GooglePrivateCollection | DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | SiteCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
     this.serverRecords[collection] = structuredClone(rows);
   }
 

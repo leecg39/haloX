@@ -34,6 +34,10 @@ import { GapPage } from '@/components/live/GapPage';
 import { ExportsPage } from '@/components/live/ExportsPage';
 import { ContentPage } from '@/components/live/ContentPage';
 import { KnowledgePage } from '@/components/live/KnowledgePage';
+import { SiteContentPage } from '@/components/live/SiteContentPage';
+import { PublicManagedContent } from '@/components/PublicManagedContent';
+import { haloxStore } from '@/lib/backend/store';
+import { readPublicSiteContent } from '@/lib/backend/site-content-service';
 export const dynamic = 'force-dynamic';
 type Props = { params: Promise<{ slug?: string[] }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
 async function resolveRoute(props: Props) {
@@ -49,6 +53,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   if (pathname === '/app/invite') return { title: '워크스페이스 초대 | HaloX', robots: { index: false, follow: false }, referrer: 'no-referrer' };
   const portalTitle = pathname === '/app/settings' && new URLSearchParams(route.split('?')[1]).get('tab') === 'profile' ? '내 프로필과 보안' : pathname === '/app/referral' ? '추천 프로그램' : /^\/app\/feedback(?:\/[^/]+)?$/.test(pathname) ? '피드백' : undefined;
   if (portalTitle) return { title: `${portalTitle} | HaloX`, robots: { index: false, follow: false } };
+  if (!pathname.startsWith('/app')) { try { const managed = await haloxStore.read(db => readPublicSiteContent(db, pathname)); if (managed.content) return { title: String(managed.content.seo_title || managed.content.title), description: String(managed.content.excerpt || '') }; } catch {} }
   const data = await getCapture(route);
   return { title: data?.title || 'HaloX', robots: { index: false, follow: false } };
 }
@@ -58,6 +63,15 @@ export default async function Page(props: Props) {
   if (pathname === '/app/restore-account') return <RestoreAccountPage />;
   if (pathname === '/app/invite') return <WorkspaceInvitePage />;
   if (pathname === '/app/workspaces') return <Workspaces />;
+  if (pathname === '/app/site-content') { const data = await getCapture('/app'); if (!data) notFound(); return <ClonePage data={data} requestedRoute={route}><SiteContentPage /></ClonePage>; }
+  if (!pathname.startsWith('/app')) {
+    const managed = await haloxStore.read(db => readPublicSiteContent(db, pathname));
+    if (managed.deleted) notFound();
+    const captured = await getCapture(route);
+    const shell = managed.content && !managed.captured_fallback ? await getCapture(`/${String(managed.content.locale)}/about`) : null;
+    const data = captured || shell; if (!data) notFound();
+    return <ClonePage key={route} data={data} requestedRoute={route}>{managed.content && !managed.captured_fallback ? <PublicManagedContent content={managed.content} /> : undefined}</ClonePage>;
+  }
   let shellRoute: string | undefined;
   let children;
   if (/^\/app\/keywords(?:\/[^/]+)?$/.test(pathname)) {

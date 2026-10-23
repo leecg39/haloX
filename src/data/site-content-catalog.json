@@ -1,0 +1,1757 @@
+[
+  {
+    "id": "1c76c22a612a86eb0886dbdc",
+    "route": "/en",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "In the age of AI answers,your brand must be chosen",
+    "seo_title": "HaloX - SEO & GEO Platform | AI Search Optimization"
+  },
+  {
+    "id": "1c5104dc0bbc847bc33944ec",
+    "route": "/en/about",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Half of search has moved to conversations.",
+    "seo_title": "About HaloX"
+  },
+  {
+    "id": "5a645e051075ab866761a917",
+    "route": "/en/authors",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Authors",
+    "seo_title": "Authors | HaloX"
+  },
+  {
+    "id": "2159c6a2cce516101d9115f5",
+    "route": "/en/authors/jaechullee",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Jaechul LEE",
+    "seo_title": "Jaechul LEE | HaloX"
+  },
+  {
+    "id": "699e1e8e061eb9d708585901",
+    "route": "/en/authors/juny-lee",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Juny Lee",
+    "seo_title": "Juny Lee | HaloX"
+  },
+  {
+    "id": "dbd00441c67b6ce73a328029",
+    "route": "/en/blog",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Blog",
+    "seo_title": "Blog | HaloX"
+  },
+  {
+    "id": "b6257fe07db5896d26a1cd0e",
+    "route": "/en/blog/topics",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "blog",
+    "title": "Topics",
+    "seo_title": "Topics | HaloX"
+  },
+  {
+    "id": "7aab180ba55d31b2c850d703",
+    "route": "/en/blog/topics/ai-trends",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "blog",
+    "title": "AI Trends",
+    "seo_title": "AI Trends & News — HaloX Blog"
+  },
+  {
+    "id": "aa1470053b5da24b80baeb82",
+    "route": "/en/changelog",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "update",
+    "title": "Changelog",
+    "seo_title": "Changelog | HaloX"
+  },
+  {
+    "id": "fcee0a75c517ae06c205f680",
+    "route": "/en/compare/ahrefs",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "HaloX vs Ahrefs",
+    "seo_title": "HaloX vs Ahrefs: Complete Search + AI Comparison (2026)"
+  },
+  {
+    "id": "d38f32c1c53a2cdb96ae0289",
+    "route": "/en/compare/otterly",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "HaloX vs Otterly",
+    "seo_title": "HaloX vs Otterly: AI Search Monitoring Comparison (2026)"
+  },
+  {
+    "id": "616128b43280c292a9ea4be9",
+    "route": "/en/compare/profound",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "HaloX vs Profound",
+    "seo_title": "HaloX vs Profound: GEO + SEO Platform Comparison (2026)"
+  },
+  {
+    "id": "4c22d146fc0536c1ce6f6af5",
+    "route": "/en/compare/semrush",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "HaloX vs Semrush",
+    "seo_title": "HaloX vs Semrush: AI-Powered SEO Comparison (2026)"
+  },
+  {
+    "id": "290ea13af02b75cd9b044c80",
+    "route": "/en/consulting",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "SEO & GEO consulting that moves the numbers",
+    "seo_title": "SEO & GEO Consulting - HaloX"
+  },
+  {
+    "id": "ad4b61ce4e1b3d63057e162f",
+    "route": "/en/contact-sales",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Contact sales",
+    "seo_title": "Contact sales - HaloX"
+  },
+  {
+    "id": "e63d2b9fb4063780827c2efa",
+    "route": "/en/customers",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Teams growing with HaloX",
+    "seo_title": "Customer Stories | HaloX"
+  },
+  {
+    "id": "e0c9074a3656a2208f5933e2",
+    "route": "/en/customers/shopnest",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "ShopNest",
+    "seo_title": "ShopNest - Customer Story | HaloX"
+  },
+  {
+    "id": "abbe44836c4171d78da05c0c",
+    "route": "/en/disclosure",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Disclosure (Ads, Affiliate, Sponsored Content)",
+    "seo_title": "Ads & Affiliate Disclosure - HaloX"
+  },
+  {
+    "id": "e9caf87868138e7f34fa34d7",
+    "route": "/en/faq",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Frequently Asked Questions",
+    "seo_title": "FAQ | HaloX"
+  },
+  {
+    "id": "741ba24a6549ea34c7c9fcaa",
+    "route": "/en/features",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "From SEO to GEO",
+    "seo_title": "Feature Guide - SEO & GEO Analytics - HaloX"
+  },
+  {
+    "id": "a673ecb0d5c47ced1b4e162e",
+    "route": "/en/features/analytics",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Compare search and AI visibility at a glance",
+    "seo_title": "GEO Dashboard — HaloX"
+  },
+  {
+    "id": "aa94ad6eb6c8f33824b20dc7",
+    "route": "/en/features/audit",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Diagnose your site's technical SEO health.",
+    "seo_title": "Site Audit — HaloX"
+  },
+  {
+    "id": "7c9e8ced9a8b82ba66648128",
+    "route": "/en/features/content",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Generate content optimized for search and AI",
+    "seo_title": "Content Studio — HaloX"
+  },
+  {
+    "id": "1d8883b10b1c3249e95e671f",
+    "route": "/en/features/monitoring",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "See how your brand is cited in AI answers",
+    "seo_title": "AIO Citation — HaloX"
+  },
+  {
+    "id": "6b6aaf9ad1d010f5ec616a42",
+    "route": "/en/features/search",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Analyze search opportunities with data",
+    "seo_title": "SERP Analysis — HaloX"
+  },
+  {
+    "id": "aedd0195bf066191f0153a2d",
+    "route": "/en/feedback",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "피드백 보드",
+    "seo_title": "피드백 보드 | HaloX"
+  },
+  {
+    "id": "c8aeee7caa828ce123311246",
+    "route": "/en/free-tools",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Page Not Found",
+    "seo_title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+  },
+  {
+    "id": "5f84759e95c1962b09698de5",
+    "route": "/en/glossary",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "SEO & GEO Glossary",
+    "seo_title": "SEO & GEO Glossary - Key Terms Explained | Halox"
+  },
+  {
+    "id": "a11700a5504375c8d08c62c8",
+    "route": "/en/glossary/aeo",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is AEO (Answer Engine Optimization)?",
+    "seo_title": "What is AEO (Answer Engine Optimization)? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "38f16ca30f93dd6f9fae5cc6",
+    "route": "/en/glossary/ai-brand-mentions",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is AI Brand Mentions?",
+    "seo_title": "What is AI Brand Mentions? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "b6335bbabaf519a467c14fb3",
+    "route": "/en/glossary/ai-citation",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is AI Citation?",
+    "seo_title": "What is AI Citation? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "2ce7cceceba639c3f2fb6013",
+    "route": "/en/glossary/ai-crawlers",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is AI Crawlers?",
+    "seo_title": "What is AI Crawlers? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "7025887744f73fc96d0e277b",
+    "route": "/en/glossary/ai-overview",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is AI Overview (AIO)?",
+    "seo_title": "What is AI Overview (AIO)? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "2d5dbb8cf2bb54cbf4930dd5",
+    "route": "/en/glossary/avi",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is GEO Score?",
+    "seo_title": "What is GEO Score? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "141fb938bfb763a15b518e4a",
+    "route": "/en/glossary/backlink",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Backlink?",
+    "seo_title": "What is Backlink? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "39decb94232ebbec99786d84",
+    "route": "/en/glossary/brand-sov",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Keyword Visibility?",
+    "seo_title": "What is Keyword Visibility? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "9d04650409ab2d496493ae00",
+    "route": "/en/glossary/citation-rate",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Citation Rate?",
+    "seo_title": "What is Citation Rate? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "850338aa06fd04e0c646664c",
+    "route": "/en/glossary/citation-sov",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Citation SOV?",
+    "seo_title": "What is Citation SOV? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "77f0d3b89367c3457176be26",
+    "route": "/en/glossary/content-cluster",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Content Cluster?",
+    "seo_title": "What is Content Cluster? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "3d7184841195be6da92bd5c6",
+    "route": "/en/glossary/content-optimization",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Content Optimization?",
+    "seo_title": "What is Content Optimization? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "21f3d3f80b6d5cf0130c6db6",
+    "route": "/en/glossary/ctr",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is CTR (Click-Through Rate)?",
+    "seo_title": "What is CTR (Click-Through Rate)? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "a743ffd8ea270ddbaca12dce",
+    "route": "/en/glossary/domain-authority",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Domain Authority?",
+    "seo_title": "What is Domain Authority? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "da6d8388107aa76321981e34",
+    "route": "/en/glossary/e-e-a-t",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is E-E-A-T?",
+    "seo_title": "What is E-E-A-T? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "317bfefeabc9b4332c9ffbbe",
+    "route": "/en/glossary/featured-snippet",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Featured Snippet?",
+    "seo_title": "What is Featured Snippet? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "84a76d1d86ba70e945dc2520",
+    "route": "/en/glossary/geo",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is GEO (Generative Engine Optimization)?",
+    "seo_title": "What is GEO (Generative Engine Optimization)? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "f83f7721675207a77fe9fe46",
+    "route": "/en/glossary/internal-linking",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Internal Linking?",
+    "seo_title": "What is Internal Linking? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "7d9bf884afdf36f13622eae9",
+    "route": "/en/glossary/json-ld",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is JSON-LD?",
+    "seo_title": "What is JSON-LD? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "acf7e60f5704e7b467485efc",
+    "route": "/en/glossary/keyword",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Keyword?",
+    "seo_title": "What is Keyword? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "69d43aa5cd15a90893cba057",
+    "route": "/en/glossary/keyword-difficulty",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Keyword Difficulty (KD)?",
+    "seo_title": "What is Keyword Difficulty (KD)? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "6259168731d1fe91cbe76979",
+    "route": "/en/glossary/llm",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is LLM (Large Language Model)?",
+    "seo_title": "What is LLM (Large Language Model)? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "e363c05e9bd6596aa85b51ab",
+    "route": "/en/glossary/llm-seo",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is LLM SEO?",
+    "seo_title": "What is LLM SEO? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "7f0ccd2327cd0a3269590737",
+    "route": "/en/glossary/llms-txt",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is llms.txt?",
+    "seo_title": "What is llms.txt? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "2465bec02a9241625763fe7c",
+    "route": "/en/glossary/meta-tags",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Meta Tags?",
+    "seo_title": "What is Meta Tags? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "5243e77efa79eff30d3876af",
+    "route": "/en/glossary/on-page-seo",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is On-Page SEO?",
+    "seo_title": "What is On-Page SEO? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "b3385672a5bc401beacb1362",
+    "route": "/en/glossary/organic-traffic",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Organic Traffic?",
+    "seo_title": "What is Organic Traffic? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "92fca9243ca51bf75443005f",
+    "route": "/en/glossary/paa",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is PAA (People Also Ask)?",
+    "seo_title": "What is PAA (People Also Ask)? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "24b9b6ec20bc9f72a57a0e08",
+    "route": "/en/glossary/prompt-tracking",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Prompt Tracking?",
+    "seo_title": "What is Prompt Tracking? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "f5c2e0819c6b7695addc9d94",
+    "route": "/en/glossary/query-fan-out",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Query Fan-Out?",
+    "seo_title": "What is Query Fan-Out? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "12ca1d9224baab7fe33bc6f9",
+    "route": "/en/glossary/rag",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is RAG (Retrieval-Augmented Generation)?",
+    "seo_title": "What is RAG (Retrieval-Augmented Generation)? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "b7e4957662b9ce6f6c8fad63",
+    "route": "/en/glossary/schema-markup",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Schema Markup (Structured Data)?",
+    "seo_title": "What is Schema Markup (Structured Data)? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "7a5a0d23458a981a7ac97718",
+    "route": "/en/glossary/search-intent",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Search Intent?",
+    "seo_title": "What is Search Intent? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "97b20bc09104d6d93306d73b",
+    "route": "/en/glossary/search-volume",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Search Volume?",
+    "seo_title": "What is Search Volume? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "982927f0f5ab950144cbc78d",
+    "route": "/en/glossary/seo",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is SEO (Search Engine Optimization)?",
+    "seo_title": "What is SEO (Search Engine Optimization)? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "c0f003bbc508f09cca121ef4",
+    "route": "/en/glossary/serp",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is SERP (Search Engine Results Page)?",
+    "seo_title": "What is SERP (Search Engine Results Page)? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "f3a5369da920282042904f9a",
+    "route": "/en/glossary/technical-seo",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Technical SEO?",
+    "seo_title": "What is Technical SEO? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "91a5fc4eafabf051758e5d51",
+    "route": "/en/glossary/top10-ratio",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Top 10?",
+    "seo_title": "What is Top 10? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "f8675eb8938647d0a581a6d6",
+    "route": "/en/glossary/topical-authority",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Topical Authority?",
+    "seo_title": "What is Topical Authority? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "1e423bac4811eec9fa119135",
+    "route": "/en/glossary/zero-click-search",
+    "locale": "en",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "What is Zero-Click Search?",
+    "seo_title": "What is Zero-Click Search? - Definition & Meaning | Halox Glossary"
+  },
+  {
+    "id": "b5ee1a70273672ae017b0c1c",
+    "route": "/en/integrations",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Connect your data sources",
+    "seo_title": "Integrations - HaloX"
+  },
+  {
+    "id": "e2fe50c05e663c5500cd2ed4",
+    "route": "/en/methodology",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Measure every search moment.Turn it into strategy.",
+    "seo_title": "Our Methodology - How HaloX Measures Search | HaloX"
+  },
+  {
+    "id": "4fb2c7c48b097bc77fe9d08e",
+    "route": "/en/pricing",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Find the right plan",
+    "seo_title": "Pricing - HaloX"
+  },
+  {
+    "id": "e3054f7cffd2ba3492cb5f00",
+    "route": "/en/privacy",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Privacy Policy & Cookie Settings",
+    "seo_title": "Privacy Policy & Cookie Settings - HaloX"
+  },
+  {
+    "id": "2a322334e5de4abecf5ff9cf",
+    "route": "/en/refund-policy",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Refund Policy",
+    "seo_title": "Refund Policy - HaloX"
+  },
+  {
+    "id": "614f76f809b0348671643d52",
+    "route": "/en/research",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "AI Citation Research",
+    "seo_title": "AI Citation Research - HaloX"
+  },
+  {
+    "id": "4bd76ed7ed17d96052b9acf1",
+    "route": "/en/security",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Security built into every layer",
+    "seo_title": "Security & Trust - HaloX"
+  },
+  {
+    "id": "c13186bbbf8da6f9c6de2375",
+    "route": "/en/solutions/agency",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Built for Search & Marketing Agencies",
+    "seo_title": "HaloX for Search & Marketing Agencies | Multi-Client Management"
+  },
+  {
+    "id": "1c9c9b5eedd3d6150be8e3c1",
+    "route": "/en/solutions/in-house",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Built for In-House Marketing Teams",
+    "seo_title": "HaloX for In-House Teams | Brand Protection & ROI"
+  },
+  {
+    "id": "14e0aecc33fe4904a29bde10",
+    "route": "/en/terms",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Terms of Service",
+    "seo_title": "Terms of Service - HaloX"
+  },
+  {
+    "id": "eedfe70c67612ed4b239b4a0",
+    "route": "/en/tools",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Powerful SEO Tools, Completely Free",
+    "seo_title": "Free SEO Tools - AI Question Generator, Site Audit & More | HaloX"
+  },
+  {
+    "id": "677b11d142f301d86cd770cf",
+    "route": "/en/tools/ai-questions",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "10 questions AI will ask about your site.Generated free in 30 seconds.",
+    "seo_title": "Free AI Question Generator - SEO & GEO Optimization | HaloX"
+  },
+  {
+    "id": "61a6605f7f2d49e30820fb30",
+    "route": "/en/tools/genspark",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "젠스파크",
+    "seo_title": "젠스파크 - HaloX"
+  },
+  {
+    "id": "3c67bee18860198bc94a0de2",
+    "route": "/en/tools/lovable",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Lovable",
+    "seo_title": "Lovable - HaloX"
+  },
+  {
+    "id": "d2f7e074bd3d8d6ea1951264",
+    "route": "/en/tools/site-audit",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Is your site ready forAI search engines?",
+    "seo_title": "Free AI Search Readiness Checker - Is Your Site AI-Ready? | HaloX"
+  },
+  {
+    "id": "6508c3dd67b5d40ddfed869b",
+    "route": "/en/use-cases",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Use Cases",
+    "seo_title": "Use Cases - AI Visibility for Every Team | HaloX"
+  },
+  {
+    "id": "979cde95b714fed051727c93",
+    "route": "/en/use-cases/brand-monitoring",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "AI Brand Monitoring",
+    "seo_title": "AI Brand Monitoring — Track Your Brand in ChatGPT & AI | HaloX"
+  },
+  {
+    "id": "a88aff590bae234601722071",
+    "route": "/en/use-cases/competitor-analysis",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Competitor AI Analysis",
+    "seo_title": "AI Competitor Analysis — Track Competitors in AI Results | HaloX"
+  },
+  {
+    "id": "ac3cfc6afc7263b09c5cab2d",
+    "route": "/en/use-cases/content-optimization",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "AI-Optimized Content Creation",
+    "seo_title": "AI-Optimized Content Creation — Get Cited by AI Engines | HaloX"
+  },
+  {
+    "id": "5f3e1bc60cab96d01174bb3b",
+    "route": "/en/use-cases/seo-geo-integration",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Search + AI Conversation Integrated Strategy",
+    "seo_title": "SEO + GEO Integration — Unified Search & AI Strategy | HaloX"
+  },
+  {
+    "id": "d9394823c5ef47f8e8f0a05f",
+    "route": "/en/workflows",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Step-by-step playbooks for AI search visibility",
+    "seo_title": "Workflows - HaloX"
+  },
+  {
+    "id": "0a8615d9885622efe743b154",
+    "route": "/en/workflows/competitor-gap-analysis",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Competitor AI Gap Analysis",
+    "seo_title": "Competitor AI Gap Analysis - HaloX"
+  },
+  {
+    "id": "63c192290a1cdfd87a792df1",
+    "route": "/en/workflows/content-gap-reference-hub",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Content Gap Analysis & Reference Hub Construction",
+    "seo_title": "Content Gap Analysis & Reference Hub Construction - HaloX"
+  },
+  {
+    "id": "4b5daff540eb82f799295ac6",
+    "route": "/en/workflows/customer-intent-analysis",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Customer Intent Analysis & Question Library",
+    "seo_title": "Customer Intent Analysis & Question Library - HaloX"
+  },
+  {
+    "id": "c9ca71501fccf29b4728fb93",
+    "route": "/en/workflows/execution-task-list",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Build an Execution Task List",
+    "seo_title": "Build an Execution Task List - HaloX"
+  },
+  {
+    "id": "40f16add9cad8f2b240b03c7",
+    "route": "/en/workflows/report-automation",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Build Report Automation",
+    "seo_title": "Build Report Automation - HaloX"
+  },
+  {
+    "id": "c342122ef713d13b3a52e8f0",
+    "route": "/en/workflows/seo-geo-strategy",
+    "locale": "en",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Build an Integrated SEO×GEO Strategy",
+    "seo_title": "Build an Integrated SEO×GEO Strategy - HaloX"
+  },
+  {
+    "id": "bd7d64e33843e30049554053",
+    "route": "/ko",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "AI가 답하는 시대,브랜드는 선택받아야 합니다",
+    "seo_title": "HaloX - SEO & AI 검색 최적화 플랫폼"
+  },
+  {
+    "id": "bd7d64e33843e30049554053",
+    "route": "/ko",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "AI가 답하는 시대,브랜드는 선택받아야 합니다",
+    "seo_title": "HaloX - SEO & AI 검색 최적화 플랫폼"
+  },
+  {
+    "id": "afc3530d27d7a84776644a8f",
+    "route": "/ko/about",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "검색의 절반은 이미 대화로 넘어갔어요.",
+    "seo_title": "HaloX 소개"
+  },
+  {
+    "id": "c411a785c9687a7eeeb39a9f",
+    "route": "/ko/authors",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "저자",
+    "seo_title": "저자 | HaloX"
+  },
+  {
+    "id": "49f71f5242031842b96248a0",
+    "route": "/ko/authors/jaechullee",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "이재철",
+    "seo_title": "이재철 | HaloX"
+  },
+  {
+    "id": "5d7dfd6b624979c6ecd65b7f",
+    "route": "/ko/authors/juny-lee",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "이중대",
+    "seo_title": "이중대 | HaloX"
+  },
+  {
+    "id": "f0528e4718d3bd1a583ff8d9",
+    "route": "/ko/blog",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "블로그",
+    "seo_title": "블로그 | HaloX"
+  },
+  {
+    "id": "b699b6432bb1aca8d4a0dd74",
+    "route": "/ko/blog/topics",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "blog",
+    "title": "토픽",
+    "seo_title": "토픽 | HaloX"
+  },
+  {
+    "id": "4ec212745ede010814fadf6c",
+    "route": "/ko/blog/topics/ai-trends",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "blog",
+    "title": "AI 트렌드",
+    "seo_title": "AI 트렌드 & 뉴스 — HaloX Blog"
+  },
+  {
+    "id": "8c516279c8194c34489dc032",
+    "route": "/ko/blog/topics/geo",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "blog",
+    "title": "GEO",
+    "seo_title": "GEO (AI 검색 최적화) 가이드 — HaloX Blog"
+  },
+  {
+    "id": "5ab0c81c8f22b8882cca6e91",
+    "route": "/ko/changelog",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "update",
+    "title": "업데이트 소식",
+    "seo_title": "업데이트 소식 | HaloX"
+  },
+  {
+    "id": "7da14cb16dfec4924227ffb2",
+    "route": "/ko/compare/ahrefs",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "HaloX vs Ahrefs",
+    "seo_title": "HaloX vs Ahrefs: SEO + AI 대화 완벽 비교 (2026)"
+  },
+  {
+    "id": "89d4143576d17ae985084309",
+    "route": "/ko/compare/otterly",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "HaloX vs Otterly",
+    "seo_title": "HaloX vs Otterly: AI 검색 모니터링 비교 (2026)"
+  },
+  {
+    "id": "4dd034579a61229b681dd3f7",
+    "route": "/ko/compare/profound",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "HaloX vs Profound",
+    "seo_title": "HaloX vs Profound: AI 대화 + SEO 플랫폼 비교 (2026)"
+  },
+  {
+    "id": "ddc3c29e9a10782c42e39a7c",
+    "route": "/ko/compare/semrush",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "HaloX vs Semrush",
+    "seo_title": "HaloX vs Semrush: AI 기반 SEO 비교 (2026)"
+  },
+  {
+    "id": "0f31b19ae3b309d62aa644d6",
+    "route": "/ko/consulting",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "성과로 이어지는 SEO·GEO 컨설팅",
+    "seo_title": "SEO·GEO 컨설팅 - HaloX"
+  },
+  {
+    "id": "7dba6d2fe7cdec7a4733a8e4",
+    "route": "/ko/contact-sales",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "도입 문의",
+    "seo_title": "도입 문의 - HaloX"
+  },
+  {
+    "id": "9fb0551ce2d2fc09e4865077",
+    "route": "/ko/customers",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "HaloX와 함께 성장하는 팀들",
+    "seo_title": "고객 사례 | HaloX"
+  },
+  {
+    "id": "9d36fef09a70782ca5b80f90",
+    "route": "/ko/customers/growthly",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Growthly",
+    "seo_title": "Growthly - 고객 사례 | HaloX"
+  },
+  {
+    "id": "e77b7069e0ef96ffb3de4a88",
+    "route": "/ko/customers/shopnest",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "ShopNest",
+    "seo_title": "ShopNest - 고객 사례 | HaloX"
+  },
+  {
+    "id": "bf4facdbcfe4f58051090254",
+    "route": "/ko/disclosure",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Disclosure (Ads, Affiliate, Sponsored Content)",
+    "seo_title": "Ads & Affiliate Disclosure - HaloX"
+  },
+  {
+    "id": "d6acfb240f98b7ea13b78820",
+    "route": "/ko/faq",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "자주 묻는 질문",
+    "seo_title": "FAQ | HaloX"
+  },
+  {
+    "id": "c2a3b4433d51ee670cd6876b",
+    "route": "/ko/features",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "SEO를 넘어 GEO까지",
+    "seo_title": "기능 가이드 - SEO & AI 검색 최적화 - HaloX"
+  },
+  {
+    "id": "6b254e8ca2a3793fbff8fe96",
+    "route": "/ko/features/analytics",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "검색과 AI 가시성, 한눈에 비교하세요",
+    "seo_title": "GEO Dashboard — HaloX"
+  },
+  {
+    "id": "952bc3c94c84bf909dae8686",
+    "route": "/ko/features/audit",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "사이트의 기술적 SEO 상태를 진단합니다.",
+    "seo_title": "사이트 점검 (Site Audit) — HaloX"
+  },
+  {
+    "id": "dc97eb12c6fb18c9b07b7cc4",
+    "route": "/ko/features/content",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "검색과 AI에 최적화된 콘텐츠를 생성합니다",
+    "seo_title": "Content Studio — HaloX"
+  },
+  {
+    "id": "fe3ca71638bc781265b6487e",
+    "route": "/ko/features/monitoring",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "AI 답변에서 브랜드 인용 현황을 확인하세요",
+    "seo_title": "AIO 인용 점검 — HaloX"
+  },
+  {
+    "id": "f35b1820e9871c8f9877acda",
+    "route": "/ko/features/search",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "검색 기회를 데이터로 분석합니다",
+    "seo_title": "SERP 분석 — HaloX"
+  },
+  {
+    "id": "d31f3d92a415878ca3ce87db",
+    "route": "/ko/feedback",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "피드백 보드",
+    "seo_title": "피드백 보드 | HaloX"
+  },
+  {
+    "id": "0fba42a5eede604fe7540a21",
+    "route": "/ko/glossary",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "SEO & GEO 용어 사전",
+    "seo_title": "SEO & GEO 용어 사전 - 핵심 용어 해설 | Halox"
+  },
+  {
+    "id": "cb55180d87d2a7d300bb00e4",
+    "route": "/ko/glossary/aeo",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "AEO (답변 엔진 최적화)란?",
+    "seo_title": "AEO (답변 엔진 최적화)란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "3c2ad8f9695562752b73214d",
+    "route": "/ko/glossary/ai-brand-mentions",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "AI 브랜드 언급란?",
+    "seo_title": "AI 브랜드 언급란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "cf3539547e6590c9fc11134d",
+    "route": "/ko/glossary/ai-citation",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "AI 인용란?",
+    "seo_title": "AI 인용란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "e44c32c73e745251767063df",
+    "route": "/ko/glossary/ai-crawlers",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "AI 크롤러란?",
+    "seo_title": "AI 크롤러란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "f39e9743993ca9a5ae2fc220",
+    "route": "/ko/glossary/ai-overview",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "AI 오버뷰 (AIO)란?",
+    "seo_title": "AI 오버뷰 (AIO)란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "7113f96b790f7586395410f7",
+    "route": "/ko/glossary/avi",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "GEO 점수 (AI 노출 점수)란?",
+    "seo_title": "GEO 점수 (AI 노출 점수)란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "50b25a660f40b9796f041bbb",
+    "route": "/ko/glossary/backlink",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "백링크란?",
+    "seo_title": "백링크란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "6f1e5d55482bc84724555171",
+    "route": "/ko/glossary/brand-sov",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "키워드 노출률란?",
+    "seo_title": "키워드 노출률란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "cbc9bb81fa3f62d4a1dea078",
+    "route": "/ko/glossary/citation-rate",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "인용률란?",
+    "seo_title": "인용률란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "749bf811ba049551fb737140",
+    "route": "/ko/glossary/citation-sov",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "인용 점유율란?",
+    "seo_title": "인용 점유율란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "c39a90e9263c0f342ac853cf",
+    "route": "/ko/glossary/content-cluster",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "콘텐츠 클러스터란?",
+    "seo_title": "콘텐츠 클러스터란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "c88dc19d3e2fe3a2b348f6c5",
+    "route": "/ko/glossary/content-optimization",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "콘텐츠 최적화란?",
+    "seo_title": "콘텐츠 최적화란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "1faf11c18ff563fda16d4bd5",
+    "route": "/ko/glossary/ctr",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "CTR (클릭률)란?",
+    "seo_title": "CTR (클릭률)란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "5b782148fa68d504ec6bdfa9",
+    "route": "/ko/glossary/domain-authority",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "도메인 권위란?",
+    "seo_title": "도메인 권위란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "ed29037815a79d670c9f3f44",
+    "route": "/ko/glossary/e-e-a-t",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "E-E-A-T란?",
+    "seo_title": "E-E-A-T란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "f4a2e87f3eb93e21efe7d221",
+    "route": "/ko/glossary/featured-snippet",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "추천 스니펫란?",
+    "seo_title": "추천 스니펫란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "42d4e3315a3c9f1efb4d1956",
+    "route": "/ko/glossary/geo",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "GEO (생성형 엔진 최적화)란?",
+    "seo_title": "GEO (생성형 엔진 최적화)란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "e3f839e55c622501e36c595b",
+    "route": "/ko/glossary/internal-linking",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "내부 링크란?",
+    "seo_title": "내부 링크란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "018e1971d0ba166661bf8dca",
+    "route": "/ko/glossary/json-ld",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "JSON-LD란?",
+    "seo_title": "JSON-LD란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "757a2e2430cfed6a1c2c9a5e",
+    "route": "/ko/glossary/keyword",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "키워드란?",
+    "seo_title": "키워드란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "03df75dd6a9adf5224bb66a7",
+    "route": "/ko/glossary/keyword-difficulty",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "키워드 난이도 (KD)란?",
+    "seo_title": "키워드 난이도 (KD)란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "24084b8d8783294a0f29794c",
+    "route": "/ko/glossary/llm",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "LLM (대규모 언어 모델)란?",
+    "seo_title": "LLM (대규모 언어 모델)란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "920936854b02f8b4e9b56cba",
+    "route": "/ko/glossary/llm-seo",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "LLM SEO란?",
+    "seo_title": "LLM SEO란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "6f9f0ae4fd072dd7542768ec",
+    "route": "/ko/glossary/llms-txt",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "llms.txt란?",
+    "seo_title": "llms.txt란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "134d0bf0b863d71490a531b7",
+    "route": "/ko/glossary/meta-tags",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "메타 태그란?",
+    "seo_title": "메타 태그란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "0f082f756f501ae43920e2fb",
+    "route": "/ko/glossary/on-page-seo",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "온페이지 SEO란?",
+    "seo_title": "온페이지 SEO란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "fdd3ada3c91def34c2b12846",
+    "route": "/ko/glossary/organic-traffic",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "자연 유입 트래픽란?",
+    "seo_title": "자연 유입 트래픽란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "a1bcd891fbce49527c1e5f99",
+    "route": "/ko/glossary/paa",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "PAA (함께 묻는 질문)란?",
+    "seo_title": "PAA (함께 묻는 질문)란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "e500c3fc29baa2082e06d524",
+    "route": "/ko/glossary/prompt-tracking",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "프롬프트 트래킹란?",
+    "seo_title": "프롬프트 트래킹란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "07ce7b05cc23b2a64c473608",
+    "route": "/ko/glossary/query-fan-out",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "쿼리 팬아웃란?",
+    "seo_title": "쿼리 팬아웃란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "19d6fb6762d9814794f2b2ed",
+    "route": "/ko/glossary/rag",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "RAG (검색 증강 생성)란?",
+    "seo_title": "RAG (검색 증강 생성)란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "c645374c27a2b85a8fb0ad9c",
+    "route": "/ko/glossary/schema-markup",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "스키마 마크업 (구조화 데이터)란?",
+    "seo_title": "스키마 마크업 (구조화 데이터)란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "8760347189bdf7a65753e8b0",
+    "route": "/ko/glossary/search-intent",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "검색 의도란?",
+    "seo_title": "검색 의도란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "12ab9607e42c59f746ff3bd9",
+    "route": "/ko/glossary/search-volume",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "검색량란?",
+    "seo_title": "검색량란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "2bdd90bd5014d3689c8012ec",
+    "route": "/ko/glossary/seo",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "SEO (검색 엔진 최적화)란?",
+    "seo_title": "SEO (검색 엔진 최적화)란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "8bd65e5c036287179ecece83",
+    "route": "/ko/glossary/serp",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "SERP (검색 엔진 결과 페이지)란?",
+    "seo_title": "SERP (검색 엔진 결과 페이지)란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "a0fc1f892d9e7de1fddab4d3",
+    "route": "/ko/glossary/technical-seo",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "테크니컬 SEO란?",
+    "seo_title": "테크니컬 SEO란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "149b5de350066dd618b358d5",
+    "route": "/ko/glossary/top10-ratio",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "Top 10 비율란?",
+    "seo_title": "Top 10 비율란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "63a7ee8cb1f9865377e012c9",
+    "route": "/ko/glossary/topical-authority",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "토피컬 오소리티란?",
+    "seo_title": "토피컬 오소리티란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "195f7f5a985ea8ac8a7c0006",
+    "route": "/ko/glossary/zero-click-search",
+    "locale": "ko",
+    "kind": "post",
+    "subtype": "glossary",
+    "title": "제로클릭 검색란?",
+    "seo_title": "제로클릭 검색란? - 뜻과 의미 | Halox 용어 사전"
+  },
+  {
+    "id": "82f467dc8341c25bedb33e4f",
+    "route": "/ko/integrations",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "데이터 소스를 연결하세요",
+    "seo_title": "연동 - HaloX"
+  },
+  {
+    "id": "79c9f2cc0fece6d808017473",
+    "route": "/ko/methodology",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "검색과 AI 성과를 분석하고전략으로 연결합니다.",
+    "seo_title": "우리의 측정 방식 - HaloX가 검색을 보는 법 | HaloX"
+  },
+  {
+    "id": "4fdad6cf481b135b931999a2",
+    "route": "/ko/partners",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "소개하고, 1년 동안 함께 버세요",
+    "seo_title": "파트너 추천 프로그램 - HaloX"
+  },
+  {
+    "id": "92befaff07d8cf222487d441",
+    "route": "/ko/pricing",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "팀 단계에 맞는 합리적인 요금제",
+    "seo_title": "가격 안내 - HaloX"
+  },
+  {
+    "id": "3fda7b1ed9afd7ae9ca79348",
+    "route": "/ko/privacy",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "개인정보처리방침 & 쿠키 설정",
+    "seo_title": "개인정보처리방침 & 쿠키 설정 - HaloX"
+  },
+  {
+    "id": "62be3cea949a2930a2dcfb8a",
+    "route": "/ko/refund-policy",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "환불 정책",
+    "seo_title": "환불 정책 - HaloX"
+  },
+  {
+    "id": "ff0424bb64b885ed3457777b",
+    "route": "/ko/research",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "AI 인용 리서치",
+    "seo_title": "AI 인용 리서치 - HaloX"
+  },
+  {
+    "id": "71729bef0a704436baec32ea",
+    "route": "/ko/security",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "모든 레이어에 내장된 보안",
+    "seo_title": "보안과 신뢰 - HaloX"
+  },
+  {
+    "id": "944f8ad77a83386a94840666",
+    "route": "/ko/solutions/agency",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "에이전시라면 이게 필요해요",
+    "seo_title": "HaloX 에이전시 솔루션 | 멀티 클라이언트 관리"
+  },
+  {
+    "id": "8ff67eabc4c323eabcc8a0d9",
+    "route": "/ko/solutions/in-house",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "인하우스 마케팅팀에 딱 맞아요",
+    "seo_title": "HaloX 인하우스 솔루션 | 브랜드 보호 & ROI"
+  },
+  {
+    "id": "2336068af103627362094709",
+    "route": "/ko/tag/ai-traffic",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Ai Traffic",
+    "seo_title": "Ai Traffic - 태그별 글 | HaloX"
+  },
+  {
+    "id": "c6feef386ebecba067aaac08",
+    "route": "/ko/tag/rag",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Rag",
+    "seo_title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+  },
+  {
+    "id": "0935bc2b18ac9654a2dd01a9",
+    "route": "/ko/tag/retrieval-fit",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Retrieval Fit",
+    "seo_title": "Retrieval Fit - 태그별 글 | HaloX"
+  },
+  {
+    "id": "e73bfef81fb1eacb4d89e504",
+    "route": "/ko/tag/semrush",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "Semrush",
+    "seo_title": "Semrush - 태그별 글 | HaloX"
+  },
+  {
+    "id": "8b9cbb6e5f62004a7bf4aa3d",
+    "route": "/ko/terms",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "이용약관",
+    "seo_title": "이용약관 - HaloX"
+  },
+  {
+    "id": "25886ab9e2f587abbad8ac48",
+    "route": "/ko/tools",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "강력한 SEO 도구를 무료로 사용하세요",
+    "seo_title": "무료 SEO 도구 - AI 질문 생성기, 사이트 점검 등 | HaloX"
+  },
+  {
+    "id": "b54519b9f384e645d0ac809f",
+    "route": "/ko/tools/ai-questions",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "AI가 받을 질문 10개,30초 만에 무료로 생성하세요.",
+    "seo_title": "무료 AI 질문 생성기 - SEO & GEO 최적화 | HaloX"
+  },
+  {
+    "id": "9e11b412dfec7dc14329aa23",
+    "route": "/ko/tools/site-audit",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "내 사이트, AI 검색엔진에준비됐을까?",
+    "seo_title": "무료 AI 검색 대비 점검기 - 내 사이트 AI 검색 준비됐을까? | HaloX"
+  },
+  {
+    "id": "df427145ea43af5bd3fcc14b",
+    "route": "/ko/use-cases",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "유스케이스",
+    "seo_title": "유스케이스 - 모든 팀을 위한 AI 노출 분석 | HaloX"
+  },
+  {
+    "id": "e3d027a7b32444ed1f1ed32c",
+    "route": "/ko/use-cases/brand-monitoring",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "AI 브랜드 모니터링",
+    "seo_title": "AI 브랜드 모니터링 — ChatGPT & AI에서 브랜드 추적 | HaloX"
+  },
+  {
+    "id": "beea9530b515a71efecc0739",
+    "route": "/ko/use-cases/competitor-analysis",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "경쟁사 AI 노출 분석",
+    "seo_title": "AI 경쟁사 분석 — AI 결과에서 경쟁사 추적 | HaloX"
+  },
+  {
+    "id": "f81ed3074d81e6bf8eb952bf",
+    "route": "/ko/use-cases/content-optimization",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "AI 최적화 콘텐츠 제작",
+    "seo_title": "AI 최적화 콘텐츠 제작 — AI 엔진에서 인용받기 | HaloX"
+  },
+  {
+    "id": "d0e51ee1be6999dacc19adfb",
+    "route": "/ko/use-cases/seo-geo-integration",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "검색 + AI 대화 통합 전략",
+    "seo_title": "SEO + GEO 통합 — 검색 & AI 통합 전략 | HaloX"
+  },
+  {
+    "id": "3123cec7804e9b26565823d0",
+    "route": "/ko/workflows",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "AI 검색 시대, 브랜드 가시성을 높이는 단계별 실행 플레이북",
+    "seo_title": "워크플로우 - HaloX"
+  },
+  {
+    "id": "0385c29c9c6b3445dab07fa1",
+    "route": "/ko/workflows/competitor-gap-analysis",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "경쟁사 AI 격차(Gap) 분석하기",
+    "seo_title": "경쟁사 AI 격차(Gap) 분석하기 - HaloX"
+  },
+  {
+    "id": "16cec2b6a93fdc7f935cf9fb",
+    "route": "/ko/workflows/content-gap-reference-hub",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "콘텐츠 격차(Gap) 분석 & 레퍼런스 허브 구축하기",
+    "seo_title": "콘텐츠 격차(Gap) 분석 & 레퍼런스 허브 구축하기 - HaloX"
+  },
+  {
+    "id": "132950e3bf2d6c54469d06bf",
+    "route": "/ko/workflows/customer-intent-analysis",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "고객 의도 분석 & 질문(Prompt) 라이브러리 만들기",
+    "seo_title": "고객 의도 분석 & 질문(Prompt) 라이브러리 만들기 - HaloX"
+  },
+  {
+    "id": "a2c35cf838e35b5d89ffe5e1",
+    "route": "/ko/workflows/execution-task-list",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "실행 작업 리스트 만들기",
+    "seo_title": "실행 작업 리스트 만들기 - HaloX"
+  },
+  {
+    "id": "05b861a9fba7e4dae4b04632",
+    "route": "/ko/workflows/report-automation",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "보고 자동화 구축하기",
+    "seo_title": "보고 자동화 구축하기 - HaloX"
+  },
+  {
+    "id": "93773a450328bef3fb39eef0",
+    "route": "/ko/workflows/seo-geo-strategy",
+    "locale": "ko",
+    "kind": "page",
+    "subtype": "page",
+    "title": "SEO×GEO 통합 전략 세우기",
+    "seo_title": "SEO×GEO 통합 전략 세우기 - HaloX"
+  }
+]

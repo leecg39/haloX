@@ -115,6 +115,23 @@ describe('durable store', () => {
     assert.equal(await new PersistentHaloXStore(filename).read(db => db.queryTable('keywords', { filters: { id: `eq.${created.id}` } }).count), 1);
   });
 
+  it('retries transient SQLite lock codes while loading a read snapshot', async (t) => {
+    const { filename, store } = fixture();
+    await store.read(() => undefined);
+    const connection = new DatabaseSync(filename), statement = connection.prepare('SELECT state FROM runtime_state WHERE id = 1'), prototype = Object.getPrototypeOf(statement) as { get: (...args: unknown[]) => unknown };
+    connection.close();
+    const original = prototype.get;
+    let remaining = 2, attempts = 0;
+    const mocked = t.mock.method(prototype, 'get', function (this: unknown, ...args: unknown[]) {
+      attempts++;
+      if (remaining--) throw Object.assign(new Error('database is locked'), { errcode: 261 });
+      return original.apply(this, args);
+    });
+    const count = await store.read(db => db.queryTable('keywords').count);
+    mocked.mock.restore();
+    assert.ok(count > 0); assert.equal(attempts, 3);
+  });
+
   it('does not retry non-lock SQLite errors or run the pending mutation', async (t) => {
     const { store } = fixture();
     await store.read(() => undefined);
