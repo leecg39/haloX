@@ -1,6 +1,7 @@
 import { DEFAULT_WORKSPACE_ID, RlsAccessDeniedError, type HaloXDatabase, type Row } from './database.ts';
+import { KEYWORD_EDITABLE_FIELDS } from './keyword-model.ts';
 
-const READ_ONLY = new Set(['profiles', 'plan_templates', 'plan_unit_limits', 'welcome_guide_config', 'welcome_guide_settings', 'system_settings', 'workspace_plans', 'usage_reservations']);
+const READ_ONLY = new Set(['profiles', 'plan_templates', 'plan_unit_limits', 'welcome_guide_config', 'welcome_guide_settings', 'system_settings', 'workspace_plans', 'usage_reservations', 'serp_snapshots']);
 const ADMIN_TABLES = new Set(['workspace_members', 'workspace_invitations', 'workspace_api_keys']);
 const WORKSPACE_FIELDS = new Set(['name', 'description', 'default_brand_filter', 'slug', 'settings', 'auto_generate_prompts']);
 const PROFILE_FIELDS = new Set(['full_name']);
@@ -21,6 +22,11 @@ export function assertRestWrite(db: HaloXDatabase, table: string, method: 'POST'
     return;
   }
   if (READ_ONLY.has(table)) throw new RlsAccessDeniedError('This table cannot be changed through the public REST API');
+  if (KEYWORD_EDITABLE_FIELDS[table]) {
+    const allowed = [...KEYWORD_EDITABLE_FIELDS[table], ...(method === 'POST' ? ['workspace_id'] : [])];
+    if (items.some(row => Object.keys(row).some(key => !allowed.includes(key)))) throw new Error('변경할 수 없는 필드입니다. 측정 지표는 수집을 통해 갱신됩니다.');
+    if (table === 'keywords' && method === 'POST') throw new Error('키워드 추가 기능으로 등록해 주세요.');
+  }
   if (table === 'workspaces') {
     if (items.some(row => Object.keys(row).some(key => !WORKSPACE_FIELDS.has(key)))) throw new Error('변경할 수 없는 워크스페이스 필드입니다.');
     if (items.some(row => 'name' in row && (typeof row.name !== 'string' || !row.name.trim() || row.name.length > 100))) throw new Error('워크스페이스 이름은 1~100자로 입력해 주세요.');

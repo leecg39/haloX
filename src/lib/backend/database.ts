@@ -3,6 +3,7 @@
  */
 
 import crypto from 'node:crypto';
+import { KEYWORD_EDITABLE_FIELDS, validateKeywordRecord } from './keyword-model.ts';
 import {
   aiTrafficShare,
   aviComposite,
@@ -849,6 +850,8 @@ export class HaloXDatabase {
       'keyword_knowledge_entities',
       'keyword_serp_jobs',
       'keyword_tag_assignments',
+      'keyword_ideas',
+      'keyword_prompt_links',
       'orders',
       'platform_admins',
       'subscriptions',
@@ -1146,16 +1149,20 @@ export class HaloXDatabase {
         continue;
       }
 
-      const workspaceId = String(item.workspace_id || DEFAULT_WORKSPACE_ID);
+      const workspaceId = String(item.workspace_id || [...this.getAllowedWorkspaceIds(actorUserId)][0] || '');
       this.assertWorkspaceMember(workspaceId, actorUserId);
 
-      const record: Row = {
-        id: typeof item.id === 'string' ? item.id : crypto.randomUUID(),
-        workspace_id: workspaceId,
+      const record: Row = validateKeywordRecord(tableName, {
         created_at: now,
         updated_at: now,
         ...item,
-      };
+        id: typeof item.id === 'string' ? item.id : crypto.randomUUID(),
+        workspace_id: workspaceId,
+      }, this.tables);
+      if (table.some(row => row.id === record.id)) throw new Error('이미 존재하는 ID입니다.');
+      if (tableName === 'keyword_sets' && record.is_default === true) {
+        for (const other of table) if (other.workspace_id === workspaceId) other.is_default = false;
+      }
 
       let issuedSecret: string | undefined;
       if (tableName === 'workspace_api_keys') {
@@ -1221,7 +1228,15 @@ export class HaloXDatabase {
       if (tableName === 'workspace_api_keys') {
         delete safePatch.key_hash;
       }
-      Object.assign(row, safePatch, { updated_at: now });
+      const validated = validateKeywordRecord(tableName, { ...row, ...safePatch, updated_at: now }, this.tables);
+      if (tableName === 'keywords' && ['keyword', 'language', 'country'].some(field => row[field] !== validated[field])) {
+        for (const snapshot of this.tables.get('serp_snapshots') || []) if (snapshot.keyword_id === row.id) snapshot.keyword_text ??= row.keyword;
+        Object.assign(validated, { search_volume: null, search_volume_google_ads: null, keyword_difficulty: null, intent: null, status: 'pending' });
+      }
+      if (tableName === 'keyword_sets' && validated.is_default === true) {
+        for (const other of table) if (other.workspace_id === row.workspace_id && other.id !== row.id && other.is_default) { other.is_default = false; other.updated_at = now; }
+      }
+      Object.assign(row, validated);
       updated.push(this.sanitizeRowForClient(tableName, row));
     }
 
@@ -1274,6 +1289,23 @@ export class HaloXDatabase {
     }
 
     this.tables.set(tableName, remaining);
+    const deletedIds = new Set(deleted.map(row => row.id));
+    if (tableName === 'keywords') {
+      for (const name of ['serp_snapshots', 'keyword_tag_assignments', 'keyword_prompt_links', 'keyword_knowledge_entities', 'keyword_serp_jobs', 'keyword_cluster_members']) {
+        this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.keyword_id)));
+      }
+      for (const name of ['content_jobs', 'geo_prompts']) for (const row of this.tables.get(name) || []) {
+        if (deletedIds.has(row.keyword_id)) row.keyword_id = null;
+        if (deletedIds.has(row.source_keyword_id)) row.source_keyword_id = null;
+      }
+    }
+    if (tableName === 'keyword_sets') {
+      for (const name of ['keywords', 'keyword_ideas']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.keyword_set_id)) row.keyword_set_id = null;
+    }
+    if (tableName === 'workspace_tags') for (const name of ['keyword_tag_assignments', 'geo_prompt_tag_assignments']) {
+      this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.tag_id)));
+    }
+    if (tableName === 'workspace_tag_groups') for (const row of this.tables.get('workspace_tags') || []) if (deletedIds.has(row.group_id)) row.group_id = null;
     if (tableName === 'workspaces' && deleted.length) {
       const workspaceIds = new Set(deleted.map(row => String(row.id)));
       const keywordIds = new Set((this.tables.get('keywords') || []).filter(row => workspaceIds.has(String(row.workspace_id))).map(row => String(row.id)));
@@ -2022,22 +2054,51 @@ export class HaloXDatabase {
       throw new Error(`Unsupported MCP method: ${mcpMethod}`);
     }
 
-    const workspaceId = String(payload.workspace_id || DEFAULT_WORKSPACE_ID);
+    const workspaceId = String(payload.workspace_id || [...this.getAllowedWorkspaceIds(actorUserId)][0] || '');
     this.assertWorkspaceMember(workspaceId, actorUserId);
     const now = new Date().toISOString();
+
+    if (fnName === 'keywords-save') {
+      const current = (this.tables.get('keywords') || []).find(row => row.id === payload.keyword_id && row.workspace_id === workspaceId);
+      if (!current) throw new Error('키워드를 찾을 수 없습니다.');
+      if (payload.updated_at !== current.updated_at) throw new Error('다른 곳에서 변경된 항목입니다. 새로고침 후 다시 시도해 주세요.');
+      const patch = payload.patch as Row;
+      if (!patch || typeof patch !== 'object' || Array.isArray(patch) || Object.keys(patch).some(key => !KEYWORD_EDITABLE_FIELDS.keywords.includes(key))) throw new Error('변경할 수 없는 키워드 필드입니다.');
+      if (payload.tag_ids !== undefined) {
+        if (!Array.isArray(payload.tag_ids) || payload.tag_ids.length > 50 || new Set(payload.tag_ids).size !== payload.tag_ids.length) throw new Error('태그를 확인해 주세요.');
+        for (const id of payload.tag_ids) validateKeywordRecord('keyword_tag_assignments', { keyword_id: current.id, tag_id: id, workspace_id: workspaceId, id: (this.tables.get('keyword_tag_assignments') || []).find(row => row.keyword_id === current.id && row.tag_id === id)?.id }, this.tables);
+      }
+      const [keyword] = this.updateTable('keywords', patch, { id: `eq.${current.id}`, workspace_id: `eq.${workspaceId}` }, actorUserId);
+      if (Array.isArray(payload.tag_ids)) {
+        this.deleteTable('keyword_tag_assignments', { keyword_id: `eq.${current.id}`, workspace_id: `eq.${workspaceId}` }, actorUserId);
+        for (const id of payload.tag_ids) this.insertTable('keyword_tag_assignments', { workspace_id: workspaceId, keyword_id: current.id, tag_id: id }, actorUserId);
+      }
+      return { ok: true, keyword };
+    }
 
     if (
       fnName === 'keywords-collect' ||
       fnName === 'bulk-collect-keyword-data' ||
-      fnName === 'fetch-serp-snapshot'
+      fnName === 'fetch-serp-snapshot' || fnName === 'keywords-refresh' || fnName === 'keywords-adopt-idea'
     ) {
-      const rawKeywords = Array.isArray(payload.keywords)
-        ? payload.keywords.map(String)
-        : typeof payload.keyword === 'string'
-          ? [payload.keyword]
-          : ['AI 브랜드 분석'];
+      const existing = fnName === 'keywords-refresh' ? (this.tables.get('keywords') || []).find(row => row.id === payload.keyword_id && row.workspace_id === workspaceId) : undefined;
+      if (fnName === 'keywords-refresh' && !existing) throw new Error('키워드를 찾을 수 없습니다.');
+      const idea = fnName === 'keywords-adopt-idea' ? (this.tables.get('keyword_ideas') || []).find(row => row.id === payload.idea_id && row.workspace_id === workspaceId) : undefined;
+      if (fnName === 'keywords-adopt-idea' && !idea) throw new Error('이미 채택했거나 삭제된 아이디어입니다.');
+      const source = existing || idea || payload;
+      const rawKeywords = existing || idea ? [source.keyword] : Array.isArray(payload.keywords) ? payload.keywords : [payload.keyword];
+      if (!rawKeywords.length || rawKeywords.length > 20 || rawKeywords.some(text => typeof text !== 'string' || !text.trim() || text.length > 200)) throw new Error('키워드를 1~20개 입력해 주세요. 각 키워드는 200자 이내입니다.');
+      let setId = source.keyword_set_id;
+      if (setId === undefined) {
+        let set = (this.tables.get('keyword_sets') || []).find(row => row.workspace_id === workspaceId && row.is_default);
+        set ||= (this.tables.get('keyword_sets') || []).find(row => row.workspace_id === workspaceId);
+        set ||= this.insertTable('keyword_sets', { workspace_id: workspaceId, name: '기본 키워드 세트', is_default: true }, actorUserId)[0];
+        setId = set.id;
+      }
+      const drafts = rawKeywords.map(keyword => validateKeywordRecord('keywords', { id: existing?.id || crypto.randomUUID(), workspace_id: workspaceId, keyword_set_id: setId, keyword, language: source.language ?? 'ko', country: source.country ?? 'KR' }, this.tables));
+      if (new Set(drafts.map(row => String(row.keyword).normalize('NFKC').toLowerCase())).size !== drafts.length) throw new Error('중복된 키워드를 제거해 주세요.');
 
-      const reservation = this.callRpc(
+      const reservation = existing ? null : this.callRpc(
         'reserve_unit_with_bypass',
         {
           p_workspace_id: workspaceId,
@@ -2046,52 +2107,47 @@ export class HaloXDatabase {
           p_idempotency_key: String(payload.idempotency_key || `kw-${Date.now()}-${Math.random()}`),
         },
         actorUserId
-      ) as { reservation_id: string };
+      ) as { reservation_id: string } | null;
 
       const createdKeywords: Row[] = [];
       const createdSnapshots: Row[] = [];
 
-      for (const kwText of rawKeywords) {
-        const serp = await this.providers.collectSerp(kwText, 'google');
-        const [kwRow] = this.insertTable(
-          'keywords',
-          {
-            workspace_id: workspaceId,
-            keyword_set_id: DEFAULT_KEYWORD_SET_ID,
-            keyword: kwText,
-            language: 'ko',
-            country: 'KR',
+      for (const draft of drafts) {
+        const serp = await this.providers.collectSerp(String(draft.keyword), 'google');
+        const values = {
+            ...draft,
             search_volume: serp.searchVolume,
             search_volume_google_ads: serp.searchVolume,
             keyword_difficulty: serp.keywordDifficulty,
             intent: serp.intent,
             status: 'completed',
-            is_active: true,
-            is_paused: false,
+            is_active: existing?.is_active ?? true,
+            is_paused: existing?.is_paused ?? false,
             deleted_at: null,
-          },
-          actorUserId
-        );
+          };
+        const [kwRow] = existing ? this.updateTable('keywords', values, { id: `eq.${existing.id}`, workspace_id: `eq.${workspaceId}` }, actorUserId) : this.insertTable('keywords', values, actorUserId);
         createdKeywords.push(kwRow);
-
+        const targetDomain = String((this.tables.get('keyword_sets') || []).find(row => row.id === setId)?.target_domain || (this.tables.get('workspaces') || []).find(row => row.id === workspaceId)?.default_brand_filter || '').toLowerCase();
+        const ourRank = serp.topResults.find(result => result.domain.toLowerCase() === targetDomain || result.domain.toLowerCase().endsWith(`.${targetDomain}`))?.rank ?? null;
         const [snapRow] = this.insertTable(
           'serp_snapshots',
           {
             workspace_id: workspaceId,
             keyword_id: kwRow.id,
+            keyword_text: kwRow.keyword,
             captured_at: now,
             provider: 'dataforseo-mock',
-            country: 'KR',
-            language: 'ko',
+            country: draft.country,
+            language: draft.language,
             engine: serp.engine,
             ai_overview_detected: serp.aiOverviewDetected,
             top_results_json: serp.topResults,
             paa_questions_json: serp.paaQuestions,
             related_searches_json: serp.relatedSearches,
             serp_analysis_json: {
-              our_rank: 1,
-              aio_cited: serp.aiOverviewDetected,
-              top10: true,
+              our_rank: ourRank,
+              aio_cited: null,
+              top10: ourRank !== null && ourRank <= 10,
             },
           },
           actorUserId
@@ -2099,13 +2155,14 @@ export class HaloXDatabase {
         createdSnapshots.push(snapRow);
       }
 
-      this.callRpc('commit_reservation', { p_reservation_id: reservation.reservation_id }, actorUserId);
+      if (reservation) this.callRpc('commit_reservation', { p_reservation_id: reservation.reservation_id }, actorUserId);
+      if (idea) this.deleteTable('keyword_ideas', { id: `eq.${idea.id}`, workspace_id: `eq.${workspaceId}` }, actorUserId);
 
       return {
         ok: true,
         function: fnName,
         workspace_id: workspaceId,
-        reservation_id: reservation.reservation_id,
+        reservation_id: reservation?.reservation_id,
         keywords: createdKeywords,
         snapshots: createdSnapshots,
       };
@@ -2530,60 +2587,14 @@ export class HaloXDatabase {
     }
 
     if (fnName === 'ai-expand-keywords') {
-      const seedKeyword = String(payload.seed_keyword || payload.keyword || 'AI 검색 마케팅').trim();
+      const seed = payload.seed_keyword ?? payload.keyword;
+      if (typeof seed !== 'string' || !seed.trim() || seed.length > 170) throw new Error('확장할 키워드를 170자 이내로 입력해 주세요.');
       const rawCount = Number(payload.count ?? 2);
-      if (!Number.isInteger(rawCount) || rawCount <= 0) {
-        throw new Error(`Invalid expansion count "${payload.count}": must be a positive integer`);
-      }
+      if (!Number.isInteger(rawCount) || rawCount <= 0) throw new Error('Invalid expansion count: must be a positive integer');
       const count = Math.min(10, rawCount);
-      const reservation = this.callRpc(
-        'reserve_unit_with_bypass',
-        {
-          p_workspace_id: workspaceId,
-          p_unit_key: 'keyword_create',
-          p_amount: count,
-          p_idempotency_key: String(payload.idempotency_key || `expand-${Date.now()}-${Math.random()}`),
-        },
-        actorUserId
-      ) as { reservation_id: string };
-
-      const suffixes = ['가이드', '비교 분석', '도입 사례', '체크리스트', 'ROI 측정'];
-      const expanded: Row[] = [];
-      for (let i = 0; i < count; i += 1) {
-        const kwText = `${seedKeyword} ${suffixes[i % suffixes.length]}`;
-        const serp = await this.providers.collectSerp(kwText, 'google');
-        const [kwRow] = this.insertTable(
-          'keywords',
-          {
-            workspace_id: workspaceId,
-            keyword_set_id: DEFAULT_KEYWORD_SET_ID,
-            keyword: kwText,
-            language: 'ko',
-            country: 'KR',
-            search_volume: serp.searchVolume,
-            search_volume_google_ads: serp.searchVolume,
-            keyword_difficulty: serp.keywordDifficulty,
-            intent: serp.intent,
-            origin_type: 'ai_expanded',
-            status: 'completed',
-            is_active: true,
-            is_paused: false,
-            deleted_at: null,
-          },
-          actorUserId
-        );
-        expanded.push(kwRow);
-      }
-
-      this.callRpc('commit_reservation', { p_reservation_id: reservation.reservation_id }, actorUserId);
-
-      return {
-        ok: true,
-        function: fnName,
-        workspace_id: workspaceId,
-        reservation_id: reservation.reservation_id,
-        expanded_keywords: expanded,
-      };
+      const suffixes = ['가이드', '비교 분석', '도입 사례', '체크리스트', 'ROI 측정', '비용', '활용법', '후기', '도입 방법', '성공 사례'];
+      const result = await this.invokeEdgeFunction('keywords-collect', { ...payload, workspace_id: workspaceId, keywords: suffixes.slice(0, count).map(suffix => `${seed.trim()} ${suffix}`) }, actorUserId);
+      return { ...result, function: fnName, expanded_keywords: result.keywords };
     }
 
     if (

@@ -15,8 +15,8 @@ test('workspaces create, edit, reload, select, and delete use one server record'
   const rows = await response.json();
   expect(rows).toHaveLength(1);
   const id = rows[0].id;
-  const keyword = await request.post('/api/v1/rest/keywords', { data: { workspace_id: id, keyword: '삭제 연쇄 테스트' } });
-  expect(keyword.status()).toBe(201);
+  const keyword = await request.post('/api/v1/functions/keywords-collect', { data: { workspace_id: id, keywords: ['삭제 연쇄 테스트'] } });
+  expect(keyword.status()).toBe(200);
   await page.getByRole('region', { name, exact: true }).getByRole('button', { name: '수정', exact: true }).click();
   dialog = page.getByRole('dialog');
   await dialog.getByLabel('워크스페이스 이름').fill(renamed);

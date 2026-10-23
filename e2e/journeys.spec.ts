@@ -54,7 +54,13 @@ async function submitDialog(
 test('J1 keyword add charges keyword_create quota and stores the keyword', async ({ page, request }) => {
   const keyword = `e2e 키워드 ${Date.now()}`;
   const before = await quotaUsed(request, 'keyword_create');
-  await submitDialog(page, '/app/keywords', '키워드 추가', keyword, { submit: '키워드 추가' });
+  await page.goto('/app/keywords');
+  await page.getByRole('button', { name: '키워드 추가', exact: true }).click();
+  const dialog = page.getByRole('dialog');
+  await dialog.getByLabel('키워드 (한 줄에 하나, 최대 20개)').fill(keyword);
+  await dialog.getByRole('button', { name: '키워드 추가', exact: true }).click();
+  await expect(dialog).not.toBeVisible();
+  await expect(page.getByRole('link', { name: keyword, exact: true })).toBeVisible();
   await expect.poll(async () => (await rows(request, 'keywords', `keyword=eq.${encodeURIComponent(keyword)}`)).length).toBe(1);
   expect(await quotaUsed(request, 'keyword_create')).toBe(before + 1);
 });

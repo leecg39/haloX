@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import parse, { Element, attributesToProps, domToReact, type DOMNode, type HTMLReactParserOptions } from 'html-react-parser';
 import { createElement } from 'react';
@@ -38,14 +38,14 @@ function applySessionIdentity(root:HTMLElement,user:{email?:unknown;full_name?:u
  const replacements:[string,string][]=email?[['demo@halox.local',email]]:[];
  if(fullName)replacements.push(['HaloX 데모 관리자',fullName]);
  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let node:Node|null;
- while((node=walker.nextNode())){let value=node.nodeValue||'';for(const [from,to] of replacements)value=value.replaceAll(from,to);node.nodeValue=value}
- root.querySelectorAll<HTMLInputElement>('input').forEach(input=>{for(const [from,to] of replacements)if(input.value.includes(from))input.value=input.value.replaceAll(from,to)});
+ while((node=walker.nextNode())){if(node.parentElement?.closest('[data-live-root]'))continue;let value=node.nodeValue||'';for(const [from,to] of replacements)value=value.replaceAll(from,to);node.nodeValue=value}
+ root.querySelectorAll<HTMLInputElement>('input:not([data-live-root] input)').forEach(input=>{for(const [from,to] of replacements)if(input.value.includes(from))input.value=input.value.replaceAll(from,to)});
 }
 
 // App routes reachable without a session (sign-in and recovery flows).
 const PUBLIC_APP_ROUTE=/^\/app\/(login|signup|forgot-password|reset-password|find-email|auth\/callback|verify-phone|invite)(\/|\?|$)/;
 const parserOptions:HTMLReactParserOptions={replace(node){if(!(node instanceof Element))return;if(['script','iframe','noscript'].includes(node.name))return <></>;const nodeText=node.children.map(child=>'data'in child?child.data:'').join('').trim();if(node.name==='form'&&hasNamedInput(node,'email')&&hasNamedInput(node,'password')){const p=attributesToProps(node.attribs);return createElement('form',{...p,method:'post'},domToReact(node.children as DOMNode[],parserOptions))}if(node.name==='button'&&node.attribs.type==='button'&&nodeText==='인증번호 발송')return <PhoneVerificationButton className={node.attribs.class}/>;if(node.name==='button'&&node.attribs.type==='button'&&node.children.some(child=>child instanceof Element&&child.name==='svg'&&child.attribs.class?.includes('lucide-eye')))return <PasswordVisibilityButton className={node.attribs.class}/>;if(['input','textarea','select'].includes(node.name)){const p=attributesToProps(node.attribs);if('value'in p){p.defaultValue=p.value;delete p.value}if('checked'in p){p.defaultChecked=p.checked;delete p.checked}if(node.name==='textarea')return createElement('textarea',{...p,defaultValue:node.children.map(c=>'data'in c?c.data:'').join('')});if(node.name==='input')return createElement('input',p);return createElement('select',p,domToReact(node.children as DOMNode[],parserOptions))}}};
-export default function ClonePage({data,requestedRoute}:{data:Capture;requestedRoute:string}){
+export default function ClonePage({data,requestedRoute,children}:{data:Capture;requestedRoute:string;children?:ReactNode}){
  const router=useRouter();const rootRef=useRef<HTMLDivElement>(null);const [dialog,setDialog]=useState<DialogRequest|null>(null);const [toast,setToast]=useState('');const toastTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
  const navigate=useCallback((url:string)=>{
   try {
@@ -57,10 +57,13 @@ export default function ClonePage({data,requestedRoute}:{data:Capture;requestedR
  const openDialog=useCallback(async(request:DialogRequest)=>{if(request.route.split('?')[0]==='/app/geo/prompts'&&request.title==='추가')request={...request,title:'프롬프트 추가'};try{if(/키워드 추가/.test(request.title)){const r=await fetch('/clone/keyword-dialog.json');request={...request,template:(await r.json()).html}}else{const r=await fetch('/clone/dialog-templates.json');if(r.ok){const templates=await r.json();const found=templates.find((t:{route:string;trigger:string;html:string;kind?:string})=>(t.route===request.route||t.route===request.route.split('?')[0])&&t.trigger===request.title&&t.kind!=='page');if(found)request={...request,template:found.html}}}}catch{}setDialog(request)},[]);
  useEffect(()=>{if(!requestedRoute.startsWith('/app')||PUBLIC_APP_ROUTE.test(requestedRoute))return;let active=true;void (async()=>{try{const res=await fetch('/api/v1/auth');if(!active)return;if(res.status===401){navigate('/app/login');return}if(res.ok){const session=await res.json() as {user?:{email?:unknown;full_name?:unknown}};if(active&&session.user&&rootRef.current)applySessionIdentity(rootRef.current,session.user)}}catch{}})();return()=>{active=false}},[requestedRoute,navigate]);
  const navigation=useCloneNavigation({rootRef,route:requestedRoute,navigate,openDialog,notify,menus:data.publicInteractions?.menus});
- const content=useMemo(()=>parse(data.html,parserOptions),[data.html]);
+ const content=useMemo(()=>parse(data.html,{replace(node,index){
+  if(children&&node instanceof Element&&node.attribs.id==='main-scroll-container')return <main {...attributesToProps(node.attribs)} data-live-root="true">{children}</main>;
+  return parserOptions.replace?.(node,index);
+ }}),[data.html,children]);
  useEffect(()=>{document.body.className=data.bodyClass;document.documentElement.className=data.htmlClass;document.body.style.removeProperty('pointer-events');document.body.style.removeProperty('overflow');return()=>{if(toastTimer.current)clearTimeout(toastTimer.current)}},[data]);
- useEffect(()=>{const root=rootRef.current;if(!root)return;const cleanup=initializeDataControls(root,requestedRoute);
-  const originalFields=root.querySelectorAll<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>('input,textarea,select');
+ useEffect(()=>{const root=rootRef.current;if(!root)return;const cleanup=children?()=>{}:initializeDataControls(root,requestedRoute);
+  const originalFields=root.querySelectorAll<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>('input:not([data-live-root] input),textarea:not([data-live-root] textarea),select:not([data-live-root] select)');
   if(requestedRoute.startsWith('/app/login')){
    const loginForm=root.querySelector<HTMLFormElement>('form[data-clone-form="true"]');
    loginForm?.querySelector<HTMLInputElement>('input[name="email"]')?.setAttribute('required','');
@@ -82,7 +85,7 @@ export default function ClonePage({data,requestedRoute}:{data:Capture;requestedR
   const cleanupUsage=initializeLiveUsage(root,requestedRoute);
   const reveal=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('clone-revealed');reveal.unobserve(entry.target)}},{threshold:.05});root.querySelectorAll('[data-clone-reveal]').forEach(el=>reveal.observe(el));
   const click=(event:MouseEvent)=>{
-   const target=event.target as HTMLElement;if(!target?.closest)return;
+   const target=event.target as HTMLElement;if(!target?.closest||target.closest('[data-live-root]'))return;
    const routed=target.closest<HTMLElement>('[data-clone-route]');if(routed){event.preventDefault();navigate(routed.dataset.cloneRoute!);return}
    const link=target.closest<HTMLAnchorElement>('a[href]');if(link){const href=link.getAttribute('href')||'';if(href.startsWith('/')&&!event.metaKey&&!event.ctrlKey){event.preventDefault();navigate(href);return}if(href.startsWith('#'))return;}
    if(navigation.handleClick(event))return;
@@ -113,12 +116,12 @@ export default function ClonePage({data,requestedRoute}:{data:Capture;requestedR
    if(button.getAttribute('role')==='tab'){notify('이 보기의 수집된 상태를 표시하고 있습니다.');return}
    if(text||label){openDialog({title:text||label,route:requestedRoute,description:'로컬 데모에서 내용을 확인하거나 입력할 수 있습니다.'})}
   };
-  const input=(event:Event)=>{handleDataInput(event,root)};
-  const submit=(event:Event)=>{event.preventDefault();const form=event.target as HTMLFormElement;if(!form.reportValidity())return;if(requestedRoute.startsWith('/app/login')){const email=(form.querySelector('input[name="email"]') as HTMLInputElement|null)?.value.trim()||'';const password=(form.querySelector('input[name="password"]') as HTMLInputElement|null)?.value||'';const submitButton=form.querySelector<HTMLButtonElement>('button[type="submit"]');const originalLabel=submitButton?.textContent||'Sign In';void (async()=>{if(submitButton){submitButton.disabled=true;submitButton.textContent='로그인 중...'}try{const res=await fetch('/api/v1/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});if(res.ok){navigate('/app');return}const message=res.status===401?'이메일 또는 비밀번호가 올바르지 않습니다.':res.status===429?'로그인 시도가 너무 많습니다. 잠시 후 다시 시도해 주세요.':res.status===400?'이메일과 비밀번호를 확인해 주세요.':res.status===500?'서버 로그인 설정을 확인해 주세요.':'로그인할 수 없습니다. 잠시 후 다시 시도해 주세요.';notify(message)}catch{notify('로그인할 수 없습니다. 네트워크 상태를 확인해 주세요.')}finally{if(submitButton?.isConnected){submitButton.disabled=false;submitButton.textContent=originalLabel}}})();return}if(requestedRoute.startsWith('/app/signup')){void submitSignup(form,navigate,notify);return}if(requestedRoute.startsWith('/app/forgot-password')){notify('데모 화면입니다. 실제 재설정 이메일은 발송하지 않습니다.');return}notify('입력 내용을 확인했습니다. 로컬 데모에는 외부로 전송하지 않습니다.')};
+  const input=(event:Event)=>{if(!(event.target as HTMLElement).closest('[data-live-root]'))handleDataInput(event,root)};
+  const submit=(event:Event)=>{if((event.target as HTMLElement).closest('[data-live-root]'))return;event.preventDefault();const form=event.target as HTMLFormElement;if(!form.reportValidity())return;if(requestedRoute.startsWith('/app/login')){const email=(form.querySelector('input[name="email"]') as HTMLInputElement|null)?.value.trim()||'';const password=(form.querySelector('input[name="password"]') as HTMLInputElement|null)?.value||'';const submitButton=form.querySelector<HTMLButtonElement>('button[type="submit"]');const originalLabel=submitButton?.textContent||'Sign In';void (async()=>{if(submitButton){submitButton.disabled=true;submitButton.textContent='로그인 중...'}try{const res=await fetch('/api/v1/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});if(res.ok){navigate('/app');return}const message=res.status===401?'이메일 또는 비밀번호가 올바르지 않습니다.':res.status===429?'로그인 시도가 너무 많습니다. 잠시 후 다시 시도해 주세요.':res.status===400?'이메일과 비밀번호를 확인해 주세요.':res.status===500?'서버 로그인 설정을 확인해 주세요.':'로그인할 수 없습니다. 잠시 후 다시 시도해 주세요.';notify(message)}catch{notify('로그인할 수 없습니다. 네트워크 상태를 확인해 주세요.')}finally{if(submitButton?.isConnected){submitButton.disabled=false;submitButton.textContent=originalLabel}}})();return}if(requestedRoute.startsWith('/app/signup')){void submitSignup(form,navigate,notify);return}if(requestedRoute.startsWith('/app/forgot-password')){notify('데모 화면입니다. 실제 재설정 이메일은 발송하지 않습니다.');return}notify('입력 내용을 확인했습니다. 로컬 데모에는 외부로 전송하지 않습니다.')};
   const keydown=(event:KeyboardEvent)=>{if(event.key==='Escape'&&requestedRoute.startsWith('/app/settings'))navigate('/app')};
   root.addEventListener('click',click);root.addEventListener('input',input);root.addEventListener('submit',submit);document.addEventListener('keydown',keydown);
   return()=>{cleanup();cleanupPublic();cleanupPricing();cleanupLists();cleanupUsage();reveal.disconnect();root.removeEventListener('click',click);root.removeEventListener('input',input);root.removeEventListener('submit',submit);document.removeEventListener('keydown',keydown)};
- },[data,requestedRoute,navigate,notify,openDialog,navigation]);
+ },[data,requestedRoute,navigate,notify,openDialog,navigation,children]);
  const onComplete=(result:DialogResult)=>{if(result.route.split('?')[0]==='/app/workspaces'&&result.record?.name){writeActiveWorkspace({id:result.record.id,name:result.record.name,plan:'Trial',domain:result.values?.domain||''});notify(`'${result.record.name}' 워크스페이스를 생성하고 전환했습니다.`)}else{notify('로컬 데모에 저장했습니다.')}window.dispatchEvent(new CustomEvent('halox:record-created',{detail:result}));void syncDialogActionToBackend(result);};
  return <><div ref={rootRef} className={'clone-surface '+(requestedRoute.startsWith('/app')?'clone-app':'clone-public')} data-route={requestedRoute}>{content}</div>{navigation.overlay}<DemoDialog request={dialog} onClose={()=>setDialog(null)} onComplete={onComplete}/>{toast&&<div className="clone-toast" role="status">{toast}<button aria-label="알림 닫기" onClick={()=>setToast('')}>×</button></div>}</>;
 }

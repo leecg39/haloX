@@ -12,6 +12,7 @@ const WORKSPACE = '11111111-1111-4000-8000-111111111111';
 
 test('data API rejects unauthenticated requests', async ({ request }) => {
   expect((await request.get('/api/v1/rest/keywords')).status()).toBe(401);
+  expect((await request.get(`/api/v1/keywords?workspace_id=${WORKSPACE}`)).status()).toBe(401);
   expect((await request.post('/api/v1/rpc/get_workspace_quota_summary', { data: { _workspace_id: WORKSPACE } })).status()).toBe(401);
   expect((await request.post('/api/v1/functions/keywords-collect', { data: { workspace_id: WORKSPACE, keywords: ['x'] } })).status()).toBe(401);
   expect((await request.get('/api/v1/auth')).status()).toBe(401);
