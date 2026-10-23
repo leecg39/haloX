@@ -45,8 +45,8 @@ exception when insufficient_privilege then null;
 end $$;
 
 -- 5. user A can reserve quota in their own workspace (keep id for later steps)
-select (public.reserve_unit_with_bypass('11111111-1111-4000-8000-111111111111', 'keywords', 1, 'sec-test-own')
-        ->> 'reservation_id') as own_reservation_id \gset
+select reservation_id as own_reservation_id
+from public.reserve_unit_with_bypass('11111111-1111-4000-8000-111111111111', 'keywords', 1, 'sec-test-own') \gset
 
 -- 6. user B cannot commit or release user A's reservation
 select set_config('request.jwt.claim.sub', '00000000-0000-4000-8000-000000000002', true);
