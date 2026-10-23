@@ -1,3 +1,4 @@
+import { collectionDefaults } from './general-settings-model.ts';
 import type { Row } from './database.ts';
 import { GEO_ENGINES, GEO_CATEGORIES } from '../api/prompts.ts';
 
@@ -34,7 +35,8 @@ export function validateGeoRecord(table: string, input: Row, tables: Map<string,
     const normalized = (value: unknown) => String(value ?? '').trim().normalize('NFKC').toLowerCase();
     if (table === 'geo_prompts') {
       reference('prompt_set_id', 'geo_prompt_sets', false);
-      row.language_code ??= 'ko'; row.location_code ??= 'KR'; row.prompt_category ??= 'informational'; row.engines ??= ['openai']; row.is_active ??= true; row.is_paused ??= false;
+      const defaults = collectionDefaults((tables.get('workspaces') || []).find(workspace => workspace.id === row.workspace_id));
+      row.language_code ??= defaults.language; row.location_code ??= defaults.country; row.prompt_category ??= 'informational'; row.engines ??= ['openai']; row.is_active ??= true; row.is_paused ??= false;
       if (!/^[a-z]{2,3}(?:-[A-Za-z]{2,4})?$/.test(String(row.language_code)) || !/^[A-Z]{2}$/.test(String(row.location_code))) throw new Error('언어 또는 국가 코드를 확인해 주세요.');
       if (!Object.hasOwn(GEO_CATEGORIES, String(row.prompt_category))) throw new Error('질문 유형을 확인해 주세요.');
       if (!Array.isArray(row.engines) || !row.engines.length || row.engines.length > 4 || new Set(row.engines).size !== row.engines.length || row.engines.some(engine => !Object.hasOwn(GEO_ENGINES, String(engine)))) throw new Error('실행할 엔진을 1~4개 선택해 주세요.');

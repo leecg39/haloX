@@ -103,9 +103,12 @@ test('idea adoption and keyword-prompt links use persisted records', async ({ pa
   await live(page).getByRole('button', { name: '네트워크', exact: true }).click();
   await live(page).getByRole('button', { name: '프롬프트 연결', exact: true }).click();
   await dialog(page).getByLabel('키워드', { exact: true }).selectOption({ label: idea });
-  await dialog(page).getByLabel('프롬프트', { exact: true }).selectOption({ index: 1 }); await save(page);
+  const records = await (await request.get(`/api/v1/keywords?workspace_id=${WS}`)).json();
+  const linkedIds = records.keyword_prompt_links.filter((link: { keyword_id: string }) => link.keyword_id === keyword.id).map((link: { prompt_id: string }) => link.prompt_id);
+  const target = records.geo_prompts.find((prompt: { id: string }) => !linkedIds.includes(prompt.id)); expect(target).toBeTruthy();
+  await dialog(page).getByLabel('프롬프트', { exact: true }).selectOption(target.id); await save(page);
   await page.reload(); await live(page).getByRole('button', { name: '네트워크', exact: true }).click();
-  const row = live(page).getByRole('row').filter({ hasText: idea }); await expect(row).toBeVisible();
+  const row = live(page).getByRole('row').filter({ hasText: idea }).filter({ hasText: target.prompt_text }); await expect(row).toBeVisible();
   await row.getByRole('button', { name: '삭제', exact: true }).click(); await save(page, '삭제');
   await expect(row).not.toBeVisible();
   await request.delete(`/api/v1/rest/keywords?id=eq.${keyword.id}`);

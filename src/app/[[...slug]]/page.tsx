@@ -1,3 +1,4 @@
+import { GeneralSettingsPage } from '@/components/live/GeneralSettingsPage';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getCapture } from '@/lib/content';
@@ -78,6 +79,7 @@ export default async function Page(props: Props) {
     shellRoute = pathname; children = <AnalysesPage kind={pathname.includes('/seo/') ? 'seo' : 'geo'} initialTab={new URLSearchParams(route.split('?')[1]).get('tab') || undefined} />;
   }
   const settingsTab = new URLSearchParams(route.split('?')[1]).get('tab');
+  if (pathname === '/app/settings' && (!settingsTab || settingsTab === 'general')) { shellRoute = '/app'; children = <GeneralSettingsPage />; }
   if (pathname === '/app/settings' && settingsTab === 'earned') { shellRoute = '/app'; children = <EarnedPage />; }
   if (pathname === '/app/settings' && settingsTab === 'api') { shellRoute = '/app'; children = <ApiSettingsPage />; }
   if (pathname === '/app/settings' && settingsTab === 'tags') { shellRoute = '/app'; children = <TagSettingsPage />; }

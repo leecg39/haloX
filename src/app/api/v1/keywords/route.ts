@@ -1,3 +1,4 @@
+import { readCollectionDefaults } from '@/lib/backend/general-settings-service';
 import { NextRequest, NextResponse } from 'next/server';
 import { authenticate } from '@/lib/api/route-auth';
 import { KEYWORD_PAGE_TABLES } from '@/lib/api/keywords';
@@ -13,7 +14,7 @@ export async function GET(request: NextRequest) {
   try {
     const data = await haloxStore.read(db => {
       db.assertWorkspaceAccess(workspaceId, auth.actor, 'analysis');
-      return Object.fromEntries(KEYWORD_PAGE_TABLES.map(table => [table, db.queryTable(table, { filters: { workspace_id: `eq.${workspaceId}` }, order: 'created_at.desc' }, auth.actor).data]));
+      return { ...Object.fromEntries(KEYWORD_PAGE_TABLES.map(table => [table, db.queryTable(table, { filters: { workspace_id: `eq.${workspaceId}` }, order: 'created_at.desc' }, auth.actor).data])), defaults: readCollectionDefaults(db, workspaceId, auth.actor) };
     });
     return NextResponse.json(data, { headers: { 'Cache-Control': 'private, no-store' } });
   } catch (error) {

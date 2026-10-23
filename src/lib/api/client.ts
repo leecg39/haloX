@@ -114,7 +114,9 @@ export async function invokeEdgeEndpoint<T = Record<string, unknown>>(
     const err = await res.json().catch(() => ({ error: res.statusText }));
     throw new Error(err.error || `Edge function ${functionName} failed`);
   }
-  return (await res.json()) as T;
+  const data = (await res.json()) as T;
+  if (typeof window !== 'undefined') window.dispatchEvent(new Event('halox:usage-changed'));
+  return data;
 }
 
 /**

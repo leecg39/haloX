@@ -6,7 +6,7 @@ import { LIBRARY_EDITABLE_FIELDS } from './library-model.ts';
 
 const READ_ONLY = new Set(['profiles', 'plan_templates', 'plan_unit_limits', 'welcome_guide_config', 'welcome_guide_settings', 'system_settings', 'workspace_plans', 'usage_reservations', 'serp_snapshots']);
 const ADMIN_TABLES = new Set(['workspace_members', 'workspace_invitations', 'workspace_api_keys']);
-const WORKSPACE_FIELDS = new Set(['name', 'description', 'brand_name', 'default_brand_filter', 'slug', 'settings', 'auto_generate_prompts']);
+const WORKSPACE_FIELDS = new Set(['name', 'description', 'brand_name', 'default_brand_filter', 'slug']);
 const PROFILE_FIELDS = new Set(['full_name']);
 
 /** Public REST writes have narrower privileges than server-side pipelines. */

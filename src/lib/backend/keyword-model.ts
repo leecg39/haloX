@@ -1,3 +1,4 @@
+import { collectionDefaults } from './general-settings-model.ts';
 import type { Row } from './database.ts';
 
 export const KEYWORD_EDITABLE_FIELDS: Record<string, readonly string[]> = {
@@ -29,7 +30,8 @@ export function validateKeywordRecord(table: string, input: Row, tables: Map<str
   };
   if (['keywords', 'keyword_ideas', 'keyword_sets'].includes(table)) {
     text(table === 'keyword_sets' ? 'name' : 'keyword', table === 'keyword_sets' ? 100 : 200);
-    row.language ??= 'ko'; row.country ??= 'KR';
+    const defaults = collectionDefaults((tables.get('workspaces') || []).find(workspace => workspace.id === row.workspace_id));
+    row.language ??= defaults.language; row.country ??= defaults.country;
     if (typeof row.language !== 'string' || !/^[a-z]{2,3}(?:-[A-Za-z]{2,4})?$/.test(row.language)) throw new Error('언어 코드를 확인해 주세요.');
     if (typeof row.country !== 'string' || !/^[A-Z]{2}$/.test(row.country)) throw new Error('국가 코드를 확인해 주세요.');
     for (const field of ['is_active', 'is_paused', 'is_default']) if (field in row && typeof row[field] !== 'boolean') throw new Error(`${field}: true 또는 false를 입력해 주세요.`);

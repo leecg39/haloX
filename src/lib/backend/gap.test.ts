@@ -69,10 +69,10 @@ describe('gap evidence and opportunity lifecycle', () => {
 
   it('adopts once across concurrent requests and restart, including after the created destination is deleted', async () => {
     const f = await fixture(), candidate = await f.create('채택 키워드'); await assert.rejects(f.adopt(candidate, { confirm: false }), /확인/);
-    const results = await Promise.all([f.adopt(candidate), f.adopt(candidate)]); assert.equal(results.filter(row => row.reused).length, 1); assert.equal((await f.rows('keywords')).length, 1); assert.equal((await f.rows('usage_reservations')).length, 1); assert.equal((await f.rows('opportunity_decisions')).length, 1);
+    const results = await Promise.all([f.adopt(candidate), f.adopt(candidate)]); assert.equal(results.filter(row => row.reused).length, 1); assert.equal((await f.rows('keywords')).length, 1); assert.equal((await f.rows('usage_reservations')).length, 2); assert.equal((await f.rows('opportunity_decisions')).length, 1);
     const adopted = (await f.rows('geo_prompt_candidates'))[0], restart = new PersistentHaloXStore(f.filename);
     assert.equal((await restart.write(db => db.invokeEdgeFunction('candidate-adopt', { workspace_id: f.workspace, candidate_id: candidate.id, expected_revision: 1, confirm: true }, ACTOR))).reused, true);
-    await f.store.write(db => db.deleteTable('keywords', { id: `eq.${adopted.destination_id}` }, ACTOR)); await f.adopt(candidate); assert.equal((await f.rows('keywords')).length, 0); assert.equal((await f.rows('usage_reservations')).length, 1);
+    await f.store.write(db => db.deleteTable('keywords', { id: `eq.${adopted.destination_id}` }, ACTOR)); await f.adopt(candidate); assert.equal((await f.rows('keywords')).length, 0); assert.equal((await f.rows('usage_reservations')).length, 2);
     await assert.rejects(f.invoke('candidate-status', { candidate_id: candidate.id, expected_revision: 2, status: 'pending' }), /상태 변경/);
     await assert.rejects(f.invoke('candidate-update', { ...adopted, candidate_id: candidate.id, expected_revision: 2, text: '다른 문구' }), /변경할 수 없습니다/);
     await f.invoke('candidate-update', { ...adopted, candidate_id: candidate.id, expected_revision: 2, notes: '채택 후 검토', priority: 'high' }); assert.equal((await f.rows('geo_prompt_candidates'))[0].notes, '채택 후 검토');

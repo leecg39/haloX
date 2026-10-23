@@ -19,6 +19,7 @@ import { PhoneVerificationButton } from './PhoneVerificationButton';
 import { submitSignup } from './signup-form';
 import { ReferralSignupField } from './ReferralSignupField';
 import { useWorkspace } from './WorkspaceProvider';
+import { WorkspaceQuotaButton } from './WorkspaceQuotaButton';
 
 function PasswordVisibilityButton({className}:{className?:string}){
  const [visible,setVisible]=useState(false);
@@ -47,7 +48,7 @@ function applySessionIdentity(root:HTMLElement,user:{email?:unknown;full_name?:u
 
 const parserOptions:HTMLReactParserOptions={replace(node){if(!(node instanceof Element))return;if(['script','iframe','noscript'].includes(node.name))return <></>;const nodeText=node.children.map(child=>'data'in child?child.data:'').join('').trim();if(node.name==='form'&&hasNamedInput(node,'email')&&hasNamedInput(node,'password')){const p=attributesToProps(node.attribs);return createElement('form',{...p,method:'post'},domToReact(node.children as DOMNode[],parserOptions))}if(node.name==='button'&&node.attribs.type==='button'&&nodeText==='인증번호 발송')return <PhoneVerificationButton className={node.attribs.class}/>;if(node.name==='button'&&node.attribs.type==='button'&&node.children.some(child=>child instanceof Element&&child.name==='svg'&&child.attribs.class?.includes('lucide-eye')))return <PasswordVisibilityButton className={node.attribs.class}/>;if(['input','textarea','select'].includes(node.name)){const p=attributesToProps(node.attribs);if('value'in p){p.defaultValue=p.value;delete p.value}if('checked'in p){p.defaultChecked=p.checked;delete p.checked}if(node.name==='textarea')return createElement('textarea',{...p,defaultValue:node.children.map(c=>'data'in c?c.data:'').join('')});if(node.name==='input')return createElement('input',p);return createElement('select',p,domToReact(node.children as DOMNode[],parserOptions))}}};
 export default function ClonePage({data,requestedRoute,children}:{data:Capture;requestedRoute:string;children?:ReactNode}){
- const {user,permission,loading:workspaceLoading,error:workspaceError,reload:reloadWorkspace}=useWorkspace();
+ const {user,permission,activeWorkspace,loading:workspaceLoading,error:workspaceError,reload:reloadWorkspace}=useWorkspace();
  const section=routeSection(requestedRoute);
  const blocked=!!section&&(workspaceLoading||!!workspaceError||!canAccess(permission,section));
  const router=useRouter();const rootRef=useRef<HTMLDivElement>(null);const [dialog,setDialog]=useState<DialogRequest|null>(null);const [toast,setToast]=useState('');const toastTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
@@ -62,6 +63,7 @@ export default function ClonePage({data,requestedRoute,children}:{data:Capture;r
  useEffect(()=>{if(user&&rootRef.current)applySessionIdentity(rootRef.current,user)},[user,requestedRoute,data.html]);
  const navigation=useCloneNavigation({rootRef,route:requestedRoute,navigate,openDialog,notify,menus:data.publicInteractions?.menus});
  const content=useMemo(()=>parse(data.html,{replace(node,index){
+  if(requestedRoute.startsWith('/app')&&node instanceof Element&&node.name==='button'&&node.attribs['aria-label']?.startsWith('AI 프롬프트 '))return <WorkspaceQuotaButton className={node.attribs.class}/>;
   if((children||section)&&node instanceof Element&&node.attribs.id==='main-scroll-container')return <main {...attributesToProps(node.attribs)} data-live-root={children||blocked ? "true" : undefined}>{blocked ? <section className="live live-card" aria-label="메뉴 접근 안내"><h1>{workspaceLoading ? '권한 확인 중…' : workspaceError ? '계정 정보를 확인할 수 없습니다' : '접근 권한이 없습니다'}</h1><p>{workspaceError || (workspaceLoading ? '현재 워크스페이스의 권한을 확인하고 있습니다.' : '이 메뉴는 현재 멤버에게 허용되지 않았습니다. 관리자에게 메뉴 권한을 요청해 주세요.')}</p><button onClick={() => void reloadWorkspace()}>권한 다시 확인</button> <a href="/app/workspaces">워크스페이스 선택</a> · <a href="/app/settings?tab=profile">내 프로필</a></section> : <>{section && permission.role === 'viewer' && <p className="live-status" role="status">읽기 전용 · 조회와 검색을 할 수 있습니다. 수정·실행·다운로드는 제한됩니다.</p>}{section && !permission.allowed_sections.includes('all') && permission.role !== 'owner' && <p className="live-status">허용된 메뉴의 자료만 표시합니다. 다른 메뉴의 자료가 필요한 집계와 연결 목록은 일부가 생략될 수 있습니다.</p>}{children || (permission.role === 'viewer' ? <fieldset disabled>{domToReact(node.children as DOMNode[],parserOptions)}</fieldset> : domToReact(node.children as DOMNode[],parserOptions))}</>}</main>;
   const pageLabel=requestedRoute.split('?')[0]==='/app/referral'?'추천 프로그램':requestedRoute.split('?')[0]==='/app/settings'&&new URLSearchParams(requestedRoute.split('?')[1]).get('tab')==='profile'?'내 프로필과 보안':requestedRoute.split('?')[0]==='/app/settings'?'설정':undefined;
   if(pageLabel&&node instanceof Element&&node.name==='span'&&node.attribs.role==='link'&&node.attribs['aria-current']==='page')return <span {...attributesToProps(node.attribs)}>{pageLabel}</span>;
@@ -92,10 +94,10 @@ export default function ClonePage({data,requestedRoute,children}:{data:Capture;r
   const cleanupPublic=initializePublicControls(root);
   const cleanupPricing=initializePublicPricing(root);
   const cleanupLists=initializePublicLists(root,requestedRoute);
-  const cleanupUsage=initializeLiveUsage(root,requestedRoute);
+  const cleanupUsage=initializeLiveUsage(root,requestedRoute,activeWorkspace.id);
   const reveal=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('clone-revealed');reveal.unobserve(entry.target)}},{threshold:.05});root.querySelectorAll('[data-clone-reveal]').forEach(el=>reveal.observe(el));
   const click=(event:MouseEvent)=>{
-   const target=event.target as HTMLElement;if(!target?.closest||target.closest('[data-live-root]'))return;
+   const target=event.target as HTMLElement;if(!target?.closest||target.closest('[data-live-root], [data-live-quota]'))return;
    const routed=target.closest<HTMLElement>('[data-clone-route]');if(routed){event.preventDefault();navigate(routed.dataset.cloneRoute!);return}
    const link=target.closest<HTMLAnchorElement>('a[href]');if(link){const href=link.getAttribute('href')||'';if(href.startsWith('/')&&!event.metaKey&&!event.ctrlKey){event.preventDefault();navigate(href);return}if(href.startsWith('#'))return;}
    if(navigation.handleClick(event))return;
@@ -131,7 +133,7 @@ export default function ClonePage({data,requestedRoute,children}:{data:Capture;r
   const keydown=(event:KeyboardEvent)=>{if(event.key==='Escape'&&!children&&requestedRoute.startsWith('/app/settings'))navigate('/app')};
   root.addEventListener('click',click);root.addEventListener('input',input);root.addEventListener('submit',submit);document.addEventListener('keydown',keydown);
   return()=>{cleanup();cleanupPublic();cleanupPricing();cleanupLists();cleanupUsage();reveal.disconnect();root.removeEventListener('click',click);root.removeEventListener('input',input);root.removeEventListener('submit',submit);document.removeEventListener('keydown',keydown)};
- },[data,requestedRoute,navigate,notify,openDialog,navigation,children]);
+ },[data,requestedRoute,navigate,notify,openDialog,navigation,children,activeWorkspace.id,blocked]);
  const onComplete=(result:DialogResult)=>{if(result.route.split('?')[0]==='/app/workspaces'&&result.record?.name){writeActiveWorkspace({id:result.record.id,name:result.record.name,plan:'Trial',domain:result.values?.domain||''});notify(`'${result.record.name}' 워크스페이스를 생성하고 전환했습니다.`)}else{notify('로컬 데모에 저장했습니다.')}window.dispatchEvent(new CustomEvent('halox:record-created',{detail:result}));void syncDialogActionToBackend(result);};
  return <><div ref={rootRef} className={'clone-surface '+(requestedRoute.startsWith('/app')?'clone-app':'clone-public')} data-route={requestedRoute}>{content}</div>{navigation.overlay}<DemoDialog request={dialog} onClose={()=>setDialog(null)} onComplete={onComplete}/>{toast&&<div className="clone-toast" role="status">{toast}<button aria-label="알림 닫기" onClick={()=>setToast('')}>×</button></div>}</>;
 }

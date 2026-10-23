@@ -28,7 +28,7 @@ export const API_TOOLS = [
   tool('list_keywords', 'SEO 키워드 목록을 조회합니다.', ['seo:read'], paging),
   tool('get_keyword_snapshots', '키워드의 저장 SERP 원본을 조회합니다.', ['seo:read'], { id: string, ...paging }, ['id']),
   tool('get_gsc_ga4_kpis', '저장된 GSC/GA4 집계를 조회합니다. 실제 동기화 여부는 출처를 확인하세요.', ['seo:read']),
-  tool('collect_keywords', '키워드를 등록하고 즉시 수집합니다. 현재 수집기는 데모 Provider입니다.', ['seo:write'], { keywords: strings, keyword_set_id: string, language: string, country: string }, ['keywords']),
+  tool('collect_keywords', '키워드를 등록하고 즉시 수집합니다. 자동 질문 생성이 켜져 있으면 prompts:write 권한도 필요합니다. 현재 수집기는 데모 Provider입니다.', ['seo:write'], { keywords: strings, keyword_set_id: string, language: string, country: string }, ['keywords']),
   tool('recollect_keyword', '기존 키워드를 다시 수집합니다. 현재 수집기는 데모 Provider입니다.', ['seo:write'], { id: string, updated_at: string }, ['id', 'updated_at']),
   tool('update_keyword', '키워드 텍스트·세트·분류·활성 상태를 수정합니다.', ['seo:write'], { id: string, updated_at: string, patch: object }, ['id', 'updated_at', 'patch']),
   tool('delete_keyword', '키워드와 과거 수집 기록을 영구 삭제합니다.', ['seo:delete'], { id: string, updated_at: string, confirm: { type: 'boolean', const: true } }, ['id', 'updated_at', 'confirm']),
@@ -72,7 +72,7 @@ export async function executeApiTool(db: HaloXDatabase, name: string, args: Row,
   if (name === 'create_prompt') {
     const reservation = db.callRpc('reserve_unit_with_bypass', { p_workspace_id: workspace, p_unit_key: 'prompt_create', p_amount: 1, p_idempotency_key: requestKey }, actor) as Row;
     const { request_id: _request, ...fields } = args;
-    const row = db.insertTable('geo_prompts', { ...fields, workspace_id: workspace, engines: args.engines ?? ['openai'], prompt_category: 'informational', language_code: args.language_code ?? 'ko', location_code: args.location_code ?? 'KR', is_active: true, is_paused: false }, actor)[0];
+    const row = db.insertTable('geo_prompts', { ...fields, workspace_id: workspace, engines: args.engines ?? ['openai'], prompt_category: 'informational', language_code: args.language_code, location_code: args.location_code, is_active: true, is_paused: false }, actor)[0];
     db.callRpc('commit_reservation', { p_reservation_id: reservation.reservation_id }, actor); return row;
   }
   if (name === 'run_geo_prompt') { find('geo_prompts'); const result = await invoke('geo-run', { prompt_id: args.id, engines: args.engines }); return { ok: result.ok, prompt_id: result.prompt_id, runs: (result.results as Row[]).map(item => ({ id: (item.run as Row)?.id, status: (item.run as Row)?.status, metrics: item.metrics })) }; }

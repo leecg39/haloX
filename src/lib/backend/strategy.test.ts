@@ -108,7 +108,7 @@ describe('strategy map CRUD and live aggregation', () => {
     await assert.rejects(f.invoke('cluster-update', { cluster_id: cluster.id, expected_revision: 1, label: '침입', priority: 'normal' }, OTHER_USER_ID), /not authorized/i);
     await assert.rejects(f.store.read(db => readStrategyData(db, ISOLATED_WORKSPACE_ID, ACTOR)), /not authorized/i);
     await f.store.read(db => { for (const table of ['keyword_clusters', 'keyword_cluster_members', 'keyword_cluster_links', 'cluster_stats_history', 'cluster_batch_runs']) for (const method of ['POST', 'PATCH', 'DELETE'] as const) assert.throws(() => assertRestWrite(db, table, method, ACTOR, { workspace_id: f.workspace }, { id: `eq.${cluster.id}` }), /전용 서버/); });
-    const state = await f.store.read(db => db.callRpc('strategy_map_effective_state', { workspace_id: f.workspace }, ACTOR)) as Row; assert.equal(state.linked_keyword_count, 1); assert.equal(state.cluster_count, 1); assert.equal(state.auto_generate_prompts, false);
+    const state = await f.store.read(db => db.callRpc('strategy_map_effective_state', { workspace_id: f.workspace }, ACTOR)) as Row; assert.equal(state.linked_keyword_count, 1); assert.equal(state.cluster_count, 1); assert.equal(state.auto_generate_prompts, true);
     await f.run(); assert.equal((await f.store.read(db => db.getServerRecords('strategy_requests'))).length, 1);
     await f.store.write(db => db.deleteTable('workspaces', { id: `eq.${f.workspace}` }, ACTOR)); assert.equal((await f.store.read(db => db.getServerRecords('strategy_requests'))).length, 0); assert.equal((await f.store.read(db => db.queryTable('keyword_clusters', { filters: { workspace_id: `eq.${f.workspace}` } }, ACTOR))).count, 0);
   });

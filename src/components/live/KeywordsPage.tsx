@@ -8,7 +8,7 @@ import { KEYWORD_PAGE_TABLES as TABLES, type KeywordPageTable as Table, type Key
 import { useWorkspace } from '../WorkspaceProvider';
 import { downloadCsv, EmptyState, ErrorState, LiveModal } from './LiveUI';
 
-const empty = () => Object.fromEntries(TABLES.map(table => [table, [] as Row[]])) as Data;
+const empty = () => Object.fromEntries(TABLES.map(table => [table, [] as Row[]])) as Record<Table, Row[]>;
 const str = (value: unknown) => String(value ?? '');
 const number = (value: unknown) => typeof value === 'number' && Number.isFinite(value) ? value.toLocaleString('ko-KR') : '—';
 const date = (value: unknown) => value && Number.isFinite(Date.parse(str(value))) ? new Date(str(value)).toLocaleString('ko-KR') : '—';
@@ -154,7 +154,7 @@ function KeywordWorkspace({ workspaceId, workspaceName, workspaceDomain, keyword
 
 function KeywordFields({ edit: { table, row }, data }: { edit: Edit; data: Data }) {
   const value = (key: string, fallback = '') => str(row?.[key] ?? fallback);
-  const locale = <><label>언어<select aria-label="언어" name="language" defaultValue={value('language', 'ko')}><option value="ko">한국어</option><option value="en">영어</option><option value="ja">일본어</option><option value="zh">중국어</option></select></label><label>국가<select aria-label="국가" name="country" defaultValue={value('country', 'KR')}><option value="KR">대한민국</option><option value="US">미국</option><option value="JP">일본</option><option value="CN">중국</option></select></label></>;
+  const locale = <>{table === 'keywords' && !row && data.defaults?.auto_generate_prompts && <p>자동 생성 켜짐: 키워드마다 질문 1개를 자동 등록·연결합니다. 새 질문은 프롬프트 생성 한도 1회를 사용하며, 실행은 프롬프트 화면에서 시작합니다.</p>}<label>언어<select aria-label="언어" name="language" defaultValue={value('language', data.defaults?.language || 'ko')}><option value="ko">한국어</option><option value="en">영어</option><option value="ja">일본어</option><option value="zh">중국어</option></select></label><label>국가<select aria-label="국가" name="country" defaultValue={value('country', data.defaults?.country || 'KR')}><option value="KR">대한민국</option><option value="US">미국</option><option value="JP">일본</option><option value="CN">중국</option></select></label></>;
   if (table === 'keyword_prompt_links') return <><label>키워드<select aria-label="키워드" name="keyword_id" required defaultValue={value('keyword_id')}><option value="">선택</option>{data.keywords.map(keyword => <option key={keyword.id} value={keyword.id}>{str(keyword.keyword)}</option>)}</select></label><label>프롬프트<select aria-label="프롬프트" name="prompt_id" required defaultValue={value('prompt_id')}><option value="">선택</option>{data.geo_prompts.map(prompt => <option key={prompt.id} value={prompt.id}>{str(prompt.prompt_text)}</option>)}</select></label></>;
   if (table === 'keywords' || table === 'keyword_ideas') return <>
     <label>{!row && table === 'keywords' ? '키워드 (한 줄에 하나, 최대 20개)' : '키워드'}{!row && table === 'keywords' ? <textarea name="keyword" required maxLength={4020} placeholder="브랜드 검색 최적화" /> : <input name="keyword" required maxLength={200} defaultValue={value('keyword')} />}</label>

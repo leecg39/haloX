@@ -1,3 +1,4 @@
+import { ANALYSIS_LANGUAGES, ANALYSIS_COUNTRIES } from '../api/general-settings.ts';
 import { canAccess, normalizeSections, SECTIONS, type Section } from '../permissions/workspace.ts';
 import crypto from 'node:crypto';
 import { POLICY_FIELDS, policyUrls } from './site-policy.ts';
@@ -35,6 +36,8 @@ export function validateWorkspacePatch(input: Row, current?: Row) {
     row.default_brand_filter = domain;
   }
   if ('slug' in row && (typeof row.slug !== 'string' || !/^[\p{L}\p{N}][\p{L}\p{N}_-]{0,99}$/u.test(row.slug))) throw new Error('슬러그는 문자·숫자·하이픈·밑줄로 1~100자 입력해 주세요.');
+  if ('default_analysis_language' in row && !Object.hasOwn(ANALYSIS_LANGUAGES, String(row.default_analysis_language))) throw new Error('기본 분석 언어를 확인해 주세요.');
+  if ('default_analysis_country' in row && !Object.hasOwn(ANALYSIS_COUNTRIES, String(row.default_analysis_country))) throw new Error('기본 분석 국가를 확인해 주세요.');
   if ('auto_generate_prompts' in row && typeof row.auto_generate_prompts !== 'boolean') throw new Error('자동 생성 설정을 확인해 주세요.');
   if ('settings' in row && (!row.settings || typeof row.settings !== 'object' || Array.isArray(row.settings) || JSON.stringify(row.settings).length > 16000)) throw new Error('설정 형식을 확인해 주세요.');
   if (POLICY_FIELDS.some(field => field in row)) Object.assign(row, policyUrls({ ...current, ...row }));

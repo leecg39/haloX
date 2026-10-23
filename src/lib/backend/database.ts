@@ -1,3 +1,4 @@
+import { registerKeywordPrompt, readCollectionDefaults } from './general-settings-service.ts';
 import { canAccess, canWrite, normalizeSections, type Permission, type Section } from '../permissions/workspace.ts';
 import { tableSection, rpcSection } from './permission-policy.ts';
 /**
@@ -2128,7 +2129,7 @@ export class HaloXDatabase {
         return { reason: clusters.length ? null : 'no_clusters', status: clusters.length ? 'ready' : 'empty', effective: clusters.length ? 'ready' : 'empty', scanned_at: scanned,
           cluster_count: clusters.length, prompt_set_count: promptSets.length, active_prompt_count: prompts.filter(p => p.is_active && !p.is_paused).length,
           active_keyword_count: keywords.filter(k => k.is_active && !k.is_paused).length, latest_prompt_set_id: promptSets[0]?.id || null,
-          linked_keyword_count: new Set(clusters.flatMap(row => row.stats.keyword_ids)).size, auto_generate_prompts: false, recommended_entrypoint: '/app/strategy-map', recommended_resume_from: null };
+          linked_keyword_count: new Set(clusters.flatMap(row => row.stats.keyword_ids)).size, auto_generate_prompts: readCollectionDefaults(this, workspaceId, actorUserId).auto_generate_prompts, recommended_entrypoint: '/app/strategy-map', recommended_resume_from: null };
       }
 
       // Quota 2-Phase Reservation RPCs (F5-9)
@@ -2328,7 +2329,7 @@ export class HaloXDatabase {
         set ||= this.insertTable('keyword_sets', { workspace_id: workspaceId, name: '기본 키워드 세트', is_default: true }, actorUserId)[0];
         setId = set.id;
       }
-      const drafts = rawKeywords.map(keyword => validateKeywordRecord('keywords', { id: existing?.id || crypto.randomUUID(), workspace_id: workspaceId, keyword_set_id: setId, keyword, language: source.language ?? 'ko', country: source.country ?? 'KR' }, this.tables));
+      const drafts = rawKeywords.map(keyword => validateKeywordRecord('keywords', { id: existing?.id || crypto.randomUUID(), workspace_id: workspaceId, keyword_set_id: setId, keyword, language: source.language, country: source.country }, this.tables));
       if (new Set(drafts.map(row => String(row.keyword).normalize('NFKC').toLowerCase())).size !== drafts.length) throw new Error('중복된 키워드를 제거해 주세요.');
 
       const reservation = existing ? null : this.callRpc(
@@ -2340,8 +2341,10 @@ export class HaloXDatabase {
           p_idempotency_key: String(payload.idempotency_key || `kw-${Date.now()}-${Math.random()}`),
         },
         actorUserId
-      ) as { reservation_id: string } | null;
+      ) as { reservation_id: string; idempotent?: boolean } | null;
+      if (reservation?.idempotent) throw new Error('이미 사용된 생성 요청입니다. 목록을 확인한 뒤 새 요청으로 다시 시도해 주세요.');
 
+      const generatedPrompts: Row[] = [];
       const createdKeywords: Row[] = [];
       const createdSnapshots: Row[] = [];
 
@@ -2360,6 +2363,7 @@ export class HaloXDatabase {
           };
         const [kwRow] = existing ? this.updateTable('keywords', values, { id: `eq.${existing.id}`, workspace_id: `eq.${workspaceId}` }, actorUserId) : this.insertTable('keywords', values, actorUserId);
         createdKeywords.push(kwRow);
+        if (!existing) { const prompt = registerKeywordPrompt(this, kwRow, actorUserId); if (prompt) generatedPrompts.push(prompt); }
         const targetDomain = String((this.tables.get('keyword_sets') || []).find(row => row.id === setId)?.target_domain || (this.tables.get('workspaces') || []).find(row => row.id === workspaceId)?.default_brand_filter || '').toLowerCase();
         const ourRank = serp.topResults.find(result => result.domain.toLowerCase() === targetDomain || result.domain.toLowerCase().endsWith(`.${targetDomain}`))?.rank ?? null;
         const [snapRow] = this.insertTable(
@@ -2400,6 +2404,7 @@ export class HaloXDatabase {
         workspace_id: workspaceId,
         reservation_id: reservation?.reservation_id,
         keywords: createdKeywords,
+        generated_prompts: generatedPrompts,
         snapshots: createdSnapshots,
       };
     }
@@ -2439,7 +2444,7 @@ export class HaloXDatabase {
       if (!Array.isArray(engines) || !engines.length || engines.length > 4 || new Set(engines).size !== engines.length || engines.some(engine => typeof engine !== 'string' || !Object.hasOwn(GEO_ENGINES, engine))) throw new Error('실행할 엔진을 1~4개 선택해 주세요.');
       let reservation: { reservation_id: string; idempotent?: boolean } | undefined;
       if (!prompt) {
-        const draft = validateGeoRecord('geo_prompts', { workspace_id: workspaceId, prompt_set_id: setId, prompt_text: payload.prompt_text, prompt_category: payload.prompt_category ?? 'informational', language_code: payload.language_code ?? 'ko', location_code: payload.location_code ?? 'KR', engines, is_active: true, is_paused: false, deleted_at: null }, this.tables);
+        const draft = validateGeoRecord('geo_prompts', { workspace_id: workspaceId, prompt_set_id: setId, prompt_text: payload.prompt_text, prompt_category: payload.prompt_category ?? 'informational', language_code: payload.language_code, location_code: payload.location_code, engines, is_active: true, is_paused: false, deleted_at: null }, this.tables);
         reservation = this.callRpc('reserve_unit_with_bypass', { p_workspace_id: workspaceId, p_unit_key: 'prompt_create', p_amount: 1, p_idempotency_key: String(payload.idempotency_key || crypto.randomUUID()) }, actorUserId) as { reservation_id: string; idempotent?: boolean };
         if (reservation.idempotent) throw new Error('이미 사용된 생성 요청입니다. 목록을 확인한 뒤 새 요청으로 다시 시도해 주세요.');
         [prompt] = this.insertTable('geo_prompts', draft, actorUserId);

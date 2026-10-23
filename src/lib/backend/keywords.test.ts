@@ -30,7 +30,7 @@ describe('keyword lifecycle', () => {
     assert.equal(find(db, 'keywords', keyword.id).is_paused, true);
     assert.equal(db.queryTable('keywords', { filters: { workspace_id: `eq.${workspace.id}` } }).count, 1);
     assert.equal(db.queryTable('serp_snapshots', { filters: { keyword_id: `eq.${keyword.id}` } }).count, 2);
-    assert.equal(db.queryTable('usage_reservations', { filters: { workspace_id: `eq.${workspace.id}` } }).count, 1);
+    assert.equal(db.queryTable('usage_reservations', { filters: { workspace_id: `eq.${workspace.id}` } }).count, 2); // keyword + automatic prompt
   });
 
   it('rejects empty, duplicate and cross-workspace references even when the actor owns both', async () => {

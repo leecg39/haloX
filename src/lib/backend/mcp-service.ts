@@ -1,3 +1,4 @@
+import { readCollectionDefaults } from './general-settings-service.ts';
 import crypto from 'node:crypto';
 import { RlsAccessDeniedError, QuotaExceededError, type HaloXDatabase, type Row } from './database.ts';
 import { ApiKeyError, API_DEFAULT_LIMITS } from './api-key-model.ts';
@@ -14,6 +15,7 @@ export async function runMcpRequest(db: HaloXDatabase, secret: string, message: 
   const key = db.verifyWorkspaceApiKey(secret, now);
   if (!key) return failure(message.id, '유효하지 않거나 만료·폐기된 API 키입니다.', 401, 'API_KEY_UNAUTHORIZED');
   const workspace = String(key.workspace_id), actor = String(key.created_by || db.queryTable('workspaces', { filters: { id: `eq.${workspace}` } }).data[0]?.owner_id);
+  const scopesFor = (tool: typeof API_TOOLS[number]) => tool.name === 'collect_keywords' && readCollectionDefaults(db, workspace, actor).auto_generate_prompts ? [...tool.scopes, 'prompts:write'] : tool.scopes;
   const stamp = new Date(now).toISOString(), day = stamp.slice(0, 10), minute = Math.floor(now / 60000);
   let ledger = db.getServerRecords('api_key_usage').filter(row => String(row.day) >= new Date(now - 89 * 86400000).toISOString().slice(0, 10));
   let entry = ledger.find(row => row.key_id === key.id && row.day === day);
@@ -45,21 +47,21 @@ export async function runMcpRequest(db: HaloXDatabase, secret: string, message: 
       result = { protocolVersion: MCP_PROTOCOLS.includes(params.protocolVersion) ? params.protocolVersion : MCP_PROTOCOLS[0], capabilities: { tools: { listChanged: false } }, serverInfo: { name: 'halox', version: '1.0.0' } };
     } else if (message.method === 'ping') result = {};
     else if (message.method === 'tools/list') {
-      result = { tools: API_TOOLS.filter(tool => tool.scopes.every(scope => (key.scopes as string[]).includes(scope))).map(({ scopes: _scopes, ...tool }) => tool) };
+      result = { tools: API_TOOLS.filter(tool => scopesFor(tool).every(scope => (key.scopes as string[]).includes(scope))).map(({ scopes: _scopes, ...tool }) => tool) };
     } else if (message.method === 'tools/call') {
       const params = message.params as Row | undefined;
       const tool = API_TOOLS.find(item => item.name === params?.name);
       if (!tool) throw new ApiKeyError('지원하지 않는 API 도구입니다.', 404);
-      if (!tool.scopes.every(scope => (key.scopes as string[]).includes(scope))) throw new ApiKeyError('이 키에 해당 도구의 권한이 없습니다.', 403, 'API_SCOPE_DENIED');
+      if (!scopesFor(tool).every(scope => (key.scopes as string[]).includes(scope))) throw new ApiKeyError('이 키에 해당 도구의 권한이 없습니다.', 403, 'API_SCOPE_DENIED');
       const args = apiToolInput(tool, params?.arguments ?? {}), writes = !tool.annotations.readOnlyHint;
       const request = writes ? contentText(args.request_id, '작업 요청 키', 100, true) : '';
       const fingerprint = crypto.createHash('sha256').update(JSON.stringify(canonical({ tool: tool.name, args }))).digest('hex');
       const receipts = db.getServerRecords('api_tool_requests'), receipt = writes && receipts.find(row => row.key_id === key.id && row.request_id === request);
       let data: unknown;
-      if (receipt) { if (receipt.fingerprint !== fingerprint) throw new ApiKeyError('동일한 요청 키에 다른 작업을 보낼 수 없습니다.', 409, 'API_REQUEST_CONFLICT'); data = receipt.result; }
+      if (receipt) { if (Array.isArray(receipt.required_scopes) && !receipt.required_scopes.every(scope => (key.scopes as string[]).includes(String(scope)))) throw new ApiKeyError('저장된 결과의 권한이 없습니다.', 403, 'API_SCOPE_DENIED'); if (receipt.fingerprint !== fingerprint) throw new ApiKeyError('동일한 요청 키에 다른 작업을 보낼 수 없습니다.', 409, 'API_REQUEST_CONFLICT'); data = receipt.result; }
       else {
         data = await executeApiTool(db, tool.name, args, workspace, actor, `api:${key.id}:${request}`);
-        if (writes && db.getAllowedWorkspaceIds(actor).has(workspace)) db.setServerRecords('api_tool_requests', [...receipts, { workspace_id: workspace, key_id: key.id, request_id: request, fingerprint, result: data }]);
+        if (writes && db.getAllowedWorkspaceIds(actor).has(workspace)) db.setServerRecords('api_tool_requests', [...receipts, { workspace_id: workspace, key_id: key.id, request_id: request, fingerprint, required_scopes: scopesFor(tool), result: data }]);
       }
       result = { content: [{ type: 'text', text: JSON.stringify(data) }], structuredContent: { data }, data };
     } else throw new ApiKeyError('지원하지 않는 MCP 메서드입니다.', 404);

@@ -77,3 +77,6 @@ SQLite 쓰기 트랜잭션에서 인증 재확인·한도 소비·도구 실행�
 화면 증거: [키 목록](evidence/2026-10-24-api-keys-desktop.png), [사용량](evidence/2026-10-24-api-usage-desktop.png), [모바일 연결 안내](evidence/2026-10-24-api-keys-mobile.png).
 
 OpenAI/SOLAPI/이메일/결제 실요청은 수행하지 않았다. OpenAI 자동 번역 구현과 키 설정은 [별도 문서](automatic-translation.md)를 따른다. 사용자가 서버 환경변수에 키를 직접 설정한다.
+
+
+2026-10-24 일반 설정 연동: 자동 질문 생성이 켜진 워크스페이스에서 `collect_keywords`는 `seo:write`와 `prompts:write`가 모두 필요하다. 도구 목록과 실제 실행에 같은 조건을 적용하며 저장된 재요청 결과도 최초 권한을 확인한다. `create_prompt`의 언어/국가 생략 시 워크스페이스 수집 기본값을 사용한다. [일반 설정](general-settings-crud.md).
