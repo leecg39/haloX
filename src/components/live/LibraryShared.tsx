@@ -66,5 +66,5 @@ export function GenerateFromLibrary({ data, workspaceId, personaId, entityId, on
 }
 
 export function LibraryContentHistory({ data, jobs }: { data: LibraryData; jobs: Row[] }) {
-  return <section className="live-section"><h2>이 항목으로 생성한 콘텐츠</h2>{!jobs.length ? <EmptyState>아직 생성한 콘텐츠가 없습니다.</EmptyState> : <div className="live-history">{jobs.map(job => <details key={job.id} className="live-card"><summary>{text(job.title)}</summary><p className="muted">생성 당시의 문체와 자료를 보존한 데모 초안입니다.</p><pre className="live-answer">{text(data.content_drafts.find(draft => draft.content_job_id === job.id && draft.is_selected)?.content_md)}</pre></details>)}</div>}</section>;
+  return <section className="live-section"><h2>이 항목으로 생성한 콘텐츠</h2>{!jobs.length ? <EmptyState>아직 생성한 콘텐츠가 없습니다.</EmptyState> : <div className="live-history">{jobs.map(job => <details key={job.id} className="live-card"><summary>{text(job.title)}</summary><Link href={`/app/factory/${job.id}`}>제작소에서 편집</Link><p className="muted">생성 당시의 문체와 자료를 보존한 데모 초안입니다.</p><pre className="live-answer">{text(data.content_drafts.find(draft => draft.content_job_id === job.id && draft.is_selected)?.content_md)}</pre></details>)}</div>}</section>;
 }

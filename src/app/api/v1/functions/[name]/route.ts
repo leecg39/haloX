@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { ContentConflictError } from '@/lib/backend/content-model';
 import { authenticate } from '@/lib/api/route-auth';
 import {
   DEFAULT_USER_ID,
@@ -83,6 +84,7 @@ export async function POST(
 
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
+    if (error instanceof ContentConflictError) return NextResponse.json({ error: error.message, code: error.code }, { status: 409 });
     if (error instanceof StorageUnavailableError) {
       return NextResponse.json({ error: error.message, code: error.code }, { status: 503 });
     }

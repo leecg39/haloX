@@ -88,7 +88,13 @@ test('J3 new site audit creates a scan for the entered URL', async ({ page, requ
 test('J4 new content creates a content job with a draft', async ({ page, request }) => {
   const topic = `e2e 콘텐츠 ${Date.now()}`;
   const before = (await rows(request, 'content_jobs')).length;
-  await submitDialog(page, '/app/factory', '새 콘텐츠 만들기', topic, { choose: /키워드 목록에서 시작/ });
+  await page.goto('/app/factory');
+  await page.getByRole('button', { name: '새 콘텐츠 만들기', exact: true }).click();
+  const dialog = page.getByRole('dialog');
+  await dialog.getByLabel('작성 방법').selectOption('generated');
+  await dialog.getByLabel('주제', { exact: true }).fill(topic);
+  await dialog.getByRole('button', { name: '초안 생성', exact: true }).click();
+  await expect(dialog).not.toBeVisible();
   await expect.poll(async () => (await rows(request, 'content_jobs')).length).toBe(before + 1);
   const job = (await rows(request, 'content_jobs', `target_keyword=eq.${encodeURIComponent(topic)}`))[0];
   expect(job, 'content job for the entered topic').toBeTruthy();

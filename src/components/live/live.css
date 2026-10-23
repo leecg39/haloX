@@ -67,3 +67,15 @@
 .live-definition dd { margin: 0; }
 .live-card h3 { font-size: 15px; font-weight: 600; }
 @media(max-width:700px) { .live-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } .live-head { align-items:flex-start; } .live-toolbar > * { max-width:100%!important; } [data-live-root] { padding:20px 16px!important; } }
+
+.live-content-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr); gap: 18px; margin-top: 24px; }
+.live-content-grid > aside { align-self: start; }
+.live-content-grid > * { min-width: 0; overflow-wrap: anywhere; }
+.live-content-form fieldset { display: grid; gap: 14px; border: 0; min-width: 0; padding: 0; }
+.live-content-form label { display: grid; gap: 6px; font-weight: 500; }
+.live-content-form textarea { width: 100%; font-family: ui-monospace, monospace; line-height: 1.7; }
+.live-version-list { display: grid; gap: 16px; margin-top: 16px; max-height: 760px; overflow-y: auto; }
+.live-version { border-top: 1px solid #eee; padding-top: 14px; }
+.live-version .live-actions { margin-top: 10px; }
+.live-version button { font-size: 12px; padding: 5px 8px; }
+@media(max-width:1000px) { .live-content-grid { grid-template-columns: minmax(0,1fr); } }

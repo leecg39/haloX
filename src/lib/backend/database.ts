@@ -7,6 +7,8 @@ import { KEYWORD_EDITABLE_FIELDS, validateKeywordRecord } from './keyword-model.
 import { GEO_EDITABLE_FIELDS, nextGeoSchedule, validateGeoRecord } from './geo-model.ts';
 import { GEO_ENGINES } from '../api/prompts.ts';
 import { validateLibraryRecord } from './library-model.ts';
+import { validateContentRecord } from './content-model.ts';
+import { CONTENT_COMMANDS, checkContentRevision, contentJob, runContentCommand, saveContentVersion } from './content-service.ts';
 import { prepareLibraryFile } from './library-files.ts';
 import { MAX_LIBRARY_WORKSPACE_BYTES } from '../api/library.ts';
 import type { ContentGenerationContext } from './providers.ts';
@@ -590,6 +592,7 @@ export class HaloXDatabase {
     ensure('knowledge_entity_sources', []);
     ensure('content_jobs', []);
     ensure('content_drafts', []);
+    ensure('content_compositions', []);
     ensure('content_review_runs', []);
     ensure('export_history', []);
     ensure('report_snapshots', [
@@ -1164,13 +1167,13 @@ export class HaloXDatabase {
       const workspaceId = String(item.workspace_id || [...this.getAllowedWorkspaceIds(actorUserId)][0] || '');
       this.assertWorkspaceMember(workspaceId, actorUserId);
 
-      const record: Row = validateLibraryRecord(tableName, validateGeoRecord(tableName, validateKeywordRecord(tableName, {
+      const record: Row = validateContentRecord(tableName, validateLibraryRecord(tableName, validateGeoRecord(tableName, validateKeywordRecord(tableName, {
         created_at: now,
         updated_at: now,
         ...item,
         id: typeof item.id === 'string' ? item.id : crypto.randomUUID(),
         workspace_id: workspaceId,
-      }, this.tables), this.tables), this.tables);
+      }, this.tables), this.tables), this.tables), this.tables);
       if (table.some(row => row.id === record.id)) throw new Error('이미 존재하는 ID입니다.');
       if (['keyword_sets', 'geo_prompt_sets', 'writing_style_profiles'].includes(tableName) && record.is_default === true) {
         for (const other of table) if (other.workspace_id === workspaceId && other.is_default) { other.is_default = false; other.updated_at = now; }
@@ -1240,7 +1243,7 @@ export class HaloXDatabase {
       if (tableName === 'workspace_api_keys') {
         delete safePatch.key_hash;
       }
-      const validated = validateLibraryRecord(tableName, validateGeoRecord(tableName, validateKeywordRecord(tableName, { ...row, ...safePatch, updated_at: now }, this.tables), this.tables), this.tables);
+      const validated = validateContentRecord(tableName, validateLibraryRecord(tableName, validateGeoRecord(tableName, validateKeywordRecord(tableName, { ...row, ...safePatch, updated_at: now }, this.tables), this.tables), this.tables), this.tables);
       if (tableName === 'keywords' && ['keyword', 'language', 'country'].some(field => row[field] !== validated[field])) {
         for (const snapshot of this.tables.get('serp_snapshots') || []) if (snapshot.keyword_id === row.id) snapshot.keyword_text ??= row.keyword;
         Object.assign(validated, { search_volume: null, search_volume_google_ads: null, keyword_difficulty: null, intent: null, status: 'pending' });
@@ -1307,6 +1310,17 @@ export class HaloXDatabase {
 
     this.tables.set(tableName, remaining);
     const deletedIds = new Set(deleted.map(row => row.id));
+    if (tableName === 'content_jobs') {
+      this.deleteTable('content_drafts', { content_job_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
+      this.deleteTable('content_review_runs', { content_job_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
+      for (const row of this.tables.get('export_history') || []) if (deletedIds.has(row.content_job_id)) row.content_job_id = null;
+    }
+    if (tableName === 'content_drafts') {
+      this.tables.set('content_compositions', (this.tables.get('content_compositions') || []).filter(row => !deletedIds.has(row.content_draft_id)));
+    }
+    if (tableName === 'content_review_runs') {
+      this.tables.set('content_change_items', (this.tables.get('content_change_items') || []).filter(row => !deletedIds.has(row.review_run_id)));
+    }
     if (tableName === 'writing_style_profiles') {
       this.tables.set('writing_style_samples', (this.tables.get('writing_style_samples') || []).filter(row => !deletedIds.has(row.writing_style_profile_id)));
       for (const job of this.tables.get('content_jobs') || []) if (deletedIds.has(job.writing_style_profile_id)) job.writing_style_profile_id = null;
@@ -1325,6 +1339,7 @@ export class HaloXDatabase {
     if (tableName === 'geo_prompts') {
       this.deleteTable('geo_prompt_runs', { prompt_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
       for (const name of ['geo_prompt_tag_assignments', 'keyword_prompt_links']) this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.prompt_id)));
+      for (const row of this.tables.get('content_jobs') || []) if (deletedIds.has(row.geo_prompt_id)) row.geo_prompt_id = null;
       for (const row of this.tables.get('keywords') || []) for (const field of ['geo_prompt_id', 'source_prompt_id']) if (deletedIds.has(row[field])) row[field] = null;
     }
     if (tableName === 'geo_prompt_runs') for (const name of ['geo_answers_raw', 'geo_citations', 'geo_run_metrics']) this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.run_id)));
@@ -2410,6 +2425,11 @@ export class HaloXDatabase {
       };
     }
 
+    if (CONTENT_COMMANDS.includes(fnName)) {
+      if (!payload.workspace_id) throw new Error('워크스페이스를 선택해 주세요.');
+      return runContentCommand(this, fnName, payload, workspaceId, actorUserId);
+    }
+
     if (
       fnName === 'content-draft' ||
       fnName === 'generate-content-draft' ||
@@ -2417,6 +2437,8 @@ export class HaloXDatabase {
     ) {
       const targetKeyword = String(payload.target_keyword || payload.keyword || 'AI 검색 최적화');
       if (!targetKeyword.trim() || targetKeyword.length > 200 || (payload.title !== undefined && (typeof payload.title !== 'string' || payload.title.length > 200))) throw new Error('주제와 제목은 200자 이내로 입력해 주세요.');
+      const existingJob = payload.job_id ? contentJob(this, workspaceId, payload.job_id, actorUserId) : undefined;
+      if (existingJob) checkContentRevision(existingJob, payload.expected_revision);
       const generationContext = this.contentContext(workspaceId, payload.writing_style_profile_id, payload.knowledge_entity_ids, actorUserId);
       const reservation = this.callRpc(
         'reserve_unit_with_bypass',
@@ -2436,41 +2458,21 @@ export class HaloXDatabase {
         generationContext
       );
 
-      const [jobRow] = this.insertTable(
-        'content_jobs',
-        {
-          workspace_id: workspaceId,
-          title: draftData.title,
-          target_keyword: draftData.targetKeyword,
-          stage: 'completed',
-          strategy_status: 'completed',
-          writing_status: 'completed',
-          writing_style_profile_id: generationContext.persona?.id || null,
-          knowledge_entity_ids: generationContext.knowledge.map(row => row.id),
-          generation_context: generationContext,
-        },
-        actorUserId
-      );
-
-      const [draftRow] = this.insertTable(
-        'content_drafts',
-        {
-          workspace_id: workspaceId,
-          content_job_id: jobRow.id,
-          version: 1,
-          title: draftData.title,
-          content_md: draftData.contentMd,
-          meta_title: draftData.metaTitle,
-          meta_description: draftData.metaDescription,
-          seo_score: draftData.seoScore,
-          aio_score: draftData.aioScore,
-          word_count: draftData.wordCount,
-          quality_analysis: { readability: 'good', structure: 'excellent' },
-          grounding_sources: draftData.groundingSources,
-          is_selected: true,
-        },
-        actorUserId
-      );
+      const jobFields = {
+        title: draftData.title, target_keyword: draftData.targetKeyword,
+        writing_style_profile_id: generationContext.persona?.id || null,
+        knowledge_entity_ids: generationContext.knowledge.map(row => row.id),
+        generation_context: generationContext,
+      };
+      const [jobRow] = existingJob
+        ? this.updateTable('content_jobs', jobFields, { id: `eq.${existingJob.id}`, workspace_id: `eq.${workspaceId}` }, actorUserId)
+        : this.insertTable('content_jobs', { ...jobFields, workspace_id: workspaceId, keyword_id: payload.keyword_id, geo_prompt_id: payload.geo_prompt_id, revision: 0, latest_version: 0, status: 'draft', origin: 'generated' }, actorUserId);
+      const saved = saveContentVersion(this, jobRow, {
+        title: draftData.title, content_md: draftData.contentMd,
+        meta_title: draftData.metaTitle, meta_description: draftData.metaDescription,
+        seo_score: draftData.seoScore, aio_score: draftData.aioScore,
+        grounding_sources: draftData.groundingSources, generation_context: generationContext,
+      }, actorUserId, 'generated');
 
       this.callRpc('commit_reservation', { p_reservation_id: reservation.reservation_id }, actorUserId);
 
@@ -2478,8 +2480,8 @@ export class HaloXDatabase {
         ok: true,
         function: fnName,
         workspace_id: workspaceId,
-        job: jobRow,
-        draft: draftRow,
+        job: saved.job,
+        draft: saved.draft,
       };
     }
 
