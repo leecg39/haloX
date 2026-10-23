@@ -1,0 +1,59 @@
+'use client';
+import Link from 'next/link';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { LibraryWorkspace, text } from './LibraryShared';
+import { EmptyState, ErrorState, LiveModal } from './LiveUI';
+import { AuditTargetForm } from './SiteAuditPage';
+import { ScopePreview } from './SiteAuditDetail';
+import { invokeEdgeEndpoint } from '@/lib/api/client';
+import type { ContentRow as Row } from '@/lib/api/content';
+import type { AuditTarget } from '@/lib/api/site-audit';
+import { accountRequest } from '../AccountSecurityForms';
+
+type Data = { user_id: string; role: string; workspace: Row; members: Row[]; invitations: Row[]; targets: Row[] };
+const roles: Record<string, string> = { owner: '소유자', admin: '관리자', member: '멤버' };
+const statuses: Record<string, string> = { pending: '대기 중', accepted: '수락됨', cancelled: '취소됨', expired: '만료됨' };
+export function SettingsNav({ current }: { current: string }) {
+  return <nav className="live-tabs settings-nav" aria-label="설정 메뉴">{[['profile', '내 프로필'], ['workspace', '워크스페이스'], ['members', '멤버'], ['', '일반'], ['plan', '사용량'], ['billing', '구독/결제'], ['brand-tracking', '브랜드 트래킹'], ['tags', '태그'], ['export', '내보내기'], ['integrations', '연동'], ['notifications', '알림'], ['api', 'API']].map(([key, label]) => <Link key={key} href={`/app/settings${key ? '?tab=' + key : ''}`} aria-current={current === key ? 'page' : undefined}>{label}</Link>)}</nav>;
+}
+export function WorkspaceSettingsPage({ tab }: { tab: 'workspace' | 'members' }) { return <LibraryWorkspace>{id => <SettingsPanel key={id} workspaceId={id} tab={tab} />}</LibraryWorkspace>; }
+function SettingsPanel({ workspaceId, tab }: { workspaceId: string; tab: 'workspace' | 'members' }) {
+  const [data, setData] = useState<Data>(), [loading, setLoading] = useState(true), [error, setError] = useState(''), [notice, setNotice] = useState(''), [link, setLink] = useState(''), [query, setQuery] = useState(''), [status, setStatus] = useState('');
+  const [edit, setEdit] = useState<{ kind: string; row?: Row }>(), generation = useRef(0);
+  const reload = useCallback(async () => {
+    const current = ++generation.current; setLoading(true); setError('');
+    try { const response = await fetch(`/api/v1/workspace-management?workspace_id=${encodeURIComponent(workspaceId)}`), body = await response.json(); if (!response.ok) throw new Error(body.error || '설정을 불러오지 못했습니다.'); if (current === generation.current) setData(body); }
+    catch (cause) { if (current === generation.current) setError(cause instanceof Error ? cause.message : '조회 실패'); }
+    finally { if (current === generation.current) setLoading(false); }
+  }, [workspaceId]);
+  useEffect(() => { void reload(); return () => { ++generation.current; }; }, [reload]);
+  const close = () => setEdit(undefined), manager = !!data && ['owner', 'admin'].includes(data.role);
+  async function command(values: Record<string, unknown>) {
+    const result = await accountRequest<Record<string, unknown>>('/api/v1/workspace-management', { ...values, workspace_id: workspaceId });
+    if (typeof result.token === 'string') setLink(`${window.location.origin}/app/invite#token=${result.token}`);
+    else if (String(values.action).startsWith('invite-')) setLink('');
+    setNotice(result.idempotent ? '이미 대기 중인 초대가 있습니다. 링크를 잃어버렸다면 링크 재발급을 사용해 주세요.' : '변경 사항을 저장했습니다.');
+    await reload();
+    return result;
+  }
+  const auditCommand = async (name: string, values: Record<string, unknown>) => { const result = await invokeEdgeEndpoint<Record<string, Row>>(name, { ...values, workspace_id: workspaceId }); await reload(); return result; };
+  const editable = (row: Row) => manager && row.role !== 'owner' && (data?.role === 'owner' || row.role !== 'admin');
+  const filtered = (rows: Row[]) => rows.filter(row => `${text(row.email)} ${text(row.full_name)}`.toLowerCase().includes(query.toLowerCase()));
+  return <div className="live live-settings-page"><header className="live-head"><div><h1>{tab === 'members' ? '멤버 관리' : '워크스페이스 설정'}</h1><p>{text(data?.workspace.name)} · {roles[data?.role || ''] || ''}</p></div><button disabled={loading} onClick={() => void reload()}>새로고침</button></header><SettingsNav current={tab} />
+    {notice && <p className="live-status" role="status">{notice}</p>}{error && <ErrorState message={error} retry={reload} />}{loading && <p role="status">설정을 불러오는 중…</p>}
+    {data && !error && <>{tab === 'workspace' ? <><section className="live-card"><div className="live-head"><h2>워크스페이스 프로필</h2>{manager && <button onClick={() => setEdit({ kind: 'workspace' })}>프로필 수정</button>}</div><dl className="account-details"><dt>이름</dt><dd>{text(data.workspace.name)}</dd><dt>브랜드 이름</dt><dd>{text(data.workspace.brand_name) || '미설정'}</dd><dt>기본 도메인</dt><dd>{text(data.workspace.default_brand_filter) || '미설정'}</dd><dt>슬러그</dt><dd>{text(data.workspace.slug)}</dd><dt>워크스페이스 ID</dt><dd>{workspaceId}</dd><dt>설명</dt><dd>{text(data.workspace.description) || '없음'}</dd></dl><p className="muted">워크스페이스 목록과 동일한 정보입니다. 기본 도메인은 별도 도메인이 없는 키워드 세트와 분석에서 사용합니다.</p><Link href="/app/workspaces">워크스페이스 생성·선택·삭제</Link></section>
+      <section className="live-section"><div className="live-head"><h2>사이트 진단 대상·수집 범위</h2>{manager && <button onClick={() => setEdit({ kind: 'target' })}>진단 대상 추가</button>}</div><p>사이트 진단 메뉴와 같은 대상입니다. 수정한 범위는 다음 진단부터 적용되며 기존 결과는 당시 범위를 보존합니다.</p>{!data.targets.length && <EmptyState>등록한 진단 대상이 없습니다.</EmptyState>}<div className="live-grid">{data.targets.map(row => <article className="live-card" key={row.id}><h3>{text(row.name)}</h3><p className="live-url">{text(row.target_url)}</p><p>최대 {text(row.max_pages)}페이지 · 깊이 {text(row.max_depth)}</p><ScopePreview target={row as unknown as AuditTarget} />{manager && <div className="live-actions"><button onClick={() => setEdit({ kind: 'target', row })}>대상·범위 수정</button><button onClick={() => setEdit({ kind: 'target-delete', row })}>대상 삭제</button></div>}</article>)}</div><Link href="/app/site-audit">사이트 진단 실행·이력</Link></section></> : <>
+      <p>소유자는 관리자 지정과 워크스페이스 삭제를 할 수 있습니다. 관리자는 멤버 초대·관리와 설정 수정, 멤버는 업무 데이터 편집·실행을 할 수 있습니다. 현재 메뉴별 제한과 읽기 전용 역할은 제공하지 않습니다.</p><div className="live-toolbar"><input aria-label="멤버·초대 검색" placeholder="이름 또는 이메일 검색" value={query} onChange={event => setQuery(event.target.value)} />{manager && <button className="primary" onClick={() => setEdit({ kind: 'invite-create' })}>멤버 초대</button>}</div>
+      {link && <section className="live-card"><h2>초대 링크</h2><p>이메일은 자동 발송하지 않습니다. 아래 링크를 초대한 사람에게 직접 전달해 주세요. 링크는 이 화면에서만 표시하며 7일 동안 유효합니다.</p><label>발급한 초대 링크<input aria-label="발급한 초대 링크" readOnly value={link} onFocus={event => event.target.select()} /></label><button onClick={() => { void navigator.clipboard.writeText(link).then(() => setNotice('초대 링크를 복사했습니다.')).catch(() => setNotice('링크를 선택하여 직접 복사해 주세요.')); }}>링크 복사</button><button onClick={() => setLink('')}>링크 숨기기</button></section>}
+      <section className="live-section"><h2>멤버 ({data.members.length})</h2><div className="live-history">{filtered(data.members).map(row => <article className="live-card" key={row.id}><div className="live-head"><h3>{text(row.full_name) || text(row.email)}{row.user_id === data.user_id ? ' · 나' : ''}</h3><span>{roles[text(row.role)]}</span></div><p>{text(row.email)}</p>{editable(row) && <div className="live-actions"><button onClick={() => setEdit({ kind: 'member-update', row })}>역할 변경</button><button className="danger" onClick={() => setEdit({ kind: 'member-delete', row })}>멤버 제거</button></div>}</article>)}</div>{!filtered(data.members).length && <EmptyState>검색 결과가 없습니다.</EmptyState>}</section>
+      {manager && <section className="live-section"><div className="live-head"><h2>초대 내역</h2><select aria-label="초대 상태" value={status} onChange={event => setStatus(event.target.value)}><option value="">모든 상태</option>{Object.entries(statuses).map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></div><div className="live-history">{filtered(data.invitations).filter(row => !status || row.status === status).map(row => <article className="live-card" key={row.id}><h3>{text(row.email)}</h3><p>{roles[text(row.role)]} · {statuses[text(row.status)]} · 만료 {new Date(text(row.expires_at)).toLocaleString('ko-KR')}</p>{editable(row) && <div className="live-actions">{row.status === 'pending' ? <><button onClick={() => setEdit({ kind: 'invite-update', row })}>초대 역할 변경</button><button onClick={() => setEdit({ kind: 'invite-rotate', row })}>링크 재발급</button><button onClick={() => setEdit({ kind: 'invite-cancel', row })}>초대 취소</button></> : <button onClick={() => setEdit({ kind: 'invite-delete', row })}>초대 기록 삭제</button>}</div>}</article>)}</div>{!filtered(data.invitations).filter(row => !status || row.status === status).length && <EmptyState>초대 내역이 없습니다.</EmptyState>}</section>}
+    </>}
+    {edit?.kind === 'workspace' && <LiveModal title="워크스페이스 프로필 수정" onClose={close} onSave={async form => { await command({ action: 'workspace-update', ...Object.fromEntries(form.entries()), expected_revision: Number(data.workspace.revision || 0) }); window.dispatchEvent(new Event('halox:record-created')); }}><label>워크스페이스 이름<input name="name" required maxLength={100} defaultValue={text(data.workspace.name)} /></label><label>브랜드 이름<input name="brand_name" maxLength={100} defaultValue={text(data.workspace.brand_name)} /></label><label>기본 도메인<input name="default_brand_filter" maxLength={253} placeholder="example.com" defaultValue={text(data.workspace.default_brand_filter)} /></label><label>슬러그<input name="slug" required maxLength={100} defaultValue={text(data.workspace.slug)} /></label><label>설명<textarea name="description" maxLength={2000} defaultValue={text(data.workspace.description)} /></label></LiveModal>}
+    {edit?.kind === 'target' && <AuditTargetForm row={edit.row} command={auditCommand} onClose={close} />}
+    {edit?.kind === 'target-delete' && <LiveModal title="진단 대상 삭제" submit="삭제" description="진행 중인 진단은 먼저 취소해야 합니다. 완료된 결과와 당시 수집 범위는 유지됩니다." onClose={close} onSave={async () => { await auditCommand('audit-target-delete', { target_id: edit.row!.id, expected_revision: Number(edit.row!.revision || 0) }); }} />}
+    {edit && ['invite-create', 'invite-update', 'member-update'].includes(edit.kind) && <LiveModal title={edit.kind === 'invite-create' ? '멤버 초대' : edit.kind === 'invite-update' ? '초대 역할 변경' : '멤버 역할 변경'} description={edit.kind.startsWith('invite') ? '초대 링크를 생성합니다. 초대한 이메일 계정으로 로그인한 뒤 링크를 수락하면 참여합니다. 역할을 바꾸면 이전 링크는 무효가 됩니다.' : '권한은 다음 서버 요청부터 적용됩니다.'} onClose={close} onSave={async form => { await command({ action: edit.kind, email: form.get('email'), role: form.get('role'), member_id: edit.row?.id, invitation_id: edit.row?.id, expected_revision: Number(edit.row?.revision || 0) }); }}>
+      {edit.kind === 'invite-create' ? <label>이메일<input name="email" type="email" maxLength={254} required /></label> : <p>{text(edit.row?.email)}</p>}<label>역할<select name="role" defaultValue={text(edit.row?.role) || 'member'}><option value="member">멤버</option>{data.role === 'owner' && <option value="admin">관리자</option>}</select></label></LiveModal>}
+    {edit && ['member-delete', 'invite-cancel', 'invite-delete', 'invite-rotate'].includes(edit.kind) && <LiveModal title={{ 'member-delete': '멤버 제거', 'invite-cancel': '초대 취소', 'invite-delete': '초대 기록 삭제', 'invite-rotate': '초대 링크 재발급' }[edit.kind]!} description={edit.kind === 'member-delete' ? '이 멤버는 워크스페이스 접근 권한을 잃습니다. 작성했던 업무 데이터는 유지됩니다.' : edit.kind === 'invite-rotate' ? '기존 링크는 즉시 무효가 됩니다. 새 링크를 다시 전달해 주세요.' : '이 초대 링크는 더 이상 사용할 수 없습니다. 수락한 멤버를 제거하려면 멤버 제거를 사용해 주세요.'} submit={edit.kind === 'invite-rotate' ? '재발급' : '확인'} onClose={close} onSave={async () => { await command({ action: edit.kind, member_id: edit.row!.id, invitation_id: edit.row!.id, expected_revision: Number(edit.row!.revision || 0) }); }}><p>{text(edit.row?.email)}</p></LiveModal>}
+    </>}
+  </div>;
+}

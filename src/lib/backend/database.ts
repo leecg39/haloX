@@ -3,6 +3,7 @@
  */
 
 import crypto from 'node:crypto';
+import { createWorkspaceInvitation, validateMembership, validateWorkspacePatch, type WorkspacePrivateCollection } from './workspace-management.ts';
 import type { AccountCollection } from './account-session.ts';
 import type { PortalCollection } from '../api/portal.ts';
 import { REFERRAL_COMMANDS, runReferralCommand } from './referral-service.ts';
@@ -146,11 +147,11 @@ export class HaloXDatabase {
   }
 
   /** Separate from the public table whitelist: no REST/RPC access. */
-  public getServerRecords(collection: AccountCollection | PortalCollection | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
+  public getServerRecords(collection: WorkspacePrivateCollection | AccountCollection | PortalCollection | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
     return structuredClone(this.serverRecords[collection] ?? []);
   }
 
-  public setServerRecords(collection: AccountCollection | PortalCollection | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
+  public setServerRecords(collection: WorkspacePrivateCollection | AccountCollection | PortalCollection | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
     this.serverRecords[collection] = structuredClone(rows);
   }
 
@@ -1085,6 +1086,7 @@ export class HaloXDatabase {
       if (GLOBAL_READ_TABLES.has(tableName)) return true;
       if (tableName === 'workspaces') return allowedWorkspaces.has(String(row.id));
       if (tableName === 'profiles') return String(row.id) === actorUserId;
+      if (tableName === 'workspace_invitations') return (this.tables.get('workspace_members') || []).some(member => member.workspace_id === row.workspace_id && member.user_id === actorUserId && ['owner', 'admin'].includes(String(member.role)));
       if (tableName === 'dashboard_preferences') return row.user_id === actorUserId && allowedWorkspaces.has(String(row.workspace_id));
       if ('workspace_id' in row && row.workspace_id) {
         return allowedWorkspaces.has(String(row.workspace_id));
@@ -1107,6 +1109,7 @@ export class HaloXDatabase {
       const wsTable = this.tables.get('workspaces') || [];
       rows = rows.map(row => ({
         ...row,
+        ...Object.fromEntries(['email', 'full_name'].map(key => [key, (this.tables.get('profiles') || []).find(profile => profile.id === row.user_id)?.[key] || row[key] || ''])),
         workspaces: wsTable.find(w => w.id === row.workspace_id) || null,
       }));
     }
@@ -1156,6 +1159,7 @@ export class HaloXDatabase {
         if (table.some(row => row.id === id)) throw new Error('Workspace ID already exists');
         const name = typeof item.name === 'string' ? item.name.trim() : '';
         if (!name || name.length > 100) throw new Error('워크스페이스 이름은 1~100자로 입력해 주세요.');
+        const values = validateWorkspacePatch(item);
         const ws: Row = {
           id,
           name,
@@ -1167,9 +1171,12 @@ export class HaloXDatabase {
           strategy_map_status: 'ready',
           created_at: now,
           updated_at: now,
-          default_brand_filter: typeof item.default_brand_filter === 'string' ? item.default_brand_filter.slice(0, 253) : '',
-          description: typeof item.description === 'string' ? item.description.slice(0, 2000) : '',
+          default_brand_filter: values.default_brand_filter || '',
+          description: values.description || '',
+          brand_name: values.brand_name || '',
+          revision: 1,
         };
+        if (table.some(row => String(row.slug).toLowerCase() === String(ws.slug).toLowerCase())) throw new Error('이미 사용 중인 슬러그입니다.');
         table.push(ws);
         const profile = (this.tables.get('profiles') || []).find(row => row.id === actorUserId);
         this.tables.get('workspace_members')!.push({
@@ -1206,6 +1213,7 @@ export class HaloXDatabase {
         id: typeof item.id === 'string' ? item.id : crypto.randomUUID(),
         workspace_id: workspaceId,
       }, this.tables), this.tables), this.tables), this.tables);
+      if (tableName === 'workspace_members') Object.assign(record, validateMembership(record, this.tables));
       if (table.some(row => row.id === record.id)) throw new Error('이미 존재하는 ID입니다.');
       if (['keyword_sets', 'geo_prompt_sets', 'writing_style_profiles'].includes(tableName) && record.is_default === true) {
         for (const other of table) if (other.workspace_id === workspaceId && other.is_default) { other.is_default = false; other.updated_at = now; }
@@ -1269,14 +1277,16 @@ export class HaloXDatabase {
         }
       }
 
-      const safePatch: Row = { ...patch };
+      const safePatch: Row = tableName === 'workspaces' ? validateWorkspacePatch(patch, row) : { ...patch };
+      if (tableName === 'workspaces' && safePatch.slug !== undefined && table.some(other => other.id !== row.id && String(other.slug).toLowerCase() === String(safePatch.slug).toLowerCase())) throw new Error('이미 사용 중인 슬러그입니다.');
       delete safePatch.id;
       delete safePatch.workspace_id;
       if (tableName === 'workspace_api_keys') {
         delete safePatch.key_hash;
       }
       const validated = validateContentRecord(tableName, validateLibraryRecord(tableName, validateGeoRecord(tableName, validateKeywordRecord(tableName, { ...row, ...safePatch, updated_at: now }, this.tables), this.tables), this.tables), this.tables);
-      if (tableName === 'profiles') validated.revision = Number(row.revision || 0) + 1;
+      if (tableName === 'workspace_members') Object.assign(validated, validateMembership(validated, this.tables));
+      if (['profiles', 'workspaces', 'workspace_members', 'workspace_invitations'].includes(tableName)) validated.revision = Number(row.revision || 0) + 1;
       if (tableName === 'keywords' && ['keyword', 'language', 'country'].some(field => row[field] !== validated[field])) {
         for (const snapshot of this.tables.get('serp_snapshots') || []) if (snapshot.keyword_id === row.id) snapshot.keyword_text ??= row.keyword;
         Object.assign(validated, { search_volume: null, search_volume_google_ads: null, keyword_difficulty: null, intent: null, status: 'pending' });
@@ -1346,6 +1356,7 @@ export class HaloXDatabase {
     if (tableName === 'workspaces' && (this.tables.get('site_audit_scans') || []).some(row => deleted.some(workspace => workspace.id === row.workspace_id) && ['queued', 'running'].includes(String(row.status)))) throw new Error('진행 중인 사이트 진단을 먼저 취소해 주세요.');
     this.tables.set(tableName, remaining);
     const deletedIds = new Set(deleted.map(row => row.id));
+    if (tableName === 'workspace_invitations') this.serverRecords.workspace_invitation_tokens = (this.serverRecords.workspace_invitation_tokens || []).filter(row => !deletedIds.has(row.invitation_id));
     if (tableName === 'raw_import_batches') {
       for (const name of ['serp_snapshots', 'geo_prompt_runs', 'site_audit_scans']) this.deleteTable(name, { import_batch_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
       this.serverRecords.raw_import_files = (this.serverRecords.raw_import_files || []).filter(row => !deletedIds.has(row.batch_id));
@@ -1425,7 +1436,7 @@ export class HaloXDatabase {
     if (tableName === 'workspace_tag_groups') for (const row of this.tables.get('workspace_tags') || []) if (deletedIds.has(row.group_id)) row.group_id = null;
     if (tableName === 'workspaces' && deleted.length) {
       const workspaceIds = new Set(deleted.map(row => String(row.id)));
-      for (const name of ['knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests', 'strategy_requests', 'report_requests', 'raw_import_files', 'raw_import_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
+      for (const name of ['workspace_invitation_tokens', 'knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests', 'strategy_requests', 'report_requests', 'raw_import_files', 'raw_import_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
       const keywordIds = new Set((this.tables.get('keywords') || []).filter(row => workspaceIds.has(String(row.workspace_id))).map(row => String(row.id)));
       for (const [name, rows] of this.tables) {
         if (name === 'workspaces') continue;
@@ -1983,8 +1994,8 @@ export class HaloXDatabase {
         );
         return members.map(m => ({
           user_id: m.user_id,
-          email: m.email || 'demo@halox.local',
-          full_name: m.full_name || 'HaloX 데모 관리자',
+          email: (this.tables.get('profiles') || []).find(profile => profile.id === m.user_id)?.email || m.email || '',
+          full_name: (this.tables.get('profiles') || []).find(profile => profile.id === m.user_id)?.full_name || m.full_name || '',
           role: m.role,
           allowed_sections: m.allowed_sections || ['all'],
           joined_at: m.joined_at,
@@ -2760,43 +2771,7 @@ export class HaloXDatabase {
       };
     }
 
-    if (fnName === 'workspace-invite') {
-      // Only owners and admins may invite (membership itself was asserted above).
-      const actorRole = (this.tables.get('workspace_members') || []).find(
-        m => m.workspace_id === workspaceId && m.user_id === actorUserId
-      )?.role;
-      if (actorRole !== 'owner' && actorRole !== 'admin') {
-        throw new RlsAccessDeniedError(`Role "${String(actorRole)}" cannot invite members to workspace "${workspaceId}"`);
-      }
-      const email = typeof payload.email === 'string' ? payload.email.trim().toLowerCase() : '';
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
-        throw new Error('A valid invitee email is required');
-      }
-      const role = payload.role === undefined ? 'member' : String(payload.role);
-      if (role !== 'member' && role !== 'admin') {
-        throw new Error(`Invalid invitation role "${role}": use member or admin`);
-      }
-      const existing = (this.tables.get('workspace_invitations') || []).find(
-        inv => inv.workspace_id === workspaceId && inv.email === email && inv.status === 'pending'
-      );
-      if (existing) {
-        return { ok: true, function: fnName, workspace_id: workspaceId, invitation: existing, idempotent: true };
-      }
-      const [invitation] = this.insertTable(
-        'workspace_invitations',
-        {
-          workspace_id: workspaceId,
-          email,
-          role,
-          status: 'pending',
-          allowed_sections: ['all'],
-          expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-          created_at: now,
-        },
-        actorUserId
-      );
-      return { ok: true, function: fnName, workspace_id: workspaceId, invitation };
-    }
+    if (fnName === 'workspace-invite') return { function: fnName, workspace_id: workspaceId, ...createWorkspaceInvitation(this, workspaceId, actorUserId, payload) };
 
     throw new Error(`Unsupported Edge Function: ${fnName}`);
   }

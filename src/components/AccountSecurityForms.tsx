@@ -5,7 +5,7 @@ import './live/live.css';
 
 type Reply = { challengeId?: string; expiresAt?: number; retryAfter?: number; verificationToken?: string; reauthenticate?: boolean };
 class AccountRequestError extends Error { constructor(message: string, readonly retryAfter = 0) { super(message); } }
-export async function accountRequest(endpoint: string, values: Record<string, unknown>): Promise<Reply> {
+export async function accountRequest<T = Reply>(endpoint: string, values: Record<string, unknown>): Promise<T> {
   const response = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(values) });
   const data = await response.json();
   if (!response.ok) throw new AccountRequestError(data.error || '요청을 완료하지 못했습니다.', Number(response.headers.get('Retry-After') || 0));

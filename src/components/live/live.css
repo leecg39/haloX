@@ -179,3 +179,9 @@
 .live.account-recovery{min-height:0;height:100dvh;overflow:auto;max-width:540px;margin:auto;padding:40px 20px}.account-brand{font-size:24px;font-weight:700;display:inline-block;margin-bottom:24px}
 .account-recovery h1{font-size:24px}.account-recovery .live-card{padding:28px}.account-recovery .muted{font-size:13px;line-height:1.7}
 @media(max-width:600px){.account-details{grid-template-columns:1fr;gap:6px}.account-details dd{margin-bottom:10px}.account-recovery{padding:24px 16px}.account-recovery .live-card{padding:20px}.live-account-page .live-tabs{flex-wrap:wrap}}
+
+.clone-app main[data-live-root]:has(.live-settings-page){overflow:auto!important;min-height:0!important}
+.live-settings-page{max-width:1100px;margin:auto;padding-bottom:60px;overflow-wrap:anywhere}
+.live-settings-page>.live-card,.live-settings-page>.settings-nav{margin-bottom:24px}
+.settings-nav{display:flex;flex-wrap:wrap;gap:12px}.settings-nav a{padding:8px 4px}.settings-nav a[aria-current=page]{border-bottom:2px solid #171717;font-weight:600}
+.live-settings-page .live-card input[readonly]{width:100%;margin:8px 0}

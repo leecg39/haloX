@@ -26,8 +26,9 @@ test('J6 member invite stores a pending invitation for the entered email', async
   const field = dialog.locator('input[type=email]').first();
   await expect(field).toBeVisible();
   await field.fill(email);
-  await dialog.getByRole('button', { name: '로컬 저장', exact: true }).click();
-  await expect(page.locator('.clone-toast')).toContainText('로컬 데모에 저장했습니다');
+  await dialog.getByRole('button', { name: '저장', exact: true }).click();
+  await expect(dialog).not.toBeVisible();
+  await expect(page.getByLabel('발급한 초대 링크')).toHaveValue(/\/app\/invite#token=/);
 
   await expect.poll(async () => {
     const res = await request.get(`/api/v1/rest/workspace_invitations?email=eq.${encodeURIComponent(email)}`);

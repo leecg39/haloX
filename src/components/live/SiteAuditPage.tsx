@@ -56,7 +56,7 @@ function AuditWorkspace({ workspaceId, workspaceName, scanId }: { workspaceId: s
   </div>;
 }
 
-function AuditTargetForm({ row, command, onClose }: { row?: Row; command: AuditCommand; onClose: () => void }) {
+export function AuditTargetForm({ row, command, onClose }: { row?: Row; command: AuditCommand; onClose: () => void }) {
   const scope = row?.scope_rules as AuditTarget['scope_rules'] | undefined;
   return <LiveModal title={row ? '대상·범위 수정' : '진단 대상 추가'} description="같은 출처의 공개 HTML 링크를 탐색합니다. 쿼리 URL·외부 사이트·robots.txt에서 차단한 경로는 수집하지 않습니다. 범위를 수정해도 기존 진단에는 당시 설정이 남습니다." onClose={onClose} onSave={async form => {
     const lines = (key: string) => text(form.get(key)).split('\n').map(line => line.trim()).filter(Boolean);
