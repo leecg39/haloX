@@ -9,7 +9,7 @@ export async function submitSignup(form: HTMLFormElement, navigate: (url: string
   try {
     const response = await fetch('/api/v1/auth/signup', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fullName: value('name'), email: value('email'), password: value('password'), phone: form.querySelector<HTMLInputElement>('input[type="tel"]')?.value, verificationToken }),
+      body: JSON.stringify({ fullName: value('name'), email: value('email'), password: value('password'), phone: form.querySelector<HTMLInputElement>('input[type="tel"]')?.value, verificationToken, referralCode: value('referralCode') }),
     });
     const result = await response.json();
     if (!response.ok) { notify(result.error || '가입하지 못했습니다. 다시 시도해 주세요.'); return; }

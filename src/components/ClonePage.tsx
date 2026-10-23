@@ -16,6 +16,7 @@ import { initializeLiveUsage } from './usage-live';
 import { syncDialogActionToBackend } from '@/lib/api/client';
 import { PhoneVerificationButton } from './PhoneVerificationButton';
 import { submitSignup } from './signup-form';
+import { ReferralSignupField } from './ReferralSignupField';
 import { useWorkspace } from './WorkspaceProvider';
 
 function PasswordVisibilityButton({className}:{className?:string}){
@@ -59,8 +60,13 @@ export default function ClonePage({data,requestedRoute,children}:{data:Capture;r
  const navigation=useCloneNavigation({rootRef,route:requestedRoute,navigate,openDialog,notify,menus:data.publicInteractions?.menus});
  const content=useMemo(()=>parse(data.html,{replace(node,index){
   if(children&&node instanceof Element&&node.attribs.id==='main-scroll-container')return <main {...attributesToProps(node.attribs)} data-live-root="true">{children}</main>;
+  if(requestedRoute.split('?')[0]==='/app/referral'&&node instanceof Element&&node.name==='span'&&node.attribs.role==='link'&&node.attribs['aria-current']==='page')return <span {...attributesToProps(node.attribs)}>추천 프로그램</span>;
+  if(requestedRoute.startsWith('/app/signup') && node instanceof Element && node.name==='form'){
+   const signupOptions:HTMLReactParserOptions={replace(child,childIndex){if(child instanceof Element&&child.name==='button'&&child.attribs.type==='submit')return <><ReferralSignupField code={new URLSearchParams(requestedRoute.split('?')[1]).get('ref') || ''}/><button {...attributesToProps(child.attribs)}>{domToReact(child.children as DOMNode[],parserOptions)}</button></>;return parserOptions.replace?.(child,childIndex)}};
+   return <form {...attributesToProps(node.attribs)} data-clone-form="true">{domToReact(node.children as DOMNode[],signupOptions)}</form>;
+  }
   return parserOptions.replace?.(node,index);
- }}),[data.html,children]);
+ }}),[data.html,children,requestedRoute]);
  useEffect(()=>{document.body.className=data.bodyClass;document.documentElement.className=data.htmlClass;document.body.style.removeProperty('pointer-events');document.body.style.removeProperty('overflow');return()=>{if(toastTimer.current)clearTimeout(toastTimer.current)}},[data]);
  useEffect(()=>{const root=rootRef.current;if(!root)return;const cleanup=children?()=>{}:initializeDataControls(root,requestedRoute);
   const originalFields=root.querySelectorAll<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement>('input:not([data-live-root] input),textarea:not([data-live-root] textarea),select:not([data-live-root] select)');
@@ -71,7 +77,7 @@ export default function ClonePage({data,requestedRoute,children}:{data:Capture;r
   }
   if(requestedRoute.startsWith('/app/signup')){
    const form=root.querySelector<HTMLFormElement>('form');
-   form?.querySelectorAll<HTMLInputElement>('input:not([type="hidden"])').forEach(input=>{if(input.name)input.required=true});
+   form?.querySelectorAll<HTMLInputElement>('input:not([type="hidden"])').forEach(input=>{if(input.name&&!input.hasAttribute('data-optional'))input.required=true});
    form?.querySelectorAll<HTMLInputElement>('input[name="password"],input[name="passwordConfirm"]').forEach(input=>{input.minLength=8;input.maxLength=128});
    const button=form?.querySelector<HTMLButtonElement>('button[type="submit"]');if(button)button.disabled=false;
   }

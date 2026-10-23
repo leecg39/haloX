@@ -3,6 +3,9 @@
  */
 
 import crypto from 'node:crypto';
+import type { PortalCollection } from '../api/portal.ts';
+import { REFERRAL_COMMANDS, runReferralCommand } from './referral-service.ts';
+import { FEEDBACK_COMMANDS, runFeedbackCommand } from './feedback-service.ts';
 import { RAW_COMMANDS, runRawImportCommand } from './raw-import-service.ts';
 import { MONITOR_COMMANDS, runMonitorCommand, evaluateMonitorRule } from './monitor-service.ts';
 import { REPORT_COMMANDS, runReportCommand, generateScheduledReport } from './report-service.ts';
@@ -142,11 +145,11 @@ export class HaloXDatabase {
   }
 
   /** Separate from the public table whitelist: no REST/RPC access. */
-  public getServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
+  public getServerRecords(collection: PortalCollection | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
     return structuredClone(this.serverRecords[collection] ?? []);
   }
 
-  public setServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
+  public setServerRecords(collection: PortalCollection | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
     this.serverRecords[collection] = structuredClone(rows);
   }
 
@@ -2249,6 +2252,9 @@ export class HaloXDatabase {
 
       throw new Error(`Unsupported MCP method: ${mcpMethod}`);
     }
+
+    if (REFERRAL_COMMANDS.includes(fnName)) return runReferralCommand(this, fnName, payload, actorUserId);
+    if (FEEDBACK_COMMANDS.includes(fnName)) return runFeedbackCommand(this, fnName, payload, actorUserId);
 
     const workspaceId = String(payload.workspace_id || [...this.getAllowedWorkspaceIds(actorUserId)][0] || '');
     this.assertWorkspaceMember(workspaceId, actorUserId);

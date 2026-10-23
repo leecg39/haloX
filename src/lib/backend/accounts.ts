@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { validateReferralCode, recordReferralSignup } from './referral-service.ts';
 import { promisify } from 'node:util';
 import { ADMIN_USER_ID, DEFAULT_USER_ID, OTHER_USER_ID } from './database.ts';
 import type { PersistentHaloXStore } from './store.ts';
@@ -50,7 +51,10 @@ export async function registerAccount(store: PersistentHaloXStore, verification:
   }
   const passwordHash = await hashPassword(password);
   return store.write(db => {
+    const referral = validateReferralCode(db, body.referralCode, email);
     verification.consume(db, phone, body.verificationToken);
-    return db.createAccount({ email, fullName, phone, passwordHash });
+    const account = db.createAccount({ email, fullName, phone, passwordHash });
+    recordReferralSignup(db, referral, account);
+    return account;
   });
 }

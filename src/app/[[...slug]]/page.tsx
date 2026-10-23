@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getCapture } from '@/lib/content';
 import ClonePage from '@/components/ClonePage';
+import { ReferralPage } from '@/components/live/ReferralPage';
+import { FeedbackPage } from '@/components/live/FeedbackPage';
 import { RawDataPage } from '@/components/live/RawDataPage';
 import { DashboardPage } from '@/components/live/DashboardPage';
 import { MonitoringPage } from '@/components/live/MonitoringPage';
@@ -27,7 +29,10 @@ async function resolveRoute(props: Props) {
   return '/' + slug.join('/') + (q.size ? '?' + q : '');
 }
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const data = await getCapture(await resolveRoute(props));
+  const route = await resolveRoute(props), pathname = route.split('?')[0];
+  const portalTitle = pathname === '/app/referral' ? '추천 프로그램' : /^\/app\/feedback(?:\/[^/]+)?$/.test(pathname) ? '피드백' : undefined;
+  if (portalTitle) return { title: `${portalTitle} | HaloX`, robots: { index: false, follow: false } };
+  const data = await getCapture(route);
   return { title: data?.title || 'HaloX', robots: { index: false, follow: false } };
 }
 export default async function Page(props: Props) {
@@ -61,6 +66,8 @@ export default async function Page(props: Props) {
     shellRoute = pathname; children = <AnalysesPage kind={pathname.includes('/seo/') ? 'seo' : 'geo'} initialTab={new URLSearchParams(route.split('?')[1]).get('tab') || undefined} />;
   }
   if (pathname === '/app/gap') { shellRoute = pathname; children = <GapPage />; }
+  if (pathname === '/app/referral') { shellRoute = pathname; children = <ReferralPage />; }
+  if (/^\/app\/feedback(?:\/[^/]+)?$/.test(pathname)) { shellRoute = '/app/feedback'; children = <FeedbackPage threadId={pathname.split('/')[3]} support={new URLSearchParams(route.split('?')[1]).get('view') === 'support'} />; }
   if (pathname === '/app/raw-data') { shellRoute = pathname; children = <RawDataPage />; }
   if (pathname === '/app') { shellRoute = '/app'; children = <DashboardPage />; }
   if (pathname === '/app/monitoring') { shellRoute = pathname; children = <MonitoringPage />; }

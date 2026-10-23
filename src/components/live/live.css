@@ -153,3 +153,13 @@
 .raw-detail-modal pre{max-height:420px;overflow:auto}
 @media(max-width:1000px){.live-raw-page .raw-filters{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){.live-raw-page .raw-filters{grid-template-columns:minmax(0,1fr)}.raw-kind-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.raw-download-summary{align-items:stretch;flex-direction:column}.raw-kind-tabs button{min-height:48px;padding:12px}}
+
+.clone-app main[data-live-root]:has(.live-portal-page){overflow:auto!important;min-height:0!important}
+.live-portal-page{max-width:1200px;margin:auto;padding-bottom:60px;overflow-wrap:anywhere}
+.live-portal-page > .live-tabs{margin:24px 0 16px}
+.live-portal-page .live-tabs a{padding:10px 4px}
+.live-portal-page .live-tabs a[aria-current=page]{border-bottom:2px solid #171717;font-weight:600}
+.live-portal-page .live-card .live-actions{margin-top:16px}
+.live-portal-page .live-card > p{margin:8px 0}
+.feedback-thread{margin:16px 0}
+.feedback-excerpt{white-space:pre-wrap;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
