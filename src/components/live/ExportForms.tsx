@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 import type { ContentRow as Row } from '@/lib/api/content';
-import { EXPORT_FORMATS, TRANSLATION_LOCALES, TRANSLATION_STATUS, type ExportData } from '@/lib/api/exports';
+import { EXPORT_FORMATS, TRANSLATION_LOCALES, TRANSLATION_STATUS, TRANSLATION_LIMITS, type ExportData } from '@/lib/api/exports';
 import { LiveModal } from './LiveUI';
 import { text } from './LibraryShared';
 
@@ -14,7 +14,7 @@ export function NewExport({ data, initialJobId, command, onClose }: { data: Expo
   const request = useRef({ fingerprint: '', key: '' });
   const job = data.content_jobs.find(row => row.id === jobId), destination = data.export_destinations.find(row => row.id === destinationId);
   const draft = data.content_drafts.find(row => row.content_job_id === jobId && (job?.current_draft_id ? row.id === job.current_draft_id : row.is_selected));
-  const translations = data.article_translations.filter(row => row.origin === 'manual' && row.status === 'ready');
+  const translations = data.article_translations.filter(row => ['manual', 'deepl'].includes(text(row.origin)) && row.status === 'ready');
   return <LiveModal title="파일 만들기" submit="파일 저장" description="선택한 본문을 파일로 보관합니다. 생성 후 이력에서 다운로드할 수 있습니다." onClose={onClose} onSave={async form => {
     const translation = translations.find(row => row.id === translationId);
     const values = { ...(source === 'content' ? { job_id: jobId, expected_content_revision: Number(job?.revision || 0) } : { translation_id: translationId, expected_translation_revision: Number(translation?.revision || 0) }), ...(destination ? { destination_id: destination.id, expected_destination_revision: Number(destination.revision) } : { format: form.get('format'), include_metadata: form.has('include_metadata') }) };
@@ -44,15 +44,15 @@ export function TranslationForm({ row, data, command, onClose }: { row?: Row; da
   const [jobId, setJobId] = useState(data.content_jobs[0]?.id || '');
   const job = data.content_jobs.find(item => item.id === jobId);
   const source = row?.source_snapshot as Row | undefined || data.content_drafts.find(item => item.content_job_id === jobId && (job?.current_draft_id ? item.id === job.current_draft_id : item.is_selected));
-  return <LiveModal title={row ? '번역문 편집' : '번역문 등록'} description="직접 번역한 내용을 저장하고 검토 상태를 관리합니다. 선택한 원문 버전도 함께 보관됩니다." onClose={onClose} onSave={async form => {
+  return <LiveModal title={row ? '번역문 편집' : '번역문 등록'} description="번역문을 편집하고 검토 상태를 관리합니다. 자동 번역은 용어와 서식까지 확인해 주세요. 선택한 원문 버전도 함께 보관됩니다." onClose={onClose} onSave={async form => {
     await command(row ? 'translation-update' : 'translation-create', { ...Object.fromEntries(form.entries()), ...(row ? { translation_id: row.id, expected_revision: row.revision } : { job_id: jobId, expected_content_revision: Number(job?.revision || 0) }) });
   }}>
     {!row && <><label>원문 콘텐츠<select aria-label="원문 콘텐츠" value={jobId} onChange={event => setJobId(event.target.value)} required><option value="">선택해 주세요</option>{data.content_jobs.map(item => <option key={item.id} value={item.id}>{text(item.title)}</option>)}</select></label><div className="live-grid"><label>원문 언어<select aria-label="원문 언어" name="source_locale" defaultValue="ko">{options(TRANSLATION_LOCALES)}</select></label><label>번역 언어<select aria-label="번역 언어" name="locale" defaultValue="en">{options(TRANSLATION_LOCALES)}</select></label></div></>}
     {source && <details><summary>참조 원문 v{text(source.version)} · {text(source.title)}</summary><pre className="live-answer">{text(source.content_md)}</pre></details>}
-    <label>번역 제목<input aria-label="번역 제목" name="title" defaultValue={text(row?.title)} required maxLength={200} /></label>
-    <label>번역 본문<textarea aria-label="번역 본문" name="content_md" defaultValue={text(row?.content_md)} required maxLength={100000} rows={9} /></label>
-    <label>번역 검색 제목<input aria-label="번역 검색 제목" name="meta_title" defaultValue={text(row?.meta_title)} maxLength={200} /></label>
-    <label>번역 검색 설명<textarea aria-label="번역 검색 설명" name="meta_description" defaultValue={text(row?.meta_description)} maxLength={1000} rows={2} /></label>
+    <label>번역 제목<input aria-label="번역 제목" name="title" defaultValue={text(row?.title)} required maxLength={TRANSLATION_LIMITS.title} /></label>
+    <label>번역 본문<textarea aria-label="번역 본문" name="content_md" defaultValue={text(row?.content_md)} required maxLength={TRANSLATION_LIMITS.content_md} rows={9} /></label>
+    <label>번역 검색 제목<input aria-label="번역 검색 제목" name="meta_title" defaultValue={text(row?.meta_title)} maxLength={TRANSLATION_LIMITS.meta_title} /></label>
+    <label>번역 검색 설명<textarea aria-label="번역 검색 설명" name="meta_description" defaultValue={text(row?.meta_description)} maxLength={TRANSLATION_LIMITS.meta_description} rows={2} /></label>
     <label>검토 상태<select aria-label="검토 상태" name="status" defaultValue={text(row?.status) || 'draft'}>{options(TRANSLATION_STATUS)}</select></label>
     <label>번역 메모<textarea aria-label="번역 메모" name="notes" defaultValue={text(row?.notes)} maxLength={5000} rows={2} /></label>
   </LiveModal>;

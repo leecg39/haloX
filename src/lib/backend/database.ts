@@ -133,11 +133,11 @@ export class HaloXDatabase {
   }
 
   /** Separate from the public table whitelist: no REST/RPC access. */
-  public getServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests'): Row[] {
+  public getServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests'): Row[] {
     return structuredClone(this.serverRecords[collection] ?? []);
   }
 
-  public setServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests', rows: Row[]): void {
+  public setServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests', rows: Row[]): void {
     this.serverRecords[collection] = structuredClone(rows);
   }
 
@@ -599,6 +599,7 @@ export class HaloXDatabase {
     ensure('export_history', []);
     ensure('export_destinations', []);
     ensure('export_publications', []);
+    ensure('translation_runs', []);
     ensure('report_snapshots', [
       {
         id: '65000000-0000-4000-8000-000000000001',
@@ -1313,22 +1314,24 @@ export class HaloXDatabase {
     }
 
     if (tableName === 'workspaces' && (this.tables.get('export_publications') || []).some(row => deleted.some(workspace => workspace.id === row.workspace_id) && ['sending', 'unknown'].includes(String(row.status)))) throw new Error('결과를 확인하지 못한 외부 게시가 있습니다. 게시 이력에서 먼저 확인해 주세요.');
+    if (tableName === 'workspaces' && (this.tables.get('translation_runs') || []).some(row => deleted.some(workspace => workspace.id === row.workspace_id) && ['running', 'unknown'].includes(String(row.status)))) throw new Error('진행 중이거나 결과가 불확실한 번역이 있습니다. 번역 실행 이력에서 먼저 확인해 주세요.');
     this.tables.set(tableName, remaining);
     const deletedIds = new Set(deleted.map(row => row.id));
     if (tableName === 'content_jobs') {
       this.deleteTable('content_drafts', { content_job_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
       this.deleteTable('content_review_runs', { content_job_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
-      for (const name of ['export_history', 'article_translations', 'export_publications']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.content_job_id)) row.content_job_id = null;
+      for (const name of ['export_history', 'article_translations', 'export_publications', 'translation_runs']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.content_job_id)) row.content_job_id = null;
     }
+    if (tableName === 'translation_runs') for (const row of this.tables.get('article_translations') || []) if (deletedIds.has(row.translation_run_id)) row.translation_run_id = null;
     if (tableName === 'export_history') this.serverRecords.export_files = (this.serverRecords.export_files || []).filter(row => !deletedIds.has(row.export_id));
     if (tableName === 'export_destinations') {
       this.serverRecords.export_credentials = (this.serverRecords.export_credentials || []).filter(row => !deletedIds.has(row.destination_id));
       for (const name of ['export_history', 'export_publications']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.destination_id)) row.destination_id = null;
     }
-    if (tableName === 'article_translations') for (const name of ['export_history', 'export_publications']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.translation_id)) row.translation_id = null;
+    if (tableName === 'article_translations') for (const name of ['export_history', 'export_publications', 'translation_runs']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.translation_id)) row.translation_id = null;
     if (tableName === 'content_drafts') {
       for (const name of ['export_history', 'export_publications']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.content_draft_id)) row.content_draft_id = null;
-      for (const row of this.tables.get('article_translations') || []) if (deletedIds.has(row.source_draft_id)) row.source_draft_id = null;
+      for (const name of ['article_translations', 'translation_runs']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.source_draft_id)) row.source_draft_id = null;
       this.tables.set('content_compositions', (this.tables.get('content_compositions') || []).filter(row => !deletedIds.has(row.content_draft_id)));
     }
     if (tableName === 'content_review_runs') {
@@ -1374,7 +1377,7 @@ export class HaloXDatabase {
     if (tableName === 'workspace_tag_groups') for (const row of this.tables.get('workspace_tags') || []) if (deletedIds.has(row.group_id)) row.group_id = null;
     if (tableName === 'workspaces' && deleted.length) {
       const workspaceIds = new Set(deleted.map(row => String(row.id)));
-      for (const name of ['knowledge_files', 'export_files', 'export_credentials', 'export_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
+      for (const name of ['knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
       const keywordIds = new Set((this.tables.get('keywords') || []).filter(row => workspaceIds.has(String(row.workspace_id))).map(row => String(row.id)));
       for (const [name, rows] of this.tables) {
         if (name === 'workspaces') continue;
@@ -2697,7 +2700,7 @@ export class HaloXDatabase {
 
     if (EXPORT_COMMANDS.includes(fnName)) return runExportCommand(this, fnName, payload, workspaceId, actorUserId);
 
-    if (fnName === 'translate-content-v2') throw new Error('자동 번역 서비스가 연결되지 않았습니다. 내보내기의 번역문 관리에서 실제 번역문을 등록해 주세요.');
+    if (fnName === 'translate-content-v2') throw new Error('자동 번역은 전용 서버 실행 경로를 사용해 주세요.');
 
     if (fnName === 'gsc-sync-enqueue' || fnName === 'sync-ga4-data') {
       const dateStr = String(payload.date || '2026-10-23');

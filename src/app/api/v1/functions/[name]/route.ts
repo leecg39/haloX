@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { TRANSLATION_COMMANDS, runTranslationCommand } from '@/lib/backend/translation-service';
 import { ExternalServiceError } from '@/lib/backend/public-json';
 import { WORDPRESS_COMMANDS, runWordPressCommand } from '@/lib/backend/wordpress-service';
 import { ContentConflictError } from '@/lib/backend/content-model';
@@ -59,8 +60,8 @@ export async function POST(
       }
     }
 
-    const result = WORDPRESS_COMMANDS.includes(name) ? await runWordPressCommand(haloxStore, name, payload, userId) : await haloxStore.write(db => db.invokeEdgeFunction(name, payload, userId));
-    if (WORDPRESS_COMMANDS.includes(name) && result.ok === false) return NextResponse.json(result, { status: 502 });
+    const result = TRANSLATION_COMMANDS.includes(name) ? await runTranslationCommand(haloxStore, name, payload, userId) : WORDPRESS_COMMANDS.includes(name) ? await runWordPressCommand(haloxStore, name, payload, userId) : await haloxStore.write(db => db.invokeEdgeFunction(name, payload, userId));
+    if ((WORDPRESS_COMMANDS.includes(name) || TRANSLATION_COMMANDS.includes(name)) && result.ok === false) return NextResponse.json(result, { status: 502 });
 
     const wantsSse =
       name === 'agent-chat' &&

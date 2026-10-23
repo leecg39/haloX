@@ -1,7 +1,8 @@
 import crypto from 'node:crypto';
 import { RlsAccessDeniedError, type HaloXDatabase, type Row } from './database.ts';
 import type { PersistentHaloXStore } from './store.ts';
-import { contentText, validateContentBody } from './content-model.ts';
+import { contentText } from './content-model.ts';
+import { validateTranslationBody } from './translation-model.ts';
 import { checkContentRevision, contentJob, selectedContentDraft } from './content-service.ts';
 import { sealIntegrationSecret, openIntegrationSecret } from './integration-secret.ts';
 import { createWordPressClient, wordpressSiteUrl, type WordPressCredentials, type WordPressPost } from './wordpress.ts';
@@ -130,7 +131,7 @@ export async function runWordPressCommand(store: PersistentHaloXStore, command: 
     const auth = credentials(db, target), id = crypto.randomUUID();
     const [publication] = db.insertTable('export_publications', { id, workspace_id: workspace, destination_id: target.id, destination_snapshot: { name: target.name, site_url: target.site_url, username: target.username }, source_key: sourceKey,
       content_job_id: jobId ?? null, content_draft_id: draftId ?? null, translation_id: payload.translation_id || null,
-      source_snapshot: validateContentBody(source), title: source.title, requested_status: payload.status, status: 'sending', remote_slug: `halox-${id}`, notes: '', revision: 1, created_by: actor,
+      source_snapshot: validateTranslationBody(source), title: source.title, requested_status: payload.status, status: 'sending', remote_slug: `halox-${id}`, notes: '', revision: 1, created_by: actor,
     }, actor);
     db.setServerRecords('export_requests', [...db.getServerRecords('export_requests'), { workspace_id: workspace, actor_id: actor, key, fingerprint, publication_id: id }]);
     return { reused: false as const, publication, auth };

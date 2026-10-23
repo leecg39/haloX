@@ -1,7 +1,7 @@
 import type { Row } from './database.ts';
 import { publicDocumentUrl } from './public-document.ts';
 import { publicJsonRequest, ExternalServiceError } from './public-json.ts';
-import { validateContentBody } from './content-model.ts';
+import { validateTranslationBody } from './translation-model.ts';
 
 export type WordPressCredentials = { site_url: string; username: string; password: string };
 export type WordPressPost = { id: number; url: string; status: string };
@@ -15,7 +15,7 @@ export function wordpressSiteUrl(value: string) {
 
 /** Explicit, escaped HTML preserves paragraphs/headings without executing raw markup. */
 export function wordpressContent(source: Row) {
-  const body = validateContentBody(source); let fenced = false;
+  const body = validateTranslationBody(source); let fenced = false;
   const lines = body.content_md.split('\n').map(line => {
     if (/^\s*(```|~~~)/.test(line)) { fenced = !fenced; return ''; }
     const heading = !fenced && line.match(/^(#{1,6})\s+(.+)$/);

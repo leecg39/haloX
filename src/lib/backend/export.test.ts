@@ -94,7 +94,7 @@ describe('durable exports and reviewed translations', () => {
     const stored = (await rows('article_translations'))[0]; assert.equal(stored.content_job_id, null); assert.equal(stored.source_draft_id, null); assert.equal((stored.source_snapshot as Row).content_md, body.content_md);
     await invoke('translation-delete', { translation_id: created.id, expected_revision: 2 });
     assert.equal((await rows('export_history'))[0].translation_id, null); assert.deepEqual(await store.read(db => readExportFile(db, history.id, ACTOR)), file);
-    await assert.rejects(invoke('translate-content-v2', { title: '가짜 번역 금지' }), /자동 번역 서비스가 연결되지/);
+    await assert.rejects(invoke('translate-content-v2', { title: '가짜 번역 금지' }), /전용 서버 실행 경로/);
     assert.equal((await rows('articles')).length, 0);
   });
 

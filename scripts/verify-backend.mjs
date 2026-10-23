@@ -709,7 +709,7 @@ async function runVerification() {
   assert.equal(transRes.ok, true);
   assert.equal(transRes.translation.content_md, 'Learn how to use the product.');
   assert.equal(transRes.translation.status, 'ready');
-  await assert.rejects(() => db.invokeEdgeFunction('translate-content-v2', { workspace_id: DEFAULT_WORKSPACE_ID, target_locales: ['en'] }, DEFAULT_USER_ID), /자동 번역 서비스가 연결되지/);
+  await assert.rejects(() => db.invokeEdgeFunction('translate-content-v2', { workspace_id: DEFAULT_WORKSPACE_ID, target_locales: ['en'] }, DEFAULT_USER_ID), /전용 서버 실행 경로/);
 
   // 8e. GSC & GA4 Sync Pipeline
   const syncRes = await db.invokeEdgeFunction(

@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import type { Row } from './database.ts';
 import { EXPORT_FORMATS, type ExportFormat } from '../api/exports.ts';
-import { validateContentBody } from './content-model.ts';
+import { validateTranslationBody } from './translation-model.ts';
 
 const escapeHtml = (value: string) => value.replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]!);
 
@@ -12,7 +12,7 @@ export function exportFormat(value: unknown): ExportFormat {
 
 /** Downloadable HTML treats the source as text, including all embedded HTML and URLs. */
 export function createExportFile(input: Row, format: ExportFormat, includeMetadata: boolean, prefix: string) {
-  const body = validateContentBody(input);
+  const body = validateTranslationBody(input);
   const metadata = { title: body.title, meta_title: body.meta_title, meta_description: body.meta_description };
   const mimeTypes = { md: 'text/markdown', txt: 'text/plain', html: 'text/html', json: 'application/json' };
   let result: string;

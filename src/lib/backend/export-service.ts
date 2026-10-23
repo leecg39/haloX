@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { validateTranslationBody } from './translation-model.ts';
 import type { HaloXDatabase, Row } from './database.ts';
 import { contentText, validateContentBody } from './content-model.ts';
 import { checkContentRevision, contentJob, selectedContentDraft } from './content-service.ts';
@@ -19,7 +20,7 @@ function locale(value: unknown) {
 }
 function translationBody(payload: Row) {
   if (!Object.hasOwn(TRANSLATION_STATUS, String(payload.status))) throw new Error('번역문 검토 상태를 선택해 주세요.');
-  return { ...validateContentBody(payload), status: payload.status, notes: contentText(payload.notes, '메모', 5000) };
+  return { ...validateTranslationBody(payload), status: payload.status, notes: contentText(payload.notes, '메모', 5000) };
 }
 function destinationBody(payload: Row) {
   const name = contentText(payload.name, '설정 이름', 100, true);
@@ -48,6 +49,7 @@ export function runExportCommand(db: HaloXDatabase, command: string, payload: Ro
     const targetLocale = locale(payload.locale), sourceLocale = locale(payload.source_locale);
     if (targetLocale === sourceLocale) throw new Error('원문과 다른 번역 언어를 선택해 주세요.');
     if (db.queryTable('article_translations', { filters: where(workspace) }, actor).data.some(row => row.source_identity === draft.id && row.locale === targetLocale)) throw new Error('이 원문 버전의 번역문이 이미 있습니다. 기존 번역문을 수정해 주세요.');
+    if (db.queryTable('translation_runs', { filters: where(workspace) }, actor).data.some(row => row.source_identity === draft.id && row.locale === targetLocale && ['running', 'unknown'].includes(String(row.status)))) throw new Error('같은 원문의 자동 번역이 진행 중이거나 결과가 불확실합니다. 실행 이력을 확인해 주세요.');
     const [translation] = db.insertTable('article_translations', {
       ...translationBody(payload), workspace_id: workspace, content_job_id: job.id, source_draft_id: draft.id,
       source_identity: draft.id, source_snapshot: { ...validateContentBody(draft), version: draft.version },
@@ -58,14 +60,14 @@ export function runExportCommand(db: HaloXDatabase, command: string, payload: Ro
   if (command === 'translation-update' || command === 'translation-delete') {
     const row = item(db, 'article_translations', workspace, payload.translation_id, actor); checkContentRevision(row, payload.expected_revision);
     if (command === 'translation-delete') { db.deleteTable('article_translations', where(workspace, row.id), actor); return { ok: true }; }
-    if (row.origin !== 'manual') throw new Error('이전 데모 번역은 삭제한 뒤 실제 번역문을 등록해 주세요.');
+    if (!['manual', 'deepl'].includes(String(row.origin))) throw new Error('이전 데모 번역은 삭제한 뒤 실제 번역문을 등록해 주세요.');
     const [translation] = db.updateTable('article_translations', { ...translationBody(payload), revision: Number(row.revision) + 1 }, where(workspace, row.id), actor);
     return { ok: true, translation };
   }
   if (command === 'export-update' || command === 'export-delete') {
     const row = item(db, 'export_history', workspace, payload.export_id, actor); checkContentRevision(row, payload.expected_revision);
     if (command === 'export-delete') { db.deleteTable('export_history', where(workspace, row.id), actor); return { ok: true }; }
-    const [history] = db.updateTable('export_history', { title: contentText(payload.title, '이력 이름', 200, true), notes: contentText(payload.notes, '메모', 5000), revision: Number(row.revision || 0) + 1 }, where(workspace, row.id), actor);
+    const [history] = db.updateTable('export_history', { title: contentText(payload.title, '이력 이름', 1000, true), notes: contentText(payload.notes, '메모', 5000), revision: Number(row.revision || 0) + 1 }, where(workspace, row.id), actor);
     return { ok: true, history };
   }
   if (command !== 'export-create') throw new Error('지원하지 않는 내보내기 작업입니다.');
@@ -82,7 +84,7 @@ export function runExportCommand(db: HaloXDatabase, command: string, payload: Ro
   let source: Row, jobId: unknown, draftId: unknown, sourceVersion: unknown;
   if (payload.translation_id) {
     const translation = item(db, 'article_translations', workspace, payload.translation_id, actor); checkContentRevision(translation, payload.expected_translation_revision);
-    if (translation.origin !== 'manual' || translation.status !== 'ready') throw new Error('검토를 마친 실제 번역문만 내보낼 수 있습니다.');
+    if (!['manual', 'deepl'].includes(String(translation.origin)) || translation.status !== 'ready') throw new Error('검토를 마친 실제 번역문만 내보낼 수 있습니다.');
     source = translation; jobId = translation.content_job_id; draftId = translation.source_draft_id; sourceVersion = (translation.source_snapshot as Row)?.version;
   } else {
     const job = contentJob(db, workspace, payload.job_id, actor); checkContentRevision(job, payload.expected_content_revision);
