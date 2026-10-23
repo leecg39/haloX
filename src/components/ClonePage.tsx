@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import parse, { Element, attributesToProps, domToReact, type DOMNode, type HTMLReactParserOptions } from 'html-react-parser';
 import { createElement } from 'react';
 import type { Capture, DialogRequest, DialogResult } from '@/types/clone';
-import { useCloneNavigation } from './CloneNavigation';
+import { useCloneNavigation, writeActiveWorkspace } from './CloneNavigation';
 import { handleDataClick, handleDataInput, initializeDataControls } from './data-controls';
 import { DemoDialog } from './DemoDialog';
 import './clone-runtime.css';
@@ -23,7 +23,7 @@ export default function ClonePage({data,requestedRoute}:{data:Capture;requestedR
  },[router]);
  const notify=useCallback((message:string)=>{setToast(message);if(toastTimer.current)clearTimeout(toastTimer.current);toastTimer.current=setTimeout(()=>setToast(''),3500)},[]);
  const openDialog=useCallback(async(request:DialogRequest)=>{if(request.route.split('?')[0]==='/app/geo/prompts'&&request.title==='추가')request={...request,title:'프롬프트 추가'};try{if(/키워드 추가/.test(request.title)){const r=await fetch('/clone/keyword-dialog.json');request={...request,template:(await r.json()).html}}else{const r=await fetch('/clone/dialog-templates.json');if(r.ok){const templates=await r.json();const found=templates.find((t:{route:string;trigger:string;html:string;kind?:string})=>(t.route===request.route||t.route===request.route.split('?')[0])&&t.trigger===request.title&&t.kind!=='page');if(found)request={...request,template:found.html}}}}catch{}setDialog(request)},[]);
- const navigation=useCloneNavigation({rootRef,route:requestedRoute,navigate,openDialog,menus:data.publicInteractions?.menus});
+ const navigation=useCloneNavigation({rootRef,route:requestedRoute,navigate,openDialog,notify,menus:data.publicInteractions?.menus});
  const content=useMemo(()=>parse(data.html,parserOptions),[data.html]);
  useEffect(()=>{document.body.className=data.bodyClass;document.documentElement.className=data.htmlClass;document.body.style.removeProperty('pointer-events');document.body.style.removeProperty('overflow');return()=>{if(toastTimer.current)clearTimeout(toastTimer.current)}},[data]);
  useEffect(()=>{const root=rootRef.current;if(!root)return;const cleanup=initializeDataControls(root,requestedRoute);
@@ -74,6 +74,6 @@ export default function ClonePage({data,requestedRoute}:{data:Capture;requestedR
   root.addEventListener('click',click);root.addEventListener('input',input);root.addEventListener('submit',submit);document.addEventListener('keydown',keydown);
   return()=>{cleanup();cleanupPublic();cleanupPricing();cleanupLists();reveal.disconnect();root.removeEventListener('click',click);root.removeEventListener('input',input);root.removeEventListener('submit',submit);document.removeEventListener('keydown',keydown)};
  },[data,requestedRoute,navigate,notify,openDialog,navigation]);
- const onComplete=(result:DialogResult)=>{window.dispatchEvent(new CustomEvent('halox:record-created',{detail:result}));void syncDialogActionToBackend(result);notify('로컬 데모에 저장했습니다.');};
+ const onComplete=(result:DialogResult)=>{if(result.route.split('?')[0]==='/app/workspaces'&&result.record?.name){writeActiveWorkspace({id:result.record.id,name:result.record.name,plan:'Trial',domain:result.values?.domain||''});notify(`'${result.record.name}' 워크스페이스를 생성하고 전환했습니다.`)}else{notify('로컬 데모에 저장했습니다.')}window.dispatchEvent(new CustomEvent('halox:record-created',{detail:result}));void syncDialogActionToBackend(result);};
  return <><div ref={rootRef} className={'clone-surface '+(requestedRoute.startsWith('/app')?'clone-app':'clone-public')} data-route={requestedRoute}>{content}</div>{navigation.overlay}<DemoDialog request={dialog} onClose={()=>setDialog(null)} onComplete={onComplete}/>{toast&&<div className="clone-toast" role="status">{toast}<button aria-label="알림 닫기" onClick={()=>setToast('')}>×</button></div>}</>;
 }

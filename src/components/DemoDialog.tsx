@@ -23,8 +23,9 @@ function DialogSession({ request, onClose, onComplete }: SessionProps) {
   const [templateActive,setTemplateActive]=useState(true);
   const [knowledge, setKnowledge] = useState(false), [records, setRecords] = useState<LocalRecord[]>([]);
   const deleting = /삭제|delete/i.test(request.title), keyword = /키워드/.test(request.title), prompt = /프롬프트/.test(request.title);
+  const isWorkspace = request.route.startsWith('/app/workspaces') || /워크스페이스/.test(request.title);
   const email = /초대|이메일/.test(request.title), url = /URL|자료|진단|최적화/i.test(request.title), feedback = /피드백/.test(request.title);
-  const nameLabel = email ? '이메일' : url ? 'URL' : feedback ? '제목' : keyword ? '키워드' : prompt ? '프롬프트' : '이름';
+  const nameLabel = isWorkspace ? '워크스페이스 이름' : email ? '이메일' : url ? 'URL' : feedback ? '제목' : keyword ? '키워드' : prompt ? '프롬프트' : '이름';
   const update = (key: string, value: string) => { setValues(previous => ({ ...previous, [key]: value })); setError(''); };
   useEffect(() => {
     setRecords(readRecords(request.route));
@@ -115,8 +116,9 @@ function DialogSession({ request, onClose, onComplete }: SessionProps) {
       <form onSubmit={submit}><div className="hx-demo-body">
         {(keyword || prompt) && !deleting && <div className="hx-demo-tabs" role="tablist">{[['single', '단일'], ['bulk', '일괄'], ['recommend', '추천']].map(([id, label]) => <button role="tab" type="button" key={id} aria-selected={mode === id} onClick={() => setMode(id)}>{label}</button>)}</div>}
         {deleting ? <label className="hx-demo-field">삭제할 항목<select name="recordId" required defaultValue=""><option value="" disabled>항목 선택</option>{records.map(record => <option key={record.id} value={record.id}>{record.name}</option>)}</select>{!records.length && <small>삭제할 로컬 항목이 없습니다.</small>}</label> : mode === 'recommend' ? recommendation : entryField()}
+        {isWorkspace && !deleting && <label className="hx-demo-field">대표 도메인 (선택)<input name="domain" type="text" placeholder="예: brizzi.kr" value={values.domain || ''} onChange={event => update('domain', event.target.value)} /></label>}
         {!deleting && !keyword && !prompt && !email && <label className="hx-demo-field">{feedback ? '내용' : '설명'}<textarea name="description" rows={4} placeholder={feedback ? '피드백을 작성해 주세요' : '설명을 입력하세요'} required={feedback} value={values.description || ''} onChange={event => update('description', event.target.value)} /></label>}
-      </div><footer><p>로컬 데모 · 실제 결제, 전송, 크레딧 차감 없음</p><div><Button variant="outline" type="button" onClick={onClose}>취소</Button><Button type="submit" disabled={deleting && !records.length}>{deleting ? '로컬 항목 삭제' : '로컬 저장'}</Button></div></footer></form>
+      </div><footer><p>로컬 데모 · 실제 결제, 전송, 크레딧 차감 없음</p><div><Button variant="outline" type="button" onClick={onClose}>취소</Button><Button type="submit" disabled={deleting && !records.length}>{deleting ? '로컬 항목 삭제' : isWorkspace ? '워크스페이스 생성' : '로컬 저장'}</Button></div></footer></form>
     </section>}
     <div className="hx-demo-status" role={error ? 'alert' : 'status'}>{error || '로컬 데모 · 입력은 이 브라우저에만 저장되며 실제 크레딧은 차감되지 않습니다.'}</div>
   </div>;
