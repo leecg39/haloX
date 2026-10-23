@@ -1,0 +1,83 @@
+'use client';
+
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import type { ContentRow as Row } from '@/lib/api/content';
+import { CLUSTER_PRIORITY, CLUSTER_RELATION, STRATEGY_TABLES, type StrategyData } from '@/lib/api/strategy';
+import { invokeEdgeEndpoint } from '@/lib/api/client';
+import { LibraryWorkspace, text } from './LibraryShared';
+import { EmptyState, ErrorState, LiveModal, downloadCsv } from './LiveUI';
+import { StrategyDetail, StrategyGraph, StrategyHistory, StrategyLinks, metric, originLabel, type StrategyEdit } from './StrategyViews';
+
+type Command = (name: string, values: Record<string, unknown>) => Promise<Record<string, Row>>;
+export function StrategyPage({ clusterId }: { clusterId?: string }) {
+  return <LibraryWorkspace>{(id, name) => <StrategyWorkspace key={id} workspaceId={id} workspaceName={name} clusterId={clusterId} />}</LibraryWorkspace>;
+}
+function StrategyWorkspace({ workspaceId, workspaceName, clusterId }: { workspaceId: string; workspaceName: string; clusterId?: string }) {
+  const router = useRouter(), generation = useRef(0);
+  const [data, setData] = useState<StrategyData>(() => ({ ...Object.fromEntries(STRATEGY_TABLES.map(table => [table, []])), source_revision: '', preview: { algorithm: 'first-term-v1', keyword_count: 0, groups: [], removed_ids: [] }, edges: [] }) as unknown as StrategyData);
+  const [loaded, setLoaded] = useState(false), [loading, setLoading] = useState(true), [error, setError] = useState('');
+  const [tab, setTab] = useState('list'), [query, setQuery] = useState(''), [priority, setPriority] = useState(''), [measurement, setMeasurement] = useState(''), [sort, setSort] = useState('recent'), [page, setPage] = useState(1), [edit, setEdit] = useState<StrategyEdit>();
+  const reload = useCallback(async () => {
+    const request = ++generation.current; setLoading(true);
+    try { const response = await fetch(`/api/v1/strategy-map?${new URLSearchParams({ workspace_id: workspaceId })}`), body = await response.json(); if (!response.ok) throw new Error(body.error || '전략맵을 불러오지 못했습니다.'); if (request === generation.current) { setData(body); setError(''); setLoaded(true); } }
+    catch (cause) { if (request === generation.current) setError(cause instanceof Error ? cause.message : '조회 실패'); }
+    finally { if (request === generation.current) setLoading(false); }
+  }, [workspaceId]);
+  useEffect(() => { void reload(); return () => { ++generation.current; }; }, [reload]);
+  const command: Command = async (name, values) => { try { return await invokeEdgeEndpoint<Record<string, Row>>(name, { ...values, workspace_id: workspaceId }); } finally { await reload(); } };
+  const close = () => setEdit(undefined), cluster = data.keyword_clusters.find(row => row.id === clusterId);
+  const rows = data.keyword_clusters.filter(row => {
+    const keywords = data.keywords.filter(keyword => row.stats.keyword_ids.includes(keyword.id)).map(keyword => keyword.keyword).join(' '), measured = row.stats.volume_count > 0;
+    return `${text(row.label)} ${text(row.notes)} ${keywords}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()) && (!priority || (row.priority || 'normal') === priority) && (!measurement || measured === (measurement === 'measured'));
+  }).sort((a, b) => sort === 'volume' ? (b.stats.volume_sum ?? -1) - (a.stats.volume_sum ?? -1) : sort === 'difficulty' ? (a.stats.avg_difficulty ?? 101) - (b.stats.avg_difficulty ?? 101) : text(b.created_at).localeCompare(text(a.created_at)));
+  const current = Math.min(page, Math.max(1, Math.ceil(rows.length / 10))), visible = rows.slice((current - 1) * 10, current * 10), linked = new Set(data.keyword_clusters.flatMap(row => row.stats.keyword_ids));
+  return <div className="live live-strategy-page"><header className="live-head"><div><h1>전략맵</h1><p>{workspaceName} · 키워드 그룹과 콘텐츠 관계를 관리합니다.</p></div><div className="live-actions"><button disabled={loading} onClick={() => void reload()}>새로고침</button><button disabled={!loaded} onClick={() => setEdit({ kind: 'preview' })}>자동 분류 미리보기</button><button disabled={!loaded} className="primary" onClick={() => setEdit({ kind: 'cluster' })}>클러스터 추가</button></div></header>
+    <p className="muted">검색량·난이도·인용은 저장한 자료의 집계입니다. 현재 검색/AI 수집에는 데모 Provider가 포함되어 실제 시장 성과를 의미하지 않습니다. 값이 없는 자료는 0점으로 만들지 않고 미측정으로 표시합니다.</p>
+    {error && <ErrorState message={error} retry={() => void reload()} />}{loading && <p role="status">전략맵을 불러오는 중…</p>}
+    {clusterId ? cluster ? <StrategyDetail cluster={cluster} data={data} edit={setEdit} /> : loaded && <EmptyState>클러스터를 찾을 수 없습니다. 현재 워크스페이스를 확인해 주세요.</EmptyState> : <>
+      <div className="live-kpis"><div className="live-card">전체 클러스터<strong>{data.keyword_clusters.length}</strong></div><div className="live-card">우선순위 높음<strong>{data.keyword_clusters.filter(row => row.priority === 'high').length}</strong></div><div className="live-card">연결 키워드<strong>{linked.size}</strong><small>중복을 제외한 수</small></div><div className="live-card">미분류 키워드<strong>{data.keywords.filter(row => !row.deleted_at && !linked.has(row.id)).length}</strong><Link href="/app/keywords">키워드 관리 →</Link></div></div>
+      <nav className="live-tabs" aria-label="전략맵 보기">{[['list', '리스트'], ['portfolio', '포트폴리오'], ['network', '네트워크'], ['history', '실행 이력']].map(([key, label]) => <button key={key} aria-pressed={tab === key} onClick={() => { setTab(key); setPage(1); }}>{label}</button>)}</nav>
+      {tab === 'history' ? <StrategyHistory rows={data.cluster_batch_runs} type="run" edit={setEdit} /> : <>
+        <div className="live-toolbar"><input aria-label="클러스터 검색" placeholder="클러스터·키워드·메모 검색" value={query} onChange={event => { setQuery(event.target.value); setPage(1); }} /><select aria-label="우선순위 필터" value={priority} onChange={event => { setPriority(event.target.value); setPage(1); }}><option value="">모든 우선순위</option>{Object.entries(CLUSTER_PRIORITY).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select><select aria-label="측정 상태 필터" value={measurement} onChange={event => { setMeasurement(event.target.value); setPage(1); }}><option value="">모든 측정 상태</option><option value="measured">검색량 값 있음</option><option value="missing">검색량 미측정</option></select><select aria-label="클러스터 정렬" value={sort} onChange={event => setSort(event.target.value)}><option value="recent">최근 등록순</option><option value="volume">검색량 높은 순</option><option value="difficulty">난이도 낮은 순</option></select><button disabled={!rows.length} onClick={() => downloadCsv('strategy-clusters.csv', [['클러스터', '우선순위', '키워드 수', '검색량 합계', '평균 난이도', '인용 질문·엔진 비율'], ...rows.map(row => [row.label, row.priority || 'normal', row.stats.keyword_count, row.stats.volume_sum, row.stats.avg_difficulty, row.stats.citation_percent])])}>현재 목록 CSV</button><small>{rows.length}개</small></div>
+        {!rows.length && loaded && <EmptyState>{query || priority || measurement ? '검색 결과가 없습니다.' : '클러스터가 없습니다. 직접 추가하거나 자동 분류 미리보기를 확인해 주세요.'}</EmptyState>}
+        {tab === 'list' && rows.length > 0 && <div className="live-table"><table><thead><tr><th>클러스터</th><th>키워드</th><th>검색량</th><th>난이도</th><th>질문 인용</th><th>관리</th></tr></thead><tbody>{visible.map(row => <tr key={row.id}><td className="live-prompt-cell"><Link href={`/app/strategy-map/${row.id}`}>{text(row.label)}</Link><small>{originLabel(row)} · {CLUSTER_PRIORITY[text(row.priority) as keyof typeof CLUSTER_PRIORITY] || '보통'}</small></td><td>{row.stats.keyword_count}개</td><td>{metric(row.stats.volume_sum)}<small>값 {row.stats.volume_count}/{row.stats.keyword_count}개</small></td><td>{metric(row.stats.avg_difficulty)}</td><td>{row.stats.citation_percent === null ? '—' : `${row.stats.citation_percent}%`}<small>{row.stats.cited_prompt_engines}/{row.stats.measured_prompt_engines}건</small></td><td><div className="live-actions"><button onClick={() => setEdit({ kind: 'cluster', row })}>편집</button><button className="danger" onClick={() => setEdit({ kind: 'delete', row })}>삭제</button></div></td></tr>)}</tbody></table></div>}
+        {(tab === 'network' || tab === 'portfolio') && <StrategyGraph key={tab} clusters={visible} data={data} network={tab === 'network'} />}
+        {rows.length > 10 && <div className="live-pagination"><button disabled={current === 1} onClick={() => setPage(current - 1)}>이전</button><span>{current} / {Math.ceil(rows.length / 10)}</span><button disabled={current * 10 >= rows.length} onClick={() => setPage(current + 1)}>다음</button></div>}
+        {tab === 'network' && <StrategyLinks data={data} edit={setEdit} />}
+      </>}
+    </>}
+    {edit && <StrategyForms edit={edit} data={data} command={command} onClose={close} onDeleted={id => { if (clusterId === id) router.push('/app/strategy-map'); }} />}
+  </div>;
+}
+
+function KeywordPicker({ data, selected }: { data: StrategyData; selected: string[] }) {
+  const [ids, setIds] = useState(new Set(selected)), [query, setQuery] = useState('');
+  const rows = data.keywords.filter(row => !row.deleted_at && text(row.keyword).toLocaleLowerCase().includes(query.toLocaleLowerCase()));
+  return <div><p>구성 키워드 · {ids.size}개 선택</p><input aria-label="구성 키워드 검색" value={query} placeholder="키워드 검색" onChange={event => setQuery(event.target.value)} />{[...ids].map(id => <input type="hidden" name="keyword_ids" value={id} key={id} />)}<div className="strategy-keyword-picker">{rows.map(row => <label className="check" key={row.id}><input type="checkbox" aria-label={text(row.keyword)} checked={ids.has(row.id)} onChange={event => { const next = new Set(ids); if (event.target.checked) next.add(row.id); else next.delete(row.id); setIds(next); }} />{text(row.keyword)} <small>{text(row.language)}/{text(row.country)}</small></label>)}{!rows.length && <p>선택할 키워드가 없습니다. 키워드 관리에서 먼저 등록해 주세요.</p>}</div></div>;
+}
+function StrategyForms({ edit, data, command, onClose, onDeleted }: { edit: StrategyEdit; data: StrategyData; command: Command; onClose: () => void; onDeleted: (id: string) => void }) {
+  const row = edit.row;
+  if (edit.kind === 'preview') return <ReclusterForm data={data} command={command} onClose={onClose} />;
+  if (edit.kind === 'cluster' || edit.kind === 'members') return <LiveModal title={edit.kind === 'members' ? '키워드 구성 편집' : row ? '클러스터 편집' : '클러스터 추가'} description={row?.origin === 'lexical' ? '자동 그룹의 이름·메모·우선순위는 다음 분류에도 유지됩니다. 키워드 구성은 다음 자동 분류에서 다시 계산됩니다.' : '수동 그룹과 키워드 관계를 저장합니다. 하나의 키워드를 여러 그룹에 연결할 수 있습니다.'} onClose={onClose} onSave={async form => {
+    await command(edit.kind === 'members' ? 'cluster-members-set' : row ? 'cluster-update' : 'cluster-create', { ...Object.fromEntries(form.entries()), keyword_ids: form.getAll('keyword_ids'), ...(row ? { cluster_id: row.id, expected_revision: Number(row.revision || 0) } : {}) });
+  }}>{edit.kind === 'cluster' && <><label>클러스터 이름<input name="label" aria-label="클러스터 이름" required maxLength={100} defaultValue={text(row?.label)} /></label><label>우선순위<select name="priority" aria-label="우선순위" defaultValue={text(row?.priority) || 'normal'}>{Object.entries(CLUSTER_PRIORITY).map(([value, label]) => <option value={value} key={value}>{label}</option>)}</select></label><label>클러스터 메모<textarea name="notes" aria-label="클러스터 메모" maxLength={5000} defaultValue={text(row?.notes)} /></label></>}{(!row || edit.kind === 'members') && <KeywordPicker data={data} selected={row ? data.keyword_cluster_members.filter(member => member.cluster_id === row.id).map(member => text(member.keyword_id)) : []} />}</LiveModal>;
+  if (edit.kind === 'link') return <LiveModal title={row?.id ? '관계 편집' : '관계 추가'} onClose={onClose} onSave={async form => { await command(row?.id ? 'cluster-link-update' : 'cluster-link-create', { ...Object.fromEntries(form.entries()), ...(row?.id ? { link_id: row.id, expected_revision: row.revision } : {}) }); }}><label>시작 클러스터<select name="source_id" aria-label="시작 클러스터" defaultValue={text(row?.source_id) || data.keyword_clusters[0]?.id}>{data.keyword_clusters.map(cluster => <option key={cluster.id} value={cluster.id}>{text(cluster.label)}</option>)}</select></label><label>대상 클러스터<select name="target_id" aria-label="대상 클러스터" defaultValue={text(row?.target_id) || data.keyword_clusters.find(cluster => cluster.id !== (row?.source_id || data.keyword_clusters[0]?.id))?.id}>{data.keyword_clusters.map(cluster => <option key={cluster.id} value={cluster.id}>{text(cluster.label)}</option>)}</select></label><label>관계 유형<select name="relation" aria-label="관계 유형" defaultValue={text(row?.relation) || 'related'}>{Object.entries(CLUSTER_RELATION).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label><p className="muted">콘텐츠 지원은 시작 → 대상 방향입니다. 관련 주제는 양방향입니다.</p><label>관계 메모<textarea name="notes" aria-label="관계 메모" maxLength={2000} defaultValue={text(row?.notes)} /></label></LiveModal>;
+  if (edit.kind === 'history' && row) return <LiveModal title="이력 메모 수정" onClose={onClose} onSave={async form => { await command(edit.historyType === 'run' ? 'strategy-run-update' : 'cluster-history-update', { history_id: row.id, expected_revision: Number(row.revision || 0), notes: form.get('notes') }); }}><label>이력 메모<textarea name="notes" aria-label="이력 메모" maxLength={5000} defaultValue={text(row.notes)} /></label></LiveModal>;
+  if (!row) return null;
+  const refresh = edit.kind === 'refresh';
+  return <LiveModal title={refresh ? '집계 스냅샷 저장' : '삭제 확인'} submit={refresh ? '스냅샷 저장' : '삭제'} description={refresh ? '현재 연결된 자료의 집계와 키워드 목록을 새 이력으로 저장합니다. 검색/AI 수집을 다시 호출하지 않습니다.' : edit.kind === 'delete' ? '클러스터, 구성 관계, 연결선, 집계 이력을 삭제합니다. 원본 키워드·질문과 자동 분류 실행 기록은 보존됩니다.' : edit.kind === 'delete-history' ? '이 이력과 메모를 삭제합니다. 현재 그룹·키워드·집계에는 영향을 주지 않습니다.' : '저장한 클러스터 관계를 삭제합니다. 공유 자료에서 계산한 연결은 유지됩니다.'} onClose={onClose} onSave={async () => {
+    const name = refresh ? 'cluster-refresh' : edit.kind === 'delete' ? 'cluster-delete' : edit.kind === 'delete-link' ? 'cluster-link-delete' : edit.historyType === 'run' ? 'strategy-run-delete' : 'cluster-history-delete';
+    await command(name, { [refresh || edit.kind === 'delete' ? 'cluster_id' : edit.kind === 'delete-link' ? 'link_id' : 'history_id']: row.id, expected_revision: Number(row.revision || 0) }); if (edit.kind === 'delete') onDeleted(row.id);
+  }}><p>{text(row.label || row.notes)}</p></LiveModal>;
+}
+function ReclusterForm({ data, command, onClose }: { data: StrategyData; command: Command; onClose: () => void }) {
+  const [preview, setPreview] = useState({ preview: data.preview, source: data.source_revision }), request = useRef({ source: '', key: '' });
+  const [refreshing, setRefreshing] = useState(false), [previewError, setPreviewError] = useState('');
+  return <LiveModal title="자동 분류 미리보기" submit="분류 적용" description="추적 중인 키워드를 같은 언어·국가의 첫 단어로 묶는 규칙 기반 분류입니다. 외부 AI 호출이나 사용량 차감은 없습니다. 수동 그룹은 보존하고 자동 그룹의 키워드 구성을 다시 계산합니다." onClose={onClose} onSave={async form => {
+    if (refreshing) throw new Error('미리보기 갱신을 기다려 주세요.');
+    if (request.current.source !== preview.source) request.current = { source: preview.source, key: crypto.randomUUID() };
+    await command('strategy-map-orchestrator', { expected_source_revision: preview.source, idempotency_key: request.current.key, confirm: form.has('confirm') });
+  }}><p>키워드 {preview.preview.keyword_count}개 → 자동 그룹 {preview.preview.groups.length}개</p><p>새 그룹 {preview.preview.groups.filter(group => !group.cluster_id).length}개 · 갱신 {preview.preview.groups.filter(group => group.cluster_id).length}개 · 삭제 {preview.preview.removed_ids.length}개</p><p className="muted">구성원이 사라진 자동 그룹은 연결선·집계 이력과 함께 삭제됩니다. 자동 그룹의 이름·우선순위·메모는 유지됩니다.</p><div className="strategy-keyword-picker">{preview.preview.groups.map(group => <p key={group.key}>{group.cluster_id ? text(data.keyword_clusters.find(row => row.id === group.cluster_id)?.label) || group.label : group.label} · {group.keyword_ids.length}개</p>)}{preview.preview.removed_ids.map(id => <p key={id}>삭제: {text(data.keyword_clusters.find(row => row.id === id)?.label) || id}</p>)}</div><button type="button" disabled={refreshing} onClick={async () => { setRefreshing(true); setPreviewError(''); try { const result = await command('strategy-map-preview', {}); setPreview({ preview: result.preview as unknown as StrategyData['preview'], source: text(result.source_revision) }); } catch (error) { setPreviewError(error instanceof Error ? error.message : '미리보기 갱신 실패'); } finally { setRefreshing(false); } }}>미리보기 갱신</button>{previewError && <p role="alert" className="live-error">{previewError}</p>}<label className="check"><input key={preview.source} name="confirm" type="checkbox" required />자동 그룹 변경 내용을 확인했습니다.</label></LiveModal>;
+}

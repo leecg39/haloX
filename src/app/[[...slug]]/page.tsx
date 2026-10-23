@@ -8,6 +8,7 @@ import { PromptsPage } from '@/components/live/PromptsPage';
 import { PersonasPage } from '@/components/live/PersonasPage';
 import { OptimizationPage } from '@/components/live/OptimizationPage';
 import { SiteAuditPage } from '@/components/live/SiteAuditPage';
+import { StrategyPage } from '@/components/live/StrategyPage';
 import { ExportsPage } from '@/components/live/ExportsPage';
 import { ContentPage } from '@/components/live/ContentPage';
 import { KnowledgePage } from '@/components/live/KnowledgePage';
@@ -46,6 +47,9 @@ export default async function Page(props: Props) {
   }
   if (/^\/app\/site-audit(?:\/[^/]+)?$/.test(pathname)) {
     shellRoute = '/app/site-audit'; children = <SiteAuditPage scanId={pathname.split('/')[3]} />;
+  }
+  if (/^\/app\/strategy-map(?:\/[^/]+)?$/.test(pathname)) {
+    shellRoute = '/app/strategy-map'; children = <StrategyPage clusterId={pathname.split('/')[3]} />;
   }
   const data = await getCapture(shellRoute || route);
   if (!data) notFound();

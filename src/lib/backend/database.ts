@@ -3,6 +3,8 @@
  */
 
 import crypto from 'node:crypto';
+import { STRATEGY_COMMANDS, runStrategyCommand } from './strategy-service.ts';
+import { readStrategyData } from './strategy-model.ts';
 import { AUDIT_COMMANDS, runAuditCommand } from './site-audit-service.ts';
 import { auditLinkSummary } from './site-audit-html.ts';
 import { KEYWORD_EDITABLE_FIELDS, validateKeywordRecord } from './keyword-model.ts';
@@ -135,11 +137,11 @@ export class HaloXDatabase {
   }
 
   /** Separate from the public table whitelist: no REST/RPC access. */
-  public getServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts'): Row[] {
+  public getServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests'): Row[] {
     return structuredClone(this.serverRecords[collection] ?? []);
   }
 
-  public setServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts', rows: Row[]): void {
+  public setServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests', rows: Row[]): void {
     this.serverRecords[collection] = structuredClone(rows);
   }
 
@@ -706,6 +708,8 @@ export class HaloXDatabase {
       },
     ]);
 
+    ensure('keyword_cluster_links', []);
+    ensure('cluster_batch_runs', []);
     ensure('keyword_cluster_members', [
       {
         cluster_id: clusterId,
@@ -1326,6 +1330,11 @@ export class HaloXDatabase {
       this.deleteTable('content_review_runs', { content_job_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
       for (const name of ['export_history', 'article_translations', 'export_publications', 'translation_runs']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.content_job_id)) row.content_job_id = null;
     }
+    if (tableName === 'keyword_clusters') {
+      for (const name of ['keyword_cluster_members', 'cluster_stats_history']) this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.cluster_id)));
+      this.tables.set('keyword_cluster_links', (this.tables.get('keyword_cluster_links') || []).filter(row => !deletedIds.has(row.source_id) && !deletedIds.has(row.target_id)));
+      for (const row of this.tables.get('keywords') || []) if (deletedIds.has(row.geo_cluster_id)) row.geo_cluster_id = null;
+    }
     if (tableName === 'site_audit_targets') for (const row of this.tables.get('site_audit_scans') || []) if (deletedIds.has(row.target_id)) row.target_id = null;
     if (tableName === 'site_audit_scans') {
       for (const name of ['site_audit_pages', 'site_audit_issues']) this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.scan_id)));
@@ -1387,7 +1396,7 @@ export class HaloXDatabase {
     if (tableName === 'workspace_tag_groups') for (const row of this.tables.get('workspace_tags') || []) if (deletedIds.has(row.group_id)) row.group_id = null;
     if (tableName === 'workspaces' && deleted.length) {
       const workspaceIds = new Set(deleted.map(row => String(row.id)));
-      for (const name of ['knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
+      for (const name of ['knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests', 'strategy_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
       const keywordIds = new Set((this.tables.get('keywords') || []).filter(row => workspaceIds.has(String(row.workspace_id))).map(row => String(row.id)));
       for (const [name, rows] of this.tables) {
         if (name === 'workspaces') continue;
@@ -1971,24 +1980,12 @@ export class HaloXDatabase {
       }
 
       case 'strategy_map_effective_state': {
-        const clusters = (this.tables.get('keyword_clusters') || []).filter(
-          c => c.workspace_id === workspaceId
-        );
-        return {
-          reason: null,
-          status: 'ready',
-          effective: 'ready',
-          scanned_at: '2026-10-22T12:00:00.000Z',
-          cluster_count: clusters.length,
-          prompt_set_count: promptSets.length,
-          active_prompt_count: prompts.filter(p => p.is_active).length,
-          active_keyword_count: keywords.filter(k => k.is_active).length,
-          latest_prompt_set_id: promptSets[0]?.id || null,
-          linked_keyword_count: keywords.length,
-          auto_generate_prompts: true,
-          recommended_entrypoint: '/app/strategy-map',
-          recommended_resume_from: null,
-        };
+        const data = readStrategyData(this, workspaceId, actorUserId), clusters = data.keyword_clusters;
+        const scanned = [...data.cluster_batch_runs, ...data.cluster_stats_history].map(row => String(row.captured_at || row.created_at || '')).sort().at(-1) || null;
+        return { reason: clusters.length ? null : 'no_clusters', status: clusters.length ? 'ready' : 'empty', effective: clusters.length ? 'ready' : 'empty', scanned_at: scanned,
+          cluster_count: clusters.length, prompt_set_count: promptSets.length, active_prompt_count: prompts.filter(p => p.is_active && !p.is_paused).length,
+          active_keyword_count: keywords.filter(k => k.is_active && !k.is_paused).length, latest_prompt_set_id: promptSets[0]?.id || null,
+          linked_keyword_count: new Set(clusters.flatMap(row => row.stats.keyword_ids)).size, auto_generate_prompts: false, recommended_entrypoint: '/app/strategy-map', recommended_resume_from: null };
       }
 
       // Quota 2-Phase Reservation RPCs (F5-9)
@@ -2550,75 +2547,9 @@ export class HaloXDatabase {
       };
     }
 
-    if (
-      fnName === 'strategy-map-orchestrator' ||
-      fnName === 'strategy-map-cluster' ||
-      fnName === 'strategy-map-link-prompts'
-    ) {
-      const kws = (this.tables.get('keywords') || []).filter(
-        k => k.workspace_id === workspaceId && !k.deleted_at
-      );
-      const prList = (this.tables.get('geo_prompts') || []).filter(
-        p => p.workspace_id === workspaceId && !p.deleted_at
-      );
-
-      const [clusterRow] = this.insertTable(
-        'keyword_clusters',
-        {
-          workspace_id: workspaceId,
-          label: String(payload.cluster_label || 'AI 검색 전략 확장 클러스터'),
-          stats_json: {
-            keyword_count: kws.length,
-            prompt_count: prList.length,
-            avg_difficulty: 36,
-            geo: { neighbors: prList.map(p => p.id) },
-          },
-        },
-        actorUserId
-      );
-
-      const members: Row[] = [];
-      for (const kw of kws) {
-        const [mRow] = this.insertTable(
-          'keyword_cluster_members',
-          {
-            workspace_id: workspaceId,
-            cluster_id: clusterRow.id,
-            keyword_id: kw.id,
-            keywords: { id: kw.id, keyword: kw.keyword, search_volume: kw.search_volume },
-          },
-          actorUserId
-        );
-        members.push(mRow);
-      }
-
-      this.insertTable(
-        'cluster_stats_history',
-        {
-          workspace_id: workspaceId,
-          cluster_id: clusterRow.id,
-          captured_at: now,
-          keyword_count: kws.length,
-          prompt_count: prList.length,
-        },
-        actorUserId
-      );
-
-      this.updateTable(
-        'workspaces',
-        { strategy_map_status: 'ready', strategy_map_scanned_at: now },
-        { id: `eq.${workspaceId}` },
-        actorUserId
-      );
-
-      return {
-        ok: true,
-        function: fnName,
-        workspace_id: workspaceId,
-        cluster: clusterRow,
-        members,
-        linked_prompts: prList.length,
-      };
+    if (STRATEGY_COMMANDS.includes(fnName)) {
+      if (!payload.workspace_id) throw new Error('워크스페이스를 선택해 주세요.');
+      return runStrategyCommand(this, fnName, payload, workspaceId, actorUserId);
     }
 
     if (fnName === 'ai-expand-keywords') {

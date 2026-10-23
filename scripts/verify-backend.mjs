@@ -634,12 +634,13 @@ async function runVerification() {
     'strategy-map-orchestrator',
     {
       workspace_id: DEFAULT_WORKSPACE_ID,
-      cluster_label: '엔터프라이즈 GEO 전략 클러스터',
+      expected_source_revision: (await db.invokeEdgeFunction('strategy-map-preview', { workspace_id: DEFAULT_WORKSPACE_ID }, DEFAULT_USER_ID)).source_revision,
+      idempotency_key: 'contract-strategy-run', confirm: true,
     },
     DEFAULT_USER_ID
   );
   assert.equal(smRes.ok, true);
-  assert(smRes.cluster && Array.isArray(smRes.members));
+  assert(smRes.run && Array.isArray(smRes.run.clusters_snapshot));
 
   const expandRes = await db.invokeEdgeFunction(
     'ai-expand-keywords',

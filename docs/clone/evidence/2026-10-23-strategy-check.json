@@ -1,0 +1,117 @@
+{
+  "date": "2026-10-23",
+  "browser": "Ego Lite",
+  "workspace_name": "전략맵 QA 2026-10-23",
+  "method": "UI에서 수동 그룹 생성, 자동 분류 미리보기 적용, 관계 생성·메모 수정, 새로고침 후 확인. DOM 휠 스크롤 및 데스크톱/390px 모바일 화면 확인.",
+  "clusters": [
+    {
+      "label": "콘텐츠 · ko/KR",
+      "origin": "lexical",
+      "priority": "normal",
+      "stats": {
+        "keyword_ids": [
+          "070d0673-4b8c-4ec3-b0b7-2492621bcbc6",
+          "ce782fe3-b77d-41fa-ba80-449271ea1dee"
+        ],
+        "prompt_ids": [],
+        "keyword_count": 2,
+        "active_count": 2,
+        "volume_count": 2,
+        "volume_sum": 15308,
+        "difficulty_count": 2,
+        "avg_difficulty": 29,
+        "measured_prompt_engines": 0,
+        "cited_prompt_engines": 0,
+        "citation_percent": null
+      }
+    },
+    {
+      "label": "seo · ko/KR",
+      "origin": "lexical",
+      "priority": "normal",
+      "stats": {
+        "keyword_ids": [
+          "ce601eae-fb35-4221-afe4-a5681ce797ad",
+          "fc916e19-d23c-4f1e-be14-173462372818"
+        ],
+        "prompt_ids": [],
+        "keyword_count": 2,
+        "active_count": 2,
+        "volume_count": 2,
+        "volume_sum": 9073,
+        "difficulty_count": 2,
+        "avg_difficulty": 76.5,
+        "measured_prompt_engines": 0,
+        "cited_prompt_engines": 0,
+        "citation_percent": null
+      }
+    },
+    {
+      "label": "검색·콘텐츠 핵심 주제",
+      "origin": "manual",
+      "priority": "high",
+      "stats": {
+        "keyword_ids": [
+          "ce782fe3-b77d-41fa-ba80-449271ea1dee",
+          "fc916e19-d23c-4f1e-be14-173462372818"
+        ],
+        "prompt_ids": [],
+        "keyword_count": 2,
+        "active_count": 2,
+        "volume_count": 2,
+        "volume_sum": 11633,
+        "difficulty_count": 2,
+        "avg_difficulty": 56.5,
+        "measured_prompt_engines": 0,
+        "cited_prompt_engines": 0,
+        "citation_percent": null
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "source": "seo · ko/KR",
+      "target": "콘텐츠 · ko/KR",
+      "relation": "supports",
+      "notes": "검토 완료: 검색 주제에서 콘텐츠 제작으로 연결",
+      "revision": 2
+    }
+  ],
+  "edges": [
+    {
+      "shared_keywords": 0,
+      "shared_prompts": 0,
+      "saved_relationships": 1
+    },
+    {
+      "shared_keywords": 1,
+      "shared_prompts": 0,
+      "saved_relationships": 0
+    },
+    {
+      "shared_keywords": 1,
+      "shared_prompts": 0,
+      "saved_relationships": 0
+    }
+  ],
+  "runs": [
+    {
+      "algorithm": "first-term-v1",
+      "status": "completed",
+      "keyword_count": 4,
+      "cluster_count": 2
+    }
+  ],
+  "checks": {
+    "manual_group_preserved": true,
+    "relation_survived_reload": true
+  },
+  "screenshots": [
+    "2026-10-23-strategy-list.png",
+    "2026-10-23-strategy-network.png",
+    "2026-10-23-strategy-mobile.png"
+  ],
+  "cleanup": {
+    "workspace_deleted": true
+  }
+}

@@ -87,3 +87,17 @@
 
 .live-url { overflow-wrap: anywhere; word-break: break-word; max-width: 100%; }
 .live-history > .live-card { min-width: 0; }
+/* The captured strategy canvas shell clips overflow. Live CRUD needs ordinary scrolling. */
+[data-live-root]:has(> .live-strategy-page) { overflow-y: auto !important; display: block; padding: 24px 32px; }
+.strategy-keyword-picker { max-height: 280px; overflow-y: auto; display: grid; gap: 10px; padding: 12px 0; overflow-wrap: anywhere; }
+.live-strategy-graph { margin-top: 20px; }
+.live-strategy-canvas { overflow: auto; max-width: 100%; margin-top: 16px; }
+.live-strategy-canvas svg { display: block; width: 100%; min-width: 600px; max-height: 520px; }
+.strategy-axis line { stroke: #d4d4d4; }
+.strategy-axis text, .strategy-label { fill: #525252; font-size: 12px; }
+.strategy-edge { stroke: #a1a1aa; stroke-width: 1.5; stroke-dasharray: 5 5; }
+.strategy-edge.manual { stroke: #6d28d9; stroke-width: 2; stroke-dasharray: none; }
+.strategy-point { fill: #c4b5fd; stroke: #7c3aed; stroke-width: 2; }
+.strategy-point.high { fill: #7c3aed; stroke: #5b21b6; }
+.strategy-point.low { fill: #e5e5e5; stroke: #a3a3a3; }
+.live-strategy-canvas a:hover .strategy-point, .live-strategy-canvas a:focus .strategy-point { stroke: #171717; stroke-width: 4; }
