@@ -87,6 +87,7 @@ export class UnknownTableError extends Error {
 }
 
 export type Row = Record<string, unknown>;
+const nextRowTime = (row: Row) => new Date(Math.max(Date.now(), (Date.parse(String(row.updated_at || '')) || 0) + 1)).toISOString();
 
 /** Server-only state. Never return this through an API (it includes key hashes). */
 export interface DatabaseState {
@@ -1239,6 +1240,7 @@ export class HaloXDatabase {
         workspace_id: workspaceId,
       }, this.tables), this.tables), this.tables), this.tables);
       if (tableName === 'workspace_members') Object.assign(record, validateMembership(record, this.tables));
+      if (['workspace_tags', 'workspace_tag_groups'].includes(tableName)) record.revision = 1;
       if (table.some(row => row.id === record.id)) throw new Error('이미 존재하는 ID입니다.');
       if (['keyword_sets', 'geo_prompt_sets', 'writing_style_profiles'].includes(tableName) && record.is_default === true) {
         for (const other of table) if (other.workspace_id === workspaceId && other.is_default) { other.is_default = false; other.updated_at = now; }
@@ -1256,11 +1258,19 @@ export class HaloXDatabase {
       }
 
       table.push(record);
+      if (['keyword_tag_assignments', 'geo_prompt_tag_assignments'].includes(tableName)) this.touchTagParents([record]);
       inserted.push({ ...this.sanitizeRowForClient(tableName, record), ...(issuedSecret ? { raw_key: issuedSecret } : {}) });
     }
 
     this.tables.set(tableName, table);
     return inserted;
+  }
+
+  private touchTagParents(assignments: Row[]): void {
+    for (const [table, field] of [['keywords', 'keyword_id'], ['geo_prompts', 'prompt_id']]) {
+      const ids = new Set(assignments.map(row => row[field]).filter(Boolean));
+      for (const row of this.tables.get(table) || []) if (ids.has(row.id)) row.updated_at = nextRowTime(row);
+    }
   }
 
   /**
@@ -1313,7 +1323,9 @@ export class HaloXDatabase {
       }
       const validated = validateContentRecord(tableName, validateLibraryRecord(tableName, validateGeoRecord(tableName, validateKeywordRecord(tableName, { ...row, ...safePatch, updated_at: now }, this.tables), this.tables), this.tables), this.tables);
       if (tableName === 'workspace_members') Object.assign(validated, validateMembership(validated, this.tables));
-      if (['profiles', 'workspaces', 'workspace_members', 'workspace_invitations'].includes(tableName)) validated.revision = Number(row.revision || 0) + 1;
+      if (['profiles', 'workspaces', 'workspace_members', 'workspace_invitations', 'workspace_tags', 'workspace_tag_groups'].includes(tableName)) validated.revision = Number(row.revision || 0) + 1;
+      if (['keywords', 'geo_prompts', 'workspace_tags', 'workspace_tag_groups'].includes(tableName)) validated.updated_at = nextRowTime(row);
+      if (['keyword_tag_assignments', 'geo_prompt_tag_assignments'].includes(tableName)) this.touchTagParents([row, validated]);
       if (tableName === 'keywords' && ['keyword', 'language', 'country'].some(field => row[field] !== validated[field])) {
         for (const snapshot of this.tables.get('serp_snapshots') || []) if (snapshot.keyword_id === row.id) snapshot.keyword_text ??= row.keyword;
         Object.assign(validated, { search_volume: null, search_volume_google_ads: null, keyword_difficulty: null, intent: null, status: 'pending' });
@@ -1376,6 +1388,7 @@ export class HaloXDatabase {
       }
 
       if (tableName !== 'profiles') this.assertWorkspaceAccess(String(tableName === 'workspaces' ? row.id : row.workspace_id), actorUserId, tableName === 'workspace_events' ? undefined : ['workspaces', 'workspace_members', 'workspace_invitations'].includes(tableName) ? 'other' : tableSection(tableName), 'write');
+      if (tableName === 'workspace_tags') this.assertWorkspaceAccess(String(row.workspace_id), actorUserId, 'analysis', 'write');
       deleted.push(this.sanitizeRowForClient(tableName, row));
     }
 
@@ -1384,6 +1397,7 @@ export class HaloXDatabase {
     if (tableName === 'workspaces' && (this.tables.get('site_audit_scans') || []).some(row => deleted.some(workspace => workspace.id === row.workspace_id) && ['queued', 'running'].includes(String(row.status)))) throw new Error('진행 중인 사이트 진단을 먼저 취소해 주세요.');
     this.tables.set(tableName, remaining);
     const deletedIds = new Set(deleted.map(row => row.id));
+    if (['keyword_tag_assignments', 'geo_prompt_tag_assignments'].includes(tableName)) this.touchTagParents(deleted);
     if (tableName === 'workspace_invitations') this.serverRecords.workspace_invitation_tokens = (this.serverRecords.workspace_invitation_tokens || []).filter(row => !deletedIds.has(row.invitation_id));
     if (tableName === 'raw_import_batches') {
       for (const name of ['serp_snapshots', 'geo_prompt_runs', 'site_audit_scans']) this.deleteTable(name, { import_batch_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
@@ -1459,9 +1473,12 @@ export class HaloXDatabase {
       for (const name of ['keywords', 'keyword_ideas']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.keyword_set_id)) row.keyword_set_id = null;
     }
     if (tableName === 'workspace_tags') for (const name of ['keyword_tag_assignments', 'geo_prompt_tag_assignments']) {
+      this.touchTagParents((this.tables.get(name) || []).filter(row => deletedIds.has(row.tag_id)));
       this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.tag_id)));
     }
-    if (tableName === 'workspace_tag_groups') for (const row of this.tables.get('workspace_tags') || []) if (deletedIds.has(row.group_id)) row.group_id = null;
+    if (tableName === 'workspace_tag_groups') for (const row of this.tables.get('workspace_tags') || []) if (deletedIds.has(row.group_id)) {
+      row.group_id = null; row.updated_at = nextRowTime(row); row.revision = Number(row.revision || 0) + 1;
+    }
     if (tableName === 'workspaces' && deleted.length) {
       const workspaceIds = new Set(deleted.map(row => String(row.id)));
       for (const name of ['workspace_invitation_tokens', 'knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests', 'strategy_requests', 'report_requests', 'raw_import_files', 'raw_import_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
@@ -2331,7 +2348,7 @@ export class HaloXDatabase {
         this.deleteTable('keyword_tag_assignments', { keyword_id: `eq.${current.id}`, workspace_id: `eq.${workspaceId}` }, actorUserId);
         for (const id of payload.tag_ids) this.insertTable('keyword_tag_assignments', { workspace_id: workspaceId, keyword_id: current.id, tag_id: id }, actorUserId);
       }
-      return { ok: true, keyword };
+      return { ok: true, keyword: this.queryTable('keywords', { filters: { id: `eq.${keyword.id}` } }, actorUserId).data[0] };
     }
 
     if (
@@ -2443,7 +2460,7 @@ export class HaloXDatabase {
         this.deleteTable('geo_prompt_tag_assignments', { prompt_id: `eq.${current.id}`, workspace_id: `eq.${workspaceId}` }, actorUserId);
         for (const id of payload.tag_ids) this.insertTable('geo_prompt_tag_assignments', { workspace_id: workspaceId, prompt_id: current.id, tag_id: id }, actorUserId);
       }
-      return { ok: true, prompt };
+      return { ok: true, prompt: this.queryTable('geo_prompts', { filters: { id: `eq.${prompt.id}` } }, actorUserId).data[0] };
     }
 
     if (['geo-run', 'geo-run-prompts-fanout', 'geo-run-openai', 'geo-run-claude'].includes(fnName)) {

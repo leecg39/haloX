@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getCapture } from '@/lib/content';
 import ClonePage from '@/components/ClonePage';
 import { WorkspaceSettingsPage } from '@/components/live/WorkspaceSettingsPage';
+import { TagSettingsPage } from '@/components/live/TagSettingsPage';
 import { WorkspaceInvitePage } from '@/components/WorkspaceInvitePage';
 import { AccountPage } from '@/components/live/AccountPage';
 import { PasswordRecoveryPage } from '@/components/AccountSecurityForms';
@@ -74,6 +75,7 @@ export default async function Page(props: Props) {
     shellRoute = pathname; children = <AnalysesPage kind={pathname.includes('/seo/') ? 'seo' : 'geo'} initialTab={new URLSearchParams(route.split('?')[1]).get('tab') || undefined} />;
   }
   const settingsTab = new URLSearchParams(route.split('?')[1]).get('tab');
+  if (pathname === '/app/settings' && settingsTab === 'tags') { shellRoute = '/app'; children = <TagSettingsPage />; }
   if (pathname === '/app/settings' && (settingsTab === 'workspace' || settingsTab === 'members')) { shellRoute = '/app'; children = <WorkspaceSettingsPage tab={settingsTab} />; }
   if (pathname === '/app/settings' && new URLSearchParams(route.split('?')[1]).get('tab') === 'profile') { shellRoute = '/app'; children = <AccountPage />; }
   if (pathname === '/app/gap') { shellRoute = pathname; children = <GapPage />; }
