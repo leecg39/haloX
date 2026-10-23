@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { reclassifyBrandData } from './brand-service.ts';
 import type { HaloXDatabase, Row } from './database.ts';
 import { contentText } from './content-model.ts';
 import { analysisWhere } from './analysis-model.ts';
@@ -50,6 +51,7 @@ export function runRawImportCommand(db: HaloXDatabase, command: string, payload:
     }
   }
   db.setServerRecords('raw_import_files', [...db.getServerRecords('raw_import_files'), { workspace_id: workspace, batch_id: batch.id, contents }]);
+  if (prepared.kind === 'seo' || prepared.kind === 'geo') reclassifyBrandData(db, workspace, actor, { import_batch_id: batch.id });
   db.setServerRecords('raw_import_requests', [...receipts, { workspace_id: workspace, key, signature, batch_id: batch.id }]);
   return { ok: true, batch, replayed: false };
 }

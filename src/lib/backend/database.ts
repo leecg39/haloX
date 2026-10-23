@@ -5,6 +5,8 @@ import { tableSection, rpcSection } from './permission-policy.ts';
  */
 
 import crypto from 'node:crypto';
+import { migrateBrandRows } from './brand-model.ts';
+import { readBrandConfig, reclassifyBrandData } from './brand-service.ts';
 import { createWorkspaceInvitation, validateMembership, validateWorkspacePatch, type WorkspacePrivateCollection } from './workspace-management.ts';
 import type { AccountCollection } from './account-session.ts';
 import type { PortalCollection } from '../api/portal.ts';
@@ -140,6 +142,7 @@ export class HaloXDatabase {
       restored.set(name, structuredClone(rows));
     }
     this.tables = restored;
+    migrateBrandRows(this.tables.get('brands') || []);
     // Old captured schedule flags did not represent user-configured jobs.
     for (const set of this.tables.get('geo_prompt_sets') || []) if (!('next_run_at' in set)) { set.schedule_enabled = false; set.next_run_at = null; }
     const serverRecords = state.serverRecords ?? {};
@@ -150,11 +153,11 @@ export class HaloXDatabase {
   }
 
   /** Separate from the public table whitelist: no REST/RPC access. */
-  public getServerRecords(collection: WorkspacePrivateCollection | AccountCollection | PortalCollection | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
+  public getServerRecords(collection: WorkspacePrivateCollection | AccountCollection | PortalCollection | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
     return structuredClone(this.serverRecords[collection] ?? []);
   }
 
-  public setServerRecords(collection: WorkspacePrivateCollection | AccountCollection | PortalCollection | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
+  public setServerRecords(collection: WorkspacePrivateCollection | AccountCollection | PortalCollection | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
     this.serverRecords[collection] = structuredClone(rows);
   }
 
@@ -875,6 +878,9 @@ export class HaloXDatabase {
       'articles',
       'article_translations',
       'brand_reclassify_jobs',
+      'brand_tracking_settings',
+      'brand_products',
+      'brand_domain_aliases',
       'client_web_vitals',
       'cluster_stats_history',
       'content_change_items',
@@ -909,6 +915,7 @@ export class HaloXDatabase {
     ]) {
       if (!this.tables.has(emptyTable)) ensure(emptyTable, []);
     }
+    migrateBrandRows(this.tables.get('brands') || []);
   }
 
   public getAllowedWorkspaceIds(userId = DEFAULT_USER_ID): Set<string> {
@@ -1342,6 +1349,7 @@ export class HaloXDatabase {
       updated.push(this.sanitizeRowForClient(tableName, row));
     }
 
+    if (tableName === 'keywords' && 'keyword_set_id' in patch) for (const keyword of updated) reclassifyBrandData(this, String(keyword.workspace_id), actorUserId, { keyword_id: keyword.id });
     return updated;
   }
 
@@ -1471,6 +1479,14 @@ export class HaloXDatabase {
     }
     if (tableName === 'keyword_sets') {
       for (const name of ['keywords', 'keyword_ideas']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.keyword_set_id)) row.keyword_set_id = null;
+      const changed = new Set<string>();
+      for (const brand of this.tables.get('brands') || []) if (Array.isArray(brand.keyword_set_ids) && brand.keyword_set_ids.some(id => deletedIds.has(id))) {
+        brand.keyword_set_ids = brand.keyword_set_ids.filter(id => !deletedIds.has(id)); changed.add(String(brand.workspace_id));
+      }
+      for (const workspace of changed) {
+        for (const setting of this.tables.get('brand_tracking_settings') || []) if (setting.workspace_id === workspace) setting.revision = Number(setting.revision || 0) + 1;
+        reclassifyBrandData(this, workspace, actorUserId);
+      }
     }
     if (tableName === 'workspace_tags') for (const name of ['keyword_tag_assignments', 'geo_prompt_tag_assignments']) {
       this.touchTagParents((this.tables.get(name) || []).filter(row => deletedIds.has(row.tag_id)));
@@ -1481,7 +1497,7 @@ export class HaloXDatabase {
     }
     if (tableName === 'workspaces' && deleted.length) {
       const workspaceIds = new Set(deleted.map(row => String(row.id)));
-      for (const name of ['workspace_invitation_tokens', 'knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests', 'strategy_requests', 'report_requests', 'raw_import_files', 'raw_import_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
+      for (const name of ['brand_reclassify_requests', 'workspace_invitation_tokens', 'knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests', 'strategy_requests', 'report_requests', 'raw_import_files', 'raw_import_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
       const keywordIds = new Set((this.tables.get('keywords') || []).filter(row => workspaceIds.has(String(row.workspace_id))).map(row => String(row.id)));
       for (const [name, rows] of this.tables) {
         if (name === 'workspaces') continue;
@@ -1531,7 +1547,8 @@ export class HaloXDatabase {
     if (!Object.hasOwn(GEO_ENGINES, engine)) throw new Error('지원하지 않는 AI 엔진입니다.');
     const set = (this.tables.get('geo_prompt_sets') || []).find(row => row.id === prompt.prompt_set_id && row.workspace_id === prompt.workspace_id);
     const workspace = (this.tables.get('workspaces') || []).find(row => row.id === prompt.workspace_id);
-    const domain = String(set?.brand_domain || workspace?.default_brand_filter || '');
+    const tracking = readBrandConfig(this, String(prompt.workspace_id), actor);
+    const domain = tracking.enabled ? tracking.brands.filter(brand => brand.role === 'self').flatMap(brand => brand.domains)[0] || '' : String(set?.brand_domain || workspace?.default_brand_filter || '');
     const [run] = this.insertTable('geo_prompt_runs', {
       workspace_id: prompt.workspace_id, prompt_id: prompt.id, prompt_text: prompt.prompt_text,
       language_code: prompt.language_code, location_code: prompt.location_code,
@@ -1549,7 +1566,8 @@ export class HaloXDatabase {
     const citations = this.insertTable('geo_citations', evaluation.citations.map(citation => ({ ...citation, workspace_id: prompt.workspace_id, run_id: run.id })), actor);
     const ours = citations.filter(row => row.is_ours).length;
     const [metrics] = this.insertTable('geo_run_metrics', { workspace_id: prompt.workspace_id, run_id: run.id, brand_mentioned: !!domain && evaluation.brandMentioned, is_cited: ours > 0, citation_rate: citations.length ? 100 * ours / citations.length : 0, our_citation_count: ours, competitor_citation_count: citations.filter(row => row.is_competitor).length, other_citation_count: citations.filter(row => !row.is_ours && !row.is_competitor).length, source_but_not_cited: false }, actor);
-    return { ok: true, run: completed, citations, metrics };
+    reclassifyBrandData(this, String(prompt.workspace_id), actor, { run_id: run.id });
+    return { ok: true, run: this.queryTable('geo_prompt_runs', { filters: { id: `eq.${completed.id}` } }, actor).data[0], citations: this.queryTable('geo_citations', { filters: { run_id: `eq.${run.id}` } }, actor).data, metrics: this.queryTable('geo_run_metrics', { filters: { id: `eq.${metrics.id}` } }, actor).data[0] };
   }
 
   /** Called only by the server worker under the persistent store's writer lock. */
@@ -2429,7 +2447,8 @@ export class HaloXDatabase {
           },
           actorUserId
         );
-        createdSnapshots.push(snapRow);
+        reclassifyBrandData(this, workspaceId, actorUserId, { keyword_id: kwRow.id });
+        createdSnapshots.push(this.queryTable('serp_snapshots', { filters: { id: `eq.${snapRow.id}` } }, actorUserId).data[0]);
       }
 
       if (reservation) this.callRpc('commit_reservation', { p_reservation_id: reservation.reservation_id }, actorUserId);

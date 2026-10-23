@@ -66,13 +66,13 @@ function PromptWorkspace({ workspaceId, workspaceName, promptId, overview }: { w
   }
   const metrics = (run?: Row) => data.geo_run_metrics.find(row => row.run_id === run?.id);
   const completed = [...latest.values()].filter(run => run.status === 'completed');
-  const percent = (predicate: (row: Row) => boolean) => completed.length ? `${(100 * completed.filter(predicate).length / completed.length).toFixed(1)}%` : '—';
+  const percent = (field: string) => { const measured = completed.filter(run => typeof metrics(run)?.[field] === 'boolean'); return measured.length ? `${(100 * measured.filter(run => metrics(run)?.[field] === true).length / measured.length).toFixed(1)}%` : '—'; };
   const tags = (prompt: Row) => data.workspace_tags.filter(tag => data.geo_prompt_tag_assignments.some(link => link.prompt_id === prompt.id && link.tag_id === tag.id));
   const setName = (id: unknown) => str(data.geo_prompt_sets.find(set => set.id === id)?.name || '미분류');
   const configuredEngines = (row: Row) => Array.isArray(row.engines) && row.engines.length ? row.engines : [data.geo_prompt_sets.find(set => set.id === row.prompt_set_id)?.default_engine || 'openai'];
   const engineStatus = (prompt: Row, engine: string) => {
     const run = latest.get(`${prompt.id}:${engine}`);
-    return !run ? '미실행' : run.status === 'failed' ? '실패' : run.status === 'running' ? '실행 중' : metrics(run)?.is_cited ? '자사 인용' : metrics(run)?.brand_mentioned ? '자사 언급' : '미노출';
+    return !run ? '미실행' : run.status === 'failed' ? '실패' : run.status === 'running' ? '실행 중' : metrics(run)?.is_cited ? '자사 인용' : metrics(run)?.brand_mentioned ? '자사 언급' : metrics(run)?.is_cited == null && metrics(run)?.brand_mentioned == null ? '미측정' : metrics(run)?.is_cited == null || metrics(run)?.brand_mentioned == null ? '부분 미측정' : '미노출';
   };
   const filtered = data.geo_prompts.filter(row => str(row.prompt_text).toLowerCase().includes(query.toLowerCase()) && (!setFilter || row.prompt_set_id === setFilter || (setFilter === 'none' && !row.prompt_set_id)) && (!statusFilter || (statusFilter === 'paused' ? row.is_paused : !row.is_paused)) && (!engineFilter || configuredEngines(row).includes(engineFilter))).sort((a, b) => sort === 'name' ? str(a.prompt_text).localeCompare(str(b.prompt_text), 'ko') : str(b.created_at).localeCompare(str(a.created_at)));
   const pages = Math.max(1, Math.ceil(filtered.length / 12)), current = Math.min(page, pages);
@@ -132,7 +132,7 @@ function PromptWorkspace({ workspaceId, workspaceName, promptId, overview }: { w
       <div className="live-kpis">{Object.entries(GEO_ENGINES).map(([engine, name]) => <section className="live-card" key={engine}><small>{name}</small><strong>{engineStatus(detail, engine)}</strong><button disabled={busy} onClick={() => execute(detail, engine)}>실행</button></section>)}</div>
       <h2>답변·인용·실행 이력</h2>{history(runs.filter(row => row.prompt_id === promptId))}
     </> : <EmptyState>이 워크스페이스에서 프롬프트를 찾을 수 없습니다. <Link href="/app/geo/prompts">목록으로 이동</Link></EmptyState> : <>
-      <div className="live-kpis">{[['전체 프롬프트', data.geo_prompts.length], ['누적 실행', runs.length], ['자사 언급률', percent(row => !!metrics(row)?.brand_mentioned)], ['자사 인용률', percent(row => !!metrics(row)?.is_cited)]].map(([name, value]) => <section className="live-card" key={name}><small>{name}</small><strong>{value}</strong></section>)}</div>
+      <div className="live-kpis">{[['전체 프롬프트', data.geo_prompts.length], ['누적 실행', runs.length], ['자사 언급률', percent('brand_mentioned')], ['자사 인용률', percent('is_cited')]].map(([name, value]) => <section className="live-card" key={name}><small>{name}</small><strong>{value}</strong></section>)}</div>
       {overview ? <><h2>최근 실행</h2>{history(runs.slice(0, 10))}</> : <>
         <nav className="live-tabs" aria-label="프롬프트 보기">{[['list', '리스트'], ['sets', '세트'], ['tags', '태그']].map(([value, name]) => <button key={value} aria-pressed={tab === value} onClick={() => setTab(value)}>{name}</button>)}</nav>
         {tab === 'list' && <>

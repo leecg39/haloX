@@ -7,13 +7,13 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { useState, type ReactNode, type FormEvent } from 'react';
 import './live.css';
 
-export function LiveModal({ title, description, children, submit = '저장', onSave, onClose }: { title: string; description?: string; children?: ReactNode; submit?: string; onSave: (data: FormData) => Promise<void>; onClose: () => void }) {
+export function LiveModal({ title, description, children, submit = '저장', viewOnly = false, onSave, onClose }: { title: string; description?: string; children?: ReactNode; submit?: string; viewOnly?: boolean; onSave: (data: FormData) => Promise<void>; onClose: () => void }) {
   const { permission } = useWorkspace();
-  const readOnly = typeof window !== 'undefined' && !!routeSection(window.location.pathname + window.location.search) && !canWrite(permission);
+  const readOnly = !viewOnly && typeof window !== 'undefined' && !!routeSection(window.location.pathname + window.location.search) && !canWrite(permission);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');
   async function save(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); if (pending || readOnly) return;
+    event.preventDefault(); if (pending || readOnly || viewOnly) return;
     const data = new FormData(event.currentTarget);
     setPending(true); setError('');
     try { await onSave(data); onClose(); } catch (cause) { setError(cause instanceof Error ? cause.message : '저장하지 못했습니다. 다시 시도해 주세요.'); } finally { setPending(false); }
@@ -25,7 +25,7 @@ export function LiveModal({ title, description, children, submit = '저장', onS
       <Dialog.Description>{description || '입력한 내용은 현재 워크스페이스에 저장됩니다.'}</Dialog.Description>
       <form onSubmit={save}><fieldset disabled={pending || readOnly}>{children}</fieldset>
         {readOnly && <p role="status">읽기 전용 멤버는 저장하거나 실행할 수 없습니다.</p>}{error && <p className="live-error" role="alert">{error}</p>}
-        <footer><button type="button" disabled={pending} onClick={onClose}>취소</button><button className="primary" disabled={pending || readOnly} type="submit">{pending ? '처리 중…' : submit}</button></footer>
+        <footer><button type="button" disabled={pending} onClick={onClose}>{viewOnly ? '닫기' : '취소'}</button>{!viewOnly && <button className="primary" disabled={pending || readOnly} type="submit">{pending ? '처리 중…' : submit}</button>}</footer>
       </form>
     </Dialog.Content>
   </Dialog.Portal></Dialog.Root>;

@@ -44,22 +44,25 @@ export function analysisSummary(samples: AnalysisSample[]): AnalysisSummary {
   const citations = samples.filter(row => row.cited !== null), cited = citations.filter(row => row.cited).length;
   return { samples: samples.length, entities: new Set(samples.map(row => row.entity_id)).size, ranked: ranks.filter(row => row.rank !== null).length, rank_measured: ranks.length, average_rank: average(ranks.map(row => row.rank)), top10, top10_percent: ratio(top10, ranks.length), aio_detected: samples.filter(row => row.aio_detected).length, aio_measured: aio.length, aio_cited: citedAio, aio_percent: ratio(citedAio, aio.length), mention_measured: mentions.length, mentioned, mention_percent: ratio(mentioned, mentions.length), citation_measured: citations.length, cited, citation_percent: ratio(cited, citations.length) };
 }
-function seoSample(snapshot: Row, entity: Row, domain: string): AnalysisSample {
+function seoSample(snapshot: Row, entity: Row, domain: string, explicitDomain = false): AnalysisSample {
+  const classification = !explicitDomain ? snapshot.brand_classification as Row | undefined : undefined;
+  if (classification) domain = Array.isArray(classification.domains) ? classification.domains.join(', ') : '';
   const seen = new Set<string>();
-  const sources: AnalysisSource[] = list(snapshot.top_results_json).sort((a, b) => (rank(a.rank) ?? Infinity) - (rank(b.rank) ?? Infinity)).flatMap(row => { const domainName = host(row.url), url = String(row.url); if (!domainName || seen.has(url)) return []; seen.add(url); return [{ url, domain: domainName, rank: rank(row.rank), ours: domainMatches(domainName, domain), competitor: false }]; });
+  const sources: AnalysisSource[] = list(snapshot.top_results_json).sort((a, b) => (rank(a.rank) ?? Infinity) - (rank(b.rank) ?? Infinity)).flatMap(row => { const domainName = host(row.url), url = String(row.url); if (!domainName || seen.has(url)) return []; seen.add(url); const derived = classification && list(classification.sources).find(item => item.url === row.url); return [{ url, domain: domainName, rank: rank(row.rank), ours: classification ? derived?.is_ours === true : domainMatches(domainName, domain), competitor: derived?.is_competitor === true }]; });
   const ours = sources.filter(row => row.ours && row.rank !== null).map(row => row.rank!);
   const citedDomains = (snapshot.ai_overview_json as Row | undefined)?.cited_domains;
   return { id: String(snapshot.id), entity_id: String(entity.id), text: String(entity.keyword), engine: String(snapshot.engine), at: new Date(String(snapshot.captured_at)).toISOString(), provider: String(snapshot.provider || '미기록'), language: String(entity.language), country: String(entity.country), domain,
-    rank: ours.length ? Math.min(...ours) : null, rank_measured: !!domain && Array.isArray(snapshot.top_results_json), volume: number(snapshot.search_volume), difficulty: number(snapshot.keyword_difficulty, 100),
-    aio_detected: bool(snapshot.ai_overview_detected), aio_cited: domain && Array.isArray(citedDomains) ? citedDomains.some(value => typeof value === 'string' && domainMatches(value.toLowerCase(), domain)) : null, mentioned: null, cited: null, sources, answer: '' };
+    rank: classification ? rank(classification.rank) : ours.length ? Math.min(...ours) : null, rank_measured: classification ? classification.rank_measured === true : !!domain && Array.isArray(snapshot.top_results_json), volume: number(snapshot.search_volume), difficulty: number(snapshot.keyword_difficulty, 100),
+    aio_detected: bool(snapshot.ai_overview_detected), aio_cited: classification ? bool(classification.aio_cited) : domain && Array.isArray(citedDomains) ? citedDomains.some(value => typeof value === 'string' && domainMatches(value.toLowerCase(), domain)) : null, mentioned: null, cited: null, sources, answer: '' };
 }
 function geoSample(run: Row, entity: Row, metrics: Row[], citations: Row[]): AnalysisSample {
+  const classification = run.brand_classification as Row | undefined;
   const metric = metrics.find(row => row.run_id === run.id), seen = new Set<string>();
   const sources = citations.filter(row => row.run_id === run.id).flatMap(row => {
     const domain = host(row.cited_url), key = String(row.cited_url); if (!domain || seen.has(key)) return []; seen.add(key);
     return [{ url: key, domain, rank: rank(row.position_index), ours: row.is_ours === true, competitor: row.is_competitor === true }];
   });
-  return { id: String(run.id), entity_id: String(entity.id), text: String(entity.prompt_text), engine: String(run.engine), at: new Date(String(run.finished_at)).toISOString(), provider: String(run.provider || '미기록'), language: String(entity.language_code), country: String(entity.location_code), domain: String(run.brand_domain || ''), rank: null, rank_measured: false, volume: null, difficulty: null, aio_detected: null, aio_cited: null, mentioned: run.brand_domain === '' ? null : bool(metric?.brand_mentioned), cited: run.brand_domain === '' ? null : bool(metric?.is_cited), sources, answer: String(run.answer_text || '') };
+  return { id: String(run.id), entity_id: String(entity.id), text: String(entity.prompt_text), engine: String(run.engine), at: new Date(String(run.finished_at)).toISOString(), provider: String(run.provider || '미기록'), language: String(entity.language_code), country: String(entity.location_code), domain: classification && Array.isArray(classification.domains) ? classification.domains.join(', ') : String(run.brand_domain || ''), rank: null, rank_measured: false, volume: null, difficulty: null, aio_detected: null, aio_cited: null, mentioned: classification ? bool(classification.mentioned) : run.brand_domain === '' ? null : bool(metric?.brand_mentioned), cited: classification ? bool(classification.cited) : run.brand_domain === '' ? null : bool(metric?.is_cited), sources, answer: String(run.answer_text || '') };
 }
 export function readAnalysisData(db: HaloXDatabase, workspace: string, actor: string, kind: AnalysisKind, input: unknown): AnalysisData {
   db.assertWorkspaceMember(workspace, actor); const filters = analysisFilters(input, kind); validateAnalysisReferences(db, workspace, actor, kind, filters);
@@ -80,7 +83,7 @@ export function readAnalysisData(db: HaloXDatabase, workspace: string, actor: st
     const matching = kind === 'seo' ? (row.keyword_text === undefined || row.keyword_text === entity.keyword) && row.language === entity.language && row.country === entity.country : row.status === 'completed' && row.prompt_text === entity.prompt_text && row.language_code === entity.language_code && row.location_code === entity.location_code;
     if (!matching) { excluded++; continue; }
     const domain = filters.domain || String(sets.find(set => set.id === entity[fields.set])?.target_domain || workspaceRow?.default_brand_filter || '').toLowerCase();
-    all.push(kind === 'seo' ? seoSample(row, entity, domain) : geoSample(row, entity, metrics, citations));
+    all.push(kind === 'seo' ? seoSample(row, entity, domain, !!filters.domain) : geoSample(row, entity, metrics, citations));
   }
   const samples = all.filter(row => Date.parse(row.at) >= start).sort((a, b) => b.at.localeCompare(a.at) || b.id.localeCompare(a.id)), previousSamples = all.filter(row => Date.parse(row.at) < start), latest = latestAnalysis(samples), previousLatest = latestAnalysis(previousSamples);
   const currentRows = kind === 'seo' ? latest : samples, previousRows = kind === 'seo' ? previousLatest : previousSamples;

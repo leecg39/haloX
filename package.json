@@ -32,7 +32,8 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "robots-parser": "3.0.1",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "tldts": "7.4.19"
   },
   "devDependencies": {
     "@playwright/test": "1.55.1",

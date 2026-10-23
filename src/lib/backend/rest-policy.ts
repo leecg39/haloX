@@ -28,6 +28,7 @@ export function assertRestWrite(db: HaloXDatabase, table: string, method: 'POST'
     }
   }
   if (table === 'workspace_invitations') throw new RlsAccessDeniedError('초대는 전용 초대 관리 기능으로만 변경합니다.');
+  if (['brands', 'brand_tracking_settings', 'brand_products', 'brand_domain_aliases', 'brand_reclassify_jobs'].includes(table)) throw new RlsAccessDeniedError('브랜드 설정과 재분류는 전용 브랜드 관리 기능으로만 변경합니다.');
   if (table === 'profiles' && method === 'PATCH') {
     if (Object.keys(items[0]).some(key => !PROFILE_FIELDS.has(key)) || typeof items[0].full_name !== 'string' || !items[0].full_name.trim() || items[0].full_name.length > 100) {
       throw new Error('이름은 1~100자로 입력해 주세요. 인증 정보는 이 API로 변경할 수 없습니다.');

@@ -64,6 +64,8 @@ function KeywordWorkspace({ workspaceId, workspaceName, workspaceDomain, keyword
     if (keyword && (!snapshot.keyword_text || snapshot.keyword_text === keyword.keyword) && snapshot.language === keyword.language && snapshot.country === keyword.country && !latest.has(keyword.id)) latest.set(keyword.id, snapshot);
   }
   const rank = (keyword: Row): number | null => {
+    const classified = latest.get(keyword.id)?.brand_classification as Record<string, unknown> | undefined;
+    if (classified) return typeof classified.rank === 'number' && classified.rank > 0 ? classified.rank : null;
     const domain = str(data.keyword_sets.find(set => set.id === keyword.keyword_set_id)?.target_domain || workspaceDomain).toLowerCase();
     const results = latest.get(keyword.id)?.top_results_json;
     if (!domain || !Array.isArray(results)) return null;
