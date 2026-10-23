@@ -1,6 +1,7 @@
 import type { HaloXDatabase, Row } from './database.ts';
 import type { GeneralSettingsData } from '../api/general-settings.ts';
-import { collectionDefaults, collectionPatch, DEFAULT_COLLECTION, autoPromptText } from './general-settings-model.ts';
+import { collectionDefaults, collectionPatch, DEFAULT_COLLECTION, autoPromptText, interfaceLanguage } from './general-settings-model.ts';
+import { INTERFACE_LANGUAGES } from '../api/general-settings.ts';
 import { requireWorkspaceManager } from './workspace-management.ts';
 import { ContentConflictError, contentText } from './content-model.ts';
 export function readCollectionDefaults(db: HaloXDatabase, workspace: string, actor: string) {
@@ -10,10 +11,20 @@ export function readCollectionDefaults(db: HaloXDatabase, workspace: string, act
 export function readGeneralSettings(db: HaloXDatabase, workspace: string, actor: string): GeneralSettingsData {
   db.assertWorkspaceAccess(workspace, actor, 'other');
   const row = db.queryTable('workspaces', { filters: { id: `eq.${workspace}` } }, actor).data[0];
-  return { workspace_id: workspace, workspace_name: String(row.name), revision: Number(row.revision || 0), editable: ['owner', 'admin'].includes(db.workspacePermissions(workspace, actor).role), defaults: collectionDefaults(row) };
+  const profile = db.queryTable('profiles', { filters: { id: `eq.${actor}` } }, actor).data[0];
+  return { workspace_id: workspace, workspace_name: String(row.name), revision: Number(row.revision || 0), editable: ['owner', 'admin'].includes(db.workspacePermissions(workspace, actor).role), defaults: collectionDefaults(row), interface: { language: interfaceLanguage(profile), revision: Number(profile?.interface_revision || 0) } };
 }
 export function updateGeneralSettings(db: HaloXDatabase, actor: string, input: Row) {
   const workspace = contentText(input.workspace_id, '워크스페이스', 100, true);
+  if (input.action === 'interface-update') {
+    db.assertWorkspaceAccess(workspace, actor, 'other');
+    const profile = db.queryTable('profiles', { filters: { id: `eq.${actor}` } }, actor).data[0];
+    if (!profile) throw new Error('계정 정보를 찾을 수 없습니다.');
+    if (!Number.isSafeInteger(input.expected_interface_revision) || Number(profile.interface_revision || 0) !== input.expected_interface_revision) throw new ContentConflictError();
+    if (!Object.hasOwn(INTERFACE_LANGUAGES, String(input.interface_language))) throw new Error('지원하는 인터페이스 언어를 선택해 주세요.');
+    db.updateTable('profiles', { interface_language: input.interface_language, interface_revision: Number(profile.interface_revision || 0) + 1 }, { id: `eq.${actor}` }, actor);
+    return readGeneralSettings(db, workspace, actor);
+  }
   requireWorkspaceManager(db, workspace, actor);
   const data = readGeneralSettings(db, workspace, actor);
   if (!Number.isSafeInteger(input.expected_revision) || data.revision !== input.expected_revision) throw new ContentConflictError();

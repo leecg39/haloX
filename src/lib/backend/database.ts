@@ -182,9 +182,9 @@ export class HaloXDatabase {
     };
 
     ensure('profiles', [
-      { id: DEFAULT_USER_ID, email: 'demo@halox.local', full_name: 'HaloX 데모 관리자', phone_number: '010-0000-0000', created_at: now, updated_at: now },
-      { id: OTHER_USER_ID, email: 'other@halox.local', full_name: '외부 테넌트 사용자', phone_number: null, created_at: now, updated_at: now },
-      { id: ADMIN_USER_ID, email: 'admin@halox.local', full_name: 'HaloX 관리자', phone_number: null, created_at: now, updated_at: now },
+      { id: DEFAULT_USER_ID, email: 'demo@halox.local', full_name: 'HaloX 데모 관리자', phone_number: '010-0000-0000', interface_language: 'ko', interface_revision: 0, created_at: now, updated_at: now },
+      { id: OTHER_USER_ID, email: 'other@halox.local', full_name: '외부 테넌트 사용자', phone_number: null, interface_language: 'ko', interface_revision: 0, created_at: now, updated_at: now },
+      { id: ADMIN_USER_ID, email: 'admin@halox.local', full_name: 'HaloX 관리자', phone_number: null, interface_language: 'ko', interface_revision: 0, created_at: now, updated_at: now },
     ]);
 
     ensure('workspaces', [
@@ -981,7 +981,7 @@ export class HaloXDatabase {
     }
     const id = crypto.randomUUID();
     const now = new Date().toISOString();
-    const profile = { id, email, full_name: input.fullName, phone_number: input.phone, phone_verified_at: now, created_at: now, updated_at: now };
+    const profile = { id, email, full_name: input.fullName, phone_number: input.phone, phone_verified_at: now, interface_language: 'ko', interface_revision: 0, created_at: now, updated_at: now };
     profiles.push(profile);
     const credentials = this.getServerRecords('account_credentials');
     credentials.push({ user_id: id, password_hash: input.passwordHash });

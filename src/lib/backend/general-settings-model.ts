@@ -1,6 +1,7 @@
-import { ANALYSIS_LANGUAGES, ANALYSIS_COUNTRIES, type CollectionDefaults } from '../api/general-settings.ts';
+import { ANALYSIS_LANGUAGES, ANALYSIS_COUNTRIES, INTERFACE_LANGUAGES, type CollectionDefaults, type InterfaceLanguage } from '../api/general-settings.ts';
 import type { Row } from './database.ts';
 export const DEFAULT_COLLECTION: CollectionDefaults = { language: 'ko', country: 'KR', auto_generate_prompts: true };
+export function interfaceLanguage(profile?: Row): InterfaceLanguage { return Object.hasOwn(INTERFACE_LANGUAGES, String(profile?.interface_language)) ? String(profile!.interface_language) as InterfaceLanguage : 'ko'; }
 export function collectionDefaults(workspace?: Row): CollectionDefaults {
   return { language: Object.hasOwn(ANALYSIS_LANGUAGES, String(workspace?.default_analysis_language)) ? String(workspace!.default_analysis_language) : 'ko', country: Object.hasOwn(ANALYSIS_COUNTRIES, String(workspace?.default_analysis_country)) ? String(workspace!.default_analysis_country) : 'KR', auto_generate_prompts: workspace?.auto_generate_prompts !== false };
 }

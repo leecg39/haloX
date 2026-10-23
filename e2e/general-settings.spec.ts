@@ -54,3 +54,48 @@ test('header and usage tab display the selected workspace and report unknown on 
   await page.route('**/api/v1/rpc/get_workspace_quota_summary', route => route.fulfill({ status: 503, json: { error: '일시 중단' } })); await page.reload(); await expect(page.locator('[data-live-quota]')).toHaveAttribute('aria-label', 'AI 프롬프트 사용량 미확인'); await expect(section.locator('span:text-is("AI 프롬프트") + span').first()).toHaveText('미확인');
   await page.unroute('**/api/v1/rpc/get_workspace_quota_summary'); await page.reload(); await expect(section.locator('span:text-is("AI 프롬프트") + span').first()).toHaveText('1 / 20');
 });
+
+test('account interface language switches the administrator UI, persists across workspace and login, and stays isolated per user', async ({ page, browser, baseURL }) => {
+  const f = await fixture(page);
+  await root(page).getByRole('button', { name: '인터페이스 언어 변경', exact: true }).click();
+  await modal(page).locator('[name="interface_language"]').selectOption('en');
+  await modal(page).getByRole('button', { name: '저장', exact: true }).click();
+  await expect(modal(page)).not.toBeVisible();
+  await expect(root(page).getByRole('heading', { name: 'General Settings', exact: true })).toBeVisible();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await expect(root(page).getByRole('heading', { name: 'Default Data Collection Target', exact: true })).toBeVisible();
+  await expect(root(page).getByRole('button', { name: 'Edit Collection Defaults', exact: true })).toBeVisible();
+  await expect(root(page)).toContainText('설정 담당자의 워크스페이스');
+  expect((await f.data()).interface).toEqual({ language: 'en', revision: 1 });
+
+  const secondWorkspace = await f.store.write(db => db.insertTable('workspaces', { name: '한국어 고객 데이터' }, String(f.owner.id))[0]);
+  await page.evaluate(ws => { localStorage.setItem('halox-clone:active-workspace', JSON.stringify({ id: ws.id, name: ws.name, plan: 'trial' })); window.dispatchEvent(new Event('halox:workspace-changed')); }, secondWorkspace);
+  await page.goto('/app/keywords');
+  await expect(root(page).getByRole('heading', { name: 'Keywords', exact: true })).toBeVisible();
+  await expect(root(page).getByRole('button', { name: 'Add Keyword', exact: true })).toBeVisible();
+  await expect(root(page)).toContainText('Manage search performance and keyword assets.');
+  await expect(page.getByText('한국어 고객 데이터', { exact: true }).first()).toBeVisible();
+
+  const anotherLogin = await browser.newContext({ baseURL });
+  try {
+    expect((await anotherLogin.request.post('/api/v1/auth', { data: { email: f.owner.email, password } })).status()).toBe(200);
+    const sameAccount = await anotherLogin.newPage(); await sameAccount.goto('/app/settings');
+    await expect(root(sameAccount).getByRole('heading', { name: 'General Settings', exact: true })).toBeVisible();
+  } finally { await anotherLogin.close(); }
+
+  const koreanUser = await f.store.write(async db => db.createAccount({ email: `korean-ui-${crypto.randomUUID()}@example.test`, phone: `010${Math.floor(1e7 + Math.random() * 9e7)}`, fullName: '한국어 사용자', passwordHash: await hashPassword(password) }));
+  const isolated = await browser.newContext({ baseURL });
+  try {
+    expect((await isolated.request.post('/api/v1/auth', { data: { email: koreanUser.email, password } })).status()).toBe(200);
+    const koreanPage = await isolated.newPage(); await koreanPage.goto('/app/settings');
+    await expect(root(koreanPage).getByRole('heading', { name: '일반 환경 설정', exact: true })).toBeVisible();
+    await expect(koreanPage.locator('html')).toHaveAttribute('lang', 'ko');
+  } finally { await isolated.close(); }
+
+  await page.goto('/app/settings');
+  await root(page).getByRole('button', { name: 'Change Interface Language', exact: true }).click();
+  await modal(page).locator('[name="interface_language"]').selectOption('ko');
+  await modal(page).getByRole('button', { name: 'Save', exact: true }).click();
+  await expect(root(page).getByRole('heading', { name: '일반 환경 설정', exact: true })).toBeVisible();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'ko');
+});

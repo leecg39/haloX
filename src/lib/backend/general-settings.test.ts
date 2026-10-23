@@ -24,6 +24,20 @@ async function fixture() {
   return { workspace, file, store, read, change, rows, collect };
 }
 describe('general collection settings', () => {
+  it('persists an account-scoped interface language across workspaces and lets each member choose independently', async () => {
+    const f = await fixture(), initial = await f.read(); assert.deepEqual(initial.interface, { language: 'ko', revision: 0 });
+    const english = await f.store.write(db => updateGeneralSettings(db, OWNER, { action: 'interface-update', workspace_id: f.workspace, expected_interface_revision: 0, interface_language: 'en' }));
+    assert.deepEqual(english.interface, { language: 'en', revision: 1 });
+    await assert.rejects(f.store.write(db => updateGeneralSettings(db, OWNER, { action: 'interface-update', workspace_id: f.workspace, expected_interface_revision: 0, interface_language: 'ko' })), ContentConflictError);
+    await assert.rejects(f.store.write(db => updateGeneralSettings(db, OWNER, { action: 'interface-update', workspace_id: f.workspace, expected_interface_revision: 1, interface_language: 'fr' })));
+    const second = await f.store.write(db => db.insertTable('workspaces', { name: '언어 공유 공간' }, OWNER)[0]);
+    assert.equal((await new PersistentHaloXStore(f.file).read(db => readGeneralSettings(db, String(second.id), OWNER))).interface.language, 'en');
+    await f.store.write(db => db.insertTable('workspace_members', { workspace_id: f.workspace, user_id: OTHER, role: 'viewer', allowed_sections: ['other'] }, OWNER));
+    assert.equal((await f.store.read(db => readGeneralSettings(db, f.workspace, OTHER))).interface.language, 'ko');
+    const other = await f.store.write(db => updateGeneralSettings(db, OTHER, { action: 'interface-update', workspace_id: f.workspace, expected_interface_revision: 0, interface_language: 'ko' }));
+    assert.equal(other.interface.language, 'ko'); assert.equal((await f.read()).interface.language, 'en');
+    await f.store.read(db => assert.throws(() => assertRestWrite(db, 'profiles', 'PATCH', OWNER, { interface_language: 'ko' }, { id: `eq.${OWNER}` })));
+  });
   it('persists settings, detects stale edits and resets only collection fields in the selected workspace', async () => {
     const f = await fixture(), initial = await f.read(); assert.deepEqual(initial.defaults, { language: 'ko', country: 'KR', auto_generate_prompts: true });
     await f.store.write(db => db.updateTable('workspaces', { settings: { retained: true }, brand_name: '보존 브랜드' }, { id: `eq.${f.workspace}` }, OWNER));

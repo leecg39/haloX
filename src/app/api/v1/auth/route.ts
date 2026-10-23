@@ -37,7 +37,7 @@ function sessionView(db: HaloXDatabase, userId: string) {
   const workspaces = db.queryTable('workspaces', {}, userId).data;
   return {
     user: profile
-      ? { id: profile.id, email: profile.email, full_name: profile.full_name }
+      ? { id: profile.id, email: profile.email, full_name: profile.full_name, ui_language: profile.interface_language === 'en' ? 'en' : 'ko' }
       : { id: userId },
     default_workspace_id: workspaces[0]?.id || null,
     workspaces,
