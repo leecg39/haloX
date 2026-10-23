@@ -113,3 +113,25 @@
 .analysis-trend text { fill: #525252; font-size: 12px; }
 .analysis-trend path { stroke: #7c3aed; stroke-width: 2; fill: none; }
 .analysis-trend circle { fill: #7c3aed; }
+
+/* Dashboard, persisted alerts and report snapshots. */
+.clone-app main[data-live-root]:has(.live-observability-page){overflow:auto!important;min-height:0!important}
+.live-observability-page{max-width:1440px;margin:auto;min-height:100%;padding-bottom:60px}
+.live-observability-page .live-section{margin:20px 0}
+.observation-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:16px;margin:16px 0}
+.observation-kpis>div,.observation-kpis>a{display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit}
+.observation-kpis strong{font-size:28px;line-height:1.3;font-weight:650;letter-spacing:-.04em}
+.observation-kpis span,.observation-kpis small{color:#70717c;font-size:13px}
+.observation-inventory{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}
+.observation-inventory a{background:#f5f3ff;border:1px solid #e7e2ff;border-radius:10px;padding:12px 16px;color:#6154b8}
+.observation-activity{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:20px 0}
+.observation-activity li{margin:12px 0;overflow-wrap:anywhere}
+.observation-links li,.observation-panel-order li{display:flex;justify-content:space-between;gap:16px;margin:12px 0}
+.observation-links li{flex-wrap:wrap}
+.observation-links span{color:#70717c;font-size:12px}
+.observation-panel-order button{margin-left:6px}
+.observation-chart svg{width:100%;max-height:200px;color:#777;font-size:11px}
+.live-observability-page h2{font-size:17px;font-weight:600;margin:8px 0}
+.live-observability-page pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.live-observability-page .button{display:inline-block;border:1px solid #e5e5ed;border-radius:8px;padding:8px 12px;font-size:13px}
+@media(max-width:760px){.observation-activity{grid-template-columns:1fr}.observation-kpis strong{font-size:23px}.live-observability-page{padding:18px 14px 60px}.observation-inventory{flex-direction:column}.live-observability-page .live-head{align-items:flex-start}.live-observability-page .live-head h2{overflow-wrap:anywhere;min-width:0}}

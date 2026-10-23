@@ -3,6 +3,8 @@
  */
 
 import crypto from 'node:crypto';
+import { MONITOR_COMMANDS, runMonitorCommand, evaluateMonitorRule } from './monitor-service.ts';
+import { REPORT_COMMANDS, runReportCommand, generateScheduledReport } from './report-service.ts';
 import { ANALYSIS_COMMANDS, runAnalysisCommand } from './analysis-service.ts';
 import { GAP_COMMANDS, runGapCommand } from './gap-service.ts';
 import { STRATEGY_COMMANDS, runStrategyCommand } from './strategy-service.ts';
@@ -139,11 +141,11 @@ export class HaloXDatabase {
   }
 
   /** Separate from the public table whitelist: no REST/RPC access. */
-  public getServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests'): Row[] {
+  public getServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests'): Row[] {
     return structuredClone(this.serverRecords[collection] ?? []);
   }
 
-  public setServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests', rows: Row[]): void {
+  public setServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests', rows: Row[]): void {
     this.serverRecords[collection] = structuredClone(rows);
   }
 
@@ -855,6 +857,7 @@ export class HaloXDatabase {
 
     // Ensure all other observed runtime & Phase 7 secondary tables exist as empty arrays by default
     for (const emptyTable of [
+      'dashboard_preferences', 'monitor_rules', 'geo_alerts', 'report_summaries', 'report_action_items', 'report_preferences',
       'saved_analyses',
       'opportunity_decisions',
       'agent_conversations',
@@ -1070,6 +1073,7 @@ export class HaloXDatabase {
       if (GLOBAL_READ_TABLES.has(tableName)) return true;
       if (tableName === 'workspaces') return allowedWorkspaces.has(String(row.id));
       if (tableName === 'profiles') return String(row.id) === actorUserId;
+      if (tableName === 'dashboard_preferences') return row.user_id === actorUserId && allowedWorkspaces.has(String(row.workspace_id));
       if ('workspace_id' in row && row.workspace_id) {
         return allowedWorkspaces.has(String(row.workspace_id));
       }
@@ -1329,6 +1333,8 @@ export class HaloXDatabase {
     if (tableName === 'workspaces' && (this.tables.get('site_audit_scans') || []).some(row => deleted.some(workspace => workspace.id === row.workspace_id) && ['queued', 'running'].includes(String(row.status)))) throw new Error('진행 중인 사이트 진단을 먼저 취소해 주세요.');
     this.tables.set(tableName, remaining);
     const deletedIds = new Set(deleted.map(row => row.id));
+    if (tableName === 'monitor_rules') for (const name of ['geo_alerts', 'workspace_events']) this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.rule_id)));
+    if (tableName === 'report_snapshots') for (const name of ['report_summaries', 'report_action_items']) this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.report_id)));
     if (tableName === 'content_jobs') {
       this.deleteTable('content_drafts', { content_job_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
       this.deleteTable('content_review_runs', { content_job_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
@@ -1402,7 +1408,7 @@ export class HaloXDatabase {
     if (tableName === 'workspace_tag_groups') for (const row of this.tables.get('workspace_tags') || []) if (deletedIds.has(row.group_id)) row.group_id = null;
     if (tableName === 'workspaces' && deleted.length) {
       const workspaceIds = new Set(deleted.map(row => String(row.id)));
-      for (const name of ['knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests', 'strategy_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
+      for (const name of ['knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests', 'strategy_requests', 'report_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
       const keywordIds = new Set((this.tables.get('keywords') || []).filter(row => workspaceIds.has(String(row.workspace_id))).map(row => String(row.id)));
       for (const [name, rows] of this.tables) {
         if (name === 'workspaces') continue;
@@ -1474,6 +1480,30 @@ export class HaloXDatabase {
   }
 
   /** Called only by the server worker under the persistent store's writer lock. */
+  public hasDueObservability(now = Date.now()): boolean {
+    return [['monitor_rules', 'next_evaluation_at'], ['report_preferences', 'next_run_at']].some(([table, cursor]) => (this.tables.get(table) || []).some(row => row.enabled === true && Date.parse(String(row[cursor])) <= now));
+  }
+
+  public runDueObservability(now = Date.now()): Row[] {
+    const completed: Row[] = [];
+    for (const [table, cursor] of [['monitor_rules', 'next_evaluation_at'], ['report_preferences', 'next_run_at']]) {
+      const due = (this.tables.get(table) || []).filter(row => row.enabled === true && Date.parse(String(row[cursor])) <= now).sort((a, b) => String(a[cursor]).localeCompare(String(b[cursor])));
+      for (const row of due) {
+        if (completed.length >= 20) return completed;
+        const workspace = String(row.workspace_id), owner = (this.tables.get('workspace_members') || []).find(member => member.workspace_id === workspace && member.role === 'owner');
+        if (!owner) throw new Error('예약 작업의 워크스페이스 소유자를 찾을 수 없습니다.');
+        // Savepoint in the domain state avoids partially persisting a failed item.
+        const before = this.exportState();
+        try { completed.push(table === 'monitor_rules' ? evaluateMonitorRule(this, workspace, String(owner.user_id), row, now) : generateScheduledReport(this, workspace, String(owner.user_id), row, now)); }
+        catch (error) {
+          this.restoreState(before);
+          completed.push(this.updateTable(table, { last_error: error instanceof Error ? error.message : '예약 평가 실패', [cursor]: new Date(now + 3600000).toISOString() }, { id: `eq.${row.id}`, workspace_id: `eq.${workspace}` }, String(owner.user_id))[0]);
+        }
+      }
+    }
+    return completed;
+  }
+
   public hasDueGeoSchedules(now = Date.now()): boolean {
     return (this.tables.get('geo_prompt_sets') || []).some(set => !!set.schedule_enabled && set.is_active !== false && !!set.next_run_at && Date.parse(String(set.next_run_at)) <= now);
   }
@@ -2442,39 +2472,6 @@ export class HaloXDatabase {
       };
     }
 
-    if (fnName === 'report-snapshot' || fnName === 'generate-weekly-snapshot') {
-      const periodType = payload.period_type === 'month' ? 'month' : 'week';
-      const periodKey = String(payload.period_key || '2026-W43');
-      const overview = this.callRpc(
-        'get_light_dashboard_overview',
-        { p_workspace_id: workspaceId, p_period_days: 7 },
-        actorUserId
-      ) as Record<string, unknown>;
-
-      const [reportRow] = this.insertTable(
-        'report_snapshots',
-        {
-          workspace_id: workspaceId,
-          prompt_set_id: DEFAULT_PROMPT_SET_ID,
-          period_type: periodType,
-          period_key: periodKey,
-          start_date: '2026-10-16',
-          end_date: '2026-10-22',
-          kpi_payload: overview.avi_summary || {},
-          changes_payload: { aviDelta: +2 },
-          actions_payload: ['신규 발굴 프롬프트 3종 콘텐츠 제작 권장'],
-        },
-        actorUserId
-      );
-
-      return {
-        ok: true,
-        function: fnName,
-        workspace_id: workspaceId,
-        report: reportRow,
-      };
-    }
-
     // =========================================================================
     // Phase 7 Secondary Full-Stack Pipelines (Agent SSE, Strategy Map, Optimize,
     // Multi-language Publishing, GSC/GA4 Sync, NicePay Billing, HaloX MCP)
@@ -2555,6 +2552,10 @@ export class HaloXDatabase {
       };
     }
 
+    if (MONITOR_COMMANDS.includes(fnName) || REPORT_COMMANDS.includes(fnName)) {
+      if (!payload.workspace_id) throw new Error('워크스페이스를 선택해 주세요.');
+      return MONITOR_COMMANDS.includes(fnName) ? runMonitorCommand(this, fnName, payload, workspaceId, actorUserId) : runReportCommand(this, fnName, payload, workspaceId, actorUserId);
+    }
     if (GAP_COMMANDS.includes(fnName)) {
       if (!payload.workspace_id) throw new Error('워크스페이스를 선택해 주세요.');
       return runGapCommand(this, fnName, payload, workspaceId, actorUserId);
