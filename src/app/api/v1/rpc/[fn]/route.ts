@@ -14,6 +14,11 @@ export async function POST(
   const auth = authenticate(req);
   if (auth.response) return auth.response;
   const userId = auth.actor;
+  // Quota reservations are part of server-side domain transactions. Allowing
+  // clients to release committed reservations would reset their own usage.
+  if (['reserve_unit_with_bypass', 'commit_reservation', 'release_reservation'].includes(fn)) {
+    return NextResponse.json({ error: '사용량 예약은 서버 작업을 통해서만 변경할 수 있습니다.', code: 'RLS_ACCESS_DENIED' }, { status: 403 });
+  }
 
   try {
     let args: Record<string, unknown> = {};

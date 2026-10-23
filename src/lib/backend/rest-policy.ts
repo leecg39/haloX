@@ -1,5 +1,6 @@
 import { DEFAULT_WORKSPACE_ID, RlsAccessDeniedError, type HaloXDatabase, type Row } from './database.ts';
 import { KEYWORD_EDITABLE_FIELDS } from './keyword-model.ts';
+import { GEO_EDITABLE_FIELDS, GEO_RESULT_TABLES } from './geo-model.ts';
 
 const READ_ONLY = new Set(['profiles', 'plan_templates', 'plan_unit_limits', 'welcome_guide_config', 'welcome_guide_settings', 'system_settings', 'workspace_plans', 'usage_reservations', 'serp_snapshots']);
 const ADMIN_TABLES = new Set(['workspace_members', 'workspace_invitations', 'workspace_api_keys']);
@@ -22,6 +23,12 @@ export function assertRestWrite(db: HaloXDatabase, table: string, method: 'POST'
     return;
   }
   if (READ_ONLY.has(table)) throw new RlsAccessDeniedError('This table cannot be changed through the public REST API');
+  if (GEO_RESULT_TABLES.includes(table) && !(table === 'geo_prompt_runs' && method === 'DELETE')) throw new RlsAccessDeniedError('실행 결과는 서버에서만 생성하거나 변경할 수 있습니다.');
+  if (GEO_EDITABLE_FIELDS[table]) {
+    const allowed = [...GEO_EDITABLE_FIELDS[table], ...(method === 'POST' ? ['workspace_id'] : [])];
+    if (items.some(row => Object.keys(row).some(key => !allowed.includes(key)))) throw new Error('변경할 수 없는 프롬프트 필드입니다.');
+    if (table === 'geo_prompts' && method === 'POST') throw new Error('프롬프트 추가 기능으로 등록해 주세요.');
+  }
   if (KEYWORD_EDITABLE_FIELDS[table]) {
     const allowed = [...KEYWORD_EDITABLE_FIELDS[table], ...(method === 'POST' ? ['workspace_id'] : [])];
     if (items.some(row => Object.keys(row).some(key => !allowed.includes(key)))) throw new Error('변경할 수 없는 필드입니다. 측정 지표는 수집을 통해 갱신됩니다.');

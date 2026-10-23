@@ -16,10 +16,10 @@
 - [x] F04 공개 REST의 인증/플랜 변경 제한, 멤버 자기 권한 상승 방지, 워크스페이스 소유자 보호, API 키 전체 비밀값 검증. 서버 도메인 작업과 공개 REST 권한을 분리한다.
 - [x] F05 E2E는 실행마다 별도 SQLite 파일 사용. 개발 DB를 건드리지 않으며 테스트가 종료되면 파일을 정리한다.
 - [x] F06 워크스페이스 목록/선택을 서버 ID 기준으로 전환. 임의 기본 항목 및 localStorage 레코드 병합 제거.
-- [ ] F07 나머지 페이지의 localStorage 레코드·성공 먼저 알림·비동기 백엔드 동기화를 제거. **워크스페이스·키워드(모든 탭/상세)는 전환 완료**. 나머지 메뉴는 미완료.
-- [ ] F08 공통 `WorkspaceProvider` 구현, 선택 ID 재검증·탭 간 전환·오류 재시도 및 키워드 전체 조회/쓰기에 적용. 키워드는 검색·정렬·페이지네이션 포함. **다른 메뉴의 `DEFAULT_WORKSPACE_UUID` 의존 제거는 남음**.
-- [ ] F09 키워드·세트·태그/그룹·연결·아이디어의 필수값/길이/언어·국가/도메인/외래키/중복 검증, 삭제 정책 적용. REST 측정값 직접 변경 차단. **다른 도메인의 검증은 남음**.
-- [ ] F10 장기 작업 큐·취소·중복 요청 방지, 조회 RPC의 읽기 전용 분류, 데이터 백업/복원 도구.
+- [ ] F07 나머지 페이지의 localStorage 레코드·성공 먼저 알림·비동기 백엔드 동기화를 제거. **워크스페이스·키워드·GEO 프롬프트(모든 탭/상세/개요)는 전환 완료**. 나머지 메뉴는 미완료.
+- [ ] F08 공통 `WorkspaceProvider` 구현, 선택 ID 재검증·탭 간 전환·오류 재시도 및 키워드/GEO 프롬프트 전체 조회/쓰기에 적용. 세션/플랜은 한 번 조회하여 공통 헤더와 공유하고 각 CRUD 화면은 집계 API 사용. **다른 메뉴의 `DEFAULT_WORKSPACE_UUID` 의존 제거는 남음**.
+- [ ] F09 키워드·GEO 프롬프트·세트·태그/그룹·연결·아이디어의 필수값/길이/언어·국가/도메인/외래키/중복 검증, 삭제 정책 적용. REST 측정값 직접 변경 차단. **다른 도메인의 검증은 남음**.
+- [ ] F10 GEO 일일 예약 실행기·저장 커서·복수 실행기 중복 방지 구현. 공개 사용량 예약 변경 차단 및 프롬프트 생성 키 재사용 차단. **장기 작업 큐·취소·범용 요청 중복 처리, 조회 RPC 읽기 전용 분류, 백업/복원 도구는 남음**.
 
 현재 SQLite는 기존 도메인 엔진의 전체 상태를 버전 있는 JSON 스냅샷으로 트랜잭션 저장한다. 로컬/단일 서버에서 실제 영속성을 제공하지만 정규화된 Postgres 구현은 아니다. Supabase SQL 마이그레이션은 별도 검증 자산으로 남아 있으며 이 런타임과 연결하지 않았다. 여러 서버가 파일을 공유하는 배포나 대규모 데이터에는 DB 어댑터 교체가 필요하다. 런타임 저장 파일과 비밀키는 Git에 포함하지 않는다.
 
@@ -31,7 +31,7 @@
 | A02 | `/app/signup` | SOLAPI 발송, 비공개 phone_verification. 60초 재발송, 5분 만료, 5회 실패, 전화번호/클라이언트/전체 발송 제한. 10분 단회 인증 증표로 계정+워크스페이스 생성 | 구현·signup E2E(문자 전송만 fixture). **실발송은 SOLAPI 환경변수 설정 및 본인 수신번호 검증 필요** |
 | A03 | `/app/forgot-password` 및 복구 경로 | 단회 복구 토큰, 만료/재사용 차단, 기존 세션 무효화, 실제 복구 메시지 발송 | 미완료: 현재 데모 안내 |
 | W01 | `/app/workspaces` | 이름·도메인·설명 CRUD, 소유자·관리자 수정/소유자 삭제, 연관 데이터 삭제, 실제 항목 수 | 구현·workspaces E2E |
-| W02 | 워크스페이스 전환 | 전체 데이터 조회와 쓰기, 대시보드, 상세 페이지에 선택 ID 전파 | 메뉴 및 키워드 목록/상세/모든 쓰기 적용·격리 E2E. 다른 페이지 전파는 F08에서 진행 |
+| W02 | 워크스페이스 전환 | 전체 데이터 조회와 쓰기, 대시보드, 상세 페이지에 선택 ID 전파 | 메뉴 및 키워드/GEO 프롬프트 목록·상세·모든 쓰기 적용·격리 E2E. 다른 페이지 전파는 F08에서 진행 |
 
 ## 2. 분석·전략·실행 메뉴
 
@@ -42,7 +42,7 @@
 | P01 `/app` | 기존 KPI RPC, 새 dashboard_preferences(기간·패널·정렬) | 실제 KPI/빈 상태, 기간 저장·수정·초기화, 하위 페이지 이동 | 조회/설정 CRUD 전환·관련 엔티티 변경 후 KPI 재계산 E2E |
 | P02 `/app/keywords`, `/app/keywords/:id` | keyword_sets, keywords, serp_snapshots, tags/groups/assignments, keyword_prompt_links, keyword_ideas | 실제 목록/상세, 세트/키워드/태그/연결/아이디어 CRUD, 일시정지·재수집, 검색/정렬/페이지네이션·선택 삭제·CSV | 구현. 실패 입력 보존·새로고침·워크스페이스 전환·모바일·관계 삭제 회귀 검증. 수집은 데모 Provider이며 화면에 명시. 세부 증거: [키워드 CRUD](keyword-crud.md) |
 | P03 `/app/seo/insights` | keywords/serp 읽기 + saved_analyses(조건·메모) | 분석 조건 저장·조회·수정·삭제, 실제 순위/기회 집계 | 모델 추가, 통계 읽기 화면 교체, 워크스페이스별 저장 분석 E2E |
-| P04 `/app/geo`, `/app/geo/prompts` | geo_prompt_sets, geo_prompts, geo_prompt_runs/answers/citations | 프롬프트 세트/질문 CRUD, 엔진·예약 설정, 실행·이력·원문 상세 | 기존 생성/실행 외 목록/편집/삭제/예약 연결, 삭제 시 이력 처리 |
+| P04 `/app/geo`, `/app/geo/prompts`, `/app/geo/prompts/:id` | geo_prompt_sets, geo_prompts, geo_prompt_runs/answers/citations/metrics, tags | 프롬프트 세트/질문/태그 CRUD, 다중 엔진·일일 예약, 실행·이력·원문 상세 | 구현·CRUD/실패/격리/모바일 E2E 및 실제 서버 예약 실행 검증. 외부 LLM은 데모 Provider. 상세 범위와 운영 조건: [프롬프트 CRUD](prompt-crud.md) |
 | P05 `/app/geo/analysis` | GEO 집계 + saved_analyses | 엔진/기간 비교, 저장 분석 CRUD, 근거 출처 표시 | 실제 집계 조회, 필터 반영·빈 상태 테스트 |
 | P06 `/app/gap` | geo_prompt_candidates, opportunity_decisions | 후보 생성/조회/수정/삭제, 채택 시 키워드·질문 생성 | 후보 상태 전이, 중복 채택 방지, 실행 페이지 이동 |
 | P07 `/app/strategy-map` | keyword_clusters, cluster_members, cluster_stats_history | 클러스터 생성·이름/관계 편집·삭제, 재분석, 실제 맵 | 목업 클러스터링 함수 연결, 변경 후 관계와 맵 동기화 |

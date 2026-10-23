@@ -40,6 +40,7 @@ function sessionView(db: HaloXDatabase, userId: string) {
       : { id: userId },
     default_workspace_id: workspaces[0]?.id || null,
     workspaces,
+    workspace_plans: db.queryTable('workspace_plans', {}, userId).data,
   };
 }
 
@@ -49,7 +50,7 @@ export async function GET(req: NextRequest) {
   if (auth.response) return auth.response;
   try {
     const session = await haloxStore.read(db => sessionView(db, auth.actor));
-    return NextResponse.json({ authenticated: true, ...session });
+    return NextResponse.json({ authenticated: true, ...session }, { headers: { 'Cache-Control': 'private, no-store' } });
   } catch {
     const error = new StorageUnavailableError();
     return NextResponse.json({ error: error.message, code: error.code }, { status: 503 });

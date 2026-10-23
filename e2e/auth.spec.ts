@@ -13,9 +13,11 @@ const WORKSPACE = '11111111-1111-4000-8000-111111111111';
 test('data API rejects unauthenticated requests', async ({ request }) => {
   expect((await request.get('/api/v1/rest/keywords')).status()).toBe(401);
   expect((await request.get(`/api/v1/keywords?workspace_id=${WORKSPACE}`)).status()).toBe(401);
+  expect((await request.get(`/api/v1/prompts?workspace_id=${WORKSPACE}`)).status()).toBe(401);
   expect((await request.post('/api/v1/rpc/get_workspace_quota_summary', { data: { _workspace_id: WORKSPACE } })).status()).toBe(401);
   expect((await request.post('/api/v1/functions/keywords-collect', { data: { workspace_id: WORKSPACE, keywords: ['x'] } })).status()).toBe(401);
   expect((await request.get('/api/v1/auth')).status()).toBe(401);
+  expect((await request.get('/api/v1/workspaces')).status()).toBe(401);
 });
 
 test('a spoofed x-halox-user-id header grants nothing', async ({ request }) => {
@@ -53,6 +55,11 @@ test('each user only sees their own workspace after login', async ({ playwright,
     const ids = ((await (await ctx.get('/api/v1/rest/workspaces')).json()) as Array<{ id: string }>).map(w => w.id);
     expect(ids).toContain(expected);
     expect(ids).not.toContain(hidden);
+    const session = await (await ctx.get('/api/v1/auth')).json();
+    expect(session.workspace_plans.every((row: { workspace_id: string }) => ids.includes(row.workspace_id))).toBe(true);
+    const overview = await (await ctx.get('/api/v1/workspaces')).json();
+    expect(overview.workspaces.map((row: { id: string }) => row.id)).toEqual(ids);
+    for (const rows of [overview.members, overview.plans, ...overview.counts]) expect(rows.every((row: { workspace_id: string }) => ids.includes(row.workspace_id))).toBe(true);
     await ctx.dispose();
   }
 });

@@ -34,6 +34,6 @@ export default defineConfig({
     reuseExistingServer: false,
     timeout: 120_000,
     // Plain-http localhost run: allow the session cookie without the Secure flag.
-    env: { HALOX_INSECURE_COOKIES: '1', HALOX_DATABASE_PATH: process.env.HALOX_E2E_DATABASE_PATH, SOLAPI_API_KEY: '', SOLAPI_API_SECRET: '', SOLAPI_SENDER: '' },
+    env: { HALOX_INSECURE_COOKIES: '1', HALOX_DATABASE_PATH: process.env.HALOX_E2E_DATABASE_PATH, SOLAPI_API_KEY: '', SOLAPI_API_SECRET: '', SOLAPI_SENDER: '', HALOX_DISABLE_SCHEDULER: '0', HALOX_SCHEDULER_INTERVAL_MS: '1000' },
   },
 });

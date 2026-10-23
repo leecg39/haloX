@@ -16,6 +16,7 @@ import { initializeLiveUsage } from './usage-live';
 import { syncDialogActionToBackend } from '@/lib/api/client';
 import { PhoneVerificationButton } from './PhoneVerificationButton';
 import { submitSignup } from './signup-form';
+import { useWorkspace } from './WorkspaceProvider';
 
 function PasswordVisibilityButton({className}:{className?:string}){
  const [visible,setVisible]=useState(false);
@@ -42,10 +43,9 @@ function applySessionIdentity(root:HTMLElement,user:{email?:unknown;full_name?:u
  root.querySelectorAll<HTMLInputElement>('input:not([data-live-root] input)').forEach(input=>{for(const [from,to] of replacements)if(input.value.includes(from))input.value=input.value.replaceAll(from,to)});
 }
 
-// App routes reachable without a session (sign-in and recovery flows).
-const PUBLIC_APP_ROUTE=/^\/app\/(login|signup|forgot-password|reset-password|find-email|auth\/callback|verify-phone|invite)(\/|\?|$)/;
 const parserOptions:HTMLReactParserOptions={replace(node){if(!(node instanceof Element))return;if(['script','iframe','noscript'].includes(node.name))return <></>;const nodeText=node.children.map(child=>'data'in child?child.data:'').join('').trim();if(node.name==='form'&&hasNamedInput(node,'email')&&hasNamedInput(node,'password')){const p=attributesToProps(node.attribs);return createElement('form',{...p,method:'post'},domToReact(node.children as DOMNode[],parserOptions))}if(node.name==='button'&&node.attribs.type==='button'&&nodeText==='인증번호 발송')return <PhoneVerificationButton className={node.attribs.class}/>;if(node.name==='button'&&node.attribs.type==='button'&&node.children.some(child=>child instanceof Element&&child.name==='svg'&&child.attribs.class?.includes('lucide-eye')))return <PasswordVisibilityButton className={node.attribs.class}/>;if(['input','textarea','select'].includes(node.name)){const p=attributesToProps(node.attribs);if('value'in p){p.defaultValue=p.value;delete p.value}if('checked'in p){p.defaultChecked=p.checked;delete p.checked}if(node.name==='textarea')return createElement('textarea',{...p,defaultValue:node.children.map(c=>'data'in c?c.data:'').join('')});if(node.name==='input')return createElement('input',p);return createElement('select',p,domToReact(node.children as DOMNode[],parserOptions))}}};
 export default function ClonePage({data,requestedRoute,children}:{data:Capture;requestedRoute:string;children?:ReactNode}){
+ const {user}=useWorkspace();
  const router=useRouter();const rootRef=useRef<HTMLDivElement>(null);const [dialog,setDialog]=useState<DialogRequest|null>(null);const [toast,setToast]=useState('');const toastTimer=useRef<ReturnType<typeof setTimeout>|null>(null);
  const navigate=useCallback((url:string)=>{
   try {
@@ -55,7 +55,7 @@ export default function ClonePage({data,requestedRoute,children}:{data:Capture;r
  },[router]);
  const notify=useCallback((message:string)=>{setToast(message);if(toastTimer.current)clearTimeout(toastTimer.current);toastTimer.current=setTimeout(()=>setToast(''),3500)},[]);
  const openDialog=useCallback(async(request:DialogRequest)=>{if(request.route.split('?')[0]==='/app/geo/prompts'&&request.title==='추가')request={...request,title:'프롬프트 추가'};try{if(/키워드 추가/.test(request.title)){const r=await fetch('/clone/keyword-dialog.json');request={...request,template:(await r.json()).html}}else{const r=await fetch('/clone/dialog-templates.json');if(r.ok){const templates=await r.json();const found=templates.find((t:{route:string;trigger:string;html:string;kind?:string})=>(t.route===request.route||t.route===request.route.split('?')[0])&&t.trigger===request.title&&t.kind!=='page');if(found)request={...request,template:found.html}}}}catch{}setDialog(request)},[]);
- useEffect(()=>{if(!requestedRoute.startsWith('/app')||PUBLIC_APP_ROUTE.test(requestedRoute))return;let active=true;void (async()=>{try{const res=await fetch('/api/v1/auth');if(!active)return;if(res.status===401){navigate('/app/login');return}if(res.ok){const session=await res.json() as {user?:{email?:unknown;full_name?:unknown}};if(active&&session.user&&rootRef.current)applySessionIdentity(rootRef.current,session.user)}}catch{}})();return()=>{active=false}},[requestedRoute,navigate]);
+ useEffect(()=>{if(user&&rootRef.current)applySessionIdentity(rootRef.current,user)},[user,requestedRoute,data.html]);
  const navigation=useCloneNavigation({rootRef,route:requestedRoute,navigate,openDialog,notify,menus:data.publicInteractions?.menus});
  const content=useMemo(()=>parse(data.html,{replace(node,index){
   if(children&&node instanceof Element&&node.attribs.id==='main-scroll-container')return <main {...attributesToProps(node.attribs)} data-live-root="true">{children}</main>;

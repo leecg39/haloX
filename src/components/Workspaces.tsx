@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import * as Dialog from '@radix-ui/react-dialog';
-import { deleteTableRows, fetchTable, insertTableRows, updateTableRows } from '@/lib/api/client';
+import { deleteTableRows, insertTableRows, updateTableRows } from '@/lib/api/client';
 import { readActiveWorkspace, writeActiveWorkspace } from './CloneNavigation';
 
 interface Workspace { id: string; name: string; description?: string; default_brand_filter?: string; owner_id: string }
@@ -33,16 +33,12 @@ export function Workspaces() {
   const [description, setDescription] = useState('');
 
   const load = useCallback(async () => {
-    const auth = await fetch('/api/v1/auth');
+    const auth = await fetch('/api/v1/workspaces');
     if (auth.status === 401) { router.replace('/app/login'); return; }
     if (!auth.ok) throw new Error('워크스페이스를 불러오지 못했습니다. 다시 시도해 주세요.');
-    const session = await auth.json();
-    const [workspaces, membershipRows, planRows, keywords, prompts, contents] = await Promise.all([
-      fetchTable<Workspace>('workspaces'), fetchTable<Membership>('workspace_members'), fetchTable<Plan>('workspace_plans'),
-      fetchTable<ScopedRow>('keywords', { select: 'workspace_id' }), fetchTable<ScopedRow>('geo_prompts', { select: 'workspace_id' }), fetchTable<ScopedRow>('content_jobs', { select: 'workspace_id' }),
-    ]);
-    setUserId(session.user.id);
-    setItems(workspaces); setMembers(membershipRows); setPlans(planRows); setCounts([keywords, prompts, contents]);
+    const { user_id, workspaces, members: membershipRows, plans: planRows, counts: totals } = await auth.json() as { user_id: string; workspaces: Workspace[]; members: Membership[]; plans: Plan[]; counts: ScopedRow[][] };
+    setUserId(user_id);
+    setItems(workspaces); setMembers(membershipRows); setPlans(planRows); setCounts(totals);
     const current = readActiveWorkspace();
     const selected = workspaces.find(row => row.id === current.id) || workspaces[0];
     setActiveId(selected?.id || '');

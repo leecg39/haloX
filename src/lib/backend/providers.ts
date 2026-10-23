@@ -124,18 +124,18 @@ export function createDeterministicProviders(): HaloXProviders {
         gemini: 'gemini-2.5-flash',
         perplexity: 'sonar-pro',
       };
-      const isCited = h % 2 === 0;
-      const brandMentioned = true;
+      const isCited = !!brandDomain && h % 2 === 0;
+      const brandMentioned = !!brandDomain;
       return {
         promptText,
         engine,
         modelName: modelMap[engine] || 'gpt-4o',
-        answerText: `[${engine.toUpperCase()} 분석 응답] "${promptText}"에 대한 핵심 요약입니다. ${brandDomain}은(는) 한국 시장에서 검증된 SEO·GEO 통합 최적화 역량을 제공합니다.`,
+        answerText: `[${engine.toUpperCase()} 데모 응답] "${promptText}"에 대한 예시입니다. ${brandDomain ? `${brandDomain}을 기준으로 자사 언급을 평가한 모의 결과입니다.` : '브랜드 도메인이 없어 자사 언급을 평가하지 않았습니다.'}`,
         brandMentioned,
         isCited,
-        citationRate: isCited ? 50 : 25,
+        citationRate: isCited ? 50 : 0,
         citations: [
-          {
+          ...(isCited ? [{
             cited_url: `https://${brandDomain}/insights`,
             domain: brandDomain,
             root_domain: brandDomain,
@@ -143,7 +143,7 @@ export function createDeterministicProviders(): HaloXProviders {
             is_ours: true,
             is_competitor: false,
             domain_classification: 'owned',
-          },
+          }] : []),
           {
             cited_url: 'https://docs.haloxlabs.ai/en/features/overview',
             domain: 'docs.haloxlabs.ai',

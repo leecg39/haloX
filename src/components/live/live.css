@@ -51,4 +51,10 @@
 .live-modal label.check { display: flex; align-items: center; gap: 8px; }
 .live-modal footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 24px; }
 .live-modal .live-checks { display: flex; flex-wrap: wrap; gap: 12px; }
+.live-prompt-cell { min-width: 260px; max-width: 420px; white-space: normal; overflow-wrap: anywhere; }
+.live-prompt-heading { margin-top: 20px; }
+.live-history { display: grid; gap: 12px; }
+.live-history summary { cursor: pointer; }
+.live-history details[open] > p { margin-top: 12px; }
+.live-answer { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; line-height: 1.8; background: #fafafa; padding: 16px; border-radius: 7px; margin-top: 14px; }
 @media(max-width:700px) { .live-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } .live-head { align-items:flex-start; } .live-toolbar > * { max-width:100%!important; } [data-live-root] { padding:20px 16px!important; } }

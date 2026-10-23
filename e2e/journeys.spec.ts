@@ -67,7 +67,13 @@ test('J1 keyword add charges keyword_create quota and stores the keyword', async
 
 test('J2 prompt add creates a GEO prompt and a run', async ({ page, request }) => {
   const prompt = `e2e 질문 ${Date.now()}`;
-  await submitDialog(page, '/app/geo/prompts', '추가', prompt, { submit: '프롬프트 추가' });
+  await page.goto('/app/geo/prompts');
+  await page.getByRole('button', { name: '프롬프트 추가', exact: true }).click();
+  const dialog = page.getByRole('dialog');
+  await dialog.getByLabel('질문', { exact: true }).fill(prompt);
+  await dialog.getByRole('button', { name: '추가하고 실행', exact: true }).click();
+  await expect(dialog).not.toBeVisible();
+  await expect(page.getByRole('link', { name: prompt, exact: true })).toBeVisible();
   await expect.poll(async () => (await rows(request, 'geo_prompts', `prompt_text=eq.${encodeURIComponent(prompt)}`)).length).toBe(1);
   const [created] = await rows(request, 'geo_prompts', `prompt_text=eq.${encodeURIComponent(prompt)}`);
   await expect.poll(async () => (await rows(request, 'geo_prompt_runs', `prompt_id=eq.${created.id}`)).length).toBeGreaterThan(0);
@@ -112,4 +118,14 @@ test('J6 tenant isolation: another workspace is not readable', async ({ request 
     data: { _workspace_id: ISOLATED_WORKSPACE, _unit_key: 'keyword_create', _amount: 1, _idempotency_key: `e2e-x-${Date.now()}` },
   });
   expect(res.status()).toBe(403);
+});
+
+test('quota reservations cannot be created, committed or released directly by clients', async ({ request }) => {
+  const reservations = await rows(request, 'usage_reservations', `workspace_id=eq.${WORKSPACE}`);
+  expect(reservations.length).toBeGreaterThan(0);
+  for (const fn of ['reserve_unit_with_bypass', 'commit_reservation', 'release_reservation']) {
+    const response = await request.post(`/api/v1/rpc/${fn}`, { data: { p_workspace_id: WORKSPACE, p_reservation_id: reservations[0].id, p_unit_key: 'prompt_create', p_amount: 1 } });
+    expect(response.status()).toBe(403);
+  }
+  expect(await rows(request, 'usage_reservations', `workspace_id=eq.${WORKSPACE}`)).toEqual(reservations);
 });

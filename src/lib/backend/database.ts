@@ -4,6 +4,8 @@
 
 import crypto from 'node:crypto';
 import { KEYWORD_EDITABLE_FIELDS, validateKeywordRecord } from './keyword-model.ts';
+import { GEO_EDITABLE_FIELDS, nextGeoSchedule, validateGeoRecord } from './geo-model.ts';
+import { GEO_ENGINES } from '../api/prompts.ts';
 import {
   aiTrafficShare,
   aviComposite,
@@ -113,6 +115,8 @@ export class HaloXDatabase {
       restored.set(name, structuredClone(rows));
     }
     this.tables = restored;
+    // Old captured schedule flags did not represent user-configured jobs.
+    for (const set of this.tables.get('geo_prompt_sets') || []) if (!('next_run_at' in set)) { set.schedule_enabled = false; set.next_run_at = null; }
     const serverRecords = state.serverRecords ?? {};
     if (typeof serverRecords !== 'object' || Array.isArray(serverRecords) || Object.values(serverRecords).some(rows => !Array.isArray(rows))) {
       throw new Error('Corrupt server records');
@@ -373,8 +377,9 @@ export class HaloXDatabase {
         workspace_id: DEFAULT_WORKSPACE_ID,
         name: '기본 GEO 질문 세트',
         default_engine: 'openai',
-        schedule_enabled: true,
+        schedule_enabled: false,
         schedule_hour: 9,
+        next_run_at: null,
         is_active: true,
         created_at: now,
         updated_at: now,
@@ -841,6 +846,7 @@ export class HaloXDatabase {
       'evidence_claims',
       'ga4_page_stats',
       'geo_discover_runs',
+      'geo_answers_raw',
       'geo_prompt_candidates',
       'geo_prompt_tag_assignments',
       'gsc_daily_keywords',
@@ -1152,15 +1158,15 @@ export class HaloXDatabase {
       const workspaceId = String(item.workspace_id || [...this.getAllowedWorkspaceIds(actorUserId)][0] || '');
       this.assertWorkspaceMember(workspaceId, actorUserId);
 
-      const record: Row = validateKeywordRecord(tableName, {
+      const record: Row = validateGeoRecord(tableName, validateKeywordRecord(tableName, {
         created_at: now,
         updated_at: now,
         ...item,
         id: typeof item.id === 'string' ? item.id : crypto.randomUUID(),
         workspace_id: workspaceId,
-      }, this.tables);
+      }, this.tables), this.tables);
       if (table.some(row => row.id === record.id)) throw new Error('이미 존재하는 ID입니다.');
-      if (tableName === 'keyword_sets' && record.is_default === true) {
+      if (['keyword_sets', 'geo_prompt_sets'].includes(tableName) && record.is_default === true) {
         for (const other of table) if (other.workspace_id === workspaceId) other.is_default = false;
       }
 
@@ -1228,12 +1234,17 @@ export class HaloXDatabase {
       if (tableName === 'workspace_api_keys') {
         delete safePatch.key_hash;
       }
-      const validated = validateKeywordRecord(tableName, { ...row, ...safePatch, updated_at: now }, this.tables);
+      const validated = validateGeoRecord(tableName, validateKeywordRecord(tableName, { ...row, ...safePatch, updated_at: now }, this.tables), this.tables);
       if (tableName === 'keywords' && ['keyword', 'language', 'country'].some(field => row[field] !== validated[field])) {
         for (const snapshot of this.tables.get('serp_snapshots') || []) if (snapshot.keyword_id === row.id) snapshot.keyword_text ??= row.keyword;
         Object.assign(validated, { search_volume: null, search_volume_google_ads: null, keyword_difficulty: null, intent: null, status: 'pending' });
       }
-      if (tableName === 'keyword_sets' && validated.is_default === true) {
+      if (tableName === 'geo_prompts' && ['prompt_text', 'language_code', 'location_code'].some(field => row[field] !== validated[field])) {
+        for (const run of this.tables.get('geo_prompt_runs') || []) if (run.prompt_id === row.id) {
+          run.prompt_text ??= row.prompt_text; run.language_code ??= row.language_code; run.location_code ??= row.location_code;
+        }
+      }
+      if (['keyword_sets', 'geo_prompt_sets'].includes(tableName) && validated.is_default === true) {
         for (const other of table) if (other.workspace_id === row.workspace_id && other.id !== row.id && other.is_default) { other.is_default = false; other.updated_at = now; }
       }
       Object.assign(row, validated);
@@ -1290,6 +1301,13 @@ export class HaloXDatabase {
 
     this.tables.set(tableName, remaining);
     const deletedIds = new Set(deleted.map(row => row.id));
+    if (tableName === 'geo_prompt_sets') for (const row of this.tables.get('geo_prompts') || []) if (deletedIds.has(row.prompt_set_id)) row.prompt_set_id = null;
+    if (tableName === 'geo_prompts') {
+      this.deleteTable('geo_prompt_runs', { prompt_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
+      for (const name of ['geo_prompt_tag_assignments', 'keyword_prompt_links']) this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.prompt_id)));
+      for (const row of this.tables.get('keywords') || []) for (const field of ['geo_prompt_id', 'source_prompt_id']) if (deletedIds.has(row[field])) row[field] = null;
+    }
+    if (tableName === 'geo_prompt_runs') for (const name of ['geo_answers_raw', 'geo_citations', 'geo_run_metrics']) this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.run_id)));
     if (tableName === 'keywords') {
       for (const name of ['serp_snapshots', 'keyword_tag_assignments', 'keyword_prompt_links', 'keyword_knowledge_entities', 'keyword_serp_jobs', 'keyword_cluster_members']) {
         this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.keyword_id)));
@@ -1317,9 +1335,60 @@ export class HaloXDatabase {
     return deleted;
   }
 
-  /**
-   * Execute any of the 36 runtime-observed RPC contracts + write/quota RPCs.
-   */
+  private async executeGeoPrompt(prompt: Row, engine: string, actor: string, scheduledFor?: string): Promise<Row> {
+    if (!Object.hasOwn(GEO_ENGINES, engine)) throw new Error('지원하지 않는 AI 엔진입니다.');
+    const set = (this.tables.get('geo_prompt_sets') || []).find(row => row.id === prompt.prompt_set_id && row.workspace_id === prompt.workspace_id);
+    const workspace = (this.tables.get('workspaces') || []).find(row => row.id === prompt.workspace_id);
+    const domain = String(set?.brand_domain || workspace?.default_brand_filter || '');
+    const [run] = this.insertTable('geo_prompt_runs', {
+      workspace_id: prompt.workspace_id, prompt_id: prompt.id, prompt_text: prompt.prompt_text,
+      language_code: prompt.language_code, location_code: prompt.location_code,
+      engine, provider: 'deterministic', mode: 'search', status: 'running', requested_at: new Date().toISOString(),
+      ...(scheduledFor ? { scheduled_for: scheduledFor } : {}),
+    }, actor);
+    let evaluation;
+    try { evaluation = await this.providers.runGeoPrompt(String(prompt.prompt_text), engine, domain); }
+    catch {
+      const [failed] = this.updateTable('geo_prompt_runs', { status: 'failed', error_message: 'AI 응답 수집에 실패했습니다. 다시 실행해 주세요.', finished_at: new Date().toISOString() }, { id: `eq.${run.id}` }, actor);
+      return { ok: false, run: failed, citations: [], metrics: null };
+    }
+    const [completed] = this.updateTable('geo_prompt_runs', { status: 'completed', model_name: evaluation.modelName, answer_text: evaluation.answerText, finished_at: new Date().toISOString(), cost_usd: 0 }, { id: `eq.${run.id}` }, actor);
+    this.insertTable('geo_answers_raw', { workspace_id: prompt.workspace_id, prompt_id: prompt.id, run_id: run.id, prompt_text: prompt.prompt_text, engine, provider: 'deterministic', answer_text: evaluation.answerText }, actor);
+    const citations = this.insertTable('geo_citations', evaluation.citations.map(citation => ({ ...citation, workspace_id: prompt.workspace_id, run_id: run.id })), actor);
+    const ours = citations.filter(row => row.is_ours).length;
+    const [metrics] = this.insertTable('geo_run_metrics', { workspace_id: prompt.workspace_id, run_id: run.id, brand_mentioned: !!domain && evaluation.brandMentioned, is_cited: ours > 0, citation_rate: citations.length ? 100 * ours / citations.length : 0, our_citation_count: ours, competitor_citation_count: citations.filter(row => row.is_competitor).length, other_citation_count: citations.filter(row => !row.is_ours && !row.is_competitor).length, source_but_not_cited: false }, actor);
+    return { ok: true, run: completed, citations, metrics };
+  }
+
+  /** Called only by the server worker under the persistent store's writer lock. */
+  public hasDueGeoSchedules(now = Date.now()): boolean {
+    return (this.tables.get('geo_prompt_sets') || []).some(set => !!set.schedule_enabled && set.is_active !== false && !!set.next_run_at && Date.parse(String(set.next_run_at)) <= now);
+  }
+
+  public async runDueGeoSchedules(now = Date.now()): Promise<Row[]> {
+    const results: Row[] = [];
+    for (const set of this.tables.get('geo_prompt_sets') || []) {
+      if (!set.schedule_enabled || set.is_active === false || !set.next_run_at || Date.parse(String(set.next_run_at)) > now) continue;
+      const workspace = (this.tables.get('workspaces') || []).find(row => row.id === set.workspace_id);
+      if (!workspace) continue;
+      const actor = String(workspace.owner_id);
+      const due = String(set.next_run_at);
+      // Advancing the cursor and storing all results commit together; concurrent workers recheck it.
+      set.next_run_at = nextGeoSchedule(Number(set.schedule_hour), now);
+      set.last_scheduled_at = new Date(now).toISOString();
+      for (const prompt of this.tables.get('geo_prompts') || []) {
+        if (prompt.workspace_id !== set.workspace_id || prompt.prompt_set_id !== set.id || prompt.is_active === false || prompt.is_paused || prompt.deleted_at) continue;
+        const engines = Array.isArray(prompt.engines) ? prompt.engines : [set.default_engine || 'openai'];
+        for (const engine of engines) {
+          if ((this.tables.get('geo_prompt_runs') || []).some(run => run.prompt_id === prompt.id && run.engine === engine && run.scheduled_for === due)) continue;
+          results.push(await this.executeGeoPrompt(prompt, String(engine), actor, due));
+        }
+      }
+    }
+    return results;
+  }
+
+  /** Execute runtime-observed RPC contracts + write/quota RPCs. */
   public callRpc(
     rpcName: string,
     args: Record<string, unknown> = {},
@@ -2168,103 +2237,51 @@ export class HaloXDatabase {
       };
     }
 
-    if (
-      fnName === 'geo-run' ||
-      fnName === 'geo-run-prompts-fanout' ||
-      fnName === 'geo-run-openai' ||
-      fnName === 'geo-run-claude'
-    ) {
-      const promptText = String(
-        payload.prompt_text || '우리 브랜드의 AI 검색 인용 경쟁력은 어떤가요?'
-      );
-      const engine = String(payload.engine || 'openai');
-      let promptId = typeof payload.prompt_id === 'string' ? payload.prompt_id : '';
-
-      if (!promptId) {
-        const reservation = this.callRpc(
-          'reserve_unit_with_bypass',
-          {
-            p_workspace_id: workspaceId,
-            p_unit_key: 'prompt_create',
-            p_amount: 1,
-            p_idempotency_key: String(payload.idempotency_key || `pr-${Date.now()}-${Math.random()}`),
-          },
-          actorUserId
-        ) as { reservation_id: string };
-
-        const [newPrompt] = this.insertTable(
-          'geo_prompts',
-          {
-            workspace_id: workspaceId,
-            prompt_set_id: DEFAULT_PROMPT_SET_ID,
-            prompt_text: promptText,
-            prompt_category: 'comparison',
-            language_code: 'ko',
-            location_code: 'KR',
-            search_volume: 500,
-            is_active: true,
-            is_paused: false,
-            deleted_at: null,
-          },
-          actorUserId
-        );
-        promptId = String(newPrompt.id);
-        this.callRpc('commit_reservation', { p_reservation_id: reservation.reservation_id }, actorUserId);
+    if (fnName === 'geo-save') {
+      const current = (this.tables.get('geo_prompts') || []).find(row => row.id === payload.prompt_id && row.workspace_id === workspaceId);
+      if (!current) throw new Error('프롬프트를 찾을 수 없습니다.');
+      if (payload.updated_at !== current.updated_at) throw new Error('다른 곳에서 변경된 항목입니다. 새로고침 후 다시 시도해 주세요.');
+      const patch = payload.patch as Row;
+      if (!patch || typeof patch !== 'object' || Array.isArray(patch) || Object.keys(patch).some(key => !GEO_EDITABLE_FIELDS.geo_prompts.includes(key))) throw new Error('변경할 수 없는 필드입니다.');
+      if (payload.tag_ids !== undefined) {
+        if (!Array.isArray(payload.tag_ids) || payload.tag_ids.length > 50 || new Set(payload.tag_ids).size !== payload.tag_ids.length) throw new Error('태그를 확인해 주세요.');
+        for (const id of payload.tag_ids) validateGeoRecord('geo_prompt_tag_assignments', { workspace_id: workspaceId, prompt_id: current.id, tag_id: id, id: (this.tables.get('geo_prompt_tag_assignments') || []).find(row => row.prompt_id === current.id && row.tag_id === id)?.id }, this.tables);
       }
+      const [prompt] = this.updateTable('geo_prompts', patch, { id: `eq.${current.id}`, workspace_id: `eq.${workspaceId}` }, actorUserId);
+      if (Array.isArray(payload.tag_ids)) {
+        this.deleteTable('geo_prompt_tag_assignments', { prompt_id: `eq.${current.id}`, workspace_id: `eq.${workspaceId}` }, actorUserId);
+        for (const id of payload.tag_ids) this.insertTable('geo_prompt_tag_assignments', { workspace_id: workspaceId, prompt_id: current.id, tag_id: id }, actorUserId);
+      }
+      return { ok: true, prompt };
+    }
 
-      const evaluation = await this.providers.runGeoPrompt(promptText, engine);
-      const [runRow] = this.insertTable(
-        'geo_prompt_runs',
-        {
-          workspace_id: workspaceId,
-          prompt_id: promptId,
-          engine: evaluation.engine,
-          model_name: evaluation.modelName,
-          mode: 'search',
-          status: 'completed',
-          answer_text: evaluation.answerText,
-          requested_at: now,
-          finished_at: now,
-          cost_usd: 0.0025,
-        },
-        actorUserId
-      );
-
-      const citationRows = this.insertTable(
-        'geo_citations',
-        evaluation.citations.map(c => ({
-          workspace_id: workspaceId,
-          run_id: runRow.id,
-          ...c,
-        })),
-        actorUserId
-      );
-
-      const [metricRow] = this.insertTable(
-        'geo_run_metrics',
-        {
-          workspace_id: workspaceId,
-          run_id: runRow.id,
-          brand_mentioned: evaluation.brandMentioned,
-          is_cited: evaluation.isCited,
-          citation_rate: evaluation.citationRate,
-          our_citation_count: evaluation.citations.filter(c => c.is_ours).length,
-          competitor_citation_count: evaluation.citations.filter(c => c.is_competitor).length,
-          other_citation_count: 0,
-          source_but_not_cited: false,
-        },
-        actorUserId
-      );
-
-      return {
-        ok: true,
-        function: fnName,
-        workspace_id: workspaceId,
-        prompt_id: promptId,
-        run: runRow,
-        citations: citationRows,
-        metrics: metricRow,
-      };
+    if (['geo-run', 'geo-run-prompts-fanout', 'geo-run-openai', 'geo-run-claude'].includes(fnName)) {
+      let prompt = payload.prompt_id ? (this.tables.get('geo_prompts') || []).find(row => row.id === payload.prompt_id && row.workspace_id === workspaceId) : undefined;
+      if (payload.prompt_id && !prompt) throw new RlsAccessDeniedError('이 워크스페이스의 프롬프트를 찾을 수 없습니다.');
+      const isNew = !prompt;
+      const forcedEngine = fnName === 'geo-run-openai' ? 'openai' : fnName === 'geo-run-claude' ? 'claude' : undefined;
+      let setId = prompt ? prompt.prompt_set_id : payload.prompt_set_id;
+      if (setId === undefined) {
+        let set = (this.tables.get('geo_prompt_sets') || []).find(row => row.workspace_id === workspaceId && row.is_default);
+        set ||= (this.tables.get('geo_prompt_sets') || []).find(row => row.workspace_id === workspaceId);
+        set ||= this.insertTable('geo_prompt_sets', { workspace_id: workspaceId, name: '기본 프롬프트 세트', is_default: true }, actorUserId)[0];
+        setId = set.id;
+      }
+      const set = (this.tables.get('geo_prompt_sets') || []).find(row => row.id === setId && row.workspace_id === workspaceId);
+      const engines = forcedEngine ? [forcedEngine] : payload.engine ? [payload.engine] : payload.engines ?? prompt?.engines ?? [set?.default_engine || 'openai'];
+      if (!Array.isArray(engines) || !engines.length || engines.length > 4 || new Set(engines).size !== engines.length || engines.some(engine => typeof engine !== 'string' || !Object.hasOwn(GEO_ENGINES, engine))) throw new Error('실행할 엔진을 1~4개 선택해 주세요.');
+      let reservation: { reservation_id: string; idempotent?: boolean } | undefined;
+      if (!prompt) {
+        const draft = validateGeoRecord('geo_prompts', { workspace_id: workspaceId, prompt_set_id: setId, prompt_text: payload.prompt_text, prompt_category: payload.prompt_category ?? 'informational', language_code: payload.language_code ?? 'ko', location_code: payload.location_code ?? 'KR', engines, is_active: true, is_paused: false, deleted_at: null }, this.tables);
+        reservation = this.callRpc('reserve_unit_with_bypass', { p_workspace_id: workspaceId, p_unit_key: 'prompt_create', p_amount: 1, p_idempotency_key: String(payload.idempotency_key || crypto.randomUUID()) }, actorUserId) as { reservation_id: string; idempotent?: boolean };
+        if (reservation.idempotent) throw new Error('이미 사용된 생성 요청입니다. 목록을 확인한 뒤 새 요청으로 다시 시도해 주세요.');
+        [prompt] = this.insertTable('geo_prompts', draft, actorUserId);
+      }
+      const results: Row[] = [];
+      for (const engine of engines) results.push(await this.executeGeoPrompt(prompt, String(engine), actorUserId));
+      if (isNew && results.some(result => !result.ok)) throw new Error('AI 응답 수집에 실패했습니다. 입력을 확인하고 다시 시도해 주세요.');
+      if (reservation) this.callRpc('commit_reservation', { p_reservation_id: reservation.reservation_id }, actorUserId);
+      return { ...results[0], ok: results.every(result => result.ok), function: fnName, workspace_id: workspaceId, prompt_id: prompt.id, results };
     }
 
     if (fnName === 'site-audit' || fnName === 'site-audit-start') {
