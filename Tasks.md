@@ -144,7 +144,7 @@ flowchart TD
 | Phase 4 | 완료 | 라우트 스크린샷 18장, `p4-css-tokens.json`, `docs/clone/design-system.md` |
 | Phase 5 | 완료 | `p5-*.json`, `docs/clone/data-model.md`, 점수 공식 3종 실측 일치 |
 | Phase 6 | 완료 — 검증 관문 통과 | `p6-obligation-ledger.json`(의무 11, `verified: 9`, `required_open: 0`, `status: ready`), `docs/clone/*.md` 세트 |
-| Phase 7 | 완료 — 전체 스택(S1~S8) 및 회귀 검증(P1~P2) 구현 | `src/lib/metrics/`, `src/lib/backend/`, `src/app/api/v1/`, `supabase/`, `scripts/verify-*.mjs` |
+| Phase 7 | 완료 — S1~S8 완료 기준 충족(커밋 `493270a`에서 재검증), 스택은 Next.js로 확정 | `docs/clone/implementation-plan.md` §6 증거표, `src/`, `supabase/`, `e2e/`, `npm run test:unit · verify:sql · verify:backend · test:e2e` |
 
 ## 실행 편차 기록
 
