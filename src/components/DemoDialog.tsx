@@ -51,7 +51,7 @@ function DialogSession({ request, onClose, onComplete }: SessionProps) {
     const data: Record<string, string> = {};
     for (const field of Array.from(form.elements)) if ((field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement || field instanceof HTMLSelectElement) && field.name && field.type !== 'password' && !field.closest('[hidden]')) data[field.name] = field.value.trim();
     Object.keys(data).forEach(key => { if (/password|token|secret/i.test(key)) delete data[key]; });
-    const name = data.name || data.keyword || data.email || data.url || Object.values(data).find(value => value.trim()) || '';
+    const name = data.name || data.keyword || data['prompt-text'] || data.email || data.url || Object.values(data).find(value => value.trim()) || '';
     if (!name && !deleting) { setError(`${nameLabel}을(를) 입력해 주세요.`); return; }
     const saved = readRecords(request.route);
     try {
@@ -99,7 +99,7 @@ function DialogSession({ request, onClose, onComplete }: SessionProps) {
       return node.name === 'textarea' ? <textarea {...inputProps} /> : <input {...inputProps} />;
     }
     if (node.name === 'button') {
-      if (attrs.type === 'submit' || /^(저장|등록|추가|만들기|진단 시작|작성 완료|피드백 등록|피드백 제출|엔티티 추가|시작하기)$/.test(text)) return <button {...props} type="submit" disabled={false}>{children()}</button>;
+      if (attrs.type === 'submit' || /^(저장|등록|추가|만들기|진단 시작|작성 완료|피드백 등록|피드백 제출|엔티티 추가|시작하기|프롬프트 추가|다음: 수집 범위)$/.test(text)) return <button {...props} type="submit" disabled={false}>{children()}</button>;
       if (/^(취소|닫기|Close)$/.test(text)) return <button {...props} type="button" onClick={onClose}>{children()}</button>;
       if (text === '수정') return <button {...props} type="button" aria-expanded={knowledge} onClick={() => setKnowledge(!knowledge)}>{children()}</button>;
       if (/콘텐츠/.test(request.title)&&!request.template?.includes('<input')) return <button {...props} type="button" onClick={()=>{update('source',text);setTemplateActive(false)}}>{children()}</button>;

@@ -8,3 +8,5 @@ docs/research/captures/
 __pycache__/
 *.pyc
 docs/research/haloxlabs.ai/initial.json
+test-results/
+playwright-report/

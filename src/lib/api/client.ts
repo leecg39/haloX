@@ -123,7 +123,7 @@ export async function syncDialogActionToBackend(result: DialogResult): Promise<v
       else if (route.startsWith('/app/site-audit')) targetTable = 'site_audit_scans';
       else if (route.startsWith('/app/factory') || route.startsWith('/app/optimize')) targetTable = 'content_jobs';
       else if (route.startsWith('/app/reports')) targetTable = 'report_snapshots';
-      else if (/API/i.test(result.title)) targetTable = 'workspace_api_keys';
+      else if (/API|키 발급/i.test(result.title)) targetTable = 'workspace_api_keys';
 
       await deleteTableRows(targetTable, { id: `eq.${deletedId}` });
       return;
@@ -212,7 +212,7 @@ export async function syncDialogActionToBackend(result: DialogResult): Promise<v
       return;
     }
 
-    if (/API/i.test(result.title)) {
+    if (/API|키 발급/i.test(result.title)) {
       const keyPrefix = (result.values.demoKey || 'hx_live_demo').slice(0, 12);
       await fetch('/api/v1/rest/workspace_api_keys', {
         method: 'POST',
