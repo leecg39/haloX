@@ -5,7 +5,7 @@ import { RlsAccessDeniedError } from '@/lib/backend/database';
 import { readReferral } from '@/lib/backend/referral-service';
 import { readFeedback } from '@/lib/backend/feedback-service';
 export async function GET(request: NextRequest) {
-  const auth = authenticate(request); if (auth.response) return auth.response;
+  const auth = await authenticate(request); if (auth.response) return auth.response;
   try {
     const p = request.nextUrl.searchParams, kind = p.get('kind');
     if (kind !== 'referral' && kind !== 'feedback') throw new Error('페이지 종류를 확인해 주세요.');

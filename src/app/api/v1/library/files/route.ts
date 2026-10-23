@@ -6,7 +6,7 @@ import { RlsAccessDeniedError } from '@/lib/backend/database';
 
 /** Bound multipart bytes before parsing; a missing Content-Length is not a bypass. */
 export async function POST(request: NextRequest) {
-  const auth = authenticate(request);
+  const auth = await authenticate(request);
   if (auth.response) return auth.response;
   try {
     const reader = request.body?.getReader();

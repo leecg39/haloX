@@ -11,7 +11,7 @@ export async function POST(
   context: { params: Promise<{ fn: string }> }
 ) {
   const { fn } = await context.params;
-  const auth = authenticate(req);
+  const auth = await authenticate(req);
   if (auth.response) return auth.response;
   const userId = auth.actor;
   // Quota reservations are part of server-side domain transactions. Allowing

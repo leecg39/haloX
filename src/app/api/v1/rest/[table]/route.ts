@@ -43,7 +43,7 @@ export async function GET(
   context: { params: Promise<{ table: string }> }
 ) {
   const { table } = await context.params;
-  const auth = authenticate(req);
+  const auth = await authenticate(req);
   if (auth.response) return auth.response;
   const userId = auth.actor;
   const url = new URL(req.url);
@@ -83,7 +83,7 @@ export async function HEAD(
   context: { params: Promise<{ table: string }> }
 ) {
   const { table } = await context.params;
-  const auth = authenticate(req);
+  const auth = await authenticate(req);
   if (auth.response) return auth.response;
   const userId = auth.actor;
   const filters = extractFilters(req);
@@ -111,7 +111,7 @@ export async function POST(
   context: { params: Promise<{ table: string }> }
 ) {
   const { table } = await context.params;
-  const auth = authenticate(req);
+  const auth = await authenticate(req);
   if (auth.response) return auth.response;
   const userId = auth.actor;
   try {
@@ -131,7 +131,7 @@ export async function PATCH(
   context: { params: Promise<{ table: string }> }
 ) {
   const { table } = await context.params;
-  const auth = authenticate(req);
+  const auth = await authenticate(req);
   if (auth.response) return auth.response;
   const userId = auth.actor;
   const filters = extractFilters(req);
@@ -152,7 +152,7 @@ export async function DELETE(
   context: { params: Promise<{ table: string }> }
 ) {
   const { table } = await context.params;
-  const auth = authenticate(req);
+  const auth = await authenticate(req);
   if (auth.response) return auth.response;
   const userId = auth.actor;
   const filters = extractFilters(req);

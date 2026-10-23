@@ -39,7 +39,7 @@ export async function POST(
   const { name } = await context.params;
   // halox-mcp authenticates with a workspace API key instead of a user session;
   // its handler ignores the actor argument.
-  const auth: AuthResult = name === 'halox-mcp' ? { actor: DEFAULT_USER_ID } : authenticate(req);
+  const auth: AuthResult = name === 'halox-mcp' ? { actor: DEFAULT_USER_ID } : await authenticate(req);
   if (auth.response) return auth.response;
   const userId = auth.actor;
 

@@ -9,7 +9,7 @@ function file(bytes: Uint8Array, filename: string, mime: string) {
   return new NextResponse(Buffer.from(bytes), { headers: { 'Content-Type': mime, 'Content-Length': String(bytes.length), 'Content-Disposition': `attachment; filename="halox-raw.${filename.endsWith('.zip') ? 'zip' : 'json'}"; filename*=UTF-8''${encodeURIComponent(filename).replace(/['()*]/g, char => '%' + char.charCodeAt(0).toString(16))}`, 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff', 'Content-Security-Policy': "default-src 'none'; sandbox" } });
 }
 export async function GET(request: NextRequest) {
-  const auth = authenticate(request); if (auth.response) return auth.response;
+  const auth = await authenticate(request); if (auth.response) return auth.response;
   const params = request.nextUrl.searchParams, workspace = params.get('workspace_id'); if (!workspace) return NextResponse.json({ error: '워크스페이스를 선택해 주세요.' }, { status: 400 });
   try {
     const kind = rawKind(params.get('kind')), mode = params.get('mode') || 'list';

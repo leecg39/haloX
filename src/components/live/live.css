@@ -163,3 +163,19 @@
 .live-portal-page .live-card > p{margin:8px 0}
 .feedback-thread{margin:16px 0}
 .feedback-excerpt{white-space:pre-wrap;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+.clone-app main[data-live-root]:has(.live-account-page){overflow:auto!important;min-height:0!important}
+.live-account-page{max-width:1000px;margin:auto;padding-bottom:60px;overflow-wrap:anywhere}
+.live-account-page>.live-card,.live-account-page>.live-tabs{margin-bottom:24px}
+.live-account-page .live-tabs a{padding:10px 4px}
+.live-account-page .live-tabs a[aria-current=page]{border-bottom:2px solid #171717;font-weight:600}
+.account-details{display:grid;grid-template-columns:130px 1fr;gap:12px;margin:20px 0}
+.account-details dd{margin:0}.account-details dt{color:#73737b}
+.account-form{display:grid;gap:16px}.account-form fieldset{display:grid;gap:16px;border:0;padding:0;min-width:0;margin:0}
+.account-form label{display:grid;gap:8px;font-size:14px}.account-form input{width:100%;min-width:0}
+.account-field{display:grid;gap:8px}
+.account-password,.account-code{display:flex;align-items:end;gap:8px;min-width:0}.account-password input,.account-code label{flex:1;min-width:0}.account-password button,.account-code button{flex-shrink:0;white-space:nowrap}
+.account-proof{display:grid;gap:12px}.account-proof p{font-size:13px;margin:0}
+.live.account-recovery{min-height:0;height:100dvh;overflow:auto;max-width:540px;margin:auto;padding:40px 20px}.account-brand{font-size:24px;font-weight:700;display:inline-block;margin-bottom:24px}
+.account-recovery h1{font-size:24px}.account-recovery .live-card{padding:28px}.account-recovery .muted{font-size:13px;line-height:1.7}
+@media(max-width:600px){.account-details{grid-template-columns:1fr;gap:6px}.account-details dd{margin-bottom:10px}.account-recovery{padding:24px 16px}.account-recovery .live-card{padding:20px}.live-account-page .live-tabs{flex-wrap:wrap}}

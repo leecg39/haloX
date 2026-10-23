@@ -23,7 +23,7 @@ export function normalizePhone(value: unknown): string {
 }
 
 export interface SmsSender {
-  send(phone: string, code: string): Promise<void>;
+  send(phone: string, code: string, purpose?: 'signup' | 'password-reset' | 'phone-change'): Promise<void>;
 }
 
 export function createSolapiSender(env: Record<string, string | undefined> = process.env, fetcher: typeof fetch = fetch): SmsSender {
@@ -34,7 +34,7 @@ export function createSolapiSender(env: Record<string, string | undefined> = pro
     throw new PhoneVerificationError('문자 인증 서비스가 아직 설정되지 않았습니다. 관리자에게 문의해 주세요.', 'SMS_NOT_CONFIGURED', 503);
   }
   return {
-    async send(phone, code) {
+    async send(phone, code, purpose = 'signup') {
       const date = new Date().toISOString();
       const salt = crypto.randomBytes(16).toString('hex');
       const signature = crypto.createHmac('sha256', apiSecret).update(date + salt).digest('hex');
@@ -45,7 +45,7 @@ export function createSolapiSender(env: Record<string, string | undefined> = pro
             Authorization: `HMAC-SHA256 apiKey=${apiKey}, date=${date}, salt=${salt}, signature=${signature}`,
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ messages: [{ to: phone, from: sender, text: `[HaloX] 인증번호 [${code}] (5분 내 입력)`, type: 'SMS' }] }),
+          body: JSON.stringify({ messages: [{ to: phone, from: sender, text: `[HaloX] ${purpose === 'password-reset' ? '비밀번호 재설정' : purpose === 'phone-change' ? '전화번호 변경' : '회원가입'} 인증번호 [${code}] (5분 내 입력)`, type: 'SMS' }] }),
           signal: AbortSignal.timeout(8_000),
         });
         const body = await response.json() as {

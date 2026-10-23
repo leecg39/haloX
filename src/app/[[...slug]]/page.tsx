@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getCapture } from '@/lib/content';
 import ClonePage from '@/components/ClonePage';
+import { AccountPage } from '@/components/live/AccountPage';
+import { PasswordRecoveryPage } from '@/components/AccountSecurityForms';
 import { ReferralPage } from '@/components/live/ReferralPage';
 import { FeedbackPage } from '@/components/live/FeedbackPage';
 import { RawDataPage } from '@/components/live/RawDataPage';
@@ -30,13 +32,15 @@ async function resolveRoute(props: Props) {
 }
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const route = await resolveRoute(props), pathname = route.split('?')[0];
-  const portalTitle = pathname === '/app/referral' ? '추천 프로그램' : /^\/app\/feedback(?:\/[^/]+)?$/.test(pathname) ? '피드백' : undefined;
+  if (['/app/forgot-password', '/app/reset-password'].includes(pathname)) return { title: '비밀번호 재설정 | HaloX', robots: { index: false, follow: false } };
+  const portalTitle = pathname === '/app/settings' && new URLSearchParams(route.split('?')[1]).get('tab') === 'profile' ? '내 프로필과 보안' : pathname === '/app/referral' ? '추천 프로그램' : /^\/app\/feedback(?:\/[^/]+)?$/.test(pathname) ? '피드백' : undefined;
   if (portalTitle) return { title: `${portalTitle} | HaloX`, robots: { index: false, follow: false } };
   const data = await getCapture(route);
   return { title: data?.title || 'HaloX', robots: { index: false, follow: false } };
 }
 export default async function Page(props: Props) {
   const route = await resolveRoute(props), pathname = route.split('?')[0];
+  if (['/app/forgot-password', '/app/reset-password'].includes(pathname)) return <PasswordRecoveryPage />;
   if (pathname === '/app/workspaces') return <Workspaces />;
   let shellRoute: string | undefined;
   let children;
@@ -65,6 +69,7 @@ export default async function Page(props: Props) {
   if (pathname === '/app/seo/insights' || pathname === '/app/geo/analysis') {
     shellRoute = pathname; children = <AnalysesPage kind={pathname.includes('/seo/') ? 'seo' : 'geo'} initialTab={new URLSearchParams(route.split('?')[1]).get('tab') || undefined} />;
   }
+  if (pathname === '/app/settings' && new URLSearchParams(route.split('?')[1]).get('tab') === 'profile') { shellRoute = '/app'; children = <AccountPage />; }
   if (pathname === '/app/gap') { shellRoute = pathname; children = <GapPage />; }
   if (pathname === '/app/referral') { shellRoute = pathname; children = <ReferralPage />; }
   if (/^\/app\/feedback(?:\/[^/]+)?$/.test(pathname)) { shellRoute = '/app/feedback'; children = <FeedbackPage threadId={pathname.split('/')[3]} support={new URLSearchParams(route.split('?')[1]).get('view') === 'support'} />; }

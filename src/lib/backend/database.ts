@@ -3,6 +3,7 @@
  */
 
 import crypto from 'node:crypto';
+import type { AccountCollection } from './account-session.ts';
 import type { PortalCollection } from '../api/portal.ts';
 import { REFERRAL_COMMANDS, runReferralCommand } from './referral-service.ts';
 import { FEEDBACK_COMMANDS, runFeedbackCommand } from './feedback-service.ts';
@@ -145,11 +146,11 @@ export class HaloXDatabase {
   }
 
   /** Separate from the public table whitelist: no REST/RPC access. */
-  public getServerRecords(collection: PortalCollection | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
+  public getServerRecords(collection: AccountCollection | PortalCollection | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
     return structuredClone(this.serverRecords[collection] ?? []);
   }
 
-  public setServerRecords(collection: PortalCollection | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
+  public setServerRecords(collection: AccountCollection | PortalCollection | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
     this.serverRecords[collection] = structuredClone(rows);
   }
 
@@ -942,6 +943,12 @@ export class HaloXDatabase {
     return { id, email, full_name: input.fullName };
   }
 
+  /** Server-only: caller must consume a purpose-bound phone proof in the same transaction. */
+  public setVerifiedAccountPhone(actor: string, phone: string): void {
+    if ((this.tables.get('profiles') || []).some(row => row.id !== actor && row.phone_number === phone)) throw new Error('이미 등록된 휴대폰 번호입니다.');
+    this.updateTable('profiles', { phone_number: phone, phone_verified_at: new Date().toISOString() }, { id: `eq.${actor}` }, actor);
+  }
+
   public assertWorkspaceMember(workspaceId: string, userId = DEFAULT_USER_ID): void {
     const allowed = this.getAllowedWorkspaceIds(userId);
     if (!allowed.has(workspaceId)) {
@@ -1269,6 +1276,7 @@ export class HaloXDatabase {
         delete safePatch.key_hash;
       }
       const validated = validateContentRecord(tableName, validateLibraryRecord(tableName, validateGeoRecord(tableName, validateKeywordRecord(tableName, { ...row, ...safePatch, updated_at: now }, this.tables), this.tables), this.tables), this.tables);
+      if (tableName === 'profiles') validated.revision = Number(row.revision || 0) + 1;
       if (tableName === 'keywords' && ['keyword', 'language', 'country'].some(field => row[field] !== validated[field])) {
         for (const snapshot of this.tables.get('serp_snapshots') || []) if (snapshot.keyword_id === row.id) snapshot.keyword_text ??= row.keyword;
         Object.assign(validated, { search_volume: null, search_volume_google_ads: null, keyword_difficulty: null, intent: null, status: 'pending' });

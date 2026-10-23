@@ -11,6 +11,7 @@
 - [후속 계획](docs/clone/next-plan.md)
 - [전체 메뉴 CRUD 실행 작업표](docs/clone/full-crud-tasks.md)
 - [관리자 로그인·SOLAPI·영속 저장 설정](docs/clone/auth-and-storage.md)
+- [프로필·비밀번호 복구·세션 관리](docs/clone/account-security-crud.md)
 - [REA 공개 사이트 역공학·반영 결과](docs/rea/public-site/README.md)
 
 ## 실행

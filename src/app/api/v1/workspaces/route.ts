@@ -4,7 +4,7 @@ import { haloxStore, StorageUnavailableError } from '@/lib/backend/store';
 
 /** Workspace management reads one consistent, membership-filtered snapshot. */
 export async function GET(request: NextRequest) {
-  const auth = authenticate(request);
+  const auth = await authenticate(request);
   if (auth.response) return auth.response;
   try {
     const data = await haloxStore.read(db => ({

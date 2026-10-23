@@ -11,6 +11,7 @@ interface Challenge extends Row {
   phoneHash: string;
   clientHash: string;
   codeHash: string;
+  contextHash?: string;
   createdAt: number;
   expiresAt: number;
   attempts: number;
@@ -36,7 +37,7 @@ export class PhoneVerificationService {
     return crypto.createHmac('sha256', this.secret).update(`phone-verification:${value}`).digest('hex');
   }
 
-  async send(phoneInput: unknown, client: string): Promise<{ challengeId: string; expiresAt: number; retryAfter: number }> {
+  async send(phoneInput: unknown, client: string, context = 'signup', deliver = true): Promise<{ challengeId: string; expiresAt: number; retryAfter: number }> {
     if (!this.sender) throw new PhoneVerificationError('문자 인증 서비스가 아직 설정되지 않았습니다.', 'SMS_NOT_CONFIGURED', 503);
     const phone = normalizePhone(phoneInput);
     const code = String(crypto.randomInt(0, 1_000_000)).padStart(6, '0');
@@ -56,11 +57,11 @@ export class PhoneVerificationService {
       }
       // Reserving before the external call prevents concurrent double sends.
       // The reservation remains on failure/timeout, when delivery may be unknown.
-      rows.push({ id, phoneHash, clientHash, codeHash: this.hash(`code:${id}:${code}`), createdAt: now, expiresAt: now + TTL, attempts: 0, status: 'pending' });
+      rows.push({ id, phoneHash, clientHash, contextHash: this.hash(`context:${context}`), codeHash: this.hash(`code:${id}:${code}`), createdAt: now, expiresAt: now + TTL, attempts: 0, status: 'pending' });
       db.setServerRecords('phone_verification', rows);
     });
     try {
-      await this.sender.send(phone, code);
+      if (deliver) await this.sender.send(phone, code, context.startsWith('password-reset:') ? 'password-reset' : context.startsWith('phone-change:') ? 'phone-change' : 'signup');
     } catch (error) {
       await this.store.write(db => {
         const rows = db.getServerRecords('phone_verification') as Challenge[];
@@ -73,15 +74,15 @@ export class PhoneVerificationService {
     await this.store.write(db => {
       const rows = db.getServerRecords('phone_verification') as Challenge[];
       for (const row of rows) {
-        if (row.phoneHash === phoneHash && row.id !== id) row.status = 'failed';
-        if (row.id === id) row.status = 'sent';
+        if (row.phoneHash === phoneHash && (row.contextHash || this.hash('context:signup')) === this.hash(`context:${context}`) && row.id !== id) row.status = 'failed';
+        if (row.id === id) row.status = deliver ? 'sent' : 'failed';
       }
       db.setServerRecords('phone_verification', rows);
     });
     return { challengeId: id, expiresAt: now + TTL, retryAfter: COOLDOWN / 1000 };
   }
 
-  async verify(phoneInput: unknown, challengeId: unknown, code: unknown): Promise<{ verificationToken: string; expiresAt: number }> {
+  async verify(phoneInput: unknown, challengeId: unknown, code: unknown, context = 'signup'): Promise<{ verificationToken: string; expiresAt: number }> {
     const phone = normalizePhone(phoneInput);
     if (typeof challengeId !== 'string' || challengeId.length > 100 || typeof code !== 'string' || !/^\d{6}$/.test(code)) {
       throw new PhoneVerificationError('인증번호 6자리를 입력해 주세요.', 'INVALID_CODE');
@@ -92,7 +93,7 @@ export class PhoneVerificationService {
     const result = await this.store.write(db => {
       const rows = db.getServerRecords('phone_verification') as Challenge[];
       const row = rows.find(item => item.id === challengeId && item.phoneHash === this.hash(`phone:${phone}`));
-      if (!row || row.status !== 'sent' || now >= row.expiresAt || row.attempts >= 5) return false;
+      if (!row || (row.contextHash || this.hash('context:signup')) !== this.hash(`context:${context}`) || row.status !== 'sent' || now >= row.expiresAt || row.attempts >= 5) return false;
       row.attempts += 1;
       const valid = crypto.timingSafeEqual(Buffer.from(row.codeHash, 'hex'), Buffer.from(this.hash(`code:${challengeId}:${code}`), 'hex'));
       if (valid) {
@@ -108,12 +109,12 @@ export class PhoneVerificationService {
   }
 
   /** Called inside the same transaction as account creation to prevent reuse. */
-  consume(db: HaloXDatabase, phoneInput: unknown, token: unknown): string {
+  consume(db: HaloXDatabase, phoneInput: unknown, token: unknown, context = 'signup'): string {
     const phone = normalizePhone(phoneInput);
     if (typeof token !== 'string' || token.length !== 43) throw new PhoneVerificationError('휴대폰 인증을 먼저 완료해 주세요.', 'PHONE_VERIFICATION_REQUIRED');
     const rows = db.getServerRecords('phone_verification') as Challenge[];
     const row = rows.find(item => item.phoneHash === this.hash(`phone:${phone}`) && item.tokenHash === this.hash(`token:${token}`));
-    if (!row || row.status !== 'verified' || !row.tokenExpiresAt || this.now() >= row.tokenExpiresAt) {
+    if (!row || (row.contextHash || this.hash('context:signup')) !== this.hash(`context:${context}`) || row.status !== 'verified' || !row.tokenExpiresAt || this.now() >= row.tokenExpiresAt) {
       throw new PhoneVerificationError('휴대폰 인증이 만료되었습니다. 다시 인증해 주세요.', 'PHONE_VERIFICATION_REQUIRED');
     }
     row.status = 'consumed';

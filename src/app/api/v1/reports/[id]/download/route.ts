@@ -4,7 +4,7 @@ import { haloxStore, StorageUnavailableError } from '@/lib/backend/store';
 import { RlsAccessDeniedError } from '@/lib/backend/database';
 import { reportDownload } from '@/lib/backend/report-service';
 export async function GET(request: NextRequest, context: { params: Promise<{ id: string }> }) {
-  const auth = authenticate(request); if (auth.response) return auth.response;
+  const auth = await authenticate(request); if (auth.response) return auth.response;
   try {
     const { id } = await context.params;
     const file = await haloxStore.read(db => reportDownload(db, id, auth.actor, request.nextUrl.searchParams.get('format') || 'json'));

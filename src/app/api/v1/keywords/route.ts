@@ -6,7 +6,7 @@ import { RlsAccessDeniedError } from '@/lib/backend/database';
 
 /** One authorized, consistent snapshot instead of nine independent table reads. */
 export async function GET(request: NextRequest) {
-  const auth = authenticate(request);
+  const auth = await authenticate(request);
   if (auth.response) return auth.response;
   const workspaceId = request.nextUrl.searchParams.get('workspace_id');
   if (!workspaceId) return NextResponse.json({ error: '워크스페이스를 선택해 주세요.' }, { status: 400 });

@@ -2,7 +2,7 @@
  * Signed session tokens (HMAC-SHA256) for the /api/v1 surface.
  *
  * Replaces the former `x-halox-user-id` header, which let any caller act as any user.
- * Token format: `v1.<base64url(JSON {sub, exp})>.<base64url(HMAC-SHA256)>`.
+ * Token format: `v1.<base64url(JSON {sub, exp, sid, iat})>.<base64url(HMAC-SHA256)>`.
  * Secrets come only from the environment and fail fast when missing.
  */
 import crypto from 'node:crypto';
@@ -51,29 +51,37 @@ function safeEqual(a: string, b: string): boolean {
   return left.length === right.length && crypto.timingSafeEqual(left, right);
 }
 
-export function createSessionToken(userId: string, options: { now?: number } = {}): string {
+export type SessionClaims = { sub: string; exp: number; sid: string; iat: number };
+
+export function createSessionToken(userId: string, options: { now?: number; sessionId?: string } = {}): string {
   if (!UUID_RE.test(userId)) throw new Error('Session subject must be a user UUID');
   const issuedAt = options.now ?? Date.now();
-  const body = Buffer.from(JSON.stringify({ sub: userId, exp: issuedAt + SESSION_TTL_MS })).toString('base64url');
+  const sid = options.sessionId || crypto.randomUUID();
+  if (!UUID_RE.test(sid)) throw new Error('Session id must be a UUID');
+  const body = Buffer.from(JSON.stringify({ sub: userId, exp: issuedAt + SESSION_TTL_MS, sid, iat: issuedAt })).toString('base64url');
   return `${TOKEN_VERSION}.${body}.${sign(body, sessionSecret())}`;
 }
 
-/** Returns the user id for a valid, unexpired token; null for anything else. */
-export function verifySessionToken(token: unknown): string | null {
-  if (typeof token !== 'string') return null;
+/** Returns validated signed claims; HTTP authorization also requires the session registry. */
+export function readSessionToken(token: unknown): SessionClaims | null {
+  if (typeof token !== 'string' || token.length > 2048) return null;
   const parts = token.split('.');
   if (parts.length !== 3 || parts[0] !== TOKEN_VERSION) return null;
   const [, body, signature] = parts;
   if (!safeEqual(signature, sign(body, sessionSecret()))) return null;
   try {
-    const payload = JSON.parse(Buffer.from(body, 'base64url').toString('utf8')) as { sub?: unknown; exp?: unknown };
+    const payload = JSON.parse(Buffer.from(body, 'base64url').toString('utf8')) as SessionClaims;
     if (typeof payload.sub !== 'string' || !UUID_RE.test(payload.sub)) return null;
-    if (typeof payload.exp !== 'number' || payload.exp <= Date.now()) return null;
-    return payload.sub;
+    if (!Number.isSafeInteger(payload.exp) || payload.exp <= Date.now() || !Number.isSafeInteger(payload.iat) || payload.iat > Date.now() + 60_000 || payload.exp - payload.iat !== SESSION_TTL_MS) return null;
+    if (typeof payload.sid !== 'string' || !UUID_RE.test(payload.sid)) return null;
+    return payload;
   } catch {
     return null;
   }
 }
+
+/** Cryptographic verification only. HTTP authorization must also check the durable session registry. */
+export function verifySessionToken(token: unknown): string | null { return readSessionToken(token)?.sub || null; }
 
 function cookieValue(cookieHeader: string | null, name: string): string | null {
   if (!cookieHeader) return null;
@@ -85,10 +93,12 @@ function cookieValue(cookieHeader: string | null, name: string): string | null {
 }
 
 /** Actor from the session cookie or an `Authorization: Bearer <session>` header. */
-export function actorFromHeaders(headers: Headers): string | null {
+export function sessionFromHeaders(headers: Headers): SessionClaims | null {
   const bearer = headers.get('authorization')?.match(/^Bearer\s+(\S+)$/i)?.[1] ?? null;
-  return verifySessionToken(cookieValue(headers.get('cookie'), SESSION_COOKIE)) ?? verifySessionToken(bearer);
+  return readSessionToken(cookieValue(headers.get('cookie'), SESSION_COOKIE)) ?? readSessionToken(bearer);
 }
+
+export function actorFromHeaders(headers: Headers): string | null { return sessionFromHeaders(headers)?.sub || null; }
 
 export function requireActor(headers: Headers): string {
   const actor = actorFromHeaders(headers);

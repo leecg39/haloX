@@ -5,6 +5,7 @@ import { ADMIN_USER_ID, DEFAULT_USER_ID, OTHER_USER_ID } from './database.ts';
 import type { PersistentHaloXStore } from './store.ts';
 import type { PhoneVerificationService } from './phone-verification.ts';
 import { verifyDemoPassword } from './session.ts';
+import { credentialVersion } from './account-session.ts';
 import { normalizePhone, PhoneVerificationError } from './sms.ts';
 
 const scrypt = promisify(crypto.scrypt);
@@ -27,7 +28,7 @@ export async function authenticatePassword(store: PersistentHaloXStore, email: s
   const { profile, credential } = await store.read(db => {
     const profile = db.findProfileByEmail(email);
     const credential = db.getServerRecords('account_credentials').find(row => row.user_id === profile?.id);
-    return { profile, credential };
+    return { profile: profile ? { ...profile, credential_version: credentialVersion(db, profile.id) } : null, credential };
   });
   if (profile && credential && typeof credential.password_hash === 'string') {
     return await verifyPasswordHash(password, credential.password_hash) ? profile : null;

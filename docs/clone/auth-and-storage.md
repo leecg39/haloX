@@ -7,7 +7,7 @@ Node.js **22.13 이상**을 사용한다(현재 검증 버전 22.23.1). `.env.ex
 | 환경변수 | 용도 |
 |---|---|
 | `HALOX_SESSION_SECRET` | 최소 32자 난수. 로그인 서명 및 휴대폰 인증 정보 HMAC |
-| `HALOX_DEMO_PASSWORD` | 로컬 시드 계정 `admin@halox.local`, `demo@halox.local`, `other@halox.local` 로그인 비밀번호 |
+| `HALOX_DEMO_PASSWORD` | 로컬 시드 계정 `admin@halox.local`, `demo@halox.local`, `other@halox.local` 최초 로그인 비밀번호. 개인 비밀번호 변경 후에는 해당 계정의 해시를 사용 |
 | `SOLAPI_API_KEY` | SOLAPI API Key |
 | `SOLAPI_API_SECRET` | SOLAPI API Secret. 브라우저로 전달하지 않음 |
 | `SOLAPI_SENDER` | SOLAPI에 사전 등록한 발신번호 |
@@ -23,11 +23,17 @@ Node.js **22.13 이상**을 사용한다(현재 검증 버전 22.23.1). `.env.ex
 3. 같은 API에 `{ action: "verify", phone, challengeId, code }`를 보내면 서버가 검증한다. 성공 시 전화번호에 묶인 10분 유효 단회 증표를 반환한다.
 4. `/api/v1/auth/signup`이 증표 소비·계정·scrypt 비밀번호 해시·워크스페이스·소유자 멤버십을 한 트랜잭션으로 저장한다. 중복 이메일/전화번호 등 실패 시 전체를 롤백한다. 가입 후 로그인 페이지로 이동한다.
 
-제한: 코드 5분, 오입력 5회, 재발송 60초, 전화번호당 시간당 5회, 클라이언트당 시간당 20회, 전체 시간당 100회. 발송 실패/타임아웃도 예약을 유지하여 불확실한 결과를 자동 재발송하지 않는다. 새 코드가 접수되면 이전 코드는 무효다. 번호 변경 시 화면의 인증 상태를 지운다.
+제한: 코드 5분, 오입력 5회, 재발송 60초, 전화번호당 시간당 5회, 클라이언트당 시간당 20회, 전체 시간당 100회. 발송 실패/타임아웃도 예약을 유지하여 불확실한 결과를 자동 재발송하지 않는다. 같은 용도로 새 코드가 접수되면 이전 코드는 무효다. 가입·전화번호 변경·복구의 인증 범위는 분리한다. 번호 변경 시 화면의 인증 상태를 지운다.
 
 SOLAPI 설정이 없으면 HTTP 503 `SMS_NOT_CONFIGURED`, 접수 실패/타임아웃은 HTTP 502 `SMS_SEND_FAILED`다. 접수 성공은 단말 수신 확인을 의미하지 않는다. **실제 발송은 API Key/Secret·등록 발신번호와 사용자가 지정한 수신번호로 별도 확인해야 한다. 자동 테스트는 실제 문자를 보내지 않는다.**
 
 구현 근거: [SOLAPI HMAC 인증](https://solapi.com/developers/api/authentication-api-key), [메시지 발송 API](https://solapi.com/developers/api/messages). `POST /messages/v4/send-many/detail`의 `failedMessageList`와 `groupInfo.count.registeredSuccess/registeredFailed`를 확인한다.
+
+## 프로필·비밀번호 복구·세션
+
+`/app/settings?tab=profile`에서 이름, 인증된 전화번호, 비밀번호와 활성 세션을 관리한다. 계정 메뉴의 ‘내 프로필과 보안’으로 이동한다. `/app/forgot-password`와 `/app/reset-password`는 등록된 이메일과 인증된 휴대폰 번호를 통해 복구한다. SOLAPI 설정은 가입과 공유한다.
+
+로그인 세션은 SQLite에 등록하고 모든 사용자 인증 API가 유효 여부를 확인한다. 로그아웃은 해당 쿠키/Bearer 세션을 폐기하고 비밀번호 변경·복구는 전체 세션을 폐기한다. **이전 형식의 로그인 쿠키는 전환 후 한 번 다시 로그인해야 한다.** 시드 계정의 개인 비밀번호 변경 후에는 기존 환경변수 비밀번호로 그 계정에 로그인할 수 없다. 자세한 제한과 검증은 [계정 복구·프로필·세션 관리](account-security-crud.md)를 참조한다.
 
 ## 저장 및 운영 범위
 
@@ -38,6 +44,10 @@ REST/RPC/함수/인증은 동일 SQLite 파일의 최신 상태를 사용한다.
 전체 스냅샷을 저장하는 로컬 구현이므로 대규모 데이터·분산 배포에는 적합하지 않다. 서버리스 임시 파일시스템에는 배포하지 말고 영속 디스크를 사용한다. 기존 Supabase 마이그레이션과 이 런타임은 자동 동기화되지 않는다. 외부 분석/콘텐츠/결제 Provider는 아직 결정적 데모 구현이다. 전체 메뉴 진행 상태는 [작업표](full-crud-tasks.md)를 참조한다.
 
 ## 검증
+
+최신 계정 복구·프로필·세션 반영 후 전체 단위 **222/222**, E2E **73/73**, 백엔드 **22/22** 통과. 최종 변경 후 관련 단위 **34/34**, 계정 E2E **5/5**, 타입 검사·빌드도 통과했다. 363개 경로의 누락·실패는 없다. 세부 범위와 별도 SQLite에서의 브라우저 검증은 [계정 검증](account-security-crud.md), 전체 메뉴의 남은 작업은 [작업표](full-crud-tasks.md)를 참조한다.
+
+이전 단계의 검증 기록:
 
 2026-10-23 전략맵 반영 후 실행: 단위 **146/146**, E2E **50/50**, 백엔드 검사 **22/22**, Next.js 빌드 및 타입 검사 통과. E2E의 SMS 전송은 fixture이며 실제 인증 검증·가입·개인 비밀번호 로그인·워크스페이스/키워드/프롬프트/페르소나/자료/콘텐츠/최적화/내보내기/번역문/사이트 진단/전략맵 CRUD·버전 관리·파일 저장과 예약 실행은 HTTP API 및 독립 SQLite DB를 사용한다. 실발송 성공을 의미하지 않는다. WordPress/DeepL 원격 요청도 테스트 대역으로 검증하며 실 사이트 게시·유료 번역 성공을 의미하지 않는다. 사이트 진단은 자동 검사에서는 공개 응답 fixture를 사용하고, Ego Lite에서 별도로 실제 공개 HTML 수집과 서버 재시작 후 재개를 확인했다. [진단 검증](site-audit-crud.md). 전략맵은 별도 브라우저에서 그룹·관계 저장과 새로고침 및 모바일 스크롤을 확인했다. 마지막 스크롤 수정 후 전략 E2E **3/3**과 최종 빌드를 다시 통과했다. [전략맵 검증](strategy-crud.md).
 

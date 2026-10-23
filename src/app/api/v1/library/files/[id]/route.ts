@@ -4,7 +4,7 @@ import { haloxStore, StorageUnavailableError } from '@/lib/backend/store';
 import { RlsAccessDeniedError } from '@/lib/backend/database';
 
 export async function GET(request: NextRequest, context: { params: Promise<{ id: string }> }) {
-  const auth = authenticate(request);
+  const auth = await authenticate(request);
   if (auth.response) return auth.response;
   const { id } = await context.params;
   try {

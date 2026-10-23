@@ -5,7 +5,7 @@ import { RlsAccessDeniedError } from '@/lib/backend/database';
 import { readExportFile } from '@/lib/backend/export-service';
 
 export async function GET(request: NextRequest, context: { params: Promise<{ id: string }> }) {
-  const auth = authenticate(request); if (auth.response) return auth.response;
+  const auth = await authenticate(request); if (auth.response) return auth.response;
   try {
     const { id } = await context.params;
     const file = await haloxStore.read(db => readExportFile(db, id, auth.actor));

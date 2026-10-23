@@ -5,11 +5,12 @@ import { haloxStore, StorageUnavailableError } from '@/lib/backend/store';
 import {
   SESSION_COOKIE,
   SessionConfigError,
-  createSessionToken,
+  AuthRequiredError,
   sessionCookieOptions,
 } from '@/lib/backend/session';
 import { createRateLimiter, type RateLimitResult } from '@/lib/backend/rate-limit';
 import { authenticatePassword } from '@/lib/backend/accounts';
+import { issueSession, revokeSession } from '@/lib/backend/account-session';
 
 // Failed-login limits (15 min windows): per client+email, per email (spoofed IPs), per client.
 const WINDOW_MS = 15 * 60 * 1000;
@@ -46,7 +47,7 @@ function sessionView(db: HaloXDatabase, userId: string) {
 
 /** Current session. */
 export async function GET(req: NextRequest) {
-  const auth = authenticate(req);
+  const auth = await authenticate(req);
   if (auth.response) return auth.response;
   try {
     const session = await haloxStore.read(db => sessionView(db, auth.actor));
@@ -90,15 +91,16 @@ export async function POST(req: NextRequest) {
 
     failuresByClientEmail.reset(keys.clientEmail);
     failuresByEmail.reset(keys.email);
-    const token = createSessionToken(profile.id);
-    const session = await haloxStore.write(db => {
+    const { token, session } = await haloxStore.write(db => {
+      const { token } = issueSession(db, profile.id, profile.credential_version, req.headers.get('user-agent') || '');
       db.callRpc('record_auth_login', { p_method: 'password', p_device_id: null }, profile.id);
-      return sessionView(db, profile.id);
+      return { token, session: sessionView(db, profile.id) };
     });
     const res = NextResponse.json({ ok: true, access_token: token, token_type: 'bearer', ...session });
     res.cookies.set(SESSION_COOKIE, token, sessionCookieOptions());
     return res;
   } catch (error) {
+    if (error instanceof AuthRequiredError) return NextResponse.json({ error: error.message, code: error.code }, { status: 401 });
     if (error instanceof StorageUnavailableError) {
       return NextResponse.json({ error: error.message, code: error.code }, { status: 503 });
     }
@@ -111,8 +113,14 @@ export async function POST(req: NextRequest) {
   }
 }
 
-/** Logout: clears the session cookie. */
-export async function DELETE() {
+/** Logout invalidates this session, including copies used as Bearer tokens. */
+export async function DELETE(req: NextRequest) {
+  const auth = await authenticate(req);
+  if (auth.response && auth.response.status !== 401) return auth.response;
+  if (!auth.response) {
+    try { await haloxStore.write(db => revokeSession(db, auth.actor, auth.sessionId)); }
+    catch (error) { if (!(error instanceof AuthRequiredError)) return NextResponse.json({ error: '세션을 종료하지 못했습니다. 다시 시도해 주세요.' }, { status: 503 }); }
+  }
   const res = NextResponse.json({ ok: true });
   res.cookies.set(SESSION_COOKIE, '', { ...sessionCookieOptions(), maxAge: 0 });
   return res;

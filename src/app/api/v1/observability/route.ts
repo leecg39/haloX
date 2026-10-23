@@ -6,7 +6,7 @@ import { readDashboard } from '@/lib/backend/observation-model';
 import { readMonitoring } from '@/lib/backend/monitor-service';
 import { readReports } from '@/lib/backend/report-service';
 export async function GET(request: NextRequest) {
-  const auth = authenticate(request); if (auth.response) return auth.response;
+  const auth = await authenticate(request); if (auth.response) return auth.response;
   const params = request.nextUrl.searchParams, workspace = params.get('workspace_id'), kind = params.get('kind');
   if (!workspace || !['dashboard', 'monitoring', 'reports'].includes(kind || '')) return NextResponse.json({ error: '조회 화면과 워크스페이스를 선택해 주세요.' }, { status: 400 });
   try {

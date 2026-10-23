@@ -89,14 +89,14 @@
       "status": 200,
       "rendered": true,
       "sourceStatus": "captured",
-      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+      "title": "피드백 | HaloX"
     },
     {
       "route": "/app/forgot-password",
       "status": 200,
       "rendered": true,
       "sourceStatus": "captured",
-      "title": "Reset your password | HaloX"
+      "title": "비밀번호 재설정 | HaloX"
     },
     {
       "route": "/app/gap",
@@ -376,7 +376,7 @@
       "status": 200,
       "rendered": true,
       "sourceStatus": "captured",
-      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+      "title": "추천 프로그램 | HaloX"
     },
     {
       "route": "/app/reports",
