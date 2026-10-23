@@ -43,6 +43,7 @@ test('a forged session token is rejected', async ({ request }) => {
 test('each user only sees their own workspace after login', async ({ playwright, baseURL }) => {
   for (const [email, expected, hidden] of [
     ['demo@halox.local', WORKSPACE, '22222222-2222-4000-8000-222222222222'],
+    ['admin@halox.local', WORKSPACE, '22222222-2222-4000-8000-222222222222'],
     ['other@halox.local', '22222222-2222-4000-8000-222222222222', WORKSPACE],
   ] as const) {
     const ctx = await playwright.request.newContext({ baseURL });
@@ -58,8 +59,9 @@ test('each user only sees their own workspace after login', async ({ playwright,
 test('login form signs in through the UI and logout ends the session', async ({ page }) => {
   await page.goto('/app/keywords');
   await expect(page).toHaveURL(/\/app\/login/);
+  await expect(page.locator('form[data-clone-form="true"]')).toHaveAttribute('method', 'post');
 
-  await page.locator('input[type=email]').fill('demo@halox.local');
+  await page.locator('input[type=email]').fill('admin@halox.local');
   await page.locator('input[type=password]').fill('wrong-password');
   await page.locator('input[type=password]').press('Enter');
   await expect(page.locator('.clone-toast')).toContainText('이메일 또는 비밀번호가 올바르지 않습니다');
@@ -68,6 +70,7 @@ test('login form signs in through the UI and logout ends the session', async ({ 
   await page.locator('input[type=password]').fill(process.env.HALOX_DEMO_PASSWORD!);
   await page.locator('input[type=password]').press('Enter');
   await expect(page).toHaveURL(/\/app$/);
+  await expect(page.getByText('admin@halox.local', { exact: true })).toBeVisible();
   expect((await page.request.get('/api/v1/auth')).status()).toBe(200);
 
   expect((await page.request.delete('/api/v1/auth')).status()).toBe(200);

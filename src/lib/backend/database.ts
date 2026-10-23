@@ -25,6 +25,7 @@ import {
 
 export const DEFAULT_USER_ID = '00000000-0000-4000-8000-000000000001';
 export const OTHER_USER_ID = '00000000-0000-4000-8000-000000000002';
+export const ADMIN_USER_ID = '00000000-0000-4000-8000-000000000003';
 export const DEFAULT_WORKSPACE_ID = '11111111-1111-4000-8000-111111111111';
 export const ISOLATED_WORKSPACE_ID = '22222222-2222-4000-8000-222222222222';
 export const DEFAULT_KEYWORD_SET_ID = '33333333-3333-4000-8000-333333333333';
@@ -97,6 +98,7 @@ export class HaloXDatabase {
     ensure('profiles', [
       { id: DEFAULT_USER_ID, email: 'demo@halox.local', full_name: 'HaloX 데모 관리자', phone_number: '010-0000-0000', created_at: now, updated_at: now },
       { id: OTHER_USER_ID, email: 'other@halox.local', full_name: '외부 테넌트 사용자', phone_number: null, created_at: now, updated_at: now },
+      { id: ADMIN_USER_ID, email: 'admin@halox.local', full_name: 'HaloX 관리자', phone_number: null, created_at: now, updated_at: now },
     ]);
 
     ensure('workspaces', [
@@ -160,6 +162,16 @@ export class HaloXDatabase {
         email: 'other@halox.local',
         full_name: '외부 테넌트 사용자',
         role: 'owner',
+        allowed_sections: ['all'],
+        joined_at: now,
+      },
+      {
+        id: '10000000-0000-4000-8000-000000000003',
+        workspace_id: DEFAULT_WORKSPACE_ID,
+        user_id: ADMIN_USER_ID,
+        email: 'admin@halox.local',
+        full_name: 'HaloX 관리자',
+        role: 'admin',
         allowed_sections: ['all'],
         joined_at: now,
       },

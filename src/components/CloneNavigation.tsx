@@ -127,6 +127,7 @@ const SEARCH_ITEMS: readonly Item[] = [...APP_ITEMS, ["설정", "/app/settings"]
 const ACCOUNT_ITEMS: readonly Item[] = [["Pro로 업그레이드", "/app/settings?tab=billing"], ["설정", "/app/settings"], ["결제", "/app/settings?tab=billing"], ["알림", "/app/settings?tab=notifications"], ["추천 프로그램", "/app/referral"], ["피드백", "/app/feedback"], ["문서", "https://docs.haloxlabs.ai"], ["로그아웃", "/app/login"]];
 const LANGUAGE_ITEMS: readonly Item[] = [["한국어", "/ko"], ["English", "/en"]];
 const GROUPS: Record<number, string> = { 1: "분석", 5: "전략", 7: "실행", 10: "모니터링", 12: "기타" };
+const PUBLIC_APP_ROUTE = /^\/app\/(login|signup|forgot-password|reset-password|find-email|auth\/callback|verify-phone|invite)(\/|\?|$)/;
 
 function publicItems(locale: string, kind: string): Item[] {
   const en = locale === "en";
@@ -147,6 +148,7 @@ export function useCloneNavigation({ rootRef, route, navigate, openDialog, notif
   const triggerRef = useRef<HTMLElement | null>(null);
   const collapsedRef = useRef(false);
   const locale = route.match(/^\/(ko|en|ja|zh|id|vi)(?:\/|$)/)?.[1] || "ko";
+  const needsWorkspaces = route.startsWith("/app") && !PUBLIC_APP_ROUTE.test(route);
 
   const refreshWorkspaces = useCallback(async () => {
     const current = readActiveWorkspace();
@@ -158,6 +160,7 @@ export function useCloneNavigation({ rootRef, route, navigate, openDialog, notif
   }, [rootRef]);
 
   useEffect(() => {
+    if (!needsWorkspaces) return;
     void refreshWorkspaces();
     const onWsChange = () => {
       void refreshWorkspaces();
@@ -168,7 +171,7 @@ export function useCloneNavigation({ rootRef, route, navigate, openDialog, notif
       window.removeEventListener("halox:workspace-changed", onWsChange);
       window.removeEventListener("halox:record-created", onWsChange);
     };
-  }, [refreshWorkspaces]);
+  }, [refreshWorkspaces, needsWorkspaces]);
 
   const close = useCallback(() => {
     setMenu(null); setQuery("");
