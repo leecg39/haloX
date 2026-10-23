@@ -73,3 +73,16 @@ test('login form signs in through the UI and logout ends the session', async ({ 
   expect((await page.request.delete('/api/v1/auth')).status()).toBe(200);
   expect((await page.request.get('/api/v1/auth')).status()).toBe(401);
 });
+
+// Keep last in this file: it locks other@halox.local for the rest of the run.
+test('repeated failed logins lock the account, even for the correct password', async ({ request }) => {
+  const email = 'other@halox.local';
+  for (let i = 1; i <= 5; i += 1) {
+    const res = await request.post('/api/v1/auth', { data: { email, password: `wrong-${i}` } });
+    expect(res.status(), `attempt ${i}`).toBe(401);
+  }
+  const locked = await request.post('/api/v1/auth', { data: { email, password: process.env.HALOX_DEMO_PASSWORD } });
+  expect(locked.status()).toBe(429);
+  expect(Number(locked.headers()['retry-after'])).toBeGreaterThan(0);
+  expect(locked.headers()['set-cookie'] ?? '').not.toContain('halox_session=v1.');
+});

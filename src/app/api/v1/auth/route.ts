@@ -8,6 +8,25 @@ import {
   sessionCookieOptions,
   verifyDemoPassword,
 } from '@/lib/backend/session';
+import { createRateLimiter, type RateLimitResult } from '@/lib/backend/rate-limit';
+
+// Failed-login limits (15 min windows): per client+email, per email (spoofed IPs), per client.
+const WINDOW_MS = 15 * 60 * 1000;
+const failuresByClientEmail = createRateLimiter({ limit: 5, windowMs: WINDOW_MS });
+const failuresByEmail = createRateLimiter({ limit: 10, windowMs: WINDOW_MS });
+const failuresByClient = createRateLimiter({ limit: 20, windowMs: WINDOW_MS });
+
+function clientKey(req: NextRequest): string {
+  return req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || req.headers.get('x-real-ip') || 'local';
+}
+
+function tooManyAttempts(results: RateLimitResult[]) {
+  const retryAfter = Math.max(...results.map(r => r.retryAfterSeconds));
+  return NextResponse.json(
+    { error: 'Too many login attempts. Try again later.', code: 'RATE_LIMITED' },
+    { status: 429, headers: { 'Retry-After': String(retryAfter) } }
+  );
+}
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -44,14 +63,27 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Valid email and password are required', code: 'INVALID_REQUEST' }, { status: 400 });
   }
 
+  const keys = { clientEmail: `${clientKey(req)}|${email.toLowerCase()}`, email: email.toLowerCase(), client: clientKey(req) };
+  const precheck = [
+    failuresByClientEmail.check(keys.clientEmail),
+    failuresByEmail.check(keys.email),
+    failuresByClient.check(keys.client),
+  ];
+  if (precheck.some(r => !r.allowed)) return tooManyAttempts(precheck.filter(r => !r.allowed));
+
   try {
     const profile = haloxDb.findProfileByEmail(email);
     // Always run the password check so unknown emails and wrong passwords take similar time.
     const passwordOk = verifyDemoPassword(password);
     if (!profile || !passwordOk) {
+      failuresByClientEmail.hit(keys.clientEmail);
+      failuresByEmail.hit(keys.email);
+      failuresByClient.hit(keys.client);
       return NextResponse.json({ error: 'Invalid email or password', code: 'INVALID_CREDENTIALS' }, { status: 401 });
     }
 
+    failuresByClientEmail.reset(keys.clientEmail);
+    failuresByEmail.reset(keys.email);
     const token = createSessionToken(profile.id);
     haloxDb.callRpc('record_auth_login', { p_method: 'password', p_device_id: null }, profile.id);
     const res = NextResponse.json({ ok: true, access_token: token, token_type: 'bearer', ...sessionView(profile.id) });
