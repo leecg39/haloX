@@ -126,6 +126,7 @@ test('quota reservations cannot be created, committed or released directly by cl
   for (const fn of ['reserve_unit_with_bypass', 'commit_reservation', 'release_reservation']) {
     const response = await request.post(`/api/v1/rpc/${fn}`, { data: { p_workspace_id: WORKSPACE, p_reservation_id: reservations[0].id, p_unit_key: 'prompt_create', p_amount: 1 } });
     expect(response.status()).toBe(403);
+    expect((await request.post('/api/v1/functions/rpc-cache', { data: { rpc_name: fn, args: { p_workspace_id: WORKSPACE, p_reservation_id: reservations[0].id } } })).status()).toBe(403);
   }
   expect(await rows(request, 'usage_reservations', `workspace_id=eq.${WORKSPACE}`)).toEqual(reservations);
 });

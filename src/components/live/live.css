@@ -57,4 +57,13 @@
 .live-history summary { cursor: pointer; }
 .live-history details[open] > p { margin-top: 12px; }
 .live-answer { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; line-height: 1.8; background: #fafafa; padding: 16px; border-radius: 7px; margin-top: 14px; }
+.live-section { margin-top: 28px; }
+.live-section > .live-head { margin-bottom: 14px; }
+.live-section > .muted { margin-bottom: 12px; }
+.live-grid > *, .live-library-detail { min-width: 0; overflow-wrap: anywhere; }
+.live-preserve, .live-definition dd { white-space: pre-wrap; overflow-wrap: anywhere; }
+.live-definition { display: grid; grid-template-columns: 100px minmax(0,1fr); gap: 12px; margin: 20px 0; }
+.live-definition dt { color: #737373; }
+.live-definition dd { margin: 0; }
+.live-card h3 { font-size: 15px; font-weight: 600; }
 @media(max-width:700px) { .live-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } .live-head { align-items:flex-start; } .live-toolbar > * { max-width:100%!important; } [data-live-root] { padding:20px 16px!important; } }

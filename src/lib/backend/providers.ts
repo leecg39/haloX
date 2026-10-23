@@ -64,11 +64,16 @@ export interface ContentDraftGenerationResult {
   groundingSources: string[];
 }
 
+export interface ContentGenerationContext {
+  persona?: { id: string; name: string; description: string; audience: string; tone: string; forbiddenTerms: string[]; samples: { title: string; content: string; url: string }[] };
+  knowledge: { id: string; name: string; description: string; body: string; sources: { id: string; title: string; url: string; content: string; filename: string }[]; contexts: { title: string; content: string; sourceId: string | null }[] }[];
+}
+
 export interface HaloXProviders {
   collectSerp(keyword: string, engine?: 'google' | 'naver'): Promise<SerpSnapshotResult>;
   runGeoPrompt(promptText: string, engine: string, brandDomain?: string): Promise<GeoRunEvaluationResult>;
   crawlSiteAudit(targetUrl: string, maxPages?: number): Promise<SiteAuditCrawlResult>;
-  generateContentDraft(targetKeyword: string, title?: string): Promise<ContentDraftGenerationResult>;
+  generateContentDraft(targetKeyword: string, title?: string, context?: ContentGenerationContext): Promise<ContentDraftGenerationResult>;
 }
 
 function deterministicHash(input: string): number {
@@ -184,7 +189,7 @@ export function createDeterministicProviders(): HaloXProviders {
       };
     },
 
-    async generateContentDraft(targetKeyword: string, title?: string): Promise<ContentDraftGenerationResult> {
+    async generateContentDraft(targetKeyword: string, title?: string, context?: ContentGenerationContext): Promise<ContentDraftGenerationResult> {
       const resolvedTitle = title || `${targetKeyword}: AI 검색 시대의 핵심 전략 가이드`;
       const contentMd = [
         `# ${resolvedTitle}`,
@@ -200,6 +205,8 @@ export function createDeterministicProviders(): HaloXProviders {
         '## 3. 자주 묻는 질문 (FAQ)',
         `### Q1. ${targetKeyword} 점수는 어떻게 개선하나요?`,
         '상위 10위 내 유기적 노출 확보와 함께 AI Overview 인용에 적합한 요약 단락을 문서 상단에 배치합니다.',
+        ...(context?.persona ? ['', '## 작성 지침 (데모)', `페르소나: ${context.persona.name}`, context.persona.description, `독자: ${context.persona.audience || '미지정'}`, `문체: ${context.persona.tone || '미지정'}`, `사용하지 않을 표현: ${context.persona.forbiddenTerms.join(', ') || '없음'}`, ...context.persona.samples.map(sample => `예문: ${sample.content}`)] : []),
+        ...(context?.knowledge.length ? ['', '## 참조 자료 (사용자 제공)', ...context.knowledge.flatMap(entity => [`### ${entity.name}`, entity.description, entity.body, ...entity.sources.map(source => `${source.title}${source.url ? ` (${source.url})` : ''}\n${source.content}`), ...entity.contexts.map(item => `${item.title}\n${item.content}`)])] : []),
       ].join('\n');
 
       return {
@@ -211,7 +218,7 @@ export function createDeterministicProviders(): HaloXProviders {
         seoScore: 89,
         aioScore: 86,
         wordCount: contentMd.length,
-        groundingSources: ['https://brizzi.kr/guides/geo-strategy'],
+        groundingSources: context ? context.knowledge.flatMap(entity => entity.sources.map(source => source.url).filter(Boolean)) : ['https://brizzi.kr/guides/geo-strategy'],
       };
     },
   };

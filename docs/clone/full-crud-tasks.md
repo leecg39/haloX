@@ -16,10 +16,10 @@
 - [x] F04 공개 REST의 인증/플랜 변경 제한, 멤버 자기 권한 상승 방지, 워크스페이스 소유자 보호, API 키 전체 비밀값 검증. 서버 도메인 작업과 공개 REST 권한을 분리한다.
 - [x] F05 E2E는 실행마다 별도 SQLite 파일 사용. 개발 DB를 건드리지 않으며 테스트가 종료되면 파일을 정리한다.
 - [x] F06 워크스페이스 목록/선택을 서버 ID 기준으로 전환. 임의 기본 항목 및 localStorage 레코드 병합 제거.
-- [ ] F07 나머지 페이지의 localStorage 레코드·성공 먼저 알림·비동기 백엔드 동기화를 제거. **워크스페이스·키워드·GEO 프롬프트(모든 탭/상세/개요)는 전환 완료**. 나머지 메뉴는 미완료.
-- [ ] F08 공통 `WorkspaceProvider` 구현, 선택 ID 재검증·탭 간 전환·오류 재시도 및 키워드/GEO 프롬프트 전체 조회/쓰기에 적용. 세션/플랜은 한 번 조회하여 공통 헤더와 공유하고 각 CRUD 화면은 집계 API 사용. **다른 메뉴의 `DEFAULT_WORKSPACE_UUID` 의존 제거는 남음**.
-- [ ] F09 키워드·GEO 프롬프트·세트·태그/그룹·연결·아이디어의 필수값/길이/언어·국가/도메인/외래키/중복 검증, 삭제 정책 적용. REST 측정값 직접 변경 차단. **다른 도메인의 검증은 남음**.
-- [ ] F10 GEO 일일 예약 실행기·저장 커서·복수 실행기 중복 방지 구현. 공개 사용량 예약 변경 차단 및 프롬프트 생성 키 재사용 차단. **장기 작업 큐·취소·범용 요청 중복 처리, 조회 RPC 읽기 전용 분류, 백업/복원 도구는 남음**.
+- [ ] F07 나머지 페이지의 localStorage 레코드·성공 먼저 알림·비동기 백엔드 동기화를 제거. **워크스페이스·키워드·GEO 프롬프트·페르소나·지식허브(관련 탭/상세/개요)는 전환 완료**. 나머지 메뉴는 미완료.
+- [ ] F08 공통 `WorkspaceProvider` 구현, 선택 ID 재검증·탭 간 전환·오류 재시도 및 키워드/GEO 프롬프트/페르소나/지식허브 조회·쓰기에 적용. 세션/플랜은 한 번 조회하여 공통 헤더와 공유하고 각 CRUD 화면은 집계 API 사용. **다른 메뉴의 `DEFAULT_WORKSPACE_UUID` 의존 제거는 남음**.
+- [ ] F09 키워드·GEO 프롬프트·세트·태그/그룹·연결·아이디어·페르소나/예문·지식 자료/출처/근거의 필수값/길이/언어·국가/URL/외래키/중복 검증, 삭제 정책 적용. REST 측정값·생성 시 참조 스냅샷 직접 변경 차단. **다른 도메인의 검증은 남음**.
+- [ ] F10 GEO 일일 예약 실행기·저장 커서·복수 실행기 중복 방지 구현. 공개 사용량 예약 변경 및 rpc-cache 우회 차단, 프롬프트/콘텐츠 생성 키 재사용 차단. **장기 작업 큐·취소·범용 요청 중복 처리, 조회 RPC 읽기 전용 분류, 백업/복원 도구는 남음**.
 
 현재 SQLite는 기존 도메인 엔진의 전체 상태를 버전 있는 JSON 스냅샷으로 트랜잭션 저장한다. 로컬/단일 서버에서 실제 영속성을 제공하지만 정규화된 Postgres 구현은 아니다. Supabase SQL 마이그레이션은 별도 검증 자산으로 남아 있으며 이 런타임과 연결하지 않았다. 여러 서버가 파일을 공유하는 배포나 대규모 데이터에는 DB 어댑터 교체가 필요하다. 런타임 저장 파일과 비밀키는 Git에 포함하지 않는다.
 
@@ -52,8 +52,8 @@
 | P11 `/app/exports` | export_history, export_destinations, article_translations | 내보내기 설정 CRUD, 실제 파일 생성·이력 조회·재다운로드·삭제 | 실제 다운로드/번역물, 자격증명 비공개 저장, 배포는 명시적 작업 |
 | P12 `/app/monitoring` | monitor_rules, geo_alerts, workspace_events | 감시 규칙 CRUD, 켜기/끄기, 발생 이벤트 조회·확인 | 주기 실행기, 임계값 검증, 규칙 삭제와 알림 정리 |
 | P13 `/app/reports`, `/app/reports/weekly` | report_snapshots/summaries/action_items | 주간/월간 생성·상세·메모/액션 수정·삭제·내보내기 | 기존 스냅샷 함수 외 실제 목록/상세·리포트 설정 |
-| P14 `/app/personas` | writing_style_profiles | 이름/대상/문체/금지어/예시 CRUD, 기본 페르소나 선택 | 폼·목록/상세 연결, 콘텐츠 작업이 참조하는 경우 삭제 처리 |
-| P15 `/app/knowledgehub` | knowledge_entities/sources/evidence_contexts | 자료/출처 등록·조회·수정·삭제, 유형 검색, 콘텐츠 참조 | 실제 본문/파일 저장, 파일 제한·삭제 정리·출처 참조 검증 |
+| P14 `/app/personas`, `/app/personas/:id` | writing_style_profiles, writing_style_samples | 이름/대상/문체/금지어/예문 CRUD, 기본 페르소나 선택, 콘텐츠 생성 참조 | 구현·CRUD/새로고침/실패/격리 E2E. 삭제 시 연결 해제 및 생성 당시 내용 보존. [구현 내역](library-crud.md) |
+| P15 `/app/knowledgehub`, `/app/knowledgehub/:id` | knowledge_entities/sources/evidence_contexts, keyword_knowledge_entities, 비공개 파일 | 자료/출처/근거 CRUD, 본문·파일 저장/다운로드, 유형 검색, 키워드 연결, 콘텐츠 참조 | 구현·파일 바이트/권한/제한/연쇄 삭제·모바일 E2E. PDF는 원본 보관, TXT/MD는 본문 읽기. [구현 내역](library-crud.md) |
 | P16 `/app/raw-data` | SERP/GEO/진단 원본 읽기, raw_import_batches | 필터/상세/다운로드, 가져오기 등록·메타 수정·삭제 | 원본 출처 보존, 가져온 데이터 삭제만 허용, 재집계 E2E |
 | P17 `/app/referral` | referral_codes/referral_invites/rewards | 추천 코드 생성·조회·이름 수정·폐기, 초대/보상 내역 | 코드 유일성/자기추천 방지, 보상 원장은 서버만 변경 |
 | P18 `/app/feedback` | feedback_threads/replies | 글 작성·내 글 조회·수정·삭제, 관리자 답변/상태 변경 | 작성자/관리자 권한, 개인정보 범위, 목록·상세 E2E |

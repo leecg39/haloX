@@ -6,6 +6,10 @@ import crypto from 'node:crypto';
 import { KEYWORD_EDITABLE_FIELDS, validateKeywordRecord } from './keyword-model.ts';
 import { GEO_EDITABLE_FIELDS, nextGeoSchedule, validateGeoRecord } from './geo-model.ts';
 import { GEO_ENGINES } from '../api/prompts.ts';
+import { validateLibraryRecord } from './library-model.ts';
+import { prepareLibraryFile } from './library-files.ts';
+import { MAX_LIBRARY_WORKSPACE_BYTES } from '../api/library.ts';
+import type { ContentGenerationContext } from './providers.ts';
 import {
   aiTrafficShare,
   aviComposite,
@@ -854,6 +858,8 @@ export class HaloXDatabase {
       'gsc_daily_totals',
       'gsc_sync_state',
       'keyword_knowledge_entities',
+      'writing_style_samples',
+      'evidence_contexts',
       'keyword_serp_jobs',
       'keyword_tag_assignments',
       'keyword_ideas',
@@ -1158,16 +1164,16 @@ export class HaloXDatabase {
       const workspaceId = String(item.workspace_id || [...this.getAllowedWorkspaceIds(actorUserId)][0] || '');
       this.assertWorkspaceMember(workspaceId, actorUserId);
 
-      const record: Row = validateGeoRecord(tableName, validateKeywordRecord(tableName, {
+      const record: Row = validateLibraryRecord(tableName, validateGeoRecord(tableName, validateKeywordRecord(tableName, {
         created_at: now,
         updated_at: now,
         ...item,
         id: typeof item.id === 'string' ? item.id : crypto.randomUUID(),
         workspace_id: workspaceId,
-      }, this.tables), this.tables);
+      }, this.tables), this.tables), this.tables);
       if (table.some(row => row.id === record.id)) throw new Error('이미 존재하는 ID입니다.');
-      if (['keyword_sets', 'geo_prompt_sets'].includes(tableName) && record.is_default === true) {
-        for (const other of table) if (other.workspace_id === workspaceId) other.is_default = false;
+      if (['keyword_sets', 'geo_prompt_sets', 'writing_style_profiles'].includes(tableName) && record.is_default === true) {
+        for (const other of table) if (other.workspace_id === workspaceId && other.is_default) { other.is_default = false; other.updated_at = now; }
       }
 
       let issuedSecret: string | undefined;
@@ -1234,7 +1240,7 @@ export class HaloXDatabase {
       if (tableName === 'workspace_api_keys') {
         delete safePatch.key_hash;
       }
-      const validated = validateGeoRecord(tableName, validateKeywordRecord(tableName, { ...row, ...safePatch, updated_at: now }, this.tables), this.tables);
+      const validated = validateLibraryRecord(tableName, validateGeoRecord(tableName, validateKeywordRecord(tableName, { ...row, ...safePatch, updated_at: now }, this.tables), this.tables), this.tables);
       if (tableName === 'keywords' && ['keyword', 'language', 'country'].some(field => row[field] !== validated[field])) {
         for (const snapshot of this.tables.get('serp_snapshots') || []) if (snapshot.keyword_id === row.id) snapshot.keyword_text ??= row.keyword;
         Object.assign(validated, { search_volume: null, search_volume_google_ads: null, keyword_difficulty: null, intent: null, status: 'pending' });
@@ -1244,7 +1250,7 @@ export class HaloXDatabase {
           run.prompt_text ??= row.prompt_text; run.language_code ??= row.language_code; run.location_code ??= row.location_code;
         }
       }
-      if (['keyword_sets', 'geo_prompt_sets'].includes(tableName) && validated.is_default === true) {
+      if (['keyword_sets', 'geo_prompt_sets', 'writing_style_profiles'].includes(tableName) && validated.is_default === true) {
         for (const other of table) if (other.workspace_id === row.workspace_id && other.id !== row.id && other.is_default) { other.is_default = false; other.updated_at = now; }
       }
       Object.assign(row, validated);
@@ -1301,6 +1307,20 @@ export class HaloXDatabase {
 
     this.tables.set(tableName, remaining);
     const deletedIds = new Set(deleted.map(row => row.id));
+    if (tableName === 'writing_style_profiles') {
+      this.tables.set('writing_style_samples', (this.tables.get('writing_style_samples') || []).filter(row => !deletedIds.has(row.writing_style_profile_id)));
+      for (const job of this.tables.get('content_jobs') || []) if (deletedIds.has(job.writing_style_profile_id)) job.writing_style_profile_id = null;
+    }
+    if (tableName === 'knowledge_entities') {
+      this.deleteTable('knowledge_entity_sources', { knowledge_entity_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
+      for (const name of ['evidence_contexts', 'keyword_knowledge_entities']) this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.knowledge_entity_id)));
+      for (const name of ['evidence_claims', 'knowledge_claim_stats']) this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.entity_id)));
+      for (const job of this.tables.get('content_jobs') || []) if (Array.isArray(job.knowledge_entity_ids)) job.knowledge_entity_ids = job.knowledge_entity_ids.filter(id => !deletedIds.has(id));
+    }
+    if (tableName === 'knowledge_entity_sources') {
+      this.serverRecords.knowledge_files = (this.serverRecords.knowledge_files || []).filter(row => !deletedIds.has(row.source_id));
+      for (const context of this.tables.get('evidence_contexts') || []) if (deletedIds.has(context.source_id)) context.source_id = null;
+    }
     if (tableName === 'geo_prompt_sets') for (const row of this.tables.get('geo_prompts') || []) if (deletedIds.has(row.prompt_set_id)) row.prompt_set_id = null;
     if (tableName === 'geo_prompts') {
       this.deleteTable('geo_prompt_runs', { prompt_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
@@ -1326,6 +1346,7 @@ export class HaloXDatabase {
     if (tableName === 'workspace_tag_groups') for (const row of this.tables.get('workspace_tags') || []) if (deletedIds.has(row.group_id)) row.group_id = null;
     if (tableName === 'workspaces' && deleted.length) {
       const workspaceIds = new Set(deleted.map(row => String(row.id)));
+      this.serverRecords.knowledge_files = (this.serverRecords.knowledge_files || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
       const keywordIds = new Set((this.tables.get('keywords') || []).filter(row => workspaceIds.has(String(row.workspace_id))).map(row => String(row.id)));
       for (const [name, rows] of this.tables) {
         if (name === 'workspaces') continue;
@@ -1333,6 +1354,42 @@ export class HaloXDatabase {
       }
     }
     return deleted;
+  }
+
+  public uploadKnowledgeFile(workspaceId: string, entityId: string, title: string, filename: string, bytes: Uint8Array, actor = DEFAULT_USER_ID): Row {
+    this.assertWorkspaceMember(workspaceId, actor);
+    const file = prepareLibraryFile(filename, bytes);
+    const files = this.serverRecords.knowledge_files || [];
+    const used = files.filter(row => row.workspace_id === workspaceId).reduce((sum, row) => sum + Number(row.byte_size), 0);
+    if (used + file.byte_size > MAX_LIBRARY_WORKSPACE_BYTES) throw new Error('워크스페이스 파일 저장 한도 50MB를 초과했습니다.');
+    const { base64, ...metadata } = file;
+    const [source] = this.insertTable('knowledge_entity_sources', { workspace_id: workspaceId, knowledge_entity_id: entityId, title: title || filename, source_type: 'file', ...metadata }, actor);
+    files.push({ source_id: source.id, workspace_id: workspaceId, filename, mime_type: file.mime_type, byte_size: file.byte_size, base64 });
+    this.serverRecords.knowledge_files = files;
+    return source;
+  }
+
+  public readKnowledgeFile(sourceId: string, actor = DEFAULT_USER_ID): Row | null {
+    const file = (this.serverRecords.knowledge_files || []).find(row => row.source_id === sourceId);
+    if (!file) return null;
+    this.assertWorkspaceMember(String(file.workspace_id), actor);
+    return { ...file };
+  }
+
+  private contentContext(workspaceId: string, profileId: unknown, entityIds: unknown, actor: string): ContentGenerationContext {
+    const profile = profileId === undefined
+      ? (this.tables.get('writing_style_profiles') || []).find(row => row.workspace_id === workspaceId && row.is_default)
+      : (this.tables.get('writing_style_profiles') || []).find(row => row.workspace_id === workspaceId && row.id === profileId);
+    const selection = validateLibraryRecord('content_jobs', { workspace_id: workspaceId, writing_style_profile_id: profileId === undefined ? profile?.id : profileId, knowledge_entity_ids: entityIds ?? [] }, this.tables);
+    const context: ContentGenerationContext = { knowledge: [] };
+    const rows = (table: string) => this.queryTable(table, { filters: { workspace_id: `eq.${workspaceId}` } }, actor).data;
+    if (profile) context.persona = { id: String(profile.id), name: String(profile.name), description: String(profile.description || ''), audience: String(profile.audience || ''), tone: String(profile.tone || ''), forbiddenTerms: (profile.forbidden_terms as string[]) || [], samples: rows('writing_style_samples').filter(row => row.writing_style_profile_id === profile.id).map(row => ({ title: String(row.title), content: String(row.content), url: String(row.source_url || '') })) };
+    context.knowledge = rows('knowledge_entities').filter(row => (selection.knowledge_entity_ids as unknown[]).includes(row.id)).map(row => ({
+      id: String(row.id), name: String(row.name), description: String(row.description || ''), body: String(row.body || ''),
+      sources: rows('knowledge_entity_sources').filter(source => source.knowledge_entity_id === row.id).map(source => ({ id: String(source.id), title: String(source.title), url: String(source.url || ''), content: String(source.content || ''), filename: String(source.filename || '') })),
+      contexts: rows('evidence_contexts').filter(item => item.knowledge_entity_id === row.id).map(item => ({ title: String(item.title), content: String(item.content), sourceId: item.source_id ? String(item.source_id) : null })),
+    }));
+    return context;
   }
 
   private async executeGeoPrompt(prompt: Row, engine: string, actor: string, scheduledFor?: string): Promise<Row> {
@@ -2028,6 +2085,7 @@ export class HaloXDatabase {
   ): Promise<Record<string, unknown>> {
     if (fnName === 'rpc-cache') {
       const rpcName = String(payload.rpc_name || '');
+      if (['reserve_unit_with_bypass', 'commit_reservation', 'release_reservation'].includes(rpcName)) throw new RlsAccessDeniedError('사용량 예약은 서버 작업을 통해서만 변경할 수 있습니다.');
       const rpcArgs = (payload.args as Record<string, unknown>) || {};
       try {
         const data = this.callRpc(rpcName, rpcArgs, actorUserId);
@@ -2358,6 +2416,8 @@ export class HaloXDatabase {
       fnName === 'citability-improve'
     ) {
       const targetKeyword = String(payload.target_keyword || payload.keyword || 'AI 검색 최적화');
+      if (!targetKeyword.trim() || targetKeyword.length > 200 || (payload.title !== undefined && (typeof payload.title !== 'string' || payload.title.length > 200))) throw new Error('주제와 제목은 200자 이내로 입력해 주세요.');
+      const generationContext = this.contentContext(workspaceId, payload.writing_style_profile_id, payload.knowledge_entity_ids, actorUserId);
       const reservation = this.callRpc(
         'reserve_unit_with_bypass',
         {
@@ -2367,11 +2427,13 @@ export class HaloXDatabase {
           p_idempotency_key: String(payload.idempotency_key || `cnt-${Date.now()}-${Math.random()}`),
         },
         actorUserId
-      ) as { reservation_id: string };
+      ) as { reservation_id: string; idempotent?: boolean };
+      if (reservation.idempotent) throw new Error('이미 사용된 생성 요청입니다. 콘텐츠 목록을 확인해 주세요.');
 
       const draftData = await this.providers.generateContentDraft(
         targetKeyword,
-        typeof payload.title === 'string' ? payload.title : undefined
+        typeof payload.title === 'string' ? payload.title : undefined,
+        generationContext
       );
 
       const [jobRow] = this.insertTable(
@@ -2383,7 +2445,9 @@ export class HaloXDatabase {
           stage: 'completed',
           strategy_status: 'completed',
           writing_status: 'completed',
-          knowledge_entity_ids: [],
+          writing_style_profile_id: generationContext.persona?.id || null,
+          knowledge_entity_ids: generationContext.knowledge.map(row => row.id),
+          generation_context: generationContext,
         },
         actorUserId
       );

@@ -1,6 +1,7 @@
 import { DEFAULT_WORKSPACE_ID, RlsAccessDeniedError, type HaloXDatabase, type Row } from './database.ts';
 import { KEYWORD_EDITABLE_FIELDS } from './keyword-model.ts';
 import { GEO_EDITABLE_FIELDS, GEO_RESULT_TABLES } from './geo-model.ts';
+import { LIBRARY_EDITABLE_FIELDS } from './library-model.ts';
 
 const READ_ONLY = new Set(['profiles', 'plan_templates', 'plan_unit_limits', 'welcome_guide_config', 'welcome_guide_settings', 'system_settings', 'workspace_plans', 'usage_reservations', 'serp_snapshots']);
 const ADMIN_TABLES = new Set(['workspace_members', 'workspace_invitations', 'workspace_api_keys']);
@@ -23,6 +24,12 @@ export function assertRestWrite(db: HaloXDatabase, table: string, method: 'POST'
     return;
   }
   if (READ_ONLY.has(table)) throw new RlsAccessDeniedError('This table cannot be changed through the public REST API');
+  if (table === 'content_jobs' && items.some(row => 'generation_context' in row)) throw new RlsAccessDeniedError('생성 당시 참조 자료는 서버 작업으로만 저장합니다.');
+  if (LIBRARY_EDITABLE_FIELDS[table]) {
+    const allowed = [...LIBRARY_EDITABLE_FIELDS[table], ...(method === 'POST' ? ['workspace_id'] : [])];
+    if (items.some(row => Object.keys(row).some(key => !allowed.includes(key)))) throw new Error('변경할 수 없는 자료 필드입니다.');
+    if (table === 'knowledge_entity_sources' && method === 'POST' && items.some(row => row.source_type === 'file')) throw new Error('파일 업로드 기능으로 등록해 주세요.');
+  }
   if (GEO_RESULT_TABLES.includes(table) && !(table === 'geo_prompt_runs' && method === 'DELETE')) throw new RlsAccessDeniedError('실행 결과는 서버에서만 생성하거나 변경할 수 있습니다.');
   if (GEO_EDITABLE_FIELDS[table]) {
     const allowed = [...GEO_EDITABLE_FIELDS[table], ...(method === 'POST' ? ['workspace_id'] : [])];

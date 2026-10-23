@@ -18,6 +18,8 @@ test('data API rejects unauthenticated requests', async ({ request }) => {
   expect((await request.post('/api/v1/functions/keywords-collect', { data: { workspace_id: WORKSPACE, keywords: ['x'] } })).status()).toBe(401);
   expect((await request.get('/api/v1/auth')).status()).toBe(401);
   expect((await request.get('/api/v1/workspaces')).status()).toBe(401);
+  expect((await request.get(`/api/v1/library?workspace_id=${WORKSPACE}`)).status()).toBe(401);
+  expect((await request.get('/api/v1/library/files/unknown')).status()).toBe(401);
 });
 
 test('a spoofed x-halox-user-id header grants nothing', async ({ request }) => {
