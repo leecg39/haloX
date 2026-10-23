@@ -21,6 +21,11 @@ export default async function globalSetup(config: FullConfig): Promise<void> {
     const exportsLogin = await ctx.post('/api/v1/auth', { data: { email: 'other@halox.local', password } });
     if (exportsLogin.status() !== 200) throw new Error(`Export fixture login failed: HTTP ${exportsLogin.status()}`);
     await ctx.storageState({ path: path.join(__dirname, '.auth', 'export-state.json') });
+    // Raw data journeys use another actor so independent suites do not share
+    // the same per-minute API budget. Production limits stay unchanged.
+    const rawLogin = await ctx.post('/api/v1/auth', { data: { email: 'admin@halox.local', password } });
+    if (rawLogin.status() !== 200) throw new Error(`Raw fixture login failed: HTTP ${rawLogin.status()}`);
+    await ctx.storageState({ path: path.join(__dirname, '.auth', 'raw-state.json') });
   } finally {
     await ctx.dispose();
   }

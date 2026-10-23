@@ -13,7 +13,7 @@ export type ObservationSeries = { summary: AnalysisSummary; previous: AnalysisSu
 export type ObservationSnapshot = {
   schema_version: 1; generated_at: string; start: string; end: string; previous_start: string; previous_end: string;
   seo: ObservationSeries; geo: ObservationSeries;
-  audits: { id: string; name: string; score: number; at: string; url: string }[];
+  audits: { id: string; name: string; score: number; at: string; url: string; provider?: string; import_batch_id?: string | null; source_url?: string; source_id?: string }[];
   scores: { seo: number | null; geo: number | null; avi: number | null; web_health: number | null };
   counts: { keywords: number; active_keywords: number; prompts: number; active_prompts: number; content: number; ready_content: number };
   providers: string[];

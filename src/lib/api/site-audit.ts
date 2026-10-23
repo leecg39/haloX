@@ -6,3 +6,6 @@ export const AUDIT_SEVERITY = { critical: '오류', warning: '주의', notice: '
 export type AuditScope = { include_paths: string[]; exclude_paths: string[] };
 export type AuditTarget = { name: string; target_url: string; max_pages: number; max_depth: number; scope_rules: AuditScope };
 export const AUDIT_ACTIVE = ['queued', 'running'];
+
+export const isImportedAudit = (scan: ContentRow) => Boolean(scan.import_batch_id) && String(scan.provider).startsWith('import:');
+export const hasAuditMeasurements = (scan: ContentRow) => scan.provider === 'html' || isImportedAudit(scan);

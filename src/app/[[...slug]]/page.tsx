@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getCapture } from '@/lib/content';
 import ClonePage from '@/components/ClonePage';
+import { RawDataPage } from '@/components/live/RawDataPage';
 import { DashboardPage } from '@/components/live/DashboardPage';
 import { MonitoringPage } from '@/components/live/MonitoringPage';
 import { ReportsPage } from '@/components/live/ReportsPage';
@@ -60,6 +61,7 @@ export default async function Page(props: Props) {
     shellRoute = pathname; children = <AnalysesPage kind={pathname.includes('/seo/') ? 'seo' : 'geo'} initialTab={new URLSearchParams(route.split('?')[1]).get('tab') || undefined} />;
   }
   if (pathname === '/app/gap') { shellRoute = pathname; children = <GapPage />; }
+  if (pathname === '/app/raw-data') { shellRoute = pathname; children = <RawDataPage />; }
   if (pathname === '/app') { shellRoute = '/app'; children = <DashboardPage />; }
   if (pathname === '/app/monitoring') { shellRoute = pathname; children = <MonitoringPage />; }
   if (/^\/app\/reports(?:\/[^/]+)?$/.test(pathname)) { shellRoute = '/app/reports/weekly'; children = <ReportsPage reportId={pathname.split('/')[3] === 'weekly' ? undefined : pathname.split('/')[3]} />; }

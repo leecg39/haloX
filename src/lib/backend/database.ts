@@ -3,6 +3,7 @@
  */
 
 import crypto from 'node:crypto';
+import { RAW_COMMANDS, runRawImportCommand } from './raw-import-service.ts';
 import { MONITOR_COMMANDS, runMonitorCommand, evaluateMonitorRule } from './monitor-service.ts';
 import { REPORT_COMMANDS, runReportCommand, generateScheduledReport } from './report-service.ts';
 import { ANALYSIS_COMMANDS, runAnalysisCommand } from './analysis-service.ts';
@@ -141,11 +142,11 @@ export class HaloXDatabase {
   }
 
   /** Separate from the public table whitelist: no REST/RPC access. */
-  public getServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests'): Row[] {
+  public getServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
     return structuredClone(this.serverRecords[collection] ?? []);
   }
 
-  public setServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests', rows: Row[]): void {
+  public setServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
     this.serverRecords[collection] = structuredClone(rows);
   }
 
@@ -857,6 +858,7 @@ export class HaloXDatabase {
 
     // Ensure all other observed runtime & Phase 7 secondary tables exist as empty arrays by default
     for (const emptyTable of [
+      'raw_import_batches',
       'dashboard_preferences', 'monitor_rules', 'geo_alerts', 'report_summaries', 'report_action_items', 'report_preferences',
       'saved_analyses',
       'opportunity_decisions',
@@ -1333,6 +1335,10 @@ export class HaloXDatabase {
     if (tableName === 'workspaces' && (this.tables.get('site_audit_scans') || []).some(row => deleted.some(workspace => workspace.id === row.workspace_id) && ['queued', 'running'].includes(String(row.status)))) throw new Error('진행 중인 사이트 진단을 먼저 취소해 주세요.');
     this.tables.set(tableName, remaining);
     const deletedIds = new Set(deleted.map(row => row.id));
+    if (tableName === 'raw_import_batches') {
+      for (const name of ['serp_snapshots', 'geo_prompt_runs', 'site_audit_scans']) this.deleteTable(name, { import_batch_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
+      this.serverRecords.raw_import_files = (this.serverRecords.raw_import_files || []).filter(row => !deletedIds.has(row.batch_id));
+    }
     if (tableName === 'monitor_rules') for (const name of ['geo_alerts', 'workspace_events']) this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.rule_id)));
     if (tableName === 'report_snapshots') for (const name of ['report_summaries', 'report_action_items']) this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.report_id)));
     if (tableName === 'content_jobs') {
@@ -1408,7 +1414,7 @@ export class HaloXDatabase {
     if (tableName === 'workspace_tag_groups') for (const row of this.tables.get('workspace_tags') || []) if (deletedIds.has(row.group_id)) row.group_id = null;
     if (tableName === 'workspaces' && deleted.length) {
       const workspaceIds = new Set(deleted.map(row => String(row.id)));
-      for (const name of ['knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests', 'strategy_requests', 'report_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
+      for (const name of ['knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests', 'strategy_requests', 'report_requests', 'raw_import_files', 'raw_import_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
       const keywordIds = new Set((this.tables.get('keywords') || []).filter(row => workspaceIds.has(String(row.workspace_id))).map(row => String(row.id)));
       for (const [name, rows] of this.tables) {
         if (name === 'workspaces') continue;
@@ -2552,6 +2558,10 @@ export class HaloXDatabase {
       };
     }
 
+    if (RAW_COMMANDS.includes(fnName)) {
+      if (!payload.workspace_id) throw new Error('워크스페이스를 선택해 주세요.');
+      return runRawImportCommand(this, fnName, payload, workspaceId, actorUserId);
+    }
     if (MONITOR_COMMANDS.includes(fnName) || REPORT_COMMANDS.includes(fnName)) {
       if (!payload.workspace_id) throw new Error('워크스페이스를 선택해 주세요.');
       return MONITOR_COMMANDS.includes(fnName) ? runMonitorCommand(this, fnName, payload, workspaceId, actorUserId) : runReportCommand(this, fnName, payload, workspaceId, actorUserId);
