@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { authenticate } from '@/lib/api/route-auth';
 import {
-  haloxDb,
   QuotaExceededError,
   RlsAccessDeniedError,
   UnknownTableError,
   type Row,
 } from '@/lib/backend/database';
+import { haloxStore, StorageUnavailableError } from '@/lib/backend/store';
+import { assertRestWrite } from '@/lib/backend/rest-policy';
 
 
 function extractFilters(req: NextRequest): Record<string, string> {
@@ -19,6 +20,9 @@ function extractFilters(req: NextRequest): Record<string, string> {
 }
 
 function handleRouteError(error: unknown) {
+  if (error instanceof StorageUnavailableError) {
+    return NextResponse.json({ error: error.message, code: error.code }, { status: 503 });
+  }
   if (error instanceof UnknownTableError) {
     return NextResponse.json({ error: error.message, code: error.code }, { status: 404 });
   }
@@ -51,7 +55,7 @@ export async function GET(
   const selectParam = url.searchParams.get('select') || undefined;
 
   try {
-    const { data, count } = haloxDb.queryTable(
+    const { data, count } = await haloxStore.read(db => db.queryTable(
       table,
       {
         select: selectParam,
@@ -61,7 +65,7 @@ export async function GET(
         offset: offsetParam ? Number(offsetParam) : undefined,
       },
       userId
-    );
+    ));
 
     return NextResponse.json(data, {
       status: 200,
@@ -85,11 +89,11 @@ export async function HEAD(
   const filters = extractFilters(req);
 
   try {
-    const { count } = haloxDb.queryTable(
+    const { count } = await haloxStore.read(db => db.queryTable(
       table,
       { filters, headOnly: true },
       userId
-    );
+    ));
 
     return new NextResponse(null, {
       status: 200,
@@ -112,7 +116,10 @@ export async function POST(
   const userId = auth.actor;
   try {
     const body = (await req.json()) as Row | Row[];
-    const inserted = haloxDb.insertTable(table, body, userId);
+    const inserted = await haloxStore.write(db => {
+      assertRestWrite(db, table, 'POST', userId, body);
+      return db.insertTable(table, body, userId);
+    });
     return NextResponse.json(inserted, { status: 201 });
   } catch (error) {
     return handleRouteError(error);
@@ -130,7 +137,10 @@ export async function PATCH(
   const filters = extractFilters(req);
   try {
     const patch = (await req.json()) as Row;
-    const updated = haloxDb.updateTable(table, patch, filters, userId);
+    const updated = await haloxStore.write(db => {
+      assertRestWrite(db, table, 'PATCH', userId, patch, filters);
+      return db.updateTable(table, patch, filters, userId);
+    });
     return NextResponse.json(updated, { status: 200 });
   } catch (error) {
     return handleRouteError(error);
@@ -147,7 +157,10 @@ export async function DELETE(
   const userId = auth.actor;
   const filters = extractFilters(req);
   try {
-    const deleted = haloxDb.deleteTable(table, filters, userId);
+    const deleted = await haloxStore.write(db => {
+      assertRestWrite(db, table, 'DELETE', userId, undefined, filters);
+      return db.deleteTable(table, filters, userId);
+    });
     return NextResponse.json(deleted, { status: 200 });
   } catch (error) {
     return handleRouteError(error);

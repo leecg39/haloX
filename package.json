@@ -14,7 +14,7 @@
     "verify:visual": "node scripts/verify-visual-regression.mjs",
     "verify:backend": "node --experimental-strip-types scripts/verify-backend.mjs",
     "test:e2e": "playwright test",
-    "test:unit": "node --experimental-strip-types --test src/lib/metrics/index.test.ts src/lib/backend/quota-units.test.ts src/lib/backend/session.test.ts src/lib/backend/invite.test.ts src/lib/backend/rate-limit.test.ts",
+    "test:unit": "node --experimental-strip-types --test src/lib/metrics/index.test.ts src/lib/backend/*.test.ts",
     "verify:sql": "bash scripts/verify-supabase-sql.sh",
     "test:quota": "node --experimental-strip-types --test src/lib/backend/quota-units.test.ts",
     "test:metrics": "node --experimental-strip-types --test --experimental-test-coverage --test-coverage-include=src/lib/metrics/index.ts src/lib/metrics/index.test.ts"

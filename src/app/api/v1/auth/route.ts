@@ -1,14 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { authenticate } from '@/lib/api/route-auth';
-import { DEFAULT_WORKSPACE_ID, haloxDb } from '@/lib/backend/database';
+import { type HaloXDatabase } from '@/lib/backend/database';
+import { haloxStore, StorageUnavailableError } from '@/lib/backend/store';
 import {
   SESSION_COOKIE,
   SessionConfigError,
   createSessionToken,
   sessionCookieOptions,
-  verifyDemoPassword,
 } from '@/lib/backend/session';
 import { createRateLimiter, type RateLimitResult } from '@/lib/backend/rate-limit';
+import { authenticatePassword } from '@/lib/backend/accounts';
 
 // Failed-login limits (15 min windows): per client+email, per email (spoofed IPs), per client.
 const WINDOW_MS = 15 * 60 * 1000;
@@ -30,14 +31,14 @@ function tooManyAttempts(results: RateLimitResult[]) {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function sessionView(userId: string) {
-  const profile = haloxDb.queryTable('profiles', {}, userId).data[0];
-  const workspaces = haloxDb.queryTable('workspaces', {}, userId).data;
+function sessionView(db: HaloXDatabase, userId: string) {
+  const profile = db.queryTable('profiles', {}, userId).data[0];
+  const workspaces = db.queryTable('workspaces', {}, userId).data;
   return {
     user: profile
       ? { id: profile.id, email: profile.email, full_name: profile.full_name }
       : { id: userId },
-    default_workspace_id: workspaces[0]?.id || DEFAULT_WORKSPACE_ID,
+    default_workspace_id: workspaces[0]?.id || null,
     workspaces,
   };
 }
@@ -46,7 +47,13 @@ function sessionView(userId: string) {
 export async function GET(req: NextRequest) {
   const auth = authenticate(req);
   if (auth.response) return auth.response;
-  return NextResponse.json({ authenticated: true, ...sessionView(auth.actor) });
+  try {
+    const session = await haloxStore.read(db => sessionView(db, auth.actor));
+    return NextResponse.json({ authenticated: true, ...session });
+  } catch {
+    const error = new StorageUnavailableError();
+    return NextResponse.json({ error: error.message, code: error.code }, { status: 503 });
+  }
 }
 
 /** Password login: validates input, checks credentials, issues a signed session cookie. */
@@ -57,8 +64,8 @@ export async function POST(req: NextRequest) {
   } catch {
     return NextResponse.json({ error: 'JSON body required', code: 'INVALID_REQUEST' }, { status: 400 });
   }
-  const email = typeof body.email === 'string' ? body.email.trim() : '';
-  const password = typeof body.password === 'string' ? body.password : '';
+  const email = typeof body?.email === 'string' ? body.email.trim() : '';
+  const password = typeof body?.password === 'string' ? body.password : '';
   if (!EMAIL_RE.test(email) || email.length > 254 || !password || password.length > 512) {
     return NextResponse.json({ error: 'Valid email and password are required', code: 'INVALID_REQUEST' }, { status: 400 });
   }
@@ -72,10 +79,8 @@ export async function POST(req: NextRequest) {
   if (precheck.some(r => !r.allowed)) return tooManyAttempts(precheck.filter(r => !r.allowed));
 
   try {
-    const profile = haloxDb.findProfileByEmail(email);
-    // Always run the password check so unknown emails and wrong passwords take similar time.
-    const passwordOk = verifyDemoPassword(password);
-    if (!profile || !passwordOk) {
+    const profile = await authenticatePassword(haloxStore, email, password);
+    if (!profile) {
       failuresByClientEmail.hit(keys.clientEmail);
       failuresByEmail.hit(keys.email);
       failuresByClient.hit(keys.client);
@@ -85,11 +90,17 @@ export async function POST(req: NextRequest) {
     failuresByClientEmail.reset(keys.clientEmail);
     failuresByEmail.reset(keys.email);
     const token = createSessionToken(profile.id);
-    haloxDb.callRpc('record_auth_login', { p_method: 'password', p_device_id: null }, profile.id);
-    const res = NextResponse.json({ ok: true, access_token: token, token_type: 'bearer', ...sessionView(profile.id) });
+    const session = await haloxStore.write(db => {
+      db.callRpc('record_auth_login', { p_method: 'password', p_device_id: null }, profile.id);
+      return sessionView(db, profile.id);
+    });
+    const res = NextResponse.json({ ok: true, access_token: token, token_type: 'bearer', ...session });
     res.cookies.set(SESSION_COOKIE, token, sessionCookieOptions());
     return res;
   } catch (error) {
+    if (error instanceof StorageUnavailableError) {
+      return NextResponse.json({ error: error.message, code: error.code }, { status: 503 });
+    }
     if (error instanceof SessionConfigError) {
       console.error('Session configuration error:', error.message);
       return NextResponse.json({ error: 'Server authentication is not configured', code: error.code }, { status: 500 });

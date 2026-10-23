@@ -9,6 +9,15 @@ import { validateRpcResponse } from './schemas';
 
 export const DEFAULT_WORKSPACE_UUID = '11111111-1111-4000-8000-111111111111';
 
+export async function insertTableRows<T = Record<string, unknown>>(table: string, payload: Record<string, unknown>): Promise<T[]> {
+  const response = await fetch(`/api/v1/rest/${encodeURIComponent(table)}`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
+  });
+  const result = await response.json();
+  if (!response.ok) throw new Error(result.error || '저장하지 못했습니다. 다시 시도해 주세요.');
+  return result as T[];
+}
+
 export async function fetchTable<T = Record<string, unknown>>(
   table: string,
   params: Record<string, string> = {}
@@ -222,15 +231,12 @@ export async function syncDialogActionToBackend(result: DialogResult): Promise<v
     }
 
     if (/API|키 발급/i.test(result.title)) {
-      const keyPrefix = (result.values.demoKey || 'hx_live_demo').slice(0, 12);
       await fetch('/api/v1/rest/workspace_api_keys', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           workspace_id: DEFAULT_WORKSPACE_UUID,
           name: names[0],
-          key_prefix: keyPrefix,
-          key_hash: 'sha256-local-demo',
         }),
       });
     }

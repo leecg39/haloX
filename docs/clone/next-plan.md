@@ -1,6 +1,6 @@
 # 후속 계획과 진행 상태
 
-현재 페이지 클론의 구현·검토·수정은 완료했다. 다음 단계는 결과의 회귀 방지부터 시작했다.
+현재 전체 메뉴 풀스택 CRUD 구현은 진행 중이다. 상세 작업과 완료 기준은 [전체 CRUD 작업표](full-crud-tasks.md), 새 인증/영속 저장 설정은 [실행 안내](auth-and-storage.md)를 따른다. 아래 표는 이전 수집 화면 및 도메인 계약 구현 이력이다.
 
 | 우선순위 | 작업 | 상태 | 완료 기준 |
 |---|---|---|---|
@@ -10,4 +10,4 @@
 | P1 | 대표 화면 시각 회귀 자동화 (`scripts/verify-visual-regression.mjs`) | 완료 | `npm run verify:visual`로 65개 디자인 토큰·14개 대표 화면·6개 데스크톱/모바일/대화상자 기준 이미지·18개 라우트 스크린샷 대조 통과 |
 | P2 | 실제 백엔드/DB 연동 확장 (`supabase/`, `src/lib/metrics`, `src/lib/backend`, `/api/v1/*`) | 완료 | 27개 SQL 테이블·RLS 격리·36종 RPC·6종 Edge 파이프라인·점수 엔진 구현 및 `npm run verify:backend` / REA 원장 `ready` (`required_open: 0`) 달성 |
 
-모든 P0~P2 항목의 구현·검증·CI 연동을 완료했다.
+이전 P0~P2 계약 검증 완료를 모든 메뉴의 CRUD 완료로 해석하지 않는다. 아직 일부 화면은 수집 HTML과 localStorage를 사용하며 실제 데이터 조회·수정·삭제로 전환해야 한다.

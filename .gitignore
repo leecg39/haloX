@@ -13,3 +13,4 @@ playwright-report/
 .env
 .env*.local
 e2e/.auth/
+data/

@@ -9,11 +9,13 @@
 - [검증 결과와 재현 순서](docs/clone/QA.md)
 - [적대적 검토 결과](docs/clone/adversarial-review.md)
 - [후속 계획](docs/clone/next-plan.md)
+- [전체 메뉴 CRUD 실행 작업표](docs/clone/full-crud-tasks.md)
+- [관리자 로그인·SOLAPI·영속 저장 설정](docs/clone/auth-and-storage.md)
 - [REA 공개 사이트 역공학·반영 결과](docs/rea/public-site/README.md)
 
 ## 실행
 
-Node.js 22에서 검증했습니다. 프로젝트 폴더에서 실행하세요.
+Node.js 22.13 이상이 필요하며 22.23.1에서 검증했습니다. `.env.example`을 참고해 `.env.local`의 인증 환경변수를 설정하고 프로젝트 폴더에서 실행하세요. SOLAPI 실발송에는 API Key/Secret과 등록 발신번호가 필요합니다.
 
 ```bash
 npm ci

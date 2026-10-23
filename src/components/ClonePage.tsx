@@ -14,6 +14,8 @@ import { initializePublicPricing } from './public-pricing';
 import { initializePublicLists } from './public-lists';
 import { initializeLiveUsage } from './usage-live';
 import { syncDialogActionToBackend } from '@/lib/api/client';
+import { PhoneVerificationButton } from './PhoneVerificationButton';
+import { submitSignup } from './signup-form';
 
 function PasswordVisibilityButton({className}:{className?:string}){
  const [visible,setVisible]=useState(false);
@@ -28,9 +30,6 @@ function PasswordVisibilityButton({className}:{className?:string}){
  return <button type="button" className={className} data-clone-password-toggle="true" aria-label={label} aria-pressed={visible} title={label} onClick={toggle}>{visible?<EyeOff className="h-4 w-4" aria-hidden="true"/>:<Eye className="h-4 w-4" aria-hidden="true"/>}</button>;
 }
 
-type PhoneChallenge={code:string;phone:string;expiresAt:number};
-const normalizePhone=(value:string)=>value.replace(/\D/g,'').replace(/^82/,'0');
-const validPhone=(value:string)=>/^01[016789]\d{7,8}$/.test(normalizePhone(value));
 const hasNamedInput=(node:Element,name:string):boolean=>node.children.some(child=>child instanceof Element&&((child.name==='input'&&child.attribs.name===name)||hasNamedInput(child,name)));
 
 function applySessionIdentity(root:HTMLElement,user:{email?:unknown;full_name?:unknown}){
@@ -41,51 +40,6 @@ function applySessionIdentity(root:HTMLElement,user:{email?:unknown;full_name?:u
  const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let node:Node|null;
  while((node=walker.nextNode())){let value=node.nodeValue||'';for(const [from,to] of replacements)value=value.replaceAll(from,to);node.nodeValue=value}
  root.querySelectorAll<HTMLInputElement>('input').forEach(input=>{for(const [from,to] of replacements)if(input.value.includes(from))input.value=input.value.replaceAll(from,to)});
-}
-
-function PhoneVerificationButton({className}:{className?:string}){
- const buttonRef=useRef<HTMLButtonElement>(null);
- const [phone,setPhone]=useState('');
- const [challenge,setChallenge]=useState<PhoneChallenge|null>(null);
- const [code,setCode]=useState('');
- const [status,setStatus]=useState<'idle'|'sent'|'error'|'verified'>('idle');
- useEffect(()=>{
-  const row=buttonRef.current?.parentElement;
-  const input=row?.querySelector<HTMLInputElement>('input[type="tel"]');
-  if(!row||!input)return;
-  const previousWrap=row.style.flexWrap;
-  row.style.flexWrap='wrap';
-  const sync=()=>setPhone(input.value);
-  sync();input.addEventListener('input',sync);
-  return()=>{input.removeEventListener('input',sync);row.style.flexWrap=previousWrap};
- },[]);
- useEffect(()=>{
-  if(challenge&&challenge.phone!==normalizePhone(phone)){setChallenge(null);setCode('');setStatus('idle')}
- },[phone,challenge]);
- const send=()=>{
-  const normalized=normalizePhone(phone);
-  if(!validPhone(normalized))return;
-  const random=new Uint32Array(1);crypto.getRandomValues(random);
-  setChallenge({code:String(random[0]%1_000_000).padStart(6,'0'),phone:normalized,expiresAt:Date.now()+5*60*1000});
-  setCode('');setStatus('sent');
- };
- const verify=()=>{
-  if(!challenge||challenge.phone!==normalizePhone(phone)){setStatus('error');return}
-  if(Date.now()>challenge.expiresAt){setStatus('error');return}
-  setStatus(code===challenge.code?'verified':'error');
- };
- useEffect(()=>{
-  const input=buttonRef.current?.parentElement?.querySelector<HTMLInputElement>('input[type="tel"]');
-  if(input)input.dataset.phoneVerified=String(status==='verified');
- },[status]);
- const message=status==='verified'?'휴대폰 인증이 완료되었습니다.':status==='error'?(challenge&&Date.now()>challenge.expiresAt?'인증번호가 만료되었습니다. 다시 발송해 주세요.':'인증번호가 일치하지 않습니다.'):(challenge?`로컬 데모 인증번호 ${challenge.code} · 5분간 유효`:'');
- return <>
-  <button ref={buttonRef} type="button" className={className} data-clone-phone-verification="true" disabled={!validPhone(phone)} onClick={send}>{challenge?'재발송':'인증번호 발송'}</button>
-  {challenge&&<div data-clone-phone-verification="true" style={{flexBasis:'100%'}} className="flex w-full flex-col gap-2 pt-1">
-   <div className="flex gap-2"><input type="text" inputMode="numeric" autoComplete="one-time-code" maxLength={6} className="flex h-9 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm" aria-label="휴대폰 인증번호" placeholder="인증번호 6자리" value={code} disabled={status==='verified'} onChange={event=>{setCode(event.target.value.replace(/\D/g,'').slice(0,6));if(status==='error')setStatus('sent')}}/><button type="button" data-clone-phone-verification="true" className="inline-flex h-9 shrink-0 items-center justify-center rounded-md bg-foreground px-4 text-sm font-medium text-background disabled:opacity-50" disabled={code.length!==6||status==='verified'} onClick={verify}>{status==='verified'?'인증 완료':'인증 확인'}</button></div>
-   <p role={status==='error'?'alert':'status'} aria-live="polite" className={`text-xs ${status==='error'?'text-red-600':status==='verified'?'text-green-700':'text-muted-foreground'}`}>{message}</p>
-  </div>}
- </>;
 }
 
 // App routes reachable without a session (sign-in and recovery flows).
@@ -111,6 +65,12 @@ export default function ClonePage({data,requestedRoute}:{data:Capture;requestedR
    const loginForm=root.querySelector<HTMLFormElement>('form[data-clone-form="true"]');
    loginForm?.querySelector<HTMLInputElement>('input[name="email"]')?.setAttribute('required','');
    loginForm?.querySelector<HTMLInputElement>('input[name="password"]')?.setAttribute('required','');
+  }
+  if(requestedRoute.startsWith('/app/signup')){
+   const form=root.querySelector<HTMLFormElement>('form');
+   form?.querySelectorAll<HTMLInputElement>('input:not([type="hidden"])').forEach(input=>{if(input.name)input.required=true});
+   form?.querySelectorAll<HTMLInputElement>('input[name="password"],input[name="passwordConfirm"]').forEach(input=>{input.minLength=8;input.maxLength=128});
+   const button=form?.querySelector<HTMLButtonElement>('button[type="submit"]');if(button)button.disabled=false;
   }
   try {
    const saved:unknown=JSON.parse(localStorage.getItem('halox-clone:settings:'+requestedRoute)||'{}');
@@ -154,7 +114,7 @@ export default function ClonePage({data,requestedRoute}:{data:Capture;requestedR
    if(text||label){openDialog({title:text||label,route:requestedRoute,description:'로컬 데모에서 내용을 확인하거나 입력할 수 있습니다.'})}
   };
   const input=(event:Event)=>{handleDataInput(event,root)};
-  const submit=(event:Event)=>{event.preventDefault();const form=event.target as HTMLFormElement;if(!form.reportValidity())return;if(requestedRoute.startsWith('/app/login')){const email=(form.querySelector('input[name="email"]') as HTMLInputElement|null)?.value.trim()||'';const password=(form.querySelector('input[name="password"]') as HTMLInputElement|null)?.value||'';const submitButton=form.querySelector<HTMLButtonElement>('button[type="submit"]');const originalLabel=submitButton?.textContent||'Sign In';void (async()=>{if(submitButton){submitButton.disabled=true;submitButton.textContent='로그인 중...'}try{const res=await fetch('/api/v1/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});if(res.ok){navigate('/app');return}const message=res.status===401?'이메일 또는 비밀번호가 올바르지 않습니다.':res.status===429?'로그인 시도가 너무 많습니다. 잠시 후 다시 시도해 주세요.':res.status===400?'이메일과 비밀번호를 확인해 주세요.':res.status===500?'서버 로그인 설정을 확인해 주세요.':'로그인할 수 없습니다. 잠시 후 다시 시도해 주세요.';notify(message)}catch{notify('로그인할 수 없습니다. 네트워크 상태를 확인해 주세요.')}finally{if(submitButton?.isConnected){submitButton.disabled=false;submitButton.textContent=originalLabel}}})();return}if(requestedRoute.startsWith('/app/signup')){notify('회원가입 정보를 확인했습니다.');return}if(requestedRoute.startsWith('/app/forgot-password')){notify('데모 화면입니다. 실제 재설정 이메일은 발송하지 않습니다.');return}notify('입력 내용을 확인했습니다. 로컬 데모에는 외부로 전송하지 않습니다.')};
+  const submit=(event:Event)=>{event.preventDefault();const form=event.target as HTMLFormElement;if(!form.reportValidity())return;if(requestedRoute.startsWith('/app/login')){const email=(form.querySelector('input[name="email"]') as HTMLInputElement|null)?.value.trim()||'';const password=(form.querySelector('input[name="password"]') as HTMLInputElement|null)?.value||'';const submitButton=form.querySelector<HTMLButtonElement>('button[type="submit"]');const originalLabel=submitButton?.textContent||'Sign In';void (async()=>{if(submitButton){submitButton.disabled=true;submitButton.textContent='로그인 중...'}try{const res=await fetch('/api/v1/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});if(res.ok){navigate('/app');return}const message=res.status===401?'이메일 또는 비밀번호가 올바르지 않습니다.':res.status===429?'로그인 시도가 너무 많습니다. 잠시 후 다시 시도해 주세요.':res.status===400?'이메일과 비밀번호를 확인해 주세요.':res.status===500?'서버 로그인 설정을 확인해 주세요.':'로그인할 수 없습니다. 잠시 후 다시 시도해 주세요.';notify(message)}catch{notify('로그인할 수 없습니다. 네트워크 상태를 확인해 주세요.')}finally{if(submitButton?.isConnected){submitButton.disabled=false;submitButton.textContent=originalLabel}}})();return}if(requestedRoute.startsWith('/app/signup')){void submitSignup(form,navigate,notify);return}if(requestedRoute.startsWith('/app/forgot-password')){notify('데모 화면입니다. 실제 재설정 이메일은 발송하지 않습니다.');return}notify('입력 내용을 확인했습니다. 로컬 데모에는 외부로 전송하지 않습니다.')};
   const keydown=(event:KeyboardEvent)=>{if(event.key==='Escape'&&requestedRoute.startsWith('/app/settings'))navigate('/app')};
   root.addEventListener('click',click);root.addEventListener('input',input);root.addEventListener('submit',submit);document.addEventListener('keydown',keydown);
   return()=>{cleanup();cleanupPublic();cleanupPricing();cleanupLists();cleanupUsage();reveal.disconnect();root.removeEventListener('click',click);root.removeEventListener('input',input);root.removeEventListener('submit',submit);document.removeEventListener('keydown',keydown)};

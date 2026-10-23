@@ -15,7 +15,7 @@ export interface ActiveWorkspaceInfo {
 }
 
 export const ACTIVE_WORKSPACE_STORAGE_KEY = "halox-clone:active-workspace";
-export const WORKSPACES_RECORDS_STORAGE_KEY = "halox-clone:records:/app/workspaces";
+const EMPTY_WORKSPACE_INFO: ActiveWorkspaceInfo = { id: "", name: "워크스페이스 선택", plan: "" };
 
 export const DEFAULT_WORKSPACE_INFO: ActiveWorkspaceInfo = {
   id: "11111111-1111-4000-8000-111111111111",
@@ -25,10 +25,10 @@ export const DEFAULT_WORKSPACE_INFO: ActiveWorkspaceInfo = {
 };
 
 export function readActiveWorkspace(): ActiveWorkspaceInfo {
-  if (typeof window === "undefined") return DEFAULT_WORKSPACE_INFO;
+  if (typeof window === "undefined") return EMPTY_WORKSPACE_INFO;
   try {
     const raw = localStorage.getItem(ACTIVE_WORKSPACE_STORAGE_KEY);
-    if (!raw) return DEFAULT_WORKSPACE_INFO;
+    if (!raw) return EMPTY_WORKSPACE_INFO;
     const parsed = JSON.parse(raw) as Partial<ActiveWorkspaceInfo>;
     if (parsed && typeof parsed.name === "string" && parsed.name.trim()) {
       return {
@@ -41,7 +41,7 @@ export function readActiveWorkspace(): ActiveWorkspaceInfo {
   } catch {
     // Ignore storage read error
   }
-  return DEFAULT_WORKSPACE_INFO;
+  return EMPTY_WORKSPACE_INFO;
 }
 
 export function writeActiveWorkspace(ws: ActiveWorkspaceInfo): void {
@@ -55,47 +55,15 @@ export function writeActiveWorkspace(ws: ActiveWorkspaceInfo): void {
 }
 
 export async function loadAllWorkspaces(): Promise<ActiveWorkspaceInfo[]> {
-  const merged = new Map<string, ActiveWorkspaceInfo>();
-  merged.set(DEFAULT_WORKSPACE_INFO.name, DEFAULT_WORKSPACE_INFO);
-
-  if (typeof window !== "undefined") {
-    try {
-      const localRaw = JSON.parse(localStorage.getItem(WORKSPACES_RECORDS_STORAGE_KEY) || "[]");
-      if (Array.isArray(localRaw)) {
-        for (const item of localRaw) {
-          if (item && typeof item.name === "string" && item.name.trim()) {
-            merged.set(item.name.trim(), {
-              id: item.id || crypto.randomUUID(),
-              name: item.name.trim(),
-              plan: item.plan || "Trial",
-              domain: item.domain || "",
-            });
-          }
-        }
-      }
-    } catch {
-      // Ignore corrupt localStorage
-    }
-  }
-
-  try {
-    const serverRows = await fetchTable<{ id: string; name: string; default_brand_filter?: string }>("workspaces");
-    for (const row of serverRows) {
-      if (!row.name || row.name === "외부격리워크스페이스") continue;
-      if (!merged.has(row.name)) {
-        merged.set(row.name, {
-          id: row.id,
-          name: row.name,
-          plan: "Trial",
-          domain: row.default_brand_filter || "",
-        });
-      }
-    }
-  } catch {
-    // Offline fallback uses localStorage
-  }
-
-  return [...merged.values()];
+  const [workspaces, plans] = await Promise.all([
+    fetchTable<{ id: string; name: string; default_brand_filter?: string }>("workspaces"),
+    fetchTable<{ workspace_id: string; plan: string }>("workspace_plans"),
+  ]);
+  return workspaces.map(row => ({
+    id: row.id, name: row.name,
+    plan: plans.find(plan => plan.workspace_id === row.id)?.plan || "Trial",
+    domain: row.default_brand_filter || "",
+  }));
 }
 
 export function applyWorkspaceToSidebarDom(root: HTMLElement | null, ws: ActiveWorkspaceInfo): void {
@@ -142,8 +110,8 @@ function publicItems(locale: string, kind: string): Item[] {
 export function useCloneNavigation({ rootRef, route, navigate, openDialog, notify, menus }: Options) {
   const [menu, setMenu] = useState<Menu | null>(null);
   const [query, setQuery] = useState("");
-  const [activeWorkspace, setActiveWorkspace] = useState<ActiveWorkspaceInfo>(DEFAULT_WORKSPACE_INFO);
-  const [workspaces, setWorkspaces] = useState<ActiveWorkspaceInfo[]>([DEFAULT_WORKSPACE_INFO]);
+  const [activeWorkspace, setActiveWorkspace] = useState<ActiveWorkspaceInfo>(EMPTY_WORKSPACE_INFO);
+  const [workspaces, setWorkspaces] = useState<ActiveWorkspaceInfo[]>([]);
   const overlayRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
   const collapsedRef = useRef(false);
@@ -152,8 +120,11 @@ export function useCloneNavigation({ rootRef, route, navigate, openDialog, notif
 
   const refreshWorkspaces = useCallback(async () => {
     const current = readActiveWorkspace();
-    const list = await loadAllWorkspaces();
-    const matched = list.find(w => w.name === current.name) || list[0] || DEFAULT_WORKSPACE_INFO;
+    let list: ActiveWorkspaceInfo[];
+    try { list = await loadAllWorkspaces(); } catch { return; }
+    const matched = list.find(w => w.id === current.id) || list[0] || EMPTY_WORKSPACE_INFO;
+    try { localStorage.setItem(ACTIVE_WORKSPACE_STORAGE_KEY, JSON.stringify(matched)); } catch {}
+
     setActiveWorkspace(matched);
     setWorkspaces(list);
     applyWorkspaceToSidebarDom(rootRef.current, matched);
@@ -220,8 +191,8 @@ export function useCloneNavigation({ rootRef, route, navigate, openDialog, notif
 
   function buildWorkspaceMenuItems(list: ActiveWorkspaceInfo[], current: ActiveWorkspaceInfo): Item[] {
     const switchItems: Item[] = list.map(ws => [
-      `${ws.name === current.name ? "✓ " : ""}${ws.name} (${ws.plan || "Trial"})`,
-      `#switch-workspace:${encodeURIComponent(ws.name)}`,
+      `${ws.id === current.id ? "✓ " : ""}${ws.name} (${ws.plan || "Trial"})`,
+      `#switch-workspace:${encodeURIComponent(ws.id)}`,
     ]);
     return [
       ...switchItems,
@@ -234,12 +205,9 @@ export function useCloneNavigation({ rootRef, route, navigate, openDialog, notif
   function select(url: string) {
     close();
     if (url.startsWith("#switch-workspace:")) {
-      const targetName = decodeURIComponent(url.slice("#switch-workspace:".length));
-      const chosen = workspaces.find(w => w.name === targetName) || {
-        id: crypto.randomUUID(),
-        name: targetName,
-        plan: "Trial",
-      };
+      const targetId = decodeURIComponent(url.slice("#switch-workspace:".length));
+      const chosen = workspaces.find(w => w.id === targetId);
+      if (!chosen) return;
       writeActiveWorkspace(chosen);
       setActiveWorkspace(chosen);
       applyWorkspaceToSidebarDom(rootRef.current, chosen);
@@ -247,12 +215,7 @@ export function useCloneNavigation({ rootRef, route, navigate, openDialog, notif
       return;
     }
     if (url === "#new-workspace") {
-      openDialog({
-        title: "새 워크스페이스 만들기",
-        route: "/app/workspaces",
-        kind: "workspace",
-        description: "새로 관리할 브랜드 또는 프로젝트의 워크스페이스 정보를 입력하세요.",
-      });
+      navigate("/app/workspaces?create=1");
     } else if (url.startsWith("http")) {
       window.open(url, "_blank", "noopener,noreferrer");
     } else {
@@ -275,7 +238,7 @@ export function useCloneNavigation({ rootRef, route, navigate, openDialog, notif
       if (content) { content.hidden = expanded; content.style.display = expanded ? "none" : ""; content.setAttribute("data-state", expanded ? "closed" : "open"); }
     } else if (button.closest('[data-sidebar="header"]') && button.getAttribute("aria-haspopup") === "menu") {
       const current = readActiveWorkspace();
-      const matched = workspaces.find(w => w.name === current.name) || current || DEFAULT_WORKSPACE_INFO;
+      const matched = workspaces.find(w => w.id === current.id) || workspaces[0] || EMPTY_WORKSPACE_INFO;
       show(button, {
         kind: "menu",
         title: `${matched.name} · ${matched.plan || "Trial"}`,

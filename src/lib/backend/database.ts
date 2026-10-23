@@ -61,6 +61,13 @@ export class UnknownTableError extends Error {
 
 export type Row = Record<string, unknown>;
 
+/** Server-only state. Never return this through an API (it includes key hashes). */
+export interface DatabaseState {
+  version: 1;
+  tables: Record<string, Row[]>;
+  serverRecords?: Record<string, Row[]>;
+}
+
 export interface PostgrestQueryOptions {
   select?: string;
   filters?: Record<string, string>;
@@ -80,6 +87,7 @@ const GLOBAL_READ_TABLES = new Set([
 
 export class HaloXDatabase {
   private tables = new Map<string, Row[]>();
+  private serverRecords: Record<string, Row[]> = {};
   private providers: HaloXProviders;
 
   constructor(providers: HaloXProviders = createDeterministicProviders()) {
@@ -87,8 +95,42 @@ export class HaloXDatabase {
     this.resetSeed();
   }
 
+  public exportState(): DatabaseState {
+    return structuredClone({ version: 1, tables: Object.fromEntries(this.tables), serverRecords: this.serverRecords });
+  }
+
+  public restoreState(state: DatabaseState): void {
+    if (state?.version !== 1 || !state.tables || typeof state.tables !== 'object' || Array.isArray(state.tables)) {
+      throw new Error('Unsupported or corrupt database state');
+    }
+    const restored = new Map(this.tables);
+    for (const [name, rows] of Object.entries(state.tables)) {
+      this.assertKnownTable(name);
+      if (!Array.isArray(rows) || rows.some(row => !row || typeof row !== 'object' || Array.isArray(row))) {
+        throw new Error(`Corrupt database table: ${name}`);
+      }
+      restored.set(name, structuredClone(rows));
+    }
+    this.tables = restored;
+    const serverRecords = state.serverRecords ?? {};
+    if (typeof serverRecords !== 'object' || Array.isArray(serverRecords) || Object.values(serverRecords).some(rows => !Array.isArray(rows))) {
+      throw new Error('Corrupt server records');
+    }
+    this.serverRecords = structuredClone(serverRecords);
+  }
+
+  /** Separate from the public table whitelist: no REST/RPC access. */
+  public getServerRecords(collection: 'phone_verification' | 'account_credentials'): Row[] {
+    return structuredClone(this.serverRecords[collection] ?? []);
+  }
+
+  public setServerRecords(collection: 'phone_verification' | 'account_credentials', rows: Row[]): void {
+    this.serverRecords[collection] = structuredClone(rows);
+  }
+
   public resetSeed(): void {
     this.tables.clear();
+    this.serverRecords = {};
     const now = '2026-10-22T12:00:00.000Z';
 
     const ensure = (name: string, rows: Row[] = []) => {
@@ -841,6 +883,23 @@ export class HaloXDatabase {
     return row ? { id: String(row.id), email: String(row.email), full_name: String(row.full_name || '') } : null;
   }
 
+  public createAccount(input: { email: string; fullName: string; phone: string; passwordHash: string }): { id: string; email: string; full_name: string } {
+    const email = input.email.trim().toLowerCase();
+    const profiles = this.tables.get('profiles')!;
+    if (this.findProfileByEmail(email) || profiles.some(row => row.phone_number === input.phone)) {
+      throw new Error('이미 등록된 이메일 또는 휴대폰 번호입니다. 로그인해 주세요.');
+    }
+    const id = crypto.randomUUID();
+    const now = new Date().toISOString();
+    const profile = { id, email, full_name: input.fullName, phone_number: input.phone, phone_verified_at: now, created_at: now, updated_at: now };
+    profiles.push(profile);
+    const credentials = this.getServerRecords('account_credentials');
+    credentials.push({ user_id: id, password_hash: input.passwordHash });
+    this.setServerRecords('account_credentials', credentials);
+    this.insertTable('workspaces', { name: `${input.fullName}의 워크스페이스`.slice(0, 100) }, id);
+    return { id, email, full_name: input.fullName };
+  }
+
   public assertWorkspaceMember(workspaceId: string, userId = DEFAULT_USER_ID): void {
     const allowed = this.getAllowedWorkspaceIds(userId);
     if (!allowed.has(workspaceId)) {
@@ -942,7 +1001,7 @@ export class HaloXDatabase {
   }
 
   /**
-   * Verify a workspace API key by raw token or key_prefix and ensure it is not revoked.
+   * Verify the full secret token (a public prefix is never a credential).
    */
   public verifyWorkspaceApiKey(rawKeyOrPrefix: string): Row | null {
     if (!rawKeyOrPrefix) return null;
@@ -951,10 +1010,9 @@ export class HaloXDatabase {
     const matched = keys.find(
       k =>
         !k.revoked_at &&
-        (k.key_hash === candidateHash ||
-          k.key_hash === rawKeyOrPrefix ||
-          k.key_prefix === rawKeyOrPrefix ||
-          (typeof k.key_prefix === 'string' && rawKeyOrPrefix.startsWith(k.key_prefix)))
+        (!k.expires_at || Date.parse(String(k.expires_at)) > Date.now()) &&
+        typeof k.key_hash === 'string' && k.key_hash.length === candidateHash.length &&
+        crypto.timingSafeEqual(Buffer.from(k.key_hash), Buffer.from(candidateHash))
     );
     if (!matched) return null;
     matched.last_used_at = new Date().toISOString();
@@ -1045,9 +1103,12 @@ export class HaloXDatabase {
     for (const item of items) {
       if (tableName === 'workspaces') {
         const id = typeof item.id === 'string' ? item.id : crypto.randomUUID();
+        if (table.some(row => row.id === id)) throw new Error('Workspace ID already exists');
+        const name = typeof item.name === 'string' ? item.name.trim() : '';
+        if (!name || name.length > 100) throw new Error('워크스페이스 이름은 1~100자로 입력해 주세요.');
         const ws: Row = {
           id,
-          name: String(item.name || '새 워크스페이스'),
+          name,
           slug: String(item.slug || `ws-${id.slice(0, 8)}`),
           owner_id: actorUserId,
           status: 'active',
@@ -1056,15 +1117,17 @@ export class HaloXDatabase {
           strategy_map_status: 'ready',
           created_at: now,
           updated_at: now,
-          ...item,
+          default_brand_filter: typeof item.default_brand_filter === 'string' ? item.default_brand_filter.slice(0, 253) : '',
+          description: typeof item.description === 'string' ? item.description.slice(0, 2000) : '',
         };
         table.push(ws);
+        const profile = (this.tables.get('profiles') || []).find(row => row.id === actorUserId);
         this.tables.get('workspace_members')!.push({
           id: crypto.randomUUID(),
           workspace_id: id,
           user_id: actorUserId,
-          email: 'demo@halox.local',
-          full_name: 'HaloX 데모 관리자',
+          email: profile?.email || '',
+          full_name: profile?.full_name || '',
           role: 'owner',
           allowed_sections: ['all'],
           joined_at: now,
@@ -1094,18 +1157,18 @@ export class HaloXDatabase {
         ...item,
       };
 
+      let issuedSecret: string | undefined;
       if (tableName === 'workspace_api_keys') {
-        const rawSecret = String(
-          item.raw_key || item.key_hash || item.key_prefix || `hx_live_${String(record.id).slice(0, 8)}`
-        );
+        const rawSecret = typeof item.raw_key === 'string' ? item.raw_key : `hx_live_${crypto.randomBytes(32).toString('base64url')}`;
         delete record.raw_key;
-        record.key_prefix = String(item.key_prefix || rawSecret.slice(0, 12));
+        record.key_prefix = rawSecret.slice(0, 12);
         record.key_hash = crypto.createHash('sha256').update(rawSecret).digest('hex');
         record.revoked_at = item.revoked_at ?? null;
+        issuedSecret = rawSecret;
       }
 
       table.push(record);
-      inserted.push(this.sanitizeRowForClient(tableName, record));
+      inserted.push({ ...this.sanitizeRowForClient(tableName, record), ...(issuedSecret ? { raw_key: issuedSecret } : {}) });
     }
 
     this.tables.set(tableName, table);
@@ -1211,6 +1274,14 @@ export class HaloXDatabase {
     }
 
     this.tables.set(tableName, remaining);
+    if (tableName === 'workspaces' && deleted.length) {
+      const workspaceIds = new Set(deleted.map(row => String(row.id)));
+      const keywordIds = new Set((this.tables.get('keywords') || []).filter(row => workspaceIds.has(String(row.workspace_id))).map(row => String(row.id)));
+      for (const [name, rows] of this.tables) {
+        if (name === 'workspaces') continue;
+        this.tables.set(name, rows.filter(row => !workspaceIds.has(String(row.workspace_id)) && !(name === 'serp_snapshots' && keywordIds.has(String(row.keyword_id)))));
+      }
+    }
     return deleted;
   }
 
@@ -1223,11 +1294,11 @@ export class HaloXDatabase {
     actorUserId = DEFAULT_USER_ID
   ): unknown {
     const workspaceId = String(
-      args.p_workspace_id || args._workspace_id || args.workspace_id || DEFAULT_WORKSPACE_ID
+      args.p_workspace_id || args._workspace_id || args.workspace_id || [...this.getAllowedWorkspaceIds(actorUserId)][0] || ''
     );
 
-    // Check RLS whenever workspace_id is explicitly provided
-    if (args.p_workspace_id || args._workspace_id || args.workspace_id) {
+    // Omitted workspace IDs must never fall back to another user's demo tenant.
+    if (args.p_workspace_id || args._workspace_id || args.workspace_id || !['record_auth_login', 'cancel_account_deletion'].includes(rpcName)) {
       this.assertWorkspaceMember(workspaceId, actorUserId);
     }
 
@@ -2851,8 +2922,3 @@ export class HaloXDatabase {
     throw new Error(`Unsupported Edge Function: ${fnName}`);
   }
 }
-
-// Singleton instance for Next.js API route handlers
-const globalForHaloX = globalThis as unknown as { haloxDb?: HaloXDatabase };
-export const haloxDb = globalForHaloX.haloxDb || new HaloXDatabase();
-globalForHaloX.haloxDb = haloxDb;

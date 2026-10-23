@@ -1,4 +1,6 @@
-# 원본 서비스 전체 스택 확장안 (P7-1 — S1~S8 구현 및 검증 완료)
+# 원본 서비스 스택 구현 기록 및 전체 CRUD 후속 작업
+
+> **현재 전체 CRUD 상태: 진행 중.** S1~S9의 아래 완료 기록은 수집 화면과 도메인 계약 검증 범위다. 메뉴별 영속 CRUD 완료 상태는 [full-crud-tasks.md](full-crud-tasks.md)가 기준이다. 2026-10-23 후속 구현으로 SQLite 영속 저장·SOLAPI 인증/가입·워크스페이스 CRUD를 추가했다. 설정/검증은 [auth-and-storage.md](auth-and-storage.md)를 참조한다.
 
 > 상태: **완료 (2026-10-23)**. S1 메트릭 엔진(`src/lib/metrics/index.ts`), S2 Supabase SQL 마이그레이션(27개 테이블 + RLS + RPC, `supabase/migrations/20261022000000_halox_schema.sql`), S3~S7 Next.js 백엔드 런타임(`src/lib/backend/`, `src/app/api/v1/*`) 및 클라이언트 연동(`src/lib/api/`), S8 통합 검증(`scripts/verify-backend.mjs`)과 REA 원장 갱신(`verified: 9`, `required_open: 0`, `status: ready`)까지 모두 반영되었다.
 > 입력: `architecture.md`, `api-spec.md`/`openapi.yaml`, `data-model.md`, `design-system.md`, `pages/*.md`, `user-journeys.md`, `reconstruction-ledger.md`.
@@ -87,6 +89,6 @@ scripts/                  verify-backend, verify-routes, verify-supabase-sql.sh,
 ### 알려진 한계
 
 1. ~~로그인 시도 횟수 제한 없음~~ → 해결(커밋 `5145396`): 로그인 실패는 클라이언트+이메일 5회·이메일 10회·클라이언트 20회/15분, 데이터 API는 사용자당 300회/분. 단일 프로세스 메모리 저장이라 다중 인스턴스 배포 시 공유 저장소(예: Redis)로 교체 필요.
-2. 메모리 DB 런타임은 서버 재시작 시 초기화된다(로컬 데모 설계). 영속 저장은 Supabase 마이그레이션으로 준비돼 있으나 앱 런타임은 아직 연결하지 않았다.
+2. 서버 재시작 시 초기화 문제는 SQLite 영속 저장으로 해결했다. 현재 파일에 전체 상태 스냅샷을 저장하며 Supabase 연결은 아직 구현하지 않았다. 대규모/분산 환경용 DB 전환은 후속 작업이다.
 3. 수집 화면 재생 구조상, E2E로 확인하지 않은 다른 대화상자에도 제출 버튼이 비활성으로 고정된 경우가 남아 있을 수 있다.
 4. 메모리 런타임의 `reserve_unit_with_bypass`는 객체를 돌려주고 쿼터 초과 시 오류를 던진다. 원본과 같은 결과 행 형식은 SQL 쪽에만 적용했다.

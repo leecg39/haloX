@@ -2,10 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { authenticate } from '@/lib/api/route-auth';
 import {
   DEFAULT_USER_ID,
-  haloxDb,
   QuotaExceededError,
   RlsAccessDeniedError,
 } from '@/lib/backend/database';
+import { haloxStore, StorageUnavailableError } from '@/lib/backend/store';
 
 export function formatAgentChatSseStream(result: Record<string, unknown>): string {
   const chunks = Array.isArray(result.chunks) ? result.chunks.map(String) : [];
@@ -56,7 +56,7 @@ export async function POST(
       }
     }
 
-    const result = await haloxDb.invokeEdgeFunction(name, payload, userId);
+    const result = await haloxStore.write(db => db.invokeEdgeFunction(name, payload, userId));
 
     const wantsSse =
       name === 'agent-chat' &&
@@ -83,6 +83,9 @@ export async function POST(
 
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
+    if (error instanceof StorageUnavailableError) {
+      return NextResponse.json({ error: error.message, code: error.code }, { status: 503 });
+    }
     if (error instanceof RlsAccessDeniedError) {
       return NextResponse.json({ error: error.message, code: error.code }, { status: 403 });
     }

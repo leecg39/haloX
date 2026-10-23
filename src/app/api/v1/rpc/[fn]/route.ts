@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { authenticate } from '@/lib/api/route-auth';
 import {
-  haloxDb,
   QuotaExceededError,
   RlsAccessDeniedError,
 } from '@/lib/backend/database';
+import { haloxStore, StorageUnavailableError } from '@/lib/backend/store';
 
 export async function POST(
   req: NextRequest,
@@ -21,9 +21,12 @@ export async function POST(
     if (text.trim()) {
       args = JSON.parse(text) as Record<string, unknown>;
     }
-    const result = haloxDb.callRpc(fn, args, userId);
+    const result = await haloxStore.write(db => db.callRpc(fn, args, userId));
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
+    if (error instanceof StorageUnavailableError) {
+      return NextResponse.json({ error: error.message, code: error.code }, { status: 503 });
+    }
     if (error instanceof RlsAccessDeniedError) {
       return NextResponse.json({ error: error.message, code: error.code }, { status: 403 });
     }
