@@ -1,3 +1,5 @@
+import { googlePeriod, aggregateGsc, groupGa4 } from './google-metrics.ts';
+import type { GooglePrivateCollection } from './google-service.ts';
 import { accountActive, deletionState, deletionView, scheduleDeletion, purgeDueAccounts, type DeletionCollection } from './account-deletion-model.ts';
 import { registerKeywordPrompt, readCollectionDefaults } from './general-settings-service.ts';
 import { canAccess, canWrite, normalizeSections, type Permission, type Section } from '../permissions/workspace.ts';
@@ -159,11 +161,11 @@ export class HaloXDatabase {
   }
 
   /** Separate from the public table whitelist: no REST/RPC access. */
-  public getServerRecords(collection: DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
+  public getServerRecords(collection: GooglePrivateCollection | DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
     return structuredClone(this.serverRecords[collection] ?? []);
   }
 
-  public setServerRecords(collection: DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
+  public setServerRecords(collection: GooglePrivateCollection | DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
     this.serverRecords[collection] = structuredClone(rows);
   }
 
@@ -916,6 +918,7 @@ export class HaloXDatabase {
       'system_settings',
       'vw_gsc_connection_health',
       'workspace_billing_overrides',
+      'google_sync_jobs',
       'workspace_google_connections',
       'workspace_mirrors',
       'workspace_tag_groups',
@@ -1533,7 +1536,7 @@ export class HaloXDatabase {
     }
     if (tableName === 'workspaces' && deleted.length) {
       const workspaceIds = new Set(deleted.map(row => String(row.id)));
-      for (const name of ['earned_requests', 'site_policy_work', 'site_policy_requests', 'api_key_issue_requests', 'api_key_usage', 'api_tool_requests', 'brand_reclassify_requests', 'workspace_invitation_tokens', 'knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests', 'strategy_requests', 'report_requests', 'raw_import_files', 'raw_import_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
+      for (const name of ['google_resources', 'google_credentials', 'google_oauth_states', 'google_sync_work', 'google_sync_requests', 'earned_requests', 'site_policy_work', 'site_policy_requests', 'api_key_issue_requests', 'api_key_usage', 'api_tool_requests', 'brand_reclassify_requests', 'workspace_invitation_tokens', 'knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests', 'strategy_requests', 'report_requests', 'raw_import_files', 'raw_import_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
       const keywordIds = new Set((this.tables.get('keywords') || []).filter(row => workspaceIds.has(String(row.workspace_id))).map(row => String(row.id)));
       for (const [name, rows] of this.tables) {
         if (name === 'workspaces') continue;
@@ -1771,12 +1774,8 @@ export class HaloXDatabase {
         };
 
       case 'get_ga4_channel_summary': {
-        const ga4Rows = this.queryTable('ga4_page_stats', {}, actorUserId).data.filter(
-          r => r.workspace_id === workspaceId
-        );
-        const gscTotals = this.queryTable('gsc_daily_totals', {}, actorUserId).data.filter(
-          r => r.workspace_id === workspaceId
-        );
+        const ga4Rows = googlePeriod(this.queryTable('ga4_page_stats', {}, actorUserId).data.filter(row => row.workspace_id === workspaceId), args);
+        const gscTotals = googlePeriod(this.queryTable('gsc_daily_totals', {}, actorUserId).data.filter(row => row.workspace_id === workspaceId), args);
         const organicSessions = ga4Rows.reduce((s, r) => s + Number(r.organic_sessions || 0), 0);
         const aiSessions = ga4Rows.reduce((s, r) => s + Number(r.ai_sessions || 0), 0);
         const gscClicks = gscTotals.reduce((s, r) => s + Number(r.clicks || 0), 0);
@@ -1792,43 +1791,17 @@ export class HaloXDatabase {
         ];
       }
 
-      case 'get_ga4_dashboard_timeseries': {
-        const ga4Rows = this.queryTable('ga4_page_stats', {}, actorUserId).data.filter(
-          r => r.workspace_id === workspaceId
-        );
-        return ga4Rows.map(r => ({
-          date: r.date,
-          organic_sessions: Number(r.organic_sessions || 0),
-          ai_sessions: Number(r.ai_sessions || 0),
-          ai_traffic_share: aiTrafficShare(Number(r.ai_sessions || 0), Number(r.organic_sessions || 0)),
-        }));
-      }
-
-      case 'get_gsc_dashboard_dimensions': {
-        return keywords.map(k => ({
-          dimension: 'query',
-          key: k.keyword,
-          clicks: 42,
-          impressions: 980,
-          ctr: 4.28,
-          avg_position: 8.5,
-        }));
-      }
-
-      case 'get_gsc_dashboard_timeseries': {
-        return this.queryTable('gsc_daily_totals', {}, actorUserId).data.filter(
-          r => r.workspace_id === workspaceId
-        );
-      }
-
+      case 'get_ga4_dashboard_timeseries':
       case 'get_page_ga4_stats': {
-        return this.queryTable('ga4_page_stats', {}, actorUserId).data
-          .filter(r => r.workspace_id === workspaceId)
-          .map(r => ({
-            ...r,
-            ai_traffic_share: aiTrafficShare(Number(r.ai_sessions || 0), Number(r.organic_sessions || 0)),
-          }));
+        const values = googlePeriod(this.queryTable('ga4_page_stats', {}, actorUserId).data.filter(row => row.workspace_id === workspaceId), args);
+        return groupGa4(values, rpcName === 'get_ga4_dashboard_timeseries' ? 'date' : 'page_path').map(row => ({ ...row, ai_traffic_share: aiTrafficShare(Number(row.ai_sessions), Number(row.organic_sessions)) }));
       }
+      case 'get_gsc_dashboard_dimensions': {
+        const values = googlePeriod(this.queryTable('gsc_daily_keywords', {}, actorUserId).data.filter(row => row.workspace_id === workspaceId), args);
+        return [...new Set(values.map(row => String(row.keyword || row.query || '')))].map(key => ({ dimension: 'query', key, ...aggregateGsc(values.filter(row => (row.keyword || row.query) === key)) }));
+      }
+      case 'get_gsc_dashboard_timeseries':
+        return googlePeriod(this.queryTable('gsc_daily_totals', {}, actorUserId).data.filter(row => row.workspace_id === workspaceId), args);
 
       case 'get_gap_overview_light':
         return keywords.map(k => ({
@@ -1872,34 +1845,18 @@ export class HaloXDatabase {
           our_mapped_unique: 2,
         };
 
-      case 'get_gsc_dashboard_kpis':
-        return {
-          clicks: 128,
-          impressions: 3420,
-          ctr: 3.74,
-          avg_position: 11.4,
-          prev_clicks: 110,
-          prev_impressions: 3100,
-          prev_ctr: 3.55,
-          prev_avg_position: 12.1,
-        };
-
-      case 'get_keywords_with_gsc_stats':
-        return keywords.map((k, idx) => {
-          const avgPos = idx === 0 ? 8.5 : 3.2;
-          const impressions = idx === 0 ? 980 : 1450;
-          const ctr = idx === 0 ? 4.28 : 6.4;
-          const quickWin = isQuickWinKeyword({ avgPosition: avgPos, impressions, ctrPercent: ctr });
-          return {
-            keyword_id: k.id,
-            keyword_text: k.keyword,
-            gsc_clicks: Math.round((impressions * ctr) / 100),
-            gsc_impressions: impressions,
-            gsc_ctr: ctr,
-            gsc_avg_position: avgPos,
-            gsc_insight_type: quickWin ? 'quick_win' : 'top_performer',
-          };
+      case 'get_gsc_dashboard_kpis': {
+        const values = this.queryTable('gsc_daily_totals', {}, actorUserId).data.filter(row => row.workspace_id === workspaceId), current = aggregateGsc(googlePeriod(values, args)), previous = aggregateGsc(googlePeriod(values, args, true));
+        return { ...current, prev_clicks: previous.measured_rows ? previous.clicks : null, prev_impressions: previous.measured_rows ? previous.impressions : null, prev_ctr: previous.ctr, prev_avg_position: previous.avg_position };
+      }
+      case 'get_keywords_with_gsc_stats': {
+        const values = googlePeriod(this.queryTable('gsc_daily_keywords', {}, actorUserId).data.filter(row => row.workspace_id === workspaceId), args);
+        return keywords.map(keyword => {
+          const stats = aggregateGsc(values.filter(row => String(row.keyword || row.query).toLowerCase() === String(keyword.keyword).toLowerCase()));
+          const quickWin = stats.avg_position !== null && stats.ctr !== null && isQuickWinKeyword({ avgPosition: stats.avg_position, impressions: stats.impressions, ctrPercent: stats.ctr });
+          return { keyword_id: keyword.id, keyword_text: keyword.keyword, gsc_clicks: stats.clicks, gsc_impressions: stats.impressions, gsc_ctr: stats.ctr, gsc_avg_position: stats.avg_position, gsc_insight_type: !stats.measured_rows ? 'unmeasured' : quickWin ? 'quick_win' : 'measured' };
         });
+      }
 
       case 'get_latest_serp_snapshots': {
         const ids = Array.isArray(args.p_keyword_ids) ? args.p_keyword_ids.map(String) : null;
@@ -2659,63 +2616,7 @@ export class HaloXDatabase {
 
     if (fnName === 'translate-content-v2') throw new Error('자동 번역은 전용 서버 실행 경로를 사용해 주세요.');
 
-    if (fnName === 'gsc-sync-enqueue' || fnName === 'sync-ga4-data') {
-      const dateStr = String(payload.date || '2026-10-23');
-      const clicks = Number(payload.clicks ?? 156);
-      const impressions = Number(payload.impressions ?? 4100);
-      const organicSessions = Number(payload.organic_sessions ?? 400);
-      const aiSessions = Number(payload.ai_sessions ?? 68);
-
-      this.insertTable(
-        'workspace_google_connections',
-        {
-          workspace_id: workspaceId,
-          provider: 'google',
-          gsc_site_url: 'sc-domain:brizzi.kr',
-          ga4_property_id: 'properties/99887766',
-          status: 'connected',
-        },
-        actorUserId
-      );
-
-      const [gscRow] = this.insertTable(
-        'gsc_daily_totals',
-        {
-          workspace_id: workspaceId,
-          date: dateStr,
-          clicks,
-          impressions,
-          ctr: impressions > 0 ? Math.round((clicks / impressions) * 10000) / 100 : 0,
-          avg_position: 9.8,
-        },
-        actorUserId
-      );
-
-      const [ga4Row] = this.insertTable(
-        'ga4_page_stats',
-        {
-          workspace_id: workspaceId,
-          date: dateStr,
-          page_path: String(payload.page_path || '/features/geo'),
-          organic_sessions: organicSessions,
-          ai_sessions: aiSessions,
-          conversions: 19,
-        },
-        actorUserId
-      );
-
-      return {
-        ok: true,
-        function: fnName,
-        workspace_id: workspaceId,
-        gsc_daily: gscRow,
-        ga4_daily: ga4Row,
-        kpis: {
-          ai_traffic_share: aiTrafficShare(aiSessions, organicSessions),
-          search_contribution: searchContribution(clicks, organicSessions),
-        },
-      };
-    }
+    if (['gsc-sync-enqueue', 'sync-ga4-data'].includes(fnName)) throw new Error('Google 동기화는 전용 연동 관리 API를 사용해 주세요.');
 
     if (
       fnName === 'nicepay-create-auth-order' ||

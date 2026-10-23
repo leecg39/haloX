@@ -1,3 +1,4 @@
+import { IntegrationsPage } from '@/components/live/IntegrationsPage';
 import { RestoreAccountPage } from '@/components/AccountDeletion';
 import { GeneralSettingsPage } from '@/components/live/GeneralSettingsPage';
 import type { Metadata } from 'next';
@@ -82,6 +83,7 @@ export default async function Page(props: Props) {
     shellRoute = pathname; children = <AnalysesPage kind={pathname.includes('/seo/') ? 'seo' : 'geo'} initialTab={new URLSearchParams(route.split('?')[1]).get('tab') || undefined} />;
   }
   const settingsTab = new URLSearchParams(route.split('?')[1]).get('tab');
+  if (pathname === '/app/settings' && settingsTab === 'integrations') { shellRoute = '/app'; children = <IntegrationsPage />; }
   if (pathname === '/app/settings' && (!settingsTab || settingsTab === 'general')) { shellRoute = '/app'; children = <GeneralSettingsPage />; }
   if (pathname === '/app/settings' && settingsTab === 'earned') { shellRoute = '/app'; children = <EarnedPage />; }
   if (pathname === '/app/settings' && settingsTab === 'api') { shellRoute = '/app'; children = <ApiSettingsPage />; }

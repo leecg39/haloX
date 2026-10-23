@@ -1,32 +1,33 @@
 import { expect, test, type Page } from '@playwright/test';
-import path from 'node:path';
+import { loginIsolatedAccount } from './isolated-account';
 import { PersistentHaloXStore } from '../src/lib/backend/store';
 import { runWordPressCommand } from '../src/lib/backend/wordpress-service';
 import { ExternalServiceError } from '../src/lib/backend/public-json';
-import { DEFAULT_USER_ID, OTHER_USER_ID, type Row } from '../src/lib/backend/database';
+import { DEFAULT_USER_ID, type Row } from '../src/lib/backend/database';
 
-test.use({ storageState: path.join(__dirname, '.auth', 'export-state.json') });
+test.use({ storageState: { cookies: [], origins: [] } });
 const live = (page: Page) => page.locator('[data-live-root]'), dialog = (page: Page) => page.getByRole('dialog');
 async function submit(page: Page, name = '저장') { await dialog(page).getByRole('button', { name, exact: true }).click(); await expect(dialog(page)).not.toBeVisible(); }
 async function setup(page: Page) {
+  const actor = await loginIsolatedAccount(page, 'wordpress');
   const response = await page.request.post('/api/v1/rest/workspaces', { data: { name: `WordPress 검증 ${Date.now()}` } }); expect(response.status()).toBe(201); const [ws] = await response.json();
   const content = await page.request.post('/api/v1/functions/content-create', { data: { workspace_id: ws.id, title: '게시할 문서', target_keyword: '제품 안내', content_md: '## 안내\n검토한 내용을 WordPress에 전송합니다.' } }); expect(content.status()).toBe(200);
   await page.goto('/app/settings?tab=export'); await expect(live(page).getByRole('button', { name: '파일 만들기', exact: true })).toBeEnabled();
   await page.locator('[data-sidebar="header"] button[aria-haspopup="menu"]').click(); await page.getByRole('menuitem', { name: `${ws.name} (trial)` }).click(); await expect(live(page)).toContainText(ws.name);
-  await live(page).getByRole('button', { name: 'WordPress 연결', exact: true }).click(); return { ws, ...(await content.json()) };
+  await live(page).getByRole('button', { name: 'WordPress 연결', exact: true }).click(); return { ws, actor, ...(await content.json()) };
 }
 async function connect(page: Page) {
   await live(page).getByRole('button', { name: 'WordPress 연결 추가', exact: true }).click(); await dialog(page).getByLabel('연결 이름').fill('검토 블로그'); await dialog(page).getByLabel('사이트 주소').fill('https://blog.example.invalid/'); await dialog(page).getByLabel('WordPress 사용자 이름').fill('editor'); await dialog(page).getByLabel('애플리케이션 비밀번호').fill('abcd efgh ijkl mnop qrst uvwx'); await submit(page);
 }
 
 test('WordPress settings, private credentials, permission verification, explicit preview and publication history persist', async ({ page }) => {
-  const { ws } = await setup(page); const store = new PersistentHaloXStore(process.env.HALOX_E2E_DATABASE_PATH!); const sent: Row[] = [];
+  const { ws, actor } = await setup(page); const store = new PersistentHaloXStore(process.env.HALOX_E2E_DATABASE_PATH!); const sent: Row[] = [];
   // Only the remote WordPress client is a fixture; service transactions and all
   // settings/history/read endpoints use the production logic and isolated DB.
   const client = { verify: async () => ({ remote_user_id: 7, can_publish: true }), publish: async (_credentials: unknown, body: Row) => { sent.push(body); return { id: 18, status: 'draft', url: 'https://blog.example.invalid/?p=18' }; }, find: async () => null };
   await page.route(/\/api\/v1\/functions\/wordpress-(verify|publish)$/, async route => {
     const name = route.request().url().split('/').at(-1)!;
-    const result = await runWordPressCommand(store, name, route.request().postDataJSON(), OTHER_USER_ID, client);
+    const result = await runWordPressCommand(store, name, route.request().postDataJSON(), actor, client);
     await route.fulfill({ status: result.ok === false ? 502 : 200, json: result });
   });
   try {
@@ -44,10 +45,10 @@ test('WordPress settings, private credentials, permission verification, explicit
 });
 
 test('failed connection and ambiguous delivery remain visible; remote reconciliation never reposts and members cannot manage connections', async ({ page }) => {
-  const { ws, job } = await setup(page); const store = new PersistentHaloXStore(process.env.HALOX_E2E_DATABASE_PATH!); let failVerify = true, posts = 0;
+  const { ws, job, actor } = await setup(page); const store = new PersistentHaloXStore(process.env.HALOX_E2E_DATABASE_PATH!); let failVerify = true, posts = 0;
   const client = { verify: async () => { if (failVerify) throw new ExternalServiceError('연결 인증 실패', 'WORDPRESS_REJECTED', 502, false); return { remote_user_id: 7, can_publish: true }; }, publish: async () => { posts++; throw new ExternalServiceError('게시 응답 시간 초과'); }, find: async () => ({ id: 19, status: 'draft', url: 'https://blog.example.invalid/?p=19' }) };
   await page.route(/\/api\/v1\/functions\/wordpress-(verify|publish|reconcile)$/, async route => {
-    try { const result = await runWordPressCommand(store, route.request().url().split('/').at(-1)!, route.request().postDataJSON(), OTHER_USER_ID, client); await route.fulfill({ status: result.ok === false ? 502 : 200, json: result }); }
+    try { const result = await runWordPressCommand(store, route.request().url().split('/').at(-1)!, route.request().postDataJSON(), actor, client); await route.fulfill({ status: result.ok === false ? 502 : 200, json: result }); }
     catch (error) { await route.fulfill({ status: 502, json: { error: (error as Error).message } }); }
   });
   try {

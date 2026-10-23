@@ -4,7 +4,7 @@ import { KEYWORD_EDITABLE_FIELDS } from './keyword-model.ts';
 import { GEO_EDITABLE_FIELDS, GEO_RESULT_TABLES } from './geo-model.ts';
 import { LIBRARY_EDITABLE_FIELDS } from './library-model.ts';
 
-const READ_ONLY = new Set(['profiles', 'plan_templates', 'plan_unit_limits', 'welcome_guide_config', 'welcome_guide_settings', 'system_settings', 'workspace_plans', 'usage_reservations', 'serp_snapshots']);
+const READ_ONLY = new Set(['workspace_google_connections', 'google_sync_jobs', 'gsc_sync_state', 'vw_gsc_connection_health', 'gsc_daily_totals', 'gsc_daily_keywords', 'gsc_daily_pages', 'ga4_page_stats', 'profiles', 'plan_templates', 'plan_unit_limits', 'welcome_guide_config', 'welcome_guide_settings', 'system_settings', 'workspace_plans', 'usage_reservations', 'serp_snapshots']);
 const ADMIN_TABLES = new Set(['workspace_members', 'workspace_invitations', 'workspace_api_keys']);
 const WORKSPACE_FIELDS = new Set(['name', 'description', 'brand_name', 'default_brand_filter', 'slug']);
 const PROFILE_FIELDS = new Set(['full_name']);

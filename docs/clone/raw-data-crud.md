@@ -89,4 +89,4 @@ ZIP은 최대 100,000 CSV 행·20 MiB, 서버 고정 파일명, UTF-8 BOM CSV·C
 
 ## 남은 연동
 
-모니터링 Raw는 이미 저장된 GSC/GA4 시드·데모 기록만 읽는다. Provider 미기록 자료는 `legacy-unverified`로 표시한다. 실제 OAuth 동기화는 S09 작업에 남아 있다. 이번 기능은 외부 검색·LLM·진단 Provider를 호출하여 새 실측을 만드는 기능이 아니다. OpenAI 번역 키는 사용자가 서버에 설정하며, 이번 검증에서 실제 OpenAI/SOLAPI 유료 요청은 하지 않았다.
+모니터링 Raw는 S09의 실제 Google 수집값과 기존 GSC/GA4 시드·데모 기록을 함께 읽되 출처를 구분한다. Provider 미기록 자료는 `legacy-unverified`로 표시한다. 실제 OAuth 동기화·연결 설정은 [Google 연동](google-integrations-crud.md)에서 관리한다. 최신 1건 필터도 GA4 출처·채널·속성별로 구분한다. 이번 기능은 외부 검색·LLM·진단 Provider를 호출하여 새 실측을 만드는 기능이 아니다. OpenAI 번역 키는 사용자가 서버에 설정하며, 이번 검증에서 실제 OpenAI/SOLAPI 유료 요청은 하지 않았다.

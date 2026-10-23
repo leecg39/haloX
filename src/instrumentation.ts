@@ -1,6 +1,10 @@
 export async function register() {
   if (process.env.NEXT_RUNTIME !== 'nodejs' || process.env.NEXT_PHASE === 'phase-production-build') return;
-  const runtime = globalThis as typeof globalThis & { haloxDeletionStop?: () => void; haloxScheduleStop?: () => void; haloxAuditStop?: () => void; haloxObservationStop?: () => void };
+  const runtime = globalThis as typeof globalThis & { haloxGoogleStop?: () => void; haloxDeletionStop?: () => void; haloxScheduleStop?: () => void; haloxAuditStop?: () => void; haloxObservationStop?: () => void };
+  if (!runtime.haloxGoogleStop && process.env.HALOX_DISABLE_GOOGLE_WORKER !== '1') {
+    const { startGoogleWorker } = await import('./lib/backend/google-worker');
+    runtime.haloxGoogleStop = startGoogleWorker();
+  }
   if (!runtime.haloxDeletionStop && process.env.HALOX_DISABLE_ACCOUNT_DELETION_WORKER !== '1') {
     const { startAccountDeletionWorker } = await import('./lib/backend/account-deletion-service');
     runtime.haloxDeletionStop = startAccountDeletionWorker();

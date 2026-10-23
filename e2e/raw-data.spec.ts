@@ -1,14 +1,16 @@
+import { loginIsolatedAccount } from './isolated-account';
 import path from 'node:path';
 import { readFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { expect, test, type Page } from '@playwright/test';
-test.use({ storageState: path.join(__dirname, '.auth', 'raw-state.json') });
+test.use({ storageState: { cookies: [], origins: [] } });
 const live = (page: Page) => page.locator('[data-live-root]'), modal = (page: Page) => page.getByRole('dialog');
 const endpoint = (workspace: string, kind = 'seo', params: Record<string, string> = {}) => `/api/v1/raw-data?${new URLSearchParams({ workspace_id: workspace, kind, ...params })}`;
 async function save(page: Page, name = '저장') { await modal(page).getByRole('button', { name, exact: true }).click(); await expect(modal(page)).not.toBeVisible(); }
 async function invoke(page: Page, name: string, workspace: string, values: Record<string, unknown>) { const response = await page.request.post(`/api/v1/functions/${name}`, { data: { ...values, workspace_id: workspace } }); expect(response.status(), await response.text()).toBe(200); return response.json(); }
 async function rows(page: Page, workspace: string, table: string) { return (await page.request.get(`/api/v1/rest/${table}?workspace_id=eq.${workspace}`)).json(); }
 async function setup(page: Page) {
+  await loginIsolatedAccount(page, 'raw');
   const response = await page.request.post('/api/v1/rest/workspaces', { data: { name: `원본 검증 ${Date.now()}`, default_brand_filter: 'brizzi.kr' } }); expect(response.status()).toBe(201); const [ws] = await response.json();
   await page.goto('/app/raw-data'); await page.locator('[data-sidebar="header"] button[aria-haspopup="menu"]').click(); await page.getByRole('menuitem', { name: `${ws.name} (trial)` }).click(); await expect(live(page)).toContainText(ws.name); await expect(live(page).getByRole('button', { name: 'JSON 가져오기', exact: true })).toBeEnabled(); return ws;
 }
@@ -66,6 +68,6 @@ test('raw upload/download failures preserve input, recover, and mobile filters a
     await modal(page).getByLabel('원본 JSON 파일').setInputFiles({ name: 'invalid.json', mimeType: 'application/json', buffer: Buffer.from('{') }); await expect(modal(page)).toContainText('invalid.json · 1 bytes'); await modal(page).getByRole('button', { name: '가져오기', exact: true }).click(); await expect(modal(page).getByRole('alert')).toContainText('JSON 파일 구문'); await expect(modal(page).getByLabel('가져오기 이름')).toHaveValue('원본 가져오기 검증'); await modal(page).getByLabel('원본 JSON 파일').setInputFiles({ name: '원본.json', mimeType: 'application/json', buffer: Buffer.from(contents) }); await expect(modal(page)).toContainText('원본.json ·'); await save(page, '가져오기');
     await live(page).getByRole('button', { name: '원본 목록에서 보기' }).click(); await page.route('**/api/v1/raw-data?**', route => new URL(route.request().url()).searchParams.get('mode') === 'download' ? route.fulfill({ status: 503, json: { error: '다운로드 일시 중단' } }) : route.continue()); await live(page).getByRole('button', { name: 'ZIP 다운로드' }).click(); await expect(live(page).getByRole('alert')).toContainText('다운로드 일시 중단'); expect(new URL(page.url()).pathname).toBe('/app/raw-data'); await page.unroute('**/api/v1/raw-data?**');
     await page.setViewportSize({ width: 390, height: 844 }); expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true); await page.mouse.move(195, 400); await page.mouse.wheel(0, 950); await expect.poll(() => live(page).evaluate(element => element.scrollTop)).toBeGreaterThan(0); await live(page).getByRole('button', { name: '가져오기 내역', exact: true }).click(); await live(page).getByRole('button', { name: '가져오기 편집' }).click(); await modal(page).getByLabel('가져오기 메모').fill('모바일 수정'); await save(page); await expect(live(page)).toContainText('모바일 수정');
-    await live(page).getByRole('button', { name: '모니터링 Raw' }).click(); await expect(live(page)).toContainText('GSC·GA4 실제 OAuth 동기화는 아직 연결되지 않았습니다'); await expect(live(page).getByRole('button', { name: 'JSON 가져오기', exact: true })).toBeDisabled();
+    await live(page).getByRole('button', { name: '모니터링 Raw' }).click(); await expect(live(page)).toContainText('GSC·GA4는 연동 설정에서 Google 계정을 연결한 뒤 동기화할 수 있습니다'); await expect(live(page).getByRole('button', { name: 'JSON 가져오기', exact: true })).toBeDisabled();
   } finally { await page.request.delete(`/api/v1/rest/workspaces?id=eq.${ws.id}`); }
 });

@@ -711,22 +711,8 @@ async function runVerification() {
   assert.equal(transRes.translation.status, 'ready');
   await assert.rejects(() => db.invokeEdgeFunction('translate-content-v2', { workspace_id: DEFAULT_WORKSPACE_ID, target_locales: ['en'] }, DEFAULT_USER_ID), /전용 서버 실행 경로/);
 
-  // 8e. GSC & GA4 Sync Pipeline
-  const syncRes = await db.invokeEdgeFunction(
-    'sync-ga4-data',
-    {
-      workspace_id: DEFAULT_WORKSPACE_ID,
-      date: '2026-10-23',
-      clicks: 160,
-      impressions: 4000,
-      organic_sessions: 400,
-      ai_sessions: 80,
-    },
-    DEFAULT_USER_ID
-  );
-  assert.equal(syncRes.ok, true);
-  assert.equal(syncRes.kpis.ai_traffic_share, 20);
-  assert.equal(syncRes.kpis.search_contribution, 40);
+  // Google measurements cannot be fabricated through legacy functions.
+  await assert.rejects(() => db.invokeEdgeFunction('sync-ga4-data', { workspace_id: DEFAULT_WORKSPACE_ID, clicks: 160 }, DEFAULT_USER_ID), /전용 연동 관리 API/);
 
   // 8f. NicePay Billing & Subscription Upgrade
   const orderRes = await db.invokeEdgeFunction(
