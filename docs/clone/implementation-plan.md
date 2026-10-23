@@ -60,3 +60,26 @@ supabase/
 1. 위 스택·범위(S1–S8, 1차 범위 밖 목록)로 진행해도 되는지.
 2. 클론 자체 브랜드명.
 3. U-1 해소를 위한 액션 포함 HAR 추가 수집 여부(쿼터 소모 발생).
+
+## 6. 완료 기준 대비 실제 증거 (2026-10-23 재검증)
+
+> 표기: **충족** = 계획 기준을 그대로 만족 · **충족(도구 대체)** = 같은 내용을 다른 도구로 검증 · **부분** = 일부만 · **미충족** = 근거 없음.
+> 모든 수치는 커밋 `7cd9daa`만 꺼낸 별도 worktree에서 다시 실행한 결과다.
+
+| 단계 | 계획 기준 | 판정 | 실제 증거 (재실행 명령 → 결과) |
+|---|---|---|---|
+| S1 | 메트릭 단위 테스트, 실측 60·3·47 + 경계값 | 충족(도구 대체: Vitest → `node:test`) | `npm run test:metrics` → 17/17, 커버리지 줄 100%·분기 95.77%·함수 100%. 원본 번들 함수(XR/dre/are/ure/ZR) 오라클 비교 |
+| S2 | `supabase db reset` 성공 + 타 워크스페이스 접근 거부 | 충족(도구 대체: 임시 Postgres 17) | `npm run verify:sql` → 마이그레이션 3 + 시드 적용, `security.test.sql`(9검사)·`quota-units.test.sql`(7검사) PASS, RLS 39/39 테이블 |
+| S3 | 라우트 렌더 테스트 + 빌드 exit 0 | 충족(도구 대체: Vite → Next.js) | `next build` exit 0, `node scripts/verify-routes.mjs <base>` → 363 상태 렌더 통과, failed 0·missing 0 |
+| S4 | 응답 계약 파싱 성공/실패 케이스 | 충족(도구 대체: zod → `schemas.ts` 수작성 검증기) | `npm run verify:backend` → 22 checks 통과 (`validateRpcResponse` 36 RPC, `parseKeywordRow` 실패 케이스 포함) |
+| S5 | 쓰기 흐름 E2E J1·J2·J3 | 충족 | `npm run test:e2e` → J1·J2·J3 통과 (쿼터 `keyword_create` 차감, 프롬프트·실행 생성, 진단 생성) |
+| S6 | E2E J4·J5 | 충족 | J4(콘텐츠 작업·초안), J5(리포트 화면 + 주간 스냅샷) 통과 |
+| S7 | E2E J6 일부 (워크스페이스·멤버·사용량·API 키) | 부분 | API 키 발급·테넌트 격리만 E2E. 멤버 초대·사용량 탭 E2E 없음 |
+| S8 | REA 원장 재생성, required_open 감소 | 충족 | `p6-obligation-ledger.json` → status ready, verified 9, required_open 0 |
+
+### 남은 결정 사항 (승인 필요)
+
+1. **인증**: 모든 `/api/v1/*`가 `x-halox-user-id` 헤더로 사용자를 정한다. 로컬 데모로는 동작하지만 배포 시 위장이 가능하다 → Supabase Auth JWT 검증으로 교체할지.
+2. **SQL 인자 이름**: SQL RPC는 `p_*` 인자를 쓴다. 원본 클라이언트(`_*`)와 직접 호환하려면 함수 재정의(DROP/CREATE)가 필요하다.
+3. **스택·도구 차이**: Vite·Vitest·zod 대신 Next.js·`node:test`·수작성 검증기로 구현됐다. 계획서 문자 그대로 맞출지, 현재 구현을 기준으로 계획을 갱신할지.
+4. **S7 나머지 E2E**: 멤버 초대·사용량 탭 여정 추가 여부.
