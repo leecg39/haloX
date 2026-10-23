@@ -817,6 +817,18 @@ export class HaloXDatabase {
     );
   }
 
+  /**
+   * Login-time lookup (no actor yet, so RLS cannot apply). Returns only the
+   * identity fields needed to issue a session.
+   */
+  public findProfileByEmail(email: string): { id: string; email: string; full_name: string } | null {
+    const normalized = email.trim().toLowerCase();
+    const row = (this.tables.get('profiles') || []).find(
+      p => String(p.email || '').toLowerCase() === normalized
+    );
+    return row ? { id: String(row.id), email: String(row.email), full_name: String(row.full_name || '') } : null;
+  }
+
   public assertWorkspaceMember(workspaceId: string, userId = DEFAULT_USER_ID): void {
     const allowed = this.getAllowedWorkspaceIds(userId);
     if (!allowed.has(workspaceId)) {

@@ -1,4 +1,9 @@
 import { defineConfig } from '@playwright/test';
+import { loadEnvConfig } from '@next/env';
+import path from 'node:path';
+
+// Same env files the Next.js server reads (.env.local holds the session secret and demo password).
+loadEnvConfig(process.cwd());
 
 // E2E journeys (docs/clone/user-journeys.md J1–J6) against a production build.
 // A dedicated port keeps these runs away from dev servers on 3000/3001.
@@ -6,6 +11,7 @@ const PORT = Number(process.env.E2E_PORT || 3107);
 
 export default defineConfig({
   testDir: './e2e',
+  globalSetup: './e2e/global-setup.ts',
   fullyParallel: false,
   workers: 1,
   timeout: 30_000,
@@ -13,6 +19,7 @@ export default defineConfig({
   reporter: [['list']],
   use: {
     baseURL: `http://127.0.0.1:${PORT}`,
+    storageState: path.join(__dirname, 'e2e', '.auth', 'state.json'),
     channel: 'chrome', // use the installed Google Chrome; no browser download needed
     headless: true,
     viewport: { width: 1440, height: 900 },
@@ -23,5 +30,7 @@ export default defineConfig({
     url: `http://127.0.0.1:${PORT}/app`,
     reuseExistingServer: false,
     timeout: 120_000,
+    // Plain-http localhost run: allow the session cookie without the Secure flag.
+    env: { HALOX_INSECURE_COOKIES: '1' },
   },
 });

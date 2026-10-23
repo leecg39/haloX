@@ -10,3 +10,6 @@ __pycache__/
 docs/research/haloxlabs.ai/initial.json
 test-results/
 playwright-report/
+.env
+.env*.local
+e2e/.auth/

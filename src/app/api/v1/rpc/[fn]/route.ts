@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { authenticate } from '@/lib/api/route-auth';
 import {
-  DEFAULT_USER_ID,
   haloxDb,
   QuotaExceededError,
   RlsAccessDeniedError,
@@ -11,7 +11,9 @@ export async function POST(
   context: { params: Promise<{ fn: string }> }
 ) {
   const { fn } = await context.params;
-  const userId = req.headers.get('x-halox-user-id') || DEFAULT_USER_ID;
+  const auth = authenticate(req);
+  if (auth.response) return auth.response;
+  const userId = auth.actor;
 
   try {
     let args: Record<string, unknown> = {};

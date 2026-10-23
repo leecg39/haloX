@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { authenticate } from '@/lib/api/route-auth';
 import {
-  DEFAULT_USER_ID,
   haloxDb,
   QuotaExceededError,
   RlsAccessDeniedError,
@@ -8,9 +8,6 @@ import {
   type Row,
 } from '@/lib/backend/database';
 
-function resolveUserId(req: NextRequest): string {
-  return req.headers.get('x-halox-user-id') || DEFAULT_USER_ID;
-}
 
 function extractFilters(req: NextRequest): Record<string, string> {
   const url = new URL(req.url);
@@ -42,7 +39,9 @@ export async function GET(
   context: { params: Promise<{ table: string }> }
 ) {
   const { table } = await context.params;
-  const userId = resolveUserId(req);
+  const auth = authenticate(req);
+  if (auth.response) return auth.response;
+  const userId = auth.actor;
   const url = new URL(req.url);
   const filters = extractFilters(req);
 
@@ -80,7 +79,9 @@ export async function HEAD(
   context: { params: Promise<{ table: string }> }
 ) {
   const { table } = await context.params;
-  const userId = resolveUserId(req);
+  const auth = authenticate(req);
+  if (auth.response) return auth.response;
+  const userId = auth.actor;
   const filters = extractFilters(req);
 
   try {
@@ -106,7 +107,9 @@ export async function POST(
   context: { params: Promise<{ table: string }> }
 ) {
   const { table } = await context.params;
-  const userId = resolveUserId(req);
+  const auth = authenticate(req);
+  if (auth.response) return auth.response;
+  const userId = auth.actor;
   try {
     const body = (await req.json()) as Row | Row[];
     const inserted = haloxDb.insertTable(table, body, userId);
@@ -121,7 +124,9 @@ export async function PATCH(
   context: { params: Promise<{ table: string }> }
 ) {
   const { table } = await context.params;
-  const userId = resolveUserId(req);
+  const auth = authenticate(req);
+  if (auth.response) return auth.response;
+  const userId = auth.actor;
   const filters = extractFilters(req);
   try {
     const patch = (await req.json()) as Row;
@@ -137,7 +142,9 @@ export async function DELETE(
   context: { params: Promise<{ table: string }> }
 ) {
   const { table } = await context.params;
-  const userId = resolveUserId(req);
+  const auth = authenticate(req);
+  if (auth.response) return auth.response;
+  const userId = auth.actor;
   const filters = extractFilters(req);
   try {
     const deleted = haloxDb.deleteTable(table, filters, userId);

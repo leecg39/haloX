@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { authenticate } from '@/lib/api/route-auth';
 import {
   DEFAULT_USER_ID,
   haloxDb,
@@ -32,7 +33,11 @@ export async function POST(
   context: { params: Promise<{ name: string }> }
 ) {
   const { name } = await context.params;
-  const userId = req.headers.get('x-halox-user-id') || DEFAULT_USER_ID;
+  // halox-mcp authenticates with a workspace API key instead of a user session;
+  // its handler ignores the actor argument.
+  const auth = name === 'halox-mcp' ? { actor: DEFAULT_USER_ID } : authenticate(req);
+  if (auth.response) return auth.response;
+  const userId = auth.actor;
 
   try {
     let payload: Record<string, unknown> = {};
