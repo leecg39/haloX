@@ -778,7 +778,8 @@ async function runVerification() {
     { api_key: 'hx_mcp_live_secret_token_999', method: 'tools/list', id: 1 },
     DEFAULT_USER_ID
   );
-  assert.equal(mcpTools.result.tools.length, 3);
+  assert(['get_avi_overview', 'list_keywords', 'get_gsc_ga4_kpis'].every(name => mcpTools.result.tools.some(tool => tool.name === name)));
+  assert(mcpTools.result.tools.every(tool => tool.annotations.readOnlyHint));
   const mcpCall = await db.invokeEdgeFunction(
     'halox-mcp',
     {

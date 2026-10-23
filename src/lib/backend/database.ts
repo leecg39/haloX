@@ -5,6 +5,9 @@ import { tableSection, rpcSection } from './permission-policy.ts';
  */
 
 import crypto from 'node:crypto';
+import { compatibleApiKey, apiScopes } from './api-key-model.ts';
+import type { ApiPrivateCollection } from './api-key-service.ts';
+import { runMcpRequest } from './mcp-service.ts';
 import { migrateBrandRows } from './brand-model.ts';
 import { readBrandConfig, reclassifyBrandData } from './brand-service.ts';
 import { createWorkspaceInvitation, validateMembership, validateWorkspacePatch, type WorkspacePrivateCollection } from './workspace-management.ts';
@@ -153,11 +156,11 @@ export class HaloXDatabase {
   }
 
   /** Separate from the public table whitelist: no REST/RPC access. */
-  public getServerRecords(collection: WorkspacePrivateCollection | AccountCollection | PortalCollection | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
+  public getServerRecords(collection: ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
     return structuredClone(this.serverRecords[collection] ?? []);
   }
 
-  public setServerRecords(collection: WorkspacePrivateCollection | AccountCollection | PortalCollection | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
+  public setServerRecords(collection: ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
     this.serverRecords[collection] = structuredClone(rows);
   }
 
@@ -650,6 +653,7 @@ export class HaloXDatabase {
     ]);
 
     ensure('workspace_api_keys', []);
+    ensure('workspace_api_limits', []);
 
     ensure('workspace_plans', [
       {
@@ -1036,6 +1040,7 @@ export class HaloXDatabase {
     if (tableName === 'workspace_api_keys') {
       const clone: Row = { ...row };
       delete clone.key_hash;
+      delete clone.raw_key;
       return clone;
     }
     return { ...row };
@@ -1079,24 +1084,29 @@ export class HaloXDatabase {
   /**
    * Verify the full secret token (a public prefix is never a credential).
    */
-  public verifyWorkspaceApiKey(rawKeyOrPrefix: string): Row | null {
-    if (!rawKeyOrPrefix) return null;
+  public verifyWorkspaceApiKey(rawKeyOrPrefix: string, now = Date.now()): Row | null {
+    if (!rawKeyOrPrefix || rawKeyOrPrefix.length > 512) return null;
     const keys = this.tables.get('workspace_api_keys') || [];
     const candidateHash = crypto.createHash('sha256').update(rawKeyOrPrefix).digest('hex');
     const matched = keys.find(
       k =>
         !k.revoked_at &&
-        (!k.expires_at || Date.parse(String(k.expires_at)) > Date.now()) &&
+        (!k.expires_at || Date.parse(String(k.expires_at)) > now) &&
         typeof k.key_hash === 'string' && k.key_hash.length === candidateHash.length &&
         crypto.timingSafeEqual(Buffer.from(k.key_hash), Buffer.from(candidateHash))
     );
     if (!matched) return null;
-    // Legacy keys are workspace-owner credentials; new keys follow their issuer's live authority.
-    const issuer = matched.created_by || (this.tables.get('workspaces') || []).find(row => row.id === matched.workspace_id)?.owner_id;
-    const member = (this.tables.get('workspace_members') || []).find(row => row.workspace_id === matched.workspace_id && row.user_id === issuer);
-    if (!member || !['owner', 'admin'].includes(String(member.role)) || (member.role !== 'owner' && !normalizeSections(member.allowed_sections).includes('all'))) return null;
-    matched.last_used_at = new Date().toISOString();
-    return this.sanitizeRowForClient('workspace_api_keys', matched);
+    if (!this.apiKeyIssuerActive(matched)) return null;
+    const key = compatibleApiKey(matched);
+    key.created_by ||= (this.tables.get('workspaces') || []).find(row => row.id === key.workspace_id)?.owner_id;
+    try { key.scopes = apiScopes(key.scopes); } catch { return null; }
+    return this.sanitizeRowForClient('workspace_api_keys', key);
+  }
+
+  public apiKeyIssuerActive(key: Row): boolean {
+    const issuer = key.created_by || (this.tables.get('workspaces') || []).find(row => row.id === key.workspace_id)?.owner_id;
+    const member = (this.tables.get('workspace_members') || []).find(row => row.workspace_id === key.workspace_id && row.user_id === issuer);
+    return !!member && ['owner', 'admin'].includes(String(member.role)) && (member.role === 'owner' || normalizeSections(member.allowed_sections).includes('all'));
   }
 
   /**
@@ -1327,6 +1337,10 @@ export class HaloXDatabase {
       delete safePatch.workspace_id;
       if (tableName === 'workspace_api_keys') {
         delete safePatch.key_hash;
+        delete safePatch.raw_key;
+        delete safePatch.key_prefix;
+        delete safePatch.created_by;
+        if (row.revoked_at) safePatch.revoked_at = row.revoked_at;
       }
       const validated = validateContentRecord(tableName, validateLibraryRecord(tableName, validateGeoRecord(tableName, validateKeywordRecord(tableName, { ...row, ...safePatch, updated_at: now }, this.tables), this.tables), this.tables), this.tables);
       if (tableName === 'workspace_members') Object.assign(validated, validateMembership(validated, this.tables));
@@ -1497,7 +1511,7 @@ export class HaloXDatabase {
     }
     if (tableName === 'workspaces' && deleted.length) {
       const workspaceIds = new Set(deleted.map(row => String(row.id)));
-      for (const name of ['brand_reclassify_requests', 'workspace_invitation_tokens', 'knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests', 'strategy_requests', 'report_requests', 'raw_import_files', 'raw_import_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
+      for (const name of ['api_key_issue_requests', 'api_key_usage', 'api_tool_requests', 'brand_reclassify_requests', 'workspace_invitation_tokens', 'knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests', 'strategy_requests', 'report_requests', 'raw_import_files', 'raw_import_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
       const keywordIds = new Set((this.tables.get('keywords') || []).filter(row => workspaceIds.has(String(row.workspace_id))).map(row => String(row.id)));
       for (const [name, rows] of this.tables) {
         if (name === 'workspaces') continue;
@@ -2044,7 +2058,7 @@ export class HaloXDatabase {
             content_job_count: jobs.length,
             last_content_job_at: jobs[jobs.length - 1]?.created_at || null,
             api_key_count: keys.length,
-            last_api_key_used_at: null,
+            last_api_key_used_at: keys.map(key => String(key.last_used_at || '')).sort().at(-1) || null,
             last_keyword_at: keywords[keywords.length - 1]?.created_at || '2026-10-22T12:00:00.000Z',
             last_prompt_at: prompts[prompts.length - 1]?.created_at || '2026-10-22T12:00:00.000Z',
           },
@@ -2210,9 +2224,9 @@ export class HaloXDatabase {
         if (!target) return false;
         this.assertWorkspaceAccess(String(target.workspace_id), actorUserId, undefined, 'write');
         const permission = this.workspacePermissions(String(target.workspace_id), actorUserId);
-        if (!['owner', 'admin'].includes(permission.role)) throw new RlsAccessDeniedError('관리자 권한이 필요합니다.');
+        if (!['owner', 'admin'].includes(permission.role) || permission.role !== 'owner' && !permission.allowed_sections.includes('all')) throw new RlsAccessDeniedError('전체 메뉴 관리자 권한이 필요합니다.');
         this.assertWorkspaceAccess(String(target.workspace_id), actorUserId, 'other', 'write');
-        target.revoked_at = new Date().toISOString();
+        if (!target.revoked_at) { target.revoked_at = new Date().toISOString(); target.revision = Number(target.revision || 0) + 1; }
         return true;
       }
 
@@ -2258,85 +2272,9 @@ export class HaloXDatabase {
     }
 
     if (fnName === 'halox-mcp') {
-      const rawKey = String(payload.api_key || '').trim();
-      const verifiedKey = this.verifyWorkspaceApiKey(rawKey);
-      if (!verifiedKey) {
-        throw new RlsAccessDeniedError('Invalid, missing, or revoked HaloX MCP API key');
-      }
-      const keyWorkspaceId = String(verifiedKey.workspace_id);
-      const mcpMethod = String(payload.method || 'tools/list');
-
-      if (mcpMethod === 'tools/list') {
-        return {
-          jsonrpc: '2.0',
-          id: payload.id ?? 1,
-          result: {
-            tools: [
-              {
-                name: 'get_avi_overview',
-                description: '워크스페이스의 AI 가시성 지수(AVI) 및 4대 엔진 인용 현황을 조회합니다.',
-                inputSchema: { type: 'object', properties: { days: { type: 'number' } } },
-              },
-              {
-                name: 'list_keywords',
-                description: '워크스페이스에 등록된 활성 타깃 키워드 및 검색량을 조회합니다.',
-                inputSchema: { type: 'object', properties: { limit: { type: 'number' } } },
-              },
-              {
-                name: 'get_gsc_ga4_kpis',
-                description: 'GSC/GA4 AI 트래픽 점유율(AI Traffic Share) 및 검색 기여도를 조회합니다.',
-                inputSchema: { type: 'object', properties: {} },
-              },
-            ],
-          },
-        };
-      }
-
-      if (mcpMethod === 'tools/call') {
-        const params = (payload.params as Record<string, unknown>) || {};
-        const toolName = String(params.name || payload.tool_name || 'get_avi_overview');
-        const wsRow = (this.tables.get('workspaces') || []).find(w => w.id === keyWorkspaceId);
-        const ownerId = String(wsRow?.owner_id || DEFAULT_USER_ID);
-
-        if (toolName === 'get_avi_overview') {
-          const avi = this.callRpc('get_avi_overview', { p_workspace_id: keyWorkspaceId }, ownerId);
-          return {
-            jsonrpc: '2.0',
-            id: payload.id ?? 1,
-            result: { content: [{ type: 'text', text: JSON.stringify(avi) }], data: avi },
-          };
-        }
-        if (toolName === 'list_keywords') {
-          const kws = this.queryTable(
-            'keywords',
-            { filters: { workspace_id: `eq.${keyWorkspaceId}` }, limit: 20 },
-            ownerId
-          );
-          return {
-            jsonrpc: '2.0',
-            id: payload.id ?? 1,
-            result: { content: [{ type: 'text', text: JSON.stringify(kws.data) }], data: kws.data },
-          };
-        }
-        if (toolName === 'get_gsc_ga4_kpis') {
-          const ga4Summary = this.callRpc(
-            'get_ga4_channel_summary',
-            { p_workspace_id: keyWorkspaceId },
-            ownerId
-          );
-          return {
-            jsonrpc: '2.0',
-            id: payload.id ?? 1,
-            result: {
-              content: [{ type: 'text', text: JSON.stringify(ga4Summary) }],
-              data: ga4Summary,
-            },
-          };
-        }
-        throw new Error(`Unsupported MCP tool: ${toolName}`);
-      }
-
-      throw new Error(`Unsupported MCP method: ${mcpMethod}`);
+      const outcome = await runMcpRequest(this, String(payload.api_key || ''), payload);
+      if (outcome.status >= 400) throw new RlsAccessDeniedError(String((outcome.body?.error as Row)?.message || 'API 요청 실패'));
+      return outcome.body || {};
     }
 
     if (REFERRAL_COMMANDS.includes(fnName)) return runReferralCommand(this, fnName, payload, actorUserId);

@@ -92,6 +92,45 @@ describe('durable store', () => {
     await assert.rejects(reopened.write(db => db.updateTable('keywords', { keyword: 'attack' }, { id: `eq.${created.id}` }, OTHER_USER_ID)), /security/);
   });
 
+  it('retries extended SQLite lock codes before executing a write exactly once', async (t) => {
+    const { filename, store } = fixture();
+    await store.read(() => undefined);
+    const original = DatabaseSync.prototype.exec;
+    const pending = [261, 262]; // SQLITE_BUSY_RECOVERY / SQLITE_LOCKED_SHAREDCACHE
+    let attempts = 0, executions = 0;
+    const mocked = t.mock.method(DatabaseSync.prototype, 'exec', function (this: DatabaseSync, sql: string) {
+      if (sql === 'BEGIN IMMEDIATE') {
+        attempts++;
+        if (pending.length) throw Object.assign(new Error('database is locked'), { errcode: pending.shift() });
+      }
+      return original.call(this, sql);
+    });
+    const [created] = await store.write(db => {
+      executions++;
+      return db.insertTable('keywords', { keyword: 'recovered writer' });
+    });
+    mocked.mock.restore();
+    assert.equal(attempts, 3);
+    assert.equal(executions, 1);
+    assert.equal(await new PersistentHaloXStore(filename).read(db => db.queryTable('keywords', { filters: { id: `eq.${created.id}` } }).count), 1);
+  });
+
+  it('does not retry non-lock SQLite errors or run the pending mutation', async (t) => {
+    const { store } = fixture();
+    await store.read(() => undefined);
+    const original = DatabaseSync.prototype.exec;
+    let attempts = 0;
+    t.mock.method(DatabaseSync.prototype, 'exec', function (this: DatabaseSync, sql: string) {
+      if (sql === 'BEGIN IMMEDIATE') {
+        attempts++;
+        throw Object.assign(new Error('disk I/O error'), { errcode: 266 }); // SQLITE_IOERR_READ
+      }
+      return original.call(this, sql);
+    });
+    await assert.rejects(store.write(() => assert.fail('must not execute')), StorageUnavailableError);
+    assert.equal(attempts, 1);
+  });
+
   it('does not resurrect deleted seed rows or reset corrupt storage', async () => {
     const { filename, store } = fixture();
     const first = await store.read(db => db.queryTable('keywords').data[0]);

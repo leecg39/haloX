@@ -53,7 +53,11 @@ export class PersistentHaloXStore {
         action();
         return;
       } catch (error) {
-        const code = (error as { errcode?: number }).errcode;
+        const extendedCode = (error as { errcode?: number }).errcode;
+        // node:sqlite can return extended codes (e.g. BUSY_RECOVERY = 261).
+        // The low byte is SQLite's primary code. Only retry acquiring the lock;
+        // the domain operation has not started and must never be replayed here.
+        const code = typeof extendedCode === 'number' ? extendedCode & 0xff : undefined;
         if (code !== 5 && code !== 6) throw new StorageUnavailableError(); // SQLITE_BUSY / SQLITE_LOCKED
         if (Date.now() >= deadline) throw new StorageUnavailableError();
         await delay(25);

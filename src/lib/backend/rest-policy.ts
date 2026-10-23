@@ -27,6 +27,7 @@ export function assertRestWrite(db: HaloXDatabase, table: string, method: 'POST'
       if (workspace) db.assertTableAccess(table, String(workspace), actor, 'write');
     }
   }
+  if (['workspace_api_keys', 'workspace_api_limits'].includes(table)) throw new RlsAccessDeniedError('API 키와 한도는 전용 API 설정으로만 변경합니다.');
   if (table === 'workspace_invitations') throw new RlsAccessDeniedError('초대는 전용 초대 관리 기능으로만 변경합니다.');
   if (['brands', 'brand_tracking_settings', 'brand_products', 'brand_domain_aliases', 'brand_reclassify_jobs'].includes(table)) throw new RlsAccessDeniedError('브랜드 설정과 재분류는 전용 브랜드 관리 기능으로만 변경합니다.');
   if (table === 'profiles' && method === 'PATCH') {

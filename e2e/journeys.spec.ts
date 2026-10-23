@@ -1,4 +1,4 @@
-import { expect, test, type APIRequestContext, type Page } from '@playwright/test';
+import { expect, test, type APIRequestContext } from '@playwright/test';
 
 /**
  * Core user journeys (docs/clone/user-journeys.md). Each test drives the UI and then
@@ -23,32 +23,6 @@ async function quotaUsed(api: APIRequestContext, unit: string): Promise<number> 
   const found = units.find(u => u.unit_key === unit);
   expect(found, `quota unit ${unit}`).toBeTruthy();
   return found!.plan_used;
-}
-
-/**
- * Open a dialog from a page button (optionally picking a start option first), fill every
- * required field — the first one with `value` — submit it and wait for the saved toast.
- */
-async function submitDialog(
-  page: Page, route: string, trigger: string, value: string,
-  opts: { choose?: RegExp; submit?: string } = {},
-): Promise<void> {
-  await page.goto(route);
-  await expect(page.locator('.clone-surface')).toBeVisible();
-  await page.getByRole('button', { name: trigger, exact: true }).first().click();
-  if (opts.choose) await page.getByRole('button', { name: opts.choose }).click();
-  const dialog = page.getByRole('dialog').last();
-  const fields = dialog.locator('input[required]:not([type=checkbox]):not([type=hidden]), textarea[required]');
-  await expect(fields.first()).toBeVisible();
-  const count = await fields.count();
-  for (let i = 0; i < count; i += 1) {
-    const field = fields.nth(i);
-    const type = await field.getAttribute('type');
-    const filler = i === 0 ? value : type === 'url' ? 'https://example.com' : type === 'email' ? 'e2e@example.com' : 'e2e';
-    await field.fill(filler);
-  }
-  await dialog.getByRole('button', { name: opts.submit ?? '로컬 저장', exact: true }).last().click();
-  await expect(page.locator('.clone-toast')).toContainText('로컬 데모에 저장했습니다');
 }
 
 test('J1 keyword add charges keyword_create quota and stores the keyword', async ({ page, request }) => {
@@ -120,7 +94,12 @@ test('J5 weekly report page renders and a weekly snapshot can be generated', asy
 
 test('J6 API key issue stores a workspace API key', async ({ page, request }) => {
   const name = `e2e-key-${Date.now()}`;
-  await submitDialog(page, '/app/settings?tab=api', '키 발급', name);
+  await page.goto('/app/settings?tab=api');
+  await page.getByRole('button', { name: '키 발급', exact: true }).click();
+  await page.getByRole('dialog').getByLabel('키 이름', { exact: true }).fill(name);
+  await page.getByRole('dialog').getByRole('button', { name: '발급', exact: true }).click();
+  await expect(page.getByRole('dialog').getByLabel('발급된 API 키')).toHaveValue(/^hx_live_/);
+  await page.getByRole('dialog').getByRole('button', { name: '닫기', exact: true }).click();
   await expect.poll(async () => (await rows(request, 'workspace_api_keys', `name=eq.${encodeURIComponent(name)}`)).length).toBe(1);
   const [key] = await rows(request, 'workspace_api_keys', `name=eq.${encodeURIComponent(name)}`);
   expect(key.key_hash, 'key hash must never be returned to clients').toBeUndefined();

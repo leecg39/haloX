@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { serveMcp } from '@/lib/api/mcp-http';
 import { TRANSLATION_COMMANDS, runTranslationCommand } from '@/lib/backend/translation-service';
 import { ExternalServiceError } from '@/lib/backend/public-json';
 import { WORDPRESS_COMMANDS, runWordPressCommand } from '@/lib/backend/wordpress-service';
 import { ContentConflictError } from '@/lib/backend/content-model';
 import { authenticate, type AuthResult } from '@/lib/api/route-auth';
 import {
-  DEFAULT_USER_ID,
   QuotaExceededError,
   RlsAccessDeniedError,
 } from '@/lib/backend/database';
@@ -37,9 +37,8 @@ export async function POST(
   context: { params: Promise<{ name: string }> }
 ) {
   const { name } = await context.params;
-  // halox-mcp authenticates with a workspace API key instead of a user session;
-  // its handler ignores the actor argument.
-  const auth: AuthResult = name === 'halox-mcp' ? { actor: DEFAULT_USER_ID } : await authenticate(req);
+  if (name === 'halox-mcp') return serveMcp(req, { legacy: true });
+  const auth: AuthResult = await authenticate(req);
   if (auth.response) return auth.response;
   const userId = auth.actor;
 
@@ -50,15 +49,6 @@ export async function POST(
       payload = JSON.parse(text) as Record<string, unknown>;
     }
 
-    if (name === 'halox-mcp' && !payload.api_key) {
-      const headerKey =
-        req.headers.get('x-api-key') ||
-        req.headers.get('authorization')?.replace(/^Bearer\s+/i, '') ||
-        '';
-      if (headerKey) {
-        payload.api_key = headerKey;
-      }
-    }
 
     const result = TRANSLATION_COMMANDS.includes(name) ? await runTranslationCommand(haloxStore, name, payload, userId) : WORDPRESS_COMMANDS.includes(name) ? await runWordPressCommand(haloxStore, name, payload, userId) : await haloxStore.write(db => db.invokeEdgeFunction(name, payload, userId));
     if ((WORDPRESS_COMMANDS.includes(name) || TRANSLATION_COMMANDS.includes(name)) && result.ok === false) return NextResponse.json(result, { status: 502 });
