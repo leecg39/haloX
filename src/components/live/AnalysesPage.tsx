@@ -1,5 +1,8 @@
 'use client';
 
+import Link from 'next/link';
+import { useWorkspace } from '../WorkspaceProvider';
+import { canAccess } from '@/lib/permissions/workspace';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { defaultAnalysisFilters, type AnalysisData, type AnalysisFilters, type AnalysisKind } from '@/lib/api/analyses';
 import type { ContentRow as Row } from '@/lib/api/content';
@@ -13,6 +16,7 @@ export function AnalysesPage({ kind, initialTab }: { kind: AnalysisKind; initial
   return <LibraryWorkspace>{(id, name) => <AnalysesWorkspace key={`${id}:${kind}`} workspaceId={id} workspaceName={name} kind={kind} initialTab={initialTab} />}</LibraryWorkspace>;
 }
 function AnalysesWorkspace({ workspaceId, workspaceName, kind, initialTab }: { workspaceId: string; workspaceName: string; kind: AnalysisKind; initialTab?: string }) {
+  const { permission } = useWorkspace();
   const [applied, setApplied] = useState(defaultAnalysisFilters), [draft, setDraft] = useState(defaultAnalysisFilters), [data, setData] = useState<AnalysisData>();
   const [loading, setLoading] = useState(true), [error, setError] = useState(''), [edit, setEdit] = useState<Edit>(), generation = useRef(0);
   const tabs = kind === 'seo' ? [['overview', '개요'], ['performance', '성과'], ['competitors', '경쟁 도메인'], ['opportunities', '기회'], ['aio', 'AIO'], ['matrix', 'SERP 매트릭스'], ['saved', '저장 분석']] : [['overview', '개요'], ['prompts', '프롬프트'], ['mentions', '멘션'], ['sources', '인용 소스'], ['matrix', '인용 매트릭스'], ['competitors', '경쟁사'], ['platforms', '플랫폼'], ['saved', '저장 분석']];
@@ -26,7 +30,7 @@ function AnalysesWorkspace({ workspaceId, workspaceName, kind, initialTab }: { w
   useEffect(() => { void reload(); return () => { ++generation.current; }; }, [reload]);
   const apply = (value: AnalysisFilters) => { setDraft({ ...value }); setApplied({ ...value }); };
   const command = async (name: string, values: Record<string, unknown>) => { try { return await invokeEdgeEndpoint(name, { ...values, workspace_id: workspaceId }); } finally { await reload(); } };
-  return <div className="live live-analysis-page"><header className="live-head"><div><h1>{kind === 'seo' ? '키워드 분석' : '프롬프트 분석'}</h1><p>{workspaceName} · 수집 자료에서 집계한 분석</p></div><div className="live-actions"><button disabled={loading} onClick={() => void reload()}>새로고침</button><button disabled={!data || !!error || loading} className="primary" onClick={() => setEdit({})}>현재 분석 저장</button></div></header>
+  return <div className="live live-analysis-page"><header className="live-head"><div><h1>{kind === 'seo' ? '키워드 분석' : '프롬프트 분석'}</h1><p>{workspaceName} · 수집 자료에서 집계한 분석</p></div><div className="live-actions">{canAccess(permission, 'other') && <Link href="/app/settings?tab=earned">등록 URL 관측</Link>}<button disabled={loading} onClick={() => void reload()}>새로고침</button><button disabled={!data || !!error || loading} className="primary" onClick={() => setEdit({})}>현재 분석 저장</button></div></header>
     <p className="muted">현재 수집에는 데모 Provider가 포함되어 실제 시장 성과를 의미하지 않습니다. 값이 없는 자료는 미측정으로 표시합니다. 날짜는 UTC 기준입니다.</p>
     <form className="live-card live-section" onSubmit={e => { e.preventDefault(); apply(draft); }}><AnalysisFilterFields kind={kind} value={draft} onChange={setDraft} sets={data?.sets || []} tags={data?.tags || []} /><div className="live-actions"><button type="submit" className="primary">조건 적용</button><button type="button" onClick={() => apply(defaultAnalysisFilters())}>조건 초기화</button></div></form>
     {error && <ErrorState message={error} retry={() => void reload()} />}{loading && <p role="status">분석을 불러오는 중…</p>}

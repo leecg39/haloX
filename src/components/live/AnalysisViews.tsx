@@ -44,7 +44,7 @@ export function AnalysisTrend({ data }: { data: AnalysisData }) {
 }
 export function AnalysisPager<T>({ rows, children, size = 15 }: { rows: T[]; children: (rows: T[]) => ReactNode; size?: number }) {
   const [page, setPage] = useState(1), current = Math.min(page, Math.max(1, Math.ceil(rows.length / size)));
-  return <>{children(rows.slice((current - 1) * size, current * size))}{rows.length > size && <div className="live-pagination"><button disabled={current === 1} onClick={() => setPage(current - 1)}>이전</button><span>{current} / {Math.ceil(rows.length / size)}</span><button disabled={current * size >= rows.length} onClick={() => setPage(current + 1)}>다음</button></div>}</>;
+  return <>{children(rows.slice((current - 1) * size, current * size))}{rows.length > size && <div className="live-pagination"><button type="button" disabled={current === 1} onClick={() => setPage(current - 1)}>이전</button><span>{current} / {Math.ceil(rows.length / size)}</span><button type="button" disabled={current * size >= rows.length} onClick={() => setPage(current + 1)}>다음</button></div>}</>;
 }
 export function AnalysisSampleList({ data, rows }: { data: AnalysisData; rows: AnalysisSample[] }) {
   const [expanded, setExpanded] = useState<string>();

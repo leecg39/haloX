@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getCapture } from '@/lib/content';
 import ClonePage from '@/components/ClonePage';
 import { WorkspaceSettingsPage } from '@/components/live/WorkspaceSettingsPage';
+import { EarnedPage } from '@/components/live/EarnedPage';
 import { TagSettingsPage } from '@/components/live/TagSettingsPage';
 import { ApiSettingsPage } from '@/components/live/ApiSettingsPage';
 import { BrandSettingsPage } from '@/components/live/BrandSettingsPage';
@@ -77,6 +78,7 @@ export default async function Page(props: Props) {
     shellRoute = pathname; children = <AnalysesPage kind={pathname.includes('/seo/') ? 'seo' : 'geo'} initialTab={new URLSearchParams(route.split('?')[1]).get('tab') || undefined} />;
   }
   const settingsTab = new URLSearchParams(route.split('?')[1]).get('tab');
+  if (pathname === '/app/settings' && settingsTab === 'earned') { shellRoute = '/app'; children = <EarnedPage />; }
   if (pathname === '/app/settings' && settingsTab === 'api') { shellRoute = '/app'; children = <ApiSettingsPage />; }
   if (pathname === '/app/settings' && settingsTab === 'tags') { shellRoute = '/app'; children = <TagSettingsPage />; }
   if (pathname === '/app/settings' && settingsTab === 'brand-tracking') { shellRoute = '/app'; children = <BrandSettingsPage />; }

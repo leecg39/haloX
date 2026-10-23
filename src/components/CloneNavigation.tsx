@@ -35,7 +35,7 @@ const APP_ITEMS: readonly Item[] = [
   ["전략맵", "/app/strategy-map"], ["사이트 진단", "/app/site-audit"], ["콘텐츠 제작소", "/app/factory"], ["콘텐츠 최적화", "/app/optimize"], ["콘텐츠 내보내기", "/app/exports"],
   ["모니터링 대시보드", "/app/monitoring"], ["주간 리포트", "/app/reports/weekly"], ["페르소나", "/app/personas"], ["자료실", "/app/knowledgehub"], ["Raw 데이터", "/app/raw-data"],
 ];
-const SEARCH_ITEMS: readonly Item[] = [...APP_ITEMS, ["설정", "/app/settings"], ["AI 대화 개요", "/app/geo"], ["기회 분석", "/app/gap"], ["추천 프로그램", "/app/referral"], ["피드백", "/app/feedback"]];
+const SEARCH_ITEMS: readonly Item[] = [...APP_ITEMS, ["등록 URL", "/app/settings?tab=earned"], ["설정", "/app/settings"], ["AI 대화 개요", "/app/geo"], ["기회 분석", "/app/gap"], ["추천 프로그램", "/app/referral"], ["피드백", "/app/feedback"]];
 const ACCOUNT_ITEMS: readonly Item[] = [["내 프로필과 보안", "/app/settings?tab=profile"], ["Pro로 업그레이드", "/app/settings?tab=billing"], ["설정", "/app/settings"], ["결제", "/app/settings?tab=billing"], ["알림", "/app/settings?tab=notifications"], ["추천 프로그램", "/app/referral"], ["피드백", "/app/feedback"], ["문서", "https://docs.haloxlabs.ai"], ["로그아웃", "/app/login"]];
 const LANGUAGE_ITEMS: readonly Item[] = [["한국어", "/ko"], ["English", "/en"]];
 const PUBLIC_APP_ROUTE = /^\/app\/(login|signup|forgot-password|reset-password|find-email|auth\/callback|verify-phone|invite)(\/|\?|$)/;

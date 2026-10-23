@@ -36,6 +36,7 @@ export function assertRestWrite(db: HaloXDatabase, table: string, method: 'POST'
     }
     return;
   }
+  if (table === 'earned_publications') throw new RlsAccessDeniedError('등록 URL은 전용 서버 작업으로만 변경합니다.');
   if (['export_history', 'export_destinations', 'article_translations', 'export_publications', 'translation_runs'].includes(table)) throw new RlsAccessDeniedError('내보내기와 번역문은 전용 서버 작업으로만 변경합니다.');
   if (['site_policy_jobs', 'site_audit_targets', 'site_audit_scans', 'site_audit_pages', 'site_audit_issues'].includes(table)) throw new RlsAccessDeniedError('사이트 진단은 전용 서버 작업으로만 변경합니다.');
   if (['keyword_clusters', 'keyword_cluster_members', 'keyword_cluster_links', 'cluster_stats_history', 'cluster_batch_runs'].includes(table)) throw new RlsAccessDeniedError('전략맵은 전용 서버 작업으로만 변경합니다.');

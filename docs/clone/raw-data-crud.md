@@ -45,7 +45,7 @@ UI에서 기존 키워드·프롬프트·진단 대상을 선택하여 JSON 양�
 ```
 
 - 공통: `schema_version: 1`, `kind: seo|geo|audit`, `source.provider`(영문 소문자·숫자·점·밑줄·하이픈, 80자), 선택 `source.url`, `records` 배열. `source_id`는 종류/출처 안에서 고유해야 한다. 등록한 파일과 중복 식별자는 다른 이름/요청 키로도 중복 등록할 수 없다.
-- SEO: `keyword_id`, 측정 당시 `keyword_text/language/country`, `engine: google|naver`, UTC `captured_at`. 검색량·난이도·검색 결과·AI 요약 감지는 없으면 null이다. 검색 결과는 URL/순위와 선택 제목/설명, AI 요약은 text/cited_domains다. PAA/연관 검색은 문자열 배열이다.
+- SEO: `keyword_id`, 측정 당시 `keyword_text/language/country`, `engine: google|naver`, UTC `captured_at`. 검색량·난이도·검색 결과·AI 요약 감지는 없으면 null이다. 검색 결과는 URL/순위와 선택 제목/설명, AI 요약은 text/cited_domains와 선택 cited_urls(최대 100개)다. cited_urls 생략/null은 URL 근거 미제공이며, 명시적인 빈 배열은 빈 목록으로 보존한다. 2026-10-24 추가한 [등록 URL 관측](earned-urls-crud.md)에서 정확한 URL 인용을 별도 집계한다. PAA/연관 검색은 문자열 배열이다.
 - GEO: `prompt_id`, `prompt_text/language_code/location_code`, 지원 엔진(openai/claude/gemini/perplexity), UTC `finished_at`, `answer_text`, 선택 `brand_domain`. `metrics`는 brand_mentioned/is_cited 및 citation_rank_score/mention_rank_score. `citations`는 url/position/is_ours/is_competitor다. 원문 줄바꿈·유니코드를 보존한다.
 - 진단: `target_id`, UTC `completed_at`, `pages` 배열. 각 페이지는 url/status_code 및 선택 title/meta_description/language/html_score/issues. 이슈는 code/severity/title/description/fix_recommendation. URL은 현재 대상의 포함/제외 범위 안이어야 한다. HTTP 400 이상은 실패이며 점수는 null이어야 한다.
 - 지원하지 않는 필드, 다른 워크스페이스 참조, 삭제한 대상, 잘못된 URL/숫자/언어·국가/날짜, 미래 측정, 중복 원본 식별자는 전체 파일을 거절한다. 출처 URL은 HTTP(S)·인증정보 없는 값만 허용하며 가져오기 과정에서 외부 URL을 요청하지 않는다.
