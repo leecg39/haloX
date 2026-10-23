@@ -1,3 +1,4 @@
+import { emitNotification } from './notification-model.ts';
 import type { HaloXDatabase, Row } from './database.ts';
 import { ContentConflictError, contentText } from './content-model.ts';
 import { analysisWhere } from './analysis-model.ts';
@@ -34,7 +35,9 @@ export function monitorValue(snapshot: ObservationSnapshot, metric: MonitorMetri
   }
 }
 function event(db: HaloXDatabase, workspace: string, actor: string, rule: Row, type: string, details: Row, now: number) {
-  return db.insertTable('workspace_events', { workspace_id: workspace, rule_id: rule.id, event_type: type, origin: 'monitor', title: String(rule.name), metadata: details, created_at: stamp(now) }, actor)[0];
+  const row = db.insertTable('workspace_events', { workspace_id: workspace, rule_id: rule.id, event_type: type, origin: 'monitor', title: String(rule.name), metadata: details, created_at: stamp(now) }, actor)[0];
+  if (type !== 'monitor.resolved' || details.reason === 'normal_range') emitNotification(db, workspace, { source_id: row.id, event_type: type, rule_id: rule.id, metric: rule.metric, title: rule.name }, now);
+  return row;
 }
 function closeAlerts(db: HaloXDatabase, workspace: string, actor: string, rule: Row, reason: string, now: number) {
   const open = observationRows(db, workspace, actor, 'geo_alerts').filter(row => row.rule_id === rule.id && row.status === 'open');

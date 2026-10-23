@@ -1,3 +1,4 @@
+import type { NotificationCollection } from './notification-model.ts';
 import { googlePeriod, aggregateGsc, groupGa4 } from './google-metrics.ts';
 import type { GooglePrivateCollection } from './google-service.ts';
 import { accountActive, deletionState, deletionView, scheduleDeletion, purgeDueAccounts, type DeletionCollection } from './account-deletion-model.ts';
@@ -161,11 +162,11 @@ export class HaloXDatabase {
   }
 
   /** Separate from the public table whitelist: no REST/RPC access. */
-  public getServerRecords(collection: GooglePrivateCollection | DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
+  public getServerRecords(collection: NotificationCollection | GooglePrivateCollection | DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
     return structuredClone(this.serverRecords[collection] ?? []);
   }
 
-  public setServerRecords(collection: GooglePrivateCollection | DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
+  public setServerRecords(collection: NotificationCollection | GooglePrivateCollection | DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
     this.serverRecords[collection] = structuredClone(rows);
   }
 
@@ -1536,7 +1537,7 @@ export class HaloXDatabase {
     }
     if (tableName === 'workspaces' && deleted.length) {
       const workspaceIds = new Set(deleted.map(row => String(row.id)));
-      for (const name of ['google_resources', 'google_credentials', 'google_oauth_states', 'google_sync_work', 'google_sync_requests', 'earned_requests', 'site_policy_work', 'site_policy_requests', 'api_key_issue_requests', 'api_key_usage', 'api_tool_requests', 'brand_reclassify_requests', 'workspace_invitation_tokens', 'knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests', 'strategy_requests', 'report_requests', 'raw_import_files', 'raw_import_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
+      for (const name of ['notification_preferences', 'notification_inbox', 'notification_deliveries', 'google_resources', 'google_credentials', 'google_oauth_states', 'google_sync_work', 'google_sync_requests', 'earned_requests', 'site_policy_work', 'site_policy_requests', 'api_key_issue_requests', 'api_key_usage', 'api_tool_requests', 'brand_reclassify_requests', 'workspace_invitation_tokens', 'knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests', 'strategy_requests', 'report_requests', 'raw_import_files', 'raw_import_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
       const keywordIds = new Set((this.tables.get('keywords') || []).filter(row => workspaceIds.has(String(row.workspace_id))).map(row => String(row.id)));
       for (const [name, rows] of this.tables) {
         if (name === 'workspaces') continue;

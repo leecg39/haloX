@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-24",
+  "scope": "S10 notification preferences, inbox, SMTP/SOLAPI delivery",
+  "unit": {
+    "passed": 326,
+    "failed": 0,
+    "notification_cases": 14
+  },
+  "backend": {
+    "passed": 22
+  },
+  "typecheck": "passed",
+  "production_build": "passed",
+  "routes": {
+    "total": 363,
+    "failed": 0,
+    "missing": 0,
+    "source404": 73
+  },
+  "e2e": {
+    "latest_full_before_google_wait_fix": {
+      "passed": 107,
+      "failed": 1,
+      "failure": "Google mobile test ran wheel input before async data rendered"
+    },
+    "after_wait_fix_related": {
+      "passed": 8,
+      "failed": 0,
+      "suites": [
+        "notifications",
+        "google-integrations",
+        "wordpress"
+      ]
+    },
+    "full_suite_rerun_after_final_test_only_fix": false
+  },
+  "observations": [
+    "One intermediate full run saw StorageUnavailableError in a WordPress store read; subsequent full and related runs passed that case. Root cause remains a Q03 diagnostic item."
+  ],
+  "browser": {
+    "tool": "Ego Lite",
+    "task_space": 59,
+    "finished": true,
+    "mobile_width": 390,
+    "mobile_height": 600,
+    "scroll_width": 390,
+    "main_scroll_top": 1101,
+    "delivery_fixture_visible": true
+  },
+  "external_requests": "No real SMTP, SOLAPI, OpenAI or Google requests; injected provider fixtures only"
+}

@@ -49,6 +49,7 @@ export function scheduleDeletion(tables: Tables, records: Records, actor: string
   records.google_credentials = (records.google_credentials || []).filter(row => !googleIds.has(row.connection_id));
   records.google_oauth_states = (records.google_oauth_states || []).filter(row => row.actor_id !== actor && !ids.has(String(row.workspace_id)));
   for (const row of rows(tables, 'workspace_google_connections')) if (googleIds.has(row.id)) { row.status = 'disconnected'; row.auto_sync = false; row.next_sync_at = null; row.email = ''; row.google_subject = ''; row.resources = { sites: [], properties: [] }; row.revision = Number(row.revision || 0) + 1; }
+  for (const name of ['notification_preferences', 'notification_inbox', 'notification_deliveries', 'notification_email_checks', 'notification_email_verified']) records[name] = (records[name] || []).filter(row => row.user_id !== actor && !ids.has(String(row.workspace_id)));
   records.export_credentials = (records.export_credentials || []).filter(row => !ids.has(String(row.workspace_id)));
   for (const row of rows(tables, 'export_destinations')) if (ids.has(String(row.workspace_id)) && row.kind === 'wordpress') { row.has_credentials = false; row.can_publish = false; row.verification_status = 'unverified'; row.verified_revision = null; row.revision = Number(row.revision || 0) + 1; }
   for (const row of records.referral_codes || []) if (row.owner_id === actor) row.revoked_at ||= stamp;
@@ -86,6 +87,7 @@ export function purgeDueAccounts(tables: Tables, records: Records, now: number) 
       records[name] = values.filter(row => {
         if (ids.has(row.workspace_id)) return false;
         if (name === 'account_restore_attempts' && profile && row.email_hash === crypto.createHash('sha256').update(String(profile.email).toLowerCase()).digest('hex')) return false;
+        if (name.startsWith('notification_') && row.user_id === actor) return false;
         if (name.startsWith('account_') && (row.user_id === actor || row.actor === actor)) return false;
         if (name === 'portal_requests' && row.actor === actor) return false;
         if (name === 'feedback_threads' && threads.has(row.id) || ['feedback_replies', 'feedback_events'].includes(name) && (threads.has(row.thread_id) || row.owner_id === actor || row.actor_id === actor)) return false;

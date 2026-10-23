@@ -1,3 +1,4 @@
+import { emitNotification } from './notification-model.ts';
 import crypto from 'node:crypto';
 import type { HaloXDatabase, Row } from './database.ts';
 import { contentText } from './content-model.ts';
@@ -48,6 +49,7 @@ function createReport(db: HaloXDatabase, payload: Row, workspace: string, actor:
   const summary = `검색 Top 10 비율 ${display(snapshot.seo.summary.top10_percent, '%')} (${snapshot.seo.summary.rank_measured}개 표본), AI 인용률 ${display(snapshot.geo.summary.citation_percent, '%')} (${snapshot.geo.summary.citation_measured}개 표본). HTML 건강도 ${display(snapshot.scores.web_health, '점')}. 저장된 측정값으로 작성한 요약입니다.`;
   db.insertTable('report_summaries', { workspace_id: workspace, report_id: report.id, content: summary, revision: 1, created_at: stamp(now) }, actor);
   db.setServerRecords('report_requests', [...db.getServerRecords('report_requests'), { workspace_id: workspace, key, signature, report_id: report.id, created_at: stamp(now) }]);
+  emitNotification(db, workspace, { source_id: report.id, event_type: 'report.ready', title: report.title }, now);
   return { ok: true, report, replayed: false };
 }
 export function readReports(db: HaloXDatabase, workspace: string, actor: string, id?: string): ReportData {
