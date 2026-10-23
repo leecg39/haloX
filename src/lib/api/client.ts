@@ -143,6 +143,15 @@ export async function syncDialogActionToBackend(result: DialogResult): Promise<v
       return;
     }
 
+    if (/초대/.test(result.title)) {
+      await invokeEdgeEndpoint('workspace-invite', {
+        workspace_id: DEFAULT_WORKSPACE_UUID,
+        email: names[0],
+        role: 'member',
+      });
+      return;
+    }
+
     if (route.startsWith('/app/keywords') || /키워드/.test(result.title)) {
       await invokeEdgeEndpoint('keywords-collect', {
         workspace_id: DEFAULT_WORKSPACE_UUID,

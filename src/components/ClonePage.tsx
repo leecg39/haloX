@@ -11,6 +11,7 @@ import './clone-runtime.css';
 import { handlePublicClick, initializePublicControls } from './public-controls';
 import { initializePublicPricing } from './public-pricing';
 import { initializePublicLists } from './public-lists';
+import { initializeLiveUsage } from './usage-live';
 import { syncDialogActionToBackend } from '@/lib/api/client';
 // App routes reachable without a session (sign-in and recovery flows).
 const PUBLIC_APP_ROUTE=/^\/app\/(login|signup|forgot-password|reset-password|find-email|auth\/callback|verify-phone|invite)(\/|\?|$)/;
@@ -38,6 +39,7 @@ export default function ClonePage({data,requestedRoute}:{data:Capture;requestedR
   const cleanupPublic=initializePublicControls(root);
   const cleanupPricing=initializePublicPricing(root);
   const cleanupLists=initializePublicLists(root,requestedRoute);
+  const cleanupUsage=initializeLiveUsage(root,requestedRoute);
   const reveal=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('clone-revealed');reveal.unobserve(entry.target)}},{threshold:.05});root.querySelectorAll('[data-clone-reveal]').forEach(el=>reveal.observe(el));
   const click=(event:MouseEvent)=>{
    const target=event.target as HTMLElement;if(!target?.closest)return;
@@ -75,7 +77,7 @@ export default function ClonePage({data,requestedRoute}:{data:Capture;requestedR
   const submit=(event:Event)=>{event.preventDefault();const form=event.target as HTMLFormElement;if(!form.reportValidity())return;if(requestedRoute.startsWith('/app/login')||requestedRoute.startsWith('/app/signup')){const email=(form.querySelector('input[type=email]') as HTMLInputElement|null)?.value.trim()||'';const password=(form.querySelector('input[type=password]') as HTMLInputElement|null)?.value||'';void (async()=>{try{const res=await fetch('/api/v1/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});if(res.ok){navigate('/app');return}notify(res.status===401?'이메일 또는 비밀번호가 올바르지 않습니다.':'로그인할 수 없습니다. 잠시 후 다시 시도해 주세요.')}catch{notify('로그인할 수 없습니다. 네트워크 상태를 확인해 주세요.')}})();return}if(requestedRoute.startsWith('/app/forgot-password')){notify('데모 화면입니다. 실제 재설정 이메일은 발송하지 않습니다.');return}notify('입력 내용을 확인했습니다. 로컬 데모에는 외부로 전송하지 않습니다.')};
   const keydown=(event:KeyboardEvent)=>{if(event.key==='Escape'&&requestedRoute.startsWith('/app/settings'))navigate('/app')};
   root.addEventListener('click',click);root.addEventListener('input',input);root.addEventListener('submit',submit);document.addEventListener('keydown',keydown);
-  return()=>{cleanup();cleanupPublic();cleanupPricing();cleanupLists();reveal.disconnect();root.removeEventListener('click',click);root.removeEventListener('input',input);root.removeEventListener('submit',submit);document.removeEventListener('keydown',keydown)};
+  return()=>{cleanup();cleanupPublic();cleanupPricing();cleanupLists();cleanupUsage();reveal.disconnect();root.removeEventListener('click',click);root.removeEventListener('input',input);root.removeEventListener('submit',submit);document.removeEventListener('keydown',keydown)};
  },[data,requestedRoute,navigate,notify,openDialog,navigation]);
  const onComplete=(result:DialogResult)=>{if(result.route.split('?')[0]==='/app/workspaces'&&result.record?.name){writeActiveWorkspace({id:result.record.id,name:result.record.name,plan:'Trial',domain:result.values?.domain||''});notify(`'${result.record.name}' 워크스페이스를 생성하고 전환했습니다.`)}else{notify('로컬 데모에 저장했습니다.')}window.dispatchEvent(new CustomEvent('halox:record-created',{detail:result}));void syncDialogActionToBackend(result);};
  return <><div ref={rootRef} className={'clone-surface '+(requestedRoute.startsWith('/app')?'clone-app':'clone-public')} data-route={requestedRoute}>{content}</div>{navigation.overlay}<DemoDialog request={dialog} onClose={()=>setDialog(null)} onComplete={onComplete}/>{toast&&<div className="clone-toast" role="status">{toast}<button aria-label="알림 닫기" onClick={()=>setToast('')}>×</button></div>}</>;

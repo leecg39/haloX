@@ -2798,6 +2798,44 @@ export class HaloXDatabase {
       };
     }
 
+    if (fnName === 'workspace-invite') {
+      // Only owners and admins may invite (membership itself was asserted above).
+      const actorRole = (this.tables.get('workspace_members') || []).find(
+        m => m.workspace_id === workspaceId && m.user_id === actorUserId
+      )?.role;
+      if (actorRole !== 'owner' && actorRole !== 'admin') {
+        throw new RlsAccessDeniedError(`Role "${String(actorRole)}" cannot invite members to workspace "${workspaceId}"`);
+      }
+      const email = typeof payload.email === 'string' ? payload.email.trim().toLowerCase() : '';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
+        throw new Error('A valid invitee email is required');
+      }
+      const role = payload.role === undefined ? 'member' : String(payload.role);
+      if (role !== 'member' && role !== 'admin') {
+        throw new Error(`Invalid invitation role "${role}": use member or admin`);
+      }
+      const existing = (this.tables.get('workspace_invitations') || []).find(
+        inv => inv.workspace_id === workspaceId && inv.email === email && inv.status === 'pending'
+      );
+      if (existing) {
+        return { ok: true, function: fnName, workspace_id: workspaceId, invitation: existing, idempotent: true };
+      }
+      const [invitation] = this.insertTable(
+        'workspace_invitations',
+        {
+          workspace_id: workspaceId,
+          email,
+          role,
+          status: 'pending',
+          allowed_sections: ['all'],
+          expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+          created_at: now,
+        },
+        actorUserId
+      );
+      return { ok: true, function: fnName, workspace_id: workspaceId, invitation };
+    }
+
     throw new Error(`Unsupported Edge Function: ${fnName}`);
   }
 }
