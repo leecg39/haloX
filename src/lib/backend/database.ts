@@ -15,6 +15,13 @@ import {
   serverAviFiveFactor,
 } from '../metrics/index.ts';
 import { createDeterministicProviders, type HaloXProviders } from './providers.ts';
+import {
+  QUOTA_UNITS,
+  QUOTA_UNIT_KEYS,
+  normalizeQuotaUnit,
+  quotaLimitFor,
+  storedQuotaUnit,
+} from './quota-units.ts';
 
 export const DEFAULT_USER_ID = '00000000-0000-4000-8000-000000000001';
 export const OTHER_USER_ID = '00000000-0000-4000-8000-000000000002';
@@ -582,7 +589,7 @@ export class HaloXDatabase {
       {
         id: '68000000-0000-4000-8000-000000000001',
         workspace_id: DEFAULT_WORKSPACE_ID,
-        unit_key: 'keywords',
+        unit_key: 'keyword_create',
         amount: 2,
         idempotency_key: 'seed-keywords-init',
         status: 'committed',
@@ -592,7 +599,7 @@ export class HaloXDatabase {
       {
         id: '68000000-0000-4000-8000-000000000002',
         workspace_id: DEFAULT_WORKSPACE_ID,
-        unit_key: 'prompts',
+        unit_key: 'prompt_create',
         amount: 2,
         idempotency_key: 'seed-prompts-init',
         status: 'committed',
@@ -680,9 +687,10 @@ export class HaloXDatabase {
     ]);
 
     ensure('plan_unit_limits', [
-      { plan_key: 'trial', unit_key: 'keywords', monthly_limit: 20 },
-      { plan_key: 'trial', unit_key: 'prompts', monthly_limit: 20 },
-      { plan_key: 'trial', unit_key: 'contents', monthly_limit: 5 },
+      { plan_key: 'trial', unit_key: 'keyword_create', monthly_limit: 20 },
+      { plan_key: 'trial', unit_key: 'prompt_create', monthly_limit: 20 },
+      { plan_key: 'trial', unit_key: 'content_gen', monthly_limit: 5 },
+      { plan_key: 'trial', unit_key: 'site_audit_scan', monthly_limit: 20 },
     ]);
 
     ensure('welcome_guide_config', [
@@ -1636,14 +1644,14 @@ export class HaloXDatabase {
         );
         const usedFor = (unitKey: string) =>
           reservations
-            .filter(r => r.unit_key === unitKey)
+            .filter(r => storedQuotaUnit(r.unit_key) === unitKey)
             .reduce((sum, r) => sum + Number(r.amount || 0), 0);
 
-        const units = [
-          { key: 'keywords', label: '키워드', limit: Number(plan?.keyword_limit ?? 20) },
-          { key: 'prompts', label: 'AI 질문 (GEO)', limit: Number(plan?.prompt_limit ?? 20) },
-          { key: 'contents', label: '콘텐츠 생성', limit: Number(plan?.content_limit ?? 5) },
-        ];
+        const units = QUOTA_UNIT_KEYS.map(key => ({
+          key,
+          label: QUOTA_UNITS[key].label,
+          limit: quotaLimitFor(key, plan),
+        }));
         return units.map(u => {
           const used = usedFor(u.key);
           const remaining = Math.max(0, u.limit - used);
@@ -1703,13 +1711,16 @@ export class HaloXDatabase {
       // Quota 2-Phase Reservation RPCs (F5-9)
       case 'reserve_unit_with_bypass': {
         this.assertWorkspaceMember(workspaceId, actorUserId);
-        const unitKey = String(args.p_unit_key || args.unit_key || 'keywords');
-        const amount = Number(args.p_amount ?? args.amount ?? 1);
+        // Accept original (_-prefixed) and clone (p_-prefixed) argument names.
+        const unitKey = normalizeQuotaUnit(
+          args._unit_key ?? args.p_unit_key ?? args.unit_key ?? 'keyword_create'
+        );
+        const amount = Number(args._amount ?? args.p_amount ?? args.amount ?? 1);
         if (!Number.isInteger(amount) || amount <= 0) {
           throw new Error(`Invalid reservation amount "${amount}": must be a positive integer`);
         }
         const idempotencyKey = String(
-          args.p_idempotency_key || args.idempotency_key || crypto.randomUUID()
+          args._idempotency_key || args.p_idempotency_key || args.idempotency_key || crypto.randomUUID()
         );
         const reservations = this.tables.get('usage_reservations') || [];
         const existing = reservations.find(
@@ -1729,17 +1740,12 @@ export class HaloXDatabase {
         const plan = (this.tables.get('workspace_plans') || []).find(
           p => p.workspace_id === workspaceId
         );
-        const limitMap: Record<string, number> = {
-          keywords: Number(plan?.keyword_limit ?? 20),
-          prompts: Number(plan?.prompt_limit ?? 20),
-          contents: Number(plan?.content_limit ?? 5),
-        };
-        const limit = limitMap[unitKey] ?? 20;
+        const limit = quotaLimitFor(unitKey, plan);
         const used = reservations
           .filter(
             r =>
               r.workspace_id === workspaceId &&
-              r.unit_key === unitKey &&
+              storedQuotaUnit(r.unit_key) === unitKey &&
               (r.status === 'reserved' || r.status === 'committed')
           )
           .reduce((sum, r) => sum + Number(r.amount || 0), 0);
@@ -1940,7 +1946,7 @@ export class HaloXDatabase {
         'reserve_unit_with_bypass',
         {
           p_workspace_id: workspaceId,
-          p_unit_key: 'keywords',
+          p_unit_key: 'keyword_create',
           p_amount: rawKeywords.length,
           p_idempotency_key: String(payload.idempotency_key || `kw-${Date.now()}-${Math.random()}`),
         },
@@ -2027,7 +2033,7 @@ export class HaloXDatabase {
           'reserve_unit_with_bypass',
           {
             p_workspace_id: workspaceId,
-            p_unit_key: 'prompts',
+            p_unit_key: 'prompt_create',
             p_amount: 1,
             p_idempotency_key: String(payload.idempotency_key || `pr-${Date.now()}-${Math.random()}`),
           },
@@ -2187,7 +2193,7 @@ export class HaloXDatabase {
         'reserve_unit_with_bypass',
         {
           p_workspace_id: workspaceId,
-          p_unit_key: 'contents',
+          p_unit_key: 'content_gen',
           p_amount: 1,
           p_idempotency_key: String(payload.idempotency_key || `cnt-${Date.now()}-${Math.random()}`),
         },
@@ -2439,7 +2445,7 @@ export class HaloXDatabase {
         'reserve_unit_with_bypass',
         {
           p_workspace_id: workspaceId,
-          p_unit_key: 'keywords',
+          p_unit_key: 'keyword_create',
           p_amount: count,
           p_idempotency_key: String(payload.idempotency_key || `expand-${Date.now()}-${Math.random()}`),
         },
@@ -2509,7 +2515,7 @@ export class HaloXDatabase {
           'reserve_unit_with_bypass',
           {
             p_workspace_id: workspaceId,
-            p_unit_key: 'contents',
+            p_unit_key: 'content_gen',
             p_amount: 1,
             p_idempotency_key: String(payload.idempotency_key || `opt-${Date.now()}-${Math.random()}`),
           },
