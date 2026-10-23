@@ -1,6 +1,6 @@
 # 콘텐츠 파일·번역문 CRUD
 
-2026-10-23. `/app/exports`, `/app/exports?job=:id`, `/app/settings?tab=export`를 영속 API와 연결했다. **P11/S08의 파일 및 직접 입력 번역문 범위 구현**이다. WordPress 연결·비공개 자격증명·검증·명시적 게시 작업은 [WordPress CRUD](wordpress-crud.md)로 추가했다. [DeepL 자동 번역·실행 이력](automatic-translation.md)도 연결했다.
+2026-10-23. `/app/exports`, `/app/exports?job=:id`, `/app/settings?tab=export`를 영속 API와 연결했다. **P11/S08의 파일 및 직접 입력 번역문 범위 구현**이다. WordPress 연결·비공개 자격증명·검증·명시적 게시 작업은 [WordPress CRUD](wordpress-crud.md)로 추가했다. [OpenAI 자동 번역·실행 이력](automatic-translation.md)도 연결했다.
 
 ## 화면
 
@@ -32,7 +32,7 @@
 - `GET /api/v1/exports/files/:id`: 인증 및 워크스페이스 격리, attachment/UTF-8 파일명/private no-store/nosniff/CSP sandbox. 다른 워크스페이스 또는 없는 파일은 404.
 - 세 공개 테이블의 REST 쓰기를 차단한다. 원문/설정/번역의 타 워크스페이스 ID를 연결할 수 없고, 미지원 형식·언어·잘못된 파일 접두어를 거절한다.
 
-기존 `translate-content-v2`의 고정 접두어/가짜 번역 본문/즉시 published 처리는 제거했다. 전용 서버 경로에서 DeepL 자동 번역을 처리하며, 미설정 요청은 명확한 오류를 반환한다. 과거 데모 번역은 삭제할 수 있지만 파일 생성 대상에서는 제외한다. 직접 번역문 등록은 외부 번역 호출이나 게시를 수행하지 않는다.
+기존 `translate-content-v2`의 고정 접두어/가짜 번역 본문/즉시 published 처리는 제거했다. 전용 서버 경로에서 OpenAI 자동 번역을 처리하며, 미설정 요청은 명확한 오류를 반환한다. 과거 데모 번역은 삭제할 수 있지만 파일 생성 대상에서는 제외한다. 직접 번역문 등록은 외부 번역 호출이나 게시를 수행하지 않는다.
 
 ## 검증
 
@@ -44,4 +44,4 @@
 - Ego Lite: HTML 설정 등록 → 원문 선택 → 파일 생성 → 실제 다운로드 및 390px 화면 확인. 전용 검증 워크스페이스는 확인 후 삭제한다.
 - [데스크톱 화면](evidence/2026-10-23-exports.png), [모바일 화면](evidence/2026-10-23-exports-mobile.png), [실제 생성 HTML](evidence/2026-10-23-export-sample.html).
 
-자동 번역은 DeepL, 외부 게시 대상은 WordPress를 지원한다. 실 서비스 검증에는 서버 키/사용자 연결이 필요하다. 전체 메뉴 작업의 완료 여부는 [전체 작업표](full-crud-tasks.md)를 따른다.
+자동 번역은 OpenAI, 외부 게시 대상은 WordPress를 지원한다. 실 서비스 검증에는 서버 키/사용자 연결이 필요하다. 전체 메뉴 작업의 완료 여부는 [전체 작업표](full-crud-tasks.md)를 따른다.

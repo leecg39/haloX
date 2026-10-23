@@ -16,12 +16,14 @@
 - [x] F04 공개 REST의 인증/플랜 변경 제한, 멤버 자기 권한 상승 방지, 워크스페이스 소유자 보호, API 키 전체 비밀값 검증. 서버 도메인 작업과 공개 REST 권한을 분리한다.
 - [x] F05 E2E는 실행마다 별도 SQLite 파일 사용. 개발 DB를 건드리지 않으며 테스트가 종료되면 파일을 정리한다.
 - [x] F06 워크스페이스 목록/선택을 서버 ID 기준으로 전환. 임의 기본 항목 및 localStorage 레코드 병합 제거.
-- [ ] F07 나머지 페이지의 localStorage 레코드·성공 먼저 알림·비동기 백엔드 동기화를 제거. **워크스페이스·키워드·GEO 프롬프트·페르소나·지식허브·콘텐츠 제작소·최적화·파일 내보내기/번역문/파일 설정·사이트 진단(관련 탭/상세/개요)·전략맵(목록/상세/관계/이력)은 전환 완료**. 나머지 메뉴는 미완료.
-- [ ] F08 공통 `WorkspaceProvider` 구현, 선택 ID 재검증·탭 간 전환·오류 재시도 및 키워드/GEO 프롬프트/페르소나/지식허브/콘텐츠 제작소/최적화/파일 내보내기/번역문/파일 설정/사이트 진단/전략맵 조회·쓰기에 적용. 세션/플랜은 한 번 조회하여 공통 헤더와 공유하고 각 CRUD 화면은 집계 API 사용. **다른 메뉴의 `DEFAULT_WORKSPACE_UUID` 의존 제거는 남음**.
-- [ ] F09 키워드·GEO 프롬프트·세트·태그/그룹·연결·아이디어·페르소나/예문·지식 자료/출처/근거·콘텐츠/버전·최적화/제안/내보내기 파일/번역문/다운로드 설정/사이트 진단 대상·범위·실행·조치 메모/전략맵 그룹·구성·관계·집계 이력의 필수값/길이/언어·국가/URL/외래키/중복 검증, 삭제 정책 적용. REST 측정값·생성 시 참조 스냅샷 직접 변경 차단. **다른 도메인의 검증은 남음**.
-- [ ] F10 GEO 일일 예약 실행기·저장 커서·복수 실행기 중복 방지 구현. 공개 사용량 예약 변경 및 rpc-cache 우회 차단, 프롬프트/콘텐츠 생성 키 재사용 차단. 사이트 진단의 영속 작업 큐·취소·작업 점유/재시작 복구·출처별 수집 간격·요청 중복 차단 구현. 전략맵 자동 분류의 원본 버전 확인·원자적 적용·재시작 후 중복 요청 차단 구현. **다른 도메인의 장기 작업 큐·취소·범용 요청 중복 처리, 조회 RPC 읽기 전용 분류, 백업/복원 도구는 남음**.
+- [ ] F07 나머지 페이지의 localStorage 레코드·성공 먼저 알림·비동기 백엔드 동기화를 제거. **워크스페이스·키워드·GEO 프롬프트·페르소나·지식허브·콘텐츠 제작소·최적화·파일 내보내기/번역문/파일 설정·사이트 진단(관련 탭/상세/개요)·전략맵(목록/상세/관계/이력)·SEO/GEO 분석·갭 후보/판단 기록은 전환 완료**. 나머지 메뉴는 미완료.
+- [ ] F08 공통 `WorkspaceProvider` 구현, 선택 ID 재검증·탭 간 전환·오류 재시도 및 키워드/GEO 프롬프트/페르소나/지식허브/콘텐츠 제작소/최적화/파일 내보내기/번역문/파일 설정/사이트 진단/전략맵/분석/갭 조회·쓰기에 적용. 세션/플랜은 한 번 조회하여 공통 헤더와 공유하고 각 CRUD 화면은 집계 API 사용. **다른 메뉴의 `DEFAULT_WORKSPACE_UUID` 의존 제거는 남음**.
+- [ ] F09 키워드·GEO 프롬프트·세트·태그/그룹·연결·아이디어·페르소나/예문·지식 자료/출처/근거·콘텐츠/버전·최적화/제안/내보내기 파일/번역문/다운로드 설정/사이트 진단 대상·범위·실행·조치 메모/전략맵 그룹·구성·관계·집계 이력/분석 조건/갭 후보·판단 이력의 필수값/길이/언어·국가/URL/외래키/중복 검증, 삭제 정책 적용. REST 측정값·생성 시 참조 스냅샷 직접 변경 차단. **다른 도메인의 검증은 남음**.
+- [ ] F10 GEO 일일 예약 실행기·저장 커서·복수 실행기 중복 방지 구현. 공개 사용량 예약 변경 및 rpc-cache 우회 차단, 프롬프트/콘텐츠 생성 키 재사용 차단. 사이트 진단의 영속 작업 큐·취소·작업 점유/재시작 복구·출처별 수집 간격·요청 중복 차단 구현. 전략맵 자동 분류의 원본 버전 확인·원자적 적용·재시작 후 중복 요청 차단 구현. 갭 후보의 원자적 채택·중복 등록/과금 차단 구현. **다른 도메인의 장기 작업 큐·취소·범용 요청 중복 처리, 조회 RPC 읽기 전용 분류, 백업/복원 도구는 남음**.
 
 현재 SQLite는 기존 도메인 엔진의 전체 상태를 버전 있는 JSON 스냅샷으로 트랜잭션 저장한다. 로컬/단일 서버에서 실제 영속성을 제공하지만 정규화된 Postgres 구현은 아니다. Supabase SQL 마이그레이션은 별도 검증 자산으로 남아 있으며 이 런타임과 연결하지 않았다. 여러 서버가 파일을 공유하는 배포나 대규모 데이터에는 DB 어댑터 교체가 필요하다. 런타임 저장 파일과 비밀키는 Git에 포함하지 않는다.
+
+최근 검증(2026-10-23): 분석·갭 CRUD 및 OpenAI 번역 전환을 포함하여 **단위 166/166, E2E 55/55, 백엔드 22/22**, 타입 검사·프로덕션 빌드 통과. 경로 검증은 363개 항목에서 누락/실패/중복/누락 자산 0개(기존 원본 404 항목 73개는 기능 완료로 세지 않음). 이전 E2E 실행의 콘텐츠 편집 시간 초과 1건은 해당 3개 테스트 재실행과 최종 전체 실행에서 통과했다. Ego Lite 분석/갭/키 미설정 번역 검증 후 QA 워크스페이스와 브라우저 작업 공간을 정리했다. 실제 OpenAI/SOLAPI 유료 요청은 수행하지 않았다.
 
 ## 1. 계정 및 워크스페이스
 
@@ -41,15 +43,15 @@
 |---|---|---|---|
 | P01 `/app` | 기존 KPI RPC, 새 dashboard_preferences(기간·패널·정렬) | 실제 KPI/빈 상태, 기간 저장·수정·초기화, 하위 페이지 이동 | 조회/설정 CRUD 전환·관련 엔티티 변경 후 KPI 재계산 E2E |
 | P02 `/app/keywords`, `/app/keywords/:id` | keyword_sets, keywords, serp_snapshots, tags/groups/assignments, keyword_prompt_links, keyword_ideas | 실제 목록/상세, 세트/키워드/태그/연결/아이디어 CRUD, 일시정지·재수집, 검색/정렬/페이지네이션·선택 삭제·CSV | 구현. 실패 입력 보존·새로고침·워크스페이스 전환·모바일·관계 삭제 회귀 검증. 수집은 데모 Provider이며 화면에 명시. 세부 증거: [키워드 CRUD](keyword-crud.md) |
-| P03 `/app/seo/insights` | keywords/serp 읽기 + saved_analyses(조건·메모) | 분석 조건 저장·조회·수정·삭제, 실제 순위/기회 집계 | 모델 추가, 통계 읽기 화면 교체, 워크스페이스별 저장 분석 E2E |
+| P03 `/app/seo/insights` | keywords/serp 읽기 + saved_analyses(조건·메모) | 분석 조건 저장·조회·수정·삭제, 실제 순위/기회 집계 | 구현·기간/엔진/세트/태그/언어·국가 필터·순위/AIO/출처 집계·저장 조건 CRUD·충돌/격리/모바일 검증. [구현 내역](analysis-gap-crud.md) |
 | P04 `/app/geo`, `/app/geo/prompts`, `/app/geo/prompts/:id` | geo_prompt_sets, geo_prompts, geo_prompt_runs/answers/citations/metrics, tags | 프롬프트 세트/질문/태그 CRUD, 다중 엔진·일일 예약, 실행·이력·원문 상세 | 구현·CRUD/실패/격리/모바일 E2E 및 실제 서버 예약 실행 검증. 외부 LLM은 데모 Provider. 상세 범위와 운영 조건: [프롬프트 CRUD](prompt-crud.md) |
-| P05 `/app/geo/analysis` | GEO 집계 + saved_analyses | 엔진/기간 비교, 저장 분석 CRUD, 근거 출처 표시 | 실제 집계 조회, 필터 반영·빈 상태 테스트 |
-| P06 `/app/gap` | geo_prompt_candidates, opportunity_decisions | 후보 생성/조회/수정/삭제, 채택 시 키워드·질문 생성 | 후보 상태 전이, 중복 채택 방지, 실행 페이지 이동 |
+| P05 `/app/geo/analysis` | GEO 집계 + saved_analyses | 엔진/기간 비교, 저장 분석 CRUD, 근거 출처 표시 | 구현·엔진/동일 길이 직전 기간 비교·멘션/인용/출처/매트릭스·저장 조건 CRUD·근거/빈 상태/격리 E2E. 제품/Fan-out 별도 측정 자료는 미지원. [구현 내역](analysis-gap-crud.md) |
+| P06 `/app/gap` | geo_prompt_candidates, opportunity_decisions | 후보 생성/조회/수정/삭제, 채택 시 키워드·질문 생성 | 구현·저장 SERP 근거 후보 생성·직접 등록/편집/삭제·보류/재개/채택·원자적 중복 방지·판단 메모/삭제·질문/키워드 연결·실패/모바일 E2E. [구현 내역](analysis-gap-crud.md) |
 | P07 `/app/strategy-map`, `/app/strategy-map/:id` | keyword_clusters/members/links, cluster_stats_history, cluster_batch_runs, 비공개 요청 기록 | 그룹·구성·관계 CRUD, 현재 집계/스냅샷, 자동 분류 미리보기·적용·이력, 실제 맵 | 구현·규칙 기반 분류/수동 그룹 보존·원본 버전 충돌/재요청 차단·재시작/원자성·검색/필터/CSV·권한/연쇄 삭제·모바일 실제 스크롤 검증. 외부 AI 의미 분류는 아님. [구현 내역](strategy-crud.md) |
 | P08 `/app/site-audit`, `/app/site-audit/:id` | site_audit_targets/scans/pages/issues, scope_rules, 비공개 작업 큐/요청 기록 | 대상/범위 CRUD, 진단 실행·취소·재실행, 스캔 상세/삭제 | 구현·실제 공개 HTML 수집·robots/수집 제한·페이지별 근거·조치 메모·이력 CRUD·CSV·권한/충돌/취소/연쇄 삭제 검증. 서버 재시작 후 실제 수집 재개 및 데스크톱/모바일 확인. [구현 내역](site-audit-crud.md) |
 | P09 `/app/factory` | content_jobs/drafts/compositions | 작업 생성·목록·본문/메타 편집·버전 선택·삭제, 제작 진행 | 구현·직접 작성/생성·본문/메타/설정·버전 선택/복원/삭제·구성 파생 저장·충돌/격리/모바일 검증. 작업 큐는 F10에서 진행. [구현 내역](content-crud.md) |
 | P10 `/app/optimize` | content_review_runs/change_items | URL/본문 등록·조회, 제안 편집·적용·제외·삭제, 버전 되돌리기 | 구현·실제 공개 URL/본문/기존 초안 등록, 4단계 저장, 제안 편집/제외/삭제/선택 적용·원본 복원·충돌/격리/모바일 검증. 검색/제안은 데모 Provider. [구현 내역](optimization-crud.md) |
-| P11 `/app/exports` | export_history, export_destinations, article_translations, translation_runs | 내보내기 설정 CRUD, 실제 파일 생성·이력 조회·재다운로드·삭제 | 파일 생성/이력/재다운로드/삭제·수동 번역 CRUD·다운로드 설정 구현 및 검증. **WordPress 연결/암호화/검증/명시적 게시·원격 결과 복구 구현**. **DeepL 자동 번역·검토·실행/부분 결과/실패 이력·중복 요청 차단 구현**. 외부 통신은 테스트 대역으로 검증했으며 실번역은 서버 키 필요. [자동 번역 구현](automatic-translation.md). [WordPress 구현](wordpress-crud.md). [파일·번역문 구현](export-crud.md) |
+| P11 `/app/exports` | export_history, export_destinations, article_translations, translation_runs | 내보내기 설정 CRUD, 실제 파일 생성·이력 조회·재다운로드·삭제 | 파일 생성/이력/재다운로드/삭제·수동 번역 CRUD·다운로드 설정 구현 및 검증. **WordPress 연결/암호화/검증/명시적 게시·원격 결과 복구 구현**. **OpenAI 자동 번역·검토·토큰 사용량/부분 결과/실패 이력·중복 요청 차단 구현** (사용자 선택 반영; 과거 DeepL 이력 유지). 외부 통신은 테스트 대역으로 검증했으며 실번역은 서버 키 필요. [자동 번역 구현](automatic-translation.md). [WordPress 구현](wordpress-crud.md). [파일·번역문 구현](export-crud.md) |
 | P12 `/app/monitoring` | monitor_rules, geo_alerts, workspace_events | 감시 규칙 CRUD, 켜기/끄기, 발생 이벤트 조회·확인 | 주기 실행기, 임계값 검증, 규칙 삭제와 알림 정리 |
 | P13 `/app/reports`, `/app/reports/weekly` | report_snapshots/summaries/action_items | 주간/월간 생성·상세·메모/액션 수정·삭제·내보내기 | 기존 스냅샷 함수 외 실제 목록/상세·리포트 설정 |
 | P14 `/app/personas`, `/app/personas/:id` | writing_style_profiles, writing_style_samples | 이름/대상/문체/금지어/예문 CRUD, 기본 페르소나 선택, 콘텐츠 생성 참조 | 구현·CRUD/새로고침/실패/격리 E2E. 삭제 시 연결 해제 및 생성 당시 내용 보존. [구현 내역](library-crud.md) |

@@ -3,6 +3,8 @@
  */
 
 import crypto from 'node:crypto';
+import { ANALYSIS_COMMANDS, runAnalysisCommand } from './analysis-service.ts';
+import { GAP_COMMANDS, runGapCommand } from './gap-service.ts';
 import { STRATEGY_COMMANDS, runStrategyCommand } from './strategy-service.ts';
 import { readStrategyData } from './strategy-model.ts';
 import { AUDIT_COMMANDS, runAuditCommand } from './site-audit-service.ts';
@@ -853,6 +855,8 @@ export class HaloXDatabase {
 
     // Ensure all other observed runtime & Phase 7 secondary tables exist as empty arrays by default
     for (const emptyTable of [
+      'saved_analyses',
+      'opportunity_decisions',
       'agent_conversations',
       'agent_messages',
       'articles',
@@ -1330,6 +1334,8 @@ export class HaloXDatabase {
       this.deleteTable('content_review_runs', { content_job_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
       for (const name of ['export_history', 'article_translations', 'export_publications', 'translation_runs']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.content_job_id)) row.content_job_id = null;
     }
+    if (tableName === 'geo_prompt_candidates') this.tables.set('opportunity_decisions', (this.tables.get('opportunity_decisions') || []).filter(row => !deletedIds.has(row.candidate_id)));
+    if (tableName === 'keywords') for (const row of this.tables.get('geo_prompt_candidates') || []) if (deletedIds.has(row.source_keyword_id)) row.source_keyword_id = null;
     if (tableName === 'keyword_clusters') {
       for (const name of ['keyword_cluster_members', 'cluster_stats_history']) this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.cluster_id)));
       this.tables.set('keyword_cluster_links', (this.tables.get('keyword_cluster_links') || []).filter(row => !deletedIds.has(row.source_id) && !deletedIds.has(row.target_id)));
@@ -1450,7 +1456,7 @@ export class HaloXDatabase {
     const [run] = this.insertTable('geo_prompt_runs', {
       workspace_id: prompt.workspace_id, prompt_id: prompt.id, prompt_text: prompt.prompt_text,
       language_code: prompt.language_code, location_code: prompt.location_code,
-      engine, provider: 'deterministic', mode: 'search', status: 'running', requested_at: new Date().toISOString(),
+      engine, brand_domain: domain, provider: 'deterministic', mode: 'search', status: 'running', requested_at: new Date().toISOString(),
       ...(scheduledFor ? { scheduled_for: scheduledFor } : {}),
     }, actor);
     let evaluation;
@@ -2291,6 +2297,8 @@ export class HaloXDatabase {
             keyword_text: kwRow.keyword,
             captured_at: now,
             provider: 'dataforseo-mock',
+            search_volume: serp.searchVolume,
+            keyword_difficulty: serp.keywordDifficulty,
             country: draft.country,
             language: draft.language,
             engine: serp.engine,
@@ -2547,6 +2555,14 @@ export class HaloXDatabase {
       };
     }
 
+    if (GAP_COMMANDS.includes(fnName)) {
+      if (!payload.workspace_id) throw new Error('워크스페이스를 선택해 주세요.');
+      return runGapCommand(this, fnName, payload, workspaceId, actorUserId);
+    }
+    if (ANALYSIS_COMMANDS.includes(fnName)) {
+      if (!payload.workspace_id) throw new Error('워크스페이스를 선택해 주세요.');
+      return runAnalysisCommand(this, fnName, payload, workspaceId, actorUserId);
+    }
     if (STRATEGY_COMMANDS.includes(fnName)) {
       if (!payload.workspace_id) throw new Error('워크스페이스를 선택해 주세요.');
       return runStrategyCommand(this, fnName, payload, workspaceId, actorUserId);

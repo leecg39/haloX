@@ -23,6 +23,7 @@
 .live-kpis { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; margin: 20px 0; }
 .live-card { border: 1px solid hsl(var(--border,0 0% 90%)); border-radius: 10px; padding: 18px; background: hsl(var(--background,0 0% 100%)); }
 .live-kpis strong { display: block; font-size: 26px; font-weight: 600; margin-top: 8px; }
+.analysis-kpis small { display: block; }
 .live-tabs { display: flex; gap: 20px; border-bottom: 1px solid hsl(var(--border,0 0% 90%)); overflow-x: auto; }
 .live-tabs button { border: 0; border-radius: 0; padding: 10px 4px; color: #737373; background: transparent; }
 .live-tabs button[aria-pressed=true] { color: #171717; border-bottom: 2px solid #171717; }
@@ -101,3 +102,14 @@
 .strategy-point.high { fill: #7c3aed; stroke: #5b21b6; }
 .strategy-point.low { fill: #e5e5e5; stroke: #a3a3a3; }
 .live-strategy-canvas a:hover .strategy-point, .live-strategy-canvas a:focus .strategy-point { stroke: #171717; stroke-width: 4; }
+[data-live-root]:has(> .live-analysis-page) { overflow-y: auto !important; display: block; }
+.analysis-filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.analysis-filters label { display: grid; gap: 5px; font-size: 13px; }
+.analysis-filters input, .analysis-filters select { min-width: 0; width: 100%; }
+.analysis-evidence { min-width: 230px; max-width: 480px; margin-top: 12px; }
+.analysis-trend { width: 100%; overflow-x: auto; }
+.analysis-trend svg { display: block; width: 100%; min-width: 520px; max-height: 320px; }
+.analysis-trend line { stroke: #e5e5e5; }
+.analysis-trend text { fill: #525252; font-size: 12px; }
+.analysis-trend path { stroke: #7c3aed; stroke-width: 2; fill: none; }
+.analysis-trend circle { fill: #7c3aed; }

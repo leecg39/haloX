@@ -14,7 +14,7 @@ export function NewExport({ data, initialJobId, command, onClose }: { data: Expo
   const request = useRef({ fingerprint: '', key: '' });
   const job = data.content_jobs.find(row => row.id === jobId), destination = data.export_destinations.find(row => row.id === destinationId);
   const draft = data.content_drafts.find(row => row.content_job_id === jobId && (job?.current_draft_id ? row.id === job.current_draft_id : row.is_selected));
-  const translations = data.article_translations.filter(row => ['manual', 'deepl'].includes(text(row.origin)) && row.status === 'ready');
+  const translations = data.article_translations.filter(row => ['manual', 'deepl', 'openai'].includes(text(row.origin)) && row.status === 'ready');
   return <LiveModal title="파일 만들기" submit="파일 저장" description="선택한 본문을 파일로 보관합니다. 생성 후 이력에서 다운로드할 수 있습니다." onClose={onClose} onSave={async form => {
     const translation = translations.find(row => row.id === translationId);
     const values = { ...(source === 'content' ? { job_id: jobId, expected_content_revision: Number(job?.revision || 0) } : { translation_id: translationId, expected_translation_revision: Number(translation?.revision || 0) }), ...(destination ? { destination_id: destination.id, expected_destination_revision: Number(destination.revision) } : { format: form.get('format'), include_metadata: form.has('include_metadata') }) };

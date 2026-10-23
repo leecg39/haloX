@@ -26,6 +26,8 @@ export function assertRestWrite(db: HaloXDatabase, table: string, method: 'POST'
   if (['export_history', 'export_destinations', 'article_translations', 'export_publications', 'translation_runs'].includes(table)) throw new RlsAccessDeniedError('내보내기와 번역문은 전용 서버 작업으로만 변경합니다.');
   if (['site_audit_targets', 'site_audit_scans', 'site_audit_pages', 'site_audit_issues'].includes(table)) throw new RlsAccessDeniedError('사이트 진단은 전용 서버 작업으로만 변경합니다.');
   if (['keyword_clusters', 'keyword_cluster_members', 'keyword_cluster_links', 'cluster_stats_history', 'cluster_batch_runs'].includes(table)) throw new RlsAccessDeniedError('전략맵은 전용 서버 작업으로만 변경합니다.');
+  if (table === 'saved_analyses') throw new RlsAccessDeniedError('저장 분석은 전용 서버 작업으로만 변경합니다.');
+  if (['geo_prompt_candidates', 'opportunity_decisions'].includes(table)) throw new RlsAccessDeniedError('기회 후보와 판단 기록은 전용 서버 작업으로만 변경합니다.');
   if (READ_ONLY.has(table)) throw new RlsAccessDeniedError('This table cannot be changed through the public REST API');
   if (table === 'content_jobs' && items.some(row => 'generation_context' in row)) throw new RlsAccessDeniedError('생성 당시 참조 자료는 서버 작업으로만 저장합니다.');
   if (['content_jobs', 'content_drafts', 'content_compositions'].includes(table)) throw new RlsAccessDeniedError('콘텐츠는 버전 관리 서버 작업으로만 변경합니다.');

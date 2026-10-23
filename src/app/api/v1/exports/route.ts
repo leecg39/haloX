@@ -1,4 +1,4 @@
-import { deepLConfigured } from '@/lib/backend/deepl';
+import { openAITranslationConfigured } from '@/lib/backend/openai-translation';
 import { NextRequest, NextResponse } from 'next/server';
 import { authenticate } from '@/lib/api/route-auth';
 import { EXPORT_TABLES } from '@/lib/api/exports';
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     const data = await haloxStore.read(db => {
       db.assertWorkspaceMember(workspaceId, auth.actor);
       const member = db.queryTable('workspace_members', { filters: { workspace_id: `eq.${workspaceId}`, user_id: `eq.${auth.actor}` } }, auth.actor).data[0];
-      return { translation_configured: deepLConfigured(), can_manage_connections: ['owner', 'admin'].includes(String(member?.role)), ...Object.fromEntries(EXPORT_TABLES.map(table => [table, db.queryTable(table, { filters: { workspace_id: `eq.${workspaceId}` }, order: 'created_at.desc' }, auth.actor).data])) };
+      return { translation_configured: openAITranslationConfigured(), can_manage_connections: ['owner', 'admin'].includes(String(member?.role)), ...Object.fromEntries(EXPORT_TABLES.map(table => [table, db.queryTable(table, { filters: { workspace_id: `eq.${workspaceId}` }, order: 'created_at.desc' }, auth.actor).data])) };
     });
     return NextResponse.json(data, { headers: { 'Cache-Control': 'private, no-store' } });
   } catch (error) {

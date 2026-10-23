@@ -9,6 +9,8 @@ import { PersonasPage } from '@/components/live/PersonasPage';
 import { OptimizationPage } from '@/components/live/OptimizationPage';
 import { SiteAuditPage } from '@/components/live/SiteAuditPage';
 import { StrategyPage } from '@/components/live/StrategyPage';
+import { AnalysesPage } from '@/components/live/AnalysesPage';
+import { GapPage } from '@/components/live/GapPage';
 import { ExportsPage } from '@/components/live/ExportsPage';
 import { ContentPage } from '@/components/live/ContentPage';
 import { KnowledgePage } from '@/components/live/KnowledgePage';
@@ -51,6 +53,10 @@ export default async function Page(props: Props) {
   if (/^\/app\/strategy-map(?:\/[^/]+)?$/.test(pathname)) {
     shellRoute = '/app/strategy-map'; children = <StrategyPage clusterId={pathname.split('/')[3]} />;
   }
+  if (pathname === '/app/seo/insights' || pathname === '/app/geo/analysis') {
+    shellRoute = pathname; children = <AnalysesPage kind={pathname.includes('/seo/') ? 'seo' : 'geo'} initialTab={new URLSearchParams(route.split('?')[1]).get('tab') || undefined} />;
+  }
+  if (pathname === '/app/gap') { shellRoute = pathname; children = <GapPage />; }
   const data = await getCapture(shellRoute || route);
   if (!data) notFound();
   return <ClonePage key={route} data={data} requestedRoute={route}>{children}</ClonePage>;

@@ -5,7 +5,7 @@ import path from 'node:path';
 import { tmpdir } from 'node:os';
 import { DEFAULT_WORKSPACE_ID as WS, DEFAULT_USER_ID as ACTOR, OTHER_USER_ID, type Row } from './database.ts';
 import { PersistentHaloXStore } from './store.ts';
-import { createDeepLClient, deepLConfigured, translationBatches, type DeepLClient } from './deepl.ts';
+import { createOpenAITranslationClient, openAITranslationConfigured, translationBatches, type TranslationClient, type TranslationResult } from './openai-translation.ts';
 import { runTranslationCommand } from './translation-service.ts';
 import { ExternalServiceError } from './public-json.ts';
 import { ContentConflictError } from './content-model.ts';
@@ -18,8 +18,9 @@ type Result = { ok: boolean; reused: boolean; run: RecordRow; job: RecordRow; dr
 const original = { title: '제품 안내', content_md: '## 사용법\n반갑습니다.\n', meta_title: '안내', meta_description: '', target_keyword: '사용법' };
 const directories: string[] = [];
 afterEach(() => directories.splice(0).forEach(directory => rmSync(directory, { recursive: true, force: true })));
-const translated: DeepLClient = { translate: async batch => batch.map(piece => ({ text: piece.field === 'title' ? 'Instructions' : piece.field === 'content_md' ? '## Instructions\nWelcome.\n' : 'Guide', billed_characters: [...piece.text].length })) };
-function fixture(client: DeepLClient = translated) {
+const translatedResult = (pieces: { text: string }[]): TranslationResult => ({ pieces, usage: { input_tokens: 100, output_tokens: 40, total_tokens: 140 }, response_id: 'resp_fixture', model: 'gpt-4.1-mini' });
+const translated: TranslationClient = { model: 'gpt-4.1-mini', translate: async batch => translatedResult(batch.map(piece => ({ text: piece.field === 'title' ? 'Instructions' : piece.field === 'content_md' ? '## Instructions\nWelcome.\n' : 'Guide' }))) };
+function fixture(client: TranslationClient = translated) {
   const directory = mkdtempSync(path.join(tmpdir(), 'halox-translation-')); directories.push(directory);
   const filename = path.join(directory, 'data.sqlite'), store = new PersistentHaloXStore(filename);
   const invoke = (command: string, values: Row = {}) => store.write(db => db.invokeEdgeFunction(command, { ...values, workspace_id: WS }, ACTOR)) as Promise<Result>;
@@ -29,44 +30,79 @@ function fixture(client: DeepLClient = translated) {
   return { filename, store, invoke, call, rows, request };
 }
 
-describe('DeepL adapter', () => {
-  it('batches maximum Korean/Unicode input below the request limit without losing a character or field', async () => {
+const responseBody = (texts: Row, overrides: Row = {}) => ({ id: 'resp_fixture', model: 'gpt-4.1-mini-2025-04-14', status: 'completed', usage: { input_tokens: 120, output_tokens: 30, total_tokens: 150 }, output: [{ type: 'message', role: 'assistant', status: 'completed', content: [{ type: 'output_text', text: JSON.stringify(texts) }] }], ...overrides });
+
+describe('OpenAI translation adapter', () => {
+  it('batches Unicode input without losing bytes and sends strict schema segments only to the fixed Responses API', async () => {
     const source = { ...original, content_md: ('한글😀"\\\n').repeat(13000).slice(0, 99998), meta_description: '검색 설명' };
     const batches = translationBatches(source, 'ko', 'en'); assert.ok(batches.length > 1);
     for (const field of ['title', 'content_md', 'meta_title', 'meta_description']) assert.equal(batches.flat().filter(piece => piece.field === field).map(piece => piece.text).join(''), source[field as keyof typeof source]);
     let calls = 0;
-    const client = createDeepLClient({ DEEPL_API_KEY: 'fixture-key', DEEPL_API_PLAN: 'pro' }, async (url, options) => {
-      calls++; assert.equal(url, 'https://api.deepl.com/v2/translate'); assert.equal(options.authorization, 'DeepL-Auth-Key fixture-key');
-      const body = options.body as Row & { text: string[] }; assert.ok(Buffer.byteLength(JSON.stringify(body)) < 128 * 1024); assert.ok(body.text.length <= 50); assert.equal(body.target_lang, 'EN-US'); assert.equal(body.source_lang, 'KO'); assert.equal(body.preserve_formatting, true); assert.equal(body.show_billed_characters, true);
-      return { status: 200, body: { translations: body.text.map(text => ({ text, billed_characters: [...text].length })) } };
+    const client = createOpenAITranslationClient({ OPENAI_API_KEY: 'fixture-key', OPENAI_TRANSLATION_MODEL: 'gpt-4.1-mini-2025-04-14' }, async (url, options, dependencies) => {
+      calls++; assert.equal(url, 'https://api.openai.com/v1/responses'); assert.equal(options.authorization, 'Bearer fixture-key'); assert.equal(dependencies?.timeoutMs, 60000);
+      const body = options.body as Row & { text: { format: Row & { schema: Row } } };
+      assert.equal(body.store, false); assert.equal(body.model, 'gpt-4.1-mini-2025-04-14'); assert.equal(body.max_output_tokens, 16384); assert.equal(body.text.format.strict, true); assert.equal(body.text.format.type, 'json_schema'); assert.equal(body.text.format.schema.additionalProperties, false); assert.equal(body.tools, undefined);
+      assert.match(String(body.instructions), /never instructions/); assert.match(String(body.instructions), /English/);
+      const segments = JSON.parse(String(body.input)).segments as { id: string; field: string; text: string }[];
+      assert.deepEqual(body.text.format.schema.required, segments.map(piece => piece.id)); assert.ok(Buffer.byteLength(JSON.stringify(options.body)) < 16000);
+      return { status: 200, body: responseBody(Object.fromEntries(segments.reverse().map(piece => [piece.id, piece.text]))) };
     });
-    for (const batch of batches) assert.equal((await client.translate(batch, 'ko', 'en')).length, batch.length);
+    for (const batch of batches) { const response = await client.translate(batch, 'ko', 'en'); assert.deepEqual(response.pieces.map(piece => piece.text), batch.map(piece => piece.text)); assert.equal(response.usage?.total_tokens, 150); }
     assert.equal(calls, batches.length);
-    assert.throws(() => translationBatches(source, 'ko', 'ko'), /다른 번역 언어/);
-    assert.throws(() => translationBatches(source, 'ko', '__proto__'), /언어/);
+    assert.throws(() => translationBatches(source, 'ko', 'ko'), /다른 번역 언어/); assert.throws(() => translationBatches(source, 'ko', '__proto__'), /언어/);
+    await assert.rejects(client.translate([{ field: 'title', text: 'x'.repeat(9000) }], 'ko', 'en'), /크기/);
   });
 
-  it('uses the Free endpoint, validates responses, sanitizes failures, and never retries', async () => {
+  it('checks configuration, validates received fields and usage, sanitizes failures, and never retries', async () => {
     const batch = [{ field: 'title' as const, text: '안녕' }]; let calls = 0;
-    assert.equal(deepLConfigured({}), false); assert.equal(deepLConfigured({ DEEPL_API_KEY: 'x', DEEPL_API_PLAN: 'untrusted' }), false);
-    assert.throws(() => createDeepLClient({}), (error: unknown) => error instanceof ExternalServiceError && error.status === 503);
-    const successful = createDeepLClient({ DEEPL_API_KEY: 'fixture' }, async (url, options) => { assert.equal(url, 'https://api-free.deepl.com/v2/translate'); assert.equal((options.body as Row).target_lang, 'ZH-HANS'); return { status: 200, body: { translations: [{ text: '你好' }] } }; });
-    assert.equal((await successful.translate(batch, 'ko', 'zh'))[0].billed_characters, null);
-    for (const status of [403, 429, 456, 302, 503]) {
-      const client = createDeepLClient({ DEEPL_API_KEY: 'fixture' }, async () => { calls++; return { status, body: { error: 'secret provider body' } }; });
+    assert.equal(openAITranslationConfigured({}), false); assert.equal(openAITranslationConfigured({ OPENAI_API_KEY: 'x', OPENAI_TRANSLATION_MODEL: 'https://evil.test' }), false);
+    assert.throws(() => createOpenAITranslationClient({}), (error: unknown) => error instanceof ExternalServiceError && error.status === 503);
+    const successful = createOpenAITranslationClient({ OPENAI_API_KEY: 'fixture' }, async () => ({ status: 200, body: responseBody({ p0: '你好' }, { usage: null }) }));
+    assert.equal((await successful.translate(batch, 'ko', 'zh')).usage, null);
+    for (const status of [401, 403, 429, 302, 503]) {
+      const client = createOpenAITranslationClient({ OPENAI_API_KEY: 'fixture' }, async () => { calls++; return { status, body: { error: 'secret provider body' } }; });
       await assert.rejects(client.translate(batch, 'ko', 'en'), (error: unknown) => error instanceof ExternalServiceError && error.uncertain === !(status >= 400 && status < 500) && !error.message.includes('secret'));
     }
     assert.equal(calls, 5);
-    for (const translations of [[], [{}], [{ text: '' }], [{ text: 'ok', billed_characters: -1 }], [{ text: 'a' }, { text: 'b' }]]) await assert.rejects(createDeepLClient({ DEEPL_API_KEY: 'fixture' }, async () => ({ status: 200, body: { translations } })).translate(batch, 'ko', 'en'), ExternalServiceError);
-    await assert.rejects(createDeepLClient({ DEEPL_API_KEY: 'fixture' }, async () => { throw new Error('SECRET'); }).translate(batch, 'ko', 'en'), error => !String(error).includes('SECRET'));
+    for (const translated of [{}, { p1: 'wrong' }, { p0: '' }, { p0: 1 }, { p0: 'a', p1: 'b' }, ['a']]) await assert.rejects(createOpenAITranslationClient({ OPENAI_API_KEY: 'fixture' }, async () => ({ status: 200, body: responseBody(translated as Row) })).translate(batch, 'ko', 'en'), ExternalServiceError);
+    for (const override of [{ output: [] }, { status: 'incomplete' }, { output: [{ type: 'message', role: 'assistant', content: [{ type: 'refusal', refusal: 'private reason' }] }] }]) await assert.rejects(createOpenAITranslationClient({ OPENAI_API_KEY: 'fixture' }, async () => ({ status: 200, body: responseBody({ p0: 'ok' }, override) })).translate(batch, 'ko', 'en'), error => !String(error).includes('private reason'));
+    const invalidUsage = createOpenAITranslationClient({ OPENAI_API_KEY: 'fixture' }, async () => ({ status: 200, body: responseBody({ p0: 'Hello' }, { usage: { input_tokens: -1, output_tokens: 1, total_tokens: 0 } }) })); assert.equal((await invalidUsage.translate(batch, 'ko', 'en')).usage, null);
+    await assert.rejects(createOpenAITranslationClient({ OPENAI_API_KEY: 'fixture' }, async () => { throw new Error('SECRET'); }).translate(batch, 'ko', 'en'), error => !String(error).includes('SECRET'));
   });
 });
 
 describe('durable automatic translations', () => {
+  it('retains usage for billable refusal and truncated responses without releasing quota or retrying', async () => {
+    for (const overrides of [{ status: 'incomplete', incomplete_details: { reason: 'max_output_tokens' } }, { output: [{ type: 'message', role: 'assistant', content: [{ type: 'refusal', refusal: 'private reason' }] }] }]) {
+      let calls = 0;
+      const f = fixture(createOpenAITranslationClient({ OPENAI_API_KEY: 'fixture' }, async () => { calls++; return { status: 200, body: responseBody({}, overrides) }; }));
+      const { values } = await f.request(), result = await f.call(values);
+      assert.equal(result.run.status, 'failed'); assert.equal(result.run.quota_status, 'committed'); assert.equal(result.run.completed_batches, 0);
+      assert.equal(result.run.total_tokens, 150); assert.equal(result.run.billing_complete, true); assert.equal((result.run.response_receipts as Row[])[0].response_id, 'resp_fixture');
+      assert.equal((await f.rows('article_translations')).length, 0); assert.equal((await f.call(values)).reused, true); assert.equal(calls, 1);
+    }
+  });
+
+  it('keeps historical DeepL provenance, old request receipts and reviewed exports usable after the provider change', async () => {
+    const f = fixture(), { values } = await f.request(), { run } = await f.call(values);
+    const translation = (await f.rows('article_translations'))[0];
+    // Represent persisted records written by the previous release, without a remote call.
+    await f.store.write(db => {
+      db.updateTable('translation_runs', { provider: 'deepl', billed_characters: 27 }, { id: `eq.${run.id}` }, ACTOR);
+      db.updateTable('article_translations', { origin: 'deepl' }, { id: `eq.${translation.id}` }, ACTOR);
+    });
+    assert.equal((await f.call(values)).run.provider, 'deepl');
+    const edited = await f.invoke('translation-update', { ...translation, translation_id: translation.id, expected_revision: translation.revision, status: 'ready' });
+    const exported = await f.invoke('export-create', { translation_id: translation.id, expected_translation_revision: edited.translation.revision, format: 'md', include_metadata: false, idempotency_key: 'historical-export' });
+    assert.ok(exported.history.id);
+    const noted = await f.call({ run_id: run.id, expected_revision: run.revision, notes: '이전 번역 유지' }, 'translation-run-update');
+    assert.equal(noted.run.provider, 'deepl'); assert.equal(noted.run.billed_characters, 27);
+  });
+
   it('persists a real result, gates exports on review, reuses requests across restart and preserves provenance', async () => {
     let calls = 0; const f = fixture({ translate: async (...args) => { calls++; return translated.translate(...args); } });
     const { values, draft } = await f.request(); const result = await f.call(values); assert.equal(result.ok, true); assert.equal(result.run.status, 'succeeded');
-    const translation = (await f.rows('article_translations'))[0]; assert.equal(translation.origin, 'deepl'); assert.equal(translation.status, 'draft'); assert.equal(translation.source_identity, draft.id); assert.equal((translation.source_snapshot as Row).content_md, original.content_md);
+    const translation = (await f.rows('article_translations'))[0]; assert.equal(translation.origin, 'openai'); assert.equal(translation.status, 'draft'); assert.equal(translation.source_identity, draft.id); assert.equal((translation.source_snapshot as Row).content_md, original.content_md);
     const download = { translation_id: translation.id, expected_translation_revision: 1, format: 'json', include_metadata: true, idempotency_key: 'file' };
     await assert.rejects(f.invoke('export-create', download), /검토를/);
     const edit = await f.invoke('translation-update', { ...translation, content_md: 'Reviewed translation', status: 'ready', translation_id: translation.id, expected_revision: 1 });
@@ -105,9 +141,9 @@ describe('durable automatic translations', () => {
     const first = fixture({ translate: async () => { throw new ExternalServiceError('한도 초과', 'TRANSLATION_REJECTED', 502, false); } });
     const { values } = await first.request(); const failed = await first.call(values); assert.equal(failed.run.status, 'failed'); assert.equal(failed.run.quota_status, 'released'); assert.equal((await first.call(values)).reused, true);
     let calls = 0;
-    const partial = fixture({ translate: async batch => { if (++calls > 1) throw new ExternalServiceError('한도 초과', 'TRANSLATION_REJECTED', 502, false); return batch.map(piece => ({ text: `확인된 결과 ${piece.text}`, billed_characters: [...piece.text].length })); } });
+    const partial = fixture({ translate: async batch => { if (++calls > 1) throw new ExternalServiceError('한도 초과', 'TRANSLATION_REJECTED', 502, false); return translatedResult(batch.map(piece => ({ text: `확인된 결과 ${piece.text}` }))); } });
     const request = await partial.request({ ...original, content_md: '한국어 긴 문단입니다.\n'.repeat(6000) }); const result = await partial.call(request.values);
-    assert.equal(result.run.status, 'failed'); assert.equal(result.run.quota_status, 'committed'); assert.equal(result.run.completed_batches, 1); assert.ok(Number(result.run.billed_characters) > 0); assert.match(String((result.run.partial_body as Row).content_md), /확인된 결과/); assert.equal((await partial.rows('article_translations')).length, 0);
+    assert.equal(result.run.status, 'failed'); assert.equal(result.run.quota_status, 'committed'); assert.equal(result.run.completed_batches, 1); assert.ok(Number(result.run.total_tokens) > 0); assert.match(String((result.run.partial_body as Row).content_md), /확인된 결과/); assert.equal((await partial.rows('article_translations')).length, 0);
     assert.equal((await partial.call(request.values)).reused, true); assert.equal(calls, 2);
   });
 
@@ -134,11 +170,11 @@ describe('durable automatic translations', () => {
   });
 
   it('saves expanded output for editing, downloads and WordPress, and retains invalid oversized output as a failed run', async () => {
-    const f = fixture({ translate: async batch => batch.map(piece => ({ text: piece.field === 'title' ? 'T'.repeat(700) : piece.field === 'content_md' ? 'Expanded '.repeat(20000) : 'M', billed_characters: piece.text.length })) });
+    const f = fixture({ translate: async batch => translatedResult(batch.map(piece => ({ text: piece.field === 'title' ? 'T'.repeat(700) : piece.field === 'content_md' ? 'Expanded '.repeat(20000) : 'M' }))) });
     const { values } = await f.request(); const result = await f.call(values); assert.equal(result.ok, true); const row = (await f.rows('article_translations'))[0]; assert.ok(String(row.content_md).length > 100000);
     await f.invoke('translation-update', { ...row, translation_id: row.id, expected_revision: row.revision, status: 'ready' });
     const file = await f.invoke('export-create', { translation_id: row.id, expected_translation_revision: 2, format: 'md', include_metadata: false, idempotency_key: 'expanded' }); assert.ok(Number(file.history.byte_size) > 100000); assert.equal(wordpressContent(row).title.length, 700);
-    const invalid = fixture({ translate: async batch => batch.map(piece => ({ text: piece.field === 'title' ? 'T'.repeat(1001) : 'body', billed_characters: piece.text.length })) });
+    const invalid = fixture({ translate: async batch => translatedResult(batch.map(piece => ({ text: piece.field === 'title' ? 'T'.repeat(1001) : 'body' }))) });
     const failed = await invalid.call((await invalid.request()).values); assert.equal(failed.run.status, 'failed'); assert.equal(String((failed.run.partial_body as Row).title).length, 1001); assert.equal((await invalid.rows('article_translations')).length, 0);
   });
 });

@@ -60,7 +60,7 @@ export function runExportCommand(db: HaloXDatabase, command: string, payload: Ro
   if (command === 'translation-update' || command === 'translation-delete') {
     const row = item(db, 'article_translations', workspace, payload.translation_id, actor); checkContentRevision(row, payload.expected_revision);
     if (command === 'translation-delete') { db.deleteTable('article_translations', where(workspace, row.id), actor); return { ok: true }; }
-    if (!['manual', 'deepl'].includes(String(row.origin))) throw new Error('이전 데모 번역은 삭제한 뒤 실제 번역문을 등록해 주세요.');
+    if (!['manual', 'deepl', 'openai'].includes(String(row.origin))) throw new Error('이전 데모 번역은 삭제한 뒤 실제 번역문을 등록해 주세요.');
     const [translation] = db.updateTable('article_translations', { ...translationBody(payload), revision: Number(row.revision) + 1 }, where(workspace, row.id), actor);
     return { ok: true, translation };
   }
@@ -84,7 +84,7 @@ export function runExportCommand(db: HaloXDatabase, command: string, payload: Ro
   let source: Row, jobId: unknown, draftId: unknown, sourceVersion: unknown;
   if (payload.translation_id) {
     const translation = item(db, 'article_translations', workspace, payload.translation_id, actor); checkContentRevision(translation, payload.expected_translation_revision);
-    if (!['manual', 'deepl'].includes(String(translation.origin)) || translation.status !== 'ready') throw new Error('검토를 마친 실제 번역문만 내보낼 수 있습니다.');
+    if (!['manual', 'deepl', 'openai'].includes(String(translation.origin)) || translation.status !== 'ready') throw new Error('검토를 마친 실제 번역문만 내보낼 수 있습니다.');
     source = translation; jobId = translation.content_job_id; draftId = translation.source_draft_id; sourceVersion = (translation.source_snapshot as Row)?.version;
   } else {
     const job = contentJob(db, workspace, payload.job_id, actor); checkContentRevision(job, payload.expected_content_revision);

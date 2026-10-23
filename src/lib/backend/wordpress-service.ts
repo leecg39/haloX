@@ -118,7 +118,7 @@ export async function runWordPressCommand(store: PersistentHaloXStore, command: 
     let source: Row, jobId: unknown, draftId: unknown, sourceKey: string;
     if (payload.translation_id) {
       const translation = get(db, 'article_translations', workspace, payload.translation_id, actor); checkContentRevision(translation, payload.expected_translation_revision);
-      if (!['manual', 'deepl'].includes(String(translation.origin)) || translation.status !== 'ready') throw new Error('검토를 마친 번역문만 게시할 수 있습니다.');
+      if (!['manual', 'deepl', 'openai'].includes(String(translation.origin)) || translation.status !== 'ready') throw new Error('검토를 마친 번역문만 게시할 수 있습니다.');
       source = translation; jobId = translation.content_job_id; draftId = translation.source_draft_id; sourceKey = `${translation.id}:${translation.revision}`;
     } else {
       const job = contentJob(db, workspace, payload.job_id, actor); checkContentRevision(job, payload.expected_content_revision);

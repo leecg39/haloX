@@ -1,0 +1,67 @@
+{
+  "workspace": "91716872-ae3c-4ffd-9019-69b85b56f7f2",
+  "seo": {
+    "samples": 3,
+    "entities": 3,
+    "ranked": 3,
+    "rank_measured": 3,
+    "average_rank": 1,
+    "top10": 3,
+    "top10_percent": 100,
+    "aio_detected": 1,
+    "aio_measured": 0,
+    "aio_cited": 0,
+    "aio_percent": null,
+    "mention_measured": 0,
+    "mentioned": 0,
+    "mention_percent": null,
+    "citation_measured": 0,
+    "cited": 0,
+    "citation_percent": null
+  },
+  "geo": {
+    "samples": 3,
+    "entities": 2,
+    "ranked": 0,
+    "rank_measured": 0,
+    "average_rank": null,
+    "top10": 0,
+    "top10_percent": null,
+    "aio_detected": 0,
+    "aio_measured": 0,
+    "aio_cited": 0,
+    "aio_percent": null,
+    "mention_measured": 3,
+    "mentioned": 3,
+    "mention_percent": 100,
+    "citation_measured": 3,
+    "cited": 1,
+    "citation_percent": 33.3
+  },
+  "candidate_count": 5,
+  "accepted": [
+    {
+      "text": "검색 분석 입문 도입 시 가장 중요한 기준은 무엇인가요?",
+      "status": "accepted",
+      "notes": "검색 근거를 검토한 뒤 질문으로 채택",
+      "destination_id": "bf7c6c96-4467-47a9-b108-f9c15e3ac415"
+    }
+  ],
+  "decision_count": 1,
+  "mobile": {
+    "viewport": 390,
+    "document_width": 390,
+    "scroll_top": 364
+  },
+  "saved_analysis_checked": true,
+  "linked_question_checked": true,
+  "qa_workspace_deleted": true,
+  "openai_missing_key": {
+    "configured": false,
+    "created_runs": 0,
+    "selected_language": "ja",
+    "viewport": 390,
+    "document_width": 390,
+    "modal_scroll_top": 121
+  }
+}

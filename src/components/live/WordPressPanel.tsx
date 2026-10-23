@@ -43,7 +43,7 @@ function WordPressConnection({ row, command, onClose }: { row?: Row; command: Ex
 function WordPressPublish({ data, command, onClose }: { data: ExportData; command: ExportCommand; onClose: () => void }) {
   const [kind, setKind] = useState('content'), [sourceId, setSourceId] = useState(''), [targetId, setTargetId] = useState(''), [status, setStatus] = useState('draft');
   const targets = data.export_destinations.filter(row => row.kind === 'wordpress' && row.verification_status === 'verified');
-  const sources = kind === 'content' ? data.content_jobs : data.article_translations.filter(row => ['manual', 'deepl'].includes(text(row.origin)) && row.status === 'ready');
+  const sources = kind === 'content' ? data.content_jobs : data.article_translations.filter(row => ['manual', 'deepl', 'openai'].includes(text(row.origin)) && row.status === 'ready');
   const source = sources.find(row => row.id === sourceId), target = targets.find(row => row.id === targetId);
   const body = kind === 'content' ? data.content_drafts.find(row => row.content_job_id === sourceId && (source?.current_draft_id ? row.id === source.current_draft_id : row.is_selected)) : source;
   const request = useRef({ fingerprint: '', key: '' });
