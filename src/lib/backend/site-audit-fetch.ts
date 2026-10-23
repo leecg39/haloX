@@ -13,11 +13,11 @@ const MAX_BYTES = 2 * 1024 * 1024;
 export async function requestAuditPage(url: URL, address: Address, signal: AbortSignal): Promise<RawResponse> {
   return new Promise((resolve, reject) => {
     const pinned: LookupFunction = (_host, options, callback) => options.all ? callback(null, [address]) : callback(null, address.address, address.family);
-    const request = (url.protocol === 'https:' ? https : http).get(url, { signal, agent: false, lookup: pinned, family: address.family, maxHeaderSize: 16384, headers: { 'User-Agent': `${AUDIT_AGENT}/1.0`, Accept: 'text/html, text/plain', 'Accept-Encoding': 'identity' } }, response => {
+    const request = (url.protocol === 'https:' ? https : http).get(url, { signal, agent: false, lookup: pinned, family: address.family, maxHeaderSize: 16384, headers: { 'User-Agent': `${AUDIT_AGENT}/1.0`, Accept: 'text/html, text/plain, text/markdown, application/xml, text/xml', 'Accept-Encoding': 'identity' } }, response => {
       const status = response.statusCode || 0, type = String(response.headers['content-type'] || '').toLowerCase(), robots = String(response.headers['x-robots-tag'] || '').slice(0, 1000);
       const finish = (body = Buffer.alloc(0)) => resolve({ status, type, robots, location: response.headers.location, body });
       if (status < 200 || status >= 300) { response.destroy(); finish(); return; }
-      if (!/^text\/(html|plain)(?:;|$)/.test(type)) { response.destroy(); finish(); return; }
+      if (!/^(?:text\/(html|plain|markdown|xml)|application\/xml)(?:;|$)/.test(type)) { response.destroy(); finish(); return; }
       if (response.headers['content-encoding'] && response.headers['content-encoding'] !== 'identity') { response.destroy(); reject(new Error('압축된 응답을 읽을 수 없습니다.')); return; }
       if (Number(response.headers['content-length'] || 0) > MAX_BYTES) { response.destroy(); reject(new Error('페이지가 2MiB 제한을 초과했습니다.')); return; }
       let size = 0; const chunks: Buffer[] = [];

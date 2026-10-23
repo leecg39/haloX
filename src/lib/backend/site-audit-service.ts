@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { createPolicyState, policyUrls } from './site-policy.ts';
 import type { HaloXDatabase, Row } from './database.ts';
 import { contentText } from './content-model.ts';
 import { checkContentRevision } from './content-service.ts';
@@ -64,11 +65,12 @@ export function runAuditCommand(db: HaloXDatabase, command: string, payload: Row
     target = auditItem(db, 'site_audit_targets', workspace, payload.target_id, actor); checkContentRevision(target, payload.expected_revision); snapshot = validateAuditTarget(target);
   }
   if (db.queryTable('site_audit_scans', { filters: auditWhere(workspace) }, actor).data.some(scan => scan.target_url === snapshot.target_url && AUDIT_ACTIVE.includes(String(scan.status)))) throw new Error('이 URL의 진단이 이미 진행 중입니다. 실행 이력을 확인해 주세요.');
-  const id = crypto.randomUUID(), reservation = db.callRpc('reserve_unit_with_bypass', { p_workspace_id: workspace, p_unit_key: 'site_audit_scan', p_amount: 1, p_idempotency_key: `site-audit:${id}` }, actor) as Row;
-  const [scan] = db.insertTable('site_audit_scans', { id, workspace_id: workspace, ...snapshot, name: snapshot.name, target_id: target?.id ?? rerun?.target_id ?? null, target_snapshot: snapshot, rerun_of: rerun?.id ?? null, provider: 'html', status: 'queued', notes: '', revision: 1, created_by: actor, crawled_urls: 0, processed_urls: 0, failed_urls: 0, skipped_urls: 0, critical_count: 0, warning_count: 0, notice_count: 0, site_health_score: null, ai_readiness_score: null, error: '', reservation_id: reservation.reservation_id, quota_status: 'reserved' }, actor);
   const workspaceRow = db.queryTable('workspaces', { filters: { id: `eq.${workspace}` } }, actor).data[0];
+  const policySnapshot = policyUrls(rerun?.policy_snapshot as Row || workspaceRow);
+  const id = crypto.randomUUID(), reservation = db.callRpc('reserve_unit_with_bypass', { p_workspace_id: workspace, p_unit_key: 'site_audit_scan', p_amount: 1, p_idempotency_key: `site-audit:${id}` }, actor) as Row;
+  const [scan] = db.insertTable('site_audit_scans', { id, workspace_id: workspace, ...snapshot, name: snapshot.name, target_id: target?.id ?? rerun?.target_id ?? null, target_snapshot: snapshot, policy_snapshot: policySnapshot, rerun_of: rerun?.id ?? null, provider: 'html', status: 'queued', notes: '', revision: 1, created_by: actor, crawled_urls: 0, processed_urls: 0, failed_urls: 0, skipped_urls: 0, critical_count: 0, warning_count: 0, notice_count: 0, site_health_score: null, ai_readiness_score: null, error: '', reservation_id: reservation.reservation_id, quota_status: 'reserved' }, actor);
   // Queued work belongs to the workspace and can finish after its creator leaves.
-  db.setServerRecords('audit_work', [...db.getServerRecords('audit_work'), { scan_id: id, workspace_id: workspace, actor_id: workspaceRow.owner_id, origin: new URL(snapshot.target_url).origin, pending: [{ url: snapshot.target_url, depth: 0 }], visited: [], lease_until: 0, next_at: 0, attempts: 0 }]);
+  db.setServerRecords('audit_work', [...db.getServerRecords('audit_work'), { scan_id: id, workspace_id: workspace, actor_id: workspaceRow.owner_id, origin: new URL(snapshot.target_url).origin, policy_state: createPolicyState(snapshot, policySnapshot), pending: [{ url: snapshot.target_url, depth: 0 }], visited: [], lease_until: 0, next_at: 0, attempts: 0 }]);
   db.setServerRecords('audit_requests', [...db.getServerRecords('audit_requests'), { workspace_id: workspace, actor_id: actor, key, fingerprint, scan_id: id }]);
   return { ok: true, reused: false, scan };
 }

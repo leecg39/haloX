@@ -19,6 +19,7 @@ async function addTarget(page: Page, url = 'https://audit.example.invalid/') {
 async function start(page: Page) { await live(page).getByRole('button', { name: '새 진단', exact: true }).click(); await dialog(page).getByLabel('진단 대상').selectOption({ label: '문서 진단' }); await submit(page, '진단 시작'); await expect(page).toHaveURL(/\/app\/site-audit\/[a-f0-9-]+$/); }
 const fetcher: AuditFetcher = async (url, allowed) => {
   expect(allowed(url)).toBe(true); const pathname = new URL(url).pathname;
+  if (['/sitemap.xml', '/llms.txt'].includes(pathname)) return { url, status: 404, content_type: 'text/plain', robots_header: '', redirects: [], body: '' };
   return { url, status: 200, content_type: pathname === '/robots.txt' ? 'text/plain' : 'text/html', robots_header: '', redirects: [], body: pathname === '/robots.txt' ? 'User-agent: *\nDisallow: /admin' : pathname === '/' ? '<html lang="ko"><head><title>제품 안내</title></head><body><h1>제품 안내</h1><a href="/docs">도움말</a></body></html>' : '<html><body><h1>도움말</h1><img src="guide.png"></body></html>' };
 };
 async function cleanup(page: Page, workspace: string) {
@@ -49,7 +50,7 @@ test('HTML audit queue produces page-specific evidence; notes, resolution, rerun
   // supplied by fixtures to the same durable worker used by the running server.
   await page.route('**/api/v1/functions/site-audit-start', async route => {
     const response = await route.fetch();
-    for (let i = 0; i < 4; i++) { time += 10000; await processAuditTick(store, fetcher, () => time); }
+    for (let i = 0; i < 8; i++) { time += 10000; await processAuditTick(store, fetcher, () => time); }
     await route.fulfill({ response });
   });
   try {
@@ -71,7 +72,9 @@ test('cancelling a partially collected audit preserves real pages and prevents f
   try {
     // Separate hosts keep this test independent of the previous test's persisted
     // crawl delay (its worker intentionally runs with an advanced test clock).
-    await addTarget(page, 'https://partial-audit.example.invalid/'); await start(page); expect(await processAuditTick(store, fetcher, () => time)).toBe(true); time += 10000; expect(await processAuditTick(store, fetcher, () => time)).toBe(true);
+    await addTarget(page, 'https://partial-audit.example.invalid/'); await start(page);
+    // Three policy files precede the first HTML page; cancel before page two.
+    for (let i = 0; i < 4; i++) { time += 10000; expect(await processAuditTick(store, fetcher, () => time)).toBe(true); }
     await live(page).getByRole('button', { name: '새로고침', exact: true }).click(); await expect(live(page)).toContainText('수집 페이지 (1)');
     await page.setViewportSize({ width: 390, height: 844 }); await live(page).getByRole('button', { name: '진단 취소', exact: true }).click(); await submit(page, '진단 취소'); await expect(live(page)).toContainText('취소됨'); expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     time += 10000; expect(await processAuditTick(store, fetcher, () => time)).toBe(false); await page.reload(); await expect(live(page)).toContainText('수집 페이지 (1)');

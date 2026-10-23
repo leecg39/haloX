@@ -2,6 +2,7 @@
 import { SECTIONS, sectionLabels, canAccess, normalizeSections, type Section } from '@/lib/permissions/workspace';
 import { useWorkspace } from '../WorkspaceProvider';
 import Link from 'next/link';
+import { WorkspacePolicyPanel } from './WorkspacePolicyPanel';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { LibraryWorkspace, text } from './LibraryShared';
 import { EmptyState, ErrorState, LiveModal } from './LiveUI';
@@ -12,7 +13,7 @@ import type { ContentRow as Row } from '@/lib/api/content';
 import type { AuditTarget } from '@/lib/api/site-audit';
 import { accountRequest } from '../AccountSecurityForms';
 
-type Data = { user_id: string; role: string; workspace: Row; members: Row[]; invitations: Row[]; targets: Row[] };
+type Data = { user_id: string; role: string; workspace: Row; members: Row[]; invitations: Row[]; targets: Row[]; policy_jobs: Row[]; policy_editable: boolean };
 const roles: Record<string, string> = { owner: '소유자', admin: '관리자', member: '멤버', viewer: '뷰어 (읽기 전용)' };
 const statuses: Record<string, string> = { pending: '대기 중', accepted: '수락됨', cancelled: '취소됨', expired: '만료됨' };
 export function SettingsNav({ current }: { current: string }) {
@@ -31,6 +32,8 @@ function SettingsPanel({ workspaceId, tab }: { workspaceId: string; tab: 'worksp
     finally { if (current === generation.current) setLoading(false); }
   }, [workspaceId]);
   useEffect(() => { void reload(); return () => { ++generation.current; }; }, [reload]);
+  const policyRunning = data?.policy_jobs?.some(row => ['queued', 'running'].includes(text(row.status)));
+  useEffect(() => { if (!policyRunning) return; const timer = setInterval(() => { void reload(); }, 3000); return () => clearInterval(timer); }, [policyRunning, reload]);
   const close = () => setEdit(undefined), manager = !!data && ['owner', 'admin'].includes(data.role);
   async function command(values: Record<string, unknown>) {
     const result = await accountRequest<Record<string, unknown>>('/api/v1/workspace-management', { ...values, workspace_id: workspaceId });
@@ -46,6 +49,7 @@ function SettingsPanel({ workspaceId, tab }: { workspaceId: string; tab: 'worksp
   return <div className="live live-settings-page"><header className="live-head"><div><h1>{tab === 'members' ? '멤버 관리' : '워크스페이스 설정'}</h1><p>{text(data?.workspace.name)} · {roles[data?.role || ''] || ''}</p></div><button disabled={loading} onClick={() => void reload()}>새로고침</button></header><SettingsNav current={tab} />
     {notice && <p className="live-status" role="status">{notice}</p>}{error && <ErrorState message={error} retry={reload} />}{loading && <p role="status">설정을 불러오는 중…</p>}
     {data && !error && <>{tab === 'workspace' ? <><section className="live-card"><div className="live-head"><h2>워크스페이스 프로필</h2>{manager && <button onClick={() => setEdit({ kind: 'workspace' })}>프로필 수정</button>}</div><dl className="account-details"><dt>이름</dt><dd>{text(data.workspace.name)}</dd><dt>브랜드 이름</dt><dd>{text(data.workspace.brand_name) || '미설정'}</dd><dt>기본 도메인</dt><dd>{text(data.workspace.default_brand_filter) || '미설정'}</dd><dt>슬러그</dt><dd>{text(data.workspace.slug)}</dd><dt>워크스페이스 ID</dt><dd>{workspaceId}</dd><dt>설명</dt><dd>{text(data.workspace.description) || '없음'}</dd></dl><p className="muted">워크스페이스 목록과 동일한 정보입니다. 기본 도메인은 별도 도메인이 없는 키워드 세트와 분석에서 사용합니다.</p><Link href="/app/workspaces">워크스페이스 생성·선택·삭제</Link></section>
+      <WorkspacePolicyPanel workspace={data.workspace} jobs={data.policy_jobs || []} editable={data.policy_editable} command={command} />
       <section className="live-section"><div className="live-head"><h2>사이트 진단 대상·수집 범위</h2>{manager && <button onClick={() => setEdit({ kind: 'target' })}>진단 대상 추가</button>}</div><p>사이트 진단 메뉴와 같은 대상입니다. 수정한 범위는 다음 진단부터 적용되며 기존 결과는 당시 범위를 보존합니다.</p>{!data.targets.length && <EmptyState>등록한 진단 대상이 없습니다.</EmptyState>}<div className="live-grid">{data.targets.map(row => <article className="live-card" key={row.id}><h3>{text(row.name)}</h3><p className="live-url">{text(row.target_url)}</p><p>최대 {text(row.max_pages)}페이지 · 깊이 {text(row.max_depth)}</p><ScopePreview target={row as unknown as AuditTarget} />{manager && <div className="live-actions"><button onClick={() => setEdit({ kind: 'target', row })}>대상·범위 수정</button><button onClick={() => setEdit({ kind: 'target-delete', row })}>대상 삭제</button></div>}</article>)}</div><Link href="/app/site-audit">사이트 진단 실행·이력</Link></section></> : <>
       <p>소유자는 관리자 지정과 워크스페이스 삭제를 할 수 있습니다. 관리자는 멤버 초대·관리와 설정 수정, 멤버는 업무 데이터 편집·실행을 할 수 있습니다. 뷰어는 허용된 메뉴를 조회만 할 수 있으며 수정·실행·다운로드는 제한됩니다. 메뉴 권한은 다음 서버 요청부터 적용됩니다.</p><div className="live-toolbar"><input aria-label="멤버·초대 검색" placeholder="이름 또는 이메일 검색" value={query} onChange={event => setQuery(event.target.value)} />{manager && <button className="primary" onClick={() => setEdit({ kind: 'invite-create' })}>멤버 초대</button>}</div>
       {link && <section className="live-card"><h2>초대 링크</h2><p>이메일은 자동 발송하지 않습니다. 아래 링크를 초대한 사람에게 직접 전달해 주세요. 링크는 이 화면에서만 표시하며 7일 동안 유효합니다.</p><label>발급한 초대 링크<input aria-label="발급한 초대 링크" readOnly value={link} onFocus={event => event.target.select()} /></label><button onClick={() => { void navigator.clipboard.writeText(link).then(() => setNotice('초대 링크를 복사했습니다.')).catch(() => setNotice('링크를 선택하여 직접 복사해 주세요.')); }}>링크 복사</button><button onClick={() => setLink('')}>링크 숨기기</button></section>}

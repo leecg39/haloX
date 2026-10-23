@@ -37,7 +37,7 @@ export function assertRestWrite(db: HaloXDatabase, table: string, method: 'POST'
     return;
   }
   if (['export_history', 'export_destinations', 'article_translations', 'export_publications', 'translation_runs'].includes(table)) throw new RlsAccessDeniedError('내보내기와 번역문은 전용 서버 작업으로만 변경합니다.');
-  if (['site_audit_targets', 'site_audit_scans', 'site_audit_pages', 'site_audit_issues'].includes(table)) throw new RlsAccessDeniedError('사이트 진단은 전용 서버 작업으로만 변경합니다.');
+  if (['site_policy_jobs', 'site_audit_targets', 'site_audit_scans', 'site_audit_pages', 'site_audit_issues'].includes(table)) throw new RlsAccessDeniedError('사이트 진단은 전용 서버 작업으로만 변경합니다.');
   if (['keyword_clusters', 'keyword_cluster_members', 'keyword_cluster_links', 'cluster_stats_history', 'cluster_batch_runs'].includes(table)) throw new RlsAccessDeniedError('전략맵은 전용 서버 작업으로만 변경합니다.');
   if (['raw_import_batches', 'dashboard_preferences', 'monitor_rules', 'geo_alerts', 'workspace_events', 'report_snapshots', 'report_summaries', 'report_action_items', 'report_preferences', 'saved_analyses'].includes(table)) throw new RlsAccessDeniedError('저장 분석은 전용 서버 작업으로만 변경합니다.');
   if (['geo_prompt_candidates', 'opportunity_decisions'].includes(table)) throw new RlsAccessDeniedError('기회 후보와 판단 기록은 전용 서버 작업으로만 변경합니다.');

@@ -1,5 +1,7 @@
 import { canAccess, normalizeSections, SECTIONS, type Section } from '../permissions/workspace.ts';
 import crypto from 'node:crypto';
+import { POLICY_FIELDS, policyUrls } from './site-policy.ts';
+import { policyCommand } from './site-policy-service.ts';
 import { RlsAccessDeniedError, type HaloXDatabase, type Row } from './database.ts';
 import { checkContentRevision } from './content-service.ts';
 import { contentText, ContentConflictError } from './content-model.ts';
@@ -35,6 +37,7 @@ export function validateWorkspacePatch(input: Row, current?: Row) {
   if ('slug' in row && (typeof row.slug !== 'string' || !/^[\p{L}\p{N}][\p{L}\p{N}_-]{0,99}$/u.test(row.slug))) throw new Error('슬러그는 문자·숫자·하이픈·밑줄로 1~100자 입력해 주세요.');
   if ('auto_generate_prompts' in row && typeof row.auto_generate_prompts !== 'boolean') throw new Error('자동 생성 설정을 확인해 주세요.');
   if ('settings' in row && (!row.settings || typeof row.settings !== 'object' || Array.isArray(row.settings) || JSON.stringify(row.settings).length > 16000)) throw new Error('설정 형식을 확인해 주세요.');
+  if (POLICY_FIELDS.some(field => field in row)) Object.assign(row, policyUrls({ ...current, ...row }));
   return row;
 }
 export function validateMembership(input: Row, tables: Map<string, Row[]>) {
@@ -56,7 +59,7 @@ export function readWorkspaceManagement(db: HaloXDatabase, workspace: string, ac
   db.assertWorkspaceAccess(workspace, actor, 'other');
   const role = workspaceRole(db, workspace, actor), manager = ['owner', 'admin'].includes(role);
   const get = (table: string) => db.queryTable(table, { filters: workspaceWhere(workspace), order: 'created_at.desc' }, actor).data;
-  return { user_id: actor, role, workspace: db.queryTable('workspaces', { filters: { id: `eq.${workspace}` } }, actor).data[0], members: get('workspace_members'), invitations: manager ? get('workspace_invitations').map(row => ({ ...row, status: row.status === 'pending' && Date.parse(String(row.expires_at)) <= Date.now() ? 'expired' : row.status })) : [], targets: get('site_audit_targets') };
+  return { user_id: actor, role, workspace: db.queryTable('workspaces', { filters: { id: `eq.${workspace}` } }, actor).data[0], members: get('workspace_members'), invitations: manager ? get('workspace_invitations').map(row => ({ ...row, status: row.status === 'pending' && Date.parse(String(row.expires_at)) <= Date.now() ? 'expired' : row.status })) : [], targets: get('site_audit_targets'), policy_editable: manager && canAccess(db.workspacePermissions(workspace, actor), 'strategy'), policy_jobs: canAccess(db.workspacePermissions(workspace, actor), 'strategy') ? get('site_policy_jobs') : [] };
 }
 function invitationRole(value: unknown, manager: string) {
   const role = value === undefined ? 'member' : value;
@@ -103,6 +106,7 @@ export function runWorkspaceCommand(db: HaloXDatabase, actor: string, payload: R
     return { ok: true, workspace: { id: workspace.id, name: workspace.name, domain: workspace.default_brand_filter || '' } };
   }
   const workspace = contentText(payload.workspace_id, '워크스페이스', 100, true), manager = requireWorkspaceManager(db, workspace, actor);
+  if (['policy-update', 'policy-reset'].includes(String(payload.action)) || String(payload.action).startsWith('sitemap-backfill-')) return policyCommand(db, workspace, actor, payload);
   if (payload.action === 'workspace-update') {
     const row = db.queryTable('workspaces', { filters: { id: `eq.${workspace}` } }, actor).data[0]; checkRevision(row, payload.expected_revision);
     const patch = Object.fromEntries(['name', 'description', 'default_brand_filter', 'brand_name', 'slug'].filter(key => key in payload).map(key => [key, payload[key]]));

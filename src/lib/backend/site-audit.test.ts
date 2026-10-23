@@ -28,7 +28,7 @@ function fixture() {
   const now = () => time, advance = (ms = 10000) => { time += ms; };
   const invoke = (name: string, values: Row = {}, actor = ACTOR) => store.write(db => db.invokeEdgeFunction(name, { workspace_id: WS, ...values }, actor)) as Promise<Result>;
   const rows = (table: string, scanId?: string) => store.read(db => db.queryTable(table, { filters: { workspace_id: `eq.${WS}`, ...(scanId ? { scan_id: `eq.${scanId}` } : {}) } }, ACTOR).data as R[]);
-  async function start(options = config) { const { target } = await invoke('audit-target-create', options); const values = { target_id: target.id, expected_revision: 1, idempotency_key: 'audit-once' }; const { scan } = await invoke('site-audit-start', values); return { target, scan, values }; }
+  async function start(options = config) { await store.write(db => db.updateTable('workspaces', { robots_txt_url: null, sitemap_url: null, llms_txt_url: null }, { id: `eq.${WS}` })); const { target } = await invoke('audit-target-create', options); const values = { target_id: target.id, expected_revision: 1, idempotency_key: 'audit-once' }; const { scan } = await invoke('site-audit-start', values); return { target, scan, values }; }
   async function drain(fetcher = fixtureFetch) { for (let i = 0; i < 20; i++) { advance(); await processAuditTick(store, fetcher, now); if (!(await store.read(db => db.getServerRecords('audit_work'))).length) return; } throw new Error('Did not finish fixture audit'); }
   const scan = async (id: string) => (await rows('site_audit_scans')).find(row => row.id === id)!;
   return { store, filename, invoke, rows, start, drain, now, advance, scan };
@@ -51,7 +51,7 @@ describe('site audit targets and durable crawler', () => {
   it('crawls actual fixture HTML within scope/depth/robots, links issues to their page, computes real summaries and persists across restart', async () => {
     const f = fixture(), { scan, values } = await f.start(); const fetched: string[] = [];
     await f.drain(async (...args) => { fetched.push(args[0]); return fixtureFetch(...args); });
-    assert.deepEqual(fetched.map(url => new URL(url).pathname), ['/robots.txt', '/', '/docs', '/missing', '/deep']);
+    assert.deepEqual(fetched.map(url => new URL(url).pathname), ['/robots.txt', '/sitemap.xml', '/llms.txt', '/', '/docs', '/missing', '/deep']);
     const finished = await f.scan(scan.id); assert.equal(finished.status, 'completed'); assert.equal(finished.crawled_urls, 3); assert.equal(finished.failed_urls, 1); assert.equal(finished.ai_readiness_score, null); assert.ok(Number(finished.site_health_score) < 100);
     const pages = await f.rows('site_audit_pages', scan.id), issues = await f.rows('site_audit_issues', scan.id); assert.equal(pages.length, 4); assert.ok(issues.some(issue => issue.issue_type === 'jsonld_invalid'));
     for (const issue of issues) assert.equal(pages.find(page => page.id === issue.page_id)!.url, issue.page_url);

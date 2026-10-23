@@ -32,6 +32,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "robots-parser": "3.0.1",
+    "saxes": "6.0.0",
     "tailwind-merge": "^3.3.1",
     "tldts": "7.4.19"
   },
