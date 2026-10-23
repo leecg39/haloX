@@ -24,9 +24,10 @@ export async function verifyPasswordHash(password: string, hash: string): Promis
   return crypto.timingSafeEqual(key, Buffer.from(expected, 'hex'));
 }
 
-export async function authenticatePassword(store: PersistentHaloXStore, email: string, password: string) {
+export async function authenticatePassword(store: PersistentHaloXStore, email: string, password: string, includePending = false) {
   const { profile, credential } = await store.read(db => {
-    const profile = db.findProfileByEmail(email);
+    const found = db.findProfileByEmail(email);
+    const profile = found && (includePending || db.isAccountActive(found.id)) ? found : null;
     const credential = db.getServerRecords('account_credentials').find(row => row.user_id === profile?.id);
     return { profile: profile ? { ...profile, credential_version: credentialVersion(db, profile.id) } : null, credential };
   });

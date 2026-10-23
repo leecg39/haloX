@@ -28,7 +28,7 @@ function bumpCredential(db: HaloXDatabase, actor: string, passwordHash?: string)
   const row = { ...current, user_id: actor, version: credentialVersion(db, actor) + 1, ...(passwordHash ? { password_hash: passwordHash } : {}), updated_at: new Date().toISOString() };
   db.setServerRecords('account_credentials', [...rows.filter(row => row.user_id !== actor), row]);
 }
-async function confirmPassword(store: PersistentHaloXStore, actor: string, sessionId: string, password: unknown) {
+export async function confirmPassword(store: PersistentHaloXStore, actor: string, sessionId: string, password: unknown) {
   if (typeof password !== 'string' || !password || password.length > 512) throw new PhoneVerificationError('현재 비밀번호를 입력해 주세요.', 'PASSWORD_REQUIRED');
   // Reserve before expensive password verification; failed and successful attempts share a durable budget.
   const profile = await store.write(db => {
@@ -90,7 +90,7 @@ export async function runRecoveryCommand(store: PersistentHaloXStore, verificati
   if (!['send', 'verify', 'reset'].includes(String(body.action))) throw new PhoneVerificationError('요청 내용을 확인해 주세요.', 'INVALID_ACTION');
   const email = emailValue(body.email), phone = normalizePhone(body.phone);
   const identity = await store.read(db => {
-    const found = db.findProfileByEmail(email), profile = found && accountProfile(db, found.id);
+    const profile = db.recoveryIdentity(email);
     return profile && profile.phone_number === phone && profile.phone_verified_at ? { id: String(profile.id), version: credentialVersion(db, String(profile.id)) } : null;
   });
   // Suppressed challenges have the same shape and budget as real ones, but can never verify.
@@ -103,7 +103,7 @@ export async function runRecoveryCommand(store: PersistentHaloXStore, verificati
   }
   const hash = await hashPassword(passwordValue(body.password));
   try { return await store.write(db => {
-    const found = db.findProfileByEmail(email), profile = found && accountProfile(db, found.id);
+    const profile = db.recoveryIdentity(email);
     if (!identity || !profile || profile.id !== identity.id || profile.phone_number !== phone || !profile.phone_verified_at) throw new PhoneVerificationError('인증 정보가 일치하지 않거나 만료되었습니다. 다시 인증해 주세요.', 'RECOVERY_FAILED');
     checkVersion(db, identity.id, identity.version);
     verification.consume(db, phone, body.verificationToken, context);

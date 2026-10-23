@@ -1,6 +1,6 @@
 # 사이트 진단 정책 파일과 사이트맵 통계 보완
 
-2026-10-24. S02 `/app/settings?tab=workspace`의 사용자 지정 robots.txt·sitemap.xml·llms.txt 주소와 기존 진단의 사이트맵 통계 보완을 구현했다. 전체 메뉴 작업은 [작업표](full-crud-tasks.md)를 따른다. 원본의 계정 탈퇴·30일 복원은 별도 S13으로 남아 있다.
+2026-10-24. S02 `/app/settings?tab=workspace`의 사용자 지정 robots.txt·sitemap.xml·llms.txt 주소와 기존 진단의 사이트맵 통계 보완을 구현했다. 전체 메뉴 작업은 [작업표](full-crud-tasks.md)를 따른다. 원본의 계정 탈퇴·30일 복원은 별도 S13에서 구현했다. [계정 탈퇴와 복원](account-deletion-crud.md)을 참고한다.
 
 ## 설정과 진단
 

@@ -7,9 +7,9 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { useState, type ReactNode, type FormEvent } from 'react';
 import './live.css';
 
-export function LiveModal({ title, description, children, submit = '저장', viewOnly = false, onSave, onClose }: { title: string; description?: string; children?: ReactNode; submit?: string; viewOnly?: boolean; onSave: (data: FormData) => Promise<void>; onClose: () => void }) {
+export function LiveModal({ title, description, children, submit = '저장', viewOnly = false, scope = 'workspace', onSave, onClose }: { title: string; description?: string; children?: ReactNode; submit?: string; viewOnly?: boolean; scope?: 'workspace' | 'account'; onSave: (data: FormData) => Promise<void>; onClose: () => void }) {
   const { permission } = useWorkspace();
-  const readOnly = !viewOnly && typeof window !== 'undefined' && !!routeSection(window.location.pathname + window.location.search) && !canWrite(permission);
+  const readOnly = scope === 'workspace' && !viewOnly && typeof window !== 'undefined' && !!routeSection(window.location.pathname + window.location.search) && !canWrite(permission);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState('');
   async function save(event: FormEvent<HTMLFormElement>) {

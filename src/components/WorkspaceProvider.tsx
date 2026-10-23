@@ -9,7 +9,7 @@ type SessionUser = { id: string; email?: string; full_name?: string };
 type SessionView = { permissions: Record<string, Permission>; user: SessionUser; workspaces: { id: string; name: string; default_brand_filter?: string }[]; workspace_plans: { workspace_id: string; plan: string }[] };
 type WorkspaceState = { permissions: Record<string, Permission>; user: SessionUser | null; activeWorkspace: ActiveWorkspaceInfo; workspaces: ActiveWorkspaceInfo[]; loading: boolean; error: string; reload: () => Promise<void> };
 const Context = createContext<WorkspaceState | null>(null);
-const publicRoute = /^\/app\/(login|signup|forgot-password|reset-password|find-email|auth\/callback|verify-phone|invite)(\/|$)/;
+const publicRoute = /^\/app\/(login|signup|forgot-password|reset-password|restore-account|find-email|auth\/callback|verify-phone|invite)(\/|$)/;
 
 export function WorkspaceProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();

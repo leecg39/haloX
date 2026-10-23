@@ -385,6 +385,10 @@ async function runVerification() {
   const rpcNames = Object.keys(OBSERVED_RPC_RESPONSE_SHAPES);
   assert.equal(rpcNames.length, 36, 'Expected 36 observed RPC contracts');
   for (const rpcName of rpcNames) {
+    if (rpcName === 'cancel_account_deletion') {
+      assert.throws(() => db.callRpc(rpcName, {}, DEFAULT_USER_ID), RlsAccessDeniedError, 'Legacy cancellation cannot bypass account reauthentication');
+      continue;
+    }
     const response = db.callRpc(
       rpcName,
       {
@@ -409,7 +413,7 @@ async function runVerification() {
     () => db.callRpc('non_existent_rpc_function', {}, DEFAULT_USER_ID),
     /Unsupported RPC/
   );
-  recordCheck('halox.api.rpc', 'positive', 'All 36 observed RPC contracts verified against response schemas');
+  recordCheck('halox.api.rpc', 'positive', '35 observed RPC response schemas and denial of legacy unauthenticated account cancellation verified');
   recordCheck('halox.api.rpc', 'negative', 'Invalid RPC shape and unknown RPC name rejected');
 
   // =========================================================================

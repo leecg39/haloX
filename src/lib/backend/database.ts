@@ -1,3 +1,4 @@
+import { accountActive, deletionState, deletionView, scheduleDeletion, purgeDueAccounts, type DeletionCollection } from './account-deletion-model.ts';
 import { registerKeywordPrompt, readCollectionDefaults } from './general-settings-service.ts';
 import { canAccess, canWrite, normalizeSections, type Permission, type Section } from '../permissions/workspace.ts';
 import { tableSection, rpcSection } from './permission-policy.ts';
@@ -158,11 +159,11 @@ export class HaloXDatabase {
   }
 
   /** Separate from the public table whitelist: no REST/RPC access. */
-  public getServerRecords(collection: PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
+  public getServerRecords(collection: DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
     return structuredClone(this.serverRecords[collection] ?? []);
   }
 
-  public setServerRecords(collection: PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
+  public setServerRecords(collection: DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
     this.serverRecords[collection] = structuredClone(rows);
   }
 
@@ -925,10 +926,17 @@ export class HaloXDatabase {
     migrateBrandRows(this.tables.get('brands') || []);
   }
 
+  public isAccountActive(actor: string): boolean { return accountActive(this.tables, this.serverRecords, actor); }
+  public accountDeletionState(actor: string) { return structuredClone(deletionState(this.serverRecords, actor)); }
+  public accountDeletionView(actor: string) { return deletionView(this.tables, this.serverRecords, actor); }
+  public scheduleAccountDeletion(actor: string, input: Row, now = Date.now()) { return scheduleDeletion(this.tables, this.serverRecords, actor, input, now); }
+  public purgeDueAccounts(now = Date.now()) { return purgeDueAccounts(this.tables, this.serverRecords, now); }
+
   public getAllowedWorkspaceIds(userId = DEFAULT_USER_ID): Set<string> {
+    if (!this.isAccountActive(userId)) return new Set();
     const members = this.tables.get('workspace_members') || [];
     return new Set(
-      members.filter(m => m.user_id === userId).map(m => String(m.workspace_id))
+      members.filter(m => m.user_id === userId && this.isAccountActive(String((this.tables.get('workspaces') || []).find(row => row.id === m.workspace_id)?.owner_id))).map(m => String(m.workspace_id))
     );
   }
 
@@ -942,6 +950,14 @@ export class HaloXDatabase {
       p => String(p.email || '').toLowerCase() === normalized
     );
     return row ? { id: String(row.id), email: String(row.email), full_name: String(row.full_name || '') } : null;
+  }
+
+  /** Server-only recovery identity; pending deletion does not bypass the original phone proof. */
+  public recoveryIdentity(email: string, now = Date.now()): Row | null {
+    const profile = (this.tables.get('profiles') || []).find(row => String(row.email).toLowerCase() === email.toLowerCase());
+    const state = profile && this.accountDeletionState(String(profile.id));
+    if (!profile || state?.status === 'pending' && Number(state.delete_after) <= now) return null;
+    return structuredClone(profile);
   }
 
   public createAccount(input: { email: string; fullName: string; phone: string; passwordHash: string }): { id: string; email: string; full_name: string } {
@@ -1109,7 +1125,7 @@ export class HaloXDatabase {
   public apiKeyIssuerActive(key: Row): boolean {
     const issuer = key.created_by || (this.tables.get('workspaces') || []).find(row => row.id === key.workspace_id)?.owner_id;
     const member = (this.tables.get('workspace_members') || []).find(row => row.workspace_id === key.workspace_id && row.user_id === issuer);
-    return !!member && ['owner', 'admin'].includes(String(member.role)) && (member.role === 'owner' || normalizeSections(member.allowed_sections).includes('all'));
+    return this.isAccountActive(String(issuer)) && !!member && ['owner', 'admin'].includes(String(member.role)) && (member.role === 'owner' || normalizeSections(member.allowed_sections).includes('all'));
   }
 
   /**
@@ -1130,7 +1146,7 @@ export class HaloXDatabase {
       const workspace = tableName === 'workspaces' ? row.id : row.workspace_id || (tableName === 'serp_snapshots' ? (this.tables.get('keywords') || []).find(keyword => keyword.id === row.keyword_id)?.workspace_id : undefined);
       if (workspace && (!allowedWorkspaces.has(String(workspace)) || !canAccess(this.workspacePermissions(String(workspace), actorUserId), tableSection(tableName)))) return false;
       if (tableName === 'workspaces') return allowedWorkspaces.has(String(row.id));
-      if (tableName === 'profiles') return String(row.id) === actorUserId;
+      if (tableName === 'profiles') return String(row.id) === actorUserId && this.isAccountActive(actorUserId);
       if (['workspace_members', 'workspace_invitations'].includes(tableName) && row.user_id !== actorUserId && !canAccess(this.workspacePermissions(String(row.workspace_id), actorUserId), 'other')) return false;
       if (tableName === 'workspace_invitations') return (this.tables.get('workspace_members') || []).some(member => member.workspace_id === row.workspace_id && member.user_id === actorUserId && ['owner', 'admin'].includes(String(member.role)));
       if (tableName === 'dashboard_preferences') return row.user_id === actorUserId && allowedWorkspaces.has(String(row.workspace_id));
@@ -1191,6 +1207,7 @@ export class HaloXDatabase {
    */
   public insertTable(tableName: string, payload: Row | Row[], actorUserId = DEFAULT_USER_ID): Row[] {
     this.assertKnownTable(tableName);
+    if (!this.isAccountActive(actorUserId)) throw new RlsAccessDeniedError('활성 계정만 자료를 변경할 수 있습니다.');
     if (tableName === 'client_web_vitals') {
       return [];
     }
@@ -1303,6 +1320,7 @@ export class HaloXDatabase {
     actorUserId = DEFAULT_USER_ID
   ): Row[] {
     this.assertKnownTable(tableName);
+    if (!this.isAccountActive(actorUserId)) throw new RlsAccessDeniedError('활성 계정만 자료를 변경할 수 있습니다.');
     const table = this.tables.get(tableName) || [];
     const allowedWorkspaces = this.getAllowedWorkspaceIds(actorUserId);
     const now = new Date().toISOString();
@@ -1379,6 +1397,7 @@ export class HaloXDatabase {
     actorUserId = DEFAULT_USER_ID
   ): Row[] {
     this.assertKnownTable(tableName);
+    if (!this.isAccountActive(actorUserId)) throw new RlsAccessDeniedError('활성 계정만 자료를 변경할 수 있습니다.');
     const table = this.tables.get(tableName) || [];
     const allowedWorkspaces = this.getAllowedWorkspaceIds(actorUserId);
     const remaining: Row[] = [];
@@ -1688,6 +1707,7 @@ export class HaloXDatabase {
 
     switch (rpcName) {
       case 'cancel_account_deletion':
+        throw new RlsAccessDeniedError('계정 복원 화면에서 비밀번호를 다시 확인한 후 탈퇴를 취소해 주세요.');
       case 'record_auth_login':
         return true;
 

@@ -1,3 +1,4 @@
+import { RestoreAccountPage } from '@/components/AccountDeletion';
 import { GeneralSettingsPage } from '@/components/live/GeneralSettingsPage';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -40,6 +41,7 @@ async function resolveRoute(props: Props) {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const route = await resolveRoute(props), pathname = route.split('?')[0];
   if (['/app/forgot-password', '/app/reset-password'].includes(pathname)) return { title: '비밀번호 재설정 | HaloX', robots: { index: false, follow: false } };
+  if (pathname === '/app/restore-account') return { title: '계정 복원 | HaloX', robots: { index: false, follow: false } };
   if (pathname === '/app/invite') return { title: '워크스페이스 초대 | HaloX', robots: { index: false, follow: false }, referrer: 'no-referrer' };
   const portalTitle = pathname === '/app/settings' && new URLSearchParams(route.split('?')[1]).get('tab') === 'profile' ? '내 프로필과 보안' : pathname === '/app/referral' ? '추천 프로그램' : /^\/app\/feedback(?:\/[^/]+)?$/.test(pathname) ? '피드백' : undefined;
   if (portalTitle) return { title: `${portalTitle} | HaloX`, robots: { index: false, follow: false } };
@@ -49,6 +51,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function Page(props: Props) {
   const route = await resolveRoute(props), pathname = route.split('?')[0];
   if (['/app/forgot-password', '/app/reset-password'].includes(pathname)) return <PasswordRecoveryPage />;
+  if (pathname === '/app/restore-account') return <RestoreAccountPage />;
   if (pathname === '/app/invite') return <WorkspaceInvitePage />;
   if (pathname === '/app/workspaces') return <Workspaces />;
   let shellRoute: string | undefined;

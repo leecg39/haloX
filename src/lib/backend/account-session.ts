@@ -8,7 +8,7 @@ export function credentialVersion(db: HaloXDatabase, actor: string): number {
 }
 export function assertActiveSession(db: HaloXDatabase, actor: string, sessionId: string, now = Date.now()) {
   const session = db.getServerRecords('account_sessions').find(row => row.id === sessionId && row.user_id === actor && Number(row.expires_at) > now);
-  if (!session || !db.queryTable('profiles', {}, actor).data.length) throw new AuthRequiredError('세션이 종료되었습니다. 다시 로그인해 주세요.');
+  if (!db.isAccountActive(actor) || !session || !db.queryTable('profiles', {}, actor).data.length) throw new AuthRequiredError('세션이 종료되었습니다. 다시 로그인해 주세요.');
   return session;
 }
 export function resolveSession(db: HaloXDatabase, claims: SessionClaims | null) {
@@ -18,7 +18,7 @@ export function resolveSession(db: HaloXDatabase, claims: SessionClaims | null) 
   return { actor: claims.sub, sessionId: claims.sid };
 }
 export function issueSession(db: HaloXDatabase, actor: string, expectedCredentialVersion: number, agent = '', now = Date.now()) {
-  if (credentialVersion(db, actor) !== expectedCredentialVersion || !db.queryTable('profiles', {}, actor).data.length) throw new AuthRequiredError('인증 정보가 변경되었습니다. 다시 로그인해 주세요.');
+  if (!db.isAccountActive(actor) || credentialVersion(db, actor) !== expectedCredentialVersion || !db.queryTable('profiles', {}, actor).data.length) throw new AuthRequiredError('인증 정보가 변경되었습니다. 다시 로그인해 주세요.');
   const id = crypto.randomUUID(), token = createSessionToken(actor, { now, sessionId: id });
   const rows = db.getServerRecords('account_sessions').filter(row => Number(row.expires_at) > now);
   const own = rows.filter(row => row.user_id === actor).sort((a, b) => Number(b.created_at) - Number(a.created_at));

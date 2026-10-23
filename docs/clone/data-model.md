@@ -103,3 +103,7 @@ erDiagram
 ## 5. 미해결 [미확인]
 
 RLS 정책 본문, DB 트리거·cron, enum 값 전체(role, status, stage 등), JSONB 내부 스키마(kpi_payload, stats_json 등), 서버 측 집계 RPC의 SQL 본문은 클라이언트 증거로 도달할 수 없다. 클론에서는 관찰된 출력 shape(`api-spec.md`)를 계약으로 삼아 재설계한다.
+
+## 런타임 계정 수명 주기 (2026-10-24)
+
+`account_deletions`, `account_deletion_requests`, `account_restore_attempts`는 비공개 서버 저장소이며 공개 REST 테이블이 아니다. 탈퇴 대기 계정은 세션/멤버십/API 키 인증에서 거절한다. 30일 이전 재인증 복원과 마감 이후 정리는 같은 SQLite 쓰기 잠금으로 처리한다. 소유 워크스페이스의 연관 자료를 정리하고 다른 소유자의 업무 자료는 계정 참조를 제거해 보존한다. [모델·API·삭제 정책과 검증](account-deletion-crud.md).

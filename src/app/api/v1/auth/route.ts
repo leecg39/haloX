@@ -82,13 +82,16 @@ export async function POST(req: NextRequest) {
   if (precheck.some(r => !r.allowed)) return tooManyAttempts(precheck.filter(r => !r.allowed));
 
   try {
-    const profile = await authenticatePassword(haloxStore, email, password);
+    const profile = await authenticatePassword(haloxStore, email, password, true);
     if (!profile) {
       failuresByClientEmail.hit(keys.clientEmail);
       failuresByEmail.hit(keys.email);
       failuresByClient.hit(keys.client);
       return NextResponse.json({ error: 'Invalid email or password', code: 'INVALID_CREDENTIALS' }, { status: 401 });
     }
+
+    const deletion = await haloxStore.read(db => db.accountDeletionState(profile.id));
+    if (deletion?.status === 'pending') return NextResponse.json({ error: Number(deletion.delete_after) > Date.now() ? '탈퇴 대기 중인 계정입니다. 계정 복원 화면에서 탈퇴를 취소할 수 있습니다.' : '복원 기간이 지난 계정입니다.', code: 'ACCOUNT_DELETION_PENDING', delete_after: deletion.delete_after }, { status: 403, headers: { 'Cache-Control': 'no-store' } });
 
     failuresByClientEmail.reset(keys.clientEmail);
     failuresByEmail.reset(keys.email);

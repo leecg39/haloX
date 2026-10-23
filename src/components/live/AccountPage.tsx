@@ -1,4 +1,5 @@
 'use client';
+import { AccountDeletionSection } from '../AccountDeletion';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import { PortalAccount } from './PortalShared';
@@ -19,6 +20,7 @@ function AccountPanel() {
       {edit?.kind === 'name' && <LiveModal title="이름 수정" description="프로필 이름을 저장합니다." onClose={close} onSave={async form => { await changed({ action: 'profile-update', full_name: form.get('full_name'), expected_revision: data.profile.revision }); window.dispatchEvent(new Event('halox:record-created')); }}><label>이름<input name="full_name" required maxLength={100} defaultValue={data.profile.full_name} /></label></LiveModal>}
       {edit?.kind === 'password' && <LiveModal title="비밀번호 변경" description="변경하면 현재 세션을 포함한 모든 로그인 세션이 종료됩니다. 새 비밀번호로 다시 로그인해 주세요." onClose={close} onSave={async form => { if (form.get('password') !== form.get('passwordConfirm')) throw new Error('새 비밀번호가 서로 일치하지 않습니다.'); await changed({ action: 'password-update', current_password: form.get('current_password'), password: form.get('password') }); }}><PasswordField name="current_password" label="현재 비밀번호" current /><PasswordField name="password" label="새 비밀번호" /><PasswordField name="passwordConfirm" label="새 비밀번호 확인" /></LiveModal>}
       {edit && ['session', 'others'].includes(edit.kind) && <LiveModal title={edit.kind === 'others' ? '다른 세션 모두 로그아웃' : '선택한 세션 로그아웃'} description="종료한 세션은 다시 로그인해야 사용할 수 있습니다." submit="로그아웃" onClose={close} onSave={() => changed({ action: edit.kind === 'others' ? 'sessions-revoke-others' : 'session-revoke', session_id: edit.id })} />}
+      <AccountDeletionSection />
     </>}
   </div>;
 }

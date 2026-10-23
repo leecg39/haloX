@@ -2,6 +2,8 @@
 
 > 생성: `scripts/build-api-spec.py` · 근거: E3-1(런타임 shape, REA `inspect_web_network_capture`), E1-4(정적 인벤토리), E5-3(번들 동봉 Edge Function 카탈로그). 값은 기록하지 않고 키·타입만 기록.
 
+> 런타임 변경(2026-10-24): 아래 `cancel_account_deletion`의 boolean은 원본 관측 계약이다. 현재 구현은 재인증 없는 취소 RPC를 403으로 거절하며, `/api/v1/account/deletion`과 `/api/v1/auth/restore`를 사용한다. [계정 탈퇴·복원 계약](account-deletion-crud.md).
+
 ## 1. 전송 계층 [관찰]
 
 원본은 자체 REST 서버가 없고 **Supabase 3면 구조**를 브라우저에서 직접 호출한다.
