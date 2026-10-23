@@ -19,7 +19,7 @@ const roles: Record<string, string> = { owner: '소유자', admin: '관리자', 
 const statuses: Record<string, string> = { pending: '대기 중', accepted: '수락됨', cancelled: '취소됨', expired: '만료됨' };
 export function SettingsNav({ current }: { current: string }) {
   const { permission } = useWorkspace();
-  return <nav className="live-tabs settings-nav" aria-label="설정 메뉴">{[['profile', '내 프로필'], ['workspace', '워크스페이스'], ['members', '멤버'], ['', '일반'], ['plan', '사용량'], ['billing', '구독/결제'], ['brand-tracking', '브랜드 트래킹'], ['tags', '태그'], ['earned', '등록 URL'], ['export', '내보내기'], ['integrations', '연동'], ['notifications', '알림'], ['api', 'API']].filter(([key]) => key === 'profile' || canAccess(permission, 'other')).map(([key, label]) => <Link key={key} href={`/app/settings${key ? '?tab=' + key : ''}`} aria-current={current === key ? 'page' : undefined}>{label}</Link>)}</nav>;
+  return <nav className="live-tabs settings-nav" aria-label="설정 메뉴">{[['profile', '내 프로필'], ['workspace', '워크스페이스'], ['members', '멤버'], ['', '일반'], ['plan', '사용량'], ['billing', '구독/결제'], ['credits', '크레딧·보상'], ['brand-tracking', '브랜드 트래킹'], ['tags', '태그'], ['earned', '등록 URL'], ['export', '내보내기'], ['integrations', '연동'], ['notifications', '알림'], ['api', 'API']].filter(([key]) => key === 'profile' || canAccess(permission, 'other')).map(([key, label]) => <Link key={key} href={`/app/settings${key ? '?tab=' + key : ''}`} aria-current={current === key ? 'page' : undefined}>{label}</Link>)}</nav>;
 }
 export function WorkspaceSettingsPage({ tab }: { tab: 'workspace' | 'members' }) { return <LibraryWorkspace>{id => <SettingsPanel key={id} workspaceId={id} tab={tab} />}</LibraryWorkspace>; }
 function SettingsPanel({ workspaceId, tab }: { workspaceId: string; tab: 'workspace' | 'members' }) {

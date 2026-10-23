@@ -17,6 +17,7 @@
 - 정기결제 작업자는 만료된 활성 구독을 한 번만 점유한다. 같은 기간 키는 재시작·복수 프로세스에서도 다시 청구하지 않는다. 확정 실패 시 Trial로 전환하고, 불명확한 결과는 운영자 확인 대상으로 남긴다.
 - `orders`, `subscriptions`, `billing_payment_methods`, `workspace_plans`, `workspace_billing_overrides`는 공개 REST에서 읽기 전용이다. 기존 `nicepay-*` 모의 함수는 전용 API 사용 오류를 반환한다.
 - 활성 구독·카드나 확인되지 않은 결제가 있는 워크스페이스는 계정 탈퇴 대상이 될 수 없다. 먼저 해지·거래 확인·카드 삭제가 필요하다.
+- 추천 코드로 가입한 계정의 첫 결제가 확정되면 `HALOX_REFERRAL_REWARD_KRW` 정책 금액을 추천인에게 한 번 적립한다. 전액 취소가 확인되면 같은 보상을 한 번 회수한다. 기본값은 `0`이며 갱신·플랜 변경 결제는 추가 보상을 만들지 않는다. [크레딧·추천 보상 원장](credits-rewards-crud.md)에 원장·탈퇴 정책을 기록했다.
 
 ## NicePay 공식 계약
 
@@ -35,6 +36,7 @@ NICEPAY_CLIENT_KEY=
 NICEPAY_SECRET_KEY=
 NICEPAY_MODE=sandbox
 HALOX_INTEGRATION_SECRET=
+HALOX_REFERRAL_REWARD_KRW=0
 ```
 
 `NICEPAY_SECRET_KEY`는 빌링키 발급의 AES-256 `A2` 모드에 맞는 32바이트 키여야 한다. 운영에서는 NicePay 관리자에 다음 HTTPS 웹훅을 등록한다.

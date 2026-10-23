@@ -25,7 +25,9 @@ export function deletionView(tables: Tables, records: Records, actor: string) {
   unresolved.push(...rows(tables, 'billing_payment_methods').filter(row => ids.has(String(row.workspace_id)) && ['registering', 'active', 'unknown', 'expiring'].includes(String(row.status))).map(row => ({ table: 'billing_payment_methods', id: row.id })));
   const balances: Record<string, number> = {};
   for (const row of records.referral_rewards || []) if (row.owner_id === actor) balances[String(row.currency)] = (balances[String(row.currency)] || 0) + (row.kind === 'earned' ? 1 : -1) * Number(row.amount || 0);
-  const unsettledRewards = Object.values(balances).some(value => value > 0);
+  // A negative balance means a cancellation happened after payout and still
+  // needs settlement, so it is just as unresolved as an unpaid positive balance.
+  const unsettledRewards = Object.values(balances).some(value => value !== 0);
   const scope = crypto.createHash('sha256').update(JSON.stringify({ owned, unresolved, balances })).digest('hex');
   return { email: String(profile.email), revision: Number(state?.revision || 0), status: state?.status === 'pending' ? 'pending' as const : 'active' as const, requested_at: state?.requested_at ? Number(state.requested_at) : null, delete_after: state?.delete_after ? Number(state.delete_after) : null, scope, owned_workspaces: owned.map(row => ({ id: row.id, name: row.name, other_members: row.members.length })), unresolved_operations: unresolved.length, unsettled_rewards: unsettledRewards };
 }
@@ -34,7 +36,7 @@ export function scheduleDeletion(tables: Tables, records: Records, actor: string
   if (view.status !== 'active' || input.expected_revision !== view.revision || input.expected_scope !== view.scope) throw deletionError('계정 또는 워크스페이스가 변경되었습니다. 목록을 새로고침해 주세요.');
   if (input.confirm_email !== view.email || input.confirm_text !== '계정 탈퇴' || input.acknowledged !== true) throw deletionError('이메일, 확인 문구와 삭제 안내 동의를 확인해 주세요.', 'INVALID_CONFIRMATION', 400);
   if (view.owned_workspaces.some(row => row.other_members)) throw deletionError('다른 멤버가 있는 소유 워크스페이스의 멤버를 먼저 정리해 주세요.', 'SHARED_WORKSPACE');
-  if (view.unsettled_rewards) throw deletionError('미정산 추천 보상을 먼저 정리해 주세요.', 'UNSETTLED_REWARDS');
+  if (view.unsettled_rewards) throw deletionError('미정산 추천 보상이나 정산 채무를 먼저 정리해 주세요.', 'UNSETTLED_REWARDS');
   if (view.unresolved_operations) throw deletionError('진행 중이거나 결과가 불명확한 번역·게시·결제 작업과 활성 구독·카드를 먼저 정리해 주세요.', 'UNRESOLVED_OPERATION');
   if (typeof input.request_id !== 'string' || !/^[\w-]{16,100}$/.test(input.request_id)) throw deletionError('요청 키를 확인해 주세요.', 'INVALID_REQUEST', 400);
   if (records.account_deletion_requests?.some(row => row.user_id === actor && row.request_id === input.request_id)) throw deletionError('이미 처리한 탈퇴 요청입니다. 새로고침 후 다시 요청해 주세요.');

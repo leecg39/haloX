@@ -1,5 +1,6 @@
 import { NotificationsPage } from '@/components/live/NotificationsPage';
 import { BillingPage } from '@/components/live/BillingPage';
+import { CreditsPage } from '@/components/live/CreditsPage';
 import { IntegrationsPage } from '@/components/live/IntegrationsPage';
 import { RestoreAccountPage } from '@/components/AccountDeletion';
 import { GeneralSettingsPage } from '@/components/live/GeneralSettingsPage';
@@ -87,6 +88,7 @@ export default async function Page(props: Props) {
   const settingsTab = new URLSearchParams(route.split('?')[1]).get('tab');
   if (pathname === '/app/settings' && settingsTab === 'notifications') { shellRoute = '/app'; children = <NotificationsPage />; }
   if (pathname === '/app/settings' && (settingsTab === 'billing' || settingsTab === 'plan')) { shellRoute = '/app'; children = <BillingPage current={settingsTab} />; }
+  if (pathname === '/app/settings' && settingsTab === 'credits') { shellRoute = '/app'; children = <CreditsPage />; }
   if (pathname === '/app/settings' && settingsTab === 'integrations') { shellRoute = '/app'; children = <IntegrationsPage />; }
   if (pathname === '/app/settings' && (!settingsTab || settingsTab === 'general')) { shellRoute = '/app'; children = <GeneralSettingsPage />; }
   if (pathname === '/app/settings' && settingsTab === 'earned') { shellRoute = '/app'; children = <EarnedPage />; }

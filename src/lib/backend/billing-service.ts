@@ -7,6 +7,7 @@ import { checkContentRevision } from './content-service.ts';
 import { openIntegrationSecret, sealIntegrationSecret } from './integration-secret.ts';
 import { createNicePayClient, type NicePayBuyer, type NicePayCard, type NicePayClient, type NicePayPayment } from './nicepay.ts';
 import { ExternalServiceError } from './public-json.ts';
+import { recordReferralPaymentReward, reverseReferralPaymentReward } from './referral-service.ts';
 
 export type BillingPrivateCollection = 'billing_credentials' | 'billing_requests';
 const activeOrder = (row: Row) => ['processing', 'unknown', 'cancelling'].includes(String(row.status));
@@ -72,6 +73,8 @@ function activate(db: HaloXDatabase, orderRow: Row, payment: NicePayPayment, act
   const existing = subscription(db, workspace, actor), values = { plan_key: orderRow.plan_key, billing_cycle: orderRow.billing_cycle, status: 'active', payment_method_id: orderRow.payment_method_id, last_order_id: orderRow.id, current_period_start: stamp(now), current_period_end: periodEnd, cancel_at_period_end: false, cancelled_at: null, pending_plan_key: null, revision: Number(existing?.revision || 0) + 1, updated_at: stamp(now) };
   const sub = existing ? db.updateTable('subscriptions', values, where(workspace, existing.id), actor)[0] : db.insertTable('subscriptions', { ...values, workspace_id: workspace }, actor)[0];
   setWorkspacePlan(db, workspace, String(orderRow.plan_key), String(orderRow.billing_cycle), actor, periodEnd);
+  const workspaceOwner = String(db.exportState().tables.workspaces.find(row => row.id === workspace)?.owner_id || ''), reward = Number(process.env.HALOX_REFERRAL_REWARD_KRW || 0);
+  if (orderRow.kind === 'initial' && workspaceOwner && Number.isSafeInteger(reward) && reward > 0) recordReferralPaymentReward(db, workspaceOwner, String(orderRow.id), reward, now);
   return { order: paid, subscription: sub };
 }
 function downgrade(db: HaloXDatabase, workspace: string, actor: string, reason: string, now = Date.now()) {
@@ -166,7 +169,7 @@ export async function billingCommand(store: PersistentHaloXStore, actor: string,
     if (payload.confirm !== true) throw new Error('결제 취소 후 플랜이 종료되는 내용을 확인해 주세요.');
     const reason = contentText(payload.reason, '취소 사유', 100, true);
     const prepared = await store.write(db => { manager(db, workspace, actor); const row = order(db, workspace, payload.order_id, actor); checkContentRevision(row, payload.expected_revision); if (row.status !== 'paid' || !row.pg_tid || Number(row.balance_krw) !== Number(row.amount_krw)) throw new Error('전액 취소할 수 있는 결제를 선택해 주세요.'); const sub = subscription(db, workspace, actor); if (sub?.last_order_id !== row.id || sub.status !== 'active') throw new Error('현재 구독의 마지막 결제만 전액 취소할 수 있습니다.'); return update(db, 'orders', workspace, row, { status: 'cancelling' }, actor); });
-    try { const payment = await client.cancel(String(prepared.pg_tid), String(prepared.order_no), Number(prepared.amount_krw), reason); return store.write(db => { manager(db, workspace, actor); const current = order(db, workspace, prepared.id, actor); const cancelled = update(db, 'orders', workspace, current, { status: 'cancelled', cancelled_at: stamp(now()), balance_krw: payment.balanceAmt, cancel_tid: payment.cancelledTid || payment.tid, error: '' }, actor); downgrade(db, workspace, actor, 'payment_cancelled', now()); return { ok: true, order: cancelled }; }); }
+    try { const payment = await client.cancel(String(prepared.pg_tid), String(prepared.order_no), Number(prepared.amount_krw), reason); return store.write(db => { manager(db, workspace, actor); const current = order(db, workspace, prepared.id, actor); const cancelled = update(db, 'orders', workspace, current, { status: 'cancelled', cancelled_at: stamp(now()), balance_krw: payment.balanceAmt, cancel_tid: payment.cancelledTid || payment.tid, error: '' }, actor); reverseReferralPaymentReward(db, String(current.id), now()); downgrade(db, workspace, actor, 'payment_cancelled', now()); return { ok: true, order: cancelled }; }); }
     catch (cause) { const error = safeError(cause); await store.write(db => { const current = order(db, workspace, prepared.id, actor); update(db, 'orders', workspace, current, { status: error.uncertain ? 'unknown' : 'paid', error: error.message }, actor); }); throw error; }
   }
   throw new Error('지원하지 않는 결제 작업입니다.');
@@ -181,7 +184,7 @@ export async function applyBillingWebhook(store: PersistentHaloXStore, payload: 
     const row = db.queryTable('orders', { filters: { workspace_id: `eq.${workspace}`, order_no: `eq.${payment.orderId}` } }, actor).data[0];
     if (!row || Number(row.amount_krw) !== payment.amount || row.pg_tid && row.pg_tid !== payment.tid) throw new Error('결제 통보가 주문과 일치하지 않습니다.');
     if (payment.status === 'paid') { if (['processing', 'unknown', 'failed'].includes(String(row.status))) activate(db, row, payment, actor, now); }
-    else if (['cancelled', 'partialCancelled'].includes(payment.status)) { update(db, 'orders', workspace, row, { status: payment.status, pg_tid: payment.tid, balance_krw: payment.balanceAmt, cancelled_at: stamp(now), error: '' }, actor); if (payment.status === 'cancelled' && subscription(db, workspace, actor)?.last_order_id === row.id) downgrade(db, workspace, actor, 'provider_cancelled', now); }
+    else if (['cancelled', 'partialCancelled'].includes(payment.status)) { update(db, 'orders', workspace, row, { status: payment.status, pg_tid: payment.tid, balance_krw: payment.balanceAmt, cancelled_at: stamp(now), error: '' }, actor); if (payment.status === 'cancelled') reverseReferralPaymentReward(db, String(row.id), now); if (payment.status === 'cancelled' && subscription(db, workspace, actor)?.last_order_id === row.id) downgrade(db, workspace, actor, 'provider_cancelled', now); }
     else if (['failed', 'expired', 'ready'].includes(payment.status) && ['processing', 'unknown'].includes(String(row.status))) update(db, 'orders', workspace, row, { status: payment.status === 'ready' ? 'processing' : payment.status, pg_tid: payment.tid, balance_krw: payment.balanceAmt, error: payment.status === 'ready' ? '' : payment.resultMsg }, actor);
     replaceRequest(db, request.id, { status: 'succeeded', completed_at: stamp(now) });
     return { ok: true };

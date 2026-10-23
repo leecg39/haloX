@@ -116,7 +116,9 @@ describe('account withdrawal and bounded restoration', () => {
     await f.store.write(db => { const state = db.exportState(); state.tables.export_publications.push({ id: 'remote', workspace_id: f.workspace, status: 'unknown' }); db.restoreState(state); });
     await assert.rejects(f.request(), /게시/);
     await f.store.write(db => { const state = db.exportState(); state.tables.export_publications = state.tables.export_publications.filter(row => row.id !== 'remote'); db.restoreState(state); db.setServerRecords('referral_rewards', [{ owner_id: f.user.id, amount: 1, currency: 'KRW', kind: 'earned' }]); });
-    await assert.rejects(f.request(), /미정산/); assert.ok(await authenticatePassword(f.store, f.user.email, password));
+    await assert.rejects(f.request(), /미정산/);
+    await f.store.write(db => db.setServerRecords('referral_rewards', [{ owner_id: f.user.id, amount: 1, currency: 'KRW', kind: 'reversed' }]));
+    await assert.rejects(f.request(), /정산 채무/); assert.ok(await authenticatePassword(f.store, f.user.email, password));
   });
   it('supports phone-proven password recovery during grace without silently restoring and limits failed restore attempts across restart', async () => {
     const f = await fixture(); await f.request(); let code = '';

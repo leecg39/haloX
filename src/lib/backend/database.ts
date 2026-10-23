@@ -1,5 +1,6 @@
 import type { NotificationCollection } from './notification-model.ts';
 import type { BillingPrivateCollection } from './billing-service.ts';
+import { recordWorkspaceCredit, workspaceCreditBalance } from './credit-service.ts';
 import { googlePeriod, aggregateGsc, groupGa4 } from './google-metrics.ts';
 import type { GooglePrivateCollection } from './google-service.ts';
 import { accountActive, deletionState, deletionView, scheduleDeletion, purgeDueAccounts, type DeletionCollection } from './account-deletion-model.ts';
@@ -920,6 +921,8 @@ export class HaloXDatabase {
       'keyword_prompt_links',
       'orders',
       'billing_payment_methods',
+      'workspace_credit_balances',
+      'workspace_credit_ledger',
       'platform_admins',
       'subscriptions',
       'system_settings',
@@ -2086,6 +2089,8 @@ export class HaloXDatabase {
         return units.map(u => {
           const used = usedFor(u.key);
           const remaining = Math.max(0, u.limit - used);
+          const balance = workspaceCreditBalance(this, workspaceId, u.key);
+          const reservedCredits = reservations.filter(r => r.workspace_id === workspaceId && storedQuotaUnit(r.unit_key) === u.key && r.status === 'reserved').reduce((sum, r) => sum + Number(r.credit_amount || 0), 0);
           return {
             unit_key: u.key,
             unit_label: u.label,
@@ -2093,10 +2098,10 @@ export class HaloXDatabase {
             plan_limit: u.limit,
             plan_used: used,
             plan_remaining: remaining,
-            credit_balance: 0,
+            credit_balance: balance,
             override_limit: null,
-            effective_limit: u.limit,
-            effective_remaining: remaining,
+            effective_limit: u.limit + balance,
+            effective_remaining: remaining + Math.max(0, balance - reservedCredits),
           };
         });
       }
@@ -2158,9 +2163,9 @@ export class HaloXDatabase {
           )
           .reduce((sum, r) => sum + Number(r.amount || 0), 0);
 
-        if (used + amount > limit) {
-          throw new QuotaExceededError(unitKey, limit, used, amount);
-        }
+        const previousExcess = Math.max(0, used - limit), nextExcess = Math.max(0, used + amount - limit), creditAmount = nextExcess - previousExcess;
+        const balance = workspaceCreditBalance(this, workspaceId, unitKey), reservedCredits = reservations.filter(r => r.workspace_id === workspaceId && storedQuotaUnit(r.unit_key) === unitKey && r.status === 'reserved').reduce((sum, r) => sum + Number(r.credit_amount || 0), 0);
+        if (creditAmount > Math.max(0, balance - reservedCredits)) throw new QuotaExceededError(unitKey, limit + Math.max(0, balance - reservedCredits), used, amount);
 
         const reservationId = crypto.randomUUID();
         const now = new Date().toISOString();
@@ -2169,6 +2174,7 @@ export class HaloXDatabase {
           workspace_id: workspaceId,
           unit_key: unitKey,
           amount,
+          credit_amount: creditAmount,
           idempotency_key: idempotencyKey,
           status: 'reserved',
           created_at: now,
@@ -2178,7 +2184,7 @@ export class HaloXDatabase {
         return {
           reservation_id: reservationId,
           status: 'reserved',
-          remaining: limit - (used + amount),
+          remaining: Math.max(0, limit - (used + amount)) + Math.max(0, balance - reservedCredits - creditAmount),
         };
       }
 
@@ -2188,6 +2194,10 @@ export class HaloXDatabase {
         const target = reservations.find(r => r.id === resId);
         if (!target) return false;
         this.assertWorkspaceAccess(String(target.workspace_id), actorUserId, undefined, 'write');
+        if (target.status === 'committed') return true;
+        if (target.status !== 'reserved') return false;
+        const creditAmount = Number(target.credit_amount || 0);
+        if (creditAmount > 0) recordWorkspaceCredit(this, { event_id: `usage:${target.id}:commit`, workspace_id: String(target.workspace_id), unit_key: normalizeQuotaUnit(target.unit_key), kind: 'consume', amount: creditAmount, source_type: 'usage', source_id: String(target.id) });
         target.status = 'committed';
         target.updated_at = new Date().toISOString();
         return true;
@@ -2199,6 +2209,8 @@ export class HaloXDatabase {
         const target = reservations.find(r => r.id === resId);
         if (!target) return false;
         this.assertWorkspaceAccess(String(target.workspace_id), actorUserId, undefined, 'write');
+        if (target.status === 'released') return true;
+        if (target.status !== 'reserved') return false;
         target.status = 'released';
         target.updated_at = new Date().toISOString();
         return true;

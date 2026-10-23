@@ -69,13 +69,29 @@ export function recordReferralSignup(db: HaloXDatabase, code: Row | null, accoun
   if (invite) portalUpdate(db, 'referral_invites', invite, values, now); else portalInsert(db, 'referral_invites', { ...values, name: '', email: '' }, now);
 }
 /** Trusted settlement adapter only; deliberately absent from public command dispatch. */
-export function recordReferralReward(db: HaloXDatabase, input: { event_id: string; invite_id: string; kind: 'earned' | 'reversed' | 'paid'; amount: number; currency: string; reference_id?: string }, now = Date.now()) {
+export function recordReferralReward(db: HaloXDatabase, input: { event_id: string; invite_id: string; kind: 'earned' | 'reversed' | 'paid'; amount: number; currency: string; reference_id?: string; source_id?: string }, now = Date.now()) {
   const event = contentText(input.event_id, '정산 이벤트', 200, true), existing = portalRows(db, 'referral_rewards').find(row => row.event_id === event);
-  if (existing) { if (['invite_id', 'kind', 'amount', 'currency', 'reference_id'].some(key => (existing[key] ?? '') !== (input[key as keyof typeof input] ?? ''))) throw new Error('정산 이벤트 내용이 일치하지 않습니다.'); return existing; }
+  if (existing) { if (['invite_id', 'kind', 'amount', 'currency', 'reference_id', 'source_id'].some(key => (existing[key] ?? '') !== (input[key as keyof typeof input] ?? ''))) throw new Error('정산 이벤트 내용이 일치하지 않습니다.'); return existing; }
   const invite = portalFind(db, 'referral_invites', input.invite_id); if (invite.status !== 'registered' || !Number.isSafeInteger(input.amount) || input.amount <= 0 || input.amount > 1e12 || !/^[A-Z]{3}$/.test(input.currency) || !['earned', 'reversed', 'paid'].includes(input.kind)) throw new Error('정산 내역을 확인해 주세요.');
   if (input.kind !== 'earned') {
     const earned = portalFind(db, 'referral_rewards', input.reference_id); if (earned.kind !== 'earned' || earned.invite_id !== invite.id || earned.currency !== input.currency) throw new Error('같은 추천의 적립 원장을 참조해 주세요.');
-    const used = portalRows(db, 'referral_rewards').filter(row => row.reference_id === earned.id).reduce((sum, row) => sum + Number(row.amount), 0); if (used + input.amount > Number(earned.amount)) throw new Error('적립 잔액보다 큰 취소/지급은 처리할 수 없습니다.');
+    const linked = portalRows(db, 'referral_rewards').filter(row => row.reference_id === earned.id), reversed = linked.filter(row => row.kind === 'reversed').reduce((sum, row) => sum + Number(row.amount), 0), paid = linked.filter(row => row.kind === 'paid').reduce((sum, row) => sum + Number(row.amount), 0);
+    if (input.kind === 'reversed' ? reversed + input.amount > Number(earned.amount) : paid + input.amount > Number(earned.amount) - reversed) throw new Error('적립 잔액보다 큰 취소/지급은 처리할 수 없습니다.');
   } else if (input.reference_id) throw new Error('적립 이벤트에는 취소/지급 참조를 지정할 수 없습니다.');
   return portalInsert(db, 'referral_rewards', { ...input, event_id: event, owner_id: invite.owner_id, code: invite.code, reference_id: input.reference_id || null }, now);
+}
+
+/** Connects the first verified payment of a referred account to the private reward ledger. */
+export function recordReferralPaymentReward(db: HaloXDatabase, payerUserId: string, orderId: string, amount: number, now = Date.now()) {
+  if (!Number.isSafeInteger(amount) || amount <= 0) return null;
+  const invite = portalRows(db, 'referral_invites').find(row => row.joined_user_id === payerUserId && row.status === 'registered');
+  if (!invite) return null;
+  return recordReferralReward(db, { event_id: `billing:${orderId}:referral-earned`, invite_id: String(invite.id), kind: 'earned', amount, currency: 'KRW', source_id: orderId }, now);
+}
+
+/** A full payment cancellation reverses the reward once; paid amounts remain visible as settlement debt. */
+export function reverseReferralPaymentReward(db: HaloXDatabase, orderId: string, now = Date.now()) {
+  const earned = portalRows(db, 'referral_rewards').find(row => row.kind === 'earned' && row.source_id === orderId);
+  if (!earned) return null;
+  return recordReferralReward(db, { event_id: `billing:${orderId}:referral-reversed`, invite_id: String(earned.invite_id), kind: 'reversed', amount: Number(earned.amount), currency: String(earned.currency), reference_id: String(earned.id), source_id: orderId }, now);
 }

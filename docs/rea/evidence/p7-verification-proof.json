@@ -1,5 +1,5 @@
 {
-  "evidence_id": "ev_b3c4251c12b6a40c2d8fce38552341131e585549e5d6bb30c746e9e9fa1d68a9",
+  "evidence_id": "ev_cfd638056199bafdc9b4c5960d72acc16ffd86a37005b4e60780718b80475ca6",
   "subject": null,
   "provider": {
     "id": "halox-reconstruction-verifier",
@@ -64,7 +64,7 @@
     ],
     "checks_executed": 22,
     "rpc_contracts_verified": 36,
-    "table_contracts_verified": 57
+    "table_contracts_verified": 59
   },
   "confidence": "observed",
   "authority": "controlled-replay",

@@ -187,6 +187,7 @@
 .live-settings-page .live-card input[readonly]{width:100%;margin:8px 0}
 .live-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.live-billing-page .live-section{margin:24px 0}.live-billing-page .live-card ul{padding-left:20px}.live-billing-page .live-history>.live-card{margin:12px 0}
 .billing-usage{display:grid;gap:10px;margin:16px 0}.billing-usage>div{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid #eee;padding:8px 0}.billing-usage>div span:last-child{font-variant-numeric:tabular-nums;font-weight:600}
+.live-credits-page .live-section{margin:24px 0}.live-credits-page .live-history>.live-card{margin:12px 0}
 @media(max-width:600px){.live-row{grid-template-columns:1fr}.live-billing-page .live-head{align-items:flex-start;flex-wrap:wrap}.live-billing-page .live-grid{grid-template-columns:1fr}}
 .tag-groups{display:grid;gap:20px;margin:20px 0}
 .live-brand-settings>.live-card{margin:20px 0}.brand-card h3{margin:0 0 12px}.brand-card h4{font-size:13px;margin:16px 0 8px}.brand-card .live-actions{margin-top:20px}

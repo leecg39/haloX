@@ -10,6 +10,7 @@ import { PersistentHaloXStore } from './store.ts';
 import { DEFAULT_USER_ID, DEFAULT_WORKSPACE_ID, OTHER_USER_ID, type Row } from './database.ts';
 import { ExternalServiceError } from './public-json.ts';
 import { assertRestWrite } from './rest-policy.ts';
+import { readReferral } from './referral-service.ts';
 
 const directories: string[] = [], originalSecret = process.env.HALOX_SESSION_SECRET;
 before(() => { process.env.HALOX_SESSION_SECRET = 'billing-test-secret-that-is-long-enough'; });
@@ -70,6 +71,31 @@ describe('billing service', () => {
     const f = fixture({ charge: async () => { throw new ExternalServiceError('unknown', 'NICEPAY_UNKNOWN', 502, true); } }); const method = (await f.register()).method as Row; await assert.rejects(f.start('webhook', method.id, () => Date.now() - 120_000));
     const row = (await f.view()).orders[0], notice = payment(String(row.order_no), Number(row.amount_krw)); await applyBillingWebhook(f.store, notice as unknown as Row, f.client); await applyBillingWebhook(f.store, notice as unknown as Row, f.client);
     assert.equal((await f.view()).orders[0].status, 'paid'); const wrong = { ...notice, amount: 1 }; await assert.rejects(applyBillingWebhook(f.store, wrong as unknown as Row, f.client), /일치/);
+  });
+
+  it('earns one configured referral reward on the first payment and reverses it on full cancellation', async () => {
+    const originalReward = process.env.HALOX_REFERRAL_REWARD_KRW;
+    process.env.HALOX_REFERRAL_REWARD_KRW = '10000';
+    try {
+      const f = fixture();
+      await f.store.write(db => db.setServerRecords('referral_invites', [{ id: 'billing-referral-invite', owner_id: OTHER_USER_ID, code_id: 'billing-code', code: 'A'.repeat(18), status: 'registered', joined_user_id: DEFAULT_USER_ID, registered_at: new Date().toISOString(), created_at: new Date().toISOString(), revision: 1 }]));
+      const method = (await f.register()).method as Row;
+      await f.start('referral-first-payment', method.id);
+      let rewards = await f.store.read(db => readReferral(db, OTHER_USER_ID));
+      assert.deepEqual(rewards.totals.KRW, { earned: 10000, reversed: 0, paid: 0 });
+      assert.equal(rewards.rewards.length, 1);
+      let view = await f.view();
+      await f.command('order-cancel', { order_id: view.orders[0].id, expected_revision: view.orders[0].revision, reason: '추천 보상 취소 검증', confirm: true });
+      rewards = await f.store.read(db => readReferral(db, OTHER_USER_ID));
+      assert.deepEqual(rewards.totals.KRW, { earned: 10000, reversed: 10000, paid: 0 });
+      assert.equal(rewards.rewards.length, 2);
+      view = await f.view();
+      await applyBillingWebhook(f.store, payment(String(view.orders[0].order_no), Number(view.orders[0].amount_krw), 'cancelled') as unknown as Row, f.client);
+      assert.equal((await f.store.read(db => readReferral(db, OTHER_USER_ID))).rewards.length, 2);
+    } finally {
+      if (originalReward === undefined) delete process.env.HALOX_REFERRAL_REWARD_KRW;
+      else process.env.HALOX_REFERRAL_REWARD_KRW = originalReward;
+    }
   });
 });
 

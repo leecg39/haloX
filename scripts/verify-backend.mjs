@@ -83,6 +83,8 @@ const OBSERVED_68_TABLES = [
   'welcome_guide_settings',
   'workspace_api_keys',
   'workspace_billing_overrides',
+  'workspace_credit_balances',
+  'workspace_credit_ledger',
   'workspace_events',
   'workspace_google_connections',
   'workspace_invitations',

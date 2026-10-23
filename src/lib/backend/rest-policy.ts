@@ -4,7 +4,7 @@ import { KEYWORD_EDITABLE_FIELDS } from './keyword-model.ts';
 import { GEO_EDITABLE_FIELDS, GEO_RESULT_TABLES } from './geo-model.ts';
 import { LIBRARY_EDITABLE_FIELDS } from './library-model.ts';
 
-const READ_ONLY = new Set(['notifications', 'workspace_google_connections', 'google_sync_jobs', 'gsc_sync_state', 'vw_gsc_connection_health', 'gsc_daily_totals', 'gsc_daily_keywords', 'gsc_daily_pages', 'ga4_page_stats', 'profiles', 'plan_templates', 'plan_unit_limits', 'welcome_guide_config', 'welcome_guide_settings', 'system_settings', 'workspace_plans', 'usage_reservations', 'serp_snapshots', 'orders', 'subscriptions', 'billing_payment_methods', 'workspace_billing_overrides']);
+const READ_ONLY = new Set(['notifications', 'workspace_google_connections', 'google_sync_jobs', 'gsc_sync_state', 'vw_gsc_connection_health', 'gsc_daily_totals', 'gsc_daily_keywords', 'gsc_daily_pages', 'ga4_page_stats', 'profiles', 'plan_templates', 'plan_unit_limits', 'welcome_guide_config', 'welcome_guide_settings', 'system_settings', 'workspace_plans', 'usage_reservations', 'serp_snapshots', 'orders', 'subscriptions', 'billing_payment_methods', 'workspace_billing_overrides', 'workspace_credit_balances', 'workspace_credit_ledger']);
 const ADMIN_TABLES = new Set(['workspace_members', 'workspace_invitations', 'workspace_api_keys']);
 const WORKSPACE_FIELDS = new Set(['name', 'description', 'brand_name', 'default_brand_filter', 'slug']);
 const PROFILE_FIELDS = new Set(['full_name']);
