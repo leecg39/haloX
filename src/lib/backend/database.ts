@@ -133,11 +133,11 @@ export class HaloXDatabase {
   }
 
   /** Separate from the public table whitelist: no REST/RPC access. */
-  public getServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files'): Row[] {
+  public getServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests'): Row[] {
     return structuredClone(this.serverRecords[collection] ?? []);
   }
 
-  public setServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files', rows: Row[]): void {
+  public setServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests', rows: Row[]): void {
     this.serverRecords[collection] = structuredClone(rows);
   }
 
@@ -598,6 +598,7 @@ export class HaloXDatabase {
     ensure('content_review_runs', []);
     ensure('export_history', []);
     ensure('export_destinations', []);
+    ensure('export_publications', []);
     ensure('report_snapshots', [
       {
         id: '65000000-0000-4000-8000-000000000001',
@@ -1311,18 +1312,22 @@ export class HaloXDatabase {
       deleted.push(this.sanitizeRowForClient(tableName, row));
     }
 
+    if (tableName === 'workspaces' && (this.tables.get('export_publications') || []).some(row => deleted.some(workspace => workspace.id === row.workspace_id) && ['sending', 'unknown'].includes(String(row.status)))) throw new Error('결과를 확인하지 못한 외부 게시가 있습니다. 게시 이력에서 먼저 확인해 주세요.');
     this.tables.set(tableName, remaining);
     const deletedIds = new Set(deleted.map(row => row.id));
     if (tableName === 'content_jobs') {
       this.deleteTable('content_drafts', { content_job_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
       this.deleteTable('content_review_runs', { content_job_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
-      for (const name of ['export_history', 'article_translations']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.content_job_id)) row.content_job_id = null;
+      for (const name of ['export_history', 'article_translations', 'export_publications']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.content_job_id)) row.content_job_id = null;
     }
     if (tableName === 'export_history') this.serverRecords.export_files = (this.serverRecords.export_files || []).filter(row => !deletedIds.has(row.export_id));
-    if (tableName === 'export_destinations') for (const row of this.tables.get('export_history') || []) if (deletedIds.has(row.destination_id)) row.destination_id = null;
-    if (tableName === 'article_translations') for (const row of this.tables.get('export_history') || []) if (deletedIds.has(row.translation_id)) row.translation_id = null;
+    if (tableName === 'export_destinations') {
+      this.serverRecords.export_credentials = (this.serverRecords.export_credentials || []).filter(row => !deletedIds.has(row.destination_id));
+      for (const name of ['export_history', 'export_publications']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.destination_id)) row.destination_id = null;
+    }
+    if (tableName === 'article_translations') for (const name of ['export_history', 'export_publications']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.translation_id)) row.translation_id = null;
     if (tableName === 'content_drafts') {
-      for (const row of this.tables.get('export_history') || []) if (deletedIds.has(row.content_draft_id)) row.content_draft_id = null;
+      for (const name of ['export_history', 'export_publications']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.content_draft_id)) row.content_draft_id = null;
       for (const row of this.tables.get('article_translations') || []) if (deletedIds.has(row.source_draft_id)) row.source_draft_id = null;
       this.tables.set('content_compositions', (this.tables.get('content_compositions') || []).filter(row => !deletedIds.has(row.content_draft_id)));
     }
@@ -1369,7 +1374,7 @@ export class HaloXDatabase {
     if (tableName === 'workspace_tag_groups') for (const row of this.tables.get('workspace_tags') || []) if (deletedIds.has(row.group_id)) row.group_id = null;
     if (tableName === 'workspaces' && deleted.length) {
       const workspaceIds = new Set(deleted.map(row => String(row.id)));
-      for (const name of ['knowledge_files', 'export_files']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
+      for (const name of ['knowledge_files', 'export_files', 'export_credentials', 'export_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
       const keywordIds = new Set((this.tables.get('keywords') || []).filter(row => workspaceIds.has(String(row.workspace_id))).map(row => String(row.id)));
       for (const [name, rows] of this.tables) {
         if (name === 'workspaces') continue;

@@ -23,7 +23,7 @@ export function assertRestWrite(db: HaloXDatabase, table: string, method: 'POST'
     }
     return;
   }
-  if (['export_history', 'export_destinations', 'article_translations'].includes(table)) throw new RlsAccessDeniedError('내보내기와 번역문은 전용 서버 작업으로만 변경합니다.');
+  if (['export_history', 'export_destinations', 'article_translations', 'export_publications'].includes(table)) throw new RlsAccessDeniedError('내보내기와 번역문은 전용 서버 작업으로만 변경합니다.');
   if (READ_ONLY.has(table)) throw new RlsAccessDeniedError('This table cannot be changed through the public REST API');
   if (table === 'content_jobs' && items.some(row => 'generation_context' in row)) throw new RlsAccessDeniedError('생성 당시 참조 자료는 서버 작업으로만 저장합니다.');
   if (['content_jobs', 'content_drafts', 'content_compositions'].includes(table)) throw new RlsAccessDeniedError('콘텐츠는 버전 관리 서버 작업으로만 변경합니다.');

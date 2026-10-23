@@ -1,6 +1,6 @@
 # 콘텐츠 파일·번역문 CRUD
 
-2026-10-23. `/app/exports`, `/app/exports?job=:id`, `/app/settings?tab=export`를 영속 API와 연결했다. **P11/S08의 파일 및 직접 입력 번역문 범위 구현**이다. 자동 번역 Provider, WordPress 등 외부 배포 대상·비공개 자격증명·연결 검증·명시적 게시 작업은 후속 작업으로 남아 있다.
+2026-10-23. `/app/exports`, `/app/exports?job=:id`, `/app/settings?tab=export`를 영속 API와 연결했다. **P11/S08의 파일 및 직접 입력 번역문 범위 구현**이다. WordPress 연결·비공개 자격증명·검증·명시적 게시 작업은 [WordPress CRUD](wordpress-crud.md)로 추가했다. 자동 번역 Provider는 후속 작업으로 남아 있다.
 
 ## 화면
 
@@ -44,4 +44,4 @@
 - Ego Lite: HTML 설정 등록 → 원문 선택 → 파일 생성 → 실제 다운로드 및 390px 화면 확인. 전용 검증 워크스페이스는 확인 후 삭제한다.
 - [데스크톱 화면](evidence/2026-10-23-exports.png), [모바일 화면](evidence/2026-10-23-exports-mobile.png), [실제 생성 HTML](evidence/2026-10-23-export-sample.html).
 
-자동 번역과 외부 배포는 아직 미완료다. 전체 메뉴 작업의 완료 여부는 [전체 작업표](full-crud-tasks.md)를 따른다.
+자동 번역은 아직 미완료이며 WordPress 외의 배포 Provider는 지원하지 않는다. 전체 메뉴 작업의 완료 여부는 [전체 작업표](full-crud-tasks.md)를 따른다.

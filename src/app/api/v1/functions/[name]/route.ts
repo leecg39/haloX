@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { ExternalServiceError } from '@/lib/backend/public-json';
+import { WORDPRESS_COMMANDS, runWordPressCommand } from '@/lib/backend/wordpress-service';
 import { ContentConflictError } from '@/lib/backend/content-model';
-import { authenticate } from '@/lib/api/route-auth';
+import { authenticate, type AuthResult } from '@/lib/api/route-auth';
 import {
   DEFAULT_USER_ID,
   QuotaExceededError,
@@ -36,7 +38,7 @@ export async function POST(
   const { name } = await context.params;
   // halox-mcp authenticates with a workspace API key instead of a user session;
   // its handler ignores the actor argument.
-  const auth = name === 'halox-mcp' ? { actor: DEFAULT_USER_ID } : authenticate(req);
+  const auth: AuthResult = name === 'halox-mcp' ? { actor: DEFAULT_USER_ID } : authenticate(req);
   if (auth.response) return auth.response;
   const userId = auth.actor;
 
@@ -57,7 +59,8 @@ export async function POST(
       }
     }
 
-    const result = await haloxStore.write(db => db.invokeEdgeFunction(name, payload, userId));
+    const result = WORDPRESS_COMMANDS.includes(name) ? await runWordPressCommand(haloxStore, name, payload, userId) : await haloxStore.write(db => db.invokeEdgeFunction(name, payload, userId));
+    if (WORDPRESS_COMMANDS.includes(name) && result.ok === false) return NextResponse.json(result, { status: 502 });
 
     const wantsSse =
       name === 'agent-chat' &&
@@ -84,6 +87,7 @@ export async function POST(
 
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
+    if (error instanceof ExternalServiceError) return NextResponse.json({ error: error.message, code: error.code }, { status: error.status });
     if (error instanceof ContentConflictError) return NextResponse.json({ error: error.message, code: error.code }, { status: 409 });
     if (error instanceof StorageUnavailableError) {
       return NextResponse.json({ error: error.message, code: error.code }, { status: 503 });

@@ -49,7 +49,7 @@
 | P08 `/app/site-audit` | site_audit_scans/pages/issues, scope_rules | 대상/범위 CRUD, 진단 실행·취소·재실행, 스캔 상세/삭제 | 생성 외 목록/상세/정책, 완료·실패 상태 및 페이지/이슈 연쇄삭제 |
 | P09 `/app/factory` | content_jobs/drafts/compositions | 작업 생성·목록·본문/메타 편집·버전 선택·삭제, 제작 진행 | 구현·직접 작성/생성·본문/메타/설정·버전 선택/복원/삭제·구성 파생 저장·충돌/격리/모바일 검증. 작업 큐는 F10에서 진행. [구현 내역](content-crud.md) |
 | P10 `/app/optimize` | content_review_runs/change_items | URL/본문 등록·조회, 제안 편집·적용·제외·삭제, 버전 되돌리기 | 구현·실제 공개 URL/본문/기존 초안 등록, 4단계 저장, 제안 편집/제외/삭제/선택 적용·원본 복원·충돌/격리/모바일 검증. 검색/제안은 데모 Provider. [구현 내역](optimization-crud.md) |
-| P11 `/app/exports` | export_history, export_destinations, article_translations | 내보내기 설정 CRUD, 실제 파일 생성·이력 조회·재다운로드·삭제 | 파일 생성/이력/재다운로드/삭제·수동 번역 CRUD·다운로드 설정 구현 및 검증. **자동 번역 Provider·외부 배포 대상/비공개 자격증명/연결 검증/명시적 게시 남음**. [파일·번역문 구현](export-crud.md) |
+| P11 `/app/exports` | export_history, export_destinations, article_translations | 내보내기 설정 CRUD, 실제 파일 생성·이력 조회·재다운로드·삭제 | 파일 생성/이력/재다운로드/삭제·수동 번역 CRUD·다운로드 설정 구현 및 검증. **WordPress 연결/암호화/검증/명시적 게시·원격 결과 복구 구현**. 자동 번역 Provider는 남음. [WordPress 구현](wordpress-crud.md). [파일·번역문 구현](export-crud.md) |
 | P12 `/app/monitoring` | monitor_rules, geo_alerts, workspace_events | 감시 규칙 CRUD, 켜기/끄기, 발생 이벤트 조회·확인 | 주기 실행기, 임계값 검증, 규칙 삭제와 알림 정리 |
 | P13 `/app/reports`, `/app/reports/weekly` | report_snapshots/summaries/action_items | 주간/월간 생성·상세·메모/액션 수정·삭제·내보내기 | 기존 스냅샷 함수 외 실제 목록/상세·리포트 설정 |
 | P14 `/app/personas`, `/app/personas/:id` | writing_style_profiles, writing_style_samples | 이름/대상/문체/금지어/예문 CRUD, 기본 페르소나 선택, 콘텐츠 생성 참조 | 구현·CRUD/새로고침/실패/격리 E2E. 삭제 시 연결 해제 및 생성 당시 내용 보존. [구현 내역](library-crud.md) |
@@ -71,7 +71,7 @@
 | S05 tags | workspace_tag_groups/tags/assignments CRUD | 삭제 시 관계 정리·키워드/프롬프트 동기화 |
 | S06 plan/billing | plans/subscriptions/orders 조회, 변경/해지/취소 명령 | 실 결제 Provider와 콜백 검증 전에는 데모 상태를 명시; 원장 직접 수정 불가 |
 | S07 earned | 적립 크레딧·보상 내역 조회, 서버 적립/사용/회수 | 사용자 잔액 조작 불가·중복 적립 차단 |
-| S08 export | export_destinations CRUD, 자격증명 검증 | 다운로드 설정 CRUD 및 내보내기 재사용 구현. **외부 배포 대상·비밀값 비공개 저장/갱신·연결 검증 남음**. [현재 범위](export-crud.md) |
+| S08 export | export_destinations CRUD, 자격증명 검증 | 다운로드 설정 및 WordPress 연결 CRUD·암호화·비밀번호 교체/삭제·권한 검증·게시 재사용 구현. 원격 성공은 fixture 검증, 실 사이트 확인은 사용자 연결 필요. [WordPress 구현](wordpress-crud.md) |
 | S09 integrations | google_connections 등 연결 생성/조회/갱신/해제, 동기화 작업 | 실제 OAuth 토큰 서버 보관·해제 시 토큰 폐기 |
 | S10 notifications | notification_preferences CRUD + 알림 읽음/삭제 | 토글 새로고침 유지·규칙별 실제 전달 Provider |
 | S11 api | workspace_api_keys 발급/목록/이름·권한·제한 수정/폐기 | 전체 비밀값은 최초 1회, prefix로 인증 불가, 폐기 즉시 차단 |

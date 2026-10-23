@@ -34,6 +34,7 @@ export function runExportCommand(db: HaloXDatabase, command: string, payload: Ro
   db.assertWorkspaceMember(workspace, actor);
   if (command.startsWith('export-destination-')) {
     const row = command.endsWith('-create') ? undefined : item(db, 'export_destinations', workspace, payload.destination_id, actor);
+    if (row?.kind === 'wordpress') throw new Error('WordPress 전용 연결 기능을 사용해 주세요.');
     if (row) checkContentRevision(row, payload.expected_revision);
     if (command.endsWith('-delete')) { db.deleteTable('export_destinations', where(workspace, row!.id), actor); return { ok: true }; }
     const values = destinationBody(payload);
@@ -89,6 +90,7 @@ export function runExportCommand(db: HaloXDatabase, command: string, payload: Ro
     source = draft; jobId = job.id; draftId = draft.id; sourceVersion = draft.version;
   }
   const destination = payload.destination_id ? item(db, 'export_destinations', workspace, payload.destination_id, actor) : undefined;
+  if (destination?.kind !== 'download' && destination) throw new Error('다운로드용 파일 설정을 선택해 주세요.');
   if (destination) checkContentRevision(destination, payload.expected_destination_revision);
   const format = exportFormat(destination?.format ?? payload.format);
   const includeMetadata = destination?.include_metadata ?? payload.include_metadata;
