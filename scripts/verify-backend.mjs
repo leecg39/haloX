@@ -714,43 +714,10 @@ async function runVerification() {
   // Google measurements cannot be fabricated through legacy functions.
   await assert.rejects(() => db.invokeEdgeFunction('sync-ga4-data', { workspace_id: DEFAULT_WORKSPACE_ID, clicks: 160 }, DEFAULT_USER_ID), /전용 연동 관리 API/);
 
-  // 8f. NicePay Billing & Subscription Upgrade
-  const orderRes = await db.invokeEdgeFunction(
-    'nicepay-create-auth-order',
-    {
-      workspace_id: DEFAULT_WORKSPACE_ID,
-      plan_key: 'pro',
-      billing_cycle: 'monthly',
-      amount_krw: 600000,
-    },
-    DEFAULT_USER_ID
-  );
-  assert.equal(orderRes.ok, true);
-  const inquireRes = await db.invokeEdgeFunction(
-    'nicepay-inquire',
-    {
-      workspace_id: DEFAULT_WORKSPACE_ID,
-      plan_key: 'pro',
-      billing_cycle: 'monthly',
-    },
-    DEFAULT_USER_ID
-  );
-  assert.equal(inquireRes.ok, true);
-  const updatedQuota = db.callRpc(
-    'get_workspace_quota_summary',
-    { _workspace_id: DEFAULT_WORKSPACE_ID },
-    DEFAULT_USER_ID
-  );
-  assert.equal(updatedQuota[0].plan_limit, 100, 'Pro plan upgrade must raise keyword limit to 100');
-  await assert.rejects(
-    () =>
-      db.invokeEdgeFunction(
-        'nicepay-create-auth-order',
-        { workspace_id: DEFAULT_WORKSPACE_ID, plan_key: 'non_existent_plan' },
-        DEFAULT_USER_ID
-      ),
-    /Unknown plan_key/
-  );
+  // 8f. Legacy NicePay fakes cannot fabricate orders or subscriptions.
+  for (const name of ['nicepay-create-auth-order', 'nicepay-inquire', 'nicepay-cancel-pending-change']) {
+    await assert.rejects(() => db.invokeEdgeFunction(name, { workspace_id: DEFAULT_WORKSPACE_ID, plan_key: 'pro' }, DEFAULT_USER_ID), /전용 결제 API/);
+  }
 
   // 8g. HaloX MCP Server Endpoint (API key authentication & revocation enforcement)
   const [mcpKey] = db.insertTable(

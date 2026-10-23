@@ -1,4 +1,5 @@
 import type { NotificationCollection } from './notification-model.ts';
+import type { BillingPrivateCollection } from './billing-service.ts';
 import { googlePeriod, aggregateGsc, groupGa4 } from './google-metrics.ts';
 import type { GooglePrivateCollection } from './google-service.ts';
 import { accountActive, deletionState, deletionView, scheduleDeletion, purgeDueAccounts, type DeletionCollection } from './account-deletion-model.ts';
@@ -162,11 +163,11 @@ export class HaloXDatabase {
   }
 
   /** Separate from the public table whitelist: no REST/RPC access. */
-  public getServerRecords(collection: NotificationCollection | GooglePrivateCollection | DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
+  public getServerRecords(collection: NotificationCollection | BillingPrivateCollection | GooglePrivateCollection | DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests'): Row[] {
     return structuredClone(this.serverRecords[collection] ?? []);
   }
 
-  public setServerRecords(collection: NotificationCollection | GooglePrivateCollection | DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
+  public setServerRecords(collection: NotificationCollection | BillingPrivateCollection | GooglePrivateCollection | DeletionCollection | PolicyPrivateCollection | ApiPrivateCollection | WorkspacePrivateCollection | AccountCollection | PortalCollection | 'earned_requests' | 'brand_reclassify_requests' | 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts' | 'strategy_requests' | 'report_requests' | 'raw_import_files' | 'raw_import_requests', rows: Row[]): void {
     this.serverRecords[collection] = structuredClone(rows);
   }
 
@@ -797,6 +798,10 @@ export class HaloXDatabase {
       { plan_key: 'trial', unit_key: 'prompt_create', monthly_limit: 20 },
       { plan_key: 'trial', unit_key: 'content_gen', monthly_limit: 5 },
       { plan_key: 'trial', unit_key: 'site_audit_scan', monthly_limit: 20 },
+      { plan_key: 'pro', unit_key: 'keyword_create', monthly_limit: 100 },
+      { plan_key: 'pro', unit_key: 'prompt_create', monthly_limit: 100 },
+      { plan_key: 'pro', unit_key: 'content_gen', monthly_limit: 30 },
+      { plan_key: 'pro', unit_key: 'site_audit_scan', monthly_limit: 100 },
     ]);
 
     ensure('welcome_guide_config', [
@@ -914,6 +919,7 @@ export class HaloXDatabase {
       'keyword_ideas',
       'keyword_prompt_links',
       'orders',
+      'billing_payment_methods',
       'platform_admins',
       'subscriptions',
       'system_settings',
@@ -2266,7 +2272,7 @@ export class HaloXDatabase {
       : ANALYSIS_COMMANDS.includes(fnName) || /^(keywords-|geo-|ai-expand-keywords|bulk-collect-keyword-data|fetch-serp-snapshot)$/.test(fnName) || fnName.startsWith('keywords-') || fnName.startsWith('geo-') ? 'analysis'
       : AUDIT_COMMANDS.includes(fnName) || STRATEGY_COMMANDS.includes(fnName) || GAP_COMMANDS.includes(fnName) ? 'strategy'
       : MONITOR_COMMANDS.includes(fnName) || REPORT_COMMANDS.includes(fnName) ? 'monitoring'
-      : RAW_COMMANDS.includes(fnName) || fnName === 'workspace-invite' || fnName.startsWith('nicepay-') || ['gsc-sync-enqueue', 'sync-ga4-data'].includes(fnName) ? 'other' : 'execution';
+      : RAW_COMMANDS.includes(fnName) || fnName === 'workspace-invite' || ['gsc-sync-enqueue', 'sync-ga4-data'].includes(fnName) ? 'other' : 'execution';
     this.assertWorkspaceAccess(workspaceId, actorUserId, section, 'write');
     const now = new Date().toISOString();
 
@@ -2619,97 +2625,7 @@ export class HaloXDatabase {
 
     if (['gsc-sync-enqueue', 'sync-ga4-data'].includes(fnName)) throw new Error('Google 동기화는 전용 연동 관리 API를 사용해 주세요.');
 
-    if (
-      fnName === 'nicepay-create-auth-order' ||
-      fnName === 'nicepay-inquire' ||
-      fnName === 'nicepay-cancel-pending-change'
-    ) {
-      const planKey = String(payload.plan_key || 'pro');
-      const knownPlan = (this.tables.get('plan_templates') || []).find(p => p.plan_key === planKey);
-      if (!knownPlan) {
-        throw new Error(`Unknown plan_key: "${planKey}"`);
-      }
-      const billingCycle = payload.billing_cycle === 'annual' ? 'annual' : 'monthly';
-      const amountKrw = Number(payload.amount_krw ?? (planKey === 'pro' ? 600000 : 0));
-      if (!Number.isFinite(amountKrw) || amountKrw < 0) {
-        throw new Error('Invalid order amount_krw');
-      }
-
-      if (fnName === 'nicepay-create-auth-order') {
-        const orderNo = String(payload.order_no || `HX-ORD-${Date.now()}`);
-        const [orderRow] = this.insertTable(
-          'orders',
-          {
-            workspace_id: workspaceId,
-            order_no: orderNo,
-            plan_key: planKey,
-            billing_cycle: billingCycle,
-            amount_krw: amountKrw,
-            status: 'authorized',
-            pg_provider: 'nicepay',
-            pg_tid: `NP_${orderNo}`,
-          },
-          actorUserId
-        );
-        return {
-          ok: true,
-          function: fnName,
-          workspace_id: workspaceId,
-          order: orderRow,
-        };
-      }
-
-      if (fnName === 'nicepay-inquire') {
-        const [subRow] = this.insertTable(
-          'subscriptions',
-          {
-            workspace_id: workspaceId,
-            plan_key: planKey,
-            billing_cycle: billingCycle,
-            status: 'active',
-            pending_plan_key: null,
-            current_period_start: now,
-            current_period_end: '2026-11-23T00:00:00.000Z',
-          },
-          actorUserId
-        );
-
-        this.updateTable(
-          'workspace_plans',
-          {
-            plan: planKey,
-            billing_cycle: billingCycle,
-            keyword_limit: planKey === 'pro' ? 100 : 20,
-            prompt_limit: planKey === 'pro' ? 100 : 20,
-            content_limit: planKey === 'pro' ? 30 : 5,
-          },
-          { workspace_id: `eq.${workspaceId}` },
-          actorUserId
-        );
-
-        return {
-          ok: true,
-          function: fnName,
-          workspace_id: workspaceId,
-          subscription: subRow,
-        };
-      }
-
-      // nicepay-cancel-pending-change
-      const updatedSubs = this.updateTable(
-        'subscriptions',
-        { pending_plan_key: null, status: 'active' },
-        { workspace_id: `eq.${workspaceId}` },
-        actorUserId
-      );
-      return {
-        ok: true,
-        function: fnName,
-        workspace_id: workspaceId,
-        cancelled: true,
-        subscriptions: updatedSubs,
-      };
-    }
+    if (fnName.startsWith('nicepay-')) throw new Error('결제 작업은 전용 결제 API를 사용해 주세요.');
 
     if (fnName === 'workspace-invite') return { function: fnName, workspace_id: workspaceId, ...createWorkspaceInvitation(this, workspaceId, actorUserId, payload) };
 
