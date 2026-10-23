@@ -26,6 +26,7 @@ export function assertRestWrite(db: HaloXDatabase, table: string, method: 'POST'
   if (READ_ONLY.has(table)) throw new RlsAccessDeniedError('This table cannot be changed through the public REST API');
   if (table === 'content_jobs' && items.some(row => 'generation_context' in row)) throw new RlsAccessDeniedError('생성 당시 참조 자료는 서버 작업으로만 저장합니다.');
   if (['content_jobs', 'content_drafts', 'content_compositions'].includes(table)) throw new RlsAccessDeniedError('콘텐츠는 버전 관리 서버 작업으로만 변경합니다.');
+  if (['content_review_runs', 'content_change_items'].includes(table)) throw new RlsAccessDeniedError('최적화는 검토 서버 작업으로만 변경합니다.');
   if (LIBRARY_EDITABLE_FIELDS[table]) {
     const allowed = [...LIBRARY_EDITABLE_FIELDS[table], ...(method === 'POST' ? ['workspace_id'] : [])];
     if (items.some(row => Object.keys(row).some(key => !allowed.includes(key)))) throw new Error('변경할 수 없는 자료 필드입니다.');

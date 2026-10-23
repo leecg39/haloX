@@ -672,13 +672,19 @@ async function runVerification() {
     'optimize-audit-content',
     {
       workspace_id: DEFAULT_WORKSPACE_ID,
-      url: 'https://brizzi.kr/features/geo',
+      source_mode: 'text', title: 'GEO 마케팅 가이드', content_md: '## 소개\n검증한 원문을 보존합니다.',
       target_keyword: 'GEO 마케팅 가이드',
     },
     DEFAULT_USER_ID
   );
   assert.equal(optRes.ok, true);
-  assert(optRes.review_run && optRes.change_items.length === 2);
+  assert(optRes.review_run && optRes.change_items.length === 0);
+  const optSerp = await db.invokeEdgeFunction('optimize-serp-fetch', { workspace_id: DEFAULT_WORKSPACE_ID, review_run_id: optRes.review_run.id, expected_revision: optRes.review_run.revision });
+  const optProposals = await db.invokeEdgeFunction('optimize-strategy-synthesis', { workspace_id: DEFAULT_WORKSPACE_ID, review_run_id: optRes.review_run.id, expected_revision: optSerp.review_run.revision });
+  assert.equal(optProposals.change_items.length, 2);
+  const optApplied = await db.invokeEdgeFunction('optimize-rewrite-content', { workspace_id: DEFAULT_WORKSPACE_ID, review_run_id: optRes.review_run.id, expected_revision: optProposals.review_run.revision, change_ids: optProposals.change_items.map(row => row.id) });
+  assert.equal(optApplied.draft.version, 2);
+  assert.match(optApplied.draft.content_md, /핵심 요약/);
   await assert.rejects(
     () =>
       db.invokeEdgeFunction(
@@ -689,7 +695,7 @@ async function runVerification() {
         },
         OTHER_USER_ID
       ),
-    err => err instanceof RlsAccessDeniedError
+    /최적화 작업을 찾을 수 없습니다/
   );
 
   // 8d. Multi-language Article Translation & Publishing (translate-content-v2)

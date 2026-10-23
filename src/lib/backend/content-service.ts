@@ -76,7 +76,7 @@ export function runContentCommand(db: HaloXDatabase, command: string, payload: R
   }
   if (command === 'content-delete-version') {
     if (draft.id === selectedContentDraft(db, job, actor)?.id) throw new Error('현재 선택한 버전은 삭제할 수 없습니다. 다른 버전을 선택해 주세요.');
-    if (db.queryTable('content_review_runs', { filters: { content_job_id: `eq.${job.id}` } }, actor).data.some(run => run.base_draft_id === draft.id || run.applied_draft_id === draft.id)) throw new Error('최적화 이력에서 참조하는 버전은 삭제할 수 없습니다.');
+    if (db.queryTable('content_review_runs', { filters: { content_job_id: `eq.${job.id}` } }, actor).data.some(run => run.base_draft_id === draft.id || run.applied_draft_id === draft.id || run.reverted_draft_id === draft.id)) throw new Error('최적화 이력에서 참조하는 버전은 삭제할 수 없습니다.');
     db.deleteTable('content_drafts', { id: `eq.${draft.id}`, workspace_id: `eq.${workspaceId}` }, actor);
     const [updated] = db.updateTable('content_jobs', { revision: Number(job.revision || 0) + 1 }, where, actor);
     return { ok: true, job: updated, draft: selectedContentDraft(db, updated, actor) };

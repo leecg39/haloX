@@ -7,6 +7,7 @@ import { KEYWORD_EDITABLE_FIELDS, validateKeywordRecord } from './keyword-model.
 import { GEO_EDITABLE_FIELDS, nextGeoSchedule, validateGeoRecord } from './geo-model.ts';
 import { GEO_ENGINES } from '../api/prompts.ts';
 import { validateLibraryRecord } from './library-model.ts';
+import { OPTIMIZATION_COMMANDS, runOptimizationCommand } from './optimization-service.ts';
 import { validateContentRecord } from './content-model.ts';
 import { CONTENT_COMMANDS, checkContentRevision, contentJob, runContentCommand, saveContentVersion } from './content-service.ts';
 import { prepareLibraryFile } from './library-files.ts';
@@ -2680,90 +2681,7 @@ export class HaloXDatabase {
       return { ...result, function: fnName, expanded_keywords: result.keywords };
     }
 
-    if (
-      fnName === 'optimize-audit-content' ||
-      fnName === 'optimize-serp-fetch' ||
-      fnName === 'optimize-strategy-synthesis' ||
-      fnName === 'optimize-rewrite-content'
-    ) {
-      const targetUrl = String(payload.url || payload.target_url || 'https://brizzi.kr/features/geo');
-      const targetKeyword = String(payload.target_keyword || 'GEO 마케팅 가이드');
-
-      let reviewRunId = typeof payload.review_run_id === 'string' ? payload.review_run_id : '';
-      let reviewRun: Row | undefined;
-      if (reviewRunId) {
-        const anyRun = (this.tables.get('content_review_runs') || []).find(r => r.id === reviewRunId);
-        if (anyRun && anyRun.workspace_id !== workspaceId) {
-          throw new RlsAccessDeniedError('Cannot access content review run belonging to another workspace');
-        }
-        reviewRun = anyRun;
-      }
-
-      if (!reviewRun) {
-        const reservation = this.callRpc(
-          'reserve_unit_with_bypass',
-          {
-            p_workspace_id: workspaceId,
-            p_unit_key: 'content_gen',
-            p_amount: 1,
-            p_idempotency_key: String(payload.idempotency_key || `opt-${Date.now()}-${Math.random()}`),
-          },
-          actorUserId
-        ) as { reservation_id: string };
-
-        [reviewRun] = this.insertTable(
-          'content_review_runs',
-          {
-            workspace_id: workspaceId,
-            url: targetUrl,
-            target_keyword: targetKeyword,
-            status: 'completed',
-            seo_score: 86,
-            geo_score: 89,
-            citability_score: 91,
-            summary_json: { step: fnName, recommendation_count: 3 },
-          },
-          actorUserId
-        );
-        reviewRunId = String(reviewRun.id);
-        this.callRpc('commit_reservation', { p_reservation_id: reservation.reservation_id }, actorUserId);
-      }
-
-      const changeItems = this.insertTable(
-        'content_change_items',
-        [
-          {
-            workspace_id: workspaceId,
-            review_run_id: reviewRunId,
-            section_title: '핵심 요약 (TL;DR) 블록',
-            change_type: 'citability',
-            before_text: '일반 서술형 도입부 문단',
-            after_text: `**${targetKeyword} 핵심 요약**: 정량 지표와 구조화된 비교표를 상단에 배치해 AI 인용 확률을 높입니다.`,
-            rationale: 'LLM 답변 엔진의 첫 문단 직접 인용률 향상',
-            status: fnName === 'optimize-rewrite-content' ? 'applied' : 'proposed',
-          },
-          {
-            workspace_id: workspaceId,
-            review_run_id: reviewRunId,
-            section_title: 'FAQPage JSON-LD 스키마',
-            change_type: 'schema_jsonld',
-            before_text: '스키마 없음',
-            after_text: '{"@context":"https://schema.org","@type":"FAQPage"}',
-            rationale: 'AI 검색엔진 및 Google AI Overview 구조화 데이터 수집 지원',
-            status: fnName === 'optimize-rewrite-content' ? 'applied' : 'proposed',
-          },
-        ],
-        actorUserId
-      );
-
-      return {
-        ok: true,
-        function: fnName,
-        workspace_id: workspaceId,
-        review_run: reviewRun,
-        change_items: changeItems,
-      };
-    }
+    if (OPTIMIZATION_COMMANDS.includes(fnName)) return runOptimizationCommand(this, this.providers, fnName, payload, workspaceId, actorUserId);
 
     if (fnName === 'translate-content-v2') {
       const supportedLocales = new Set(['ko', 'en', 'ja', 'zh', 'es']);

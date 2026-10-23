@@ -6,6 +6,7 @@ import { Workspaces } from '@/components/Workspaces';
 import { KeywordsPage } from '@/components/live/KeywordsPage';
 import { PromptsPage } from '@/components/live/PromptsPage';
 import { PersonasPage } from '@/components/live/PersonasPage';
+import { OptimizationPage } from '@/components/live/OptimizationPage';
 import { ContentPage } from '@/components/live/ContentPage';
 import { KnowledgePage } from '@/components/live/KnowledgePage';
 export const dynamic = 'force-dynamic';
@@ -34,6 +35,9 @@ export default async function Page(props: Props) {
     children = section === 'personas' ? <PersonasPage personaId={pathname.split('/')[3]} /> : <KnowledgePage entityId={pathname.split('/')[3]} />;
   } else if (/^\/app\/factory(?:\/[^/]+)?$/.test(pathname)) {
     shellRoute = '/app/factory'; children = <ContentPage jobId={pathname.split('/')[3]} />;
+  }
+  if (/^\/app\/optimize(?:\/[^/]+)?$/.test(pathname)) {
+    shellRoute = '/app/optimize'; children = <OptimizationPage reviewId={pathname.split('/')[3]} initialJobId={new URLSearchParams(route.split('?')[1]).get('job') || undefined} />;
   }
   const data = await getCapture(shellRoute || route);
   if (!data) notFound();
