@@ -698,28 +698,18 @@ async function runVerification() {
     /최적화 작업을 찾을 수 없습니다/
   );
 
-  // 8d. Multi-language Article Translation & Publishing (translate-content-v2)
-  const transRes = await db.invokeEdgeFunction(
-    'translate-content-v2',
-    {
-      workspace_id: DEFAULT_WORKSPACE_ID,
-      title: 'AI 검색 가시성 완벽 가이드',
-      slug: 'ai-visibility-guide',
-      target_locales: ['en', 'ja'],
-    },
-    DEFAULT_USER_ID
-  );
+  // 8d. Real translation storage; the old deterministic fake is unavailable.
+  const translationSource = await db.invokeEdgeFunction('content-create', {
+    workspace_id: DEFAULT_WORKSPACE_ID, title: '번역 원문', target_keyword: '제품 설명', content_md: '제품 사용법을 안내합니다.',
+  }, DEFAULT_USER_ID);
+  const transRes = await db.invokeEdgeFunction('translation-create', {
+    workspace_id: DEFAULT_WORKSPACE_ID, job_id: translationSource.job.id, expected_content_revision: translationSource.job.revision,
+    source_locale: 'ko', locale: 'en', title: 'Product instructions', content_md: 'Learn how to use the product.', status: 'ready',
+  }, DEFAULT_USER_ID);
   assert.equal(transRes.ok, true);
-  assert.equal(transRes.translations.length, 2);
-  await assert.rejects(
-    () =>
-      db.invokeEdgeFunction(
-        'translate-content-v2',
-        { workspace_id: DEFAULT_WORKSPACE_ID, target_locales: ['invalid_locale'] },
-        DEFAULT_USER_ID
-      ),
-    /Unsupported or empty target_locales/
-  );
+  assert.equal(transRes.translation.content_md, 'Learn how to use the product.');
+  assert.equal(transRes.translation.status, 'ready');
+  await assert.rejects(() => db.invokeEdgeFunction('translate-content-v2', { workspace_id: DEFAULT_WORKSPACE_ID, target_locales: ['en'] }, DEFAULT_USER_ID), /자동 번역 서비스가 연결되지/);
 
   // 8e. GSC & GA4 Sync Pipeline
   const syncRes = await db.invokeEdgeFunction(

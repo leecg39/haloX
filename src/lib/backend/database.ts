@@ -8,6 +8,7 @@ import { GEO_EDITABLE_FIELDS, nextGeoSchedule, validateGeoRecord } from './geo-m
 import { GEO_ENGINES } from '../api/prompts.ts';
 import { validateLibraryRecord } from './library-model.ts';
 import { OPTIMIZATION_COMMANDS, runOptimizationCommand } from './optimization-service.ts';
+import { EXPORT_COMMANDS, runExportCommand } from './export-service.ts';
 import { validateContentRecord } from './content-model.ts';
 import { CONTENT_COMMANDS, checkContentRevision, contentJob, runContentCommand, saveContentVersion } from './content-service.ts';
 import { prepareLibraryFile } from './library-files.ts';
@@ -132,11 +133,11 @@ export class HaloXDatabase {
   }
 
   /** Separate from the public table whitelist: no REST/RPC access. */
-  public getServerRecords(collection: 'phone_verification' | 'account_credentials'): Row[] {
+  public getServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files'): Row[] {
     return structuredClone(this.serverRecords[collection] ?? []);
   }
 
-  public setServerRecords(collection: 'phone_verification' | 'account_credentials', rows: Row[]): void {
+  public setServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files', rows: Row[]): void {
     this.serverRecords[collection] = structuredClone(rows);
   }
 
@@ -596,6 +597,7 @@ export class HaloXDatabase {
     ensure('content_compositions', []);
     ensure('content_review_runs', []);
     ensure('export_history', []);
+    ensure('export_destinations', []);
     ensure('report_snapshots', [
       {
         id: '65000000-0000-4000-8000-000000000001',
@@ -1314,9 +1316,14 @@ export class HaloXDatabase {
     if (tableName === 'content_jobs') {
       this.deleteTable('content_drafts', { content_job_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
       this.deleteTable('content_review_runs', { content_job_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
-      for (const row of this.tables.get('export_history') || []) if (deletedIds.has(row.content_job_id)) row.content_job_id = null;
+      for (const name of ['export_history', 'article_translations']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.content_job_id)) row.content_job_id = null;
     }
+    if (tableName === 'export_history') this.serverRecords.export_files = (this.serverRecords.export_files || []).filter(row => !deletedIds.has(row.export_id));
+    if (tableName === 'export_destinations') for (const row of this.tables.get('export_history') || []) if (deletedIds.has(row.destination_id)) row.destination_id = null;
+    if (tableName === 'article_translations') for (const row of this.tables.get('export_history') || []) if (deletedIds.has(row.translation_id)) row.translation_id = null;
     if (tableName === 'content_drafts') {
+      for (const row of this.tables.get('export_history') || []) if (deletedIds.has(row.content_draft_id)) row.content_draft_id = null;
+      for (const row of this.tables.get('article_translations') || []) if (deletedIds.has(row.source_draft_id)) row.source_draft_id = null;
       this.tables.set('content_compositions', (this.tables.get('content_compositions') || []).filter(row => !deletedIds.has(row.content_draft_id)));
     }
     if (tableName === 'content_review_runs') {
@@ -1362,7 +1369,7 @@ export class HaloXDatabase {
     if (tableName === 'workspace_tag_groups') for (const row of this.tables.get('workspace_tags') || []) if (deletedIds.has(row.group_id)) row.group_id = null;
     if (tableName === 'workspaces' && deleted.length) {
       const workspaceIds = new Set(deleted.map(row => String(row.id)));
-      this.serverRecords.knowledge_files = (this.serverRecords.knowledge_files || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
+      for (const name of ['knowledge_files', 'export_files']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
       const keywordIds = new Set((this.tables.get('keywords') || []).filter(row => workspaceIds.has(String(row.workspace_id))).map(row => String(row.id)));
       for (const [name, rows] of this.tables) {
         if (name === 'workspaces') continue;
@@ -2683,65 +2690,9 @@ export class HaloXDatabase {
 
     if (OPTIMIZATION_COMMANDS.includes(fnName)) return runOptimizationCommand(this, this.providers, fnName, payload, workspaceId, actorUserId);
 
-    if (fnName === 'translate-content-v2') {
-      const supportedLocales = new Set(['ko', 'en', 'ja', 'zh', 'es']);
-      const rawLocales = Array.isArray(payload.target_locales)
-        ? payload.target_locales.map(String)
-        : typeof payload.target_locale === 'string'
-          ? [payload.target_locale]
-          : ['en', 'ja'];
+    if (EXPORT_COMMANDS.includes(fnName)) return runExportCommand(this, fnName, payload, workspaceId, actorUserId);
 
-      if (rawLocales.length === 0 || rawLocales.some(loc => !supportedLocales.has(loc))) {
-        throw new Error(`Unsupported or empty target_locales: ${JSON.stringify(rawLocales)}`);
-      }
-
-      const baseTitle = String(payload.title || 'AI 검색 최적화(GEO) 실전 가이드');
-      const baseSlug = String(payload.slug || 'geo-practical-guide');
-      const category = String(payload.category || 'GEO');
-
-      const [articleRow] = this.insertTable(
-        'articles',
-        {
-          workspace_id: workspaceId,
-          slug: baseSlug,
-          category,
-          source_locale: 'ko',
-          status: 'published',
-          published_at: now,
-        },
-        actorUserId
-      );
-
-      const localePrefix: Record<string, string> = {
-        en: '[EN] Practical Guide to AI Search (GEO): ',
-        ja: '[JA] AI検索最適化(GEO)実践ガイド: ',
-        ko: '[KO] ',
-        zh: '[ZH] AI搜索优化指南: ',
-        es: '[ES] Guía práctica de GEO: ',
-      };
-
-      const translations = this.insertTable(
-        'article_translations',
-        rawLocales.map(loc => ({
-          workspace_id: workspaceId,
-          article_id: articleRow.id,
-          locale: loc,
-          title: `${localePrefix[loc] || `[${loc.toUpperCase()}] `}${baseTitle}`,
-          excerpt: `${baseTitle} (${loc.toUpperCase()})`,
-          content_md: `# ${localePrefix[loc] || ''}${baseTitle}\n\nTranslated deterministically for locale \`${loc}\`.`,
-          status: 'published',
-        })),
-        actorUserId
-      );
-
-      return {
-        ok: true,
-        function: fnName,
-        workspace_id: workspaceId,
-        article: articleRow,
-        translations,
-      };
-    }
+    if (fnName === 'translate-content-v2') throw new Error('자동 번역 서비스가 연결되지 않았습니다. 내보내기의 번역문 관리에서 실제 번역문을 등록해 주세요.');
 
     if (fnName === 'gsc-sync-enqueue' || fnName === 'sync-ga4-data') {
       const dateStr = String(payload.date || '2026-10-23');

@@ -16,6 +16,11 @@ export default async function globalSetup(config: FullConfig): Promise<void> {
     if (res.status() !== 200) throw new Error(`E2E login failed: HTTP ${res.status()} ${await res.text()}`);
     await fs.mkdir(path.dirname(STATE_FILE), { recursive: true });
     await ctx.storageState({ path: STATE_FILE });
+    // Export journeys use a separate actor's existing session. The auth suite later
+    // locks this actor's new logins; it does not revoke sessions already issued.
+    const exportsLogin = await ctx.post('/api/v1/auth', { data: { email: 'other@halox.local', password } });
+    if (exportsLogin.status() !== 200) throw new Error(`Export fixture login failed: HTTP ${exportsLogin.status()}`);
+    await ctx.storageState({ path: path.join(__dirname, '.auth', 'export-state.json') });
   } finally {
     await ctx.dispose();
   }
