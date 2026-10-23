@@ -79,10 +79,18 @@ test('J2 prompt add creates a GEO prompt and a run', async ({ page, request }) =
   await expect.poll(async () => (await rows(request, 'geo_prompt_runs', `prompt_id=eq.${created.id}`)).length).toBeGreaterThan(0);
 });
 
-test('J3 new site audit creates a scan for the entered URL', async ({ page, request }) => {
-  const url = `https://e2e-${Date.now()}.example.com`;
-  await submitDialog(page, '/app/site-audit', '새 진단', url, { submit: '다음: 수집 범위' });
+test('J3 a saved site audit target creates a durable queued scan and can be cancelled', async ({ page, request }) => {
+  const name = `e2e 진단 ${Date.now()}`, url = `https://e2e-${Date.now()}.example.com/`;
+  await page.goto('/app/site-audit');
+  await page.getByRole('button', { name: '진단 대상 추가', exact: true }).click();
+  const dialog = page.getByRole('dialog');
+  await dialog.getByLabel('대상 이름').fill(name); await dialog.getByLabel('시작 URL').fill(url); await dialog.getByLabel('최대 페이지').fill('1');
+  await dialog.getByRole('button', { name: '저장', exact: true }).click(); await expect(dialog).not.toBeVisible();
+  await page.getByRole('button', { name: '새 진단', exact: true }).click(); await dialog.getByLabel('진단 대상').selectOption({ label: name }); await dialog.getByRole('button', { name: '진단 시작', exact: true }).click(); await expect(dialog).not.toBeVisible();
   await expect.poll(async () => (await rows(request, 'site_audit_scans', `target_url=eq.${encodeURIComponent(url)}`)).length).toBe(1);
+  const [scan] = await rows(request, 'site_audit_scans', `target_url=eq.${encodeURIComponent(url)}`);
+  expect(scan.status).toBe('queued');
+  await request.post('/api/v1/functions/site-audit-cancel', { data: { workspace_id: scan.workspace_id, scan_id: scan.id } });
 });
 
 test('J4 new content creates a content job with a draft', async ({ page, request }) => {

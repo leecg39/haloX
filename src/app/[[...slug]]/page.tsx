@@ -7,6 +7,7 @@ import { KeywordsPage } from '@/components/live/KeywordsPage';
 import { PromptsPage } from '@/components/live/PromptsPage';
 import { PersonasPage } from '@/components/live/PersonasPage';
 import { OptimizationPage } from '@/components/live/OptimizationPage';
+import { SiteAuditPage } from '@/components/live/SiteAuditPage';
 import { ExportsPage } from '@/components/live/ExportsPage';
 import { ContentPage } from '@/components/live/ContentPage';
 import { KnowledgePage } from '@/components/live/KnowledgePage';
@@ -42,6 +43,9 @@ export default async function Page(props: Props) {
   }
   if (pathname === '/app/exports' || pathname === '/app/settings' && new URLSearchParams(route.split('?')[1]).get('tab') === 'export') {
     shellRoute = '/app/exports'; children = <ExportsPage initialTab={pathname === '/app/settings' ? 'settings' : 'history'} initialJobId={new URLSearchParams(route.split('?')[1]).get('job') || undefined} />;
+  }
+  if (/^\/app\/site-audit(?:\/[^/]+)?$/.test(pathname)) {
+    shellRoute = '/app/site-audit'; children = <SiteAuditPage scanId={pathname.split('/')[3]} />;
   }
   const data = await getCapture(shellRoute || route);
   if (!data) notFound();

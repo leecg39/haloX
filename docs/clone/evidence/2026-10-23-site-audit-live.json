@@ -1,0 +1,176 @@
+{
+  "checked_at": "2026-10-23T10:34:24.924Z",
+  "verification": "Ego Lite UI -> local Node background worker -> public HTTPS -> SQLite -> UI; queued task resumed after server restart",
+  "site_audit_targets": [
+    {
+      "created_at": "2026-10-23T10:32:56.587Z",
+      "updated_at": "2026-10-23T10:32:56.587Z",
+      "name": "공개 HTML 실제 수집",
+      "target_url": "https://example.com/",
+      "max_pages": 1,
+      "max_depth": 0,
+      "scope_rules": {
+        "include_paths": [],
+        "exclude_paths": [
+          "/admin",
+          "/api",
+          "/login",
+          "/logout"
+        ]
+      },
+      "workspace_id": "c5587bd2-f2e0-47e8-8a61-430d8f56681f",
+      "notes": "",
+      "revision": 1,
+      "id": "b5418eb1-b7eb-4424-b882-37fe8c1fc553"
+    }
+  ],
+  "site_audit_scans": [
+    {
+      "created_at": "2026-10-23T10:33:03.438Z",
+      "updated_at": "2026-10-23T10:33:45.874Z",
+      "id": "32922a05-a518-415c-9493-f7b120b3e2c8",
+      "workspace_id": "c5587bd2-f2e0-47e8-8a61-430d8f56681f",
+      "name": "공개 HTML 실제 수집",
+      "target_url": "https://example.com/",
+      "max_pages": 1,
+      "max_depth": 0,
+      "scope_rules": {
+        "include_paths": [],
+        "exclude_paths": [
+          "/admin",
+          "/api",
+          "/login",
+          "/logout"
+        ]
+      },
+      "target_id": "b5418eb1-b7eb-4424-b882-37fe8c1fc553",
+      "target_snapshot": {
+        "name": "공개 HTML 실제 수집",
+        "target_url": "https://example.com/",
+        "max_pages": 1,
+        "max_depth": 0,
+        "scope_rules": {
+          "include_paths": [],
+          "exclude_paths": [
+            "/admin",
+            "/api",
+            "/login",
+            "/logout"
+          ]
+        }
+      },
+      "rerun_of": null,
+      "provider": "html",
+      "status": "completed",
+      "notes": "",
+      "revision": 5,
+      "created_by": "00000000-0000-4000-8000-000000000003",
+      "crawled_urls": 1,
+      "processed_urls": 1,
+      "failed_urls": 0,
+      "skipped_urls": 0,
+      "critical_count": 0,
+      "warning_count": 2,
+      "notice_count": 1,
+      "site_health_score": 78,
+      "ai_readiness_score": null,
+      "error": "",
+      "reservation_id": "3e9dc720-9ac6-44c2-b68e-627b3e422771",
+      "quota_status": "committed",
+      "started_at": "2026-10-23T10:33:43.767Z",
+      "last_progress_at": "2026-10-23T10:33:45.874Z",
+      "robots_checked_at": "2026-10-23T10:33:43.853Z",
+      "crawl_delay": 1,
+      "completed_at": "2026-10-23T10:33:45.874Z",
+      "stop_reason": "page_limit"
+    }
+  ],
+  "site_audit_pages": [
+    {
+      "created_at": "2026-10-23T10:33:45.874Z",
+      "updated_at": "2026-10-23T10:33:45.874Z",
+      "title": "Example Domain",
+      "meta_description": "",
+      "h1": [],
+      "language": "en",
+      "canonical": "",
+      "robots": ", ",
+      "image_count": 0,
+      "missing_alt_count": 0,
+      "jsonld_count": 0,
+      "invalid_jsonld_count": 0,
+      "links": [],
+      "links_truncated": false,
+      "link_count": 0,
+      "status_code": 200,
+      "fetch_status": "fetched",
+      "content_type": "text/html; charset=utf-8",
+      "redirects": [],
+      "html_score": 78,
+      "byte_size": 577,
+      "workspace_id": "c5587bd2-f2e0-47e8-8a61-430d8f56681f",
+      "scan_id": "32922a05-a518-415c-9493-f7b120b3e2c8",
+      "url": "https://example.com/",
+      "final_url": "https://example.com/",
+      "depth": 0,
+      "fetched_at": "2026-10-23T10:33:45.874Z",
+      "id": "0c6851d9-f24c-42d6-845d-ff9bb5bc180a"
+    }
+  ],
+  "site_audit_issues": [
+    {
+      "created_at": "2026-10-23T10:33:45.874Z",
+      "updated_at": "2026-10-23T10:33:45.874Z",
+      "issue_type": "description_missing",
+      "severity": "warning",
+      "title": "검색 설명 없음",
+      "description": "description 메타 태그가 비어 있거나 없습니다.",
+      "fix_recommendation": "페이지 내용을 요약하는 검색 설명을 작성하세요.",
+      "category": "html",
+      "is_resolved": false,
+      "notes": "",
+      "revision": 1,
+      "workspace_id": "c5587bd2-f2e0-47e8-8a61-430d8f56681f",
+      "scan_id": "32922a05-a518-415c-9493-f7b120b3e2c8",
+      "page_id": "0c6851d9-f24c-42d6-845d-ff9bb5bc180a",
+      "page_url": "https://example.com/",
+      "id": "e9616660-8d3f-4a51-b398-0252f1e2bb3f"
+    },
+    {
+      "created_at": "2026-10-23T10:33:45.874Z",
+      "updated_at": "2026-10-23T10:33:45.874Z",
+      "issue_type": "h1_missing",
+      "severity": "warning",
+      "title": "주요 제목 없음",
+      "description": "텍스트가 있는 h1을 찾지 못했습니다.",
+      "fix_recommendation": "페이지의 주요 주제를 h1으로 표현하세요.",
+      "category": "html",
+      "is_resolved": false,
+      "notes": "",
+      "revision": 1,
+      "workspace_id": "c5587bd2-f2e0-47e8-8a61-430d8f56681f",
+      "scan_id": "32922a05-a518-415c-9493-f7b120b3e2c8",
+      "page_id": "0c6851d9-f24c-42d6-845d-ff9bb5bc180a",
+      "page_url": "https://example.com/",
+      "id": "86c07884-d756-40fe-9466-f1c133e479c5"
+    },
+    {
+      "created_at": "2026-10-23T10:33:45.874Z",
+      "updated_at": "2026-10-23T10:33:45.874Z",
+      "issue_type": "canonical_missing",
+      "severity": "notice",
+      "title": "대표 URL 미지정",
+      "description": "canonical 링크를 찾지 못했습니다.",
+      "fix_recommendation": "중복 URL이 있다면 대표 URL을 지정하세요.",
+      "category": "html",
+      "is_resolved": false,
+      "notes": "",
+      "revision": 1,
+      "workspace_id": "c5587bd2-f2e0-47e8-8a61-430d8f56681f",
+      "scan_id": "32922a05-a518-415c-9493-f7b120b3e2c8",
+      "page_id": "0c6851d9-f24c-42d6-845d-ff9bb5bc180a",
+      "page_url": "https://example.com/",
+      "id": "4a4cdfeb-1d16-4858-919c-a35535d6b602"
+    }
+  ]
+}

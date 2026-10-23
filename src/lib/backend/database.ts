@@ -3,6 +3,8 @@
  */
 
 import crypto from 'node:crypto';
+import { AUDIT_COMMANDS, runAuditCommand } from './site-audit-service.ts';
+import { auditLinkSummary } from './site-audit-html.ts';
 import { KEYWORD_EDITABLE_FIELDS, validateKeywordRecord } from './keyword-model.ts';
 import { GEO_EDITABLE_FIELDS, nextGeoSchedule, validateGeoRecord } from './geo-model.ts';
 import { GEO_ENGINES } from '../api/prompts.ts';
@@ -133,11 +135,11 @@ export class HaloXDatabase {
   }
 
   /** Separate from the public table whitelist: no REST/RPC access. */
-  public getServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests'): Row[] {
+  public getServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts'): Row[] {
     return structuredClone(this.serverRecords[collection] ?? []);
   }
 
-  public setServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests', rows: Row[]): void {
+  public setServerRecords(collection: 'phone_verification' | 'account_credentials' | 'export_files' | 'export_credentials' | 'export_requests' | 'translation_requests' | 'audit_work' | 'audit_requests' | 'audit_hosts', rows: Row[]): void {
     this.serverRecords[collection] = structuredClone(rows);
   }
 
@@ -485,6 +487,7 @@ export class HaloXDatabase {
       },
     ]);
 
+    ensure('site_audit_targets', []);
     ensure('site_audit_scans', [
       {
         id: DEFAULT_SCAN_ID,
@@ -1315,12 +1318,19 @@ export class HaloXDatabase {
 
     if (tableName === 'workspaces' && (this.tables.get('export_publications') || []).some(row => deleted.some(workspace => workspace.id === row.workspace_id) && ['sending', 'unknown'].includes(String(row.status)))) throw new Error('결과를 확인하지 못한 외부 게시가 있습니다. 게시 이력에서 먼저 확인해 주세요.');
     if (tableName === 'workspaces' && (this.tables.get('translation_runs') || []).some(row => deleted.some(workspace => workspace.id === row.workspace_id) && ['running', 'unknown'].includes(String(row.status)))) throw new Error('진행 중이거나 결과가 불확실한 번역이 있습니다. 번역 실행 이력에서 먼저 확인해 주세요.');
+    if (tableName === 'workspaces' && (this.tables.get('site_audit_scans') || []).some(row => deleted.some(workspace => workspace.id === row.workspace_id) && ['queued', 'running'].includes(String(row.status)))) throw new Error('진행 중인 사이트 진단을 먼저 취소해 주세요.');
     this.tables.set(tableName, remaining);
     const deletedIds = new Set(deleted.map(row => row.id));
     if (tableName === 'content_jobs') {
       this.deleteTable('content_drafts', { content_job_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
       this.deleteTable('content_review_runs', { content_job_id: `in.(${[...deletedIds].join(',')})` }, actorUserId);
       for (const name of ['export_history', 'article_translations', 'export_publications', 'translation_runs']) for (const row of this.tables.get(name) || []) if (deletedIds.has(row.content_job_id)) row.content_job_id = null;
+    }
+    if (tableName === 'site_audit_targets') for (const row of this.tables.get('site_audit_scans') || []) if (deletedIds.has(row.target_id)) row.target_id = null;
+    if (tableName === 'site_audit_scans') {
+      for (const name of ['site_audit_pages', 'site_audit_issues']) this.tables.set(name, (this.tables.get(name) || []).filter(row => !deletedIds.has(row.scan_id)));
+      this.serverRecords.audit_work = (this.serverRecords.audit_work || []).filter(row => !deletedIds.has(row.scan_id));
+      for (const row of this.tables.get('site_audit_scans') || []) if (deletedIds.has(row.rerun_of)) row.rerun_of = null;
     }
     if (tableName === 'translation_runs') for (const row of this.tables.get('article_translations') || []) if (deletedIds.has(row.translation_run_id)) row.translation_run_id = null;
     if (tableName === 'export_history') this.serverRecords.export_files = (this.serverRecords.export_files || []).filter(row => !deletedIds.has(row.export_id));
@@ -1377,7 +1387,7 @@ export class HaloXDatabase {
     if (tableName === 'workspace_tag_groups') for (const row of this.tables.get('workspace_tags') || []) if (deletedIds.has(row.group_id)) row.group_id = null;
     if (tableName === 'workspaces' && deleted.length) {
       const workspaceIds = new Set(deleted.map(row => String(row.id)));
-      for (const name of ['knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
+      for (const name of ['knowledge_files', 'export_files', 'export_credentials', 'export_requests', 'translation_requests', 'audit_work', 'audit_requests']) this.serverRecords[name] = (this.serverRecords[name] || []).filter(row => !workspaceIds.has(String(row.workspace_id)));
       const keywordIds = new Set((this.tables.get('keywords') || []).filter(row => workspaceIds.has(String(row.workspace_id))).map(row => String(row.id)));
       for (const [name, rows] of this.tables) {
         if (name === 'workspaces') continue;
@@ -1954,22 +1964,11 @@ export class HaloXDatabase {
         });
       }
 
-      case 'site_audit_links_summary':
-        return {
-          total: 48,
-          orphans: [],
-          to_broken: [],
-          top_linked: [{ url: 'https://brizzi.kr/', count: 24 }],
-          computed_at: '2026-10-22T12:00:00.000Z',
-          to_redirect: [],
-          broken_pages: [],
-          orphan_count: 0,
-          nofollow_count: 2,
-          pages_3xx_count: 0,
-          pages_4xx_count: 0,
-          descriptive_count: 46,
-          descriptive_ratio: 0.958,
-        };
+      case 'site_audit_links_summary': {
+        const scanId = args.scan_id || args.p_scan_id || this.queryTable('site_audit_scans', { filters: { workspace_id: `eq.${workspaceId}` }, order: 'created_at.desc' }, actorUserId).data[0]?.id;
+        const pages = scanId ? this.queryTable('site_audit_pages', { filters: { workspace_id: `eq.${workspaceId}`, scan_id: `eq.${scanId}` } }, actorUserId).data : [];
+        return auditLinkSummary(pages);
+      }
 
       case 'strategy_map_effective_state': {
         const clusters = (this.tables.get('keyword_clusters') || []).filter(
@@ -2373,72 +2372,9 @@ export class HaloXDatabase {
       return { ...results[0], ok: results.every(result => result.ok), function: fnName, workspace_id: workspaceId, prompt_id: prompt.id, results };
     }
 
-    if (fnName === 'site-audit' || fnName === 'site-audit-start') {
-      const targetUrl = String(payload.target_url || 'https://brizzi.kr');
-      const crawl = await this.providers.crawlSiteAudit(targetUrl, Number(payload.max_pages ?? 25));
-      const [scanRow] = this.insertTable(
-        'site_audit_scans',
-        {
-          workspace_id: workspaceId,
-          target_url: crawl.targetUrl,
-          scan_type: 'full',
-          scan_mode: 'standard',
-          status: 'completed',
-          max_pages: Number(payload.max_pages ?? 25),
-          crawled_urls: crawl.crawledUrls,
-          site_health_score: crawl.siteHealthScore,
-          ai_readiness_score: crawl.aiReadinessScore,
-          critical_count: crawl.issues.filter(i => i.severity === 'critical').length,
-          warning_count: crawl.issues.filter(i => i.severity === 'warning').length,
-          notice_count: crawl.issues.filter(i => i.severity === 'notice').length,
-          completed_at: now,
-        },
-        actorUserId
-      );
-
-      const pageRows = this.insertTable(
-        'site_audit_pages',
-        crawl.pages.map(p => ({
-          workspace_id: workspaceId,
-          scan_id: scanRow.id,
-          url: p.url,
-          status_code: p.statusCode,
-          lighthouse_data: { lcpMs: p.lcpMs, cls: p.cls, seoScore: p.seoScore },
-        })),
-        actorUserId
-      );
-
-      const issueRows = this.insertTable(
-        'site_audit_issues',
-        crawl.issues.map(issue => ({
-          workspace_id: workspaceId,
-          scan_id: scanRow.id,
-          page_id: pageRows[0]?.id || null,
-          page_url: issue.pageUrl,
-          issue_type: issue.issueType,
-          category: issue.category,
-          severity: issue.severity,
-          layer: 'ai_readiness',
-          score_dimension: 'ai_readiness',
-          title: issue.title,
-          description: issue.description,
-          fix_recommendation: issue.fixRecommendation,
-          fix_difficulty: 'easy',
-          impact_level: 'medium',
-          engine_impact: ['google', 'ai'],
-          is_resolved: false,
-        })),
-        actorUserId
-      );
-
-      return {
-        ok: true,
-        function: fnName,
-        workspace_id: workspaceId,
-        scan: scanRow,
-        pages: pageRows,
-        issues: issueRows,
-      };
+    if (AUDIT_COMMANDS.includes(fnName)) {
+      if (!payload.workspace_id) throw new Error('워크스페이스를 선택해 주세요.');
+      return runAuditCommand(this, fnName, payload, workspaceId, actorUserId);
     }
 
     if (CONTENT_COMMANDS.includes(fnName)) {

@@ -521,17 +521,12 @@ async function runVerification() {
   assert.equal(geoRunRes.ok, true);
   assert(geoRunRes.run && geoRunRes.metrics);
 
-  // 3. Site Audit pipeline
-  const auditRes = await db.invokeEdgeFunction(
-    'site-audit',
-    {
-      workspace_id: DEFAULT_WORKSPACE_ID,
-      target_url: 'https://brizzi.kr',
-    },
-    DEFAULT_USER_ID
-  );
+  // 3. Durable Site Audit queue (the actual crawler is tested with public-response fixtures).
+  const auditTarget = await db.invokeEdgeFunction('audit-target-create', { workspace_id: DEFAULT_WORKSPACE_ID, name: '검증 대상', target_url: 'https://brizzi.kr', max_pages: 10, max_depth: 1, scope_rules: { include_paths: [], exclude_paths: [] } }, DEFAULT_USER_ID);
+  const auditRes = await db.invokeEdgeFunction('site-audit-start', { workspace_id: DEFAULT_WORKSPACE_ID, target_id: auditTarget.target.id, expected_revision: 1, idempotency_key: 'verify-site-audit' }, DEFAULT_USER_ID);
   assert.equal(auditRes.ok, true);
-  assert(auditRes.scan);
+  assert.equal(auditRes.scan.status, 'queued');
+  await db.invokeEdgeFunction('site-audit-cancel', { workspace_id: DEFAULT_WORKSPACE_ID, scan_id: auditRes.scan.id }, DEFAULT_USER_ID);
 
   // 4. Content Draft pipeline
   const draftRes = await db.invokeEdgeFunction(

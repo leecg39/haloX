@@ -84,3 +84,6 @@
 .live-review-steps li { display: flex; align-items: center; gap: 8px; border: 1px solid #e5e5e5; border-radius: 8px; padding: 12px; flex: 1; min-width: 155px; color: #737373; }
 .live-review-steps li[aria-current=step] { color: #171717; border-color: #525252; font-weight: 600; }
 .live-review-steps span { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #f5f5f5; }
+
+.live-url { overflow-wrap: anywhere; word-break: break-word; max-width: 100%; }
+.live-history > .live-card { min-width: 0; }
