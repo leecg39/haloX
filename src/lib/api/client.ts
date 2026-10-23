@@ -7,8 +7,6 @@
 import type { DialogResult } from '@/types/clone';
 import { validateRpcResponse } from './schemas';
 
-export const DEFAULT_WORKSPACE_UUID = '11111111-1111-4000-8000-111111111111';
-
 export async function insertTableRows<T = Record<string, unknown>>(table: string, payload: Record<string, unknown>): Promise<T[]> {
   const response = await fetch(`/api/v1/rest/${encodeURIComponent(table)}`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
@@ -123,7 +121,7 @@ export async function invokeEdgeEndpoint<T = Record<string, unknown>>(
  * Synchronize user dialog submissions with the reconstructed backend pipeline
  * without blocking or breaking offline localStorage persistence.
  */
-export async function syncDialogActionToBackend(result: DialogResult): Promise<void> {
+export async function syncDialogActionToBackend(result: DialogResult, workspaceId: string): Promise<void> {
   try {
     const route = result.route.split('?')[0];
     const deletedId = result.values?.deletedId;
@@ -156,7 +154,7 @@ export async function syncDialogActionToBackend(result: DialogResult): Promise<v
 
     if (/초대/.test(result.title)) {
       await invokeEdgeEndpoint('workspace-invite', {
-        workspace_id: DEFAULT_WORKSPACE_UUID,
+        workspace_id: workspaceId,
         email: names[0],
         role: 'member',
       });
@@ -165,7 +163,7 @@ export async function syncDialogActionToBackend(result: DialogResult): Promise<v
 
     if (route.startsWith('/app/keywords') || /키워드/.test(result.title)) {
       await invokeEdgeEndpoint('keywords-collect', {
-        workspace_id: DEFAULT_WORKSPACE_UUID,
+        workspace_id: workspaceId,
         keywords: names,
       });
       return;
@@ -174,7 +172,7 @@ export async function syncDialogActionToBackend(result: DialogResult): Promise<v
     if (route.startsWith('/app/geo') || /프롬프트/.test(result.title)) {
       for (const promptText of names) {
         await invokeEdgeEndpoint('geo-run', {
-          workspace_id: DEFAULT_WORKSPACE_UUID,
+          workspace_id: workspaceId,
           prompt_text: promptText,
           engine: 'openai',
         });
@@ -184,7 +182,7 @@ export async function syncDialogActionToBackend(result: DialogResult): Promise<v
 
     if (route.startsWith('/app/site-audit') || /진단/.test(result.title)) {
       await invokeEdgeEndpoint('site-audit', {
-        workspace_id: DEFAULT_WORKSPACE_UUID,
+        workspace_id: workspaceId,
         target_url: names[0],
       });
       return;
@@ -192,7 +190,7 @@ export async function syncDialogActionToBackend(result: DialogResult): Promise<v
 
     if (route.startsWith('/app/optimize') || /최적화/.test(result.title)) {
       await invokeEdgeEndpoint('optimize-audit-content', {
-        workspace_id: DEFAULT_WORKSPACE_UUID,
+        workspace_id: workspaceId,
         url: names[0],
         target_keyword: names[0],
       });
@@ -201,7 +199,7 @@ export async function syncDialogActionToBackend(result: DialogResult): Promise<v
 
     if (route.startsWith('/app/factory') || /콘텐츠|제작/.test(result.title)) {
       await invokeEdgeEndpoint('content-draft', {
-        workspace_id: DEFAULT_WORKSPACE_UUID,
+        workspace_id: workspaceId,
         target_keyword: names[0],
         title: names[0],
       });
@@ -210,7 +208,7 @@ export async function syncDialogActionToBackend(result: DialogResult): Promise<v
 
     if (route.startsWith('/app/strategy-map')) {
       await invokeEdgeEndpoint('strategy-map-orchestrator', {
-        workspace_id: DEFAULT_WORKSPACE_UUID,
+        workspace_id: workspaceId,
         cluster_label: names[0],
       });
       return;
@@ -218,7 +216,7 @@ export async function syncDialogActionToBackend(result: DialogResult): Promise<v
 
     if (route.startsWith('/app/agent')) {
       await invokeEdgeEndpoint('agent-chat', {
-        workspace_id: DEFAULT_WORKSPACE_UUID,
+        workspace_id: workspaceId,
         message: names[0],
       });
       return;
@@ -226,7 +224,7 @@ export async function syncDialogActionToBackend(result: DialogResult): Promise<v
 
     if (route.startsWith('/app/reports')) {
       await invokeEdgeEndpoint('report-snapshot', {
-        workspace_id: DEFAULT_WORKSPACE_UUID,
+        workspace_id: workspaceId,
         period_type: 'week',
       });
       return;
@@ -237,7 +235,7 @@ export async function syncDialogActionToBackend(result: DialogResult): Promise<v
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          workspace_id: DEFAULT_WORKSPACE_UUID,
+          workspace_id: workspaceId,
           name: names[0],
         }),
       });

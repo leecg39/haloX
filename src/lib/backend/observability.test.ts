@@ -41,7 +41,9 @@ describe('관측·리포트 영속 CRUD', () => {
     const f = await fixture(); const dashboard = () => f.store.read(db => readDashboard(db, f.workspace, ACTOR, NOW));
     assert.equal((await dashboard()).snapshot.scores.avi, null); const kw = await f.measured(3);
     const result = (await dashboard()).snapshot; assert.equal(result.seo.summary.top10_percent, 100); assert.equal(result.counts.keywords, 1); assert.equal(result.geo.summary.citation_percent, null);
-    await f.store.write(db => db.deleteTable('keywords', { id: `eq.${kw.id}` }, ACTOR)); assert.equal((await dashboard()).snapshot.seo.summary.samples, 0);
+    assert.ok(Object.values(result.counts).every(value => Number.isSafeInteger(value) && value >= 0));
+    assert.ok(Object.values(result.scores).every(value => value === null || value >= 0 && value <= 100));
+    await f.store.write(db => db.deleteTable('keywords', { id: `eq.${kw.id}` }, ACTOR)); const empty = (await dashboard()).snapshot; assert.equal(empty.seo.summary.samples, 0); assert.equal(empty.counts.keywords, 0);
   });
   it('excludes future observations and keeps previous period separate', async () => {
     const f = await fixture(); await f.measured(5, '2026-10-23T13:00:00Z'); await f.measured(20, '2026-10-12T00:00:00Z');

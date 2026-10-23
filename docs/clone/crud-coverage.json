@@ -1,0 +1,2740 @@
+{
+  "schema_version": 1,
+  "manifest_sha256": "49f711922165781992806ac0cc8499e39a951b832c594efae0db7442d8e705fc",
+  "summary": {
+    "manifest_routes": 363,
+    "included_routes": 278,
+    "excluded_routes": 85,
+    "source_404_routes": 73,
+    "redirect_routes": 12,
+    "mapped_domains": 26,
+    "unmapped_included_routes": 0
+  },
+  "quality_contract": {
+    "shared_ui": [
+      "API 실패 시 오류와 재시도",
+      "로딩 상태 role=status",
+      "빈 데이터 안내",
+      "권한 없음 안내",
+      "모달 포커스·ESC·키보드 제출"
+    ],
+    "domain_e2e": [
+      "저장·새로고침",
+      "실패 시 입력 보존",
+      "사용자·워크스페이스 격리",
+      "모바일 스크롤·조작"
+    ],
+    "metric_invariants": [
+      "총계는 저장 레코드 길이여서 0 이상",
+      "점수와 비율은 0~100",
+      "음수는 직전 기간 대비 변화(%p)에만 허용"
+    ]
+  },
+  "domains": {
+    "account": {
+      "models": [
+        "profiles",
+        "account_sessions",
+        "account_deletion_requests"
+      ],
+      "apis": [
+        "src/app/api/v1/account/route.ts",
+        "src/app/api/v1/account/deletion/route.ts"
+      ],
+      "tests": [
+        "e2e/account.spec.ts",
+        "e2e/account-deletion.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/account-security-crud.md",
+        "docs/clone/account-deletion-crud.md"
+      ]
+    },
+    "analyses": {
+      "models": [
+        "saved_analyses",
+        "serp_snapshots",
+        "geo_prompt_runs",
+        "geo_answers_raw"
+      ],
+      "apis": [
+        "src/app/api/v1/analyses/route.ts"
+      ],
+      "tests": [
+        "e2e/analyses.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/analysis-gap-crud.md"
+      ]
+    },
+    "api": {
+      "models": [
+        "workspace_api_keys",
+        "api_key_usage",
+        "workspace_api_limits"
+      ],
+      "apis": [
+        "src/app/api/v1/api-settings/route.ts",
+        "src/app/api/v1/mcp/route.ts"
+      ],
+      "tests": [
+        "e2e/api-settings.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/api-keys-crud.md"
+      ]
+    },
+    "auth": {
+      "models": [
+        "profiles",
+        "account_sessions",
+        "phone_verification",
+        "account_credentials"
+      ],
+      "apis": [
+        "src/app/api/v1/auth/route.ts",
+        "src/app/api/v1/auth/signup/route.ts",
+        "src/app/api/v1/auth/recovery/route.ts"
+      ],
+      "tests": [
+        "e2e/auth.spec.ts",
+        "e2e/signup.spec.ts",
+        "e2e/account.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/account-security-crud.md"
+      ]
+    },
+    "billing": {
+      "models": [
+        "subscriptions",
+        "workspace_plans",
+        "workspace_credit_balances",
+        "workspace_credit_ledger"
+      ],
+      "apis": [
+        "src/app/api/v1/billing/route.ts",
+        "src/app/api/v1/credits/route.ts"
+      ],
+      "tests": [
+        "e2e/billing.spec.ts",
+        "e2e/credits.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/billing-crud.md",
+        "docs/clone/credits-rewards-crud.md"
+      ]
+    },
+    "brand": {
+      "models": [
+        "brands",
+        "brand_products",
+        "brand_domain_aliases",
+        "brand_reclassify_jobs"
+      ],
+      "apis": [
+        "src/app/api/v1/brand-settings/route.ts"
+      ],
+      "tests": [
+        "e2e/brand-settings.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/brand-tracking-crud.md"
+      ]
+    },
+    "content": {
+      "models": [
+        "content_jobs",
+        "content_drafts",
+        "content_compositions"
+      ],
+      "apis": [
+        "src/app/api/v1/content/route.ts"
+      ],
+      "tests": [
+        "e2e/content.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/content-crud.md"
+      ]
+    },
+    "dashboard": {
+      "models": [
+        "dashboard_preferences",
+        "serp_snapshots",
+        "geo_prompt_runs",
+        "site_audit_scans"
+      ],
+      "apis": [
+        "src/app/api/v1/observability/route.ts"
+      ],
+      "tests": [
+        "e2e/observability.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/observability-crud.md"
+      ]
+    },
+    "earned": {
+      "models": [
+        "earned_publications",
+        "serp_snapshots",
+        "geo_answers_raw"
+      ],
+      "apis": [
+        "src/app/api/v1/earned/route.ts"
+      ],
+      "tests": [
+        "e2e/earned.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/earned-urls-crud.md"
+      ]
+    },
+    "exports": {
+      "models": [
+        "export_history",
+        "article_translations",
+        "export_destinations",
+        "export_publications"
+      ],
+      "apis": [
+        "src/app/api/v1/exports/route.ts"
+      ],
+      "tests": [
+        "e2e/exports.spec.ts",
+        "e2e/translation.spec.ts",
+        "e2e/wordpress.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/export-crud.md",
+        "docs/clone/wordpress-crud.md"
+      ]
+    },
+    "gaps": {
+      "models": [
+        "geo_prompt_candidates",
+        "opportunity_decisions",
+        "keywords",
+        "geo_prompts"
+      ],
+      "apis": [
+        "src/app/api/v1/gaps/route.ts"
+      ],
+      "tests": [
+        "e2e/gaps.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/analysis-gap-crud.md"
+      ]
+    },
+    "general": {
+      "models": [
+        "workspaces",
+        "profiles",
+        "geo_prompts",
+        "keywords"
+      ],
+      "apis": [
+        "src/app/api/v1/general-settings/route.ts"
+      ],
+      "tests": [
+        "e2e/general-settings.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/general-settings-crud.md"
+      ]
+    },
+    "google": {
+      "models": [
+        "workspace_google_connections",
+        "google_sync_jobs",
+        "gsc_daily_totals",
+        "ga4_page_stats"
+      ],
+      "apis": [
+        "src/app/api/v1/google/route.ts"
+      ],
+      "tests": [
+        "e2e/google-integrations.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/google-integrations-crud.md"
+      ]
+    },
+    "keywords": {
+      "models": [
+        "keywords",
+        "keyword_sets",
+        "keyword_ideas",
+        "keyword_prompt_links"
+      ],
+      "apis": [
+        "src/app/api/v1/keywords/route.ts"
+      ],
+      "tests": [
+        "e2e/keywords.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/keyword-crud.md"
+      ]
+    },
+    "library": {
+      "models": [
+        "writing_style_profiles",
+        "writing_style_samples",
+        "knowledge_entities",
+        "knowledge_entity_sources"
+      ],
+      "apis": [
+        "src/app/api/v1/library/route.ts"
+      ],
+      "tests": [
+        "e2e/library.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/library-crud.md"
+      ]
+    },
+    "notifications": {
+      "models": [
+        "notification_preferences",
+        "notification_deliveries",
+        "notification_inbox"
+      ],
+      "apis": [
+        "src/app/api/v1/notifications/route.ts"
+      ],
+      "tests": [
+        "e2e/notifications.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/notifications-crud.md"
+      ]
+    },
+    "observability": {
+      "models": [
+        "monitor_rules",
+        "geo_alerts",
+        "report_snapshots",
+        "report_action_items"
+      ],
+      "apis": [
+        "src/app/api/v1/observability/route.ts"
+      ],
+      "tests": [
+        "e2e/observability.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/observability-crud.md"
+      ]
+    },
+    "optimization": {
+      "models": [
+        "content_review_runs",
+        "content_change_items",
+        "content_drafts"
+      ],
+      "apis": [
+        "src/app/api/v1/optimization/route.ts"
+      ],
+      "tests": [
+        "e2e/optimization.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/optimization-crud.md"
+      ]
+    },
+    "portal": {
+      "models": [
+        "referral_codes",
+        "referral_invites",
+        "feedback_threads",
+        "feedback_replies"
+      ],
+      "apis": [
+        "src/app/api/v1/portal/route.ts"
+      ],
+      "tests": [
+        "e2e/portal.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/referral-feedback-crud.md"
+      ]
+    },
+    "prompts": {
+      "models": [
+        "geo_prompts",
+        "geo_prompt_sets",
+        "geo_prompt_runs"
+      ],
+      "apis": [
+        "src/app/api/v1/prompts/route.ts"
+      ],
+      "tests": [
+        "e2e/prompts.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/prompt-crud.md"
+      ]
+    },
+    "public-site": {
+      "models": [
+        "site_pages",
+        "site_posts",
+        "site_taxonomies",
+        "site_translations",
+        "contact_requests"
+      ],
+      "apis": [
+        "src/app/api/v1/site-content/route.ts",
+        "src/app/api/v1/contact/route.ts"
+      ],
+      "tests": [
+        "e2e/site-content.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/public-site-content-crud.md"
+      ]
+    },
+    "raw-data": {
+      "models": [
+        "raw_import_batches",
+        "serp_snapshots",
+        "geo_answers_raw",
+        "site_audit_scans"
+      ],
+      "apis": [
+        "src/app/api/v1/raw-data/route.ts"
+      ],
+      "tests": [
+        "e2e/raw-data.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/raw-data-crud.md"
+      ]
+    },
+    "site-audit": {
+      "models": [
+        "site_audit_targets",
+        "site_audit_scans",
+        "site_audit_pages",
+        "site_audit_issues"
+      ],
+      "apis": [
+        "src/app/api/v1/site-audit/route.ts"
+      ],
+      "tests": [
+        "e2e/site-audit.spec.ts",
+        "e2e/site-policy.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/site-audit-crud.md",
+        "docs/clone/site-policy-crud.md"
+      ]
+    },
+    "strategy": {
+      "models": [
+        "keyword_clusters",
+        "keyword_cluster_members",
+        "cluster_stats_history"
+      ],
+      "apis": [
+        "src/app/api/v1/strategy-map/route.ts"
+      ],
+      "tests": [
+        "e2e/strategy.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/strategy-crud.md"
+      ]
+    },
+    "tags": {
+      "models": [
+        "workspace_tags",
+        "workspace_tag_groups",
+        "keyword_tag_assignments",
+        "geo_prompt_tag_assignments"
+      ],
+      "apis": [
+        "src/app/api/v1/tag-settings/route.ts"
+      ],
+      "tests": [
+        "e2e/tag-settings.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/tag-settings-crud.md"
+      ]
+    },
+    "workspace": {
+      "models": [
+        "workspaces",
+        "workspace_members",
+        "workspace_invitations"
+      ],
+      "apis": [
+        "src/app/api/v1/workspace-management/route.ts",
+        "src/app/api/v1/workspaces/route.ts"
+      ],
+      "tests": [
+        "e2e/workspace-management.spec.ts",
+        "e2e/workspaces.spec.ts"
+      ],
+      "docs": [
+        "docs/clone/workspace-settings-crud.md"
+      ]
+    }
+  },
+  "supplemental_routes": [
+    {
+      "route": "/app/site-content",
+      "domain": "public-site",
+      "reason": "캡처 이후 추가한 운영자 CMS 경로"
+    },
+    {
+      "route": "/app/settings?tab=profile",
+      "domain": "account",
+      "reason": "캡처 이후 추가한 계정 프로필·보안 탭"
+    },
+    {
+      "route": "/app/settings?tab=credits",
+      "domain": "billing",
+      "reason": "서버 크레딧 원장 탭"
+    },
+    {
+      "route": "/app/restore-account",
+      "domain": "account",
+      "reason": "탈퇴 유예 계정 복원 경로"
+    },
+    {
+      "route": "/app/invite?token=:token",
+      "domain": "workspace",
+      "reason": "워크스페이스 초대 수락 경로"
+    },
+    {
+      "route": "/app/geo/prompts/:id",
+      "domain": "prompts",
+      "reason": "프롬프트 동적 상세 경로"
+    },
+    {
+      "route": "/app/personas/:id",
+      "domain": "library",
+      "reason": "페르소나 동적 상세 경로"
+    },
+    {
+      "route": "/app/knowledgehub/:id",
+      "domain": "library",
+      "reason": "지식 자료 동적 상세 경로"
+    },
+    {
+      "route": "/app/factory/:id",
+      "domain": "content",
+      "reason": "콘텐츠 동적 상세 경로"
+    },
+    {
+      "route": "/app/optimize/:id",
+      "domain": "optimization",
+      "reason": "최적화 동적 상세 경로"
+    },
+    {
+      "route": "/app/site-audit/:id",
+      "domain": "site-audit",
+      "reason": "사이트 진단 동적 상세 경로"
+    },
+    {
+      "route": "/app/strategy-map/:id",
+      "domain": "strategy",
+      "reason": "전략 그룹 동적 상세 경로"
+    },
+    {
+      "route": "/app/reports/:id",
+      "domain": "observability",
+      "reason": "리포트 동적 상세 경로"
+    },
+    {
+      "route": "/app/feedback/:id",
+      "domain": "portal",
+      "reason": "피드백 대화 동적 상세 경로"
+    }
+  ],
+  "routes": [
+    {
+      "route": "/",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/?ref=CUZCE8SM",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/app",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "dashboard"
+    },
+    {
+      "route": "/app?cloneTab=0",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "dashboard"
+    },
+    {
+      "route": "/app?cloneTab=1",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "dashboard"
+    },
+    {
+      "route": "/app?cloneTab=2",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "dashboard"
+    },
+    {
+      "route": "/app?cloneTab=3",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "dashboard"
+    },
+    {
+      "route": "/app?cloneTab=4",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "dashboard"
+    },
+    {
+      "route": "/app/exports",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "exports"
+    },
+    {
+      "route": "/app/factory",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "content"
+    },
+    {
+      "route": "/app/feedback",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "portal"
+    },
+    {
+      "route": "/app/forgot-password",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "auth"
+    },
+    {
+      "route": "/app/gap",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "gaps"
+    },
+    {
+      "route": "/app/gap?cloneTab=0",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "gaps"
+    },
+    {
+      "route": "/app/gap?cloneTab=1",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "gaps"
+    },
+    {
+      "route": "/app/gap?cloneTab=2",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "gaps"
+    },
+    {
+      "route": "/app/gap?cloneTab=3",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "gaps"
+    },
+    {
+      "route": "/app/gap?cloneTab=4",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "gaps"
+    },
+    {
+      "route": "/app/gap?cloneTab=5",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "gaps"
+    },
+    {
+      "route": "/app/gap?cloneTab=6",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "gaps"
+    },
+    {
+      "route": "/app/geo",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "analyses"
+    },
+    {
+      "route": "/app/geo/analysis",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "analyses"
+    },
+    {
+      "route": "/app/geo/analysis?tab=competitors",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "analyses"
+    },
+    {
+      "route": "/app/geo/analysis?tab=fan-out",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "analyses"
+    },
+    {
+      "route": "/app/geo/analysis?tab=matrix",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "analyses"
+    },
+    {
+      "route": "/app/geo/analysis?tab=mentions",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "analyses"
+    },
+    {
+      "route": "/app/geo/analysis?tab=platforms",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "analyses"
+    },
+    {
+      "route": "/app/geo/analysis?tab=products",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "analyses"
+    },
+    {
+      "route": "/app/geo/analysis?tab=prompts",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "analyses"
+    },
+    {
+      "route": "/app/geo/analysis?tab=sources",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "analyses"
+    },
+    {
+      "route": "/app/geo/prompts",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "prompts"
+    },
+    {
+      "route": "/app/geo/prompts?view=sets",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "prompts"
+    },
+    {
+      "route": "/app/geo/prompts?view=tags",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "prompts"
+    },
+    {
+      "route": "/app/keywords",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "keywords"
+    },
+    {
+      "route": "/app/keywords?view=ideas",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "keywords"
+    },
+    {
+      "route": "/app/keywords?view=network",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "keywords"
+    },
+    {
+      "route": "/app/keywords?view=sets",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "keywords"
+    },
+    {
+      "route": "/app/keywords?view=tags",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "keywords"
+    },
+    {
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "keywords"
+    },
+    {
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=0",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "keywords"
+    },
+    {
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=1",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "keywords"
+    },
+    {
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=2",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "keywords"
+    },
+    {
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=3",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "keywords"
+    },
+    {
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=4",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "keywords"
+    },
+    {
+      "route": "/app/keywords/186cdef7-5a00-4a05-8de5-a04eb22778d6?cloneTab=5",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "keywords"
+    },
+    {
+      "route": "/app/knowledgehub",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "library"
+    },
+    {
+      "route": "/app/login",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "auth"
+    },
+    {
+      "route": "/app/monitoring",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "observability"
+    },
+    {
+      "route": "/app/optimize",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "optimization"
+    },
+    {
+      "route": "/app/personas",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "library"
+    },
+    {
+      "route": "/app/raw-data",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "raw-data"
+    },
+    {
+      "route": "/app/referral",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "portal"
+    },
+    {
+      "route": "/app/reports",
+      "source_status": "redirect",
+      "excluded_from_completion": true,
+      "exclusion_reason": "리디렉션 전용 경로"
+    },
+    {
+      "route": "/app/reports/weekly",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "observability"
+    },
+    {
+      "route": "/app/seo/insights",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "analyses"
+    },
+    {
+      "route": "/app/seo/insights?tab=aio",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "analyses"
+    },
+    {
+      "route": "/app/seo/insights?tab=competitors",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "analyses"
+    },
+    {
+      "route": "/app/seo/insights?tab=opportunities",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "analyses"
+    },
+    {
+      "route": "/app/seo/insights?tab=performance",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "analyses"
+    },
+    {
+      "route": "/app/seo/insights?tab=serp-matrix",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "analyses"
+    },
+    {
+      "route": "/app/settings",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "general"
+    },
+    {
+      "route": "/app/settings?tab=api",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "api"
+    },
+    {
+      "route": "/app/settings?tab=billing",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "billing"
+    },
+    {
+      "route": "/app/settings?tab=brand-tracking",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "brand"
+    },
+    {
+      "route": "/app/settings?tab=earned",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "earned"
+    },
+    {
+      "route": "/app/settings?tab=export",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "exports"
+    },
+    {
+      "route": "/app/settings?tab=integrations",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "google"
+    },
+    {
+      "route": "/app/settings?tab=members",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "workspace"
+    },
+    {
+      "route": "/app/settings?tab=notifications",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "notifications"
+    },
+    {
+      "route": "/app/settings?tab=plan",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "billing"
+    },
+    {
+      "route": "/app/settings?tab=tags",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "tags"
+    },
+    {
+      "route": "/app/settings?tab=workspace",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "workspace"
+    },
+    {
+      "route": "/app/signup",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "auth"
+    },
+    {
+      "route": "/app/site-audit",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "site-audit"
+    },
+    {
+      "route": "/app/site-audit?tab=bot-access",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "site-audit"
+    },
+    {
+      "route": "/app/site-audit?tab=entities",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "site-audit"
+    },
+    {
+      "route": "/app/site-audit?tab=guide",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "site-audit"
+    },
+    {
+      "route": "/app/site-audit?tab=internal-links",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "site-audit"
+    },
+    {
+      "route": "/app/site-audit?tab=issues",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "site-audit"
+    },
+    {
+      "route": "/app/site-audit?tab=pages",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "site-audit"
+    },
+    {
+      "route": "/app/strategy-map",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "strategy"
+    },
+    {
+      "route": "/app/strategy-map?cloneTab=0",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "strategy"
+    },
+    {
+      "route": "/app/strategy-map?cloneTab=1",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "strategy"
+    },
+    {
+      "route": "/app/strategy-map?cloneTab=2",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "strategy"
+    },
+    {
+      "route": "/app/workspaces",
+      "source_status": "redirect",
+      "excluded_from_completion": true,
+      "exclusion_reason": "리디렉션 전용 경로"
+    },
+    {
+      "route": "/blog/topics/geo",
+      "source_status": "redirect",
+      "excluded_from_completion": true,
+      "exclusion_reason": "리디렉션 전용 경로"
+    },
+    {
+      "route": "/en",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/about",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/authors",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/authors/jaechullee",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/authors/juny-lee",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/blog",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/blog/topics",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/blog/topics/ai-trends",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/changelog",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/compare/ahrefs",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/compare/otterly",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/compare/profound",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/compare/semrush",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/consulting",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/contact-sales",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/customers",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/customers/shopnest",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/disclosure",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/faq",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/features",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/features/analytics",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/features/audit",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/features/content",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/features/monitoring",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/features/search",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/feedback",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/free-tools",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/aeo",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/ai-brand-mentions",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/ai-citation",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/ai-crawlers",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/ai-overview",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/avi",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/backlink",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/brand-sov",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/citation-rate",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/citation-sov",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/content-cluster",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/content-optimization",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/ctr",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/domain-authority",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/e-e-a-t",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/featured-snippet",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/geo",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/internal-linking",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/json-ld",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/keyword",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/keyword-difficulty",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/llm",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/llm-seo",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/llms-txt",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/meta-tags",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/on-page-seo",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/organic-traffic",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/paa",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/prompt-tracking",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/query-fan-out",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/rag",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/schema-markup",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/search-intent",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/search-volume",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/seo",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/serp",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/technical-seo",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/top10-ratio",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/topical-authority",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/glossary/zero-click-search",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/integrations",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/methodology",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/pricing",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/privacy",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/refund-policy",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/research",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/security",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/solutions/agency",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/solutions/in-house",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/terms",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/tools",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/tools/ai-questions",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/tools/genspark",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/tools/lovable",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/tools/site-audit",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/topics",
+      "source_status": "redirect",
+      "excluded_from_completion": true,
+      "exclusion_reason": "리디렉션 전용 경로"
+    },
+    {
+      "route": "/en/use-cases",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/use-cases/brand-monitoring",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/use-cases/competitor-analysis",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/use-cases/content-optimization",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/use-cases/seo-geo-integration",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/workflows",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/workflows/competitor-gap-analysis",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/workflows/content-gap-reference-hub",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/workflows/customer-intent-analysis",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/workflows/execution-task-list",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/workflows/report-automation",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/en/workflows/seo-geo-strategy",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/id",
+      "source_status": "redirect",
+      "excluded_from_completion": true,
+      "exclusion_reason": "리디렉션 전용 경로"
+    },
+    {
+      "route": "/ko",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/about",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/authors",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/authors/jaechullee",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/authors/juny-lee",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/blog",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/blog/aeo-brand-consensus-ownership",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/agentic-commerce-geo",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/agentic-workflow-patterns",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/ai-content-pipeline",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/ai-crawler-observability",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/ai-customer-product-info-structure",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/ai-kpi",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/ai-platform-citation-comparison-data",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/ai-search-10-gate-diagnostic-checklist",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/ai-search-attribution-gap-reporting-framework",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/ai-search-citation-count-before-diagnosis",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/ai-search-delegation-recommendation-action-path",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/ai-search-fake-brand-entity-coherence",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/ai-search-fan-out-market-landscape",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/ai-search-location-service-page-checklist",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/ai-search-measurement-framework",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/ai-traffic-small-but-strategic",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/ai-visibility-metrics-beyond-avi",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/ai-visibility-single-score-risk",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/avi-score-explained",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/backlink-strategy-2026",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/brand-entity-seo-for-ai-search",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/brand-sov-measurement",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/chatgpt-citation-retrieval-fit",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/chatgpt-optimization-guide",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/commerce-geo-google-product-pack-sales-channel",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/competitor-seo-geo-analysis",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/content-dual-optimization",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/content-optimization-workflow",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/eeat-complete-guide",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/eeat-content-checklist",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/fan-out-geo-content-strategy",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/faq-rich-results-deprecation-qa-evidence-structure",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/featured-snippet-paa-strategy",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/ga4-ai-assistant-channel-ai-search-measurement",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/geo-content-structure",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/geo-reputation-brand-consensus",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/geo-vs-seo-vs-aeo",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/geocommerce",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/google-core-update-geo-analysis",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/google-geo-aeo-safety-line",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/google-search-console-ai-report-geo-measurement",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/gpt-fan-out-search-analysis",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/halox-ai-agent-building-story",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/hierarchical-classification",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/how-to-get-cited-by-ai",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/keyword-expansion-5-signal",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/keyword-research-intent-based",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/korean-seo-geo-differences",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/llms-txt-agentic-browsing-readiness",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/llms-txt-setup-guide",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/naver-ai-briefing-citation-count-geo-kpi",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/naver-ai-briefing-longtail-query-search-behavior",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/naver-ai-tab-execution-kpi-action-path",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/naver-geo-guide-ai-briefing-mate",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/offsite-aeo-moat",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/on-page-seo-checklist-2026",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/openai-crawl-channel-signal",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/pev-workflow-case-study",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/prompt-level-ai-search-experiment",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/prompt-tracking-monitoring",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/rag-hallucination-defense",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/schema-ai-citation-hygiene",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/schema-markup-practical",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/seo-fundamentals-ai-era",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/seo-geo-keyword-strategy-framework",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/seo-geo-metrics-guide",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/seo-geo-top-exposure-strategy",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/seo-geo-unified-strategy",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/topical-authority-cluster-design",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/topics",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/blog/topics/ai-trends",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/blog/topics/geo",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/blog/what-is-geo-optimization",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/why-chatgpt-cites-listicles",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/blog/why-reddit-search-matters-in-ai-search-2026",
+      "source_status": "source-404",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 서버가 404를 반환한 캡처 경로"
+    },
+    {
+      "route": "/ko/changelog",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/compare/ahrefs",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/compare/otterly",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/compare/profound",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/compare/semrush",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/consulting",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/contact-sales",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/contact-sales?type=onboarding&from=home_support",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/customers",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/customers/growthly",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/customers/shopnest",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/disclosure",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/faq",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/features",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/features/analytics",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/features/audit",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/features/content",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/features/monitoring",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/features/search",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/feedback",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/aeo",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/ai-brand-mentions",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/ai-citation",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/ai-crawlers",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/ai-overview",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/avi",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/backlink",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/brand-sov",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/citation-rate",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/citation-sov",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/content-cluster",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/content-optimization",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/ctr",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/domain-authority",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/e-e-a-t",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/eeat",
+      "source_status": "redirect",
+      "excluded_from_completion": true,
+      "exclusion_reason": "리디렉션 전용 경로"
+    },
+    {
+      "route": "/ko/glossary/featured-snippet",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/geo",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/internal-linking",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/json-ld",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/keyword",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/keyword-difficulty",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/llm",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/llm-seo",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/llms-txt",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/meta-tags",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/on-page-seo",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/organic-traffic",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/paa",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/prompt-tracking",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/query-fan-out",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/rag",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/schema-markup",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/search-intent",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/search-volume",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/seo",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/serp",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/technical-seo",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/top10-ratio",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/topical-authority",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/glossary/zero-click-search",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/integrations",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/methodology",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/partners",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/pricing",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/privacy",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/refund-policy",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/research",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/security",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/solutions/agency",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/solutions/in-house",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/tag/ai-traffic",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/tag/rag",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/tag/retrieval-fit",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/tag/semrush",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/terms",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/tools",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/tools/ai-questions",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/tools/site-audit",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/use-cases",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/use-cases/brand-monitoring",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/use-cases/competitor-analysis",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/use-cases/content-optimization",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/use-cases/seo-geo-integration",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/workflows",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/workflows/competitor-gap-analysis",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/workflows/content-gap-reference-hub",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/workflows/customer-intent-analysis",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/workflows/execution-task-list",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/workflows/report-automation",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/ko/workflows/seo-geo-strategy",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "public-site"
+    },
+    {
+      "route": "/tag",
+      "source_status": "redirect",
+      "excluded_from_completion": true,
+      "exclusion_reason": "리디렉션 전용 경로"
+    },
+    {
+      "route": "/vi/contact",
+      "source_status": "redirect",
+      "excluded_from_completion": true,
+      "exclusion_reason": "리디렉션 전용 경로"
+    },
+    {
+      "route": "/zh/about",
+      "source_status": "redirect",
+      "excluded_from_completion": true,
+      "exclusion_reason": "리디렉션 전용 경로"
+    },
+    {
+      "route": "/zh/blog/topics",
+      "source_status": "redirect",
+      "excluded_from_completion": true,
+      "exclusion_reason": "리디렉션 전용 경로"
+    },
+    {
+      "route": "/zh/contact",
+      "source_status": "redirect",
+      "excluded_from_completion": true,
+      "exclusion_reason": "리디렉션 전용 경로"
+    },
+    {
+      "route": "/zh/pricing",
+      "source_status": "redirect",
+      "excluded_from_completion": true,
+      "exclusion_reason": "리디렉션 전용 경로"
+    }
+  ]
+}
