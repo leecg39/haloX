@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode, type SelectHTMLAttributes } from 'react';
 import { useRouter } from 'next/navigation';
 import parse, { Element, attributesToProps, domToReact, type DOMNode, type HTMLReactParserOptions } from 'html-react-parser';
 import { createElement } from 'react';
@@ -35,6 +35,12 @@ function PasswordVisibilityButton({className}:{className?:string}){
 }
 
 const hasNamedInput=(node:Element,name:string):boolean=>node.children.some(child=>child instanceof Element&&((child.name==='input'&&child.attribs.name===name)||hasNamedInput(child,name)));
+const nodeTextContent=(node:Element):string=>node.children.map(child=>'data'in child?child.data:child instanceof Element?nodeTextContent(child):'').join('');
+const selectedOptionValues=(node:Element):string[]=>node.children.flatMap(child=>{
+ if(!(child instanceof Element))return [];
+ if(child.name==='option'&&Object.hasOwn(child.attribs,'selected'))return [child.attribs.value??nodeTextContent(child)];
+ return child.name==='optgroup'?selectedOptionValues(child):[];
+});
 
 function applySessionIdentity(root:HTMLElement,user:{email?:unknown;full_name?:unknown}){
  const email=typeof user.email==='string'?user.email:'';const fullName=typeof user.full_name==='string'?user.full_name:'';
@@ -46,7 +52,7 @@ function applySessionIdentity(root:HTMLElement,user:{email?:unknown;full_name?:u
  root.querySelectorAll<HTMLInputElement>('input:not([data-live-root] input)').forEach(input=>{for(const [from,to] of replacements)if(input.value.includes(from))input.value=input.value.replaceAll(from,to)});
 }
 
-const parserOptions:HTMLReactParserOptions={replace(node){if(!(node instanceof Element))return;if(['script','iframe','noscript'].includes(node.name))return <></>;const nodeText=node.children.map(child=>'data'in child?child.data:'').join('').trim();if(node.name==='form'&&hasNamedInput(node,'email')&&hasNamedInput(node,'password')){const p=attributesToProps(node.attribs);return createElement('form',{...p,method:'post'},domToReact(node.children as DOMNode[],parserOptions))}if(node.name==='button'&&node.attribs.type==='button'&&nodeText==='인증번호 발송')return <PhoneVerificationButton className={node.attribs.class}/>;if(node.name==='button'&&node.attribs.type==='button'&&node.children.some(child=>child instanceof Element&&child.name==='svg'&&child.attribs.class?.includes('lucide-eye')))return <PasswordVisibilityButton className={node.attribs.class}/>;if(['input','textarea','select'].includes(node.name)){const p=attributesToProps(node.attribs);if('value'in p){p.defaultValue=p.value;delete p.value}if('checked'in p){p.defaultChecked=p.checked;delete p.checked}if(node.name==='textarea')return createElement('textarea',{...p,defaultValue:node.children.map(c=>'data'in c?c.data:'').join('')});if(node.name==='input')return createElement('input',p);return createElement('select',p,domToReact(node.children as DOMNode[],parserOptions))}}};
+const parserOptions:HTMLReactParserOptions={replace(node){if(!(node instanceof Element))return;if(['script','iframe','noscript'].includes(node.name))return <></>;const nodeText=node.children.map(child=>'data'in child?child.data:'').join('').trim();if(node.name==='form'&&hasNamedInput(node,'email')&&hasNamedInput(node,'password')){const p=attributesToProps(node.attribs);return createElement('form',{...p,method:'post'},domToReact(node.children as DOMNode[],parserOptions))}if(node.name==='button'&&node.attribs.type==='button'&&nodeText==='인증번호 발송')return <PhoneVerificationButton className={node.attribs.class}/>;if(node.name==='button'&&node.attribs.type==='button'&&node.children.some(child=>child instanceof Element&&child.name==='svg'&&child.attribs.class?.includes('lucide-eye')))return <PasswordVisibilityButton className={node.attribs.class}/>;if(node.name==='option'){const p=attributesToProps(node.attribs);delete p.selected;return createElement('option',p,domToReact(node.children as DOMNode[],parserOptions))}if(['input','textarea','select'].includes(node.name)){const p=attributesToProps(node.attribs);if('value'in p){p.defaultValue=p.value;delete p.value}if('checked'in p){p.defaultChecked=p.checked;delete p.checked}if(node.name==='textarea')return createElement('textarea',{...p,defaultValue:node.children.map(c=>'data'in c?c.data:'').join('')});if(node.name==='input')return createElement('input',p);const selected=selectedOptionValues(node);const selectProps=(selected.length&&!('defaultValue'in p)?{...p,defaultValue:p.multiple?selected:selected[0]}:p) as unknown as SelectHTMLAttributes<HTMLSelectElement>;return createElement('select',selectProps,domToReact(node.children as DOMNode[],parserOptions))}}};
 export default function ClonePage({data,requestedRoute,children}:{data:Capture;requestedRoute:string;children?:ReactNode}){
  const {user,permission,activeWorkspace,loading:workspaceLoading,error:workspaceError,reload:reloadWorkspace}=useWorkspace();
  const section=routeSection(requestedRoute);

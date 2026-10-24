@@ -6,6 +6,14 @@ const root = (page: Page) => page.locator('body');
 const modal = (page: Page) => page.getByRole('dialog');
 async function save(page: Page, label = '저장') { await modal(page).getByRole('button', { name: label, exact: true }).click(); await expect(modal(page)).not.toBeVisible(); }
 
+test('captured select keeps its initial value without React selected-option warnings', async ({ page }) => {
+  const warnings: string[] = [];
+  page.on('console', message => { if (message.type() === 'error' && message.text().includes('setting `selected` on <option>')) warnings.push(message.text()); });
+  await page.goto('/ko/contact-sales');
+  await expect(page.locator('select[name="field-1"]')).toHaveValue('onboarding');
+  expect(warnings).toEqual([]);
+});
+
 test('operator publishes versioned public content and manages persisted public inquiries', async ({ page, browser, baseURL }) => {
   const suffix = Date.now().toString(36), route = `/ko/cms-e2e-${suffix}`, title = `CMS E2E ${suffix}`;
   await page.goto('/app/site-content');
