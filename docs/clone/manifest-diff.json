@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-22T19:34:33.430Z",
+  "generatedAt": "2026-10-25T03:42:36.428Z",
   "baselinePath": "docs/clone/manifest-baseline.json",
   "targetPath": "public/clone/manifest.json",
   "baselineSha256": "53c2d7f8bd91245ef1330f954a8e95522899f1380b6243ed88ee3b97aa107e23",
-  "targetSha256": "49f711922165781992806ac0cc8499e39a951b832c594efae0db7442d8e705fc",
+  "targetSha256": "9ec3ae55b6a66043a891cda783def6674ab0ba69d8cfa927b8951d208d80edd4",
   "selfTestPassed": true,
   "summary": {
     "baselineCount": 363,
@@ -11,17 +11,138 @@
     "added": 0,
     "removed": 0,
     "statusChanged": 0,
-    "titleChanged": 0,
+    "titleChanged": 1,
     "sourceUrlChanged": 0,
-    "textLengthChanged": 0,
+    "textLengthChanged": 19,
     "fileChanged": 0,
     "hasBreakingDrift": false
   },
   "addedRoutes": [],
   "removedRoutes": [],
   "statusChanges": [],
-  "titleChanges": [],
+  "titleChanges": [
+    {
+      "route": "/app/login",
+      "from": "Log in | HaloX",
+      "to": "로그인 | HaloX"
+    }
+  ],
   "sourceUrlChanges": [],
-  "textLengthChanges": [],
+  "textLengthChanges": [
+    {
+      "route": "/app",
+      "from": 1163,
+      "to": 1116,
+      "delta": -47
+    },
+    {
+      "route": "/app/factory",
+      "from": 367,
+      "to": 482,
+      "delta": 115
+    },
+    {
+      "route": "/app/gap",
+      "from": 953,
+      "to": 1021,
+      "delta": 68
+    },
+    {
+      "route": "/app/geo",
+      "from": 491,
+      "to": 493,
+      "delta": 2
+    },
+    {
+      "route": "/app/geo/analysis",
+      "from": 1631,
+      "to": 1731,
+      "delta": 100
+    },
+    {
+      "route": "/app/geo/analysis?tab=competitors",
+      "from": 2583,
+      "to": 2725,
+      "delta": 142
+    },
+    {
+      "route": "/app/geo/analysis?tab=fan-out",
+      "from": 5984,
+      "to": 9866,
+      "delta": 3882
+    },
+    {
+      "route": "/app/geo/analysis?tab=matrix",
+      "from": 2841,
+      "to": 2908,
+      "delta": 67
+    },
+    {
+      "route": "/app/geo/analysis?tab=mentions",
+      "from": 1618,
+      "to": 1804,
+      "delta": 186
+    },
+    {
+      "route": "/app/geo/analysis?tab=platforms",
+      "from": 4634,
+      "to": 4827,
+      "delta": 193
+    },
+    {
+      "route": "/app/geo/analysis?tab=products",
+      "from": 434,
+      "to": 520,
+      "delta": 86
+    },
+    {
+      "route": "/app/geo/analysis?tab=prompts",
+      "from": 2609,
+      "to": 2709,
+      "delta": 100
+    },
+    {
+      "route": "/app/geo/analysis?tab=sources",
+      "from": 3000,
+      "to": 2832,
+      "delta": -168
+    },
+    {
+      "route": "/app/geo/prompts",
+      "from": 1631,
+      "to": 1648,
+      "delta": 17
+    },
+    {
+      "route": "/app/keywords",
+      "from": 1503,
+      "to": 2453,
+      "delta": 950
+    },
+    {
+      "route": "/app/knowledgehub",
+      "from": 569,
+      "to": 636,
+      "delta": 67
+    },
+    {
+      "route": "/app/login",
+      "from": 308,
+      "to": 9624,
+      "delta": 9316
+    },
+    {
+      "route": "/app/seo/insights",
+      "from": 1295,
+      "to": 1554,
+      "delta": 259
+    },
+    {
+      "route": "/app/strategy-map",
+      "from": 793,
+      "to": 1018,
+      "delta": 225
+    }
+  ],
   "fileChanges": []
 }
