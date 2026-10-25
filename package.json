@@ -17,7 +17,7 @@
     "backup:data": "node --experimental-strip-types scripts/backup-store.mjs",
     "restore:data": "node --experimental-strip-types scripts/restore-store.mjs",
     "test:e2e": "playwright test",
-    "test:unit": "node --experimental-strip-types --test src/lib/metrics/index.test.ts src/lib/backend/*.test.ts",
+    "test:unit": "node --experimental-strip-types --test scripts/parity-metrics.test.mjs src/lib/metrics/index.test.ts src/lib/backend/*.test.ts",
     "verify:sql": "bash scripts/verify-supabase-sql.sh",
     "test:quota": "node --experimental-strip-types --test src/lib/backend/quota-units.test.ts",
     "test:metrics": "node --experimental-strip-types --test --experimental-test-coverage --test-coverage-include=src/lib/metrics/index.ts src/lib/metrics/index.test.ts",

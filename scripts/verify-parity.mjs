@@ -8,6 +8,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { execSync } from 'node:child_process';
+import { domProfile, weightedJaccard } from './parity-metrics.mjs';
 
 async function loadRea() {
   const globalRoot = execSync('npm root -g').toString().trim();
@@ -53,15 +54,6 @@ function normalizeText(html) {
     .replace(/<style[\s\S]*?<\/style>/g, ' ')
     .replace(/<[^>]+>/g, ' ');
   return body.split(/\s+/).map((s) => s.trim()).filter((s) => s.length > 1);
-}
-
-function domProfile(html) {
-  const counts = {};
-  for (const m of html.matchAll(/<([a-z][a-z0-9-]*)\b/gi)) {
-    const tag = m[1].toLowerCase();
-    counts[tag] = (counts[tag] || 0) + 1;
-  }
-  return counts;
 }
 
 function jaccard(a, b) {
@@ -115,7 +107,7 @@ for (const slug of routes) {
       compared_pixels: diff.compared_pixels,
       mean_abs_channel_delta: diff.mean_absolute_channel_delta,
       text_similarity: Number(jaccard(normalizeText(origHtml), normalizeText(cloneHtml)).toFixed(4)),
-      dom_similarity: Number(jaccard(Object.entries(domProfile(origHtml)).flat(), Object.entries(domProfile(cloneHtml)).flat()).toFixed(4)),
+      dom_similarity: Number(weightedJaccard(domProfile(origHtml), domProfile(cloneHtml)).toFixed(4)),
       evidence_id: evidence.evidence_id,
       evidence_file: EVIDENCE_DIR + '/' + slug + '.json',
     };
@@ -153,7 +145,7 @@ for (const r of rows) counts[r.grade ?? '오류'] = (counts[r.grade ?? '오류']
 const md = [
   '# P8 패리티 매트릭스 — 원본(haloxlabs.ai) vs 클론(localhost:3000), 2026-10-25',
   '',
-  '뷰포트 1920x939. 픽셀 비교는 REA compare_web_screenshots(채널 임계값 ' + CHANNEL_THRESHOLD + '), 텍스트/DOM 유사도는 파생 지표(DER).',
+  '뷰포트 1920x939. 픽셀 비교는 REA compare_web_screenshots(채널 임계값 ' + CHANNEL_THRESHOLD + '), 텍스트 유사도는 집합 자카드, DOM 유사도는 태그 개수 가중 자카드 파생 지표(DER).',
   '원본은 사용자 Trial 워크스페이스, 클론은 시드 데모 워크스페이스이므로 데이터 영역 차이는 등급에 일부 반영된다.',
   '',
   '## 요약',

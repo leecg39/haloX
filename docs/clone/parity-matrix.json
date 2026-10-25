@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-25T02:42:31.309Z",
+ "generated_at": "2026-10-25T15:09:57.530Z",
  "original_source": "Ego Lite session, https://haloxlabs.ai, 1920x939, deployment psr2.534e5cd0 (2026-10-25)",
  "clone_source": "localhost:3000, seed demo@halox.local workspace, 1920x939, REA-free Playwright capture",
  "pixel_engine": "rea compare_web_screenshots (channel_threshold=8)",
@@ -12,7 +12,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 2.6364619386758963,
    "text_similarity": 0.9138,
-   "dom_similarity": 0.6383,
+   "dom_similarity": 0.7102,
    "evidence_id": "ev_96b1bcaef2ff18a26e70a41950fe15dd8f523bceca92d16c5572fef24b2d14fb",
    "evidence_file": "docs/rea/evidence/p8-compare/app-geo-analysis.json",
    "grade": "사소"
@@ -25,7 +25,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 1.757621971512247,
    "text_similarity": 0.9623,
-   "dom_similarity": 0.5139,
+   "dom_similarity": 0.7167,
    "evidence_id": "ev_639b1c9dae1f92de1850cf330321544d75c33727f5348e590502f95a7a38f318",
    "evidence_file": "docs/rea/evidence/p8-compare/app-geo-analysis-tab-matrix.json",
    "grade": "사소"
@@ -38,7 +38,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 1.4724861055644303,
    "text_similarity": 0.9799,
-   "dom_similarity": 0.5875,
+   "dom_similarity": 0.689,
    "evidence_id": "ev_3b15b51bd5bf69eca14b20fa2db3e5bae06cb586b1a18c69acce175ab4c20712",
    "evidence_file": "docs/rea/evidence/p8-compare/app-geo-analysis-tab-fan-out.json",
    "grade": "사소"
@@ -51,7 +51,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 0.4024201555289315,
    "text_similarity": 0.9126,
-   "dom_similarity": 0.5441,
+   "dom_similarity": 0.4252,
    "evidence_id": "ev_4cd8379cd01289de4e3f6a2c9b50a2cfb40fb65e91d2363a8c0cd36bf0a536a3",
    "evidence_file": "docs/rea/evidence/p8-compare/app-geo-analysis-tab-products.json",
    "grade": "일치"
@@ -64,7 +64,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 2.381278426739439,
    "text_similarity": 0.9614,
-   "dom_similarity": 0.5904,
+   "dom_similarity": 0.7712,
    "evidence_id": "ev_ef6d8488a5f04c9d53f49040a60ba1269863dc83d6a60c68559acc3ca7506086",
    "evidence_file": "docs/rea/evidence/p8-compare/app-geo-analysis-tab-sources.json",
    "grade": "사소"
@@ -77,7 +77,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 2.0921416012158325,
    "text_similarity": 0.9559,
-   "dom_similarity": 0.6098,
+   "dom_similarity": 0.6155,
    "evidence_id": "ev_3ab5035ec3cad8350926e679c43aff10bbd754f8fa4523d21a3993e61681c0b5",
    "evidence_file": "docs/rea/evidence/p8-compare/app-geo-analysis-tab-mentions.json",
    "grade": "사소"
@@ -90,7 +90,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 2.183207978345758,
    "text_similarity": 0.9778,
-   "dom_similarity": 0.6444,
+   "dom_similarity": 0.7611,
    "evidence_id": "ev_2b0bc9646ac0f23e9e801ef65f926f44ba58e870f1d753a3e3d7c6b413eb6488",
    "evidence_file": "docs/rea/evidence/p8-compare/app-geo-analysis-tab-platforms.json",
    "grade": "사소"
@@ -103,7 +103,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 2.482818462681931,
    "text_similarity": 0.9367,
-   "dom_similarity": 0.6196,
+   "dom_similarity": 0.7636,
    "evidence_id": "ev_38ea65ec5dcb2ae20d5fd170ec5534517f8f24912d5df7e438eee03a2611442e",
    "evidence_file": "docs/rea/evidence/p8-compare/app-geo-analysis-tab-prompts.json",
    "grade": "사소"
@@ -116,7 +116,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 2.57094288028044,
    "text_similarity": 0.9625,
-   "dom_similarity": 0.6506,
+   "dom_similarity": 0.6946,
    "evidence_id": "ev_aedd1fa11ee482011f3bd110b5dfedebce9b1a2b06235905f5cb03e6640a75ab",
    "evidence_file": "docs/rea/evidence/p8-compare/app-geo-analysis-tab-competitors.json",
    "grade": "사소"
@@ -129,7 +129,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 0.4132160764998225,
    "text_similarity": 0.8864,
-   "dom_similarity": 0.5588,
+   "dom_similarity": 0.4013,
    "evidence_id": "ev_fb4c4e75e482888df0f7145acbaa0a49937423071c0d3b2dc9d8a49518084953",
    "evidence_file": "docs/rea/evidence/p8-compare/app-geo.json",
    "grade": "사소"
@@ -142,7 +142,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 0.38132460285764996,
    "text_similarity": 0.8557,
-   "dom_similarity": 0.5455,
+   "dom_similarity": 0.4051,
    "evidence_id": "ev_3e699b14b2e58c17e8298369db129399bcf4599202347043cda2e23fc82a6992",
    "evidence_file": "docs/rea/evidence/p8-compare/app-monitoring.json",
    "grade": "사소"
@@ -155,7 +155,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 2.3550129514998224,
    "text_similarity": 0.9167,
-   "dom_similarity": 0.6322,
+   "dom_similarity": 0.6134,
    "evidence_id": "ev_7a285c4c95400416b81641a3193a8756a34916689d1a63b12bb43f444b434cbe",
    "evidence_file": "docs/rea/evidence/p8-compare/app-seo-insights.json",
    "grade": "사소"
@@ -168,7 +168,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 2.1726527833244584,
    "text_similarity": 0.9216,
-   "dom_similarity": 0.5875,
+   "dom_similarity": 0.5988,
    "evidence_id": "ev_b995ab32e9c115b3650f979a256504446e987e269309460d34a95c1cc926463b",
    "evidence_file": "docs/rea/evidence/p8-compare/app.json",
    "grade": "사소"
@@ -181,7 +181,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 2.065229660321264,
    "text_similarity": 0.9451,
-   "dom_similarity": 0.6322,
+   "dom_similarity": 0.7826,
    "evidence_id": "ev_3415b57ccd49645a3067ded16d823ff93235e09d2bbee0b444cebb96e3cb075c",
    "evidence_file": "docs/rea/evidence/p8-compare/app-keywords.json",
    "grade": "사소"
@@ -194,7 +194,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 2.2402885938054666,
    "text_similarity": 0.9514,
-   "dom_similarity": 0.5732,
+   "dom_similarity": 0.7033,
    "evidence_id": "ev_224477f8d782d224e7620c5dd504298d02219b6733085c0ee9a81bdc189ebd70",
    "evidence_file": "docs/rea/evidence/p8-compare/app-geo-prompts.json",
    "grade": "사소"
@@ -207,7 +207,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 3.687875787628683,
    "text_similarity": 0.9343,
-   "dom_similarity": 0.6329,
+   "dom_similarity": 0.5275,
    "evidence_id": "ev_dcfd5474e1ce8fbb7dfd1dffd783b5124fb1edc922b4aa43fa893eadb8f1b2f6",
    "evidence_file": "docs/rea/evidence/p8-compare/app-gap.json",
    "grade": "사소"
@@ -220,7 +220,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 1.0951739716453675,
    "text_similarity": 0.9497,
-   "dom_similarity": 0.5652,
+   "dom_similarity": 0.5778,
    "evidence_id": "ev_8ad956d2a0694cd9cd6197382f32d71010fef7367a43f8704b9ddb9e0320134e",
    "evidence_file": "docs/rea/evidence/p8-compare/app-strategy-map.json",
    "grade": "일치"
@@ -233,7 +233,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 1.7021662562122826,
    "text_similarity": 0.9679,
-   "dom_similarity": 0.6329,
+   "dom_similarity": 0.5893,
    "evidence_id": "ev_d188eab57c0a3e4187309ec3dce7f988d64a08204eabaf933623686a6ecf31f9",
    "evidence_file": "docs/rea/evidence/p8-compare/app-site-audit.json",
    "grade": "사소"
@@ -246,7 +246,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 0.37909982916222934,
    "text_similarity": 0.8415,
-   "dom_similarity": 0.6351,
+   "dom_similarity": 0.4649,
    "evidence_id": "ev_f7626da5d547a29a24d52ea1ec1028c20c6ed9e93edc974d4ef8be15311f158a",
    "evidence_file": "docs/rea/evidence/p8-compare/app-factory.json",
    "grade": "사소"
@@ -259,7 +259,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 0.35437092318956337,
    "text_similarity": 0.8692,
-   "dom_similarity": 0.597,
+   "dom_similarity": 0.4145,
    "evidence_id": "ev_38382c46befd2b3bdd78c903ebd31e3e37fcb2dacfde25b32e792585224bd260",
    "evidence_file": "docs/rea/evidence/p8-compare/app-optimize.json",
    "grade": "사소"
@@ -272,7 +272,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 0.34203524361022364,
    "text_similarity": 0.8082,
-   "dom_similarity": 0.5938,
+   "dom_similarity": 0.3957,
    "evidence_id": "ev_f30f4ffaf94b9d5df782ae9dff0f9439e0d242a79c08a3d20d591db68b2ac2d5",
    "evidence_file": "docs/rea/evidence/p8-compare/app-exports.json",
    "grade": "사소"
@@ -285,7 +285,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 0.3394485489882854,
    "text_similarity": 0.84,
-   "dom_similarity": 0.5692,
+   "dom_similarity": 0.3946,
    "evidence_id": "ev_fb4c567b49f364c5e231b0fe3c26109e9e75d56358c99fc0cb789b8aff4eaf9d",
    "evidence_file": "docs/rea/evidence/p8-compare/app-reports.json",
    "grade": "사소"
@@ -298,7 +298,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 0.3394485489882854,
    "text_similarity": 0.84,
-   "dom_similarity": 0.5692,
+   "dom_similarity": 0.395,
    "evidence_id": "ev_fb4c567b49f364c5e231b0fe3c26109e9e75d56358c99fc0cb789b8aff4eaf9d",
    "evidence_file": "docs/rea/evidence/p8-compare/app-reports-weekly.json",
    "grade": "사소"
@@ -311,7 +311,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 0.3378706569488818,
    "text_similarity": 0.8354,
-   "dom_similarity": 0.5846,
+   "dom_similarity": 0.3946,
    "evidence_id": "ev_c79d92e7c95c845bc64e127627276c10a3a6bf25719014b36a270e9552cca861",
    "evidence_file": "docs/rea/evidence/p8-compare/app-personas.json",
    "grade": "사소"
@@ -324,7 +324,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 0.3763987342474263,
    "text_similarity": 0.8452,
-   "dom_similarity": 0.5946,
+   "dom_similarity": 0.4909,
    "evidence_id": "ev_4945b55d5234f59124854988668f4e8378f161785c25737d18e20105dcd40c4d",
    "evidence_file": "docs/rea/evidence/p8-compare/app-knowledgehub.json",
    "grade": "사소"
@@ -337,7 +337,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 0.4672193934149805,
    "text_similarity": 0.9103,
-   "dom_similarity": 0.5455,
+   "dom_similarity": 0.4437,
    "evidence_id": "ev_7d6dcd2e2a2025a0ee14ef275c450a1707a52aa28c77c67122f0973cfdb0beeb",
    "evidence_file": "docs/rea/evidence/p8-compare/app-raw-data.json",
    "grade": "일치"
@@ -350,7 +350,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 0.4018819888178914,
    "text_similarity": 0.8679,
-   "dom_similarity": 0.5857,
+   "dom_similarity": 0.4556,
    "evidence_id": "ev_1e5abdf9b7a2bdcdad8ceee427c0d87646e66d310706cb2a5fb27037c3b11de5",
    "evidence_file": "docs/rea/evidence/p8-compare/app-settings.json",
    "grade": "사소"
@@ -363,7 +363,7 @@
    "compared_pixels": 1802880,
    "mean_abs_channel_delta": 0.2329779297568335,
    "text_similarity": 0.9268,
-   "dom_similarity": 0.5455,
+   "dom_similarity": 0.3383,
    "evidence_id": "ev_32887ad54d0f39b66caacd868d4f291f4efe1027d33eb8025e3755bb4d406b72",
    "evidence_file": "docs/rea/evidence/p8-compare/app-login.json",
    "grade": "일치"
