@@ -9,3 +9,4 @@
 .clone-mode-toggle{position:fixed;left:14px;bottom:14px;z-index:90;padding:6px 12px;border-radius:999px;border:1px solid rgba(0,0,0,.14);background:rgba(255,255,255,.92);color:#111;font-size:12px;font-weight:600;line-height:1.4;box-shadow:0 2px 8px rgba(0,0,0,.08);cursor:pointer;backdrop-filter:blur(6px)}
 .clone-mode-toggle:hover{background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.14)}
 .clone-mode-toggle:disabled{opacity:.6;cursor:wait}
+@media(max-width:767px){.clone-mode-toggle{position:static;display:block;margin:12px auto 16px}}
