@@ -65,12 +65,15 @@ function domainFor(route) {
 
 const manifestText = await fs.readFile(manifestPath, 'utf8');
 const manifest = JSON.parse(manifestText);
+// 원본 화면을 캡처해 표시만 하는 경로(라이브 CRUD 구현 없음) — CRUD 완료 대상에서 제외한다.
+const capturedViewOnly = new Set(['/app/agent', '/app/discover', '/app/pricing']);
 const routes = [];
 for (const item of manifest) {
-  const excluded = item.status === 'source-404' || item.status === 'redirect';
+  const isCapturedView = capturedViewOnly.has(item.route);
+  const excluded = item.status === 'source-404' || item.status === 'redirect' || isCapturedView;
   const domain = excluded ? null : domainFor(item.route);
   if (!excluded) assert.ok(domain, `CRUD 도메인 매핑 누락: ${item.route}`);
-  routes.push({ route: item.route, source_status: item.status, excluded_from_completion: excluded, ...(excluded ? { exclusion_reason: item.status === 'source-404' ? '원본 서버가 404를 반환한 캡처 경로' : '리디렉션 전용 경로' } : { domain }) });
+  routes.push({ route: item.route, source_status: item.status, excluded_from_completion: excluded, ...(excluded ? { exclusion_reason: isCapturedView ? '원본 화면 캡처 표시 전용 경로(라이브 CRUD 없음)' : item.status === 'source-404' ? '원본 서버가 404를 반환한 캡처 경로' : '리디렉션 전용 경로' } : { domain }) });
 }
 
 const supplementalRoutes = [

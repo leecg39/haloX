@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "manifest_sha256": "9ec3ae55b6a66043a891cda783def6674ab0ba69d8cfa927b8951d208d80edd4",
+  "manifest_sha256": "b53f345108344a476907051fdb1fc26910e60bbce148396d37e17c7a9a6aece9",
   "summary": {
-    "manifest_routes": 363,
-    "included_routes": 278,
-    "excluded_routes": 85,
+    "manifest_routes": 368,
+    "included_routes": 280,
+    "excluded_routes": 88,
     "source_404_routes": 73,
     "redirect_routes": 12,
     "mapped_domains": 26,
@@ -607,6 +607,18 @@
       "domain": "dashboard"
     },
     {
+      "route": "/app/agent",
+      "source_status": "captured",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 화면 캡처 표시 전용 경로(라이브 CRUD 없음)"
+    },
+    {
+      "route": "/app/discover",
+      "source_status": "captured",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 화면 캡처 표시 전용 경로(라이브 CRUD 없음)"
+    },
+    {
       "route": "/app/exports",
       "source_status": "captured",
       "excluded_from_completion": false,
@@ -859,6 +871,12 @@
       "domain": "library"
     },
     {
+      "route": "/app/pricing",
+      "source_status": "captured",
+      "excluded_from_completion": true,
+      "exclusion_reason": "원본 화면 캡처 표시 전용 경로(라이브 CRUD 없음)"
+    },
+    {
       "route": "/app/raw-data",
       "source_status": "captured",
       "excluded_from_completion": false,
@@ -875,6 +893,12 @@
       "source_status": "redirect",
       "excluded_from_completion": true,
       "exclusion_reason": "리디렉션 전용 경로"
+    },
+    {
+      "route": "/app/reports/monthly",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "observability"
     },
     {
       "route": "/app/reports/weekly",
@@ -1034,6 +1058,12 @@
     },
     {
       "route": "/app/site-audit?tab=pages",
+      "source_status": "captured",
+      "excluded_from_completion": false,
+      "domain": "site-audit"
+    },
+    {
+      "route": "/app/site-audit/diff",
       "source_status": "captured",
       "excluded_from_completion": false,
       "domain": "site-audit"

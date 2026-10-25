@@ -353,3 +353,5 @@ body[data-scroll-locked] { overscroll-behavior: contain; padding-left: 0px; padd
 .right-scroll-bar-position .right-scroll-bar-position { right: 0px !important; }
 .width-before-scroll-bar .width-before-scroll-bar { margin-right: 0px !important; }
 body[data-scroll-locked] { --removed-body-scroll-bar-size: 0px; }
+[data-radix-scroll-area-viewport] { scrollbar-width: none; }
+[data-radix-scroll-area-viewport]::-webkit-scrollbar { display: none; }

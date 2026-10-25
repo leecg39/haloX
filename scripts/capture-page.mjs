@@ -3,7 +3,8 @@ import crypto from 'node:crypto';
 export const root='/Users/user01/Desktop/haloX';
 export function fileKey(route){return crypto.createHash('sha256').update(route).digest('hex').slice(0,16)}
 export async function capture(page,route,options={}){
-  await page.cdp('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+  const viewport = options.viewport || {width:1440,height:1000,deviceScaleFactor:1,mobile:false};
+  await page.cdp('Emulation.setDeviceMetricsOverride',{width:viewport.width,height:viewport.height,deviceScaleFactor:viewport.deviceScaleFactor??1,mobile:viewport.mobile??false});
   if(!options.current) await page.goto('https://haloxlabs.ai'+route);
   await page.waitForFunction(()=>document.querySelector('#root')?.textContent.length>60&&!document.querySelector('#root')?.textContent.includes('페이지를 불러오는 중'),undefined,{timeout:20000}).catch(()=>{});
   await page.evaluate(async()=>{await document.fonts.ready;for(let i=0;i<10;i++){const t=document.body.innerText;if(t.length>150&&!/^(로딩 중|Loading)/.test(t))break;await new Promise(r=>setTimeout(r,180))}});

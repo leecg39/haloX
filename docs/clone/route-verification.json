@@ -1,6 +1,6 @@
 {
   "base": "http://localhost:3001",
-  "total": 363,
+  "total": 368,
   "expected": 322,
   "missing": [],
   "failed": [],
@@ -69,6 +69,20 @@
       "rendered": true,
       "sourceStatus": "captured",
       "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/agent",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/discover",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "AI 질문 발굴 - HaloX"
     },
     {
       "route": "/app/exports",
@@ -365,6 +379,13 @@
       "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
     },
     {
+      "route": "/app/pricing",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
       "route": "/app/raw-data",
       "status": 200,
       "rendered": true,
@@ -383,6 +404,13 @@
       "status": 200,
       "rendered": true,
       "sourceStatus": "redirect",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
+    },
+    {
+      "route": "/app/reports/monthly",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
       "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
     },
     {
@@ -573,6 +601,13 @@
       "rendered": true,
       "sourceStatus": "captured",
       "title": "사이트 진단 - HaloX"
+    },
+    {
+      "route": "/app/site-audit/diff",
+      "status": 200,
+      "rendered": true,
+      "sourceStatus": "captured",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼"
     },
     {
       "route": "/app/strategy-map",
