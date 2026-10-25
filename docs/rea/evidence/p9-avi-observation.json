@@ -1,0 +1,182 @@
+{
+ "capturedAt": "2026-10-25T08:20:38.360Z",
+ "wsStatus": 200,
+ "wsCount": 1,
+ "getAviOverview": {
+  "level": "high",
+  "setCount": 1,
+  "totalRuns": 10,
+  "components": {
+   "mentionSov": 60,
+   "citationSov": 86.67,
+   "mentionRank": 100,
+   "mentionRate": 30,
+   "citationRank": 100,
+   "citationRate": 30
+  },
+  "dailySeries": [
+   {
+    "date": "2026-09-28",
+    "label": "09/28",
+    "score": 0
+   },
+   {
+    "date": "2026-09-29",
+    "label": "09/29",
+    "score": 0
+   },
+   {
+    "date": "2026-09-30",
+    "label": "09/30",
+    "score": 0
+   },
+   {
+    "date": "2026-10-01",
+    "label": "10/01",
+    "score": 0
+   },
+   {
+    "date": "2026-10-02",
+    "label": "10/02",
+    "score": 0
+   },
+   {
+    "date": "2026-10-03",
+    "label": "10/03",
+    "score": 0
+   },
+   {
+    "date": "2026-10-04",
+    "label": "10/04",
+    "score": 0
+   },
+   {
+    "date": "2026-10-05",
+    "label": "10/05",
+    "score": 0
+   },
+   {
+    "date": "2026-10-06",
+    "label": "10/06",
+    "score": 0
+   },
+   {
+    "date": "2026-10-07",
+    "label": "10/07",
+    "score": 0
+   },
+   {
+    "date": "2026-10-08",
+    "label": "10/08",
+    "score": 0
+   },
+   {
+    "date": "2026-10-09",
+    "label": "10/09",
+    "score": 0
+   },
+   {
+    "date": "2026-10-10",
+    "label": "10/10",
+    "score": 0
+   },
+   {
+    "date": "2026-10-11",
+    "label": "10/11",
+    "score": 0
+   },
+   {
+    "date": "2026-10-12",
+    "label": "10/12",
+    "score": 0
+   },
+   {
+    "date": "2026-10-13",
+    "label": "10/13",
+    "score": 0
+   },
+   {
+    "date": "2026-10-14",
+    "label": "10/14",
+    "score": 0
+   },
+   {
+    "date": "2026-10-15",
+    "label": "10/15",
+    "score": 0
+   },
+   {
+    "date": "2026-10-16",
+    "label": "10/16",
+    "score": 0
+   },
+   {
+    "date": "2026-10-17",
+    "label": "10/17",
+    "score": 0
+   },
+   {
+    "date": "2026-10-18",
+    "label": "10/18",
+    "score": 0
+   },
+   {
+    "date": "2026-10-19",
+    "label": "10/19",
+    "score": 0
+   },
+   {
+    "date": "2026-10-20",
+    "label": "10/20",
+    "score": 0
+   },
+   {
+    "date": "2026-10-21",
+    "label": "10/21",
+    "score": 0
+   },
+   {
+    "date": "2026-10-22",
+    "label": "10/22",
+    "score": 60
+   },
+   {
+    "date": "2026-10-23",
+    "label": "10/23",
+    "score": 65
+   },
+   {
+    "date": "2026-10-24",
+    "label": "10/24",
+    "score": 65
+   },
+   {
+    "date": "2026-10-25",
+    "label": "10/25",
+    "score": 65
+   }
+  ],
+  "averageScore": 65,
+  "citedPrompts": 3,
+  "coverageRate": 30,
+  "totalPrompts": 10,
+  "activeSetCount": 1,
+  "avgMentionRank": 1,
+  "avgCitationRank": 1,
+  "firstMentionRate": 100,
+  "firstCitationRate": 100
+ },
+ "getAviStatus": 200,
+ "lightAviSummary": {
+  "run_count": 10,
+  "prompt_count": 10,
+  "sum_sentiment": 500,
+  "mentioned_count": 3,
+  "sum_citation_rate": 175,
+  "cited_prompt_count": 3,
+  "cited_runs_with_position": 3,
+  "sum_position_quality_norm": 84
+ },
+ "lightStatus": 200,
+ "errors": []
+}

@@ -10,15 +10,41 @@ import assert from 'node:assert/strict';
 import {
   aiTrafficShare,
   aviComposite,
+  brandScopeClassify,
+  classifyGap,
+  citationRatePct,
+  competitorThreat,
+  contentIssue,
+  ctrBenchmark,
   deriveLightGeoInput,
+  documentedQuickWin,
   documentedSeoScoreFourFactor,
+  ENGINE_DOMAINS,
+  ENGINE_LABELS,
+  engineNormalize,
+  funnelHealth,
+  freshnessClassify,
+  gapAggregateScore,
+  gapLevelLabel,
+  geoRunFlags,
   geoScore,
+  goalStatus,
   isQuickWinKeyword,
+  opportunityScore,
+  percentShare,
   positionScore,
   scoreLevel,
   searchContribution,
   seoScore,
+  serverAviOverviewScore,
+  seoStrongFromRank,
+  serpQuickWin,
   serverAviFiveFactor,
+  tierKindAllowed,
+  tierPriority,
+  CLAIM_CONFIDENCE_THRESHOLD,
+  webVitalRating,
+  webVitalScore,
 } from './index.ts';
 
 // ---- Reference oracle (original bundle semantics) ----
@@ -175,14 +201,178 @@ describe('documented formulas', () => {
     assert.equal(searchContribution(10, -1), 0);
     assert.equal(searchContribution(Infinity, 10), 0);
   });
-  it('isQuickWinKeyword: rank 5~15, impressions >= 100, CTR < 5%', () => {
-    assert.equal(isQuickWinKeyword({ avgPosition: 5, impressions: 100, ctrPercent: 4.99 }), true);
-    assert.equal(isQuickWinKeyword({ avgPosition: 15, impressions: 500, ctrPercent: 0 }), true);
-    assert.equal(isQuickWinKeyword({ avgPosition: 4.9, impressions: 500, ctrPercent: 1 }), false);
-    assert.equal(isQuickWinKeyword({ avgPosition: 16, impressions: 500, ctrPercent: 1 }), false);
-    assert.equal(isQuickWinKeyword({ avgPosition: 8, impressions: 99, ctrPercent: 1 }), false);
-    assert.equal(isQuickWinKeyword({ avgPosition: 8, impressions: 500, ctrPercent: 5 }), false);
-    assert.equal(isQuickWinKeyword({ avgPosition: null, impressions: 500, ctrPercent: 1 }), false);
-    assert.equal(isQuickWinKeyword({ avgPosition: 8, impressions: NaN, ctrPercent: 1 }), false);
+  it('documentedQuickWin (docs F2-4): rank 5~15, impressions >= 100, CTR < 5%', () => {
+    assert.equal(documentedQuickWin({ avgPosition: 5, impressions: 100, ctrPercent: 4.99 }), true);
+    assert.equal(documentedQuickWin({ avgPosition: 15, impressions: 500, ctrPercent: 0 }), true);
+    assert.equal(documentedQuickWin({ avgPosition: 4.9, impressions: 500, ctrPercent: 1 }), false);
+    assert.equal(documentedQuickWin({ avgPosition: 16, impressions: 500, ctrPercent: 1 }), false);
+    assert.equal(documentedQuickWin({ avgPosition: 8, impressions: 99, ctrPercent: 1 }), false);
+    assert.equal(documentedQuickWin({ avgPosition: 8, impressions: 500, ctrPercent: 5 }), false);
+    assert.equal(documentedQuickWin({ avgPosition: null, impressions: 500, ctrPercent: 1 }), false);
+    assert.equal(documentedQuickWin({ avgPosition: 8, impressions: NaN, ctrPercent: 1 }), false);
+  });
+  it('isQuickWinKeyword (bundle ground truth): KD <= 30 and position 11~30', () => {
+    assert.equal(isQuickWinKeyword({ keywordDifficulty: 30, ourPosition: 11 }), true);
+    assert.equal(isQuickWinKeyword({ keywordDifficulty: 30, ourPosition: 30 }), true);
+    assert.equal(isQuickWinKeyword({ keywordDifficulty: 31, ourPosition: 15 }), false);
+    assert.equal(isQuickWinKeyword({ keywordDifficulty: 10, ourPosition: 10 }), false);
+    assert.equal(isQuickWinKeyword({ keywordDifficulty: 10, ourPosition: 31 }), false);
+    assert.equal(isQuickWinKeyword({ keywordDifficulty: 10, ourPosition: null }), false);
+    assert.equal(isQuickWinKeyword({ keywordDifficulty: NaN, ourPosition: 15 }), false);
+  });
+});
+
+// ---- P9 bundle ground truth (docs/clone/algorithms/) ----
+describe('P9 golden: original 2026-10-25 dashboard observations', () => {
+  // Captured original workspace (E8-1, 1920x939 screenshot + captured HTML):
+  // positionScore 52, top10 15%, AIO 17% -> SEO 30
+  it('SEO 30 = 52*0.4 + 15*0.3 + 17*0.3 (observed 10-25 dashboard)', () => {
+    assert.equal(seoScore({ positionScoreValue: 52, top10Rate: 15, aioCitationRate: 17 }), 30);
+  });
+  // citationRate 30, mentionRate 30, citationRank 100, mentionRank 100 -> GEO 65
+  it('GEO 65 = 30/4 + 30/4 + 100/4 + 100/4 (observed 10-25 dashboard)', () => {
+    assert.equal(geoScore({ citationRate: 30, mentionRate: 30, citationRankScore: 100, mentionRankScore: 100 }), 65);
+  });
+  // SEO 30, GEO 65, webHealth 93 -> AVI 59 (30*0.4 + 65*0.3 + 93*0.3 = 59.4)
+  it('AVI 59 from SEO 30 / GEO 65 / web 93 (observed 10-25 dashboard)', () => {
+    assert.equal(aviComposite({ seo: 30, geo: 65, webHealth: 93 }), 59);
+  });
+});
+
+describe('P9 gap algorithms (gap-intelligence chunk)', () => {
+  it('classifyGap quadrant matrix', () => {
+    assert.equal(classifyGap(true, true), 'FORTRESS');
+    assert.equal(classifyGap(true, false), 'GEO_GAP');
+    assert.equal(classifyGap(false, true), 'SEO_GAP');
+    assert.equal(classifyGap(false, false), 'CRITICAL');
+  });
+  it('seoStrongFromRank: rank exists and <= 10', () => {
+    assert.equal(seoStrongFromRank(10), true);
+    assert.equal(seoStrongFromRank(11), false);
+    assert.equal(seoStrongFromRank(null), false);
+  });
+  it('gapAggregateScore: weighted 3/2/1/0 over 3n, percentages 0.1 step', () => {
+    const r = gapAggregateScore({ criticalCount: 9, geoGapCount: 0, seoGapCount: 0, fortressCount: 1, totalCount: 10 });
+    assert.equal(r.score, Math.round((27 / 30) * 100));
+    assert.equal(r.distributionPercent.fortress, 10);
+    assert.equal(gapAggregateScore({ criticalCount: 0, geoGapCount: 0, seoGapCount: 0, fortressCount: 0, totalCount: 0 }).score, 0);
+  });
+  it('opportunityScore: volume log10 cap 50, difficulty inverted, gap bonus', () => {
+    const r = opportunityScore({ searchVolume: 480, keywordDifficulty: 30, gapType: 'CRITICAL', ourPosition: 12 });
+    const volumeScore = Math.min(Math.log10(480) * 10, 50);
+    const difficultyScore = ((100 - 30) / 100) * 30;
+    const raw = volumeScore * 0.4 + difficultyScore * 0.3 + 100 * 0.3;
+    assert.equal(r.score, Math.round(raw));
+    assert.equal(r.components.gapBonus, 100);
+    assert.equal(r.isQuickWin, true);
+    assert.equal(opportunityScore({ searchVolume: 1, keywordDifficulty: 100, gapType: 'FORTRESS', ourPosition: null }).score, 0);
+    // Structural original quirk: volumeScore caps at 50 and difficultyScore at 30,
+    // so the theoretical maximum is 50*0.4 + 30*0.3 + 100*0.3 = 59 (never 100).
+    assert.equal(opportunityScore({ searchVolume: 1e12, keywordDifficulty: 0, gapType: 'CRITICAL', ourPosition: null }).score, 59);
+  });
+  it('contentIssue: missing / outdated >= 12mo / weak when competitor <= 10 and ours > 10', () => {
+    assert.equal(contentIssue({ hasArticle: false, ourPosition: 1, competitorPosition: 1, lastUpdatedMonthsAgo: 0 }), 'missing_content');
+    assert.equal(contentIssue({ hasArticle: true, ourPosition: 1, competitorPosition: 1, lastUpdatedMonthsAgo: 12 }), 'outdated_content');
+    assert.equal(contentIssue({ hasArticle: true, ourPosition: 11, competitorPosition: 5, lastUpdatedMonthsAgo: 1 }), 'weak_content');
+    assert.equal(contentIssue({ hasArticle: true, ourPosition: 5, competitorPosition: 20, lastUpdatedMonthsAgo: 1 }), null);
+  });
+  it('competitorThreat: >=50 high, >=20 medium, else low', () => {
+    assert.equal(competitorThreat({ domain: 'a.com', seoGapCount: 25, geoGapCount: 25 }).threatLevel, 'high');
+    assert.equal(competitorThreat({ domain: 'a.com', seoGapCount: 10, geoGapCount: 10 }).threatLevel, 'medium');
+    assert.equal(competitorThreat({ domain: 'a.com', seoGapCount: 1, geoGapCount: 2 }).threatLevel, 'low');
+  });
+  it('gapLevelLabel thresholds 20/40/60/80', () => {
+    assert.equal(gapLevelLabel(20), 'excellent');
+    assert.equal(gapLevelLabel(21), 'good');
+    assert.equal(gapLevelLabel(41), 'medium');
+    assert.equal(gapLevelLabel(61), 'high');
+    assert.equal(gapLevelLabel(81), 'critical');
+  });
+  it('funnelHealth matches gap-intelligence T branches', () => {
+    assert.deepEqual(funnelHealth({ gscClicks: 0, organicSessions: 0, engagementRate: 0, hasConversionSetup: false, organicConversions: 0 }).level, 'unknown');
+    assert.deepEqual(funnelHealth({ gscClicks: 50, organicSessions: 0, engagementRate: 0, hasConversionSetup: false, organicConversions: 0 }).level, 'blocked');
+    assert.deepEqual(funnelHealth({ gscClicks: 5, organicSessions: 20, engagementRate: 20, hasConversionSetup: false, organicConversions: 0 }).level, 'leaking');
+    assert.deepEqual(funnelHealth({ gscClicks: 5, organicSessions: 20, engagementRate: 55, hasConversionSetup: true, organicConversions: 2 }).level, 'healthy');
+    assert.deepEqual(funnelHealth({ gscClicks: 5, organicSessions: 20, engagementRate: 45, hasConversionSetup: false, organicConversions: 0 }).level, 'healthy');
+  });
+});
+
+describe('P9 quality thresholds (score-utils / grounding / freshness / ctr-benchmarks)', () => {
+  it('webVitalScore: linear 100->0 between [good, poor]', () => {
+    assert.equal(webVitalScore('lcp', 2500), 100);
+    assert.equal(webVitalScore('lcp', 4000), 0);
+    assert.equal(webVitalScore('lcp', 3250), 50);
+    assert.equal(webVitalRating('cls', 0.1), 'good');
+    assert.equal(webVitalRating('cls', 0.2), 'needs-improvement');
+    assert.equal(webVitalRating('cls', 0.3), 'poor');
+  });
+  it('grounding tier thresholds and tier-kind rules', () => {
+    assert.equal(CLAIM_CONFIDENCE_THRESHOLD.official, 0.4);
+    assert.equal(CLAIM_CONFIDENCE_THRESHOLD.unknown, 0.8);
+    assert.equal(tierKindAllowed('pricing', 'reputable'), false);
+    assert.equal(tierKindAllowed('pricing', 'official'), true);
+    assert.equal(tierKindAllowed('general', 'unknown'), true);
+    assert.ok(tierPriority('official') > tierPriority('reputable') && tierPriority('reputable') > tierPriority('community'));
+  });
+  it('freshness: <30 high, <90 medium, else low; goalStatus ordering', () => {
+    assert.equal(freshnessClassify(10), 'high');
+    assert.equal(freshnessClassify(50), 'medium');
+    assert.equal(freshnessClassify(200), 'low');
+    assert.equal(freshnessClassify(undefined), 'medium');
+    assert.equal(goalStatus({ hasArticle: true, publishedAt: new Date(Date.now() - 86400000 * 100), weeklyTargetWeeks: 4, currentRank: 3, bestRank: 5 }), 'achieved');
+    assert.equal(goalStatus({ hasArticle: false, publishedAt: null, weeklyTargetWeeks: 4, currentRank: null, bestRank: null }), 'no_article');
+    assert.equal(goalStatus({ hasArticle: true, publishedAt: new Date(Date.now() - 86400000 * 100), weeklyTargetWeeks: 4, currentRank: null, bestRank: null }), 'overdue');
+    assert.equal(goalStatus({ hasArticle: true, publishedAt: new Date(Date.now() - 86400000 * 25), weeklyTargetWeeks: 4, currentRank: null, bestRank: null }), 'due_soon');
+    assert.equal(goalStatus({ hasArticle: true, publishedAt: new Date(Date.now() - 86400000 * 5), weeklyTargetWeeks: 4, currentRank: null, bestRank: null }), 'pending');
+  });
+  it('ctr benchmarks and serpQuickWin classification', () => {
+    assert.equal(ctrBenchmark(1), 28);
+    assert.equal(ctrBenchmark(10), 2.1);
+    assert.equal(ctrBenchmark(11), 1);
+    assert.deepEqual(serpQuickWin({ avgPosition: 8, impressions: 60, ctr: 2 }), { type: 'quick-win' });
+    assert.deepEqual(serpQuickWin({ avgPosition: 8, impressions: 60, ctr: 1 }), { type: 'ctr-gap' });
+    assert.deepEqual(serpQuickWin({ avgPosition: 3, impressions: 60, ctr: 2 }), { type: null });
+    assert.deepEqual(serpQuickWin({ avgPosition: 8, impressions: 10, ctr: 2 }), { type: null });
+  });
+});
+
+describe('P9 KPI contracts (engines, rounding, run flags, brand scope)', () => {
+  it('engine normalization: openai->chatgpt, unknown->chatgpt', () => {
+    assert.equal(engineNormalize('openai'), 'chatgpt');
+    assert.equal(engineNormalize('claude'), 'claude');
+    assert.equal(engineNormalize('naver'), 'chatgpt');
+    assert.equal(ENGINE_LABELS.perplexity, 'Pplx');
+    assert.equal(ENGINE_DOMAINS.gemini, 'gemini.google.com');
+  });
+  it('citationRatePct one decimal, percentShare integer', () => {
+    assert.equal(citationRatePct(1, 3), 33.3);
+    assert.equal(citationRatePct(0, 0), 0);
+    assert.equal(percentShare(1, 3), 33);
+  });
+  it('geoRunFlags derived states (ghost, sourcedOnly, compOnlyCited)', () => {
+    assert.deepEqual(geoRunFlags({ brand_mentioned: false, is_cited: true, our_source_count: 0, source_but_not_cited: false, competitor_citation_count: 0 }), { mentioned: false, sourced: true, cited: true, hasCompetitorCitation: false, sourcedOnly: false, ghost: true, mentionOnly: false, compOnlyCited: false });
+    assert.deepEqual(geoRunFlags({ brand_mentioned: true, is_cited: false, our_source_count: 2, source_but_not_cited: true, competitor_citation_count: 3 }), { mentioned: true, sourced: true, cited: false, hasCompetitorCitation: true, sourcedOnly: true, ghost: false, mentionOnly: true, compOnlyCited: true });
+  });
+  it('brandScopeClassify: normalized contains-match, brand wins over competitor', () => {
+    assert.deepEqual(brandScopeClassify('브리찌 vs 모비데이즈 비교', ['브리찌'], ['모비데이즈']), { scope: 'brand', matchedBrand: '브리찌', matchedCompetitor: '모비데이즈' });
+    assert.equal(brandScopeClassify('모비데이즈 가격', ['브리찌'], ['모비데이즈']).scope, 'competitor');
+    assert.equal(brandScopeClassify('노트북 추천', ['브리찌'], ['모비데이즈']).scope, 'non_brand');
+    assert.equal(brandScopeClassify('', ['브리찌'], []).scope, 'non_brand');
+  });
+});
+
+describe('P9 aviComposite explicit weight override (pre bundle contract)', () => {
+  it('explicit weights are used verbatim regardless of availability', () => {
+    assert.equal(aviComposite({ seo: 30, geo: 65, webHealth: 93, seoWeight: 0.5, geoWeight: 0.5, webWeight: 0 }), Math.round(30 * 0.5 + 65 * 0.5));
+    assert.equal(aviComposite({ seo: 30, geo: 0, webHealth: 93, seoWeight: 0.4, geoWeight: 0.6, webWeight: 0 }), Math.round(30 * 0.4));
+    assert.equal(aviComposite({ seo: 30, geo: 65, geoWeight: 0.5, webWeight: 0.5 }), Math.round(65 * 0.5));
+  });
+});
+
+describe('P9 server AVI (original experiment, U-2 resolved)', () => {
+  it('observed get_avi_overview: 30/30/100/100 -> 65 (refutes documented 5-factor)', () => {
+    assert.equal(serverAviOverviewScore({ mentionRate: 30, citationRate: 30, mentionRankScore: 100, citationRankScore: 100 }), 65);
+    // Documented 5-factor upper bound with these inputs: 30*0.35+30*0.2+30*0.15+100*0.15 = 28.5 (+15 sentiment max = 43.5+15=58.5? use exact: 10.5+6+4.5+15+15=51) — cannot reach 65.
+    assert.equal(serverAviFiveFactor({ citationRate: 30, mentionRate: 30, sentimentScore: 100, coverageRate: 30, positionQuality: 100 }), 51);
   });
 });

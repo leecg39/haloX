@@ -202,3 +202,39 @@
 - **텍스트 유사도 측정**: 원본 HTML의 주석·`<head>`·`<noscript>` SEO 폴백 텍스트가 노이즈로 유입되어 초기 측정이 과소평가됐다. `verify-parity.mjs`는 이들 제거 후 가시 텍스트 토큰 기준으로 수정했다.
 - **쿠키 기반 모드보다 환경변수 우선 설계 변경**: E2E 스펙이 다수의 신규 컨텍스트를 만들므로, 쿠키 기본값이면 테스트가 캡처 모드로 오포될 위험 → `HALOX_DEFAULT_DISPLAY_MODE` 환경변수를 E2E webServer에 `live`로 설정해 해결(스펙 무변경).
 - 로그인 화면의 클론 부가 요소(계정 복원 링크, 모드 토글)는 기능 유지를 위해 유지 — 원본 대비 의도적 편차.
+
+---
+
+## P9: 알고리즘 정밀 재현 (2026-10-25)
+
+### P9 Evidence 목록
+
+| ID | 파일 | 출처 | 설명 |
+|---|---|---|---|
+| E9-1 | `docs/clone/algorithms/` 스펙 5종 | DER/SUP | 번들 청크에서 추출한 알고리즘 ground truth: scoring-core, gap-opportunity, quality-thresholds, kpi-contracts, server-avi |
+| E9-2 | `docs/rea/bundle/` 25+ 알고리즘 청크 | 관찰 | minified 원문 — `wi`/`XR`/`ure`/`pre`/`ire`/`gap-intelligence`/`ctr-benchmarks`/`score-utils`/`grounding-thresholds`/`freshness`/`calculateKpiStats` 등 |
+| E9-3 | `docs/rea/evidence/p9-avi-observation.json` | 관찰 | `get_avi_overview` 응답 전문 + `get_light_dashboard_overview.avi_summary` (Ego 세션 읽기 전용 RPC, 토큰·UUID 미기록) |
+
+### P9 핵심 결과 (F9 시리즈)
+
+| # | 결론 | 표기 | 근거 |
+|---|---|---|---|
+| F9-1 | 순위 점수표 `[100,85,70,55,45,37,30,24,19,15]`·`rank>=10→10`(10위 15점 도달 불가 원본 버그)·보간 0.1 단위 — F5-5가 코드로 확정 | 관찰 | `wi`, `XR`, `wZ=10` |
+| F9-2 | SEO = positionScore×0.4 + Top10비율×0.3 + AIO인용률×0.3 (F5-2 확정), AVI 종합 4분기 가중치 + 명시적 오버라이드(`seoWeight/geoWeight/webWeight`) 계약 신규 확보 | 관찰 | `ure`, `pre` |
+| F9-3 | **기회 점수** = min(log10(볼륨)×10, 50)×0.4 + (100-KD)/100×30×0.3 + 갭보너스×0.3; 갭보너스 {CRITICAL 100, GEO_GAP 70, SEO_GAP 50, FORTRESS 0}; 이론적 최대 59 (구조적 특이점) | 관찰 | `gap-intelligence` |
+| F9-4 | **Quick Win(키워드 매트릭스)** = KD≤30 ∧ 순위 11~30 — 공개 문서판(5~15위·노출 100+·CTR<5%)과 다름; SERP 판정은 별도 변이(4~10위·노출 50+·CTR≥벤치마크×0.6, 벤치마크 1위 28%→10위 2.1%) | 관찰 | `gap-intelligence`, `ctr-benchmarks` |
+| F9-5 | CWV 임계값 8종(fcp 1800/3000 … fid 100/300), 선형 점수화, 그라운딩 티어 confidence(0.4/0.6/0.6/0.8)+Tier-Kind 규칙, 신선도(<30d high/<90d medium) | 관찰 | `score-utils`, `grounding-thresholds`, `freshness` |
+| F9-6 | **서버 AVI = GEO 4요소 공식(각 0.25)** — 관측 30/30/100/100→65 정확 일치, 일간 시리즈(10/22=60, 10/23+=65)가 관측 GEO와 일치, 문서 5요소 공식 반박(최대 51<65). U-2 해결 | 관찰 | E9-3 |
+| F9-7 | 쿼터 선차단: 한도 도달 시 원본은 서버 요청 없이 클라이언트가 차단(모달). 액션형 쓰기 계약(U-1)은 이번 달 키워드 한도 소진(20/20)으로 미관측 — 다음 달 재시도 필요 | 관찰 | 실험 round-17 |
+| F9-8 | 원본은 XHR 전송(비 fetch), 전체 페이지 리로드 내비게이션 — 관측 파이프라인은 메인 월드 스크립트 태그 주입 + 세션 내 읽기 전용 RPC로 확립 | 관찰 | round-12/16 |
+
+### 클론 엔진 정렬 (P9-B)
+
+- `src/lib/metrics/index.ts`: P9 ground truth 20+ 신규 알고리즘 추가(갭 4분류·갭 집계·기회 점수·콘텐츠 이슈·경쟁사 위협·퍼널 건강·CWV·그라운딩·신선도·목표 상태·CTR 벤치마크·SERP QuickWin·엔진 정규화·인용률 반올림·GEO 실행 플래그·브랜드 스코프·서버 AVI), AVI 명시적 가중치 오버라이드 추가, QuickWin을 번들 시맨틱으로 교체(문서판은 `documentedQuickWin`으로 보존)
+- `src/lib/backend/database.ts`: `get_keywords_with_gsc_stats`의 QuickWin 판정을 SERP 변이(`serpQuickWin`)로 교체
+- 골든 테스트: 10/25 원본 대시보드 관측 쌍(SEO 30=52×0.4+15×0.3+17×0.3, GEO 65, AVI 59=30×0.4+65×0.3+93×0.3, 서버 AVI 65) 픽스처화 — 지표 테스트 39/39, 라인 커버리지 99.87%
+
+### 미해결 갱신
+
+- U-1(액션형 쓰기 계약): 이번 달 원본 키워드 한도 소진으로 관측 불가 — 다음 달 잔여 한도에서 재실험 권장. 프롬프트 세트 실행도 동일 제약.
+- U-2(서버 AVI): **해결** (F9-6).

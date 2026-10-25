@@ -12,6 +12,8 @@ import {
   documentedSeoScoreFourFactor,
   geoScore,
   isQuickWinKeyword,
+  documentedQuickWin,
+  serpQuickWin,
   POSITION_SCORE_TABLE,
   positionScore,
   scoreLevel,
@@ -235,13 +237,26 @@ async function runVerification() {
   assert.equal(aiTrafficShare(-10, 100), 0);
   assert.equal(searchContribution(128, 320), 40);
   assert.equal(searchContribution(100, 0), 0);
-  assert.equal(isQuickWinKeyword({ avgPosition: 8.5, impressions: 980, ctrPercent: 4.28 }), true);
-  assert.equal(isQuickWinKeyword({ avgPosition: 5, impressions: 100, ctrPercent: 4.99 }), true);
-  assert.equal(isQuickWinKeyword({ avgPosition: 4.9, impressions: 500, ctrPercent: 2.0 }), false);
-  assert.equal(isQuickWinKeyword({ avgPosition: 15.1, impressions: 500, ctrPercent: 2.0 }), false);
-  assert.equal(isQuickWinKeyword({ avgPosition: 8.0, impressions: 99, ctrPercent: 2.0 }), false);
-  assert.equal(isQuickWinKeyword({ avgPosition: 8.0, impressions: 500, ctrPercent: 5.0 }), false);
-  assert.equal(isQuickWinKeyword({ avgPosition: null, impressions: 500, ctrPercent: 2.0 }), false);
+  // P9 ground truth: gap-matrix Quick Win (KD <= 30, position 11-30) from `gap-intelligence`.
+  assert.equal(isQuickWinKeyword({ keywordDifficulty: 30, ourPosition: 11 }), true);
+  assert.equal(isQuickWinKeyword({ keywordDifficulty: 30, ourPosition: 30 }), true);
+  assert.equal(isQuickWinKeyword({ keywordDifficulty: 31, ourPosition: 15 }), false);
+  assert.equal(isQuickWinKeyword({ keywordDifficulty: 10, ourPosition: 10 }), false);
+  assert.equal(isQuickWinKeyword({ keywordDifficulty: 10, ourPosition: 31 }), false);
+  assert.equal(isQuickWinKeyword({ keywordDifficulty: 10, ourPosition: null }), false);
+  // SERP quick-win / CTR-gap (`ctr-benchmarks` variant c: pos 4-10, impressions > 50).
+  assert.equal(serpQuickWin({ avgPosition: 8.5, impressions: 980, ctr: 2.5 }).type, 'quick-win');
+  assert.equal(serpQuickWin({ avgPosition: 8.5, impressions: 980, ctr: 1 }).type, 'ctr-gap');
+  assert.equal(serpQuickWin({ avgPosition: 3, impressions: 980, ctr: 2 }).type, null);
+  assert.equal(serpQuickWin({ avgPosition: 8, impressions: 40, ctr: 2 }).type, null);
+  // Documented (docs F2-4) Quick Win retained for the SUP contrast.
+  assert.equal(documentedQuickWin({ avgPosition: 8.5, impressions: 980, ctrPercent: 4.28 }), true);
+  assert.equal(documentedQuickWin({ avgPosition: 5, impressions: 100, ctrPercent: 4.99 }), true);
+  assert.equal(documentedQuickWin({ avgPosition: 4.9, impressions: 500, ctrPercent: 2.0 }), false);
+  assert.equal(documentedQuickWin({ avgPosition: 15.1, impressions: 500, ctrPercent: 2.0 }), false);
+  assert.equal(documentedQuickWin({ avgPosition: 8.0, impressions: 99, ctrPercent: 2.0 }), false);
+  assert.equal(documentedQuickWin({ avgPosition: 8.0, impressions: 500, ctrPercent: 5.0 }), false);
+  assert.equal(documentedQuickWin({ avgPosition: null, impressions: 500, ctrPercent: 2.0 }), false);
 
   recordCheck('halox.metrics.avi-server', 'positive', '5-factor documented server AVI and GA4/GSC KPI formulas (AI Traffic Share, Search Contribution, Quick Win)');
   recordCheck('halox.metrics.avi-server', 'negative', 'Out-of-range negative/zero denominator clamping and Quick Win boundary exclusion');

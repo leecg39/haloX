@@ -49,6 +49,7 @@ import {
   aviComposite,
   geoScore,
   isQuickWinKeyword,
+  serpQuickWin,
   positionScore,
   scoreLevel,
   searchContribution,
@@ -1864,7 +1865,10 @@ export class HaloXDatabase {
         const values = googlePeriod(this.queryTable('gsc_daily_keywords', {}, actorUserId).data.filter(row => row.workspace_id === workspaceId), args);
         return keywords.map(keyword => {
           const stats = aggregateGsc(values.filter(row => String(row.keyword || row.query).toLowerCase() === String(keyword.keyword).toLowerCase()));
-          const quickWin = stats.avg_position !== null && stats.ctr !== null && isQuickWinKeyword({ avgPosition: stats.avg_position, impressions: stats.impressions, ctrPercent: stats.ctr });
+          // P9 ground truth (`ctr-benchmarks` variant c): keyword GSC stats classify
+          // SERP quick-win when position 4-10, impressions > 50 and ctr >= benchmark*0.6.
+          const quickWin = stats.avg_position !== null && stats.ctr !== null
+            && serpQuickWin({ avgPosition: stats.avg_position, impressions: stats.impressions, ctr: stats.ctr }).type === 'quick-win';
           return { keyword_id: keyword.id, keyword_text: keyword.keyword, gsc_clicks: stats.clicks, gsc_impressions: stats.impressions, gsc_ctr: stats.ctr, gsc_avg_position: stats.avg_position, gsc_insight_type: !stats.measured_rows ? 'unmeasured' : quickWin ? 'quick_win' : 'measured' };
         });
       }
