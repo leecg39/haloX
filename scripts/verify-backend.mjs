@@ -1,7 +1,9 @@
 import fs from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
-import { fileURLToPath } from 'node:url';
+import { execSync } from 'node:child_process';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import {
   aiTrafficShare,
@@ -97,6 +99,29 @@ const OBSERVED_68_TABLES = [
   'workspaces',
   'writing_style_profiles',
 ];
+
+// REA evidence 모듈 동적 해석 — scripts/verify-parity.mjs의 loadRea()와 동일한 패턴으로
+// 실행 시점에 `npm root -g` 전역 루트를 구해 로드한다(하드코딩 절대 경로 금지).
+// HALOX_REA_MODULE_PATH 환경변수가 있으면 그 경로를 우선 사용한다(CI 절박 경로 재현 등).
+// rea-agents가 없는 환경(CI)에서는 null을 반환해 REA proof 생성만 건너뛰게 한다.
+async function loadReaEvidence() {
+  try {
+    const reaEvidenceModulePath = process.env.HALOX_REA_MODULE_PATH
+      ? path.resolve(process.env.HALOX_REA_MODULE_PATH)
+      : path.join(
+          execSync('npm root -g').toString().trim(),
+          'rea-agents',
+          'dist',
+          'domain',
+          'evidence.js'
+        );
+    if (!existsSync(reaEvidenceModulePath)) return null;
+    const reaModule = await import(pathToFileURL(reaEvidenceModulePath).href);
+    return typeof reaModule.createEvidence === 'function' ? reaModule : null;
+  } catch {
+    return null;
+  }
+}
 
 async function runVerification() {
   const results = [];
@@ -777,9 +802,28 @@ async function runVerification() {
   // =========================================================================
   // S8: Emit Deterministic REA Reconstruction Proof Evidence
   // =========================================================================
-  const reaEvidenceModulePath =
-    '/Users/user01/.npm-global/lib/node_modules/rea-agents/dist/domain/evidence.js';
-  const { createEvidence } = await import(reaEvidenceModulePath);
+  // REA 모듈이 없는 환경(CI)에서는 proof 생성만 건너뛴다. 기존 p7-verification-proof.json은
+  // 덮어쓰지 않고, 22개 계약 검사는 이 단계 이전에 이미 완료되었으므로 passed:true를 유지한다.
+  const reaEvidence = await loadReaEvidence();
+  if (!reaEvidence) {
+    console.warn('[rea] rea-agents module unavailable — skipping REA proof generation.');
+    console.warn(
+      '[rea] To record docs/rea/evidence/p7-verification-proof.json, install rea-agents globally (npm i -g rea-agents) or set HALOX_REA_MODULE_PATH.'
+    );
+    console.log(
+      JSON.stringify({
+        passed: true,
+        checks: results.length,
+        rpcVerified: rpcNames.length,
+        tablesVerified: OBSERVED_68_TABLES.length,
+        proofRecorded: false,
+        proofFile: 'docs/rea/evidence/p7-verification-proof.json',
+        note: 'rea-agents unavailable; REA proof not recorded (existing proof file left unchanged)',
+      })
+    );
+    return;
+  }
+  const { createEvidence } = reaEvidence;
 
   const obligationIds = [
     'halox.api.edge-functions',
