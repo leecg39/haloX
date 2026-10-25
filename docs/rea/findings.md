@@ -134,3 +134,31 @@
 | U-4 | 알림 설정 저장 위치, enum 값 전체 | 낮음 | 설정 변경 HAR |
 | U-5 | 온보딩·월간 리포트·discover·agent·상세 화면 UI 구조 | 낮음 | 해당 화면 스크레이프 (`docs/sources/extract-ui.mjs` 재사용) |
 | U-6 | `halox-mcp` 공개 API 도구 스키마 | 낮음 | API 키 발급 후 MCP `tools/list` (사용자 승인 필요) |
+
+---
+
+## 2026-10-25 재검증 부록 (배포 드리프트 검증)
+
+> 본 절은 10-22 스냅샷 이후 원본 사이트가 재배포되어, 기존 분석·스펙의 유효 범위를 확인한 후속 검증 기록이다. 클론 스펙(`docs/clone/`)은 10-22 스냅샷 기준임이 이 확인으로 명시되었다.
+
+### E-25 증거
+
+| ID | 파일 | 출처 | 설명 |
+|---|---|---|---|
+| E25-1 | `docs/rea/bundle/` (gitignore, 약 19MB, 707 파일) | 웹 (curl) | 10-25 배포의 전 공개 청크 다운로드 — 진입 `index-Dkac1sNp.js`, CSS `index-DRXMNVP7.css`, chunk-list.txt 705항 |
+| E25-2 | `docs/rea/evidence/static-bundle-analysis.json` (gitignore, 928MB) | REA | `rea analyze-javascript-application` 완전 Evidence (v6.1.0, 719단계 완료, `data/halox.sqlite` 세션 DB 동반) |
+
+### 관찰 (F25 시리즈)
+
+| # | 결론 | 표기 | 근거 |
+|---|---|---|---|
+| F25-1 | 10-22 → 10-25 사이 재배포 발생: deployment-id `psr2.479b4c08…` → `psr2.534e5cd0…`, 모든 청크 콘텐츠 해시 교체(의미론적 이름 126/126 페이지 청크 전부 존재 유지) | 관찰 | E25-1 vs E1-1 |
+| F25-2 | 페이지 파생 식별자 안정: 테이블 131/131 · 엣지 함수 104/104 현재 번들에 존재 | 관찰 | E25-1 × E1-4 |
+| F25-3 | **제거된 RPC 11종**: `get_fan_out_hub_data`, `get_geo_domain_citations`, `get_geo_product_{engines,metrics,prompts,trend}`, `get_geo_ws_mention_term_prompts` (GeoAnalysis·GeoInsights), `get_page_top_queries`, `get_pages_top_keywords` (MonitoringDashboard), `get_serp_matrix_data`, `get_serp_rank_trend` (SEOInsights) — 현재 번들 텍스트에 부재, 대체명 미발견 | 관찰 | E25-1 × E1-4 페이지별 비교 |
+| F25-4 | **신규 엣지 함수 1종**: `run-classification-eval` (기존 카탈로그 E5-3·인벤토리 E1-4 부재 → AgentEval 관련 추가 추정) | 관찰+추론 | E25-1 × E5-3, E1-4 |
+| F25-5 | `agent-chat`, `site-audit-og`, `get_matrix_cell_detail` 등 유사 신규 후보는 기존 증거에 존재 — 신규 아님 | 관찰 | E5-3, E1-4 |
+
+### 클론 영향
+
+- 4개 분석 화면(Geo 분석/인사이트, 모니터링, SEO 인사이트)의 데이터 계약이 원본에서 변경됨. 클론은 10-22 계약 기준으로 유효하며, 이후 원본 추적 시 `docs/clone/pages/{geo-analysis,geo-prompts,monitoring,seo-insights}.md`와 F25-3 목록을 대조할 것.
+- 나머지 122개 페이지 청크와 131 테이블·104 엣지 식별자는 드리프트 없음 → 아키텍처·데이터 모델 스펙 영향 없음.

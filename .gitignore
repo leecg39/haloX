@@ -14,3 +14,6 @@ playwright-report/
 .env*.local
 e2e/.auth/
 data/
+docs/rea/bundle/
+docs/rea/evidence/static-bundle-analysis.json
+docs/rea/evidence/static-bundle-analysis.err

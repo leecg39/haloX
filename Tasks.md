@@ -153,3 +153,9 @@ flowchart TD
 3. **`inspect-analysis-view`**: v6.1.0에 없어 JSON 리다이렉트 + 파생 스크립트(`scripts/rea-*.py`)로 대체.
 4. **보완 출처 추가**: 공개 번들에 동봉된 내부 문서(DB ERD v1.1, Edge Function 카탈로그 v1.9)를 관계·함수명 수준으로만 추출해 SUP 출처로 교차 검증에 사용(원문 미복제).
 5. **원본 소스 비보관**: 원본 스크립트 소스와 문서 원문은 저장소에 넣지 않고 세션 스크래치패드에만 보관.
+
+## 2026-10-25 재검증 (배포 드리프트 + 현재 저장소 상태)
+
+- **클론 저장소 검증 배터리 재실행 — 전부 통과**: `typecheck` ✓ · `test:unit` 349/349 ✓ · `verify:backend` 22 체크(36 RPC·59 테이블, REA proof `ev_cfd63805…` 유지) ✓ · `verify:crud-coverage` 278 대상·26 도메인·미매핑 0 ✓ · `next build` ✓
+- **원본 사이트 재배포 감지 및 드리프트 분석**: 10-22 → 10-25 사이 재배포(모든 청크 해시 교체). 의미론적 구조는 안정(126/126 페이지 청크, 테이블 131/131, 엣지 104/104 존재). **제거 RPC 11종**(Geo 분석/인사이트 7, 모니터링 2, SEO 인사이트 2), **신규 엣지 1종** `run-classification-eval`. 상세는 findings.md 「2026-10-25 재검증 부록」(F25-1~F25-5), 원본 10-25 청크 전체와 REA 정적 분석 Evidence는 `docs/rea/bundle/`·`static-bundle-analysis.json`(gitignore, 로컬 보관).
+- 클론 스펙은 10-22 스냅샷 기준으로 유효. 이후 원본 추적 시 `docs/clone/pages/{geo-analysis,geo-prompts,monitoring,seo-insights}.md`와 F25-3 제거 목록을 대조할 것.
