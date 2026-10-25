@@ -1,0 +1,291 @@
+[
+  {
+    "route": "/app",
+    "state": {
+      "url": "/app",
+      "viewport": [
+        390,
+        844
+      ],
+      "doc": [
+        390,
+        844
+      ],
+      "overflow": 0,
+      "fixed": [
+        {
+          "text": "",
+          "rect": [
+            0,
+            0,
+            390,
+            32
+          ]
+        },
+        {
+          "text": "브리찌trial대시보드분석키워드 현황키워드 분석프롬프트 현황프롬프트 분석전략전략맵사이트 진단실행콘텐츠 제작소콘텐츠 최적화콘텐츠 내보내기모니터링모",
+          "rect": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "text": "",
+          "rect": [
+            8,
+            8,
+            374,
+            828
+          ]
+        },
+        {
+          "text": "",
+          "rect": [
+            0,
+            0,
+            390,
+            844
+          ]
+        },
+        {
+          "text": "원본 화면으로",
+          "rect": [
+            14,
+            799.203125,
+            91.078125,
+            30.796875
+          ]
+        },
+        {
+          "text": "",
+          "rect": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "alerts": [],
+      "broken": []
+    },
+    "path": "/Users/user01/Desktop/haloX/.gstack/qa-reports/screenshots/mobile-app.png"
+  },
+  {
+    "route": "/app/keywords",
+    "state": {
+      "url": "/app/keywords",
+      "viewport": [
+        390,
+        844
+      ],
+      "doc": [
+        390,
+        844
+      ],
+      "overflow": 0,
+      "fixed": [
+        {
+          "text": "",
+          "rect": [
+            0,
+            0,
+            390,
+            32
+          ]
+        },
+        {
+          "text": "브리찌trial대시보드분석키워드 현황키워드 분석프롬프트 현황프롬프트 분석전략전략맵사이트 진단실행콘텐츠 제작소콘텐츠 최적화콘텐츠 내보내기모니터링모",
+          "rect": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "text": "",
+          "rect": [
+            8,
+            8,
+            374,
+            828
+          ]
+        },
+        {
+          "text": "",
+          "rect": [
+            0,
+            0,
+            390,
+            844
+          ]
+        },
+        {
+          "text": "원본 화면으로",
+          "rect": [
+            14,
+            799.203125,
+            91.078125,
+            30.796875
+          ]
+        },
+        {
+          "text": "",
+          "rect": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "alerts": [],
+      "broken": []
+    },
+    "path": "/Users/user01/Desktop/haloX/.gstack/qa-reports/screenshots/mobile-app-keywords.png"
+  },
+  {
+    "route": "/app/settings?tab=brand-tracking",
+    "state": {
+      "url": "/app/settings?tab=brand-tracking",
+      "viewport": [
+        390,
+        844
+      ],
+      "doc": [
+        390,
+        844
+      ],
+      "overflow": 0,
+      "fixed": [
+        {
+          "text": "",
+          "rect": [
+            0,
+            0,
+            390,
+            32
+          ]
+        },
+        {
+          "text": "브리찌trial대시보드분석키워드 현황키워드 분석프롬프트 현황프롬프트 분석전략전략맵사이트 진단실행콘텐츠 제작소콘텐츠 최적화콘텐츠 내보내기모니터링모",
+          "rect": [
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "text": "",
+          "rect": [
+            8,
+            8,
+            374,
+            828
+          ]
+        },
+        {
+          "text": "",
+          "rect": [
+            0,
+            0,
+            390,
+            844
+          ]
+        },
+        {
+          "text": "원본 화면으로",
+          "rect": [
+            14,
+            799.203125,
+            91.078125,
+            30.796875
+          ]
+        },
+        {
+          "text": "",
+          "rect": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "alerts": [],
+      "broken": []
+    },
+    "path": "/Users/user01/Desktop/haloX/.gstack/qa-reports/screenshots/mobile-app-settings-tab-brand-tracking.png"
+  },
+  {
+    "route": "/app/workspaces",
+    "state": {
+      "url": "/app/workspaces",
+      "viewport": [
+        390,
+        844
+      ],
+      "doc": [
+        390,
+        844
+      ],
+      "overflow": 0,
+      "fixed": [
+        {
+          "text": "",
+          "rect": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "alerts": [],
+      "broken": []
+    },
+    "path": "/Users/user01/Desktop/haloX/.gstack/qa-reports/screenshots/mobile-app-workspaces.png"
+  },
+  {
+    "route": "/app/signup",
+    "state": {
+      "url": "/app/signup",
+      "viewport": [
+        390,
+        844
+      ],
+      "doc": [
+        390,
+        919
+      ],
+      "overflow": 0,
+      "fixed": [
+        {
+          "text": "",
+          "rect": [
+            0,
+            0,
+            390,
+            32
+          ]
+        },
+        {
+          "text": "",
+          "rect": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "alerts": [],
+      "broken": []
+    },
+    "path": "/Users/user01/Desktop/haloX/.gstack/qa-reports/screenshots/mobile-app-signup.png"
+  }
+]

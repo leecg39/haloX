@@ -1,0 +1,640 @@
+[
+  {
+    "route": "/app",
+    "navError": "",
+    "state": {
+      "url": "/app",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "워크스페이스 대시보드",
+        "검색 현황",
+        "AI 질문 현황",
+        "사이트 진단",
+        "열린 알림",
+        "최근 리포트",
+        "최근 콘텐츠"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n대시보드\n15%\nadmin@halox.local\n워크스페이스 대시보드\n\n브리찌의 저장된 측정 자료를 확인하세요.\n\n새로고침\n대시보드 설정\n설정 초기화\n\n20"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/keywords",
+    "navError": "",
+    "state": {
+      "url": "/app/keywords",
+      "title": "키워드 현황 | HaloX",
+      "headings": [
+        "키워드 현황"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n분석\n키워드 현황\n15%\nadmin@halox.local\n키워드 현황\n\n브리찌 · 검색 성과와 키워드 자산을 관리합니다.\n\n새로고침\nCSV 내보내기\n키워드 "
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/seo/insights",
+    "navError": "",
+    "state": {
+      "url": "/app/seo/insights",
+      "title": "키워드 분석",
+      "headings": [
+        "키워드 분석",
+        "엔진별 기간 비교",
+        "일별 추이",
+        "SERP 매트릭스"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n분석\n키워드 분석\n15%\nadmin@halox.local\n키워드 분석\n\n브리찌 · 수집 자료에서 집계한 분석\n\n등록 URL 관측\n새로고침\n현재 분석 저장\n\n"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/geo/prompts",
+    "navError": "",
+    "state": {
+      "url": "/app/geo/prompts",
+      "title": "프롬프트 현황 - GEO",
+      "headings": [
+        "프롬프트 현황"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n분석\n프롬프트 현황\n15%\nadmin@halox.local\n프롬프트 현황\n\n브리찌 · AI 답변과 인용 근거를 관리합니다.\n\n새로고침\nCSV 내보내기\n프롬프"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/geo/analysis",
+    "navError": "",
+    "state": {
+      "url": "/app/geo/analysis",
+      "title": "프롬프트 분석",
+      "headings": [
+        "프롬프트 분석",
+        "엔진별 기간 비교",
+        "일별 추이",
+        "인용 매트릭스"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n분석\n프롬프트 분석\n15%\nadmin@halox.local\n프롬프트 분석\n\n브리찌 · 수집 자료에서 집계한 분석\n\n등록 URL 관측\n새로고침\n현재 분석 저장"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/gap",
+    "navError": "",
+    "state": {
+      "url": "/app/gap",
+      "title": "기회 분석",
+      "headings": [
+        "기회 분석",
+        "키워드별 검색·AI 노출"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n기회 분석\n15%\nadmin@halox.local\n기회 분석\n\n브리찌 · 검색과 연결 질문의 노출 차이를 검토합니다.\n\n새로고침\n수집 자료에서 후보 생성\n후"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/strategy-map",
+    "navError": "",
+    "state": {
+      "url": "/app/strategy-map",
+      "title": "Strategy Map | HaloX",
+      "headings": [
+        "전략맵"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n전략\n전략맵\n15%\nadmin@halox.local\n전략맵\n\n브리찌 · 키워드 그룹과 콘텐츠 관계를 관리합니다.\n\n새로고침\n자동 분류 미리보기\n클러스터 추가"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/site-audit",
+    "navError": "",
+    "state": {
+      "url": "/app/site-audit",
+      "title": "사이트 진단 - HaloX",
+      "headings": [
+        "사이트 진단"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n전략\n사이트 진단\n15%\nadmin@halox.local\n사이트 진단\n\n브리찌 · 공개 페이지를 수집하고 HTML 점검 결과를 보관합니다.\n\n새로고침\n진단 "
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/factory",
+    "navError": "",
+    "state": {
+      "url": "/app/factory",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "콘텐츠 제작소"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n실행\n콘텐츠 제작소\n15%\nadmin@halox.local\n콘텐츠 제작소\n\n브리찌 · 본문과 검색 메타 정보를 버전으로 보관합니다.\n\n새로고침\n새 콘텐츠 만"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/optimize",
+    "navError": "",
+    "state": {
+      "url": "/app/optimize",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "콘텐츠 최적화"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n실행\n콘텐츠 최적화\n15%\nadmin@halox.local\n콘텐츠 최적화\n\n브리찌 · 원문을 보존하며 변경 제안을 검토하고 적용합니다.\n\n새로고침\n새 최적화"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/exports",
+    "navError": "",
+    "state": {
+      "url": "/app/exports",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "콘텐츠 내보내기"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n실행\n콘텐츠 내보내기\n15%\nadmin@halox.local\n콘텐츠 내보내기\n\n브리찌 · 원문과 번역문을 파일로 보관하고 내려받습니다.\n\n새로고침\n파일 만들"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/monitoring",
+    "navError": "",
+    "state": {
+      "url": "/app/monitoring",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "모니터링",
+        "외부 검색·유입 연동"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n모니터링\n모니터링 대시보드\n15%\nadmin@halox.local\n모니터링\n\n브리찌 · 측정 자료와 임계값 감시\n\n새로고침\n감시 규칙 추가\n\n서버가 저장된 "
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/reports",
+    "navError": "",
+    "state": {
+      "url": "/app/reports",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "주간·월간 리포트",
+        "2026-W43"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n모니터링\n주간 리포트\n15%\nadmin@halox.local\n주간·월간 리포트\n\n브리찌 · 기간별 저장 보고서\n\n새로고침\n리포트 생성\n자동 리포트 설정\n\n주"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/personas",
+    "navError": "",
+    "state": {
+      "url": "/app/personas",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "페르소나",
+        "B2B 전문 분석가 페르소나기본"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n기타\n페르소나\n15%\nadmin@halox.local\n페르소나\n\n브리찌 · 콘텐츠의 독자와 문체, 작성 예문을 관리합니다.\n\n새로고침\n페르소나 추가\n총 1개"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/knowledgehub",
+    "navError": "",
+    "state": {
+      "url": "/app/knowledgehub",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "자료실",
+        "브리찌 GEO 코어"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n기타\n자료실\n15%\nadmin@halox.local\n자료실\n\n브리찌 · 콘텐츠에 사용할 사실, 원문과 출처를 보관합니다.\n\n새로고침\n자료 추가\n전체 유형\n제"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/raw-data",
+    "navError": "",
+    "state": {
+      "url": "/app/raw-data",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "Raw 데이터",
+        "필터",
+        "다운로드 대상 1개"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n기타\nRaw 데이터\n15%\nadmin@halox.local\nRaw 데이터\n\n브리찌 · 저장된 측정 원본과 가져오기 내역\n\n새로고침\nJSON 가져오기\n\nCSV"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/referral",
+    "navError": "",
+    "state": {
+      "url": "/app/referral",
+      "title": "추천 프로그램 | HaloX",
+      "headings": [
+        "추천 프로그램",
+        "파트너 신청"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n7일 남음\n플랜 보기 →\nToggle Sidebar\n추천 프로그램\n15%\nadmin@halox.local\n추천 프로그램\n\n계정별 추천 코드와 가입 내역을 관리합니다. 워크스페이스를 바꿔도 동일한 내역이 표시됩"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/feedback",
+    "navError": "",
+    "state": {
+      "url": "/app/feedback",
+      "title": "피드백 | HaloX",
+      "headings": [
+        "피드백 보드"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n7일 남음\n플랜 보기 →\nToggle Sidebar\n피드백\n15%\nadmin@halox.local\n피드백 보드\n\n서비스 개선 아이디어와 버그를 제보해 주세요. 작성자와 서비스 운영자만 내용을 열람합니다.\n\n새"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/workspaces",
+    "navError": "",
+    "state": {
+      "url": "/app/workspaces",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "내 워크스페이스",
+        "브리찌",
+        "BGEO"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": false,
+      "text": "내 워크스페이스\n\n관리할 브랜드 또는 프로젝트를 선택하세요.\n\n+ 새 워크스페이스 만들기\n브리찌\n\n브리찌 · trial · 현재 선택됨\n\n대시보드로 이동\n수정\n상세 설정\n키워드\n2\nAI Questions\n2\n콘텐츠\n0\nBGEO\n\nexample.com · trial\n\n이 워크스페이스 선택\n수정\n상세 설정\n삭제\n키워드\n0\nAI Questions\n0\n콘텐츠\n1"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/settings",
+    "navError": "",
+    "state": {
+      "url": "/app/settings",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "일반 환경 설정",
+        "데이터 수집 기본 타겟",
+        "인터페이스 언어"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n설정\n15%\nadmin@halox.local\n일반 환경 설정\n\n브리찌 · 수집 기본값\n\n새로고침\n내 프로필\n워크스페이스\n멤버\n일반\n사용량\n구독/결제\n크레딧·"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/settings?tab=profile",
+    "navError": "",
+    "state": {
+      "url": "/app/settings?tab=profile",
+      "title": "내 프로필과 보안 | HaloX",
+      "headings": [
+        "내 프로필과 보안",
+        "프로필",
+        "활성 로그인 세션 (3)",
+        "계정 탈퇴"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n내 프로필과 보안\n15%\nadmin@halox.local\n내 프로필과 보안\n\n계정 정보와 로그인한 기기를 관리합니다.\n\n새로고침\n내 프로필\n일반 설정\n워크스"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/settings?tab=workspace",
+    "navError": "",
+    "state": {
+      "url": "/app/settings?tab=workspace",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "워크스페이스 설정",
+        "워크스페이스 프로필",
+        "사이트 진단 정책 파일",
+        "사이트 진단 대상·수집 범위",
+        "계정 탈퇴"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n설정\n15%\nadmin@halox.local\n워크스페이스 설정\n\n브리찌 · 관리자\n\n새로고침\n내 프로필\n워크스페이스\n멤버\n일반\n사용량\n구독/결제\n크레딧·보상"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/settings?tab=members",
+    "navError": "",
+    "state": {
+      "url": "/app/settings?tab=members",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "멤버 관리",
+        "멤버 (2)",
+        "초대 내역"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n설정\n15%\nadmin@halox.local\n멤버 관리\n\n브리찌 · 관리자\n\n새로고침\n내 프로필\n워크스페이스\n멤버\n일반\n사용량\n구독/결제\n크레딧·보상\n브랜드"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/settings?tab=brand-tracking",
+    "navError": "",
+    "state": {
+      "url": "/app/settings?tab=brand-tracking",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "브랜드 트래킹 설정",
+        "도메인 매칭 정책",
+        "자사 브랜드 (1)",
+        "경쟁사 브랜드 (2)",
+        "도메인 별칭 매핑",
+        "자사 제품 라인업",
+        "최근 관측 도메인",
+        "과거 데이터 재계산"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n설정\n15%\nadmin@halox.local\n브랜드 트래킹 설정\n\n브리찌 · 자사·경쟁사와 제품 노출을 같은 기준으로 분류합니다.\n\n새로고침\n내 프로필\n워크"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/settings?tab=tags",
+    "navError": "",
+    "state": {
+      "url": "/app/settings?tab=tags",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "태그 관리",
+        "그룹 없음 (0)"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n설정\n15%\nadmin@halox.local\n태그 관리\n\n브리찌 · 키워드와 프롬프트에서 함께 사용하는 태그\n\n새로고침\n내 프로필\n워크스페이스\n멤버\n일반\n사"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/settings?tab=billing",
+    "navError": "",
+    "state": {
+      "url": "/app/settings?tab=billing",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "구독·결제",
+        "결제 서비스 설정 필요",
+        "현재 플랜 · Trial",
+        "실시간 사용량",
+        "플랜 선택",
+        "결제 수단",
+        "결제 내역",
+        "세금계산서 안내"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n설정\n15%\nadmin@halox.local\n구독·결제\n\n브리찌 · 결제 원장은 서버에서만 변경됩니다.\n\n새로고침\n내 프로필\n워크스페이스\n멤버\n일반\n사용량\n"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/settings?tab=earned",
+    "navError": "",
+    "state": {
+      "url": "/app/settings?tab=earned",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "등록 URL"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n설정\n15%\nadmin@halox.local\n등록 URL\n\n브리찌 · 외부 채널에 발행한 콘텐츠\n\n새로고침\n내 프로필\n워크스페이스\n멤버\n일반\n사용량\n구독/결"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/settings?tab=export",
+    "navError": "",
+    "state": {
+      "url": "/app/settings?tab=export",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "콘텐츠 내보내기"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n설정\n설정\n15%\nadmin@halox.local\n콘텐츠 내보내기\n\n브리찌 · 원문과 번역문을 파일로 보관하고 내려받습니다.\n\n새로고침\n파일 만들기\n파일 이"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/settings?tab=integrations",
+    "navError": "",
+    "state": {
+      "url": "/app/settings?tab=integrations",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "외부 서비스 연동",
+        "Google 통합 계정",
+        "동기화 이력",
+        "추가 서비스"
+      ],
+      "alerts": [],
+      "statuses": [
+        "Google 연동 준비 중입니다. 서버 관리자가 OAuth 설정을 완료하면 연결할 수 있습니다."
+      ],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n설정\n15%\nadmin@halox.local\n외부 서비스 연동\n\n브리찌\n\n새로고침\n내 프로필\n워크스페이스\n멤버\n일반\n사용량\n구독/결제\n크레딧·보상\n브랜드 트"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/settings?tab=notifications",
+    "navError": "",
+    "state": {
+      "url": "/app/settings?tab=notifications",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "알림",
+        "내 알림 설정",
+        "내 알림함 · 읽지 않음 0개",
+        "외부 발송 이력"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n설정\n15%\nadmin@halox.local\n알림\n\n브리찌 · 내 수신 설정과 알림함\n\n새로고침\n내 프로필\n워크스페이스\n멤버\n일반\n사용량\n구독/결제\n크레딧·"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/settings?tab=api",
+    "navError": "",
+    "state": {
+      "url": "/app/settings?tab=api",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "API & MCP 연결",
+        "API 키",
+        "연결 방법"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n설정\n15%\nadmin@halox.local\nAPI & MCP 연결\n\n브리찌 · 외부 도구에서 접근할 데이터와 작업 권한을 관리합니다.\n\n새로고침\n내 프로필"
+    },
+    "errors": []
+  },
+  {
+    "route": "/app/settings?tab=credits",
+    "navError": "",
+    "state": {
+      "url": "/app/settings?tab=credits",
+      "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
+      "headings": [
+        "크레딧·보상",
+        "워크스페이스 크레딧",
+        "크레딧 원장",
+        "내 추천 보상",
+        "결제와 크레딧"
+      ],
+      "alerts": [],
+      "statuses": [],
+      "brokenImages": [],
+      "overflowX": 0,
+      "live": true,
+      "text": "브리찌\ntrial\n대시보드\n분석\n키워드 현황\n키워드 분석\n프롬프트 현황\n프롬프트 분석\n전략\n전략맵\n사이트 진단\n실행\n콘텐츠 제작소\n콘텐츠 최적화\n콘텐츠 내보내기\n모니터링\n모니터링 대시보드\n주간 리포트\n기타\n페르소나\n자료실\nRaw 데이터\n도움이 필요하신가요?\nSEO/GEO 컨설팅\n전문가 분석 받기\n서비스 개선 피드백\n의견 남기기\n5일 남음\n플랜 보기 →\nToggle Sidebar\n설정\n15%\nadmin@halox.local\n크레딧·보상\n\n브리찌 · 추가 사용량과 내 추천 정산을 구분하여 표시합니다.\n\n새로고침\n내 프로필\n워크스페이스\n"
+    },
+    "errors": []
+  }
+]
