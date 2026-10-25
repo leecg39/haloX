@@ -341,7 +341,7 @@
       "status": 200,
       "rendered": true,
       "sourceStatus": "captured",
-      "title": "Log in | HaloX"
+      "title": "로그인 | HaloX"
     },
     {
       "route": "/app/monitoring",

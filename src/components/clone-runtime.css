@@ -4,3 +4,8 @@
 .hx-referral-signup { display:grid; gap:6px; margin-top:16px; font-size:13px; }
 .hx-referral-signup input { width:100%; padding:9px 12px; border:1px solid #ddd; border-radius:7px; background:white; }
 .hx-referral-signup small { color:#737373; }
+
+/* 표시 모드 토글 — 화면 좌하단, 1:1 원본 표시와 라이브 편집 모드 전환 */
+.clone-mode-toggle{position:fixed;left:14px;bottom:14px;z-index:90;padding:6px 12px;border-radius:999px;border:1px solid rgba(0,0,0,.14);background:rgba(255,255,255,.92);color:#111;font-size:12px;font-weight:600;line-height:1.4;box-shadow:0 2px 8px rgba(0,0,0,.08);cursor:pointer;backdrop-filter:blur(6px)}
+.clone-mode-toggle:hover{background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.14)}
+.clone-mode-toggle:disabled{opacity:.6;cursor:wait}

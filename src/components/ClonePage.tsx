@@ -53,7 +53,13 @@ function applySessionIdentity(root:HTMLElement,user:{email?:unknown;full_name?:u
 }
 
 const parserOptions:HTMLReactParserOptions={replace(node){if(!(node instanceof Element))return;if(['script','iframe','noscript'].includes(node.name))return <></>;const nodeText=node.children.map(child=>'data'in child?child.data:'').join('').trim();if(node.name==='form'&&hasNamedInput(node,'email')&&hasNamedInput(node,'password')){const p=attributesToProps(node.attribs);return createElement('form',{...p,method:'post'},domToReact(node.children as DOMNode[],parserOptions))}if(node.name==='button'&&node.attribs.type==='button'&&nodeText==='인증번호 발송')return <PhoneVerificationButton className={node.attribs.class}/>;if(node.name==='button'&&node.attribs.type==='button'&&node.children.some(child=>child instanceof Element&&child.name==='svg'&&child.attribs.class?.includes('lucide-eye')))return <PasswordVisibilityButton className={node.attribs.class}/>;if(node.name==='option'){const p=attributesToProps(node.attribs);delete p.selected;return createElement('option',p,domToReact(node.children as DOMNode[],parserOptions))}if(['input','textarea','select'].includes(node.name)){const p=attributesToProps(node.attribs);if('value'in p){p.defaultValue=p.value;delete p.value}if('checked'in p){p.defaultChecked=p.checked;delete p.checked}if(node.name==='textarea')return createElement('textarea',{...p,defaultValue:node.children.map(c=>'data'in c?c.data:'').join('')});if(node.name==='input')return createElement('input',p);const selected=selectedOptionValues(node);const selectProps=(selected.length&&!('defaultValue'in p)?{...p,defaultValue:p.multiple?selected:selected[0]}:p) as unknown as SelectHTMLAttributes<HTMLSelectElement>;return createElement('select',selectProps,domToReact(node.children as DOMNode[],parserOptions))}}};
-export default function ClonePage({data,requestedRoute,children}:{data:Capture;requestedRoute:string;children?:ReactNode}){
+function DisplayModeToggle({mode}:{mode:'original'|'live'}){
+ const router=useRouter();const [busy,setBusy]=useState(false);
+ const next=mode==='original'?'live':'original';
+ const toggle=()=>{setBusy(true);document.cookie=`halox_display=${next}; path=/; max-age=31536000; samesite=lax`;router.refresh()};
+ return <button type="button" className="clone-mode-toggle" onClick={toggle} disabled={busy} title="표시 모드 전환" aria-label={`표시 모드를 ${next==='live'?'라이브 편집':'원본 1:1'} 모드로 전환`}>{mode==='original'?'라이브 편집 모드로':'원본 화면으로'}</button>;
+}
+export default function ClonePage({data,requestedRoute,children,displayMode='live'}:{data:Capture;requestedRoute:string;children?:ReactNode;displayMode?:'original'|'live'}){
  const {user,permission,activeWorkspace,loading:workspaceLoading,error:workspaceError,reload:reloadWorkspace}=useWorkspace();
  const section=routeSection(requestedRoute);
  const blocked=!!section&&(workspaceLoading||!!workspaceError||!canAccess(permission,section));
@@ -66,7 +72,7 @@ export default function ClonePage({data,requestedRoute,children}:{data:Capture;r
  },[router]);
  const notify=useCallback((message:string)=>{setToast(message);if(toastTimer.current)clearTimeout(toastTimer.current);toastTimer.current=setTimeout(()=>setToast(''),3500)},[]);
  const openDialog=useCallback(async(request:DialogRequest)=>{if(request.route.split('?')[0]==='/app/geo/prompts'&&request.title==='추가')request={...request,title:'프롬프트 추가'};try{if(/키워드 추가/.test(request.title)){const r=await fetch('/clone/keyword-dialog.json');request={...request,template:(await r.json()).html}}else{const r=await fetch('/clone/dialog-templates.json');if(r.ok){const templates=await r.json();const found=templates.find((t:{route:string;trigger:string;html:string;kind?:string})=>(t.route===request.route||t.route===request.route.split('?')[0])&&t.trigger===request.title&&t.kind!=='page');if(found)request={...request,template:found.html}}}}catch{}setDialog(request)},[]);
- useEffect(()=>{if(user&&rootRef.current)applySessionIdentity(rootRef.current,user)},[user,requestedRoute,data.html]);
+ useEffect(()=>{if(user&&rootRef.current&&displayMode==='live')applySessionIdentity(rootRef.current,user)},[user,requestedRoute,data.html,displayMode]);
  const navigation=useCloneNavigation({rootRef,route:requestedRoute,navigate,openDialog,notify,menus:data.publicInteractions?.menus});
  const content=useMemo(()=>parse(data.html,{replace(node,index){
   if(requestedRoute.startsWith('/app')&&node instanceof Element&&node.name==='button'&&node.attribs['aria-label']?.startsWith('AI 프롬프트 '))return <WorkspaceQuotaButton className={node.attribs.class}/>;
@@ -101,7 +107,7 @@ export default function ClonePage({data,requestedRoute,children}:{data:Capture;r
   const cleanupPublic=initializePublicControls(root);
   const cleanupPricing=initializePublicPricing(root);
   const cleanupLists=initializePublicLists(root,requestedRoute);
-  const cleanupUsage=initializeLiveUsage(root,requestedRoute,activeWorkspace.id);
+  const cleanupUsage=displayMode==='live'?initializeLiveUsage(root,requestedRoute,activeWorkspace.id):()=>{};
   const reveal=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('clone-revealed');reveal.unobserve(entry.target)}},{threshold:.05});root.querySelectorAll('[data-clone-reveal]').forEach(el=>reveal.observe(el));
   const click=(event:MouseEvent)=>{
    const target=event.target as HTMLElement;if(!target?.closest||target.closest('[data-live-root], [data-live-quota]'))return;
@@ -132,7 +138,7 @@ export default function ClonePage({data,requestedRoute,children}:{data:Capture;r
    if(text==='취소'){navigate('/app');return}
    // Captured Radix comboboxes have hidden native options. Restore a native local selector.
    if(button.getAttribute('role')==='combobox'){const select=button.parentElement?.querySelector('select');if(select){(select as HTMLElement).style.cssText='display:block;position:absolute;z-index:80;opacity:1;width:200px;height:36px;clip:auto;';select.focus();return}}
-   if(button.getAttribute('role')==='tab'){notify('이 보기의 수집된 상태를 표시하고 있습니다.');return}
+   if(button.getAttribute('role')==='tab'){const tabText=(button.textContent||'').trim();const base=(s:string)=>s.replace(/\s*\([^)]*\)\s*$/,'').trim();const tab=data.tabs?.find(t=>base(t.label)===base(tabText));if(tab){navigate(tab.route);return}notify('이 보기의 수집된 상태를 표시하고 있습니다.');return}
    if(text||label){openDialog({title:text||label,route:requestedRoute,description:'로컬 데모에서 내용을 확인하거나 입력할 수 있습니다.'})}
   };
   const input=(event:Event)=>{if(!(event.target as HTMLElement).closest('[data-live-root]'))handleDataInput(event,root)};
@@ -140,7 +146,7 @@ export default function ClonePage({data,requestedRoute,children}:{data:Capture;r
   const keydown=(event:KeyboardEvent)=>{if(event.key==='Escape'&&!children&&requestedRoute.startsWith('/app/settings'))navigate('/app')};
   root.addEventListener('click',click);root.addEventListener('input',input);root.addEventListener('submit',submit);document.addEventListener('keydown',keydown);
   return()=>{cleanup();cleanupPublic();cleanupPricing();cleanupLists();cleanupUsage();reveal.disconnect();root.removeEventListener('click',click);root.removeEventListener('input',input);root.removeEventListener('submit',submit);document.removeEventListener('keydown',keydown)};
- },[data,requestedRoute,navigate,notify,openDialog,navigation,children,activeWorkspace.id,blocked]);
+ },[data,requestedRoute,navigate,notify,openDialog,navigation,children,activeWorkspace.id,blocked,displayMode]);
  const onComplete=(result:DialogResult)=>{if(result.route.split('?')[0]==='/app/workspaces'&&result.record?.name){writeActiveWorkspace({id:result.record.id,name:result.record.name,plan:'Trial',domain:result.values?.domain||''});notify(`'${result.record.name}' 워크스페이스를 생성하고 전환했습니다.`)}else{notify('로컬 데모에 저장했습니다.')}window.dispatchEvent(new CustomEvent('halox:record-created',{detail:result}));void syncDialogActionToBackend(result,activeWorkspace.id);};
- return <><div ref={rootRef} className={'clone-surface '+(requestedRoute.startsWith('/app')?'clone-app':'clone-public')} data-route={requestedRoute}>{content}</div>{requestedRoute.startsWith('/app/login')&&<a className="account-restore-link" href="/app/restore-account">탈퇴한 계정 복원</a>}{navigation.overlay}<DemoDialog request={dialog} onClose={()=>setDialog(null)} onComplete={onComplete}/>{toast&&<div className="clone-toast" role="status">{toast}<button aria-label="알림 닫기" onClick={()=>setToast('')}>×</button></div>}</>;
+ return <><div ref={rootRef} className={'clone-surface '+(requestedRoute.startsWith('/app')?'clone-app':'clone-public')} data-route={requestedRoute}>{content}</div>{requestedRoute.startsWith('/app/login')&&<a className="account-restore-link" href="/app/restore-account">탈퇴한 계정 복원</a>}{/^\/app(\/|$)/.test(requestedRoute)&&!/\/app\/(login|signup|forgot-password|reset-password|restore-account|invite|workspaces|site-content)(\/|$|\?)/.test(requestedRoute)&&<DisplayModeToggle mode={displayMode}/>}{navigation.overlay}<DemoDialog request={dialog} onClose={()=>setDialog(null)} onComplete={onComplete}/>{toast&&<div className="clone-toast" role="status">{toast}<button aria-label="알림 닫기" onClick={()=>setToast('')}>×</button></div>}</>;
 }

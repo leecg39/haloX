@@ -135,9 +135,7 @@
 | U-5 | 온보딩·월간 리포트·discover·agent·상세 화면 UI 구조 | 낮음 | 해당 화면 스크레이프 (`docs/sources/extract-ui.mjs` 재사용) |
 | U-6 | `halox-mcp` 공개 API 도구 스키마 | 낮음 | API 키 발급 후 MCP `tools/list` (사용자 승인 필요) |
 
----
-
-## 2026-10-25 재검증 부록 (배포 드리프트 검증)
+## 2026-10-25 재검증 (배포 드리프트 검증)
 
 > 본 절은 10-22 스냅샷 이후 원본 사이트가 재배포되어, 기존 분석·스펙의 유효 범위를 확인한 후속 검증 기록이다. 클론 스펙(`docs/clone/`)은 10-22 스냅샷 기준임이 이 확인으로 명시되었다.
 
@@ -161,4 +159,46 @@
 ### 클론 영향
 
 - 4개 분석 화면(Geo 분석/인사이트, 모니터링, SEO 인사이트)의 데이터 계약이 원본에서 변경됨. 클론은 10-22 계약 기준으로 유효하며, 이후 원본 추적 시 `docs/clone/pages/{geo-analysis,geo-prompts,monitoring,seo-insights}.md`와 F25-3 목록을 대조할 것.
-- 나머지 122개 페이지 청크와 131 테이블·104 엣지 식별자는 드리프트 없음 → 아키텍처·데이터 모델 스펙 영향 없음.
+- 나머지 122개 페이지 청크와 131 테이블·104 엣지 식별자는 드리프트 없음 → 아키퍼런처·데이터 모델 스펙 영향 없음.
+
+---
+
+## P8: 원본 1:1 패리티 (2026-10-25 개시)
+
+목표: `https://haloxlabs.ai/app` ↔ `http://localhost:3000/app` 원본 1:1(픽셀·문구·브랜딩 그대로, 로컬 학습 범위) 패리티. REA v6.1.0 캡처·비교 도구 + Ego Lite 로그인 세션(읽기 전용 이동) 사용.
+
+### 준비 관찰 (관찰 — P8-0)
+
+- compare 명령 시그니처: `rea compare-web-screenshots <beforeJson> <afterJson> [--channel-threshold N]`, `rea compare-web-captures <beforeJson> <afterJson>`, `rea capture-browser-scenario <inputJson>` — v6.1.0 존재 확인.
+- `compare-web-screenshots`의 CLI 인자는 **인라인 JSON 문자열**만 받는다(`parseJson`이 경로를 읽지 않음; macOS 인자 크기 제한으로 대형 PNG 불가) → 비교 엔진을 `file://` import로 직접 호출하는 `scripts/verify-parity.mjs`로 해결. 이 경유 호출의 출력은 REA 비교 엔진의 정규 Evidence다(evidence_id 발급 확인).
+- 클론 서버: localhost:3000(사용자 실행) 및 검증용 localhost:3001. 시드 계정: `admin@halox.local`/`demo@halox.local`/`other@halox.local`, 비밀번호 `.env.local` `HALOX_DEMO_PASSWORD`.
+- 기준 뷰포트: 기존 E4-1 라우트 PNG 1920×939 → 신규 캡처 동일 치수. Ego Lite(9222) 로그인 세션 확인 완료.
+
+### P8 Evidence 목록
+
+| ID | 파일 | 출처 | 설명 |
+|---|---|---|---|
+| E8-1 | `docs/design-references/haloxlabs.ai/routes-20261025/` 56파일 | Ego 세션(SUP) | 원본 28라우트 1920×939 PNG+HTML 재캡처. 로그인은 무명 재캡처로 대체(최초 캡처는 로그인 리다이렉트로 오염). deployment `psr2.534e5cd0.1793497877` |
+| E8-2 | `docs/design-references/clone/routes-20261025/` | Playwright(클론 자체) | 클론 28라우트 동일 조건 캡처(`scripts/capture-parity.mjs`, 시드 데모 로그인) |
+| E8-3 | `docs/research/captures/` 27파일 갱신 | Ego 세션(SUP) | 원본 파이프라인 재캡처(round-04): `scripts/capture-page.mjs` — 차트 canvas→이미지 변환, 스타일 수집, 이메일 익명화(leecg2908→demo@halox.local). 텍스트 안정화 대기 후 `current` 모드 캡처 |
+| E8-4 | `docs/rea/evidence/p8-compare/` 28파일 | **REA** | `compare_web_screenshots`(channel_threshold=8) 라우트별 픽셀 비교 Evidence |
+| E8-5 | `docs/clone/parity-matrix.{md,json}` | DER | 라우트별 등급·픽셀 변화율·텍스트/DOM 파생 지표 + Evidence ID 연결 |
+
+### P8 핵심 결과 (관찰 — F8 시리즈)
+
+| # | 결론 | 표기 | 근거 |
+|---|---|---|---|
+| F8-1 | 원본 재배포 간 토큰 세트 불변: `:root` 디자인 토큰 65종 이름 완전 일치(10/22 vs 10/25 CSS), `verify:visual` 토큰 검증도 통과 | 관찰 | 10/25 번들 CSS × `p4-css-tokens.json` |
+| F8-2 | **표시 모드 시스템 도입**: 앱 라우트 기본 = 캡처한 원본 화면 1:1 렌더링(original), `halox_display` 쿠키 또는 `HALOX_DEFAULT_DISPLAY_MODE=live`(E2E webServer)로 라이브 CRUD 화면 전환. 인증·운영 화면(로그인/가입/복구/초대/워크스페이스/CMS)은 항상 라이브 | 관찰(구현) | `src/app/[[...slug]]/page.tsx`, `src/components/ClonePage.tsx` |
+| F8-3 | 원본 파이프라인 전체 재실행으로 캡처 스토어 10/25 갱신: 차트 143개 이미지 변환, 자산 300종 로컬화(외부 핫링크 0 — `verify:routes` remoteResources 0), settings 모달·geo-analysis 탭 등 27라우트 신규 콘텐츠 | 관찰 | `download-assets.mjs`+`prepare-content.mjs` 재실행, `verify:routes` |
+| F8-4 | **패리티 수렴: 일치 4 / 사소 24 / 주요 0 / 중간 0** (28라우트). 최초 측정 대비: settings 65.9%→0.5%, strategy-map 27.0%→1.6%, login 58.3%(무효쌍)→0.2%, 데이터 화면 12-16%→4-5% | 관찰 | E8-4 × E8-5, `rea compare_web_screenshots` |
+| F8-5 | 캡처된 탭 버튼은 `data-clone-route`(파이프라인)·`tabs` 배열(신규 폴백)로 원본 탭 라우트 이동 지원 | 관찰(구현) | `prepare-content.mjs`, `ClonePage.tsx` |
+| F8-6 | original 모드에서는 라이브 데이터 주입을 하지 않는다: `applySessionIdentity`·`initializeLiveUsage` 생략(원본 화면 훼손 방지) | 관찰(구현) | `ClonePage.tsx` |
+
+### P8 한계 (기록)
+
+- **차트 스케일링**: 파이프라인 차트 이미지는 캡처 뷰포트 1440×1000 기준 → 1920×939 화면에서 확대 렌더링되어 데이터 화면 픽셀 차이 3-5%의 주요 원인. 라이브 ECharts와 100% 동일 렌더가 아니라 캡처 시점 이미지다.
+- **원본 라이브 데이터 미세 변동**: 비교 기준 PNG(E8-1, ~10:47)과 캡처 파이프라인 콘텐츠(E8-3, ~11:16-11:28) 사이에 원본 워크스페이스 데이터가 이동할 수 있다. 클론은 E8-3 시점에 고정된다.
+- **텍스트 유사도 측정**: 원본 HTML의 주석·`<head>`·`<noscript>` SEO 폴백 텍스트가 노이즈로 유입되어 초기 측정이 과소평가됐다. `verify-parity.mjs`는 이들 제거 후 가시 텍스트 토큰 기준으로 수정했다.
+- **쿠키 기반 모드보다 환경변수 우선 설계 변경**: E2E 스펙이 다수의 신규 컨텍스트를 만들므로, 쿠키 기본값이면 테스트가 캡처 모드로 오포될 위험 → `HALOX_DEFAULT_DISPLAY_MODE` 환경변수를 E2E webServer에 `live`로 설정해 해결(스펙 무변경).
+- 로그인 화면의 클론 부가 요소(계정 복원 링크, 모드 토글)는 기능 유지를 위해 유지 — 원본 대비 의도적 편차.

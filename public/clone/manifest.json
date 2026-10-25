@@ -21,7 +21,7 @@
     "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
     "sourceUrl": "https://haloxlabs.ai/app",
     "status": "captured",
-    "textLength": 1163
+    "textLength": 1116
   },
   {
     "route": "/app?cloneTab=0",
@@ -77,7 +77,7 @@
     "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
     "sourceUrl": "https://haloxlabs.ai/app/factory",
     "status": "captured",
-    "textLength": 367
+    "textLength": 482
   },
   {
     "route": "/app/feedback",
@@ -101,7 +101,7 @@
     "title": "기회 분석",
     "sourceUrl": "https://haloxlabs.ai/app/gap",
     "status": "captured",
-    "textLength": 953
+    "textLength": 1021
   },
   {
     "route": "/app/gap?cloneTab=0",
@@ -165,7 +165,7 @@
     "title": "AI 대화 분석 - HaloX",
     "sourceUrl": "https://haloxlabs.ai/app/geo",
     "status": "captured",
-    "textLength": 491
+    "textLength": 493
   },
   {
     "route": "/app/geo/analysis",
@@ -173,7 +173,7 @@
     "title": "프롬프트 분석",
     "sourceUrl": "https://haloxlabs.ai/app/geo/analysis",
     "status": "captured",
-    "textLength": 1631
+    "textLength": 1731
   },
   {
     "route": "/app/geo/analysis?tab=competitors",
@@ -181,7 +181,7 @@
     "title": "프롬프트 분석",
     "sourceUrl": "https://haloxlabs.ai/app/geo/analysis?tab=competitors",
     "status": "captured",
-    "textLength": 2583
+    "textLength": 2725
   },
   {
     "route": "/app/geo/analysis?tab=fan-out",
@@ -189,7 +189,7 @@
     "title": "프롬프트 분석",
     "sourceUrl": "https://haloxlabs.ai/app/geo/analysis?tab=fan-out",
     "status": "captured",
-    "textLength": 5984
+    "textLength": 9866
   },
   {
     "route": "/app/geo/analysis?tab=matrix",
@@ -197,7 +197,7 @@
     "title": "프롬프트 분석",
     "sourceUrl": "https://haloxlabs.ai/app/geo/analysis?tab=matrix",
     "status": "captured",
-    "textLength": 2841
+    "textLength": 2908
   },
   {
     "route": "/app/geo/analysis?tab=mentions",
@@ -205,7 +205,7 @@
     "title": "프롬프트 분석",
     "sourceUrl": "https://haloxlabs.ai/app/geo/analysis?tab=mentions",
     "status": "captured",
-    "textLength": 1618
+    "textLength": 1804
   },
   {
     "route": "/app/geo/analysis?tab=platforms",
@@ -213,7 +213,7 @@
     "title": "프롬프트 분석",
     "sourceUrl": "https://haloxlabs.ai/app/geo/analysis?tab=platforms",
     "status": "captured",
-    "textLength": 4634
+    "textLength": 4827
   },
   {
     "route": "/app/geo/analysis?tab=products",
@@ -221,7 +221,7 @@
     "title": "프롬프트 분석",
     "sourceUrl": "https://haloxlabs.ai/app/geo/analysis?tab=products",
     "status": "captured",
-    "textLength": 434
+    "textLength": 520
   },
   {
     "route": "/app/geo/analysis?tab=prompts",
@@ -229,7 +229,7 @@
     "title": "프롬프트 분석",
     "sourceUrl": "https://haloxlabs.ai/app/geo/analysis?tab=prompts",
     "status": "captured",
-    "textLength": 2609
+    "textLength": 2709
   },
   {
     "route": "/app/geo/analysis?tab=sources",
@@ -237,7 +237,7 @@
     "title": "프롬프트 분석",
     "sourceUrl": "https://haloxlabs.ai/app/geo/analysis?tab=sources",
     "status": "captured",
-    "textLength": 3000
+    "textLength": 2832
   },
   {
     "route": "/app/geo/prompts",
@@ -245,7 +245,7 @@
     "title": "프롬프트 현황 - GEO",
     "sourceUrl": "https://haloxlabs.ai/app/geo/prompts",
     "status": "captured",
-    "textLength": 1631
+    "textLength": 1648
   },
   {
     "route": "/app/geo/prompts?view=sets",
@@ -269,7 +269,7 @@
     "title": "키워드 현황 | HaloX",
     "sourceUrl": "https://haloxlabs.ai/app/keywords",
     "status": "captured",
-    "textLength": 1503
+    "textLength": 2453
   },
   {
     "route": "/app/keywords?view=ideas",
@@ -365,15 +365,15 @@
     "title": "HaloX | 헤일로X - AI 대화 최적화 플랫폼",
     "sourceUrl": "https://haloxlabs.ai/app/knowledgehub",
     "status": "captured",
-    "textLength": 569
+    "textLength": 636
   },
   {
     "route": "/app/login",
     "file": "b6fde9403402d778.json",
-    "title": "Log in | HaloX",
+    "title": "로그인 | HaloX",
     "sourceUrl": "https://haloxlabs.ai/app/login",
     "status": "captured",
-    "textLength": 308
+    "textLength": 9624
   },
   {
     "route": "/app/monitoring",
@@ -437,7 +437,7 @@
     "title": "키워드 분석",
     "sourceUrl": "https://haloxlabs.ai/app/seo/insights",
     "status": "captured",
-    "textLength": 1295
+    "textLength": 1554
   },
   {
     "route": "/app/seo/insights?tab=aio",
@@ -645,7 +645,7 @@
     "title": "Strategy Map | HaloX",
     "sourceUrl": "https://haloxlabs.ai/app/strategy-map",
     "status": "captured",
-    "textLength": 793
+    "textLength": 1018
   },
   {
     "route": "/app/strategy-map?cloneTab=0",

@@ -38,8 +38,23 @@ import { SiteContentPage } from '@/components/live/SiteContentPage';
 import { PublicManagedContent } from '@/components/PublicManagedContent';
 import { haloxStore } from '@/lib/backend/store';
 import { readPublicSiteContent } from '@/lib/backend/site-content-service';
+import { cookies } from 'next/headers';
 export const dynamic = 'force-dynamic';
 type Props = { params: Promise<{ slug?: string[] }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
+
+// 표시 모드: 'original' = 캡처한 원본 화면을 그대로 렌더링(1:1 표시), 'live' = 라이브 CRUD 화면.
+// 우선순위: halox_display 쿠키 > HALOX_DEFAULT_DISPLAY_MODE 환경변수(기본 original).
+const ALWAYS_LIVE = new Set([
+  '/app/login', '/app/signup', '/app/forgot-password', '/app/reset-password',
+  '/app/restore-account', '/app/invite', '/app/workspaces', '/app/site-content',
+]);
+export async function resolveDisplayMode(pathname: string): Promise<'original' | 'live'> {
+  if (ALWAYS_LIVE.has(pathname)) return 'live';
+  const jar = await cookies();
+  const cookie = jar.get('halox_display')?.value;
+  if (cookie === 'live' || cookie === 'original') return cookie;
+  return process.env.HALOX_DEFAULT_DISPLAY_MODE === 'live' ? 'live' : 'original';
+}
 async function resolveRoute(props: Props) {
   const { slug = [] } = await props.params;
   const query = await props.searchParams, q = new URLSearchParams();
@@ -71,6 +86,13 @@ export default async function Page(props: Props) {
     const shell = managed.content && !managed.captured_fallback ? await getCapture(`/${String(managed.content.locale)}/about`) : null;
     const data = captured || shell; if (!data) notFound();
     return <ClonePage key={route} data={data} requestedRoute={route}>{managed.content && !managed.captured_fallback ? <PublicManagedContent content={managed.content} /> : undefined}</ClonePage>;
+  }
+  // 표시 모드: original이면 캡처된 원본 화면을 그대로 렌더링하고 라이브 CRUD는 생략한다.
+  // 캡처가 없는 상세 경로는 라이브 렌더링으로 되돌아간다(내부 링크 유지).
+  const requestedMode = await resolveDisplayMode(pathname);
+  if (requestedMode === 'original') {
+    const originalData = await getCapture(route);
+    if (originalData) return <ClonePage key={route} data={originalData} requestedRoute={route} displayMode="original" />;
   }
   let shellRoute: string | undefined;
   let children;
@@ -120,5 +142,5 @@ export default async function Page(props: Props) {
   if (/^\/app\/reports(?:\/[^/]+)?$/.test(pathname)) { shellRoute = '/app/reports/weekly'; children = <ReportsPage reportId={pathname.split('/')[3] === 'weekly' ? undefined : pathname.split('/')[3]} />; }
   const data = await getCapture(shellRoute || route);
   if (!data) notFound();
-  return <ClonePage key={route} data={data} requestedRoute={route}>{children}</ClonePage>;
+  return <ClonePage key={route} data={data} requestedRoute={route} displayMode="live">{children}</ClonePage>;
 }

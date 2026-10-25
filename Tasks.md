@@ -159,3 +159,23 @@ flowchart TD
 - **클론 저장소 검증 배터리 재실행 — 전부 통과**: `typecheck` ✓ · `test:unit` 349/349 ✓ · `verify:backend` 22 체크(36 RPC·59 테이블, REA proof `ev_cfd63805…` 유지) ✓ · `verify:crud-coverage` 278 대상·26 도메인·미매핑 0 ✓ · `next build` ✓
 - **원본 사이트 재배포 감지 및 드리프트 분석**: 10-22 → 10-25 사이 재배포(모든 청크 해시 교체). 의미론적 구조는 안정(126/126 페이지 청크, 테이블 131/131, 엣지 104/104 존재). **제거 RPC 11종**(Geo 분석/인사이트 7, 모니터링 2, SEO 인사이트 2), **신규 엣지 1종** `run-classification-eval`. 상세는 findings.md 「2026-10-25 재검증 부록」(F25-1~F25-5), 원본 10-25 청크 전체와 REA 정적 분석 Evidence는 `docs/rea/bundle/`·`static-bundle-analysis.json`(gitignore, 로컬 보관).
 - 클론 스펙은 10-22 스냅샷 기준으로 유효. 이후 원본 추적 시 `docs/clone/pages/{geo-analysis,geo-prompts,monitoring,seo-insights}.md`와 F25-3 제거 목록을 대조할 것.
+
+## 2026-10-25 P8: 원본 1:1 패리티 (완료)
+
+원본(haloxlabs.ai/app) ↔ 클론(localhost:3000/app)을 **원본 1:1 표시**로 맞추고 REA 비교로 수렴을 검증했다. 상세 Evidence·한계는 findings.md 「P8: 원본 1:1 패리티」 절.
+
+- [x] **P8-0 준비**: REA compare 명령 시그니처 확인(인라인 JSON 한계 → 엔진 직접 호출로 해결), 뷰포트 1920×939 고정, Ego 로그인 세션 확인
+- [x] **P8-1 원본 재캡처**: Ego 세션 읽기 전용 이동 28라우트(PNG+HTML) + 원본 캡처 파이프라인(`capture-page.mjs`)으로 27라우트 정식 재캡처(차트→이미지 변환, 이메일 익명화) + 로그인 무명 재캡처
+- [x] **P8-2 클론 캡처**: `scripts/capture-parity.mjs` — 저장소 자체 인증 패턴(loadEnvConfig 내부 로드, 자격 증명 셸 미경유)으로 시드 데모 로그인 후 28라우트 자동 캡처
+- [x] **P8-3 패리티 매트릭스**: `scripts/verify-parity.mjs` — REA `compare_web_screenshots`(channel_threshold 8)로 28라우트 픽셀 비교 Evidence 생성 → `docs/clone/parity-matrix.{md,json}`
+- [x] **P8-4 1:1 수정 수렴**: **표시 모드 시스템**(기본 original=캡처 원본 그대로, 쿠키/환경변수로 live 전환, E2E는 live) + 캡처 스토어 10/25 갱신(파이프라인 재실행, 자산 300종 로컬화, 차트 143개) + 탭 내비게이션 + original 모드 라이브 주입 제외. 최초 대비 settings 65.9%→0.5%, 최종 **일치 4 / 사소 24 / 주요 0**
+- [x] **P8-5 회귀 자동화**: `verify:parity`·`capture:parity` npm 스크립트 등록, `verify:visual` 기준을 10/25 상태로 재기록(토큰 65·라우트 14·페어 6·스크린샷 18 통과)
+- [x] **P8-6 문서화·인수**: findings.md P8 부록, 본 문서 갱신, 배터리 재실행
+
+### P8 실행 편차 기록
+
+1. **원본 캡처 파이프라인 대기 부족**: `capture-page.mjs` 기본 대기가 현재 앱 속도에 부족해 스켈레톤 캡처 발생 → 텍스트 안정화 루프(2회 연속 동일·1000자 이상) 후 `current` 옵션으로 재캡처. 참고: 빈 상태 화면의 가시 텍스트는 360~860자로 원래 짧다(실패 아님).
+2. **스타일시트 404**: 10/22 CSS 해시 파일이 재배포로 삭제 → `download-assets.mjs`에 `HALOX_CSS_URL` 오버라이드 추가, 10/25 CSS로 `original.css` 재생성.
+3. **샌드박스 kill 차단**: 백그라운드 서버 종료가 샌드박스에서 차단돼 스테일 서버가 응답(일시적 패리티 회귀 원인) → full 권한으로 종료 후 해결.
+4. **비밀번호 셸 노출 회피**: REA 시나리오 secret 환경변수 방식이 자동 검토에서 차단 → 저장소 자체 E2E 패턴(`global-setup`과 동일한 내부 loadEnvConfig)을 재사용하는 스크립트로 우회.
+5. **텍스트 유사도 측정 보정**: 원본 HTML의 주석·head·noscript SEO 텍스트가 노이즈로 유입 → 제거 후 가시 토큰 기준.

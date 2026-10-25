@@ -4,18 +4,20 @@ import crypto from 'node:crypto';
 const root=process.cwd();const out=path.join(root,'public/clone/assets');await fs.mkdir(out,{recursive:true});
 const initialPath=(await fs.readdir('docs/research/haloxlabs.ai')).find(name=>name==='initial.json')||'home-initial.json';
 const initial=JSON.parse(await fs.readFile(path.join('docs/research/haloxlabs.ai',initialPath),'utf8'));
-const stylesheet=initial.styles?.find(s=>s.href?.includes('haloxlabs.ai'))?.href;
+// HALOX_CSS_URL로 현재 배포의 스타일시트를 지정할 수 있다(재배포로 과거 해시 파일이 404가 되는 경우).
+const stylesheet=process.env.HALOX_CSS_URL||initial.styles?.find(s=>s.href?.includes('haloxlabs.ai'))?.href;
 if(!stylesheet)throw new Error(`HaloX stylesheet URL not found in ${initialPath}`);
+const cssBase=stylesheet;
 const mainResponse=await fetch(stylesheet,{signal:AbortSignal.timeout(30000)});if(!mainResponse.ok)throw new Error(`HaloX stylesheet request failed: ${mainResponse.status}`);const mainCss=await mainResponse.text();
 const googleResponse=await fetch('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300..600&display=swap',{headers:{'User-Agent':'Mozilla/5.0'},signal:AbortSignal.timeout(30000)});if(!googleResponse.ok)throw new Error(`Google Fonts stylesheet request failed: ${googleResponse.status}`);const googleCss=await googleResponse.text();
 let css=mainCss+'\n'+googleCss;const urls=new Set(['https://haloxlabs.ai/favicon.png?v=2','https://haloxlabs.ai/apple-touch-icon.png']);
-for(const s of css.matchAll(/url\(["']?([^"')]+)["']?\)/g))if(!/^(data:|#|%23)/i.test(s[1]))urls.add(new URL(s[1],'https://haloxlabs.ai/assets/index-BjzOpcfp.css').href);
+for(const s of css.matchAll(/url\(["']?([^"')]+)["']?\)/g))if(!/^(data:|#|%23)/i.test(s[1]))urls.add(new URL(s[1],cssBase).href);
 try{for(const f of await fs.readdir('docs/research/captures')){const d=JSON.parse(await fs.readFile('docs/research/captures/'+f,'utf8'));for(const a of d.assets)urls.add(a)}}catch{}
 let manifest={};try{manifest=JSON.parse(await fs.readFile('docs/research/assets.json','utf8'))}catch{}
 const errors=[];const queue=[...urls].filter(u=>!manifest[u]);
 async function worker(){while(queue.length){const url=queue.shift();try{const u=new URL(url);const name=path.basename(u.pathname)||'asset';const hash=crypto.createHash('sha256').update(url).digest('hex').slice(0,12);const dest=hash+'-'+name;const res=await fetch(url,{signal:AbortSignal.timeout(30000)});if(!res.ok)throw Error(String(res.status));await fs.writeFile(path.join(out,dest),Buffer.from(await res.arrayBuffer()));manifest[url]='/clone/assets/'+dest;console.log('asset',dest)}catch(e){errors.push({url,error:String(e)})}}}
 await Promise.all(Array.from({length:4},worker));
-css=css.replace(/url\(["']?([^"')]+)["']?\)/g,(match,url)=>{if(/^(data:|#|%23)/i.test(url))return match;const absolute=new URL(url,'https://haloxlabs.ai/assets/index-BjzOpcfp.css').href;return manifest[absolute]?`url("${manifest[absolute]}")`:match});
+css=css.replace(/url\(["']?([^"')]+)["']?\)/g,(match,url)=>{if(/^(data:|#|%23)/i.test(url))return match;const absolute=new URL(url,cssBase).href;return manifest[absolute]?`url("${manifest[absolute]}")`:match});
 await fs.writeFile('public/clone/original.css',css);await fs.writeFile('docs/research/assets.json',JSON.stringify(manifest,null,2));await fs.writeFile('docs/research/asset-errors.json',JSON.stringify(errors,null,2));
 const icon=manifest['https://haloxlabs.ai/favicon.png?v=2'];if(icon)await fs.copyFile('public'+icon,'public/clone/assets/favicon.png');
 console.log(JSON.stringify({total:Object.keys(manifest).length,errors:errors.length,css:css.length}));

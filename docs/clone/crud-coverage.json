@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "manifest_sha256": "49f711922165781992806ac0cc8499e39a951b832c594efae0db7442d8e705fc",
+  "manifest_sha256": "9ec3ae55b6a66043a891cda783def6674ab0ba69d8cfa927b8951d208d80edd4",
   "summary": {
     "manifest_routes": 363,
     "included_routes": 278,

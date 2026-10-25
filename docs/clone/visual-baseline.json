@@ -133,19 +133,19 @@
   "routeSignatures": {
     "/app": {
       "tableCount": 1,
-      "buttonCount": 39,
+      "buttonCount": 36,
       "inputCount": 0,
       "headingCount": 1
     },
     "/app/keywords": {
       "tableCount": 1,
-      "buttonCount": 82,
+      "buttonCount": 122,
       "inputCount": 1,
       "headingCount": 1
     },
     "/app/seo/insights": {
-      "tableCount": 1,
-      "buttonCount": 40,
+      "tableCount": 2,
+      "buttonCount": 41,
       "inputCount": 0,
       "headingCount": 5
     },
@@ -157,7 +157,7 @@
     },
     "/app/geo/analysis": {
       "tableCount": 2,
-      "buttonCount": 44,
+      "buttonCount": 47,
       "inputCount": 0,
       "headingCount": 3
     },
@@ -171,7 +171,7 @@
       "tableCount": 0,
       "buttonCount": 43,
       "inputCount": 1,
-      "headingCount": 1
+      "headingCount": 2
     },
     "/app/site-audit": {
       "tableCount": 1,
@@ -180,9 +180,9 @@
       "headingCount": 6
     },
     "/app/factory": {
-      "tableCount": 0,
-      "buttonCount": 15,
-      "inputCount": 0,
+      "tableCount": 2,
+      "buttonCount": 20,
+      "inputCount": 1,
       "headingCount": 1
     },
     "/app/settings": {
