@@ -3,6 +3,7 @@ import { chmodSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 import { HaloXDatabase, type DatabaseState } from './database.ts';
+import { createRuntimeProviders } from './runtime-providers.ts';
 
 export class StorageUnavailableError extends Error {
   readonly code = 'STORAGE_UNAVAILABLE';
@@ -156,4 +157,5 @@ export class PersistentHaloXStore {
 // Construction does not open/create files during a Next.js build.
 export const haloxStore = new PersistentHaloXStore(
   process.env.HALOX_DATABASE_PATH || path.join(process.cwd(), 'data', 'halox.sqlite'),
+  () => new HaloXDatabase(createRuntimeProviders()),
 );

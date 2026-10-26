@@ -1,5 +1,7 @@
 'use client';
 
+import { ProviderNotice } from './ProviderNotice';
+import { GeoAnswer } from './GeoAnswer';
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -83,7 +85,7 @@ function PromptWorkspace({ workspaceId, workspaceName, promptId, overview }: { w
     setBusy(true); setMessage('');
     try {
       const result = await work(); await reload();
-      if (result && typeof result === 'object' && 'ok' in result && result.ok === false) throw new Error('일부 엔진 실행에 실패했습니다. 실행 이력에서 확인하고 다시 실행해 주세요.');
+      if (result && typeof result === 'object' && 'ok' in result && result.ok === false) throw new Error(String((result as { error?: string }).error || '일부 엔진 실행에 실패했습니다. 실행 이력을 확인해 주세요.'));
       setMessage(success);
     } finally { setBusy(false); }
   }
@@ -116,8 +118,8 @@ function PromptWorkspace({ workspaceId, workspaceName, promptId, overview }: { w
     return items.length ? <div className="live-history">{items.map(item => <details className="live-card" key={item.id}>
       <summary>{engineName(item.engine)} · {date(item.requested_at)} · {item.status === 'completed' ? '완료' : item.status === 'failed' ? '실패' : '실행 중'}{item.scheduled_for ? ' · 예약 실행' : ''}</summary>
       <p className="muted">질문: {str(item.prompt_text || data.geo_prompts.find(row => row.id === item.prompt_id)?.prompt_text)}</p>
-      <p className="muted">{str(item.provider || 'deterministic')} · {str(item.model_name)} · 한국시간</p>
-      {item.status === 'failed' ? <p className="live-error">{str(item.error_message)}</p> : <pre className="live-answer">{str(data.geo_answers_raw.find(answer => answer.run_id === item.id)?.answer_text || item.answer_text)}</pre>}
+      <p className="muted">{str(item.provider || '출처 미기록')} · {str(item.model_name)} · 한국시간</p>
+      {item.status === 'failed' ? <p className="live-error">{str(item.error_message)}</p> : <GeoAnswer text={str(data.geo_answers_raw.find(answer => answer.run_id === item.id)?.answer_text || item.answer_text)} annotations={item.answer_annotations} />}
       <ul>{data.geo_citations.filter(citation => citation.run_id === item.id).map(citation => <li key={citation.id}><a href={safeUrl(citation.cited_url)} target="_blank" rel="noopener noreferrer">{str(citation.cited_url)}</a> <span className="live-badge">{citation.is_ours ? '자사' : citation.is_competitor ? '경쟁사' : '기타'}</span></li>)}</ul>
       <div className="live-toolbar">{actions('geo_prompt_runs', item)}{detail && <button disabled={busy} onClick={() => execute(detail, str(item.engine))}>이 엔진 다시 실행</button>}{!detail && <Link href={`/app/geo/prompts/${item.prompt_id}`}>프롬프트 상세 →</Link>}</div>
     </details>)}</div> : <EmptyState>실행 이력이 없습니다.</EmptyState>;
@@ -125,7 +127,8 @@ function PromptWorkspace({ workspaceId, workspaceName, promptId, overview }: { w
 
   return <div className="live" aria-busy={busy || loading}>
     <div className="live-head"><div>{promptId && <Link className="muted" href="/app/geo/prompts">← 프롬프트 현황</Link>}<h1>{overview ? 'AI 대화 개요' : promptId ? '프롬프트 상세' : '프롬프트 현황'}</h1><p>{workspaceName} · AI 답변과 인용 근거를 관리합니다.</p></div><div className="live-actions"><button disabled={busy || loading} onClick={() => void reload()}>새로고침</button>{overview ? <Link href="/app/geo/prompts">프롬프트 관리 →</Link> : !promptId && <><button disabled={!loaded} onClick={() => downloadCsv('halox-prompts.csv', [['프롬프트', '세트', '국가', '언어', ...Object.values(GEO_ENGINES)], ...filtered.map(row => [row.prompt_text, setName(row.prompt_set_id), row.location_code, row.language_code, ...Object.keys(GEO_ENGINES).map(engine => engineStatus(row, engine))])])}>CSV 내보내기</button><button className="primary" disabled={busy || loading} onClick={() => setEdit({ table: 'geo_prompts' })}>프롬프트 추가</button></>}</div></div>
-    <p className="muted">앱 실행기는 데모 Provider로 모의 답변과 인용을 생성합니다. 가져온 자료는 이력의 출처로 구분합니다. 예약은 서버 실행 중에 처리하며 시간은 한국시간 기준입니다.</p>
+    <ProviderNotice service="openai" />
+    <p className="muted">OpenAI 웹 검색 응답과 실제 인용 URL을 수집합니다. 다른 엔진은 실수집 연동 전까지 실행할 수 없습니다. 이전 데모 자료는 출처로 구분합니다. 예약은 서버 실행 중 한국시간 기준으로 처리됩니다.</p>
     {error && <ErrorState message={error} retry={reload} />}{message && <p className="live-status" role="status">{message}</p>}{loading && <p role="status">데이터를 불러오는 중…</p>}
     {loaded && (promptId ? detail ? <>
       <section className="live-card live-prompt-heading"><h2>{str(detail.prompt_text)}</h2><p className="muted">{setName(detail.prompt_set_id)} · {str(detail.location_code)} / {str(detail.language_code)} · {GEO_CATEGORIES[str(detail.prompt_category) as keyof typeof GEO_CATEGORIES]}</p><div>{tags(detail).map(tag => <span className="live-badge" key={tag.id} style={{ borderLeft: `3px solid ${tag.color}` }}>{str(tag.name)}</span>)}</div><div className="live-toolbar">{actions('geo_prompts', detail)}<button disabled={busy} onClick={() => pause(detail)}>{detail.is_paused ? '예약 추적 재개' : '예약 추적 일시정지'}</button><button disabled={busy} onClick={() => execute(detail)}>선택 엔진 실행</button></div></section>

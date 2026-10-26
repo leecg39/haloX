@@ -43,17 +43,17 @@ export const dynamic = 'force-dynamic';
 type Props = { params: Promise<{ slug?: string[] }>; searchParams: Promise<Record<string, string | string[] | undefined>> };
 
 // 표시 모드: 'original' = 캡처한 원본 화면을 그대로 렌더링(1:1 표시), 'live' = 라이브 CRUD 화면.
-// 우선순위: halox_display 쿠키 > HALOX_DEFAULT_DISPLAY_MODE 환경변수(기본 original).
+// 일반 사용은 항상 실제 기능 화면. 캡처 비교는 명시적으로 활성화한 개발 환경에서만 허용.
 const ALWAYS_LIVE = new Set([
   '/app/login', '/app/signup', '/app/forgot-password', '/app/reset-password',
   '/app/restore-account', '/app/invite', '/app/workspaces', '/app/site-content',
 ]);
 export async function resolveDisplayMode(pathname: string): Promise<'original' | 'live'> {
-  if (ALWAYS_LIVE.has(pathname)) return 'live';
+  if (process.env.HALOX_ENABLE_CAPTURE_PREVIEW !== '1' || ALWAYS_LIVE.has(pathname)) return 'live';
   const jar = await cookies();
   const cookie = jar.get('halox_display')?.value;
   if (cookie === 'live' || cookie === 'original') return cookie;
-  return process.env.HALOX_DEFAULT_DISPLAY_MODE === 'live' ? 'live' : 'original';
+  return process.env.HALOX_DEFAULT_DISPLAY_MODE === 'original' ? 'original' : 'live';
 }
 async function resolveRoute(props: Props) {
   const { slug = [] } = await props.params;
@@ -92,7 +92,7 @@ export default async function Page(props: Props) {
   const requestedMode = await resolveDisplayMode(pathname);
   if (requestedMode === 'original') {
     const originalData = await getCapture(route);
-    if (originalData) return <ClonePage key={route} data={originalData} requestedRoute={route} displayMode="original" />;
+    if (originalData) return <ClonePage key={route} data={originalData} requestedRoute={route} displayMode="original" showDisplayModeToggle />;
   }
   let shellRoute: string | undefined;
   let children;
@@ -142,5 +142,5 @@ export default async function Page(props: Props) {
   if (/^\/app\/reports(?:\/[^/]+)?$/.test(pathname)) { shellRoute = '/app/reports/weekly'; children = <ReportsPage reportId={pathname.split('/')[3] === 'weekly' ? undefined : pathname.split('/')[3]} />; }
   const data = await getCapture(shellRoute || route);
   if (!data) notFound();
-  return <ClonePage key={route} data={data} requestedRoute={route} displayMode="live">{children}</ClonePage>;
+  return <ClonePage key={route} data={data} requestedRoute={route} displayMode="live" showDisplayModeToggle={process.env.HALOX_ENABLE_CAPTURE_PREVIEW === '1'}>{children}</ClonePage>;
 }

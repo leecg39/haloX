@@ -30,6 +30,7 @@ export function saveContentVersion(db: HaloXDatabase, job: Row, input: Row, acto
     restored_from_version: origin === 'restored' ? sourceDraft?.version : null,
     generation_context: Object.hasOwn(input, 'generation_context') ? input.generation_context : sourceDraft && Object.hasOwn(sourceDraft, 'generation_context') ? sourceDraft.generation_context : job.generation_context ?? null,
     grounding_sources: input.grounding_sources ?? sourceDraft?.grounding_sources ?? [],
+    provider_receipt: origin === 'generated' ? input.provider_receipt ?? null : origin === 'restored' ? sourceDraft?.provider_receipt ?? null : null,
     word_count: wordCount, character_count: body.content_md.length, is_selected: false,
     // Edited text has not been evaluated by a provider; do not copy stale scores.
     seo_score: origin === 'generated' ? input.seo_score : null, aio_score: origin === 'generated' ? input.aio_score : null,

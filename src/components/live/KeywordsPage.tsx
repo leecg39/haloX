@@ -1,5 +1,6 @@
 'use client';
 
+import { ProviderNotice } from './ProviderNotice';
 import Link from 'next/link';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -113,7 +114,8 @@ function KeywordWorkspace({ workspaceId, workspaceName, workspaceDomain, keyword
 
   return <div className="live" aria-busy={loading || busy}>
     <div className="live-head"><div>{keywordId && <Link href="/app/keywords" className="muted">← 키워드 현황</Link>}<h1>{keywordId ? str(detail?.keyword || '키워드 상세') : '키워드 현황'}</h1><p>{workspaceName} · 검색 성과와 키워드 자산을 관리합니다.</p></div><div className="live-actions"><button disabled={loading || busy} onClick={() => void reload()}>새로고침</button>{!keywordId && <><button onClick={() => downloadCsv('halox-keywords.csv', [['키워드', '세트', '국가', '언어', '검색량', '순위', '상태'], ...filtered.map(row => [row.keyword, label('keyword_sets', row.keyword_set_id), row.country, row.language, row.search_volume, rank(row), row.is_paused ? '일시정지' : '추적 중'])])}>CSV 내보내기</button><button className="primary" disabled={loading || busy} onClick={() => setEdit({ table: 'keywords' })}>키워드 추가</button></>}</div></div>
-    <p className="muted">앱 수집기는 데모 Provider로 모의 검색 자료를 생성합니다. 가져온 측정 자료는 이력의 출처로 구분합니다. AI 인용 여부는 수집 근거가 있는 경우에만 표시합니다.</p>
+    <ProviderNotice service="dataforseo" />
+    <p className="muted">Google 검색 결과를 DataForSEO에서 수집합니다. 검색량·난이도는 별도 측정 자료가 있을 때 표시합니다. 이전 데모 자료와 실제 수집은 이력의 출처로 구분합니다.</p>
     {error && <ErrorState message={error} retry={reload} />}
     {message && <p className="live-status" role="status">{message}</p>}
     {loading && <p role="status">데이터를 불러오는 중…</p>}

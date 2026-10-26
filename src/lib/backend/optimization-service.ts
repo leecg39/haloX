@@ -70,7 +70,7 @@ export async function runOptimizationCommand(db: HaloXDatabase, providers: HaloX
       workspace_id: workspaceId, title: payload.review_title ? contentText(payload.review_title, '진단 이름', 200, true) : draft.title,
       notes: '', url: job.source_url || '', target_keyword: job.target_keyword,
       content_job_id: job.id, base_draft_id: draft.id, base_job_revision: Number(job.revision || 0), source_snapshot: draft,
-      source_mode: sourceMode, fetched_at: fetchedAt, status: 'audited', revision: 1, provider: 'deterministic',
+      source_mode: sourceMode, fetched_at: fetchedAt, status: 'audited', revision: 1, provider: 'local-content-audit',
       audit: { character_count: String(draft.content_md).length, word_count: String(draft.content_md).trim().split(/\s+/u).length, section_count: sections.length, has_meta_description: Boolean(draft.meta_description), has_summary: /^(?:##?\s+)?(?:핵심 요약|요약|TL;DR)/im.test(String(draft.content_md)) },
     }, actor);
     db.callRpc('commit_reservation', { p_reservation_id: reservation.reservation_id }, actor);
@@ -91,7 +91,7 @@ export async function runOptimizationCommand(db: HaloXDatabase, providers: HaloX
   if (command === 'optimize-serp-fetch') {
     if (run.status !== 'audited') throw new Error('본문 진단 단계에서만 검색 참고를 수집할 수 있습니다.');
     const serp = await providers.collectSerp(String(run.target_keyword));
-    const changed = update({ status: 'collected', serp_result: serp });
+    const changed = update({ status: 'collected', serp_result: serp, search_provider: serp.receipt?.provider || 'deterministic' });
     return { ok: true, review_run: changed, change_items: [] };
   }
   if (command === 'optimize-strategy-synthesis') {
@@ -101,8 +101,9 @@ export async function runOptimizationCommand(db: HaloXDatabase, providers: HaloX
       { section_title: '원문 기반 핵심 요약 추가', target_field: 'content_md', operation: 'prepend', before_text: '', after_text: `## 핵심 요약\n\n${excerpt}`, rationale: '원문 앞부분을 요약 영역으로 분리한 데모 제안입니다. 문맥과 중복을 검토한 뒤 적용해 주세요.', status: 'proposed' },
       { section_title: '검색 설명 정리', target_field: 'meta_description', operation: 'replace', before_text: String(source.meta_description || ''), after_text: excerpt.slice(0, 160), rationale: '원문에서 추출한 검색 설명입니다. 실제 검색 성과를 예측하는 값은 아닙니다.', status: 'proposed' },
     ];
-    const changes = db.insertTable('content_change_items', proposals.map((proposal, position) => ({ ...validateChange(proposal), workspace_id: workspaceId, review_run_id: run.id, position })), actor);
-    return { ok: true, review_run: update({ status: 'proposed' }), change_items: changes };
+    const generated = providers.proposeOptimization ? await providers.proposeOptimization(String(run.target_keyword), source, run.serp_result) : undefined;
+    const changes = db.insertTable('content_change_items', (generated?.changes || proposals).map((proposal, position) => ({ ...validateChange(proposal), workspace_id: workspaceId, review_run_id: run.id, position })), actor);
+    return { ok: true, review_run: update({ status: 'proposed', provider: generated?.receipt.provider || 'deterministic', provider_receipt: generated?.receipt || null }), change_items: changes };
   }
   if (command.startsWith('optimize-change-')) {
     if (run.status !== 'proposed') throw new Error('제안 검토 단계에서만 제안을 변경할 수 있습니다.');

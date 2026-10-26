@@ -60,7 +60,7 @@ test('demo generation and regeneration retain one job with separate reference sn
     await page.reload(); await live(page).getByRole('button', { name: '새 콘텐츠 만들기', exact: true }).click(); await dialog(page).getByLabel('작성 방법').selectOption('generated'); await dialog(page).getByLabel('주제', { exact: true }).fill('제품 사용법'); await submit(page, '초안 생성'); await expect(live(page)).toContainText('데모 생성');
     const first = await snapshot(page, ws.id); expect(first.content_jobs).toHaveLength(1); expect(first.content_drafts[0].generation_context.persona.name).toBe('제품 설명 문체');
     expect((await page.request.patch(`/api/v1/rest/writing_style_profiles?id=eq.${persona.id}`, { data: { name: '갱신한 문체' } })).status()).toBe(200); await page.reload();
-    await live(page).getByRole('button', { name: '새 데모 버전 생성', exact: true }).click(); await submit(page, '생성'); await expect(live(page).getByRole('button', { name: '미리보기 v2', exact: true })).toBeVisible();
+    await live(page).getByRole('button', { name: '새 AI 버전 생성', exact: true }).click(); await submit(page, '생성'); await expect(live(page).getByRole('button', { name: '미리보기 v2', exact: true })).toBeVisible();
     const second = await snapshot(page, ws.id); expect(second.content_jobs).toHaveLength(1); expect(second.content_drafts).toHaveLength(2); expect(second.content_drafts.find((row: { version: number }) => row.version === 1).generation_context.persona.name).toBe('제품 설명 문체'); expect(second.content_drafts.find((row: { version: number }) => row.version === 2).generation_context.persona.name).toBe('갱신한 문체');
   } finally { await page.request.delete(`/api/v1/rest/workspaces?id=eq.${ws.id}`); }
 });

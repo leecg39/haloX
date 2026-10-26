@@ -1,4 +1,5 @@
 import type { NotificationCollection } from './notification-model.ts';
+import { ExternalServiceError } from './public-json.ts';
 import type { BillingPrivateCollection } from './billing-service.ts';
 import { recordWorkspaceCredit, workspaceCreditBalance } from './credit-service.ts';
 import { googlePeriod, aggregateGsc, groupGa4 } from './google-metrics.ts';
@@ -1603,17 +1604,19 @@ export class HaloXDatabase {
     const [run] = this.insertTable('geo_prompt_runs', {
       workspace_id: prompt.workspace_id, prompt_id: prompt.id, prompt_text: prompt.prompt_text,
       language_code: prompt.language_code, location_code: prompt.location_code,
-      engine, brand_domain: domain, provider: 'deterministic', mode: 'search', status: 'running', requested_at: new Date().toISOString(),
+      engine, brand_domain: domain, mode: 'search', status: 'running', requested_at: new Date().toISOString(),
       ...(scheduledFor ? { scheduled_for: scheduledFor } : {}),
     }, actor);
     let evaluation;
-    try { evaluation = await this.providers.runGeoPrompt(String(prompt.prompt_text), engine, domain); }
-    catch {
-      const [failed] = this.updateTable('geo_prompt_runs', { status: 'failed', error_message: 'AI 응답 수집에 실패했습니다. 다시 실행해 주세요.', finished_at: new Date().toISOString() }, { id: `eq.${run.id}` }, actor);
-      return { ok: false, run: failed, citations: [], metrics: null };
+    try { evaluation = await this.providers.runGeoPrompt(String(prompt.prompt_text), engine, domain, { language: String(prompt.language_code || 'ko'), country: String(prompt.location_code || 'KR') }); }
+    catch (error) {
+      const message = error instanceof ExternalServiceError ? error.message : 'AI 응답 수집에 실패했습니다. 결과를 확인한 뒤 다시 실행해 주세요.';
+      const [failed] = this.updateTable('geo_prompt_runs', { status: 'failed', error_message: message, finished_at: new Date().toISOString() }, { id: `eq.${run.id}` }, actor);
+      return { ok: false, error: message, run: failed, citations: [], metrics: null };
     }
-    const [completed] = this.updateTable('geo_prompt_runs', { status: 'completed', model_name: evaluation.modelName, answer_text: evaluation.answerText, finished_at: new Date().toISOString(), cost_usd: 0 }, { id: `eq.${run.id}` }, actor);
-    this.insertTable('geo_answers_raw', { workspace_id: prompt.workspace_id, prompt_id: prompt.id, run_id: run.id, prompt_text: prompt.prompt_text, engine, provider: 'deterministic', answer_text: evaluation.answerText }, actor);
+    const receipt = evaluation.receipt || { provider: 'deterministic' };
+    const [completed] = this.updateTable('geo_prompt_runs', { status: 'completed', provider: receipt.provider, provider_receipt: receipt, model_name: evaluation.modelName, answer_text: evaluation.answerText, answer_annotations: evaluation.answerAnnotations || [], finished_at: new Date().toISOString(), cost_usd: evaluation.receipt ? null : 0 }, { id: `eq.${run.id}` }, actor);
+    this.insertTable('geo_answers_raw', { workspace_id: prompt.workspace_id, prompt_id: prompt.id, run_id: run.id, prompt_text: prompt.prompt_text, engine, provider: receipt.provider, provider_receipt: receipt, answer_text: evaluation.answerText }, actor);
     const citations = this.insertTable('geo_citations', evaluation.citations.map(citation => ({ ...citation, workspace_id: prompt.workspace_id, run_id: run.id })), actor);
     const ours = citations.filter(row => row.is_ours).length;
     const [metrics] = this.insertTable('geo_run_metrics', { workspace_id: prompt.workspace_id, run_id: run.id, brand_mentioned: !!domain && evaluation.brandMentioned, is_cited: ours > 0, citation_rate: citations.length ? 100 * ours / citations.length : 0, our_citation_count: ours, competitor_citation_count: citations.filter(row => row.is_competitor).length, other_citation_count: citations.filter(row => !row.is_ours && !row.is_competitor).length, source_but_not_cited: false }, actor);
@@ -2348,9 +2351,10 @@ export class HaloXDatabase {
       const generatedPrompts: Row[] = [];
       const createdKeywords: Row[] = [];
       const createdSnapshots: Row[] = [];
+      this.providers.assertAvailable?.('serp');
 
       for (const draft of drafts) {
-        const serp = await this.providers.collectSerp(String(draft.keyword), 'google');
+        const serp = await this.providers.collectSerp(String(draft.keyword), 'google', { language: String(draft.language), country: String(draft.country) });
         const values = {
             ...draft,
             search_volume: serp.searchVolume,
@@ -2374,7 +2378,8 @@ export class HaloXDatabase {
             keyword_id: kwRow.id,
             keyword_text: kwRow.keyword,
             captured_at: now,
-            provider: 'dataforseo-mock',
+            provider: serp.receipt?.provider || 'dataforseo-mock',
+            provider_receipt: serp.receipt || null,
             search_volume: serp.searchVolume,
             keyword_difficulty: serp.keywordDifficulty,
             country: draft.country,
@@ -2443,6 +2448,7 @@ export class HaloXDatabase {
       const set = (this.tables.get('geo_prompt_sets') || []).find(row => row.id === setId && row.workspace_id === workspaceId);
       const engines = forcedEngine ? [forcedEngine] : payload.engine ? [payload.engine] : payload.engines ?? prompt?.engines ?? [set?.default_engine || 'openai'];
       if (!Array.isArray(engines) || !engines.length || engines.length > 4 || new Set(engines).size !== engines.length || engines.some(engine => typeof engine !== 'string' || !Object.hasOwn(GEO_ENGINES, engine))) throw new Error('실행할 엔진을 1~4개 선택해 주세요.');
+      this.providers.assertAvailable?.('geo', engines as string[]);
       let reservation: { reservation_id: string; idempotent?: boolean } | undefined;
       if (!prompt) {
         const draft = validateGeoRecord('geo_prompts', { workspace_id: workspaceId, prompt_set_id: setId, prompt_text: payload.prompt_text, prompt_category: payload.prompt_category ?? 'informational', language_code: payload.language_code, location_code: payload.location_code, engines, is_active: true, is_paused: false, deleted_at: null }, this.tables);
@@ -2452,7 +2458,7 @@ export class HaloXDatabase {
       }
       const results: Row[] = [];
       for (const engine of engines) results.push(await this.executeGeoPrompt(prompt, String(engine), actorUserId));
-      if (isNew && results.some(result => !result.ok)) throw new Error('AI 응답 수집에 실패했습니다. 입력을 확인하고 다시 시도해 주세요.');
+      if (isNew && results.some(result => !result.ok)) throw new Error(String(results.find(result => !result.ok)?.error || 'AI 응답 수집에 실패했습니다. 입력을 확인하고 다시 시도해 주세요.'));
       if (reservation) this.callRpc('commit_reservation', { p_reservation_id: reservation.reservation_id }, actorUserId);
       return { ...results[0], ok: results.every(result => result.ok), function: fnName, workspace_id: workspaceId, prompt_id: prompt.id, results };
     }
@@ -2477,6 +2483,7 @@ export class HaloXDatabase {
       const existingJob = payload.job_id ? contentJob(this, workspaceId, payload.job_id, actorUserId) : undefined;
       if (existingJob) checkContentRevision(existingJob, payload.expected_revision);
       const generationContext = this.contentContext(workspaceId, payload.writing_style_profile_id, payload.knowledge_entity_ids, actorUserId);
+      this.providers.assertAvailable?.('content');
       const reservation = this.callRpc(
         'reserve_unit_with_bypass',
         {
@@ -2509,6 +2516,7 @@ export class HaloXDatabase {
         meta_title: draftData.metaTitle, meta_description: draftData.metaDescription,
         seo_score: draftData.seoScore, aio_score: draftData.aioScore,
         grounding_sources: draftData.groundingSources, generation_context: generationContext,
+        provider_receipt: draftData.receipt || { provider: 'deterministic' },
       }, actorUserId, 'generated');
 
       this.callRpc('commit_reservation', { p_reservation_id: reservation.reservation_id }, actorUserId);
@@ -2532,6 +2540,7 @@ export class HaloXDatabase {
       if (!userPrompt) {
         throw new Error('Agent chat message must not be empty');
       }
+      if (userPrompt.length > 8000) throw new Error('질문은 8000자 이내로 입력해 주세요.');
       let conversationId = typeof payload.conversation_id === 'string' ? payload.conversation_id : '';
       let convRow: Row | undefined;
       if (conversationId) {
@@ -2577,7 +2586,10 @@ export class HaloXDatabase {
         ` (SEO ${aviSummary.seoScore ?? 3}점, GEO ${aviSummary.geoScore ?? 60}점, 웹 건강도 ${aviSummary.webHealthScore ?? 93}점)입니다. `,
         `질문하신 "${userPrompt}"에 대해 Quick Win 키워드 보강 및 FAQPage JSON-LD 스키마 적용을 최우선 액션으로 권장합니다.`,
       ];
-      const answerContent = chunks.join('');
+      const generated = this.providers.answerAgent ? await this.providers.answerAgent(
+        this.queryTable('agent_messages', { filters: { workspace_id: `eq.${workspaceId}`, conversation_id: `eq.${conversationId}` } }, actorUserId).data.slice(-20).map(row => ({ role: String(row.role), content: String(row.content).slice(0, 20000) })), overview,
+      ) : undefined;
+      const answerContent = generated?.text || chunks.join('');
 
       const [assistantMsgRow] = this.insertTable(
         'agent_messages',
@@ -2586,7 +2598,8 @@ export class HaloXDatabase {
           conversation_id: conversationId,
           role: 'assistant',
           content: answerContent,
-          citations_json: [{ type: 'kpi', aviComposite: aviSummary.aviComposite ?? 47 }],
+          citations_json: [{ type: 'kpi', aviComposite: aviSummary.aviComposite ?? null }],
+          provider_receipt: generated?.receipt || { provider: 'deterministic' },
         },
         actorUserId
       );
@@ -2598,7 +2611,7 @@ export class HaloXDatabase {
         conversation: convRow,
         user_message: userMsgRow,
         assistant_message: assistantMsgRow,
-        chunks,
+        chunks: generated ? [generated.text] : chunks,
       };
     }
 

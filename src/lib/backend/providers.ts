@@ -1,15 +1,22 @@
 /**
  * HaloX External Provider Adapters & Deterministic Mocks (S5/S6)
- * Keeps SERP, LLM GEO, and Lighthouse site-audit pipelines runnable offline without paid keys,
- * while supporting live API keys via environment variables when configured.
+ * Explicit offline fixtures. Production adapters live in runtime-providers.ts.
  */
 
+export interface ProviderReceipt {
+  provider: string;
+  model?: string;
+  responseId?: string;
+  usage?: Record<string, unknown>;
+}
+
 export interface SerpSnapshotResult {
+  receipt?: ProviderReceipt;
   keyword: string;
   engine: 'google' | 'naver';
-  searchVolume: number;
-  keywordDifficulty: number;
-  intent: 'informational' | 'commercial' | 'transactional' | 'navigational';
+  searchVolume: number | null;
+  keywordDifficulty: number | null;
+  intent: 'informational' | 'commercial' | 'transactional' | 'navigational' | null;
   aiOverviewDetected: boolean;
   topResults: Array<{ rank: number; url: string; title: string; domain: string }>;
   paaQuestions: string[];
@@ -17,10 +24,12 @@ export interface SerpSnapshotResult {
 }
 
 export interface GeoRunEvaluationResult {
+  receipt?: ProviderReceipt;
   promptText: string;
   engine: string;
   modelName: string;
   answerText: string;
+  answerAnnotations?: Array<{ start: number; end: number; url: string; title: string }>;
   brandMentioned: boolean;
   isCited: boolean;
   citationRate: number;
@@ -53,13 +62,14 @@ export interface SiteAuditCrawlResult {
 }
 
 export interface ContentDraftGenerationResult {
+  receipt?: ProviderReceipt;
   title: string;
   targetKeyword: string;
   contentMd: string;
   metaTitle: string;
   metaDescription: string;
-  seoScore: number;
-  aioScore: number;
+  seoScore: number | null;
+  aioScore: number | null;
   wordCount: number;
   groundingSources: string[];
 }
@@ -70,8 +80,11 @@ export interface ContentGenerationContext {
 }
 
 export interface HaloXProviders {
-  collectSerp(keyword: string, engine?: 'google' | 'naver'): Promise<SerpSnapshotResult>;
-  runGeoPrompt(promptText: string, engine: string, brandDomain?: string): Promise<GeoRunEvaluationResult>;
+  assertAvailable?(service: 'content' | 'geo' | 'serp', engines?: string[]): void;
+  proposeOptimization?(keyword: string, source: Record<string, unknown>, serp: unknown): Promise<{ receipt: ProviderReceipt; changes: Record<string, unknown>[] }>;
+  answerAgent?(messages: { role: string; content: string }[], overview: unknown): Promise<{ receipt: ProviderReceipt; text: string }>;
+  collectSerp(keyword: string, engine?: 'google' | 'naver', locale?: { language: string; country: string }): Promise<SerpSnapshotResult>;
+  runGeoPrompt(promptText: string, engine: string, brandDomain?: string, locale?: { language: string; country: string }): Promise<GeoRunEvaluationResult>;
   crawlSiteAudit(targetUrl: string, maxPages?: number): Promise<SiteAuditCrawlResult>;
   generateContentDraft(targetKeyword: string, title?: string, context?: ContentGenerationContext): Promise<ContentDraftGenerationResult>;
 }

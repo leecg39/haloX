@@ -1,5 +1,6 @@
 'use client';
 
+import { ProviderNotice } from './ProviderNotice';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -37,7 +38,8 @@ function OptimizationWorkspace({ workspaceId, workspaceName, reviewId, initialJo
   const rows = data.content_review_runs.filter(row => (!status || row.status === status) && `${row.title || ''} ${row.url || ''} ${row.target_keyword || ''}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
   const pages = Math.max(1, Math.ceil(rows.length / 10)), currentPage = Math.min(page, pages);
   return <div className="live"><header className="live-head"><div><h1>콘텐츠 최적화</h1><p>{workspaceName} · 원문을 보존하며 변경 제안을 검토하고 적용합니다.</p></div><div className="live-actions"><button disabled={loading} onClick={() => void reload()}>새로고침</button><button className="primary" disabled={!loaded} onClick={() => setCreating(true)}>새 최적화</button></div></header>
-    <p className="muted">URL 가져오기는 실제 공개 원문을 읽습니다. 검색 참고와 제안 생성은 데모이며 실제 검색 성과를 예측하지 않습니다.</p>
+    <ProviderNotice service="openai" /><ProviderNotice service="dataforseo" />
+    <p className="muted">공개 원문과 DataForSEO 검색 결과를 참고하여 OpenAI가 변경안을 생성합니다. 원문이 외부 서비스로 전송되며 API 비용이 발생합니다. 검토한 제안만 새 버전으로 적용합니다.</p>
     {error && <ErrorState message={error} retry={reload} />}{loading && <p role="status">최적화 작업을 불러오는 중…</p>}
     {reviewId ? <><div className="live-section"><Link href="/app/optimize">← 최적화 목록</Link></div>{run ? <OptimizationDetail key={run.id} run={run} data={data} command={command} onDelete={() => setDeleting(run)} /> : loaded && <EmptyState>최적화 작업을 찾을 수 없습니다. 현재 워크스페이스를 확인해 주세요.</EmptyState>}</> : <>
       <div className="live-toolbar"><input aria-label="최적화 검색" placeholder="제목·주제·URL 검색" value={query} onChange={event => { setQuery(event.target.value); setPage(1); }} /><select aria-label="최적화 상태 필터" value={status} onChange={event => { setStatus(event.target.value); setPage(1); }}><option value="">모든 상태</option>{Object.entries(REVIEW_STATUS).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select><small>{rows.length}개</small></div>
